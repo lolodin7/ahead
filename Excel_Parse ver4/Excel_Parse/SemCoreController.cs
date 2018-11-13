@@ -9,24 +9,28 @@ using System.Windows.Forms;
 
 namespace Excel_Parse
 {
-    class SemCoreBuilder
+    class SemCoreController
     {
         private SqlConnection connection;
-        private DataGridView dgv;
         private SqlCommand command;
 
-        public SemCoreBuilder(DataGridView _dgv)
+        private TestForm controlForm;
+        public List<SemCoreModel> scmList;
+
+
+        public SemCoreController(TestForm _form)
         {
             connection = DBData.GetDBConnection();
-
-            dgv = _dgv;
+            controlForm = _form;
         }
 
+        public SemCoreController()
+        {
+            connection = DBData.GetDBConnection();
+        }
 
         public void GetSemCoreByProductId(int _prodTypeId)
         {
-            RefreshTable_6(); //по умолчанию
-
             string sqlStatement = "SELECT * FROM SemCore WHERE ProductTypeId = " + _prodTypeId;
             command = new SqlCommand(sqlStatement, connection);
             ExecuteCommand(command);
@@ -35,8 +39,6 @@ namespace Excel_Parse
 
         public void GetSemCoreByCategoryId(int _catId)
         {
-            RefreshTable_6(); //по умолчанию
-
             string sqlStatement = "SELECT * FROM SemCore WHERE CategoryId = " + _catId;
             command = new SqlCommand(sqlStatement, connection);
             ExecuteCommand(command);
@@ -45,8 +47,6 @@ namespace Excel_Parse
 
         public void GetSemCoreByProductAndCategoryId(int _prodTypeId, int _catId)
         {
-            RefreshTable_6(); //по умолчанию
-
             string sqlStatement = "SELECT * FROM SemCore WHERE ProductTypeId = " + _prodTypeId + " AND CategoryId = " + _catId;
             command = new SqlCommand(sqlStatement, connection);
             ExecuteCommand(command);
@@ -57,8 +57,6 @@ namespace Excel_Parse
 
         public void GetSemCoreJOINKeywordCategoryByProductId(int _prodTypeId)
         {
-            AddColumns_10(); //по умолчанию
-
             string sqlStatement = "SELECT * FROM SemCore LEFT JOIN KeywordCategory ON SemCore.CategoryId = KeywordCategory.CategoryId LEFT JOIN ProductTypes ON SemCore.ProductTypeId = ProductTypes.ProductTypeId WHERE SemCore.ProductTypeId = " + _prodTypeId;
             command = new SqlCommand(sqlStatement, connection);
             ExecuteCommand(command);
@@ -67,8 +65,6 @@ namespace Excel_Parse
 
         public void GetSemCoreJOINKeywordCategoryByCategoryId(int _catId)
         {
-            AddColumns_10(); //по умолчанию
-
             string sqlStatement = "SELECT * FROM SemCore LEFT JOIN KeywordCategory ON SemCore.CategoryId = KeywordCategory.CategoryId LEFT JOIN ProductTypes ON SemCore.ProductTypeId = ProductTypes.ProductTypeId WHERE SemCore.CategoryId = " + _catId;
             command = new SqlCommand(sqlStatement, connection);
             ExecuteCommand(command);
@@ -77,8 +73,6 @@ namespace Excel_Parse
 
         public void GetSemCoreJOINKeywordCategoryByProductAndCategoryId(int _prodTypeId, int _catId)
         {
-            AddColumns_10(); //по умолчанию
-
             string sqlStatement = "SELECT * FROM SemCore LEFT JOIN KeywordCategory ON SemCore.CategoryId = KeywordCategory.CategoryId LEFT JOIN ProductTypes ON SemCore.ProductTypeId = ProductTypes.ProductTypeId WHERE SemCore.ProductTypeId = " + _prodTypeId + " AND SemCore.CategoryId = " + _catId;
             command = new SqlCommand(sqlStatement, connection);
             ExecuteCommand(command);
@@ -87,17 +81,16 @@ namespace Excel_Parse
 
         public void GetSemCoreJOINKeywordCategoryAll()
         {
-            AddColumns_10(); //по умолчанию
-
             string sqlStatement = "SELECT * FROM SemCore LEFT JOIN KeywordCategory ON SemCore.CategoryId = KeywordCategory.CategoryId LEFT JOIN ProductTypes ON SemCore.ProductTypeId = ProductTypes.ProductTypeId";
             command = new SqlCommand(sqlStatement, connection);
             ExecuteCommand(command);
         }
+             
 
-
-        /* Выполняем запрос к БД и заносим полученные данные в dataGridView */
-        private bool ExecuteCommand(SqlCommand _command)
+        /* Выполняем запрос к БД и заносим полученные данные в List<SemCoreModel> */
+        private void ExecuteCommand(SqlCommand _command)
         {
+            scmList = new List<SemCoreModel> { };
             try
             {
                 connection.Open();
@@ -108,7 +101,7 @@ namespace Excel_Parse
                 {
                     while (reader.Read())
                     {
-                        SetDataTo_dgv((IDataRecord)reader);
+                        testsetdata((IDataRecord)reader);
                     }
                 }
                 else
@@ -117,93 +110,25 @@ namespace Excel_Parse
                 }
                 reader.Close();
                 connection.Close();
-                return true;
+                
+                controlForm.AddColumns_6();
+                controlForm.RefreshData(scmList);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("При получении данных произошла ошибка!", "Ошибка");
-                return false;
             }
         }
 
-        /* Заносим данные в таблицу построчно */
-        private void SetDataTo_dgv(IDataRecord record)
+        /* Заносим данные в List<SemCoreModel> */
+        private void testsetdata(IDataRecord record)
         {
-            var index = dgv.Rows.Add();
-
+            SemCoreModel _scm = new SemCoreModel();
+            scmList.Add(_scm);
             for (int i = 0; i < record.FieldCount; i++)
             {
-                dgv.Rows[index].Cells[i].Value = record[i];
+                scmList[scmList.Count - 1].WriteData(i, record[i]);
             }
         }
-
-        /* Перерисовываем таблицу на 6 столбцов */
-        public void RefreshTable_6()
-        {
-            dgv.Columns.Clear();
-            AddColumns_6();
-        }
-
-        /* Перерисовываем таблицу на 10 столбцов */
-        public void RefreshTable_10()
-        {
-            dgv.Columns.Clear();
-            AddColumns_10();
-        }
-
-
-        /* Программно создаем столбцы в dataGridView */
-        public void AddColumns_10()
-        {
-            dgv.Columns.Add("categoryIdCl", "categoryIdCl");
-            dgv.Columns.Add("productTypeIdCl", "productTypeIdCl");
-            dgv.Columns.Add("keywordCl", "Ключ");
-            dgv.Columns.Add("valueCl", "Частота");
-            dgv.Columns.Add("LastUpdatedCl", "Обновлено");
-            dgv.Columns.Add("semCoreIdCl", "semCoreIdCl");
-            dgv.Columns.Add("categIdCl", "categIdCl");
-            dgv.Columns.Add("categNameCl", "Название категории");
-            dgv.Columns.Add("prodTypeIdCl", "prodTypeIdCl");
-            dgv.Columns.Add("prodTypeNameCl", "Вид товара");
-
-            dgv.Columns[2].Width = 250;
-            dgv.Columns[3].Width = 100;
-            dgv.Columns[4].Width = 150;
-            dgv.Columns[7].Width = 150;
-            dgv.Columns[9].Width = 150;
-
-            dgv.Columns[0].Visible = false;
-            dgv.Columns[1].Visible = false;
-            dgv.Columns[5].Visible = false;
-            dgv.Columns[6].Visible = false;
-            dgv.Columns[8].Visible = false;
-            
-            dgv.Width = 860;
-            dgv.ScrollBars = ScrollBars.Vertical;
-        }
-
-
-        /* Программно создаем столбцы в dataGridView */
-        public void AddColumns_6()
-        {
-            dgv.Columns.Add("categoryIdCl", "categoryIdCl");
-            dgv.Columns.Add("productTypeIdCl", "productTypeIdCl");
-            dgv.Columns.Add("keywordCl", "Ключ");
-            dgv.Columns.Add("valueCl", "Частота");
-            dgv.Columns.Add("LastUpdatedCl", "Обновлено");
-            dgv.Columns.Add("semCoreIdCl", "semCoreIdCl");
-
-            dgv.Columns[2].Width = 250;
-            dgv.Columns[3].Width = 100;
-            dgv.Columns[4].Width = 150;
-
-            dgv.Columns[0].Visible = false;
-            dgv.Columns[1].Visible = false;
-            dgv.Columns[5].Visible = false;
-
-            dgv.Width = 560;
-            dgv.ScrollBars = ScrollBars.Vertical;
-        }
-
     }
 }

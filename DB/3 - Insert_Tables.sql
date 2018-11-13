@@ -114,6 +114,11 @@ VALUES (3, 4, '5 piece knife set', 652053, CURRENT_TIMESTAMP)
 INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastUpdated])
 VALUES (1, 5, 'iphone 8 microphone', 652053, CURRENT_TIMESTAMP)
 
+INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastUpdated])
+VALUES (1, 2, 'iphone 18 microphone', 456, CURRENT_TIMESTAMP)
+INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastUpdated])
+VALUES (1, 2, 'iphone 288 microphone', 123, CURRENT_TIMESTAMP)
+
 
 /*         -- [FieldsLength] --             */
 INSERT INTO [FieldsLength] ([TitleLength], [BulletsLength], [BackendLength], [SubjectMatterLength], [OtherAttributesLength], [IntendedUseLength], [DescriptionLength], [ProductId])

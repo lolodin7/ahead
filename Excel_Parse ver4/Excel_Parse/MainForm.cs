@@ -24,7 +24,7 @@ namespace Excel_Parse
 
         private void btn_DoSemCore_Click(object sender, EventArgs e)
         {
-            SemCore semcore = new SemCore(this);
+            SemCoreView semcore = new SemCoreView(this);
             semcore.Show();
             this.Visible = false;
         }

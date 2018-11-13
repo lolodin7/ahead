@@ -12,19 +12,20 @@ using System.Data.SqlClient;
 
 namespace Excel_Parse
 {
-    public partial class SemCore : Form
+    public partial class SemCoreView : Form
     {
         private SqlConnection connection;
         private MainForm mf;
         private bool SavedStatus = true;
         private string path = "";
+        private SemCoreController semcorebuilder;
 
-
-        public SemCore(MainForm _mf)
+        public SemCoreView(MainForm _mf)
         {
             InitializeComponent();
             connection = DBData.GetDBConnection();
             mf = _mf;
+            semcorebuilder = new SemCoreController();
 
             GetProductTypes();
             GetCategories();
