@@ -116,3 +116,6 @@ C:\AheadProject\Excel_Parse ver4\Excel_Parse\obj\Debug\Excel_Parse.Properties.Re
 C:\AheadProject\Excel_Parse ver4\Excel_Parse\obj\Debug\Excel_Parse.Semantics.resources
 C:\AheadProject\Excel_Parse ver4\Excel_Parse\obj\Debug\Excel_Parse.SemCoreRebuild.resources
 C:\AheadProject\Excel_Parse ver4\Excel_Parse\obj\Debug\Excel_Parse.csproj.GenerateResource.Cache
+C:\ahead\Excel_Parse ver4\Excel_Parse\bin\Debug\Excel_Parse.exe.config
+C:\ahead\Excel_Parse ver4\Excel_Parse\obj\Debug\Excel_Parse.exe
+C:\ahead\Excel_Parse ver4\Excel_Parse\obj\Debug\Excel_Parse.pdb
