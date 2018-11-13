@@ -80,6 +80,7 @@
     <Compile Include="KeywordCategory.Designer.cs">
       <DependentUpon>KeywordCategory.cs</DependentUpon>
     </Compile>
+    <Compile Include="KeywordCategoryBuilder.cs" />
     <Compile Include="KeywordsAreExisted.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +105,8 @@
     <Compile Include="ProductTypes.Designer.cs">
       <DependentUpon>ProductTypes.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProductTypesBuilder.cs" />
+    <Compile Include="SemanticsData.cs" />
     <Compile Include="SemCore.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,11 +121,25 @@
     <Compile Include="Semantics.Designer.cs">
       <DependentUpon>Semantics.cs</DependentUpon>
     </Compile>
+    <Compile Include="SemCoreBuilder.cs" />
+    <Compile Include="SemCoreList.cs" />
     <Compile Include="SemCoreRebuild.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SemCoreRebuild.Designer.cs">
       <DependentUpon>SemCoreRebuild.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SemStatistics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SemStatistics.Designer.cs">
+      <DependentUpon>SemStatistics.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestForm.Designer.cs">
+      <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="ChooseProduct.resx">
       <DependentUpon>ChooseProduct.cs</DependentUpon>
@@ -165,6 +182,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SemCoreRebuild.resx">
       <DependentUpon>SemCoreRebuild.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SemStatistics.resx">
+      <DependentUpon>SemStatistics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestForm.resx">
+      <DependentUpon>TestForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

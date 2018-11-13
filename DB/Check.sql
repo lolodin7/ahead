@@ -65,3 +65,9 @@ LEFT JOIN KeywordCategory ON SemCore.CategoryId = KeywordCategory.CategoryId
 LEFT JOIN ProductTypes ON SemCore.ProductTypeId = ProductTypes.ProductTypeId 
 WHERE SemCore.ProductTypeId = 1
 AND SemCore.CategoryId = 2
+
+select * from semantics
+SELECT * FROM SemCore WHERE ProductTypeId  = 1
+SELECT * FROM SemCore WHERE CategoryId = 2
+
+SELECT * FROM SemCore WHERE ProductTypeId = 1 AND CategoryId = 6

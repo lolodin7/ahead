@@ -30,8 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KeywordsAreExisted));
             this.dgv_Keywords = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btn_Export = new System.Windows.Forms.Button();
             this.btn_Edit = new System.Windows.Forms.Button();
             this.btn_Close = new System.Windows.Forms.Button();
@@ -40,6 +38,11 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.lb_KeysCount = new System.Windows.Forms.Label();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.categoryId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.categoryName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.keywordCategoryId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Keywords)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,12 +53,83 @@
             this.dgv_Keywords.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Keywords.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
-            this.Column2});
+            this.Column2,
+            this.categoryId,
+            this.categoryName,
+            this.keywordCategoryId});
             this.dgv_Keywords.Location = new System.Drawing.Point(12, 12);
             this.dgv_Keywords.Name = "dgv_Keywords";
             this.dgv_Keywords.ReadOnly = true;
-            this.dgv_Keywords.Size = new System.Drawing.Size(403, 565);
+            this.dgv_Keywords.Size = new System.Drawing.Size(646, 565);
             this.dgv_Keywords.TabIndex = 0;
+            // 
+            // btn_Export
+            // 
+            this.btn_Export.Location = new System.Drawing.Point(667, 475);
+            this.btn_Export.Name = "btn_Export";
+            this.btn_Export.Size = new System.Drawing.Size(132, 43);
+            this.btn_Export.TabIndex = 1;
+            this.btn_Export.Text = "Экспорт";
+            this.btn_Export.UseVisualStyleBackColor = true;
+            this.btn_Export.Click += new System.EventHandler(this.btn_Export_Click);
+            // 
+            // btn_Edit
+            // 
+            this.btn_Edit.Location = new System.Drawing.Point(667, 184);
+            this.btn_Edit.Name = "btn_Edit";
+            this.btn_Edit.Size = new System.Drawing.Size(132, 43);
+            this.btn_Edit.TabIndex = 2;
+            this.btn_Edit.Text = "Редактировать";
+            this.btn_Edit.UseVisualStyleBackColor = true;
+            this.btn_Edit.Click += new System.EventHandler(this.btn_Edit_Click);
+            // 
+            // btn_Close
+            // 
+            this.btn_Close.Location = new System.Drawing.Point(667, 534);
+            this.btn_Close.Name = "btn_Close";
+            this.btn_Close.Size = new System.Drawing.Size(132, 43);
+            this.btn_Close.TabIndex = 3;
+            this.btn_Close.Text = "Закрыть";
+            this.btn_Close.UseVisualStyleBackColor = true;
+            this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
+            // 
+            // lb_Information
+            // 
+            this.lb_Information.Location = new System.Drawing.Point(643, 12);
+            this.lb_Information.Name = "lb_Information";
+            this.lb_Information.Size = new System.Drawing.Size(184, 169);
+            this.lb_Information.TabIndex = 4;
+            this.lb_Information.Text = resources.GetString("lb_Information.Text");
+            // 
+            // btn_SetAndInsertKeys
+            // 
+            this.btn_SetAndInsertKeys.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btn_SetAndInsertKeys.Location = new System.Drawing.Point(667, 266);
+            this.btn_SetAndInsertKeys.Name = "btn_SetAndInsertKeys";
+            this.btn_SetAndInsertKeys.Size = new System.Drawing.Size(132, 43);
+            this.btn_SetAndInsertKeys.TabIndex = 5;
+            this.btn_SetAndInsertKeys.Text = "Загрузить и обновить ключи";
+            this.btn_SetAndInsertKeys.UseVisualStyleBackColor = true;
+            this.btn_SetAndInsertKeys.Click += new System.EventHandler(this.btn_SetAndInsertKeys_Click);
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(646, 338);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(181, 21);
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar1.TabIndex = 6;
+            this.progressBar1.Visible = false;
+            // 
+            // lb_KeysCount
+            // 
+            this.lb_KeysCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_KeysCount.Location = new System.Drawing.Point(664, 391);
+            this.lb_KeysCount.Name = "lb_KeysCount";
+            this.lb_KeysCount.Size = new System.Drawing.Size(135, 30);
+            this.lb_KeysCount.TabIndex = 7;
+            this.lb_KeysCount.Text = "label1";
+            this.lb_KeysCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Column1
             // 
@@ -70,79 +144,29 @@
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
             // 
-            // btn_Export
+            // categoryId
             // 
-            this.btn_Export.Location = new System.Drawing.Point(445, 475);
-            this.btn_Export.Name = "btn_Export";
-            this.btn_Export.Size = new System.Drawing.Size(132, 43);
-            this.btn_Export.TabIndex = 1;
-            this.btn_Export.Text = "Экспорт";
-            this.btn_Export.UseVisualStyleBackColor = true;
-            this.btn_Export.Click += new System.EventHandler(this.btn_Export_Click);
+            this.categoryId.HeaderText = "categoryId";
+            this.categoryId.Name = "categoryId";
+            this.categoryId.ReadOnly = true;
             // 
-            // btn_Edit
+            // categoryName
             // 
-            this.btn_Edit.Location = new System.Drawing.Point(445, 184);
-            this.btn_Edit.Name = "btn_Edit";
-            this.btn_Edit.Size = new System.Drawing.Size(132, 43);
-            this.btn_Edit.TabIndex = 2;
-            this.btn_Edit.Text = "Редактировать";
-            this.btn_Edit.UseVisualStyleBackColor = true;
-            this.btn_Edit.Click += new System.EventHandler(this.btn_Edit_Click);
+            this.categoryName.HeaderText = "categoryName";
+            this.categoryName.Name = "categoryName";
+            this.categoryName.ReadOnly = true;
             // 
-            // btn_Close
+            // keywordCategoryId
             // 
-            this.btn_Close.Location = new System.Drawing.Point(445, 534);
-            this.btn_Close.Name = "btn_Close";
-            this.btn_Close.Size = new System.Drawing.Size(132, 43);
-            this.btn_Close.TabIndex = 3;
-            this.btn_Close.Text = "Закрыть";
-            this.btn_Close.UseVisualStyleBackColor = true;
-            this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
-            // 
-            // lb_Information
-            // 
-            this.lb_Information.Location = new System.Drawing.Point(421, 12);
-            this.lb_Information.Name = "lb_Information";
-            this.lb_Information.Size = new System.Drawing.Size(184, 169);
-            this.lb_Information.TabIndex = 4;
-            this.lb_Information.Text = resources.GetString("lb_Information.Text");
-            // 
-            // btn_SetAndInsertKeys
-            // 
-            this.btn_SetAndInsertKeys.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btn_SetAndInsertKeys.Location = new System.Drawing.Point(445, 266);
-            this.btn_SetAndInsertKeys.Name = "btn_SetAndInsertKeys";
-            this.btn_SetAndInsertKeys.Size = new System.Drawing.Size(132, 43);
-            this.btn_SetAndInsertKeys.TabIndex = 5;
-            this.btn_SetAndInsertKeys.Text = "Загрузить и обновить ключи";
-            this.btn_SetAndInsertKeys.UseVisualStyleBackColor = true;
-            this.btn_SetAndInsertKeys.Click += new System.EventHandler(this.btn_SetAndInsertKeys_Click);
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(424, 338);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(181, 21);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar1.TabIndex = 6;
-            this.progressBar1.Visible = false;
-            // 
-            // lb_KeysCount
-            // 
-            this.lb_KeysCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_KeysCount.Location = new System.Drawing.Point(442, 391);
-            this.lb_KeysCount.Name = "lb_KeysCount";
-            this.lb_KeysCount.Size = new System.Drawing.Size(135, 30);
-            this.lb_KeysCount.TabIndex = 7;
-            this.lb_KeysCount.Text = "label1";
-            this.lb_KeysCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.keywordCategoryId.HeaderText = "keywordCategoryId";
+            this.keywordCategoryId.Name = "keywordCategoryId";
+            this.keywordCategoryId.ReadOnly = true;
             // 
             // KeywordsAreExisted
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(617, 589);
+            this.ClientSize = new System.Drawing.Size(839, 589);
             this.Controls.Add(this.lb_KeysCount);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.btn_SetAndInsertKeys);
@@ -165,8 +189,6 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgv_Keywords;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.Button btn_Export;
         private System.Windows.Forms.Button btn_Edit;
         private System.Windows.Forms.Button btn_Close;
@@ -175,5 +197,10 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label lb_KeysCount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn categoryId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn categoryName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn keywordCategoryId;
     }
 }

@@ -16,6 +16,7 @@ namespace Excel_Parse
         private MainForm mf;
         private SqlConnection connection;
 
+
         public ProductTypes(MainForm _mf)
         {
             InitializeComponent();
@@ -122,10 +123,14 @@ namespace Excel_Parse
             return flag;
         }
 
-        /* Очистить поле ввода */
+        private void ProductTypes_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            mf.Visible = true;
+        }
+
+        /* Закрыть окно */
         private void btn_Clear_Click(object sender, EventArgs e)
         {
-            tb_ProductType.Text = "";
             this.Close();
         }
 
@@ -137,9 +142,5 @@ namespace Excel_Parse
             Clipboard.SetText(str);
         }
 
-        private void ProductTypes_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            mf.Show();
-        }
     }
 }

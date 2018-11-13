@@ -75,5 +75,12 @@ namespace Excel_Parse
         {
             this.Close();
         }
+
+        private void btn_ShowSemStatistics_Click(object sender, EventArgs e)
+        {
+            SemStatistics ss = new SemStatistics();
+            ss.Show();
+            this.Visible = false;
+        }
     }
 }

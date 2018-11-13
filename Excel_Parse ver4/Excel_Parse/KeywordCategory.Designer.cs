@@ -37,6 +37,7 @@
             this.dgv_KeywordCategory = new System.Windows.Forms.DataGridView();
             this.ProductTypeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TypeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_KeywordCategory)).BeginInit();
             this.SuspendLayout();
@@ -100,7 +101,8 @@
             this.dgv_KeywordCategory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv_KeywordCategory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ProductTypeId,
-            this.TypeName});
+            this.TypeName,
+            this.Column1});
             this.dgv_KeywordCategory.Location = new System.Drawing.Point(6, 5);
             this.dgv_KeywordCategory.MultiSelect = false;
             this.dgv_KeywordCategory.Name = "dgv_KeywordCategory";
@@ -124,6 +126,13 @@
             this.TypeName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.TypeName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.TypeName.Width = 250;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Column1";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Visible = false;
             // 
             // KeywordCategory
             // 
@@ -155,5 +164,6 @@
         private System.Windows.Forms.DataGridView dgv_KeywordCategory;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductTypeId;
         private System.Windows.Forms.DataGridViewTextBoxColumn TypeName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
     }
 }

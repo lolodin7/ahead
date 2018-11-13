@@ -51,7 +51,7 @@
             this.dgv_ProductTypes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ProductTypeId,
             this.TypeName});
-            this.dgv_ProductTypes.Location = new System.Drawing.Point(12, 12);
+            this.dgv_ProductTypes.Location = new System.Drawing.Point(6, 5);
             this.dgv_ProductTypes.MultiSelect = false;
             this.dgv_ProductTypes.Name = "dgv_ProductTypes";
             this.dgv_ProductTypes.ReadOnly = true;
@@ -81,7 +81,7 @@
             this.groupBox1.Controls.Add(this.btn_Save);
             this.groupBox1.Controls.Add(this.lb_ProductType);
             this.groupBox1.Controls.Add(this.tb_ProductType);
-            this.groupBox1.Location = new System.Drawing.Point(12, 348);
+            this.groupBox1.Location = new System.Drawing.Point(6, 341);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(293, 152);
             this.groupBox1.TabIndex = 1;
@@ -128,7 +128,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(318, 507);
+            this.ClientSize = new System.Drawing.Size(305, 494);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dgv_ProductTypes);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

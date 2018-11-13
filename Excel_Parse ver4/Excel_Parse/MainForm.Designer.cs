@@ -37,6 +37,7 @@
             this.btn_DoProducts = new System.Windows.Forms.Button();
             this.btn_ShowAllKeywords = new System.Windows.Forms.Button();
             this.btn_Exit = new System.Windows.Forms.Button();
+            this.btn_ShowSemStatistics = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_DoSemCore
@@ -126,11 +127,22 @@
             this.btn_Exit.UseVisualStyleBackColor = true;
             this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
             // 
+            // btn_ShowSemStatistics
+            // 
+            this.btn_ShowSemStatistics.Location = new System.Drawing.Point(313, 235);
+            this.btn_ShowSemStatistics.Name = "btn_ShowSemStatistics";
+            this.btn_ShowSemStatistics.Size = new System.Drawing.Size(195, 81);
+            this.btn_ShowSemStatistics.TabIndex = 8;
+            this.btn_ShowSemStatistics.Text = "Статистика семантик";
+            this.btn_ShowSemStatistics.UseVisualStyleBackColor = true;
+            this.btn_ShowSemStatistics.Click += new System.EventHandler(this.btn_ShowSemStatistics_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(923, 533);
+            this.Controls.Add(this.btn_ShowSemStatistics);
             this.Controls.Add(this.btn_Exit);
             this.Controls.Add(this.btn_ShowAllKeywords);
             this.Controls.Add(this.btn_DoProducts);
@@ -158,5 +170,6 @@
         private System.Windows.Forms.Button btn_DoProducts;
         private System.Windows.Forms.Button btn_ShowAllKeywords;
         private System.Windows.Forms.Button btn_Exit;
+        private System.Windows.Forms.Button btn_ShowSemStatistics;
     }
 }
