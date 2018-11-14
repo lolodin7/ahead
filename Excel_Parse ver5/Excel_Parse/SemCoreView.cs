@@ -14,24 +14,60 @@ namespace Excel_Parse
 {
     public partial class SemCoreView : Form
     {
-        private SqlConnection connection;
+        private SemCoreController scController;
+        private List<SemCoreModel> scmList;     //список всех объектов (записей из БД)
+
+        private KeywordCategoryController kcController;
+        private List<KeywordCategoryModel> kcList;
+
+        private ProductTypesController ptController;
+        private List<ProductTypesModel> ptList;
+
+        private int CurrentColumnCount;
+        
         private MainForm mf;
         private bool SavedStatus = true;
         private string path = "";
-        private SemCoreController semcorebuilder;
 
+
+        /* Конструктор */
         public SemCoreView(MainForm _mf)
         {
             InitializeComponent();
-            connection = DBData.GetDBConnection();
+            CurrentColumnCount = 0;
+            
             mf = _mf;
-            semcorebuilder = new SemCoreController();
 
-            GetProductTypes();
-            GetCategories();
+            scController = new SemCoreController(this);
+            kcController = new KeywordCategoryController(this);
+            ptController = new ProductTypesController(this);
+
+            kcController.GetKeywordCategoriesAll();
+            ptController.GetProductTypesAll();
+            Fill_CB_ByKeywordCategories();
+            Fill_CB_ByProductTypes();
+
             tb_Link.Text = mf.AmazonLink;
         }
 
+
+        /* Конструктор */
+        public SemCoreView()
+        {
+            InitializeComponent();
+            CurrentColumnCount = 0;
+
+            scController = new SemCoreController(this);
+            kcController = new KeywordCategoryController(this);
+            ptController = new ProductTypesController(this);
+
+            kcController.GetKeywordCategoriesAll();
+            ptController.GetProductTypesAll();
+            Fill_CB_ByKeywordCategories();
+            Fill_CB_ByProductTypes();            
+        }
+
+        /* Загружаем новые ключи из файла */
         public void OpenNewFile()
         {
             openFileDialog1.Filter = "Выбери файл|*.csv;*.txt";
@@ -42,7 +78,6 @@ namespace Excel_Parse
                 path = openFileDialog1.FileName;
 
                 tb_AddCategory.Text = "";
-                tb_CoreName.Text = "";
                 rb_ExistingCategory.Checked = true;
                 dgv_Source.Rows.Clear();
                 dgv_Target.Rows.Clear();
@@ -79,135 +114,50 @@ namespace Excel_Parse
                     MessageBox.Show("Проблема при открытии файла. Убедитесь, что Вы выбрали файл с нужны расширением. Возможно, разметка файла не поддерживается программой.", "Ошибка при открытии");
                 }
                 SavedStatus = true;
+                dgv_Source.Focus();
             }
         }
-
-        /* Загружем список типов продуктов из ProductTypes */
-        private void GetProductTypes()
+        
+        /* Получаем из контроллера данные, полученные с БД */
+        public void GetDataFromDB(object _scmList)
         {
-            string sqlStatement = "SELECT * FROM ProductTypes WHERE [ProductTypeId] > 0";
-            SqlCommand command = new SqlCommand(sqlStatement, connection);
-            try
-            {
-                connection.Open();
-
-                SqlDataReader reader = command.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        SetDataTo_dgv_ProductTypes((IDataRecord)reader);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-                reader.Close();
-                connection.Close();
-
-                SetDataTo_cb_ProductType();
-            }
-            catch (Exception ex) { }
+            scmList = (List<SemCoreModel>)_scmList;
         }
 
-        /* Заполняем dgv_ProductTypes */
-        private void SetDataTo_dgv_ProductTypes(IDataRecord record)
+        /* Получаем из контроллера KeywordCategories, полученные с БД */
+        public void GetCategoriesFromDB(object _kcList)
         {
-            var index = dgv_ProductTypes.Rows.Add();
-
-            for (int i = 0; i < record.FieldCount; i++)
-            {
-                dgv_ProductTypes.Rows[index].Cells[i].Value = record[i];
-            }
+            kcList = (List<KeywordCategoryModel>)_kcList;
         }
 
-        /*  */
-        private void SetDataTo_cb_ProductType()
+        /* Получаем из контроллера ProductTypes, полученные с БД */
+        public void GetProductTypesFromDB(object _ptList)
+        {
+            ptList = (List<ProductTypesModel>)_ptList;
+        }
+
+        /* Заполняем cb_ProductType данными с ptList */
+        private void Fill_CB_ByProductTypes()
         {
             cb_ProductType.Items.Clear();
-
-            for (int i = 0; i < dgv_ProductTypes.RowCount - 1; i++)
+            for (int i = 0; i < ptList.Count; i++)
             {
-                cb_ProductType.Items.Add(dgv_ProductTypes.Rows[i].Cells[1].Value.ToString());
+                cb_ProductType.Items.Add(ptList[i].TypeName);
             }
-
             cb_ProductType.SelectedItem = cb_ProductType.Items[0];
         }
 
-        /* Загружем список категорий ключей из KeywordCategories */
-        private void GetCategories()
-        {
-            string sqlStatement = "SELECT * FROM KeywordCategory";
-            SqlCommand command = new SqlCommand(sqlStatement, connection);
-            try
-            {
-                connection.Open();
-
-                SqlDataReader reader = command.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        SetDataTo_dgv_Categories((IDataRecord)reader);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-                reader.Close();
-                connection.Close();
-
-                SetDataTo_cb_KeywordCategory();
-            }
-            catch (Exception ex) { }
-        }
-
-        /* Заполняем dgv_Categories */
-        private void SetDataTo_dgv_Categories(IDataRecord record)
-        {
-            var index = dgv_Categories.Rows.Add();
-
-            for (int i = 0; i < record.FieldCount; i++)
-            {
-                dgv_Categories.Rows[index].Cells[i].Value = record[i];
-            }
-        }
-
-        /* Заполняем cb_KeywordCategory */
-        private void SetDataTo_cb_KeywordCategory()
+        /* Заполняем cb_KeywordCategory данными с kcList */
+        private void Fill_CB_ByKeywordCategories()
         {
             cb_KeywordCategory.Items.Clear();
-
-            for (int i = 0; i < dgv_Categories.RowCount - 1; i++)
+            for (int i = 0; i < kcList.Count; i++)
             {
-                cb_KeywordCategory.Items.Add(dgv_Categories.Rows[i].Cells[1].Value.ToString());
+                cb_KeywordCategory.Items.Add(kcList[i].CategoryName);
             }
-
             cb_KeywordCategory.SelectedItem = cb_KeywordCategory.Items[0];
         }
-
-        /* Помечаем ключ в таблице dgv_Source */
-        private void dgv_Check(DataGridView sender)
-        {
-            if (sender.CurrentCellAddress.X == 0)
-            {
-                sender.Rows[sender.CurrentCellAddress.Y].Cells[sender.CurrentCellAddress.X].Style.ForeColor = Color.Red;
-                Refresh_dgvTarget_Add();
-            }
-        }
-
-        /* Снимает пометку ключа в таблице dgv_Source */
-        private void dgv_UnCheck(DataGridView sender)
-        {
-            if (sender.CurrentCellAddress.X == 0)
-                sender.Rows[sender.CurrentCellAddress.Y].Cells[sender.CurrentCellAddress.X].Style.ForeColor = Color.Black;
-            Refresh_dgvTarget_Del();
-        }
-
+        
         /* Обработчик нажатия клавиши в dgv_Source */
         private void dgv_Source_KeyDown(object sender, KeyEventArgs e)
         {
@@ -225,37 +175,60 @@ namespace Excel_Parse
             }
         }
 
+        /* Помечаем ключ в таблице dgv_Source */
+        private void dgv_Check(DataGridView sender)
+        {
+            if (sender.CurrentCellAddress.X == 0)
+            {
+                sender.Rows[sender.CurrentCellAddress.Y].Cells[sender.CurrentCellAddress.X].Style.ForeColor = Color.Red;
+                Refresh_dgvTarget_Add();
+            }
+        }
+
         /* Добавляем помеченный ключ в dgv_Target */
         private void Refresh_dgvTarget_Add()
         {
             bool flag = true;
-
-            string str = dgv_Source.Rows[dgv_Source.CurrentCellAddress.Y].Cells[dgv_Source.CurrentCellAddress.X].Value.ToString();
-            for (int i = 0; i < dgv_Target.RowCount; i++)
+            if (dgv_Target.RowCount > 0)
             {
-                if (dgv_Target.Rows[i].Cells[0].Value.ToString().Equals(str))
+                string str = dgv_Source.Rows[dgv_Source.CurrentCellAddress.Y].Cells[dgv_Source.CurrentCellAddress.X].Value.ToString();
+                for (int i = 0; i < dgv_Target.RowCount; i++)
                 {
-                    flag = false;
+                    if (dgv_Target.Rows[i].Cells[0].Value.ToString().Equals(str))
+                    {
+                        flag = false;
+                    }
+                }
+                if (flag || dgv_Target.RowCount == 0)
+                {
+                    var index = dgv_Target.Rows.Add();
+
+                    dgv_Target.Rows[index].Cells[0].Value = dgv_Source.Rows[dgv_Source.CurrentCellAddress.Y].Cells[0].Value.ToString();
+                    dgv_Target.Rows[index].Cells[1].Value = dgv_Source.Rows[dgv_Source.CurrentCellAddress.Y].Cells[1].Value.ToString();
                 }
             }
-            if (flag || dgv_Target.RowCount == 0)
-            {
-                var index = dgv_Target.Rows.Add();
+        }
 
-                dgv_Target.Rows[index].Cells[0].Value = dgv_Source.Rows[dgv_Source.CurrentCellAddress.Y].Cells[0].Value.ToString();
-                dgv_Target.Rows[index].Cells[1].Value = dgv_Source.Rows[dgv_Source.CurrentCellAddress.Y].Cells[1].Value.ToString();
-            }
+        /* Снимает пометку ключа в таблице dgv_Source */
+        private void dgv_UnCheck(DataGridView sender)
+        {
+            if (sender.CurrentCellAddress.X == 0)
+                sender.Rows[sender.CurrentCellAddress.Y].Cells[sender.CurrentCellAddress.X].Style.ForeColor = Color.Black;
+            Refresh_dgvTarget_Del();
         }
 
         /* Удаляем ключ из dgv_Target при снятии его выделения в dgv_Source */
         private void Refresh_dgvTarget_Del()
         {
-            string str = dgv_Source.Rows[dgv_Source.CurrentCellAddress.Y].Cells[dgv_Source.CurrentCellAddress.X].Value.ToString();
-            for (int i = 0; i < dgv_Target.RowCount; i++)
+            if (dgv_Target.RowCount > 0)
             {
-                if (dgv_Target.Rows[i].Cells[0].Value.ToString().Equals(str))
+                string str = dgv_Source.Rows[dgv_Source.CurrentCellAddress.Y].Cells[dgv_Source.CurrentCellAddress.X].Value.ToString();
+                for (int i = 0; i < dgv_Target.RowCount; i++)
                 {
-                    dgv_Target.Rows.RemoveAt(i);
+                    if (dgv_Target.Rows[i].Cells[0].Value.ToString().Equals(str))
+                    {
+                        dgv_Target.Rows.RemoveAt(i);
+                    }
                 }
             }
         }
@@ -275,195 +248,16 @@ namespace Excel_Parse
             }
         }
 
-        /* Кнопка "Сохранить" */
-        private void btn_Save_Click(object sender, EventArgs e)
-        {
-            if (tb_CoreName.Text.Equals("") || dgv_Target.RowCount == 0)
-            {
-                if (dgv_Target.RowCount == 0)
-                    MessageBox.Show("Нет данных для сохранения", "Нет данных");
-                else
-                    MessageBox.Show("Для продолжение укажите название ядра", "Укажите название");
-            }
-            else
-            {
-                setDataToDB();
-            }
-        }
-
-        /* Загрузка изменений в БД */
-        private void setDataToDB()
-        {
-            int productType = -1;
-            string errors = "";
-            string sqlStatements = "";
-            int categoryId = -1;
-
-            for (int i = 0; i < dgv_ProductTypes.RowCount - 1; i++)
-            {
-                if (dgv_ProductTypes.Rows[i].Cells[1].Value.ToString().Equals(cb_ProductType.SelectedItem.ToString()))
-                {
-                    productType = int.Parse(dgv_ProductTypes.Rows[i].Cells[0].Value.ToString());
-                }
-            }
-
-            if (rb_NewCategory.Checked)        //сохраняем в новой categoryId
-            {
-                connection.Open();
-                sqlStatements = "INSERT INTO [KeywordCategory] ([CategoryName]) VALUES ('" + tb_AddCategory.Text + "')";
-                SqlCommand command = new SqlCommand(sqlStatements, connection);
-                command.ExecuteScalar();
-                connection.Close();
-
-                dgv_Categories.Rows.Clear();
-                GetCategories();
-            }
-
-            for (int i = 0; i < dgv_Categories.RowCount - 1; i++)
-            {
-                for (int j = 0; j < cb_KeywordCategory.Items.Count; j++)
-                {
-                    if (dgv_Categories.Rows[i].Cells[1].Value.ToString().Equals(cb_KeywordCategory.Items[j].ToString()))
-                    {
-                        categoryId = int.Parse(dgv_Categories.Rows[i].Cells[0].Value.ToString());
-                    }
-                }
-            }
-
-            int index = -1;
-
-            try { connection.Open(); }
-            catch (Exception e) { MessageBox.Show("Ошибка подключения к БД", "Ошибка"); }
-
-            for (int i = 0; i < dgv_Target.RowCount; i++)
-            {
-                try
-                {
-                    sqlStatements = "INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastUpdated]) VALUES (" + productType + ", '" + categoryId + "', '" + dgv_Target.Rows[i].Cells[0].Value.ToString() + "', '" + dgv_Target.Rows[i].Cells[1].Value.ToString() + "', '" + tb_CoreName.Text + "')";
-                    index = i;
-
-                    SqlCommand command = new SqlCommand(sqlStatements, connection);
-                    command.ExecuteScalar();
-                }
-                catch (Exception ex)
-                {
-                    if (ex.HResult.Equals(int.Parse("-2146232060")))
-                    {
-                        errors += dgv_Target.Rows[index].Cells[0].Value.ToString() + "\n";
-                    }
-                }
-            }
-            if (!errors.Equals(""))
-                MessageBox.Show("Следующие ключи не были добавлены, т.к. они уже есть в БД:\n\n" + errors, "Не всё прошло гладко");
-            else
-                MessageBox.Show("Все ключи были успешно добавлены!", "Успех");
-            connection.Close();
-
-            SavedStatus = true;
-        }
-
-        /* Кнопка "Отмена" */
-        private void btn_Cancel_Click(object sender, EventArgs e)
-        {
-            if (SavedStatus)
-            {
-                this.Close();
-            }
-            else
-            {
-                if (MessageBox.Show("Имеются несохраненные изменения. Сохранить?", "Сохранение", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    if (tb_CoreName.Text.Equals(""))
-                    {
-                        MessageBox.Show("Для продолжение укажите название ядра", "Укажите название");
-                    }
-                    else
-                    {
-                        setDataToDB();
-                        this.Close();
-                    }
-                }
-                else
-                {
-                    this.Close();
-                }
-            }
-        }
-
         /* Отслеживание несохраненных изменений */
         private void dgv_Target_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
-            dgv_Target_RowsChanged();
+            SavedStatus = false;
         }
 
         /* Отслеживание несохраненных изменений */
         private void dgv_Target_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
-            dgv_Target_RowsChanged();
-        }
-
-        /* Изменяем статус, чтобы прога отслеживала необходимость сохранения */
-        private void dgv_Target_RowsChanged()
-        {
             SavedStatus = false;
-        }
-
-        /* Загрузить другой файл */
-        private void btn_UploadAnotherFile_Click(object sender, EventArgs e)
-        {
-            if (SavedStatus)
-            {
-                OpenNewFile();
-            }
-            else
-            {
-                if (MessageBox.Show("Имеются несохраненные изменения. Сохранить?", "Сохранение", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    if (tb_CoreName.Text.Equals(""))
-                    {
-                        MessageBox.Show("Для продолжение укажите название ядра", "Укажите название");
-                    }
-                    else
-                    {
-                        setDataToDB();
-                        OpenNewFile();
-                    }
-                }
-                else
-                {
-                    OpenNewFile();
-                }
-            }
-        }
-
-        /* Закрытие формы */
-        private void SemCore_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (SavedStatus)
-            {
-                mf.Show();
-            }
-            else
-            {
-                if (MessageBox.Show("Имеются несохраненные изменения. Сохранить?", "Сохранение", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    if (tb_CoreName.Text.Equals(""))
-                    {
-                        MessageBox.Show("Для продолжение укажите название ядра", "Укажите название");
-                        e.Cancel = true;
-                    }
-                    else
-                    {
-                        setDataToDB();
-                        mf.Show();
-                    }
-                }
-                else
-                {
-                    SavedStatus = true;
-                    mf.Show();
-                }
-            }
         }
 
         /* Вызываем Help */
@@ -490,16 +284,181 @@ namespace Excel_Parse
             }
         }
 
+        /* Включаем/выключаем возможность редактирования ссылки для перехода на Амазон */
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked)
             {
                 tb_Link.Enabled = true;
-            } else
+            }
+            else
             {
                 tb_Link.Enabled = false;
                 mf.AmazonLink = tb_Link.Text;
             }
+        }
+
+        /* Загрузить другой файл */
+        private void btn_UploadAnotherFile_Click(object sender, EventArgs e)
+        {
+            if (SavedStatus)
+            {
+                OpenNewFile();
+            }
+            else
+            {
+                if (MessageBox.Show("Имеются несохраненные изменения. Сохранить?", "Сохранение", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    setDataToDB();
+                    OpenNewFile();
+                }
+                else
+                {
+                    OpenNewFile();
+                }
+            }
+        }
+
+        /* Закрытие формы */
+        private void SemCore_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (SavedStatus)
+            {
+                mf.Show();
+            }
+            else
+            {
+                if (MessageBox.Show("Имеются несохраненные изменения. Сохранить?", "Сохранение", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    setDataToDB();
+                    mf.Show();
+                }
+                else
+                {
+                    SavedStatus = true;
+                    mf.Show();
+                }
+            }
+        }
+
+        /* Кнопка "Сохранить" */
+        private void btn_Save_Click(object sender, EventArgs e)
+        {
+            if (dgv_Target.RowCount == 0)
+            {
+                MessageBox.Show("Нет данных для сохранения", "Нет данных");
+            }
+            else
+            {
+                setDataToDB();
+            }
+        }
+
+        /* Кнопка "Закрыть" */
+        private void btn_Cancel_Click(object sender, EventArgs e)
+        {
+            if (SavedStatus)
+            {
+                this.Close();
+            }
+            else
+            {
+                if (MessageBox.Show("Имеются несохраненные изменения. Сохранить?", "Сохранение", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    setDataToDB();
+                    this.Close();
+                }
+                else
+                {
+                    this.Close();
+                }
+            }
+        }
+
+        /* Загрузка изменений в БД */
+        private void setDataToDB()
+        {
+            int productType = -1;
+            string errors = "";
+            int categoryId = -1;
+            bool categoryCreated = true;
+
+            if (rb_NewCategory.Checked)        //сохраняем в новой categoryId
+            {
+                int result = kcController.SetNewKeywordCategory(tb_AddCategory.Text);
+                if (result == 1)
+                {
+                    kcController.GetKeywordCategoriesAll();
+                    Fill_CB_ByKeywordCategories();
+                    cb_KeywordCategory.SelectedItem = cb_KeywordCategory.Items[cb_KeywordCategory.Items.Count - 1];
+                }
+                else if (result == -2146232060)
+                {
+                    MessageBox.Show("Вы пытаетесь создать категорию ключей, которая уже существует. Пожалуйста, выберите категорию со списка или введите другое название.", "Ошибка");
+                    categoryCreated = false;
+                }
+            }
+
+            if (categoryCreated)                            //проверяем на то, что при создании категории всё было ок и можно продолжать
+            {
+                for (int i = 0; i < ptList.Count; i++)     //находим productTypeId по выбранному в cb_ProductType
+                {
+                    if (ptList[i].TypeName.Equals(cb_ProductType.SelectedItem.ToString()))
+                    {
+                        productType = ptList[i].ProductTypeId;
+                    }
+                }
+
+                for (int i = 0; i < kcList.Count; i++)     //находим productTypeId по выбранному в cb_ProductType
+                {
+                    if (kcList[i].CategoryName.Equals(cb_KeywordCategory.SelectedItem.ToString()))
+                    {
+                        categoryId = kcList[i].CategoryId;
+                    }
+                }
+
+                int index = -1;
+
+                for (int i = 0; i < dgv_Target.RowCount; i++)
+                {
+                    index = i;
+                    //если ключ уже есть в БД, БД выдаст ошибку -2146232060. Сверяем и записываем ключи в массив недобавленных ключей
+                    if (scController.SetNewKeyword(productType, categoryId, dgv_Target.Rows[i].Cells[0].Value.ToString(), int.Parse(dgv_Target.Rows[i].Cells[1].Value.ToString()), DateTime.Now) == -2146232060)
+                    {
+                        errors += dgv_Target.Rows[index].Cells[0].Value.ToString() + "\n";
+                    }
+                }
+
+                if (!errors.Equals(""))
+                    MessageBox.Show("Следующие ключи не были добавлены, т.к. они уже есть в БД:\n\n" + errors, "Не всё прошло гладко");
+                else
+                    MessageBox.Show("Все ключи были успешно добавлены!", "Успех");
+
+                SavedStatus = true;
+            }
+        }
+
+        /* Выделяем все ключи */
+        private void btn_SelectAll_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < dgv_Source.RowCount; i++)
+            {
+                dgv_Source.Rows[i].Cells[0].Style.ForeColor = Color.Red;
+
+                var index = dgv_Target.Rows.Add();
+                dgv_Target.Rows[index].Cells[0].Value = dgv_Source.Rows[i].Cells[0].Value.ToString();
+                dgv_Target.Rows[index].Cells[1].Value = dgv_Source.Rows[i].Cells[1].Value.ToString();
+            }  
+        }
+
+        /* Снимаем выделение со всех ключей */
+        private void btn_DeselectAll_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < dgv_Source.RowCount; i++)
+            {
+                dgv_Source.Rows[i].Cells[0].Style.ForeColor = Color.Black;
+            }
+            dgv_Target.Rows.Clear();
         }
     }
 }

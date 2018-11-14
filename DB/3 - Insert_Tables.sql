@@ -79,23 +79,23 @@ VALUES (1, 'Title4 not smaLL title', 'Bul4', 'Bul4', 'Bul4', 'Bul4', 'Bul4', 'Ba
 
 
 /*         -- [KeywordCategory] --             */
-INSERT INTO [KeywordCategory] ([CategoryName])
-VALUES ('Пустая категория')
+INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
+VALUES ('Пустая категория', 0)
 
-INSERT INTO [KeywordCategory] ([CategoryName])
-VALUES ('Lavalier Mic')
+INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
+VALUES ('Lavalier Mic', 1)
 
-INSERT INTO [KeywordCategory] ([CategoryName])
-VALUES ('Lapel Mic')
+INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
+VALUES ('Lapel Mic', 1)
 
-INSERT INTO [KeywordCategory] ([CategoryName])
-VALUES ('Magnetic Strip')
+INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
+VALUES ('Magnetic Strip', 2)
 
-INSERT INTO [KeywordCategory] ([CategoryName])
-VALUES ('5 Knife Set')
+INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
+VALUES ('5 Knife Set', 3)
 
-INSERT INTO [KeywordCategory] ([CategoryName])
-VALUES ('iPhone Mic')
+INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
+VALUES ('iPhone Mic', 1)
 
 
 /*         -- [SemCore] --             */
@@ -118,6 +118,9 @@ INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastU
 VALUES (1, 2, 'iphone 18 microphone', 456, CURRENT_TIMESTAMP)
 INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastUpdated])
 VALUES (1, 2, 'iphone 288 microphone', 123, CURRENT_TIMESTAMP)
+
+INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastUpdated])
+VALUES (1, 2, 'iphone 388 microphone', 123, '2018-10-15 12:50:00')
 
 
 /*         -- [FieldsLength] --             */

@@ -605,7 +605,7 @@ namespace Excel_Parse
 
         private void btn_AddCategory_Click(object sender, EventArgs e)
         {
-            KeywordCategory kc = new KeywordCategory(this);
+            KeywordCategoryView kc = new KeywordCategoryView(this);
             if (kc.ShowDialog() == DialogResult.Cancel)
             { AddCat = true; }
             AddCat = true;

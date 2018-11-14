@@ -1,6 +1,9 @@
 USE AHEAD
 GO
+--тут обратный порядок от порядка создания
 
+IF NOT OBJECT_ID('SemCoreArchive') IS NULL DROP TABLE [SemCoreArchive]
+GO
 
 IF NOT OBJECT_ID('FieldsLength') IS NULL DROP TABLE [FieldsLength]
 GO
@@ -82,7 +85,10 @@ GO
 CREATE TABLE [KeywordCategory](
 	[CategoryId]		INT IDENTITY(0,1),
 	[CategoryName]		VARCHAR(100),
-	CONSTRAINT PK_KeywordCategory PRIMARY KEY ([CategoryId])
+	[ProductTypeId]		INT,
+	CONSTRAINT UQ_KeywordCategory_CategoryName UNIQUE ([CategoryName]),
+	CONSTRAINT PK_KeywordCategory PRIMARY KEY ([CategoryId]),
+	CONSTRAINT FKKeywordsCategory_ProductTypeId FOREIGN KEY ([ProductTypeId]) REFERENCES ProductTypes ([ProductTypeId])
 )
 GO
 
@@ -112,6 +118,17 @@ CREATE TABLE [FieldsLength](
 	[DescriptionLength]		INT,
 	[ProductId]				INT,
 	CONSTRAINT FK_FieldsLength_Products FOREIGN KEY ([ProductId]) REFERENCES Products ([ProductId])
+)
+GO
+
+CREATE TABLE [SemCoreArchive](
+	[ProductTypeId]		INT					NOT NULL,
+	[CategoryId]		INT					NOT NULL,
+	[Keyword]			VARCHAR(100)		NOT NULL,
+	[Value]				INT					NOT NULL,
+	[LastUpdated]		DATETIME			NOT NULL,
+	[SemCoreId]			INT					NOT NULL,
+	CONSTRAINT FK_SemCoreArchive_SemCore FOREIGN KEY ([SemCoreId]) REFERENCES SemCore ([SemCoreId])
 )
 GO
 

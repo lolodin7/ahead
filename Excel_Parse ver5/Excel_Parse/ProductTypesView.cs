@@ -11,90 +11,83 @@ using System.Windows.Forms;
 
 namespace Excel_Parse
 {
-    public partial class ProductTypes : Form
+    public partial class ProductTypesView : Form
     {
-        private MainForm mf;
+        private ProductTypesController ptController;
+        private List<ProductTypesModel> ptList;     //список всех объектов (записей из БД)
+        private int CurrentColumnCount;
+
+        private Form mf;
         private SqlConnection connection;
 
 
-        public ProductTypes(MainForm _mf)
+        public ProductTypesView(MainForm _mf)
         {
             InitializeComponent();
+            CurrentColumnCount = 0;
+
+            ptController = new ProductTypesController(this);
+
             connection = DBData.GetDBConnection();
             mf = _mf;
 
-            GetProductTypes();
+            ptController.GetProductTypesAll();
+            Draw();
         }
 
-        /* Заполняем таблицу dgv_ProductTypes */
-        private void GetProductTypes()
+        public ProductTypesView()
         {
-            try
-            {
-                dgv_ProductTypes.Rows.Clear();
+            InitializeComponent();
+            CurrentColumnCount = 0;
 
-                connection.Open();
-                string sqlStatement = "SELECT * FROM ProductTypes WHERE ProductTypeId > 0";
-                SqlCommand command = new SqlCommand(sqlStatement, connection);
+            ptController = new ProductTypesController(this);
 
-                SqlDataReader reader = command.ExecuteReader();
+            connection = DBData.GetDBConnection();
 
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        SetProductTypesTo_dgv_ProductTypes((IDataRecord)reader);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-                reader.Close();
-                connection.Close();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Упс! Возникла проблема с подключением к БД :( Приложение будет закрыто", "Ошибка");
-                Environment.Exit(0);
-            }
+            ptController.GetProductTypesAll();
+            Draw();
         }
 
-        private void SetProductTypesTo_dgv_ProductTypes(IDataRecord record)
+
+        /* Перерисовываем таблицу новыми данными */
+        private void Draw()
         {
-            var index = dgv_ProductTypes.Rows.Add();
+            dgv_ProductTypes.Rows.Clear();
 
-            for (int i = 0; i < record.FieldCount; i++)
+            for (int i = 0; i < ptList.Count; i++)
             {
-                dgv_ProductTypes.Rows[index].Cells[i].Value = record[i];
+                var index = dgv_ProductTypes.Rows.Add();
+
+                for (int j = 0; j < ptList[0].ColumnCount; j++)
+                {
+                    dgv_ProductTypes.Rows[index].Cells[j].Value = ptList[i].ReadData(j);
+                }
             }
         }
 
-        /* Добавить новую категори в БД */
+        /* Получаем из контроллера данные, полученные с БД */
+        public void GetProductTypesFromDB(object _ptList)
+        {
+            ptList = (List<ProductTypesModel>)_ptList;
+        }     
+        
+        /* Добавить новый тип товара в БД */
         private void btn_Save_Click(object sender, EventArgs e)
         {
             if (tb_ProductType.Text != "")
             {
                 if (!ChechForExisting())
                 {
-                    string sqlStatement;
-                    try
+                    int result = ptController.SetNewProductType(tb_ProductType.Text);
+                    if (result == 1)
                     {
-                        connection.Open();
-                        sqlStatement = "INSERT INTO [ProductTypes] ([TypeName]) VALUES ('" + tb_ProductType.Text + "')";
-
-                        SqlCommand command = new SqlCommand(sqlStatement, connection);
-                        command.ExecuteScalar();
-
-                        connection.Close();
-
                         tb_ProductType.Text = "";
-                        GetProductTypes();
+                        ptController.GetProductTypesAll();
+                        Draw();
                     }
-                    catch (Exception ex)
+                    else if (result == -2146232060)
                     {
-                        MessageBox.Show("Упс! Произошел какой-то сбой, попробуйте еще раз!", "Ошибка");
-                        Environment.Exit(0);
+                        MessageBox.Show("Такой вид товаров уже существует. Нажмите \"Обновить\" для просмотра.", "Ошибка");
                     }
                 } 
                 else
@@ -142,5 +135,11 @@ namespace Excel_Parse
             Clipboard.SetText(str);
         }
 
+        /* Обновляем dgv_KeywordCategory принудительно */
+        private void btn_RefreshDGV_Click(object sender, EventArgs e)
+        {
+            ptController.GetProductTypesAll();
+            Draw();
+        }
     }
 }

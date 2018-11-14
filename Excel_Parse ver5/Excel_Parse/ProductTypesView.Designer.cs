@@ -1,6 +1,6 @@
 ﻿namespace Excel_Parse
 {
-    partial class ProductTypes
+    partial class ProductTypesView
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductTypes));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductTypesView));
             this.dgv_ProductTypes = new System.Windows.Forms.DataGridView();
             this.ProductTypeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TypeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -37,6 +37,7 @@
             this.btn_Save = new System.Windows.Forms.Button();
             this.lb_ProductType = new System.Windows.Forms.Label();
             this.tb_ProductType = new System.Windows.Forms.TextBox();
+            this.btn_RefreshDGV = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ProductTypes)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -77,6 +78,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btn_RefreshDGV);
             this.groupBox1.Controls.Add(this.btn_Clear);
             this.groupBox1.Controls.Add(this.btn_Save);
             this.groupBox1.Controls.Add(this.lb_ProductType);
@@ -124,7 +126,17 @@
             this.tb_ProductType.Size = new System.Drawing.Size(193, 20);
             this.tb_ProductType.TabIndex = 0;
             // 
-            // ProductTypes
+            // btn_RefreshDGV
+            // 
+            this.btn_RefreshDGV.Location = new System.Drawing.Point(227, 9);
+            this.btn_RefreshDGV.Name = "btn_RefreshDGV";
+            this.btn_RefreshDGV.Size = new System.Drawing.Size(64, 26);
+            this.btn_RefreshDGV.TabIndex = 5;
+            this.btn_RefreshDGV.Text = "Обновить";
+            this.btn_RefreshDGV.UseVisualStyleBackColor = true;
+            this.btn_RefreshDGV.Click += new System.EventHandler(this.btn_RefreshDGV_Click);
+            // 
+            // ProductTypesView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -133,7 +145,7 @@
             this.Controls.Add(this.dgv_ProductTypes);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "ProductTypes";
+            this.Name = "ProductTypesView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Категории продуктов";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProductTypes_FormClosing);
@@ -154,5 +166,6 @@
         private System.Windows.Forms.Button btn_Save;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductTypeId;
         private System.Windows.Forms.DataGridViewTextBoxColumn TypeName;
+        private System.Windows.Forms.Button btn_RefreshDGV;
     }
 }

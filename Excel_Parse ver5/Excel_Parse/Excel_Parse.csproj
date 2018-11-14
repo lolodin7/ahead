@@ -74,13 +74,14 @@
     <Compile Include="FullSemCore.Designer.cs">
       <DependentUpon>FullSemCore.cs</DependentUpon>
     </Compile>
-    <Compile Include="KeywordCategory.cs">
+    <Compile Include="KeywordCategoryController.cs" />
+    <Compile Include="KeywordCategoryModel.cs" />
+    <Compile Include="KeywordCategoryView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="KeywordCategory.Designer.cs">
-      <DependentUpon>KeywordCategory.cs</DependentUpon>
+    <Compile Include="KeywordCategoryView.Designer.cs">
+      <DependentUpon>KeywordCategoryView.cs</DependentUpon>
     </Compile>
-    <Compile Include="KeywordCategoryBuilder.cs" />
     <Compile Include="KeywordsAreExisted.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,13 +100,14 @@
     <Compile Include="Products.Designer.cs">
       <DependentUpon>Products.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProductTypes.cs">
+    <Compile Include="ProductTypesController.cs" />
+    <Compile Include="ProductTypesModel.cs" />
+    <Compile Include="ProductTypesView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ProductTypes.Designer.cs">
-      <DependentUpon>ProductTypes.cs</DependentUpon>
+    <Compile Include="ProductTypesView.Designer.cs">
+      <DependentUpon>ProductTypesView.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProductTypesBuilder.cs" />
     <Compile Include="SemanticsData.cs" />
     <Compile Include="SemCoreModel.cs" />
     <Compile Include="SemCoreView.cs">
@@ -136,12 +138,6 @@
     <Compile Include="SemStatistics.Designer.cs">
       <DependentUpon>SemStatistics.cs</DependentUpon>
     </Compile>
-    <Compile Include="TestFormView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TestFormView.Designer.cs">
-      <DependentUpon>TestFormView.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="ChooseProduct.resx">
       <DependentUpon>ChooseProduct.cs</DependentUpon>
     </EmbeddedResource>
@@ -151,8 +147,8 @@
     <EmbeddedResource Include="FullSemCore.resx">
       <DependentUpon>FullSemCore.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KeywordCategory.resx">
-      <DependentUpon>KeywordCategory.cs</DependentUpon>
+    <EmbeddedResource Include="KeywordCategoryView.resx">
+      <DependentUpon>KeywordCategoryView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KeywordsAreExisted.resx">
       <DependentUpon>KeywordsAreExisted.cs</DependentUpon>
@@ -163,8 +159,8 @@
     <EmbeddedResource Include="Products.resx">
       <DependentUpon>Products.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProductTypes.resx">
-      <DependentUpon>ProductTypes.cs</DependentUpon>
+    <EmbeddedResource Include="ProductTypesView.resx">
+      <DependentUpon>ProductTypesView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SemCoreView.resx">
       <DependentUpon>SemCoreView.cs</DependentUpon>
@@ -186,9 +182,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SemStatistics.resx">
       <DependentUpon>SemStatistics.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TestFormView.resx">
-      <DependentUpon>TestFormView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

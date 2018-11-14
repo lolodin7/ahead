@@ -45,14 +45,14 @@ namespace Excel_Parse
 
         private void btn_DoProductType_Click(object sender, EventArgs e)
         {
-            ProductTypes productTypes = new ProductTypes(this);
+            ProductTypesView productTypes = new ProductTypesView(this);
             productTypes.Show();
             this.Visible = false;
         }
 
         private void btn_DoKeywordCategory_Click(object sender, EventArgs e)
         {
-            KeywordCategory keycat = new KeywordCategory(this);
+            KeywordCategoryView keycat = new KeywordCategoryView(this);
             keycat.Show();
             this.Visible = false;
         }

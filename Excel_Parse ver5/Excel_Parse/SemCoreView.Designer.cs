@@ -39,17 +39,9 @@
             this.cb_ProductType = new System.Windows.Forms.ComboBox();
             this.cb_KeywordCategory = new System.Windows.Forms.ComboBox();
             this.lb_KeywordCategory = new System.Windows.Forms.Label();
-            this.lb_CoreName = new System.Windows.Forms.Label();
             this.btn_Save = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.dgv_Categories = new System.Windows.Forms.DataGridView();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgv_ProductTypes = new System.Windows.Forms.DataGridView();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tb_CoreName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tb_AddCategory = new System.Windows.Forms.TextBox();
             this.rb_ExistingCategory = new System.Windows.Forms.RadioButton();
@@ -58,10 +50,12 @@
             this.btn_Help = new System.Windows.Forms.Button();
             this.tb_Link = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btn_SelectAll = new System.Windows.Forms.Button();
+            this.btn_DeselectAll = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Source)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Target)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_Categories)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_ProductTypes)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgv_Source
@@ -137,7 +131,7 @@
             // 
             // lb_ProductType
             // 
-            this.lb_ProductType.Location = new System.Drawing.Point(942, 47);
+            this.lb_ProductType.Location = new System.Drawing.Point(37, 26);
             this.lb_ProductType.Name = "lb_ProductType";
             this.lb_ProductType.Size = new System.Drawing.Size(100, 23);
             this.lb_ProductType.TabIndex = 3;
@@ -148,7 +142,7 @@
             // 
             this.cb_ProductType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_ProductType.FormattingEnabled = true;
-            this.cb_ProductType.Location = new System.Drawing.Point(1028, 49);
+            this.cb_ProductType.Location = new System.Drawing.Point(140, 28);
             this.cb_ProductType.Name = "cb_ProductType";
             this.cb_ProductType.Size = new System.Drawing.Size(216, 21);
             this.cb_ProductType.TabIndex = 4;
@@ -157,34 +151,25 @@
             // 
             this.cb_KeywordCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_KeywordCategory.FormattingEnabled = true;
-            this.cb_KeywordCategory.Location = new System.Drawing.Point(1028, 142);
+            this.cb_KeywordCategory.Location = new System.Drawing.Point(140, 121);
             this.cb_KeywordCategory.Name = "cb_KeywordCategory";
             this.cb_KeywordCategory.Size = new System.Drawing.Size(216, 21);
             this.cb_KeywordCategory.TabIndex = 6;
             // 
             // lb_KeywordCategory
             // 
-            this.lb_KeywordCategory.Location = new System.Drawing.Point(918, 140);
+            this.lb_KeywordCategory.Location = new System.Drawing.Point(13, 119);
             this.lb_KeywordCategory.Name = "lb_KeywordCategory";
             this.lb_KeywordCategory.Size = new System.Drawing.Size(124, 23);
             this.lb_KeywordCategory.TabIndex = 5;
             this.lb_KeywordCategory.Text = "Категория ключей: ";
             this.lb_KeywordCategory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lb_CoreName
-            // 
-            this.lb_CoreName.Location = new System.Drawing.Point(939, 264);
-            this.lb_CoreName.Name = "lb_CoreName";
-            this.lb_CoreName.Size = new System.Drawing.Size(100, 23);
-            this.lb_CoreName.TabIndex = 7;
-            this.lb_CoreName.Text = "Название ядра: ";
-            this.lb_CoreName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // btn_Save
             // 
-            this.btn_Save.Location = new System.Drawing.Point(955, 348);
+            this.btn_Save.Location = new System.Drawing.Point(50, 434);
             this.btn_Save.Name = "btn_Save";
-            this.btn_Save.Size = new System.Drawing.Size(135, 34);
+            this.btn_Save.Size = new System.Drawing.Size(135, 44);
             this.btn_Save.TabIndex = 9;
             this.btn_Save.Text = "Сохранить";
             this.btn_Save.UseVisualStyleBackColor = true;
@@ -192,9 +177,9 @@
             // 
             // btn_Cancel
             // 
-            this.btn_Cancel.Location = new System.Drawing.Point(1109, 348);
+            this.btn_Cancel.Location = new System.Drawing.Point(204, 434);
             this.btn_Cancel.Name = "btn_Cancel";
-            this.btn_Cancel.Size = new System.Drawing.Size(135, 34);
+            this.btn_Cancel.Size = new System.Drawing.Size(135, 44);
             this.btn_Cancel.TabIndex = 10;
             this.btn_Cancel.Text = "Закрыть";
             this.btn_Cancel.UseVisualStyleBackColor = true;
@@ -204,61 +189,9 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // dgv_Categories
-            // 
-            this.dgv_Categories.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_Categories.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column5,
-            this.Column6});
-            this.dgv_Categories.Location = new System.Drawing.Point(954, 511);
-            this.dgv_Categories.Name = "dgv_Categories";
-            this.dgv_Categories.Size = new System.Drawing.Size(240, 150);
-            this.dgv_Categories.TabIndex = 11;
-            this.dgv_Categories.Visible = false;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "Column5";
-            this.Column5.Name = "Column5";
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "Column6";
-            this.Column6.Name = "Column6";
-            // 
-            // dgv_ProductTypes
-            // 
-            this.dgv_ProductTypes.AllowUserToDeleteRows = false;
-            this.dgv_ProductTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_ProductTypes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column3,
-            this.Column4});
-            this.dgv_ProductTypes.Location = new System.Drawing.Point(1028, 533);
-            this.dgv_ProductTypes.Name = "dgv_ProductTypes";
-            this.dgv_ProductTypes.Size = new System.Drawing.Size(240, 150);
-            this.dgv_ProductTypes.TabIndex = 12;
-            this.dgv_ProductTypes.Visible = false;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Column3";
-            this.Column3.Name = "Column3";
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Column4";
-            this.Column4.Name = "Column4";
-            // 
-            // tb_CoreName
-            // 
-            this.tb_CoreName.Location = new System.Drawing.Point(1028, 266);
-            this.tb_CoreName.Name = "tb_CoreName";
-            this.tb_CoreName.Size = new System.Drawing.Size(216, 20);
-            this.tb_CoreName.TabIndex = 13;
-            // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(911, 175);
+            this.label1.Location = new System.Drawing.Point(6, 158);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(124, 23);
             this.label1.TabIndex = 14;
@@ -268,7 +201,7 @@
             // tb_AddCategory
             // 
             this.tb_AddCategory.Enabled = false;
-            this.tb_AddCategory.Location = new System.Drawing.Point(1028, 177);
+            this.tb_AddCategory.Location = new System.Drawing.Point(140, 160);
             this.tb_AddCategory.Name = "tb_AddCategory";
             this.tb_AddCategory.Size = new System.Drawing.Size(216, 20);
             this.tb_AddCategory.TabIndex = 15;
@@ -277,7 +210,7 @@
             // 
             this.rb_ExistingCategory.AutoSize = true;
             this.rb_ExistingCategory.Checked = true;
-            this.rb_ExistingCategory.Location = new System.Drawing.Point(1251, 147);
+            this.rb_ExistingCategory.Location = new System.Drawing.Point(363, 126);
             this.rb_ExistingCategory.Name = "rb_ExistingCategory";
             this.rb_ExistingCategory.Size = new System.Drawing.Size(14, 13);
             this.rb_ExistingCategory.TabIndex = 16;
@@ -288,7 +221,7 @@
             // rb_NewCategory
             // 
             this.rb_NewCategory.AutoSize = true;
-            this.rb_NewCategory.Location = new System.Drawing.Point(1251, 181);
+            this.rb_NewCategory.Location = new System.Drawing.Point(363, 164);
             this.rb_NewCategory.Name = "rb_NewCategory";
             this.rb_NewCategory.Size = new System.Drawing.Size(14, 13);
             this.rb_NewCategory.TabIndex = 17;
@@ -297,10 +230,10 @@
             // 
             // btn_UploadAnotherFile
             // 
-            this.btn_UploadAnotherFile.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btn_UploadAnotherFile.BackColor = System.Drawing.Color.LightGray;
             this.btn_UploadAnotherFile.FlatAppearance.BorderSize = 0;
-            this.btn_UploadAnotherFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_UploadAnotherFile.Location = new System.Drawing.Point(955, 479);
+            this.btn_UploadAnotherFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_UploadAnotherFile.Location = new System.Drawing.Point(50, 237);
             this.btn_UploadAnotherFile.Name = "btn_UploadAnotherFile";
             this.btn_UploadAnotherFile.Size = new System.Drawing.Size(289, 74);
             this.btn_UploadAnotherFile.TabIndex = 18;
@@ -337,40 +270,68 @@
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
-            // SemCore
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btn_DeselectAll);
+            this.groupBox1.Controls.Add(this.btn_SelectAll);
+            this.groupBox1.Controls.Add(this.lb_ProductType);
+            this.groupBox1.Controls.Add(this.cb_ProductType);
+            this.groupBox1.Controls.Add(this.lb_KeywordCategory);
+            this.groupBox1.Controls.Add(this.cb_KeywordCategory);
+            this.groupBox1.Controls.Add(this.btn_UploadAnotherFile);
+            this.groupBox1.Controls.Add(this.btn_Save);
+            this.groupBox1.Controls.Add(this.rb_NewCategory);
+            this.groupBox1.Controls.Add(this.btn_Cancel);
+            this.groupBox1.Controls.Add(this.rb_ExistingCategory);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.tb_AddCategory);
+            this.groupBox1.Location = new System.Drawing.Point(908, 7);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(383, 487);
+            this.groupBox1.TabIndex = 22;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Управление";
+            // 
+            // btn_SelectAll
+            // 
+            this.btn_SelectAll.Location = new System.Drawing.Point(44, 348);
+            this.btn_SelectAll.Name = "btn_SelectAll";
+            this.btn_SelectAll.Size = new System.Drawing.Size(121, 23);
+            this.btn_SelectAll.TabIndex = 19;
+            this.btn_SelectAll.Text = "Выделить всё";
+            this.btn_SelectAll.UseVisualStyleBackColor = true;
+            this.btn_SelectAll.Click += new System.EventHandler(this.btn_SelectAll_Click);
+            // 
+            // btn_DeselectAll
+            // 
+            this.btn_DeselectAll.Location = new System.Drawing.Point(224, 348);
+            this.btn_DeselectAll.Name = "btn_DeselectAll";
+            this.btn_DeselectAll.Size = new System.Drawing.Size(121, 23);
+            this.btn_DeselectAll.TabIndex = 20;
+            this.btn_DeselectAll.Text = "Снять выделение";
+            this.btn_DeselectAll.UseVisualStyleBackColor = true;
+            this.btn_DeselectAll.Click += new System.EventHandler(this.btn_DeselectAll_Click);
+            // 
+            // SemCoreView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1300, 826);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.tb_Link);
             this.Controls.Add(this.btn_Help);
-            this.Controls.Add(this.btn_UploadAnotherFile);
-            this.Controls.Add(this.rb_NewCategory);
-            this.Controls.Add(this.rb_ExistingCategory);
-            this.Controls.Add(this.tb_AddCategory);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.tb_CoreName);
-            this.Controls.Add(this.dgv_ProductTypes);
-            this.Controls.Add(this.dgv_Categories);
-            this.Controls.Add(this.btn_Cancel);
-            this.Controls.Add(this.btn_Save);
-            this.Controls.Add(this.lb_CoreName);
-            this.Controls.Add(this.cb_KeywordCategory);
-            this.Controls.Add(this.lb_KeywordCategory);
-            this.Controls.Add(this.cb_ProductType);
-            this.Controls.Add(this.lb_ProductType);
             this.Controls.Add(this.dgv_Target);
             this.Controls.Add(this.dgv_Source);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "SemCore";
+            this.Name = "SemCoreView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Сбор семантического ядра";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SemCore_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Source)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Target)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_Categories)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_ProductTypes)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -388,17 +349,9 @@
         private System.Windows.Forms.ComboBox cb_ProductType;
         private System.Windows.Forms.ComboBox cb_KeywordCategory;
         private System.Windows.Forms.Label lb_KeywordCategory;
-        private System.Windows.Forms.Label lb_CoreName;
         private System.Windows.Forms.Button btn_Save;
         private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.DataGridView dgv_Categories;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.DataGridView dgv_ProductTypes;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.TextBox tb_CoreName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tb_AddCategory;
         private System.Windows.Forms.RadioButton rb_ExistingCategory;
@@ -407,6 +360,9 @@
         private System.Windows.Forms.Button btn_Help;
         private System.Windows.Forms.TextBox tb_Link;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btn_DeselectAll;
+        private System.Windows.Forms.Button btn_SelectAll;
     }
 }
 

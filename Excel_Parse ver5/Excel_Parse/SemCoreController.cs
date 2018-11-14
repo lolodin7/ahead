@@ -14,11 +14,11 @@ namespace Excel_Parse
         private SqlConnection connection;
         private SqlCommand command;
 
-        private TestForm controlForm;
+        private SemCoreView controlForm;
         public List<SemCoreModel> scmList;
 
 
-        public SemCoreController(TestForm _form)
+        public SemCoreController(SemCoreView _form)
         {
             connection = DBData.GetDBConnection();
             controlForm = _form;
@@ -29,66 +29,76 @@ namespace Excel_Parse
             connection = DBData.GetDBConnection();
         }
 
-        public void GetSemCoreByProductId(int _prodTypeId)
+        public bool GetSemCoreByProductId(int _prodTypeId)
         {
             string sqlStatement = "SELECT * FROM SemCore WHERE ProductTypeId = " + _prodTypeId;
             command = new SqlCommand(sqlStatement, connection);
-            ExecuteCommand(command);
+            return Execute_SELECT_Command(command);
         }
         
 
-        public void GetSemCoreByCategoryId(int _catId)
+        public bool GetSemCoreByCategoryId(int _catId)
         {
             string sqlStatement = "SELECT * FROM SemCore WHERE CategoryId = " + _catId;
             command = new SqlCommand(sqlStatement, connection);
-            ExecuteCommand(command);
+            return Execute_SELECT_Command(command);
         }
 
 
-        public void GetSemCoreByProductAndCategoryId(int _prodTypeId, int _catId)
+        public bool GetSemCoreByProductAndCategoryId(int _prodTypeId, int _catId)
         {
             string sqlStatement = "SELECT * FROM SemCore WHERE ProductTypeId = " + _prodTypeId + " AND CategoryId = " + _catId;
             command = new SqlCommand(sqlStatement, connection);
-            ExecuteCommand(command);
+            return Execute_SELECT_Command(command);
         }
 
         //-------------LEFT JOIN STATEMENTS-----------------
 
 
-        public void GetSemCoreJOINKeywordCategoryByProductId(int _prodTypeId)
+        public bool GetSemCoreJOINKeywordCategoryByProductId(int _prodTypeId)
         {
             string sqlStatement = "SELECT * FROM SemCore LEFT JOIN KeywordCategory ON SemCore.CategoryId = KeywordCategory.CategoryId LEFT JOIN ProductTypes ON SemCore.ProductTypeId = ProductTypes.ProductTypeId WHERE SemCore.ProductTypeId = " + _prodTypeId;
             command = new SqlCommand(sqlStatement, connection);
-            ExecuteCommand(command);
+            return Execute_SELECT_Command(command);
         }
 
 
-        public void GetSemCoreJOINKeywordCategoryByCategoryId(int _catId)
+        public bool GetSemCoreJOINKeywordCategoryByCategoryId(int _catId)
         {
             string sqlStatement = "SELECT * FROM SemCore LEFT JOIN KeywordCategory ON SemCore.CategoryId = KeywordCategory.CategoryId LEFT JOIN ProductTypes ON SemCore.ProductTypeId = ProductTypes.ProductTypeId WHERE SemCore.CategoryId = " + _catId;
             command = new SqlCommand(sqlStatement, connection);
-            ExecuteCommand(command);
+            return Execute_SELECT_Command(command);
         }
 
 
-        public void GetSemCoreJOINKeywordCategoryByProductAndCategoryId(int _prodTypeId, int _catId)
+        public bool GetSemCoreJOINKeywordCategoryByProductAndCategoryId(int _prodTypeId, int _catId)
         {
             string sqlStatement = "SELECT * FROM SemCore LEFT JOIN KeywordCategory ON SemCore.CategoryId = KeywordCategory.CategoryId LEFT JOIN ProductTypes ON SemCore.ProductTypeId = ProductTypes.ProductTypeId WHERE SemCore.ProductTypeId = " + _prodTypeId + " AND SemCore.CategoryId = " + _catId;
             command = new SqlCommand(sqlStatement, connection);
-            ExecuteCommand(command);
+            return Execute_SELECT_Command(command);
         }
 
 
-        public void GetSemCoreJOINKeywordCategoryAll()
+        public bool GetSemCoreJOINKeywordCategoryAll()
         {
             string sqlStatement = "SELECT * FROM SemCore LEFT JOIN KeywordCategory ON SemCore.CategoryId = KeywordCategory.CategoryId LEFT JOIN ProductTypes ON SemCore.ProductTypeId = ProductTypes.ProductTypeId";
             command = new SqlCommand(sqlStatement, connection);
-            ExecuteCommand(command);
+            return Execute_SELECT_Command(command);
         }
-             
+
+        //--------------------INSERT STATEMENTS-----------------
+
+
+        public int SetNewKeyword(int _prodTypeId, int _categoryId, string _keyword, int _value, DateTime _lastUpdated)
+        {
+            string sqlStatement = "INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastUpdated]) VALUES (" + _prodTypeId + ", " + _categoryId + ", '" + _keyword + "', " + _value + ", " + _lastUpdated.ToOADate() + ")";
+            command = new SqlCommand(sqlStatement, connection);
+            return Execute_INSERT_Command(command);
+        }
+
 
         /* Выполняем запрос к БД и заносим полученные данные в List<SemCoreModel> */
-        private void ExecuteCommand(SqlCommand _command)
+        private bool Execute_SELECT_Command(SqlCommand _command)
         {
             scmList = new List<SemCoreModel> { };
             try
@@ -101,7 +111,7 @@ namespace Excel_Parse
                 {
                     while (reader.Read())
                     {
-                        testsetdata((IDataRecord)reader);
+                        SetData((IDataRecord)reader);
                     }
                 }
                 else
@@ -110,24 +120,53 @@ namespace Excel_Parse
                 }
                 reader.Close();
                 connection.Close();
-                
-                controlForm.AddColumns_6();
-                controlForm.RefreshData(scmList);
+
+                controlForm.GetDataFromDB(scmList);
+                return true;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("При получении данных произошла ошибка!", "Ошибка");
+                connection.Close();
+                return false;
+            }
+        }
+
+        /* Записываем данные в БД */
+        private int Execute_INSERT_Command(SqlCommand _command)
+        {
+            try
+            {
+                connection.Open();
+                _command.ExecuteScalar();
+                connection.Close();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                connection.Close();
+                return ex.HResult;
             }
         }
 
         /* Заносим данные в List<SemCoreModel> */
-        private void testsetdata(IDataRecord record)
+        private void SetData(IDataRecord record)
         {
             SemCoreModel _scm = new SemCoreModel();
             scmList.Add(_scm);
             for (int i = 0; i < record.FieldCount; i++)
             {
                 scmList[scmList.Count - 1].WriteData(i, record[i]);
+            }
+        }
+
+        /* Заносим данные в List<SemCoreModel> */
+        private void SetData(object[] arr)
+        {
+            SemCoreModel _scm = new SemCoreModel();
+            scmList.Add(_scm);
+            for (int i = 0; i < arr.Length; i++)
+            {
+                scmList[scmList.Count - 1].WriteData(i, arr[i]);
             }
         }
     }

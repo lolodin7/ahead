@@ -1,6 +1,6 @@
 ﻿namespace Excel_Parse
 {
-    partial class KeywordCategory
+    partial class KeywordCategoryView
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KeywordCategory));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KeywordCategoryView));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btn_Close = new System.Windows.Forms.Button();
             this.btn_Save = new System.Windows.Forms.Button();
@@ -38,12 +38,14 @@
             this.ProductTypeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TypeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btn_RefreshDGV = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_KeywordCategory)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btn_RefreshDGV);
             this.groupBox1.Controls.Add(this.btn_Close);
             this.groupBox1.Controls.Add(this.btn_Save);
             this.groupBox1.Controls.Add(this.lb_CategoryName);
@@ -134,7 +136,17 @@
             this.Column1.ReadOnly = true;
             this.Column1.Visible = false;
             // 
-            // KeywordCategory
+            // btn_RefreshDGV
+            // 
+            this.btn_RefreshDGV.Location = new System.Drawing.Point(227, 9);
+            this.btn_RefreshDGV.Name = "btn_RefreshDGV";
+            this.btn_RefreshDGV.Size = new System.Drawing.Size(64, 26);
+            this.btn_RefreshDGV.TabIndex = 4;
+            this.btn_RefreshDGV.Text = "Обновить";
+            this.btn_RefreshDGV.UseVisualStyleBackColor = true;
+            this.btn_RefreshDGV.Click += new System.EventHandler(this.btn_RefreshDGV_Click);
+            // 
+            // KeywordCategoryView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -143,7 +155,7 @@
             this.Controls.Add(this.dgv_KeywordCategory);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "KeywordCategory";
+            this.Name = "KeywordCategoryView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Категории ключей";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.KeywordCategory_FormClosing);
@@ -165,5 +177,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductTypeId;
         private System.Windows.Forms.DataGridViewTextBoxColumn TypeName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.Button btn_RefreshDGV;
     }
 }
