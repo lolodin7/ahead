@@ -111,6 +111,7 @@ C:\AheadProject\Excel_Parse ver4\Excel_Parse\obj\Debug\Excel_Parse.KeywordsAreEx
 C:\AheadProject\Excel_Parse ver4\Excel_Parse\obj\Debug\Excel_Parse.MainForm.resources
 C:\AheadProject\Excel_Parse ver4\Excel_Parse\obj\Debug\Excel_Parse.Products.resources
 C:\AheadProject\Excel_Parse ver4\Excel_Parse\obj\Debug\Excel_Parse.ProductTypes.resources
+C:\AheadProject\Excel_Parse ver4\Excel_Parse\obj\Debug\Excel_Parse.SemCore.resources
 C:\AheadProject\Excel_Parse ver4\Excel_Parse\obj\Debug\Excel_Parse.Properties.Resources.resources
 C:\AheadProject\Excel_Parse ver4\Excel_Parse\obj\Debug\Excel_Parse.Semantics.resources
 C:\AheadProject\Excel_Parse ver4\Excel_Parse\obj\Debug\Excel_Parse.SemCoreRebuild.resources
@@ -137,6 +138,3 @@ C:\ahead\Excel_Parse ver4\Excel_Parse\obj\Debug\Excel_Parse.SemCoreRebuild.resou
 C:\ahead\Excel_Parse ver4\Excel_Parse\obj\Debug\Excel_Parse.SemStatistics.resources
 C:\ahead\Excel_Parse ver4\Excel_Parse\obj\Debug\Excel_Parse.TestForm.resources
 C:\ahead\Excel_Parse ver4\Excel_Parse\obj\Debug\Excel_Parse.csproj.GenerateResource.Cache
-C:\AheadProject\Excel_Parse ver4\Excel_Parse\obj\Debug\Excel_Parse.SemCoreView.resources
-C:\AheadProject\Excel_Parse ver4\Excel_Parse\obj\Debug\Excel_Parse.SemStatistics.resources
-C:\AheadProject\Excel_Parse ver4\Excel_Parse\obj\Debug\Excel_Parse.TestForm.resources
