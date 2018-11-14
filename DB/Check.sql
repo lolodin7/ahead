@@ -75,3 +75,6 @@ SELECT * FROM SemCore WHERE ProductTypeId = 1 AND CategoryId = 6
 select * from KeywordCategory
 INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
 VALUES ('мир', 1)
+
+
+SELECT * FROM Products WHERE ProductId = 2

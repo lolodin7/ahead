@@ -32,6 +32,17 @@ namespace Excel_Parse
             GetProductTypes();
         }
 
+        public Products()
+        {
+            InitializeComponent();
+            connection = DBData.GetDBConnection();
+            CurrentEditingRowIndex = -1;
+            NewProductCount = 0;
+
+            GetProducts();
+            GetProductTypes();
+        }
+
         /* Получаем список товаров с БД */
         private void GetProducts()
         {

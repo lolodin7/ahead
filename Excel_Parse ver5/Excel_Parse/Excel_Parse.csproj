@@ -100,6 +100,8 @@
     <Compile Include="Products.Designer.cs">
       <DependentUpon>Products.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProductsController.cs" />
+    <Compile Include="ProductsModel.cs" />
     <Compile Include="ProductTypesController.cs" />
     <Compile Include="ProductTypesModel.cs" />
     <Compile Include="ProductTypesView.cs">

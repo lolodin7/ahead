@@ -158,7 +158,6 @@ C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.Properties.Resources
 C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.Semantics.resources
 C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.SemCoreRebuild.resources
 C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.SemStatistics.resources
-C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.TestForm.resources
 C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.csproj.GenerateResource.Cache
 C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.KeywordCategoryView.resources
 C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.ProductTypesView.resources
