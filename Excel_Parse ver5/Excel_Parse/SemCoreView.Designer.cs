@@ -51,8 +51,8 @@
             this.tb_Link = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btn_SelectAll = new System.Windows.Forms.Button();
             this.btn_DeselectAll = new System.Windows.Forms.Button();
+            this.btn_SelectAll = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Source)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Target)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -259,6 +259,7 @@
             this.tb_Link.Name = "tb_Link";
             this.tb_Link.Size = new System.Drawing.Size(305, 20);
             this.tb_Link.TabIndex = 20;
+            this.tb_Link.Text = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=";
             // 
             // checkBox1
             // 
@@ -292,16 +293,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Управление";
             // 
-            // btn_SelectAll
-            // 
-            this.btn_SelectAll.Location = new System.Drawing.Point(44, 348);
-            this.btn_SelectAll.Name = "btn_SelectAll";
-            this.btn_SelectAll.Size = new System.Drawing.Size(121, 23);
-            this.btn_SelectAll.TabIndex = 19;
-            this.btn_SelectAll.Text = "Выделить всё";
-            this.btn_SelectAll.UseVisualStyleBackColor = true;
-            this.btn_SelectAll.Click += new System.EventHandler(this.btn_SelectAll_Click);
-            // 
             // btn_DeselectAll
             // 
             this.btn_DeselectAll.Location = new System.Drawing.Point(224, 348);
@@ -311,6 +302,16 @@
             this.btn_DeselectAll.Text = "Снять выделение";
             this.btn_DeselectAll.UseVisualStyleBackColor = true;
             this.btn_DeselectAll.Click += new System.EventHandler(this.btn_DeselectAll_Click);
+            // 
+            // btn_SelectAll
+            // 
+            this.btn_SelectAll.Location = new System.Drawing.Point(44, 348);
+            this.btn_SelectAll.Name = "btn_SelectAll";
+            this.btn_SelectAll.Size = new System.Drawing.Size(121, 23);
+            this.btn_SelectAll.TabIndex = 19;
+            this.btn_SelectAll.Text = "Выделить всё";
+            this.btn_SelectAll.UseVisualStyleBackColor = true;
+            this.btn_SelectAll.Click += new System.EventHandler(this.btn_SelectAll_Click);
             // 
             // SemCoreView
             // 

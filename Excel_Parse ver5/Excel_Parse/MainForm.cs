@@ -38,7 +38,7 @@ namespace Excel_Parse
 
         private void btn_DoProducts_Click(object sender, EventArgs e)
         {
-            Products products = new Products(this);
+            ProductsView products = new ProductsView(this);
             products.Show();
             this.Visible = false;
         }

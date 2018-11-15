@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Excel_Parse
 {
-    public partial class Products : Form
+    public partial class ProductsView : Form
     {
         private SqlConnection connection;
         private int ProductId;
@@ -20,13 +20,24 @@ namespace Excel_Parse
         private int LastProductId;              //для корректного присвоения ProductId для новых товаров 
         MainForm mf;
 
-        public Products(MainForm _mf)
+        public ProductsView(MainForm _mf)
         {
             InitializeComponent();
             connection = DBData.GetDBConnection();
             CurrentEditingRowIndex = -1;
             NewProductCount = 0;
             mf = _mf;
+
+            GetProducts();
+            GetProductTypes();
+        }
+
+        public ProductsView()
+        {
+            InitializeComponent();
+            connection = DBData.GetDBConnection();
+            CurrentEditingRowIndex = -1;
+            NewProductCount = 0;
 
             GetProducts();
             GetProductTypes();

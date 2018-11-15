@@ -8,6 +8,14 @@ namespace Excel_Parse
 {
     class ProductsController
     {
+        private ProductTypesController ptController;
+        private List<ProductTypesModel> ptList;
 
+        public ProductsController()
+        {
+            ptController = new ProductTypesController(this);
+
+
+        }
     }
 }

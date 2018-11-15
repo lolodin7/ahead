@@ -13,8 +13,9 @@ namespace Excel_Parse
     {
         private SqlConnection connection;
         private SqlCommand command;
-        private ProductTypesView controlForm1;        //для вызова методов из формы View (для передачи данных)
-        private SemCoreView controlForm2;
+        private ProductTypesView controlFormProductTypesView;        //для вызова методов из формы View (для передачи данных)
+        private SemCoreView controlFormSemCoreView;
+        private ProductsView controlFormProductsView;
 
         public List<ProductTypesModel> ptList;       //список объектов (по факту, каждый элемент - одна строка из БД)
 
@@ -22,16 +23,22 @@ namespace Excel_Parse
         public ProductTypesController(ProductTypesView _controlForm)
         {
             connection = DBData.GetDBConnection();
-            controlForm1 = _controlForm;
+            controlFormProductTypesView = _controlForm;
         }
 
         /* Конструктор */
         public ProductTypesController(SemCoreView _controlForm)
         {
             connection = DBData.GetDBConnection();
-            controlForm2 = _controlForm;
+            controlFormSemCoreView = _controlForm;
         }
 
+        /* Конструктор */
+        public ProductTypesController(ProductsView _controlForm)
+        {
+            connection = DBData.GetDBConnection();
+            controlFormProductsView = _controlForm;
+        }
 
         public bool GetProductTypesAll()
         {
@@ -81,10 +88,12 @@ namespace Excel_Parse
                 reader.Close();
                 connection.Close();
 
-                if (controlForm1 != null)                               //вызывает нужный метод в зависимости, из какой формы нас вызывают
-                    controlForm1.GetProductTypesFromDB(ptList);
-                else if (controlForm2 != null)
-                    controlForm2.GetProductTypesFromDB(ptList);
+                if (controlFormProductTypesView != null)                               //вызывает нужный метод в зависимости, из какой формы нас вызывают
+                    controlFormProductTypesView.GetProductTypesFromDB(ptList);
+                else if (controlFormSemCoreView != null)
+                    controlFormSemCoreView.GetProductTypesFromDB(ptList);
+                //else if (controlFormProductsView != null)
+                //    controlFormProductsView.GetProductTypesFromDB();
                 return true;
             }
             catch (Exception ex)

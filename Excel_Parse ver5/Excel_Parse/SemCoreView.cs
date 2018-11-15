@@ -172,6 +172,24 @@ namespace Excel_Parse
                 //Uncheck
                 dgv_UnCheck((DataGridView)sender);
                 e.Handled = true;
+            } else if (e.KeyCode == Keys.Space)
+            {
+                if (dgv_Source.RowCount > 0)
+                {
+                    DataGridView send = (DataGridView)sender;
+                    string str = dgv_Source.Rows[send.CurrentCellAddress.Y].Cells[send.CurrentCellAddress.X].Value.ToString();
+                    System.Diagnostics.Process.Start(tb_Link.Text + dgv_Source.Rows[send.CurrentCellAddress.Y].Cells[send.CurrentCellAddress.X].Value.ToString());
+                    e.Handled = true;
+                }
+            }
+        }
+
+        /* Ищем на амазоне товары по ключу, на который дважды ЛКМ */
+        private void dgv_Source_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+            {
+                System.Diagnostics.Process.Start(tb_Link.Text + dgv_Source.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
             }
         }
 
@@ -213,8 +231,10 @@ namespace Excel_Parse
         private void dgv_UnCheck(DataGridView sender)
         {
             if (sender.CurrentCellAddress.X == 0)
+            {
                 sender.Rows[sender.CurrentCellAddress.Y].Cells[sender.CurrentCellAddress.X].Style.ForeColor = Color.Black;
-            Refresh_dgvTarget_Del();
+                Refresh_dgvTarget_Del();
+            }
         }
 
         /* Удаляем ключ из dgv_Target при снятии его выделения в dgv_Source */
@@ -264,15 +284,6 @@ namespace Excel_Parse
         private void btn_Help_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Для начала откройте файл с ключевыми словами при помощи кнопки \"Загрузить другой файл\".\n\nИспользуйте клавишу \"C\" для выделения ключевого слова.\nИспользуйте клавишу \"X\" для снятия выделения ключевого слова.\n\nДважды клацните ЛКМ по ключевому слову, чтобы просмотреть его на Amazon.", "Помощь");
-        }
-
-        /* Ищем на амазоне товары по ключу, на который дважды ЛКМ */
-        private void dgv_Source_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 0)
-            {
-                System.Diagnostics.Process.Start(tb_Link.Text + dgv_Source.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
-            }
         }
 
         /* Ищем на амазоне товары по ключу, на который дважды ЛКМ */

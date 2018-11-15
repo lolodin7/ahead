@@ -24,11 +24,27 @@ namespace Excel_Parse
         private string str_UploadedKeys = "Загруженные ключи";
         private string str_UpdatedKeys = "Обновленные ключи";
 
+        string urlAmazon = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=";
+
         public SemCoreRebuild(Form _mf)
         {
             InitializeComponent();
             connection = DBData.GetDBConnection();
             mf = _mf;
+            lb_NewKeys.Text = str_NewKeys;
+            lb_UpdatedKeys.Text = str_UpdatedKeys;
+            lb_UploadedKeys.Text = str_UploadedKeys;
+
+            GetProductTypes();
+            GetCategories();
+            GetKeywords();
+            firstLoad = false;
+        }
+
+        public SemCoreRebuild()
+        {
+            InitializeComponent();
+            connection = DBData.GetDBConnection();
             lb_NewKeys.Text = str_NewKeys;
             lb_UpdatedKeys.Text = str_UpdatedKeys;
             lb_UploadedKeys.Text = str_UploadedKeys;
@@ -94,6 +110,12 @@ namespace Excel_Parse
                     GetCategories();
                     GetKeywords();
                     firstLoad = false;
+
+                    lb_UploadedKeys.Text = str_UploadedKeys + " (" + dgv_Source.RowCount + ")";
+                    lb_NewKeys.Text = str_NewKeys;
+                    lb_UpdatedKeys.Text = str_UpdatedKeys;
+
+                    dgv_Source.Focus();
                 }
                 catch (Exception ex)
                 {
@@ -107,10 +129,6 @@ namespace Excel_Parse
             if (SavedStatus)
             {
                 OpenNewFile();
-
-                lb_UploadedKeys.Text = str_UploadedKeys + " (" + dgv_Source.RowCount + ")";
-                lb_NewKeys.Text = str_NewKeys;
-                lb_UpdatedKeys.Text = str_UpdatedKeys;
             }
             else
             {
@@ -118,16 +136,10 @@ namespace Excel_Parse
                 {
                     SetDataToDB();
                     OpenNewFile();
-                    lb_UploadedKeys.Text = str_UploadedKeys + " (" + dgv_Source.RowCount + ")";
-                    lb_NewKeys.Text = str_NewKeys;
-                    lb_UpdatedKeys.Text = str_UpdatedKeys;
                 }
                 else
                 {
                     OpenNewFile();
-                    lb_UploadedKeys.Text = str_UploadedKeys + " (" + dgv_Source.RowCount + ")";
-                    lb_NewKeys.Text = str_NewKeys;
-                    lb_UpdatedKeys.Text = str_UpdatedKeys;
                 }
             }
         }
@@ -152,6 +164,16 @@ namespace Excel_Parse
                 dgv_UnCheck((DataGridView)sender);
                 e.Handled = true;
             }
+            else if (e.KeyCode == Keys.Space)
+            {
+                if (dgv_Source.RowCount > 0)
+                {
+                    DataGridView send = (DataGridView)sender;
+                    string str = dgv_Source.Rows[send.CurrentCellAddress.Y].Cells[send.CurrentCellAddress.X].Value.ToString();
+                    System.Diagnostics.Process.Start(tb_Link.Text + dgv_Source.Rows[send.CurrentCellAddress.Y].Cells[send.CurrentCellAddress.X].Value.ToString());
+                    e.Handled = true;
+                }
+            }
         }
 
         /* Помечаем ключ в таблице dgv_Source */
@@ -170,8 +192,10 @@ namespace Excel_Parse
         private void dgv_UnCheck(DataGridView sender)
         {
             if (sender.CurrentCellAddress.X == 0)
+            {
                 sender.Rows[sender.CurrentCellAddress.Y].Cells[sender.CurrentCellAddress.X].Style.ForeColor = Color.Black;
-            Refresh_dgvTarget_Del();
+                Refresh_dgvTarget_Del();
+            }
             
             lb_UpdatedKeys.Text = str_UpdatedKeys + " (" + dgv_Target.RowCount + ")";
         }
@@ -683,6 +707,20 @@ namespace Excel_Parse
 
             if (dgv_Source.RowCount > 0)
                 lb_UpdatedKeys.Text = str_UpdatedKeys + " (" + dgv_Target.RowCount + ")";
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                tb_Link.Enabled = true;
+            }
+            else
+            {
+                tb_Link.Enabled = false;
+                //mf.AmazonLink = tb_Link.Text;
+            }
+
         }
     }
 }

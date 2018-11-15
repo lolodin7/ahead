@@ -57,6 +57,8 @@
             this.Column17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btn_UnChekAll = new System.Windows.Forms.Button();
+            this.btn_CheckAll = new System.Windows.Forms.Button();
             this.btn_AddCategory = new System.Windows.Forms.Button();
             this.btn_KeysAreDone = new System.Windows.Forms.Button();
             this.lb_NewKeys = new System.Windows.Forms.Label();
@@ -74,8 +76,8 @@
             this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.btn_CheckAll = new System.Windows.Forms.Button();
-            this.btn_UnChekAll = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.tb_Link = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Source)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Target)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_NewKeys)).BeginInit();
@@ -125,7 +127,7 @@
             // 
             // btn_UploadFile
             // 
-            this.btn_UploadFile.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.btn_UploadFile.BackColor = System.Drawing.Color.LightGray;
             this.btn_UploadFile.FlatAppearance.BorderSize = 0;
             this.btn_UploadFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_UploadFile.Location = new System.Drawing.Point(123, 125);
@@ -322,7 +324,7 @@
             this.dgv_NewKeys.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dgv_NewKeys.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToFirstHeader;
             this.dgv_NewKeys.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv_NewKeys.Size = new System.Drawing.Size(410, 444);
+            this.dgv_NewKeys.Size = new System.Drawing.Size(410, 417);
             this.dgv_NewKeys.TabIndex = 19;
             // 
             // Column15
@@ -392,6 +394,26 @@
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Управление";
+            // 
+            // btn_UnChekAll
+            // 
+            this.btn_UnChekAll.Location = new System.Drawing.Point(282, 264);
+            this.btn_UnChekAll.Name = "btn_UnChekAll";
+            this.btn_UnChekAll.Size = new System.Drawing.Size(111, 25);
+            this.btn_UnChekAll.TabIndex = 18;
+            this.btn_UnChekAll.Text = "Снять выделение";
+            this.btn_UnChekAll.UseVisualStyleBackColor = true;
+            this.btn_UnChekAll.Click += new System.EventHandler(this.btn_UnChekAll_Click);
+            // 
+            // btn_CheckAll
+            // 
+            this.btn_CheckAll.Location = new System.Drawing.Point(13, 264);
+            this.btn_CheckAll.Name = "btn_CheckAll";
+            this.btn_CheckAll.Size = new System.Drawing.Size(111, 25);
+            this.btn_CheckAll.TabIndex = 17;
+            this.btn_CheckAll.Text = "Выделить всё";
+            this.btn_CheckAll.UseVisualStyleBackColor = true;
+            this.btn_CheckAll.Click += new System.EventHandler(this.btn_CheckAll_Click);
             // 
             // btn_AddCategory
             // 
@@ -522,31 +544,33 @@
             this.progressBar1.TabIndex = 25;
             this.progressBar1.Visible = false;
             // 
-            // btn_CheckAll
+            // checkBox1
             // 
-            this.btn_CheckAll.Location = new System.Drawing.Point(13, 264);
-            this.btn_CheckAll.Name = "btn_CheckAll";
-            this.btn_CheckAll.Size = new System.Drawing.Size(111, 25);
-            this.btn_CheckAll.TabIndex = 17;
-            this.btn_CheckAll.Text = "Выделить всё";
-            this.btn_CheckAll.UseVisualStyleBackColor = true;
-            this.btn_CheckAll.Click += new System.EventHandler(this.btn_CheckAll_Click);
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(930, 797);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(15, 14);
+            this.checkBox1.TabIndex = 27;
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
-            // btn_UnChekAll
+            // tb_Link
             // 
-            this.btn_UnChekAll.Location = new System.Drawing.Point(282, 264);
-            this.btn_UnChekAll.Name = "btn_UnChekAll";
-            this.btn_UnChekAll.Size = new System.Drawing.Size(111, 25);
-            this.btn_UnChekAll.TabIndex = 18;
-            this.btn_UnChekAll.Text = "Снять выделение";
-            this.btn_UnChekAll.UseVisualStyleBackColor = true;
-            this.btn_UnChekAll.Click += new System.EventHandler(this.btn_UnChekAll_Click);
+            this.tb_Link.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tb_Link.Enabled = false;
+            this.tb_Link.Location = new System.Drawing.Point(950, 794);
+            this.tb_Link.Name = "tb_Link";
+            this.tb_Link.Size = new System.Drawing.Size(305, 20);
+            this.tb_Link.TabIndex = 26;
+            this.tb_Link.Text = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=";
             // 
             // SemCoreRebuild
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1300, 826);
+            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.tb_Link);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.dgv_DBSource);
             this.Controls.Add(this.dgv_Categories);
@@ -573,6 +597,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Categories)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_DBSource)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -625,5 +650,7 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Button btn_UnChekAll;
         private System.Windows.Forms.Button btn_CheckAll;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.TextBox tb_Link;
     }
 }
