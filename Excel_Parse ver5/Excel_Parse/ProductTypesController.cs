@@ -92,8 +92,8 @@ namespace Excel_Parse
                     controlFormProductTypesView.GetProductTypesFromDB(ptList);
                 else if (controlFormSemCoreView != null)
                     controlFormSemCoreView.GetProductTypesFromDB(ptList);
-                //else if (controlFormProductsView != null)
-                //    controlFormProductsView.GetProductTypesFromDB();
+                else if (controlFormProductsView != null)
+                   controlFormProductsView.GetProductTypesFromDB(ptList);
                 return true;
             }
             catch (Exception ex)
