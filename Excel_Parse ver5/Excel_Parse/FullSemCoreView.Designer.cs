@@ -1,6 +1,6 @@
 ﻿namespace Excel_Parse
 {
-    partial class FullSemCore
+    partial class FullSemCoreView
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FullSemCore));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FullSemCoreView));
             this.dgv_Keywords = new System.Windows.Forms.DataGridView();
             this.ProdTypeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CategoryId = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -38,22 +38,15 @@
             this.SemCoreId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cb_ProductType = new System.Windows.Forms.ComboBox();
             this.cb_KeywordCategory = new System.Windows.Forms.ComboBox();
             this.lb_ProductType = new System.Windows.Forms.Label();
             this.lb_KeywordCategory = new System.Windows.Forms.Label();
-            this.dgv_Categories = new System.Windows.Forms.DataGridView();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgv_ProductTypes = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btn_GetKeywords = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Keywords)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_Categories)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_ProductTypes)).BeginInit();
             this.SuspendLayout();
             // 
             // dgv_Keywords
@@ -71,6 +64,7 @@
             this.SemCoreId,
             this.Column1,
             this.Column2,
+            this.Column8,
             this.Column3,
             this.Column4});
             this.dgv_Keywords.Location = new System.Drawing.Point(12, 12);
@@ -99,7 +93,7 @@
             // 
             // Keyword
             // 
-            this.Keyword.HeaderText = "Keyword";
+            this.Keyword.HeaderText = "Ключ";
             this.Keyword.Name = "Keyword";
             this.Keyword.ReadOnly = true;
             this.Keyword.Resizable = System.Windows.Forms.DataGridViewTriState.False;
@@ -108,7 +102,7 @@
             // 
             // Value
             // 
-            this.Value.HeaderText = "Value";
+            this.Value.HeaderText = "Частота";
             this.Value.Name = "Value";
             this.Value.ReadOnly = true;
             this.Value.Resizable = System.Windows.Forms.DataGridViewTriState.False;
@@ -150,6 +144,15 @@
             this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.Column2.Width = 200;
             // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "prdotypeID";
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
+            this.Column8.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column8.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Column8.Visible = false;
+            // 
             // Column3
             // 
             this.Column3.HeaderText = "prodTypeId";
@@ -176,7 +179,6 @@
             this.cb_ProductType.Name = "cb_ProductType";
             this.cb_ProductType.Size = new System.Drawing.Size(196, 21);
             this.cb_ProductType.TabIndex = 3;
-            this.cb_ProductType.SelectedIndexChanged += new System.EventHandler(this.cb_SelectedIndexChanged);
             // 
             // cb_KeywordCategory
             // 
@@ -186,7 +188,6 @@
             this.cb_KeywordCategory.Name = "cb_KeywordCategory";
             this.cb_KeywordCategory.Size = new System.Drawing.Size(196, 21);
             this.cb_KeywordCategory.TabIndex = 4;
-            this.cb_KeywordCategory.SelectedIndexChanged += new System.EventHandler(this.cb_SelectedIndexChanged);
             // 
             // lb_ProductType
             // 
@@ -206,68 +207,22 @@
             this.lb_KeywordCategory.Text = "Категория ключей";
             this.lb_KeywordCategory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // dgv_Categories
-            // 
-            this.dgv_Categories.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_Categories.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column5,
-            this.Column6});
-            this.dgv_Categories.Location = new System.Drawing.Point(699, 428);
-            this.dgv_Categories.Name = "dgv_Categories";
-            this.dgv_Categories.Size = new System.Drawing.Size(240, 150);
-            this.dgv_Categories.TabIndex = 25;
-            this.dgv_Categories.Visible = false;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "Column5";
-            this.Column5.Name = "Column5";
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "Column6";
-            this.Column6.Name = "Column6";
-            // 
-            // dgv_ProductTypes
-            // 
-            this.dgv_ProductTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_ProductTypes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2});
-            this.dgv_ProductTypes.Location = new System.Drawing.Point(933, 428);
-            this.dgv_ProductTypes.Name = "dgv_ProductTypes";
-            this.dgv_ProductTypes.Size = new System.Drawing.Size(319, 200);
-            this.dgv_ProductTypes.TabIndex = 24;
-            this.dgv_ProductTypes.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Column3";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Column4";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
             // btn_GetKeywords
             // 
             this.btn_GetKeywords.Location = new System.Drawing.Point(1084, 193);
             this.btn_GetKeywords.Name = "btn_GetKeywords";
             this.btn_GetKeywords.Size = new System.Drawing.Size(149, 42);
             this.btn_GetKeywords.TabIndex = 26;
-            this.btn_GetKeywords.Text = "Получить ключи";
+            this.btn_GetKeywords.Text = "Показать ключи";
             this.btn_GetKeywords.UseVisualStyleBackColor = true;
             this.btn_GetKeywords.Click += new System.EventHandler(this.btn_GetKeywords_Click);
             // 
-            // FullSemCore
+            // FullSemCoreView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1284, 761);
             this.Controls.Add(this.btn_GetKeywords);
-            this.Controls.Add(this.dgv_Categories);
-            this.Controls.Add(this.dgv_ProductTypes);
             this.Controls.Add(this.lb_KeywordCategory);
             this.Controls.Add(this.lb_ProductType);
             this.Controls.Add(this.cb_KeywordCategory);
@@ -275,13 +230,11 @@
             this.Controls.Add(this.dgv_Keywords);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "FullSemCore";
+            this.Name = "FullSemCoreView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Семантическая база";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FullSemCore_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Keywords)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_Categories)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_ProductTypes)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -289,6 +242,11 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgv_Keywords;
+        private System.Windows.Forms.ComboBox cb_ProductType;
+        private System.Windows.Forms.ComboBox cb_KeywordCategory;
+        private System.Windows.Forms.Label lb_ProductType;
+        private System.Windows.Forms.Label lb_KeywordCategory;
+        private System.Windows.Forms.Button btn_GetKeywords;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProdTypeId;
         private System.Windows.Forms.DataGridViewTextBoxColumn CategoryId;
         private System.Windows.Forms.DataGridViewTextBoxColumn Keyword;
@@ -297,18 +255,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn SemCoreId;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.ComboBox cb_ProductType;
-        private System.Windows.Forms.ComboBox cb_KeywordCategory;
-        private System.Windows.Forms.Label lb_ProductType;
-        private System.Windows.Forms.Label lb_KeywordCategory;
-        private System.Windows.Forms.DataGridView dgv_Categories;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.DataGridView dgv_ProductTypes;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.Button btn_GetKeywords;
     }
 }

@@ -16,6 +16,7 @@ namespace Excel_Parse
         private ProductTypesView controlFormProductTypesView;        //для вызова методов из формы View (для передачи данных)
         private SemCoreView controlFormSemCoreView;
         private ProductsView controlFormProductsView;
+        private FullSemCoreView controlFormFullSemCoreView;
 
         public List<ProductTypesModel> ptList;       //список объектов (по факту, каждый элемент - одна строка из БД)
 
@@ -38,6 +39,13 @@ namespace Excel_Parse
         {
             connection = DBData.GetDBConnection();
             controlFormProductsView = _controlForm;
+        }
+
+        /* Конструктор */
+        public ProductTypesController(FullSemCoreView _controlForm)
+        {
+            connection = DBData.GetDBConnection();
+            controlFormFullSemCoreView = _controlForm;
         }
 
         public bool GetProductTypesAll()
@@ -93,7 +101,9 @@ namespace Excel_Parse
                 else if (controlFormSemCoreView != null)
                     controlFormSemCoreView.GetProductTypesFromDB(ptList);
                 else if (controlFormProductsView != null)
-                   controlFormProductsView.GetProductTypesFromDB(ptList);
+                    controlFormProductsView.GetProductTypesFromDB(ptList);
+                else if (controlFormFullSemCoreView != null)
+                    controlFormFullSemCoreView.GetProducTypesFormDB(ptList);
                 return true;
             }
             catch (Exception ex)

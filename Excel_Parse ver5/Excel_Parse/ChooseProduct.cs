@@ -15,10 +15,10 @@ namespace Excel_Parse
     {
         private SqlConnection connection;
         public int ProductId { get; set; }
-        private MainForm mf;
+        private MainFormView mf;
         bool OpenSuccess;
 
-        public ChooseProduct(MainForm _mf)
+        public ChooseProduct(MainFormView _mf)
         {
             InitializeComponent();
             connection = DBData.GetDBConnection();

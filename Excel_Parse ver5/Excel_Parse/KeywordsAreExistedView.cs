@@ -11,7 +11,7 @@ using Microsoft.Office.Interop.Excel;
 
 namespace Excel_Parse
 {
-    public partial class KeywordsAreExisted : Form
+    public partial class KeywordsAreExistedView : Form
     {
         private string[,] arr;
         private string choosenCategory;
@@ -19,11 +19,25 @@ namespace Excel_Parse
 
         private string informationString = "Представленные в таблице ключи, вероятно, уже существуют в БД, но относятся к категории, отличной от указанной Вами. \nВы можете сохранить эти ключи путем экспорта их в *.xlsx файл (кнопка \"Экспорт\") или изменить их категорию и попробовать еще раз (кнопка \"Редактировать\").";
 
-        public KeywordsAreExisted(string[,] _arr, string _category)
+        private SemCoreRebuild semCoreRebuild;
+
+        public KeywordsAreExistedView(string[,] _arr, string _category)
         {
             InitializeComponent();
             arr = _arr;
             choosenCategory = _category;
+            lb_Information.Text = informationString;
+
+            FillDGV();
+            lb_KeysCount.Text = "Всего ключей: " + dgv_Keywords.RowCount;
+            MessageBox.Show(str + "(категория: " + choosenCategory + ").", "Внимание");
+
+            semCoreRebuild = new SemCoreRebuild();
+        }
+
+        public KeywordsAreExistedView()
+        {
+            InitializeComponent();
             lb_Information.Text = informationString;
 
             FillDGV();
@@ -98,9 +112,10 @@ namespace Excel_Parse
             
         }
 
+        /* Редактировать */
         private void btn_Edit_Click(object sender, EventArgs e)
         {
-            FullSemCore fsc = new FullSemCore(this);
+            FullSemCoreView fsc = new FullSemCoreView(this, arr);
             if (fsc.ShowDialog() == DialogResult.OK)
             {
                 this.DialogResult = DialogResult.OK;
@@ -108,8 +123,16 @@ namespace Excel_Parse
             }
         }
 
+        /* Загрузить и обновить */
         private void btn_SetAndInsertKeys_Click(object sender, EventArgs e)
         {
+            for (int i = 0; i < dgv_Keywords.RowCount; i++)
+            {
+                arr[i, 0] = dgv_Keywords.Rows[i].Cells[0].Value.ToString();
+                arr[i, 1] = dgv_Keywords.Rows[i].Cells[1].Value.ToString();
+            }
+
+            semCoreRebuild.GetKeywordsFromKeywordsAreExisted(arr);
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

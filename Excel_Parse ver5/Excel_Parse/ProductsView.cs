@@ -21,10 +21,10 @@ namespace Excel_Parse
         private ProductTypesController ptController;
         private List<ProductTypesModel> ptList;
 
-        private MainForm mf;
+        private MainFormView mf;
 
         /* Конструктор */
-        public ProductsView(MainForm _mf)
+        public ProductsView(MainFormView _mf)
         {
             InitializeComponent();
             connection = DBData.GetDBConnection();

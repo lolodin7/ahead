@@ -21,7 +21,7 @@ namespace Excel_Parse
         private SqlConnection connection;
 
 
-        public ProductTypesView(MainForm _mf)
+        public ProductTypesView(MainFormView _mf)
         {
             InitializeComponent();
             CurrentColumnCount = 0;

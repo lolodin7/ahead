@@ -1,6 +1,6 @@
 ﻿namespace Excel_Parse
 {
-    partial class KeywordsAreExisted
+    partial class KeywordsAreExistedView
     {
         /// <summary>
         /// Required designer variable.
@@ -28,8 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KeywordsAreExisted));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KeywordsAreExistedView));
             this.dgv_Keywords = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.categoryId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.categoryName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.keywordCategoryId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btn_Export = new System.Windows.Forms.Button();
             this.btn_Edit = new System.Windows.Forms.Button();
             this.btn_Close = new System.Windows.Forms.Button();
@@ -38,11 +43,6 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.lb_KeysCount = new System.Windows.Forms.Label();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.categoryId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.categoryName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.keywordCategoryId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Keywords)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,6 +62,37 @@
             this.dgv_Keywords.ReadOnly = true;
             this.dgv_Keywords.Size = new System.Drawing.Size(646, 565);
             this.dgv_Keywords.TabIndex = 0;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Keyword";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 250;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Value";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // categoryId
+            // 
+            this.categoryId.HeaderText = "categoryId";
+            this.categoryId.Name = "categoryId";
+            this.categoryId.ReadOnly = true;
+            // 
+            // categoryName
+            // 
+            this.categoryName.HeaderText = "categoryName";
+            this.categoryName.Name = "categoryName";
+            this.categoryName.ReadOnly = true;
+            // 
+            // keywordCategoryId
+            // 
+            this.keywordCategoryId.HeaderText = "keywordCategoryId";
+            this.keywordCategoryId.Name = "keywordCategoryId";
+            this.keywordCategoryId.ReadOnly = true;
             // 
             // btn_Export
             // 
@@ -95,9 +126,9 @@
             // 
             // lb_Information
             // 
-            this.lb_Information.Location = new System.Drawing.Point(643, 12);
+            this.lb_Information.Location = new System.Drawing.Point(668, 12);
             this.lb_Information.Name = "lb_Information";
-            this.lb_Information.Size = new System.Drawing.Size(184, 169);
+            this.lb_Information.Size = new System.Drawing.Size(159, 169);
             this.lb_Information.TabIndex = 4;
             this.lb_Information.Text = resources.GetString("lb_Information.Text");
             // 
@@ -130,37 +161,6 @@
             this.lb_KeysCount.TabIndex = 7;
             this.lb_KeysCount.Text = "label1";
             this.lb_KeysCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Keyword";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 250;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Value";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // categoryId
-            // 
-            this.categoryId.HeaderText = "categoryId";
-            this.categoryId.Name = "categoryId";
-            this.categoryId.ReadOnly = true;
-            // 
-            // categoryName
-            // 
-            this.categoryName.HeaderText = "categoryName";
-            this.categoryName.Name = "categoryName";
-            this.categoryName.ReadOnly = true;
-            // 
-            // keywordCategoryId
-            // 
-            this.keywordCategoryId.HeaderText = "keywordCategoryId";
-            this.keywordCategoryId.Name = "keywordCategoryId";
-            this.keywordCategoryId.ReadOnly = true;
             // 
             // KeywordsAreExisted
             // 

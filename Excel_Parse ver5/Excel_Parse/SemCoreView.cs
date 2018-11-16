@@ -25,13 +25,13 @@ namespace Excel_Parse
 
         private int CurrentColumnCount;
         
-        private MainForm mf;
+        private MainFormView mf;
         private bool SavedStatus = true;
         private string path = "";
 
 
         /* Конструктор */
-        public SemCoreView(MainForm _mf)
+        public SemCoreView(MainFormView _mf)
         {
             InitializeComponent();
             CurrentColumnCount = 0;

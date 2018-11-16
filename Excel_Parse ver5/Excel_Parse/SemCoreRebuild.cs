@@ -24,6 +24,8 @@ namespace Excel_Parse
         private string str_UploadedKeys = "Загруженные ключи";
         private string str_UpdatedKeys = "Обновленные ключи";
 
+        string[,] myArr;
+
         string urlAmazon = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=";
 
         public SemCoreRebuild(Form _mf)
@@ -64,6 +66,16 @@ namespace Excel_Parse
             dgv_ProductTypes.Rows.Clear();
             dgv_Categories.Rows.Clear();
         }
+
+        /* Получили список ключей после их ручного изменения в KeywordsAreExisted */
+        public void GetKeywordsFromKeywordsAreExisted(string[,] _arr)
+        {
+            myArr = _arr;
+        }
+
+
+
+
 
         public void OpenNewFile()
         {
@@ -575,7 +587,7 @@ namespace Excel_Parse
 
             if (error)
             {
-                KeywordsAreExisted kae = new KeywordsAreExisted(_arr, cb_KeywordCategory.SelectedItem.ToString());
+                KeywordsAreExistedView kae = new KeywordsAreExistedView(_arr, cb_KeywordCategory.SelectedItem.ToString());
                 if (kae.ShowDialog() == DialogResult.OK)
                 {
                     Fill_dgv_Source_ByExistingKeys(_arr);

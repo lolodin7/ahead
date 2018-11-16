@@ -26,9 +26,9 @@ namespace Excel_Parse
 
         private bool CheckForUnsavedChanges;        //чтобы не закрыть прогу без сохранения
         private bool reverseDescriptionTransform;
-        MainForm mf;
+        MainFormView mf;
 
-        public Semantics(int _productId, MainForm _mf)
+        public Semantics(int _productId, MainFormView _mf)
         {
             InitializeComponent();
 

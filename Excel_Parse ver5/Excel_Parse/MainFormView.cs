@@ -11,11 +11,11 @@ using System.Windows.Forms;
 
 namespace Excel_Parse
 {
-    public partial class MainForm : Form
+    public partial class MainFormView : Form
     {
         private SqlConnection connection;
         public string AmazonLink { get; set; }
-        public MainForm()
+        public MainFormView()
         {
             InitializeComponent();
             connection = DBData.GetDBConnection();
@@ -66,7 +66,7 @@ namespace Excel_Parse
 
         private void btn_ShowAllKeywords_Click(object sender, EventArgs e)
         {
-            FullSemCore fsc = new FullSemCore(this);
+            FullSemCoreView fsc = new FullSemCoreView(this);
             fsc.Show();
             this.Visible = false;
         }

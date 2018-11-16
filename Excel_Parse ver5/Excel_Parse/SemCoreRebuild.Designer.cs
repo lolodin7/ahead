@@ -78,6 +78,7 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tb_Link = new System.Windows.Forms.TextBox();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Source)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Target)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_NewKeys)).BeginInit();
@@ -472,7 +473,8 @@
             this.dgv_Categories.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Categories.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column5,
-            this.Column6});
+            this.Column6,
+            this.Column9});
             this.dgv_Categories.Location = new System.Drawing.Point(268, 733);
             this.dgv_Categories.Name = "dgv_Categories";
             this.dgv_Categories.Size = new System.Drawing.Size(240, 150);
@@ -564,6 +566,11 @@
             this.tb_Link.TabIndex = 26;
             this.tb_Link.Text = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=";
             // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "Column9";
+            this.Column9.Name = "Column9";
+            // 
             // SemCoreRebuild
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -652,5 +659,6 @@
         private System.Windows.Forms.Button btn_CheckAll;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.TextBox tb_Link;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
     }
 }

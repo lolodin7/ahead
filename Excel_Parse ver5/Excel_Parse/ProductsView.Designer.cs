@@ -37,9 +37,6 @@
             this.ProductTypeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductTypeId2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductTypeNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgv_ProductTypes = new System.Windows.Forms.DataGridView();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tb_editing_ProductName = new System.Windows.Forms.TextBox();
             this.tb_editing_ASIN = new System.Windows.Forms.TextBox();
             this.tb_editing_SKU = new System.Windows.Forms.TextBox();
@@ -67,7 +64,6 @@
             this.tb_adding_SKU = new System.Windows.Forms.TextBox();
             this.cb_adding_ProductTypes = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Products)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_ProductTypes)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -153,28 +149,6 @@
             this.ProductTypeNameColumn.Name = "ProductTypeNameColumn";
             this.ProductTypeNameColumn.ReadOnly = true;
             this.ProductTypeNameColumn.Width = 230;
-            // 
-            // dgv_ProductTypes
-            // 
-            this.dgv_ProductTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_ProductTypes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column2,
-            this.Column3});
-            this.dgv_ProductTypes.Location = new System.Drawing.Point(465, 650);
-            this.dgv_ProductTypes.Name = "dgv_ProductTypes";
-            this.dgv_ProductTypes.Size = new System.Drawing.Size(240, 150);
-            this.dgv_ProductTypes.TabIndex = 1;
-            this.dgv_ProductTypes.Visible = false;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Column2";
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Column3";
-            this.Column3.Name = "Column3";
             // 
             // tb_editing_ProductName
             // 
@@ -445,7 +419,6 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btn_Help);
-            this.Controls.Add(this.dgv_ProductTypes);
             this.Controls.Add(this.dgv_Products);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -454,7 +427,6 @@
             this.Text = "Управление товарами";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Products_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Products)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_ProductTypes)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -466,9 +438,6 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgv_Products;
-        private System.Windows.Forms.DataGridView dgv_ProductTypes;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.TextBox tb_editing_ProductName;
         private System.Windows.Forms.TextBox tb_editing_ASIN;
         private System.Windows.Forms.TextBox tb_editing_SKU;

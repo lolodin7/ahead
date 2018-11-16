@@ -16,7 +16,7 @@ namespace Excel_Parse
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ProductsView());
+            Application.Run(new SemCoreRebuild());
         }
     }
 }

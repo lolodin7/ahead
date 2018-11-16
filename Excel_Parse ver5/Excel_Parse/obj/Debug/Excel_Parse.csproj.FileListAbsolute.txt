@@ -149,9 +149,6 @@ C:\ahead\Excel_Parse ver5\Excel_Parse\bin\Debug\MySql.Data.DLL
 C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.csprojResolveAssemblyReference.cache
 C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.ChooseProduct.resources
 C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.FieldsLength.resources
-C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.FullSemCore.resources
-C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.KeywordsAreExisted.resources
-C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.MainForm.resources
 C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.SemCoreView.resources
 C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.Properties.Resources.resources
 C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.Semantics.resources
@@ -181,3 +178,6 @@ C:\AheadProject\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.SemCoreRebuil
 C:\AheadProject\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.SemStatistics.resources
 C:\AheadProject\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.csproj.GenerateResource.Cache
 C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.ProductsView.resources
+C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.FullSemCoreView.resources
+C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.KeywordsAreExistedView.resources
+C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.MainFormView.resources

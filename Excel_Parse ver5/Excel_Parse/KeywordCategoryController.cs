@@ -13,8 +13,9 @@ namespace Excel_Parse
     {
         private SqlConnection connection;
         private SqlCommand command;
-        private KeywordCategoryView controlForm1;        //для вызова методов из формы View (для передачи данных)
-        private SemCoreView controlForm2;
+        private KeywordCategoryView controlFormKeywordCategoryView;        //для вызова методов из формы View (для передачи данных)
+        private SemCoreView controlFormSemCoreView;
+        private FullSemCoreView controlFormFullSemCoreView;
 
 
         public List<KeywordCategoryModel> kcList;       //список объектов (по факту, каждый элемент - одна строка из БД)
@@ -23,14 +24,21 @@ namespace Excel_Parse
         public KeywordCategoryController(KeywordCategoryView _controlForm)
         {
             connection = DBData.GetDBConnection();
-            controlForm1 = _controlForm;
+            controlFormKeywordCategoryView = _controlForm;
         }
 
         /* Конструктор */
         public KeywordCategoryController(SemCoreView _controlForm)
         {
             connection = DBData.GetDBConnection();
-            controlForm2 = _controlForm;            
+            controlFormSemCoreView = _controlForm;            
+        }
+
+        /* Конструктор */
+        public KeywordCategoryController(FullSemCoreView _controlForm)
+        {
+            connection = DBData.GetDBConnection();
+            controlFormFullSemCoreView = _controlForm;
         }
 
 
@@ -89,10 +97,12 @@ namespace Excel_Parse
                 reader.Close();
                 connection.Close();
 
-                if (controlForm1 != null)                       //вызывает нужный метод в зависимости, из какой формы нас вызывают
-                    controlForm1.GetCategoriesFromDB(kcList);
-                else if (controlForm2 != null)
-                    controlForm2.GetCategoriesFromDB(kcList);
+                if (controlFormKeywordCategoryView != null)                       //вызывает нужный метод в зависимости, из какой формы нас вызывают
+                    controlFormKeywordCategoryView.GetCategoriesFromDB(kcList);
+                else if (controlFormSemCoreView != null)
+                    controlFormSemCoreView.GetCategoriesFromDB(kcList);
+                else if (controlFormFullSemCoreView != null)
+                    controlFormFullSemCoreView.GetCategoriesFromDB(kcList);
                 return true;
             }
             catch (Exception ex)

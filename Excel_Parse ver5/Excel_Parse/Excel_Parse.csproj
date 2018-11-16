@@ -68,12 +68,14 @@
     <Compile Include="FieldsLength.Designer.cs">
       <DependentUpon>FieldsLength.cs</DependentUpon>
     </Compile>
-    <Compile Include="FullSemCore.cs">
+    <Compile Include="FullSemCoreView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FullSemCore.Designer.cs">
-      <DependentUpon>FullSemCore.cs</DependentUpon>
+    <Compile Include="FullSemCoreView.Designer.cs">
+      <DependentUpon>FullSemCoreView.cs</DependentUpon>
     </Compile>
+    <Compile Include="FullSemCoreController.cs" />
+    <Compile Include="FullSemCoreModel.cs" />
     <Compile Include="KeywordCategoryController.cs" />
     <Compile Include="KeywordCategoryModel.cs" />
     <Compile Include="KeywordCategoryView.cs">
@@ -82,17 +84,17 @@
     <Compile Include="KeywordCategoryView.Designer.cs">
       <DependentUpon>KeywordCategoryView.cs</DependentUpon>
     </Compile>
-    <Compile Include="KeywordsAreExisted.cs">
+    <Compile Include="KeywordsAreExistedView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="KeywordsAreExisted.Designer.cs">
-      <DependentUpon>KeywordsAreExisted.cs</DependentUpon>
+    <Compile Include="KeywordsAreExistedView.Designer.cs">
+      <DependentUpon>KeywordsAreExistedView.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="MainFormView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <Compile Include="MainFormView.Designer.cs">
+      <DependentUpon>MainFormView.cs</DependentUpon>
     </Compile>
     <Compile Include="ProductsView.cs">
       <SubType>Form</SubType>
@@ -145,17 +147,17 @@
     <EmbeddedResource Include="FieldsLength.resx">
       <DependentUpon>FieldsLength.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FullSemCore.resx">
-      <DependentUpon>FullSemCore.cs</DependentUpon>
+    <EmbeddedResource Include="FullSemCoreView.resx">
+      <DependentUpon>FullSemCoreView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KeywordCategoryView.resx">
       <DependentUpon>KeywordCategoryView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KeywordsAreExisted.resx">
-      <DependentUpon>KeywordsAreExisted.cs</DependentUpon>
+    <EmbeddedResource Include="KeywordsAreExistedView.resx">
+      <DependentUpon>KeywordsAreExistedView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <EmbeddedResource Include="MainFormView.resx">
+      <DependentUpon>MainFormView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProductsView.resx">
       <DependentUpon>ProductsView.cs</DependentUpon>

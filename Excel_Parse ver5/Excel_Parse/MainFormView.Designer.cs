@@ -1,6 +1,6 @@
 ﻿namespace Excel_Parse
 {
-    partial class MainForm
+    partial class MainFormView
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainFormView));
             this.btn_DoSemCore = new System.Windows.Forms.Button();
             this.btn_DoSemantics = new System.Windows.Forms.Button();
             this.btn_DoRewriteSemCore = new System.Windows.Forms.Button();
