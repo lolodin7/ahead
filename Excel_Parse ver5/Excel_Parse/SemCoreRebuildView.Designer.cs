@@ -1,6 +1,6 @@
 ﻿namespace Excel_Parse
 {
-    partial class SemCoreRebuild
+    partial class SemCoreRebuildView
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SemCoreRebuild));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SemCoreRebuildView));
             this.cb_KeywordCategory = new System.Windows.Forms.ComboBox();
             this.lb_KeywordCategory = new System.Windows.Forms.Label();
             this.cb_ProductType = new System.Windows.Forms.ComboBox();

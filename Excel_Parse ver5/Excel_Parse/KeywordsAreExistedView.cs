@@ -19,7 +19,7 @@ namespace Excel_Parse
 
         private string informationString = "Представленные в таблице ключи, вероятно, уже существуют в БД, но относятся к категории, отличной от указанной Вами. \nВы можете сохранить эти ключи путем экспорта их в *.xlsx файл (кнопка \"Экспорт\") или изменить их категорию и попробовать еще раз (кнопка \"Редактировать\").";
 
-        private SemCoreRebuild semCoreRebuild;
+        private SemCoreRebuildView semCoreRebuild;
 
         public KeywordsAreExistedView(string[,] _arr, string _category)
         {
@@ -32,7 +32,7 @@ namespace Excel_Parse
             lb_KeysCount.Text = "Всего ключей: " + dgv_Keywords.RowCount;
             MessageBox.Show(str + "(категория: " + choosenCategory + ").", "Внимание");
 
-            semCoreRebuild = new SemCoreRebuild();
+            semCoreRebuild = new SemCoreRebuildView();
         }
 
         public KeywordsAreExistedView()

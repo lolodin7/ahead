@@ -114,6 +114,7 @@
     </Compile>
     <Compile Include="SemanticsData.cs" />
     <Compile Include="SemCoreModel.cs" />
+    <Compile Include="SemCoreRebuildModel.cs" />
     <Compile Include="SemCoreView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,11 +130,11 @@
       <DependentUpon>Semantics.cs</DependentUpon>
     </Compile>
     <Compile Include="SemCoreController.cs" />
-    <Compile Include="SemCoreRebuild.cs">
+    <Compile Include="SemCoreRebuildView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SemCoreRebuild.Designer.cs">
-      <DependentUpon>SemCoreRebuild.cs</DependentUpon>
+    <Compile Include="SemCoreRebuildView.Designer.cs">
+      <DependentUpon>SemCoreRebuildView.cs</DependentUpon>
     </Compile>
     <Compile Include="SemStatistics.cs">
       <SubType>Form</SubType>
@@ -180,8 +181,8 @@
     <EmbeddedResource Include="Semantics.resx">
       <DependentUpon>Semantics.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SemCoreRebuild.resx">
-      <DependentUpon>SemCoreRebuild.cs</DependentUpon>
+    <EmbeddedResource Include="SemCoreRebuildView.resx">
+      <DependentUpon>SemCoreRebuildView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SemStatistics.resx">
       <DependentUpon>SemStatistics.cs</DependentUpon>

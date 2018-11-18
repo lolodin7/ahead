@@ -59,7 +59,7 @@ namespace Excel_Parse
 
         private void btn_DoRewriteSemCore_Click(object sender, EventArgs e)
         {
-            SemCoreRebuild scr = new SemCoreRebuild(this);
+            SemCoreRebuildView scr = new SemCoreRebuildView(this);
             scr.Show();
             this.Visible = false;
         }

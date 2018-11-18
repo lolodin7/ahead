@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace Excel_Parse
 {
-    public partial class SemCoreRebuild : Form
+    public partial class SemCoreRebuildView : Form
     {
         private SqlConnection connection;
         private Form mf;
@@ -28,7 +28,7 @@ namespace Excel_Parse
 
         string urlAmazon = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=";
 
-        public SemCoreRebuild(Form _mf)
+        public SemCoreRebuildView(Form _mf)
         {
             InitializeComponent();
             connection = DBData.GetDBConnection();
@@ -43,7 +43,7 @@ namespace Excel_Parse
             firstLoad = false;
         }
 
-        public SemCoreRebuild()
+        public SemCoreRebuildView()
         {
             InitializeComponent();
             connection = DBData.GetDBConnection();
