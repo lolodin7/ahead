@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,15 @@ namespace Excel_Parse
 {
     public partial class SemCoreRebuildView : Form
     {
+        private KeywordCategoryController kcController;
+        private List<KeywordCategoryModel> kcList;
+
+        private ProductTypesController ptController;
+        private List<ProductTypesModel> ptList;
+
+        private SemCoreController scController;
+        private List<SemCoreModel> scList;        
+
         private SqlConnection connection;
         private Form mf;
         private bool SavedStatus = true;
@@ -23,11 +33,12 @@ namespace Excel_Parse
         private string str_NewKeys = "Новые добавленные ключи";
         private string str_UploadedKeys = "Загруженные ключи";
         private string str_UpdatedKeys = "Обновленные ключи";
-
+        private bool NewCategorywasAdded;               //Чтобы знать, была ли добавленна новая категория в btn_AddCategory_Click
         string[,] myArr;
 
         string urlAmazon = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=";
 
+        /* Конструктор */
         public SemCoreRebuildView(Form _mf)
         {
             InitializeComponent();
@@ -36,13 +47,13 @@ namespace Excel_Parse
             lb_NewKeys.Text = str_NewKeys;
             lb_UpdatedKeys.Text = str_UpdatedKeys;
             lb_UploadedKeys.Text = str_UploadedKeys;
+            
 
-            GetProductTypes();
-            GetCategories();
-            GetKeywords();
+
             firstLoad = false;
         }
 
+        /* Конструктор */
         public SemCoreRebuildView()
         {
             InitializeComponent();
@@ -50,33 +61,101 @@ namespace Excel_Parse
             lb_NewKeys.Text = str_NewKeys;
             lb_UpdatedKeys.Text = str_UpdatedKeys;
             lb_UploadedKeys.Text = str_UploadedKeys;
+            
+            kcController = new KeywordCategoryController(this);
+            ptController = new ProductTypesController(this);
+            scController = new SemCoreController(this);
 
-            GetProductTypes();
-            GetCategories();
+            kcController.GetKeywordCategoriesAll();
+            ptController.GetProductTypesAll();
+
+            Fill_CB_ByKeywordCategories();
+            Fill_CB_ByProductTypes();
+
             GetKeywords();
+
             firstLoad = false;
         }
+        
 
+        /* Заполняем cb_ProductType данными с ptList */
+        private void Fill_CB_ByProductTypes()
+        {
+            cb_ProductType.Items.Clear();
+            for (int i = 0; i < ptList.Count; i++)
+            {
+                cb_ProductType.Items.Add(ptList[i].TypeName);
+            }
+            cb_ProductType.SelectedItem = cb_ProductType.Items[0];
+        }
+
+        /* Заполняем cb_KeywordCategory данными с kcList */
+        private void Fill_CB_ByKeywordCategories()
+        {
+            cb_KeywordCategory.Items.Clear();
+            for (int i = 0; i < kcList.Count; i++)
+            {
+                cb_KeywordCategory.Items.Add(kcList[i].CategoryName);
+            }
+            cb_KeywordCategory.SelectedItem = cb_KeywordCategory.Items[0];
+        }
+        
+        /* Очищаем все таблицы */
         private void RefreshDGVs()
         {
             dgv_Source.Rows.Clear();
             dgv_Target.Rows.Clear();
             dgv_NewKeys.Rows.Clear();
-            dgv_DBSource.Rows.Clear();
-            dgv_ProductTypes.Rows.Clear();
-            dgv_Categories.Rows.Clear();
         }
 
-        /* Получили список ключей после их ручного изменения в KeywordsAreExisted */
-        public void GetKeywordsFromKeywordsAreExisted(string[,] _arr)
+        /* Обновляем оба CB и ключи по ним */
+        private void Refresh_CB_AndKeywords()
         {
-            myArr = _arr;
+            kcController.GetKeywordCategoriesAll();
+            ptController.GetProductTypesAll();
+
+            Fill_CB_ByKeywordCategories();
+            Fill_CB_ByProductTypes();
+
+            GetKeywords();
         }
 
+        /* Обновляемся после добавления категории */
+        private void SemCoreRefresh()
+        {
+            if (AddCat)
+            {
+                RefreshDGVs();
 
+                Refresh_CB_AndKeywords();
 
+                AddCat = false;
+                btn_Begin.Enabled = false;
+            }
+        }
 
+        /* Загружаем новый файл */
+        private void btn_UploadFile_Click(object sender, EventArgs e)
+        {
+            if (SavedStatus)
+            {
+                OpenNewFile();
+            }
+            else
+            {
+                if (MessageBox.Show("Имеются несохраненные изменения. Сохранить?", "Сохранение", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    //SetDataToDB();                                                                                  //?????????????
+                    OpenNewFile();
+                }
+                else
+                {
+                    OpenNewFile();
+                }
+            }
+        }
 
+        /* Метод загрузки нового файла */
         public void OpenNewFile()
         {
             firstLoad = true;
@@ -87,15 +166,16 @@ namespace Excel_Parse
             {
                 path = openFileDialog1.FileName;
 
-                RefreshDGVs();
-
                 try
                 {
                     using (TextFieldParser parser = new TextFieldParser(@path))
                     {
 
                         parser.TextFieldType = FieldType.Delimited;
-                        parser.SetDelimiters(",");
+                        parser.SetDelimiters(",");                                                                      //в будущем сделать на выбор
+
+                        RefreshDGVs();                                                                                  //?????????????
+
                         while (!parser.EndOfData)
                         {
                             //Process row
@@ -117,11 +197,11 @@ namespace Excel_Parse
                     }
                     btn_Begin.Enabled = true;
 
-                    SavedStatus = true;
-                    GetProductTypes();
-                    GetCategories();
-                    GetKeywords();
-                    firstLoad = false;
+                    SavedStatus = true;       
+                   
+                    Refresh_CB_AndKeywords();
+
+                    firstLoad = false;                                                                                      
 
                     lb_UploadedKeys.Text = str_UploadedKeys + " (" + dgv_Source.RowCount + ")";
                     lb_NewKeys.Text = str_NewKeys;
@@ -136,32 +216,7 @@ namespace Excel_Parse
             }
         }
 
-        private void btn_UploadFile_Click(object sender, EventArgs e)
-        {
-            if (SavedStatus)
-            {
-                OpenNewFile();
-            }
-            else
-            {
-                if (MessageBox.Show("Имеются несохраненные изменения. Сохранить?", "Сохранение", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    SetDataToDB();
-                    OpenNewFile();
-                }
-                else
-                {
-                    OpenNewFile();
-                }
-            }
-        }
-
-        /*  */
-        private void SetDataToDB()
-        {
-
-        }
-
+        /* Выделяем/снимаем выделение с ключа по нажатию кнопки в dgv */
         private void dgv_Source_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.C)
@@ -208,7 +263,7 @@ namespace Excel_Parse
                 sender.Rows[sender.CurrentCellAddress.Y].Cells[sender.CurrentCellAddress.X].Style.ForeColor = Color.Black;
                 Refresh_dgvTarget_Del();
             }
-            
+
             lb_UpdatedKeys.Text = str_UpdatedKeys + " (" + dgv_Target.RowCount + ")";
         }
 
@@ -262,416 +317,25 @@ namespace Excel_Parse
                 }
 
                 dgv_Target.Rows.Clear();
-                
+
                 lb_UploadedKeys.Text = str_UploadedKeys + " (" + dgv_Source.RowCount + ")";
                 lb_UpdatedKeys.Text = str_UpdatedKeys;
             }
         }
 
-        //------------------------------
-
-        /* Загружем список типов продуктов из ProductTypes */
-        private void GetProductTypes()
-        {
-            string sqlStatement = "SELECT * FROM ProductTypes WHERE [ProductTypeId] > 0";
-            SqlCommand command = new SqlCommand(sqlStatement, connection);
-            try
-            {
-                connection.Open();
-
-                SqlDataReader reader = command.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        SetDataTo_dgv_ProductTypes((IDataRecord)reader);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-                reader.Close();
-                connection.Close();
-
-                SetDataTo_cb_ProductType();
-            }
-            catch (Exception ex) { }
-        }
-
-        /* Заполняем dgv_ProductTypes */
-        private void SetDataTo_dgv_ProductTypes(IDataRecord record)
-        {
-            var index = dgv_ProductTypes.Rows.Add();
-
-            for (int i = 0; i < record.FieldCount; i++)
-            {
-                dgv_ProductTypes.Rows[index].Cells[i].Value = record[i];
-            }
-        }
-
-        /*  */
-        private void SetDataTo_cb_ProductType()
-        {
-            cb_ProductType.Items.Clear();
-
-            for (int i = 0; i < dgv_ProductTypes.RowCount - 1; i++)
-            {
-                cb_ProductType.Items.Add(dgv_ProductTypes.Rows[i].Cells[1].Value.ToString());
-            }
-
-            cb_ProductType.SelectedItem = cb_ProductType.Items[0];
-        }
-
-
-        /* Загружем список категорий ключей из KeywordCategories */
-        private void GetCategories()
-        {
-            string sqlStatement = "SELECT * FROM KeywordCategory WHERE CategoryId > 0";
-            SqlCommand command = new SqlCommand(sqlStatement, connection);
-            try
-            {
-                connection.Open();
-
-                SqlDataReader reader = command.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        SetDataTo_dgv_Categories((IDataRecord)reader);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-                reader.Close();
-                connection.Close();
-
-                SetDataTo_cb_KeywordCategory();
-            }
-            catch (Exception ex) { }
-        }
-
-        /* Заполняем dgv_Categories */
-        private void SetDataTo_dgv_Categories(IDataRecord record)
-        {
-            var index = dgv_Categories.Rows.Add();
-
-            for (int i = 0; i < record.FieldCount; i++)
-            {
-                dgv_Categories.Rows[index].Cells[i].Value = record[i];
-            }
-        }
-
-        /* Заполняем cb_KeywordCategory */
-        private void SetDataTo_cb_KeywordCategory()
-        {
-            cb_KeywordCategory.Items.Clear();
-
-            for (int i = 0; i < dgv_Categories.RowCount - 1; i++)
-            {
-                cb_KeywordCategory.Items.Add(dgv_Categories.Rows[i].Cells[1].Value.ToString());
-            }
-
-            cb_KeywordCategory.SelectedItem = cb_KeywordCategory.Items[0];
-        }
-
-        //--------------------------------
-
-        private int GetSelectedProductTypeId()
-        {
-            for (int i = 0; i < dgv_ProductTypes.RowCount - 1; i++)
-            {
-                if (dgv_ProductTypes.Rows[i].Cells[1].Value.ToString().Equals(cb_ProductType.SelectedItem.ToString()))
-                {
-                    return int.Parse(dgv_ProductTypes.Rows[i].Cells[0].Value.ToString());
-                }
-            }
-            return -1;
-        }
-
-        private int GetSelectedCategoryId()
-        {
-            for (int i = 0; i < dgv_Categories.RowCount - 1; i++)
-            {
-                if (dgv_Categories.Rows[i].Cells[1].Value.ToString().Equals(cb_KeywordCategory.SelectedItem.ToString()))
-                {
-                    return int.Parse(dgv_Categories.Rows[i].Cells[0].Value.ToString());
-                }
-            }
-            return -1;
-        }
-
-        /* Загружем все ключи в dgv_DBSource */
-        private void GetKeywords()
-        {
-            dgv_DBSource.Rows.Clear();
-            dgv_Target.Rows.Clear();
-            string sqlStatement = "SELECT * FROM SemCore WHERE ProductTypeId = " + GetSelectedProductTypeId() + " AND CategoryId = " + GetSelectedCategoryId();
-            SqlCommand command = new SqlCommand(sqlStatement, connection);
-            try
-            {
-                connection.Open();
-
-                SqlDataReader reader = command.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        SetDataTo_dgv_DBSource((IDataRecord)reader);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-                reader.Close();
-                connection.Close();
-            }
-            catch (Exception ex) { }
-        }
-
-        /* Заполняем dgv_DBSource */
-        private void SetDataTo_dgv_DBSource(IDataRecord record)
-        {
-            var index = dgv_DBSource.Rows.Add();
-
-            for (int i = 0; i < record.FieldCount; i++)
-            {
-                dgv_DBSource.Rows[index].Cells[i].Value = record[i];
-            }
-        }
-
-        private void cb_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if(!firstLoad)
-                GetKeywords();
-        }
-
-        /* Запуск основной логики */
-        private void btn_Begin_Click(object sender, EventArgs e)
-        {
-            int prID = GetSelectedProductTypeId();
-            int catId = GetSelectedCategoryId();
-            
-            bool isExist;
-            if (MessageBox.Show("Вы уверены, что хотите начать процедуру сверки ключей?", "Начать", MessageBoxButtons.OKCancel) == DialogResult.OK)
-            {
-                dgv_Target.Rows.Clear();
-                dgv_NewKeys.Rows.Clear();
-
-                this.Enabled = false;
-
-                for (int i = 0; i < dgv_Source.RowCount; i++)
-                {
-                    dgv_Source.Rows[i].Cells[0].Style.ForeColor = Color.Black;
-                    isExist = false;
-
-                    for (int j = 0; j < dgv_DBSource.RowCount - 1; j++)
-                    {
-                        if (dgv_Source.Rows[i].Cells[0].Value.ToString().Equals(dgv_DBSource.Rows[j].Cells[2].Value.ToString()))
-                        {
-                            //пишем в dgv_Target
-                            var index = dgv_Target.Rows.Add();
-
-                            for (int k = 0; k < dgv_Target.ColumnCount; k++)
-                            {
-                                dgv_Target.Rows[index].Cells[k].Value = dgv_DBSource.Rows[j].Cells[k].Value;
-                            }
-                            dgv_Target.Rows[index].Cells[3].Value = dgv_Source.Rows[i].Cells[1].Value;
-                            isExist = true;
-                        }
-                    }
-                    if (!isExist)        //если это новый ключ
-                    {
-                        //пишем в dgv_NewKeys
-                        var index = dgv_NewKeys.Rows.Add();
-
-                        dgv_NewKeys.Rows[index].Cells[0].Value = prID;
-                        dgv_NewKeys.Rows[index].Cells[1].Value = catId;
-                        dgv_NewKeys.Rows[index].Cells[2].Value = dgv_Source.Rows[i].Cells[0].Value;
-                        dgv_NewKeys.Rows[index].Cells[3].Value = dgv_Source.Rows[i].Cells[1].Value;
-                        dgv_NewKeys.Rows[index].Cells[4].Value = DateTime.Now;
-
-                    }
-                }
-                UpdateDB();
-                //
-                this.Enabled = true;
-            }            
-        }
-
-        private void UpdateDB()
-        {
-            try { connection.Open(); }
-            catch (Exception e) { MessageBox.Show("Ошибка подключения к БД", "Ошибка"); }
-
-            string sqlStatements = "";
-            bool error = false;
-            bool isEmpty = false;
-
-            progressBar1.Maximum = dgv_NewKeys.RowCount + dgv_Target.RowCount;
-            progressBar1.Visible = true;
-
-            for (int i = 0; i < dgv_Target.RowCount; i++)
-            {
-                try
-                {
-                    sqlStatements = "UPDATE [SemCore] SET [ProductTypeId] = " + dgv_Target.Rows[i].Cells[0].Value + ", [CategoryId] = " + dgv_Target.Rows[i].Cells[1].Value + ", [Keyword] = '" + dgv_Target.Rows[i].Cells[2].Value.ToString() + "', [Value] = " + dgv_Target.Rows[i].Cells[3].Value + ", [LastUpdated] = '" + dgv_Target.Rows[i].Cells[4].Value.ToString() + "' WHERE [SemCoreId] = " + dgv_Target.Rows[i].Cells[5].Value;
-
-                    SqlCommand command = new SqlCommand(sqlStatements, connection);
-                    command.ExecuteScalar();
-                    isEmpty = true;
-                    progressBar1.Value++;
-                }
-                catch (Exception ex)
-                {
-                    error = true;
-                    progressBar1.Value++;
-                }
-            }
-            if (error)
-                MessageBox.Show("Данные не были обновлены. Попробуйте ещё раз.", "Ошибка");
-            connection.Close();
-            InsertDB(isEmpty);
-        }
-
-        private void InsertDB(bool isEmpty)
-        {
-            try { connection.Open(); }
-            catch (Exception e) { MessageBox.Show("Ошибка подключения к БД", "Ошибка"); }
-
-            bool error = false;
-            string sqlStatements = "";
-            int j = 0;
-            string[,] _arr = new string[dgv_NewKeys.RowCount, 2];       //ключи, которые уже есть в БД
-            List<int> forDeleting = new List<int> { };
-
-            for (int i = 0; i < dgv_NewKeys.RowCount; i++)
-            {
-                try
-                {
-                    sqlStatements = "INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastUpdated]) VALUES (" + dgv_NewKeys.Rows[i].Cells[0].Value + ", '" + dgv_NewKeys.Rows[i].Cells[1].Value + "', '" + dgv_NewKeys.Rows[i].Cells[2].Value.ToString() + "', '" + dgv_NewKeys.Rows[i].Cells[3].Value + "', '" + dgv_NewKeys.Rows[i].Cells[4].Value.ToString() + "')";
-
-                    SqlCommand command = new SqlCommand(sqlStatements, connection);
-                    command.ExecuteScalar();
-                    progressBar1.Value++;
-                }
-                catch (Exception ex)
-                {
-                    _arr[j, 0] = dgv_NewKeys.Rows[i].Cells[2].Value.ToString();
-                    _arr[j, 1] = dgv_NewKeys.Rows[i].Cells[3].Value.ToString();
-                    j++;
-                    error = true;
-                    forDeleting.Add(i);
-                    progressBar1.Value++;
-                }
-            }
-
-            int h = dgv_NewKeys.RowCount;
-            for (int i = forDeleting.Count - 1; i >= 0; i--)
-            {
-                dgv_NewKeys.Rows.RemoveAt(forDeleting[i]);
-            }
-
-            if (!isEmpty)
-                MessageBox.Show("Никаких новых ключей не было добавлено.", "Внимание");
-
-            lb_NewKeys.Text = str_NewKeys + " (" + dgv_NewKeys.RowCount + ")";
-            lb_UpdatedKeys.Text = str_UpdatedKeys + " (" + dgv_Target.RowCount + ")";
-            lb_UploadedKeys.Text = str_UploadedKeys + " (" + dgv_Source.RowCount + ")";
-
-            if (error)
-            {
-                KeywordsAreExistedView kae = new KeywordsAreExistedView(_arr, cb_KeywordCategory.SelectedItem.ToString());
-                if (kae.ShowDialog() == DialogResult.OK)
-                {
-                    Fill_dgv_Source_ByExistingKeys(_arr);
-                }
-                dgv_NewKeys.ScrollBars = ScrollBars.Both;
-                progressBar1.Visible = false;
-                progressBar1.Value = 0;
-            }
-            else
-            {
-                MessageBox.Show("Все данные были обновлены успешно.", "Успех");
-                dgv_NewKeys.ScrollBars = ScrollBars.Both;
-                progressBar1.Visible = false;
-                progressBar1.Value = 0;
-            }
-
-            connection.Close();
-        }
-
-        /* Заполняем dgv_Source ключами, которые не удалось обновить, т.к. они уже есть в БД */
-        private void Fill_dgv_Source_ByExistingKeys(string[,] _arr)
-        {
-            dgv_Source.Rows.Clear();
-            dgv_Target.Rows.Clear();
-            dgv_NewKeys.Rows.Clear();
-
-            for (int i = 0; i < _arr.Length / 2; i++)
-            {
-                var index = dgv_Source.Rows.Add();
-
-                for (int k = 0; k < dgv_Source.ColumnCount; k++)
-                {
-                    dgv_Source.Rows[index].Cells[k].Value = _arr[i,k];
-                }
-            }
-        }
-
-        private void btn_Clean_Click(object sender, EventArgs e)
-        {
-            dgv_Source.Rows.Clear();
-            dgv_Target.Rows.Clear();
-            dgv_NewKeys.Rows.Clear();
-            btn_Begin.Enabled = false;
-
-            lb_NewKeys.Text = str_NewKeys;
-            lb_UpdatedKeys.Text = str_UpdatedKeys;
-            lb_UploadedKeys.Text = str_UploadedKeys;
-
-            GetKeywords();
-        }
-
-        private void btn_AddCategory_Click(object sender, EventArgs e)
-        {
-            KeywordCategoryView kc = new KeywordCategoryView(this);
-            if (kc.ShowDialog() == DialogResult.Cancel)
-            { AddCat = true; }
-            AddCat = true;
-            SemCoreRefresh();
-        }
-
-        private void SemCoreRefresh()
-        {
-            if (AddCat)
-            {
-                RefreshDGVs();
-                GetProductTypes();
-                GetCategories();
-                GetKeywords();
-
-                AddCat = false;
-                btn_Begin.Enabled = false;
-            }
-        }
-
+        /* При переходе сюда с окна KeywordsAreExisted */
         private void SemCoreRebuild_VisibleChanged(object sender, EventArgs e)
         {
-            SemCoreRefresh();
+            SemCoreRefresh();                                                                                       //????????????????????????
         }
 
+        /* Закрытие окна */
         private void SemCoreRebuild_FormClosing(object sender, FormClosingEventArgs e)
         {
-            mf.Visible = true;
+            //mf.Visible = true;
         }
 
+        /* Выделяем все ключи */
         private void btn_CheckAll_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < dgv_Source.RowCount; i++)
@@ -701,6 +365,7 @@ namespace Excel_Parse
                 lb_UpdatedKeys.Text = str_UpdatedKeys + " (" + dgv_Target.RowCount + ")";
         }
 
+        /* Снимаем выделение всех ключей */
         private void btn_UnChekAll_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < dgv_Source.RowCount; i++)
@@ -721,6 +386,7 @@ namespace Excel_Parse
                 lb_UpdatedKeys.Text = str_UpdatedKeys + " (" + dgv_Target.RowCount + ")";
         }
 
+        /* Включаем/выключаем редактирование адреса по умолчанию на страницу Амазон с ключем */
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked)
@@ -732,7 +398,345 @@ namespace Excel_Parse
                 tb_Link.Enabled = false;
                 //mf.AmazonLink = tb_Link.Text;
             }
+        }
 
+        /* Получаем из контроллера KeywordCategories, полученные с БД */
+        public void GetCategoriesFromDB(object _kcList)
+        {
+            kcList = (List<KeywordCategoryModel>)_kcList;
+        }
+
+        /* Получаем из контроллера ProductTypes, полученные с БД */
+        public void GetProductTypesFromDB(object _ptList)
+        {
+            ptList = (List<ProductTypesModel>)_ptList;
+        }
+
+        /* Получаем из контроллера SemCore, полученные с БД */
+        public void GetSemCoreFromDB(object _scList)
+        {
+            scList = (List<SemCoreModel>)_scList;
+        }
+
+        /* Получить ProductTypeId с CB */
+        private int GetSelectedProductTypeId()
+        {
+            for (int i = 0; i < ptList.Count; i++)
+            {
+                if (ptList[i].TypeName.Equals(cb_ProductType.SelectedItem.ToString()))
+                {
+                    return ptList[i].ProductTypeId;
+                }
+            }
+            return -1;
+        }
+
+        /* Получить CategoryId с CB */
+        private int GetSelectedCategoryId()
+        {
+            for (int i = 0; i < kcList.Count; i++)
+            {
+                if (kcList[i].CategoryName.Equals(cb_KeywordCategory.SelectedItem.ToString()))
+                {
+                    return kcList[i].CategoryId;
+                }
+            }
+            return -1;
+        }
+
+        /* Загружем все ключи с SemCore */
+        private void GetKeywords()
+        {
+            scList = null;
+            scController.GetSemCoreByProductAndCategoryId(GetSelectedProductTypeId(), GetSelectedCategoryId());
+
+            dgv_KeywordsInCategory.Rows.Clear();
+
+            if (scList != null)
+            {
+                for (int i = 0; i < scList.Count; i++)
+                {
+                    var index = dgv_KeywordsInCategory.Rows.Add();
+
+                    dgv_KeywordsInCategory.Rows[index].Cells[0].Value = scList[i].GetModelData(2);
+                    dgv_KeywordsInCategory.Rows[index].Cells[1].Value = scList[i].GetModelData(3);
+                    dgv_KeywordsInCategory.Rows[index].Cells[2].Value = scList[i].GetModelData(4);
+
+                }
+            }
+        }
+
+        /* Обновляем ключи после смены категории или вида товара */
+        private void cb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!firstLoad)
+                GetKeywords();
+        }
+
+        /* Очищаем dgv и обновляем SemCore */
+        private void btn_Clean_Click(object sender, EventArgs e)
+        {
+            dgv_Source.Rows.Clear();
+            dgv_Target.Rows.Clear();
+            dgv_NewKeys.Rows.Clear();
+            btn_Begin.Enabled = false;
+
+            lb_NewKeys.Text = str_NewKeys;
+            lb_UpdatedKeys.Text = str_UpdatedKeys;
+            lb_UploadedKeys.Text = str_UploadedKeys;
+
+            GetKeywords();
+        }
+
+        /* Чтобы знать, была ли добавленна новая категория в btn_AddCategory_Click */
+        public void NewCategoryWasAdded(bool _wasAdded)
+        {
+            NewCategorywasAdded = _wasAdded;
+        }
+
+        /* Добавляем новую категорию */
+        private void btn_AddCategory_Click(object sender, EventArgs e)
+        {
+            KeywordCategoryView kc = new KeywordCategoryView(this);
+            if (kc.ShowDialog() == DialogResult.Cancel)
+            {
+                if (NewCategorywasAdded)
+                {
+
+                    kcController.GetKeywordCategoriesAll();
+
+                    Fill_CB_ByKeywordCategories();
+
+                    cb_KeywordCategory.SelectedItem = cb_KeywordCategory.Items[cb_KeywordCategory.Items.Count - 1];
+                }
+            }
+        }
+
+        /* Проверяем, если dgv_Target не пустая, то выключаем кнопку для начала анализа */
+        private void dgv_Target_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            if (dgv_Target.RowCount > 0)
+                btn_Begin.Enabled = false;
+            else btn_Begin.Enabled = true;
+        }
+
+        /* Проверяем, если dgv_Target не пустая, то выключаем кнопку для начала анализа */
+        private void dgv_Target_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            if (dgv_Target.RowCount > 0)
+                btn_Begin.Enabled = false;
+            else btn_Begin.Enabled = true;
+        }
+
+
+
+
+
+
+        //------------------------------------------------------------------------------------------------------------------------------------------
+
+        /* Запуск основной логики */
+
+        private void btn_Begin_Click(object sender, EventArgs e)
+        {
+            bool isExist;           //новый это ключ, или существует в БД, пусть и в другой категории
+
+            if (MessageBox.Show("Вы уверены, что хотите начать процедуру сверки ключей?", "Начать", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                dgv_Target.Rows.Clear();
+                dgv_NewKeys.Rows.Clear();
+
+                this.Enabled = false;
+
+                for (int i = 0; i < dgv_Source.RowCount; i++)
+                {
+                    isExist = false;
+
+                    for (int j = 0; j < scList.Count; j++)
+                    {
+                        if (dgv_Source.Rows[i].Cells[0].Value.ToString().Equals(scList[j].Keyword))
+                        {
+                            //пишем в dgv_Target
+                            var index = dgv_Target.Rows.Add();
+                            
+                            for (int k = 0; k < scList[j].ColumnCount; k++)
+                            {
+                                dgv_Target.Rows[index].Cells[k].Value = scList[j].GetModelData(k);
+                            }
+                            dgv_Target.Rows[index].Cells[3].Value = dgv_Source.Rows[i].Cells[1].Value;              //обновляем частоту
+
+                            isExist = true;
+                        }
+                    }
+
+                    if (!isExist)        //если ключа нет в выбранной категории, считае его новым
+                    {
+                        //пишем в dgv_NewKeys
+                        var index = dgv_NewKeys.Rows.Add();
+
+                        dgv_NewKeys.Rows[index].Cells[0].Value = GetSelectedProductTypeId();
+                        dgv_NewKeys.Rows[index].Cells[1].Value = GetSelectedCategoryId();
+                        dgv_NewKeys.Rows[index].Cells[2].Value = dgv_Source.Rows[i].Cells[0].Value;
+                        dgv_NewKeys.Rows[index].Cells[3].Value = dgv_Source.Rows[i].Cells[1].Value;
+                        dgv_NewKeys.Rows[index].Cells[4].Value = DateTime.Now;
+
+                    }
+                }
+
+                //обновляем существующие ключи
+                UpdateExistingKeywordsInDB();
+
+                this.Enabled = true;
+            }
+        }
+
+
+        /* Обновляем уже существующие ключи, которые лежат в dgv_Target */
+        private void UpdateExistingKeywordsInDB()
+        {
+            bool error = false;     //признак того, что при обновлении ключей возникла ошибка(-и)
+            List<string> errorKeys = new List<string> { };          //список ключей, которые не были обновлены
+
+            progressBar1.Maximum = dgv_NewKeys.RowCount + dgv_Target.RowCount;
+            progressBar1.Visible = true;
+            
+            for (int i = 0; i < dgv_Target.RowCount; i++)
+            {
+                if (scController.UpdateExistingKeywordBySemCoreId(int.Parse(dgv_Target.Rows[i].Cells[0].Value.ToString()), int.Parse(dgv_Target.Rows[i].Cells[1].Value.ToString()), dgv_Target.Rows[i].Cells[2].Value.ToString(), int.Parse(dgv_Target.Rows[i].Cells[3].Value.ToString()), DateTime.Now, int.Parse(dgv_Target.Rows[i].Cells[5].Value.ToString())) == 1)
+                {
+                    //progressBar1.Value++;
+                }
+                else
+                {
+                    error = true;
+                    errorKeys.Add(dgv_Target.Rows[i].Cells[2].Value.ToString());
+                }
+            }
+
+            if (error)
+            {
+                string tmp = "\n";
+                for (int k = 0; k < errorKeys.Count; k++)
+                {
+                    tmp += errorKeys[k] + "\n";
+                }
+                MessageBox.Show("Возникла какая-то ошибка и не все ключи были обновлены. Ниже приведены не обновленные ключи:" + tmp, "Ошибка");
+            }
+
+            //теперь записываем "новые" ключи
+            CreateNewKeywordsInDB();
+        }
+
+
+        /* Добавляем новые ключи в БД (ключи, которых нет в выбранной категории) */
+        private void CreateNewKeywordsInDB()
+        {
+            bool error = false;         //признак ошибки при записи нового ключа в БД; значит, такой ключ уже есть
+            int j = 0;
+            string[,] _alreadyExistedKeywords = new string[dgv_NewKeys.RowCount, 2];       //ключи, которые уже есть в БД, но в другой категории
+            List<int> forDeleting = new List<int> { };
+
+            for (int i = 0; i < dgv_NewKeys.RowCount; i++)
+            {
+                if (scController.InsertNewKeyword(int.Parse(dgv_NewKeys.Rows[i].Cells[0].Value.ToString()), int.Parse(dgv_NewKeys.Rows[i].Cells[1].Value.ToString()), dgv_NewKeys.Rows[i].Cells[2].Value.ToString(), int.Parse(dgv_NewKeys.Rows[i].Cells[3].Value.ToString()), DateTime.Now) == 1)
+                {
+                    //progressBar1.Value++; 
+                }
+                else
+                {
+                    _alreadyExistedKeywords[j, 0] = dgv_NewKeys.Rows[i].Cells[2].Value.ToString();
+                    _alreadyExistedKeywords[j, 1] = dgv_NewKeys.Rows[i].Cells[3].Value.ToString();
+                    j++;
+                    error = true;
+                    forDeleting.Add(i);
+                    //progressBar1.Value++;
+                }
+            }
+
+            //удаляем ключи из dgv_NewKeys, т.к. они не новые, а просто есть в другой категории
+            for (int i = forDeleting.Count - 1; i >= 0; i--)
+            {
+                dgv_NewKeys.Rows.RemoveAt(forDeleting[i]);
+            }
+            
+            lb_NewKeys.Text = str_NewKeys + " (" + dgv_NewKeys.RowCount + ")";
+            lb_UpdatedKeys.Text = str_UpdatedKeys + " (" + dgv_Target.RowCount + ")";
+            lb_UploadedKeys.Text = str_UploadedKeys + " (" + dgv_Source.RowCount + ")";
+
+            if (error)
+            {
+                if (MessageBox.Show("Некоторые ключи не были обновлены, т.к. они принадлежат другой категории. Обновить их всё равно? Если нет, автоматически откроется окно для редактирования всех необновленных ключей.", "Внимание", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    //все равно обновляем эти ключи
+                    for (int i = 0; i < _alreadyExistedKeywords.Length / 2; i++)
+                    {
+                        scController.UpdateExistingKeywordByKeyword(int.Parse(GetSelectedProductTypeId().ToString()), int.Parse(GetSelectedCategoryId().ToString()), _alreadyExistedKeywords[i, 0], int.Parse(_alreadyExistedKeywords[i, 1]), DateTime.Now);
+                    }
+                }
+                else
+                {
+                    //редактируем эти ключи, а потом передаем обратно сюда
+                    KeywordsAreExistedView kae = new KeywordsAreExistedView(_alreadyExistedKeywords, cb_KeywordCategory.SelectedItem.ToString());
+                    if (kae.ShowDialog() == DialogResult.OK)
+                    {
+                        Fill_dgv_Source_ByExistingKeys(_alreadyExistedKeywords);
+                    }
+                    dgv_NewKeys.ScrollBars = ScrollBars.Both;
+                    progressBar1.Visible = false;
+                    progressBar1.Value = 0;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Все данные были обновлены успешно.", "Успех");
+                dgv_NewKeys.ScrollBars = ScrollBars.Both;
+                progressBar1.Visible = false;
+                progressBar1.Value = 0;
+            }
+        }
+
+
+        /* Заполняем dgv_Source ключами, которые не удалось обновить, т.к. они уже есть в БД */
+        private void Fill_dgv_Source_ByExistingKeys(string[,] _arr)
+        {
+            dgv_Source.Rows.Clear();
+            dgv_Target.Rows.Clear();
+            dgv_NewKeys.Rows.Clear();
+
+            for (int i = 0; i < _arr.Length / 2; i++)
+            {
+                var index = dgv_Source.Rows.Add();
+
+                for (int k = 0; k < dgv_Source.ColumnCount; k++)
+                {
+                    dgv_Source.Rows[index].Cells[k].Value = _arr[i,k];
+                }
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------
+
+        
+            
+            
+            
+            
+            
+            
+            
+            
+                
+
+        /*  */
+        private void SetDataToDB()
+        {
+
+        }
+
+        /* Получили список ключей после их ручного изменения в KeywordsAreExisted */
+        public void GetKeywordsFromKeywordsAreExisted(string[,] _arr)
+        {
+            myArr = _arr;
         }
     }
 }

@@ -15,21 +15,35 @@ namespace Excel_Parse
         private SqlCommand command;
 
         private SemCoreView controlForm;
-        public List<SemCoreModel> scmList;
+        private List<SemCoreModel> scList;
 
+        private SemCoreRebuildView controlFormSemCoreRebuildView;
 
+        /* Конструктор */
         public SemCoreController(SemCoreView _form)
         {
             connection = DBData.GetDBConnection();
             controlForm = _form;
         }
 
+        /* Конструктор */
         public SemCoreController()
         {
             connection = DBData.GetDBConnection();
         }
 
-        public bool GetSemCoreByProductId(int _prodTypeId)
+        /* Конструктор */
+        public SemCoreController(SemCoreRebuildView _form)
+        {
+            connection = DBData.GetDBConnection();
+            controlFormSemCoreRebuildView = _form;
+        }
+
+
+        //---------------------SELECT STATEMENTS-------------------
+
+
+        public int GetSemCoreByProductId(int _prodTypeId)
         {
             string sqlStatement = "SELECT * FROM SemCore WHERE ProductTypeId = " + _prodTypeId;
             command = new SqlCommand(sqlStatement, connection);
@@ -37,7 +51,7 @@ namespace Excel_Parse
         }
         
 
-        public bool GetSemCoreByCategoryId(int _catId)
+        public int GetSemCoreByCategoryId(int _catId)
         {
             string sqlStatement = "SELECT * FROM SemCore WHERE CategoryId = " + _catId;
             command = new SqlCommand(sqlStatement, connection);
@@ -45,7 +59,7 @@ namespace Excel_Parse
         }
 
 
-        public bool GetSemCoreByProductAndCategoryId(int _prodTypeId, int _catId)
+        public int GetSemCoreByProductAndCategoryId(int _prodTypeId, int _catId)
         {
             string sqlStatement = "SELECT * FROM SemCore WHERE ProductTypeId = " + _prodTypeId + " AND CategoryId = " + _catId;
             command = new SqlCommand(sqlStatement, connection);
@@ -55,7 +69,7 @@ namespace Excel_Parse
         //-------------LEFT JOIN STATEMENTS-----------------
 
 
-        public bool GetSemCoreJOINKeywordCategoryByProductId(int _prodTypeId)
+        public int GetSemCoreJOINKeywordCategoryByProductId(int _prodTypeId)
         {
             string sqlStatement = "SELECT * FROM SemCore LEFT JOIN KeywordCategory ON SemCore.CategoryId = KeywordCategory.CategoryId LEFT JOIN ProductTypes ON SemCore.ProductTypeId = ProductTypes.ProductTypeId WHERE SemCore.ProductTypeId = " + _prodTypeId;
             command = new SqlCommand(sqlStatement, connection);
@@ -63,7 +77,7 @@ namespace Excel_Parse
         }
 
 
-        public bool GetSemCoreJOINKeywordCategoryByCategoryId(int _catId)
+        public int GetSemCoreJOINKeywordCategoryByCategoryId(int _catId)
         {
             string sqlStatement = "SELECT * FROM SemCore LEFT JOIN KeywordCategory ON SemCore.CategoryId = KeywordCategory.CategoryId LEFT JOIN ProductTypes ON SemCore.ProductTypeId = ProductTypes.ProductTypeId WHERE SemCore.CategoryId = " + _catId;
             command = new SqlCommand(sqlStatement, connection);
@@ -71,7 +85,7 @@ namespace Excel_Parse
         }
 
 
-        public bool GetSemCoreJOINKeywordCategoryByProductAndCategoryId(int _prodTypeId, int _catId)
+        public int GetSemCoreJOINKeywordCategoryByProductAndCategoryId(int _prodTypeId, int _catId)
         {
             string sqlStatement = "SELECT * FROM SemCore LEFT JOIN KeywordCategory ON SemCore.CategoryId = KeywordCategory.CategoryId LEFT JOIN ProductTypes ON SemCore.ProductTypeId = ProductTypes.ProductTypeId WHERE SemCore.ProductTypeId = " + _prodTypeId + " AND SemCore.CategoryId = " + _catId;
             command = new SqlCommand(sqlStatement, connection);
@@ -79,7 +93,7 @@ namespace Excel_Parse
         }
 
 
-        public bool GetSemCoreJOINKeywordCategoryAll()
+        public int GetSemCoreJOINKeywordCategoryAll()
         {
             string sqlStatement = "SELECT * FROM SemCore LEFT JOIN KeywordCategory ON SemCore.CategoryId = KeywordCategory.CategoryId LEFT JOIN ProductTypes ON SemCore.ProductTypeId = ProductTypes.ProductTypeId";
             command = new SqlCommand(sqlStatement, connection);
@@ -89,18 +103,34 @@ namespace Excel_Parse
         //--------------------INSERT STATEMENTS-----------------
 
 
-        public int SetNewKeyword(int _prodTypeId, int _categoryId, string _keyword, int _value, DateTime _lastUpdated)
+        public int InsertNewKeyword(int _prodTypeId, int _categoryId, string _keyword, int _value, DateTime _lastUpdated)
         {
-            string sqlStatement = "INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastUpdated]) VALUES (" + _prodTypeId + ", " + _categoryId + ", '" + _keyword + "', " + _value + ", " + _lastUpdated.ToOADate() + ")";
+            string sqlStatement = "INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastUpdated]) VALUES (" + _prodTypeId + ", " + _categoryId + ", '" + _keyword + "', " + _value + ", '" + _lastUpdated.ToString("yyyy-MM-dd HH:mm:ss") + "')";
             command = new SqlCommand(sqlStatement, connection);
-            return Execute_INSERT_Command(command);
+            return Execute_INSERT_UPDATE_DELETE_Command(command);
         }
 
+        //--------------------UPDATE STATEMENTS-----------------
+
+
+        public int UpdateExistingKeywordBySemCoreId(int _prodTypeId, int _categoryId, string _keyword, int _value, DateTime _lastUpdated, int _semCoreId)
+        {
+            string sqlStatement = "UPDATE [SemCore] SET [ProductTypeId] = " + _prodTypeId + ", [CategoryId] = " + _categoryId + ", [Keyword] = '" + _keyword + "', [Value] = " + _value + ", [LastUpdated] = '" + _lastUpdated.ToString("yyyy-MM-dd HH:mm:ss") + "' WHERE [SemCoreId] = " + _semCoreId;
+            command = new SqlCommand(sqlStatement, connection);
+            return Execute_INSERT_UPDATE_DELETE_Command(command);
+        }
+
+        public int UpdateExistingKeywordByKeyword(int _prodTypeId, int _categoryId, string _keyword, int _value, DateTime _lastUpdated)
+        {
+            string sqlStatement = "UPDATE [SemCore] SET [ProductTypeId] = " + _prodTypeId + ", [CategoryId] = " + _categoryId + ", [Keyword] = '" + _keyword + "', [Value] = " + _value + ", [LastUpdated] = '" + _lastUpdated.ToString("yyyy-MM-dd HH:mm:ss") + "' WHERE [Keyword] = '" + _keyword + "'";
+            command = new SqlCommand(sqlStatement, connection);
+            return Execute_INSERT_UPDATE_DELETE_Command(command);
+        }
 
         /* Выполняем запрос к БД и заносим полученные данные в List<SemCoreModel> */
-        private bool Execute_SELECT_Command(SqlCommand _command)
+        private int Execute_SELECT_Command(SqlCommand _command)
         {
-            scmList = new List<SemCoreModel> { };
+            scList = new List<SemCoreModel> { };
             try
             {
                 connection.Open();
@@ -117,22 +147,26 @@ namespace Excel_Parse
                 else
                 {
                     Console.WriteLine("No rows found.");
+                    return -1;
                 }
                 reader.Close();
                 connection.Close();
 
-                controlForm.GetDataFromDB(scmList);
-                return true;
+                if (controlForm != null)
+                    controlForm.GetDataFromDB(scList);
+                else if (controlFormSemCoreRebuildView != null)
+                    controlFormSemCoreRebuildView.GetSemCoreFromDB(scList);
+                return 1;
             }
             catch (Exception ex)
             {
                 connection.Close();
-                return false;
+                return ex.HResult;
             }
         }
 
         /* Записываем данные в БД */
-        private int Execute_INSERT_Command(SqlCommand _command)
+        private int Execute_INSERT_UPDATE_DELETE_Command(SqlCommand _command)
         {
             try
             {
@@ -152,10 +186,10 @@ namespace Excel_Parse
         private void SetData(IDataRecord record)
         {
             SemCoreModel _scm = new SemCoreModel();
-            scmList.Add(_scm);
+            scList.Add(_scm);
             for (int i = 0; i < record.FieldCount; i++)
             {
-                scmList[scmList.Count - 1].WriteData(i, record[i]);
+                scList[scList.Count - 1].SetModelData(i, record[i]);
             }
         }
 
@@ -163,10 +197,10 @@ namespace Excel_Parse
         private void SetData(object[] arr)
         {
             SemCoreModel _scm = new SemCoreModel();
-            scmList.Add(_scm);
+            scList.Add(_scm);
             for (int i = 0; i < arr.Length; i++)
             {
-                scmList[scmList.Count - 1].WriteData(i, arr[i]);
+                scList[scList.Count - 1].SetModelData(i, arr[i]);
             }
         }
     }

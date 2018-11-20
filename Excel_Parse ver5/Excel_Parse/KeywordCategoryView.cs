@@ -16,12 +16,14 @@ namespace Excel_Parse
         private KeywordCategoryController kcController;
         private List<KeywordCategoryModel> kcmList;     //список всех объектов (записей из БД)
         private int CurrentColumnCount;
-        
-        private Form mf;
+
+        private SemCoreRebuildView controlSemCoreRebuildView;
         private SqlConnection connection;
 
+        private bool wasAdded = false;
 
-        public KeywordCategoryView(Form _mf)
+
+        public KeywordCategoryView(SemCoreRebuildView _mf)
         {
             InitializeComponent();
             CurrentColumnCount = 0;
@@ -29,7 +31,7 @@ namespace Excel_Parse
             kcController = new KeywordCategoryController(this);
             
             connection = DBData.GetDBConnection();
-            mf = _mf;
+            controlSemCoreRebuildView = _mf;
 
             kcController.GetKeywordCategoriesAll();
             Draw();
@@ -106,9 +108,11 @@ namespace Excel_Parse
                     int result = kcController.SetNewKeywordCategory(tb_CategoryName.Text); //вызываем метод для записи в БД и проверяем сразу на успешность
                     if (result == 1)      
                     {
-                        tb_CategoryName.Text = "";
                         kcController.GetKeywordCategoriesAll();
                         Draw();
+                        wasAdded = true;
+                        MessageBox.Show("Категория \"" + tb_CategoryName.Text + "\" была добавлена успешно!", "Успешно");
+                        tb_CategoryName.Text = "";
                     }
                     else if (result == -2146232060)
                     {
@@ -143,7 +147,9 @@ namespace Excel_Parse
 
         private void KeywordCategory_FormClosing(object sender, FormClosingEventArgs e)
         {
-            mf.Visible = true;
+            controlSemCoreRebuildView.NewCategoryWasAdded(wasAdded);
+            this.DialogResult = DialogResult.Cancel;
+            controlSemCoreRebuildView.Visible = true;
         }
 
         /* Закрыть окно */

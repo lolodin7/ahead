@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KeywordCategoryView));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btn_RefreshDGV = new System.Windows.Forms.Button();
             this.btn_Close = new System.Windows.Forms.Button();
             this.btn_Save = new System.Windows.Forms.Button();
             this.lb_CategoryName = new System.Windows.Forms.Label();
@@ -38,7 +39,6 @@
             this.ProductTypeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TypeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btn_RefreshDGV = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_KeywordCategory)).BeginInit();
             this.SuspendLayout();
@@ -56,6 +56,16 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Добавление новой категории ключей";
+            // 
+            // btn_RefreshDGV
+            // 
+            this.btn_RefreshDGV.Location = new System.Drawing.Point(227, 9);
+            this.btn_RefreshDGV.Name = "btn_RefreshDGV";
+            this.btn_RefreshDGV.Size = new System.Drawing.Size(64, 26);
+            this.btn_RefreshDGV.TabIndex = 4;
+            this.btn_RefreshDGV.Text = "Обновить";
+            this.btn_RefreshDGV.UseVisualStyleBackColor = true;
+            this.btn_RefreshDGV.Click += new System.EventHandler(this.btn_RefreshDGV_Click);
             // 
             // btn_Close
             // 
@@ -135,16 +145,6 @@
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
             this.Column1.Visible = false;
-            // 
-            // btn_RefreshDGV
-            // 
-            this.btn_RefreshDGV.Location = new System.Drawing.Point(227, 9);
-            this.btn_RefreshDGV.Name = "btn_RefreshDGV";
-            this.btn_RefreshDGV.Size = new System.Drawing.Size(64, 26);
-            this.btn_RefreshDGV.TabIndex = 4;
-            this.btn_RefreshDGV.Text = "Обновить";
-            this.btn_RefreshDGV.UseVisualStyleBackColor = true;
-            this.btn_RefreshDGV.Click += new System.EventHandler(this.btn_RefreshDGV_Click);
             // 
             // KeywordCategoryView
             // 

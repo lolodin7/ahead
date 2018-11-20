@@ -434,7 +434,7 @@ namespace Excel_Parse
                 {
                     index = i;
                     //если ключ уже есть в БД, БД выдаст ошибку -2146232060. Сверяем и записываем ключи в массив недобавленных ключей
-                    if (scController.SetNewKeyword(productType, categoryId, dgv_Target.Rows[i].Cells[0].Value.ToString(), int.Parse(dgv_Target.Rows[i].Cells[1].Value.ToString()), DateTime.Now) == -2146232060)
+                    if (scController.InsertNewKeyword(productType, categoryId, dgv_Target.Rows[i].Cells[0].Value.ToString(), int.Parse(dgv_Target.Rows[i].Cells[1].Value.ToString()), DateTime.Now) == -2146232060)
                     {
                         errors += dgv_Target.Rows[index].Cells[0].Value.ToString() + "\n";
                     }

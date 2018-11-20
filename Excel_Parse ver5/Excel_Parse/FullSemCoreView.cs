@@ -100,7 +100,7 @@ namespace Excel_Parse
         }
 
         /* Получаем ProducTypes из БД */
-        public void GetProducTypesFormDB(object _ptList)
+        public void GetProductTypesFromDB(object _ptList)
         {
             ptList = (List<ProductTypesModel>)_ptList;
         }

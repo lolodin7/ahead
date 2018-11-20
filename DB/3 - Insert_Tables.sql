@@ -130,6 +130,22 @@ VALUES (200, 100, 250, 50, 100, 100, 2000, 1)
 INSERT INTO [FieldsLength] ([TitleLength], [BulletsLength], [BackendLength], [SubjectMatterLength], [OtherAttributesLength], [IntendedUseLength], [DescriptionLength], [ProductId])
 VALUES (200, 100, 250, 150, 150, 150, 2000, 2)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 
 -- [Course] inserts

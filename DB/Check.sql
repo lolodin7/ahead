@@ -76,5 +76,10 @@ select * from KeywordCategory
 INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
 VALUES ('мир', 1)
 
-
 SELECT * FROM Products WHERE ProductId = 2
+
+
+UPDATE SemCore Set [ProductTypeId] = 1, [CategoryId] = 1, [Keyword] = 'lavalier microphone', [Value] = 0, [LastUpdated] = '2000-10-15 12:50:00' where SemCoreId = 1
+
+
+SELECT * FROM SemCore

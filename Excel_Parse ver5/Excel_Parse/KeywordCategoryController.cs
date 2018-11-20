@@ -16,6 +16,7 @@ namespace Excel_Parse
         private KeywordCategoryView controlFormKeywordCategoryView;        //для вызова методов из формы View (для передачи данных)
         private SemCoreView controlFormSemCoreView;
         private FullSemCoreView controlFormFullSemCoreView;
+        private SemCoreRebuildView controlFormSemCoreRebuildView;
 
 
         public List<KeywordCategoryModel> kcList;       //список объектов (по факту, каждый элемент - одна строка из БД)
@@ -41,6 +42,12 @@ namespace Excel_Parse
             controlFormFullSemCoreView = _controlForm;
         }
 
+        /* Конструктор */
+        public KeywordCategoryController(SemCoreRebuildView _controlForm)
+        {
+            connection = DBData.GetDBConnection();
+            controlFormSemCoreRebuildView = _controlForm;
+        }
 
         public bool GetKeywordCategoriesAll()
         {
@@ -103,6 +110,8 @@ namespace Excel_Parse
                     controlFormSemCoreView.GetCategoriesFromDB(kcList);
                 else if (controlFormFullSemCoreView != null)
                     controlFormFullSemCoreView.GetCategoriesFromDB(kcList);
+                else if (controlFormSemCoreRebuildView != null)
+                    controlFormSemCoreRebuildView.GetCategoriesFromDB(kcList);
                 return true;
             }
             catch (Exception ex)

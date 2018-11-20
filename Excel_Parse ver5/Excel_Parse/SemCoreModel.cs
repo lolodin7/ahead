@@ -23,7 +23,7 @@ namespace Excel_Parse
             ColumnCount = 6;
         }
 
-        public void WriteData(int index, object record)
+        public void SetModelData(int index, object record)
         {
             switch (index)
             {
@@ -48,7 +48,7 @@ namespace Excel_Parse
             }
         }
 
-        public object ReadData(int index)
+        public object GetModelData(int index)
         {
             switch (index)
             {
