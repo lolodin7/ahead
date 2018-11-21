@@ -516,21 +516,79 @@ namespace Excel_Parse
         private void dgv_Target_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
             if (dgv_Target.RowCount > 0)
+            {
                 btn_Begin.Enabled = false;
-            else btn_Begin.Enabled = true;
+            }
+            else
+            {
+                btn_Begin.Enabled = true;
+            }
         }
 
         /* Проверяем, если dgv_Target не пустая, то выключаем кнопку для начала анализа */
         private void dgv_Target_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
             if (dgv_Target.RowCount > 0)
+            {
                 btn_Begin.Enabled = false;
-            else btn_Begin.Enabled = true;
+            }
+            else
+            {
+                btn_Begin.Enabled = true;
+            }
+        }
+
+        /* Проверяем, если dgv_Source не пустая, то выключаем кнопку для отметки ключей */
+        private void dgv_Source_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            if (dgv_Source.RowCount > 0)
+            {
+                btn_KeysAreDone.Enabled = true;
+            }
+            else
+            {
+                btn_KeysAreDone.Enabled = false;
+            }
+        }
+
+        /* Проверяем, если dgv_Source не пустая, то выключаем кнопку для отметки ключей */
+        private void dgv_Source_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            if (dgv_Source.RowCount > 0)
+            {
+                btn_KeysAreDone.Enabled = true;
+            }
+            else
+            {
+                btn_KeysAreDone.Enabled = false;
+            }
+
         }
 
 
+        private void btn_Begin_EnabledChanged(object sender, EventArgs e)
+        {
+            if (btn_Begin.Enabled)
+            {
+                btn_Begin.BackColor = Color.LightGray;
+            }
+            else
+            {
+                btn_Begin.BackColor = Color.FromKnownColor(KnownColor.Control);
+            }
+        }
 
-
+        private void btn_KeysAreDone_EnabledChanged(object sender, EventArgs e)
+        {
+            if (btn_KeysAreDone.Enabled)
+            {
+                btn_KeysAreDone.BackColor = Color.LightGray;
+            }
+            else
+            {
+                btn_KeysAreDone.BackColor = Color.FromKnownColor(KnownColor.Control);
+            }
+        }
 
 
         //------------------------------------------------------------------------------------------------------------------------------------------
