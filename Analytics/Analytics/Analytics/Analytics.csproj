@@ -67,11 +67,16 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Month.cs" />
+    <Compile Include="OrdersController.cs" />
+    <Compile Include="OrdersModel.cs" />
     <Compile Include="PaymentDetail.cs" />
+    <Compile Include="PaymentsController.cs" />
     <Compile Include="PaymentsModel.cs" />
     <Compile Include="PaymentType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShipmentsController.cs" />
+    <Compile Include="ShipmentsModel.cs" />
     <Compile Include="TransactionType.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

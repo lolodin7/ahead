@@ -9,7 +9,9 @@ namespace Analytics
 {
     class PaymentsModel
     {
-        public string Date { get; set; }
+        private Month Month;
+
+        public DateTime Date { get; set; }
         public string OrderId { get; set; }
         public string Sku { get; set; }
         public string TransactionType { get; set; }
@@ -24,6 +26,7 @@ namespace Analytics
         public PaymentsModel()
         {
             FieldCount = 9;
+            Month = new Month();
         }
 
         public object GetPayments(int i)
@@ -68,7 +71,7 @@ namespace Analytics
             switch (i)
             {
                 case 0:
-                    Date = _value.ToString();
+                    Date = DateTransform(_value.ToString());
                     break;
                 case 1:
                     OrderId = _value.ToString();
@@ -115,6 +118,16 @@ namespace Analytics
                     ProductTitle = _value.ToString();
                     break;
             }
+        }
+
+        /* Делаем правильный формат даты */
+        private DateTime DateTransform(string _str)
+        {
+            int year = int.Parse(_str.Substring(8, 4));
+            int day = int.Parse(_str.Substring(4, 2));
+            int month = Month.GetMonthValue(_str.Substring(0, 3));
+            DateTime dt = new DateTime(year, month, day);
+            return dt;
         }
     }
 }

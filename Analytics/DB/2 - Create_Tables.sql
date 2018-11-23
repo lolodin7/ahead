@@ -3,6 +3,10 @@ GO
 
 IF NOT OBJECT_ID('Payments') IS NULL DROP TABLE [Payments]
 GO
+IF NOT OBJECT_ID('Orders') IS NULL DROP TABLE [Orders]
+GO
+IF NOT OBJECT_ID('Shipments') IS NULL DROP TABLE [Shipments]
+GO
 
 CREATE TABLE [Payments](
 	[Date]					DATE,
@@ -17,8 +21,97 @@ CREATE TABLE [Payments](
 )
 GO
 
+CREATE TABLE [Orders](
+	[AmazonOrderId]				VARCHAR(50),
+	[MerchantOrderId]			VARCHAR(50),
+	[PurchaseDate]				Date,
+	[LastUpdatedDate]			Date,
+	[OrderStatus]				VARCHAR(20),
+	[FullfilmentChannel]		VARCHAR(20),
+	[SalesChannel]				VARCHAR(50),
+	[OrderChannel]				VARCHAR(50),
+	[Url]						VARCHAR(50),
+	[ShipServiceLevel]			VARCHAR(30),
+	[ProductName]				VARCHAR(500),
+	[Sku]						VARCHAR(50),
+	[Asin]						VARCHAR(50),
+	[ItemStatus]				VARCHAR(50),
+	[Quantity]					INT,
+	[Currency]					VARCHAR(20),
+	[ItemPrice]					FLOAT,
+	[ItemTax]					FLOAT,
+	[ShippingPrice]				FLOAT,
+	[ShippingTax]				FLOAT,
+	[GiftWrapPrice]				FLOAT,
+	[GiftWrapTax]				FLOAT,
+	[ItemPromotionDiscount]		FLOAT,
+	[ShipPromotionDiscount]		FLOAT,
+	[ShipCity]					VARCHAR(200),
+	[ShipState]					VARCHAR(150),
+	[ShipPostalCode]			VARCHAR(25),
+	[ShipCountry]				VARCHAR(50),
+	[PromotionIds]				VARCHAR(100),
+	[IsBusinessOrder]			VARCHAR(6),
+	[PurchaseOrderNumber]		VARCHAR(50),
+	[PriceDesignation]			VARCHAR(50),
 
+	CONSTRAINT OrdersOrderId_PK PRIMARY KEY ([AmazonOrderId])
+)
+GO
 
+CREATE TABLE [Shipments](
+	[AmazonOrderId]				VARCHAR(50),
+	[MerchantOrderId]			VARCHAR(50),
+	[ShipmentId]				VARCHAR(30),
+	[ShipmentItemId]			VARCHAR(30),
+	[AmazonOrderItemId]			VARCHAR(50),
+	[MerchantOrderItemId]		VARCHAR(50),
+	[PurchaseDate]				DATE,
+	[PaymentsDate]				DATE,
+	[ShipmentDate]				DATE,
+	[ReportingDate]				DATE,
+	[BuyerEmail]				VARCHAR(100),
+	[BuyerName]					VARCHAR(200),
+	[BuyerPhoneNumber]			VARCHAR(50),
+	[Sku]						VARCHAR(50),
+	[ProductName]				VARCHAR(500),
+	[QuantityShipped]			INT,
+	[Currency]					VARCHAR(20),
+	[ItemPrice]					FLOAT,
+	[ItemTax]					FLOAT,
+	[ShippingPrice]				FLOAT,
+	[ShippingTax]				FLOAT,	
+	[GiftWrapPrice]				FLOAT,
+	[GiftWrapTax]				FLOAT,
+	[ShipServiceLevel]			VARCHAR(50),
+	[RecipientName]				VARCHAR(200),
+	[ShipAddress1]				VARCHAR(200),
+	[ShipAddress2]				VARCHAR(200),
+	[ShipAddress3]				VARCHAR(200),
+	[ShipCity]					VARCHAR(200),
+	[ShipState]					VARCHAR(150),
+	[ShipPostalCode]			VARCHAR(25),
+	[ShipCountry]				VARCHAR(100),
+	[ShipPhoneNumber]			VARCHAR(50),
+	[BillAddress1]				VARCHAR(200),
+	[BillAddress2]				VARCHAR(200),
+	[BillAddress3]				VARCHAR(200),
+	[BillCity]					VARCHAR(200),
+	[BillState]					VARCHAR(150),
+	[BillPostalCode]			VARCHAR(25),
+	[BillCountry]				VARCHAR(100),
+	[ItemPromotionDiscount]		FLOAT,
+	[ShipPromotionDiscount]		FLOAT,
+	[Carrier]					VARCHAR(50),
+	[TrackingNumber]			VARCHAR(100),
+	[EstimatedArrivalDate]		DATE,
+	[FullfilmentCenterId]		VARCHAR(100),
+	[FullfilmentChannel]		VARCHAR(100),
+	[SalesChannel]				VARCHAR(100),
+
+	CONSTRAINT ShipmentsOrderId_PK PRIMARY KEY ([AmazonOrderId])
+)
+GO
 
 
 
