@@ -15,7 +15,8 @@ namespace Analytics
     class PaymentsController
     {
         private SqlConnection connection;
-        private List<PaymentsModel> paymentsList;        
+        private List<PaymentsModel> paymentsList;
+        private List<PaymentsModel> newPaymentsList;
 
         public PaymentsController()
         {
@@ -28,6 +29,7 @@ namespace Analytics
         {
             using (ExcelPackage xlPackage = new ExcelPackage(new FileInfo(@"C:\temp\payments.xlsx")))
             {
+                paymentsList = new List<PaymentsModel> { };
                 ExcelWorksheet workSheet = xlPackage.Workbook.Worksheets.First();
                 var start = workSheet.Dimension.Start;
                 var end = workSheet.Dimension.End;
@@ -47,7 +49,7 @@ namespace Analytics
         }
 
         /* Заливаем все строки в БД */
-        public void SetPaymentsToDB()
+        public void SetNewPaymentsToDB()
         {
             string sqlStatement;
             string specifier = "G";
@@ -59,6 +61,57 @@ namespace Analytics
                 SqlCommand command = new SqlCommand(sqlStatement, connection);
 
                 command.ExecuteScalar();
+            }
+            connection.Close();
+        }
+
+        public void UpdatePaymentsInDB()
+        {
+            GetPaymentsFromExcel();
+            newPaymentsList = new List<PaymentsModel> { };
+
+            string sqlStatement;
+            string specifier = "G";
+            connection.Open();
+
+            for (int i = 0; i < paymentsList.Count; i++)
+            {
+                sqlStatement = "INSERT INTO [Payments] ([Date], [OrderId], [SKU], [TransactionType], [PaymentType], [PaymentDetail], [Amount], [Quantity], [ProductTitle]) VALUES ('" + paymentsList[i].Date.ToString("yyyy-MM-dd") + "', '" + paymentsList[i].OrderId + "', '" + paymentsList[i].Sku + "', '" + paymentsList[i].TransactionType + "', '" + paymentsList[i].PaymentType + "', '" + paymentsList[i].PaymentDetail + "', " + paymentsList[i].Amount.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].Quantity + ", '" + paymentsList[i].ProductTitle + "')";
+                try
+                {
+                    SqlCommand command = new SqlCommand(sqlStatement, connection);
+
+                    command.ExecuteScalar();
+                }
+                catch (Exception ex)
+                {
+                    PaymentsModel pm = new PaymentsModel();
+                    newPaymentsList.Add(pm);
+                    for (int j = 0; j < 5; j++)
+                    {
+                        newPaymentsList[newPaymentsList.Count - 1].SetPayments(j, paymentsList[i].GetPayments(j));
+                    }
+                }
+            }
+            connection.Close();
+
+            if (newPaymentsList.Count > 0)
+                UpdateExistingPaymentsInDB();
+        }
+
+        public void UpdateExistingPaymentsInDB()
+        {
+            string sqlStatement;
+            string specifier = "G";
+            connection.Open();
+
+            for (int i = 0; i < paymentsList.Count; i++)
+            {
+                sqlStatement = "UPDATE [Payments] ([Date], [OrderId], [SKU], [TransactionType], [PaymentType], [PaymentDetail], [Amount], [Quantity], [ProductTitle]) VALUES ('" + paymentsList[i].Date.ToString("yyyy-MM-dd") + "', '" + paymentsList[i].OrderId + "', '" + paymentsList[i].Sku + "', '" + paymentsList[i].TransactionType + "', '" + paymentsList[i].PaymentType + "', '" + paymentsList[i].PaymentDetail + "', " + paymentsList[i].Amount.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].Quantity + ", '" + paymentsList[i].ProductTitle + "')";
+
+                    SqlCommand command = new SqlCommand(sqlStatement, connection);
+
+                    command.ExecuteScalar();
             }
             connection.Close();
         }

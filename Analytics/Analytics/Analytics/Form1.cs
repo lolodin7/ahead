@@ -28,7 +28,7 @@ namespace Analytics
         {
             InitializeComponent();
             //paymentsController = new PaymentsController();
-            //ordersController = new OrdersController(dataGridView1);            
+            //ordersController = new OrdersController();            
             shipmentsController = new ShipmentsController();
         }
 
@@ -37,16 +37,22 @@ namespace Analytics
         {
             //paymentsController.GetPaymentsFromExcel();
             //ordersController.GetOrdersFromExcel();
-            shipmentsController.GetShipmentsFromExcel(dataGridView1);
+            shipmentsController.GetShipmentsFromExcel();
 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             //paymentsController.SetPaymentsToDB();
-            //ordersController.SetOrdersToDB();
-            shipmentsController.SetShipmentsToDB();
+            //ordersController.SetNewOrdersToDB();
+            shipmentsController.SetNewShipmentsToDB();
 
+        }
+
+        private void btn_UpdateReportsInDB_Click(object sender, EventArgs e)
+        {
+            //ordersController.UpdateOrdersInDB();
+            shipmentsController.UpdateShipmentsInDB();
         }
     }
 }

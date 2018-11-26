@@ -440,5 +440,180 @@ namespace Analytics
             str = Regex.Replace(str, "\'", s);
             return str;
         }
+
+        /* По сути тот же SetShipments, только юзаем его при обновлении данных, когда даты уже корректны */
+        public void SetShipmentsForUpdate(int i, object _value)
+        {
+            switch (i)
+            {
+                case 0:
+                    AmazonOrderId = _value.ToString();
+                    break;
+                case 1:
+                    MerchantOrderId = _value.ToString();
+                    break;
+                case 2:
+                    ShipmentId = _value.ToString();
+                    break;
+                case 3:
+                    ShipmentItemId = _value.ToString();
+                    break;
+                case 4:
+                    AmazonOrderItemId = _value.ToString();
+                    break;
+                case 5:
+                    MerchantOrderItemId = _value.ToString();
+                    break;
+                case 6:
+                    if (!_value.ToString().Equals(""))
+                    {
+                        PurchaseDate = (DateTime)_value;
+                    }
+                    else
+                        PurchaseDate = new DateTime();
+                    break;
+                case 7:
+                    if (!_value.ToString().Equals(""))
+                    {
+                        PaymentsDate = (DateTime)_value;
+                    }
+                    else
+                        PaymentsDate = new DateTime();
+                    break;
+                case 8:
+                    if (!_value.ToString().Equals(""))
+                    {
+                        ShipmentDate = (DateTime)_value;
+                    }
+                    else
+                        ShipmentDate = new DateTime();
+                    break;
+                case 9:
+                    if (!_value.ToString().Equals(""))
+                    {
+                        ReportingDate = (DateTime)_value;
+                    }
+                    else
+                        ReportingDate = new DateTime();
+                    break;
+                case 10:
+                    BuyerEmail = _value.ToString();
+                    break;
+                case 11:
+                    BuyerName = GetStringWithoutApostrophe(_value.ToString());
+                    break;
+                case 12:
+                    BuyerPhoneNumber = _value.ToString();
+                    break;
+                case 13:
+                    Sku = _value.ToString();
+                    break;
+                case 14:
+                    ProductName = _value.ToString();
+                    break;
+                case 15:
+                    if (!_value.ToString().Equals(""))
+                        QuantityShipped = int.Parse(_value.ToString());
+                    else
+                        QuantityShipped = 0;
+                    break;
+                case 16:
+                    Currency = _value.ToString();
+                    break;
+                case 17:
+                    ItemPrice = GetDouble(_value);
+                    break;
+                case 18:
+                    ItemTax = GetDouble(_value);
+                    break;
+                case 19:
+                    ShippingPrice = GetDouble(_value);
+                    break;
+                case 20:
+                    ShippingTax = GetDouble(_value);
+                    break;
+                case 21:
+                    GiftWrapPrice = GetDouble(_value);
+                    break;
+                case 22:
+                    GiftWrapTax = GetDouble(_value);
+                    break;
+                case 23:
+                    ShipServiceLevel = _value.ToString();
+                    break;
+                case 24:
+                    RecipientName = GetStringWithoutApostrophe(_value.ToString());
+                    break;
+                case 25:
+                    ShipAddress1 = GetStringWithoutApostrophe(_value.ToString());
+                    break;
+                case 26:
+                    ShipAddress2 = GetStringWithoutApostrophe(_value.ToString());
+                    break;
+                case 27:
+                    ShipAddress3 = GetStringWithoutApostrophe(_value.ToString());
+                    break;
+                case 28:
+                    ShipCity = GetStringWithoutApostrophe(_value.ToString());
+                    break;
+                case 29:
+                    ShipState = GetStringWithoutApostrophe(_value.ToString());
+                    break;
+                case 30:
+                    ShipPostalCode = _value.ToString();
+                    break;
+                case 31:
+                    ShipCountry = GetStringWithoutApostrophe(_value.ToString());
+                    break;
+                case 32:
+                    ShipPhoneNumber = _value.ToString();
+                    break;
+                case 33:
+                    BillAddress1 = GetStringWithoutApostrophe(_value.ToString());
+                    break;
+                case 34:
+                    BillAddress2 = GetStringWithoutApostrophe(_value.ToString());
+                    break;
+                case 35:
+                    BillAddress3 = GetStringWithoutApostrophe(_value.ToString());
+                    break;
+                case 36:
+                    BillCity = GetStringWithoutApostrophe(_value.ToString());
+                    break;
+                case 37:
+                    BillState = GetStringWithoutApostrophe(_value.ToString());
+                    break;
+                case 38:
+                    BillPostalCode = _value.ToString();
+                    break;
+                case 39:
+                    BillCountry = GetStringWithoutApostrophe(_value.ToString());
+                    break;
+                case 40:
+                    ItemPromotionDiscount = GetDouble(_value);
+                    break;
+                case 41:
+                    ShipPromotionDiscount = GetDouble(_value);
+                    break;
+                case 42:
+                    Carrier = _value.ToString();
+                    break;
+                case 43:
+                    TrackingNumber = _value.ToString();
+                    break;
+                case 44:
+                    EstimatedArrivalDate = (DateTime)_value;
+                    break;
+                case 45:
+                    FullfilmentCenterId = _value.ToString();
+                    break;
+                case 46:
+                    FullfilmentChannel = _value.ToString();
+                    break;
+                case 47:
+                    SalesChannel = _value.ToString();
+                    break;
+            }
+        }
     }
 }

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_GetNewReportsFromFile = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -64,7 +64,6 @@
             this.Column31 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column32 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column33 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button2 = new System.Windows.Forms.Button();
             this.Column34 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column35 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column36 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -82,6 +81,8 @@
             this.Column48 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column49 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column50 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btn_SetNewReportsToDB = new System.Windows.Forms.Button();
+            this.btn_UpdateReportsInDB = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -89,15 +90,15 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // button1
+            // btn_GetNewReportsFromFile
             // 
-            this.button1.Location = new System.Drawing.Point(-2, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btn_GetNewReportsFromFile.Location = new System.Drawing.Point(-2, 3);
+            this.btn_GetNewReportsFromFile.Name = "btn_GetNewReportsFromFile";
+            this.btn_GetNewReportsFromFile.Size = new System.Drawing.Size(120, 23);
+            this.btn_GetNewReportsFromFile.TabIndex = 0;
+            this.btn_GetNewReportsFromFile.Text = "Прочесть из файла";
+            this.btn_GetNewReportsFromFile.UseVisualStyleBackColor = true;
+            this.btn_GetNewReportsFromFile.Click += new System.EventHandler(this.button1_Click);
             // 
             // dataGridView1
             // 
@@ -330,16 +331,6 @@
             this.Column33.HeaderText = "Column33";
             this.Column33.Name = "Column33";
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(124, 3);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // Column34
             // 
             this.Column34.HeaderText = "Column34";
@@ -425,14 +416,35 @@
             this.Column50.HeaderText = "Column50";
             this.Column50.Name = "Column50";
             // 
+            // btn_SetNewReportsToDB
+            // 
+            this.btn_SetNewReportsToDB.Location = new System.Drawing.Point(124, 3);
+            this.btn_SetNewReportsToDB.Name = "btn_SetNewReportsToDB";
+            this.btn_SetNewReportsToDB.Size = new System.Drawing.Size(147, 23);
+            this.btn_SetNewReportsToDB.TabIndex = 2;
+            this.btn_SetNewReportsToDB.Text = "Загрузить новые в бд";
+            this.btn_SetNewReportsToDB.UseVisualStyleBackColor = true;
+            this.btn_SetNewReportsToDB.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // btn_UpdateReportsInDB
+            // 
+            this.btn_UpdateReportsInDB.Location = new System.Drawing.Point(288, 2);
+            this.btn_UpdateReportsInDB.Name = "btn_UpdateReportsInDB";
+            this.btn_UpdateReportsInDB.Size = new System.Drawing.Size(181, 23);
+            this.btn_UpdateReportsInDB.TabIndex = 3;
+            this.btn_UpdateReportsInDB.Text = "обновить файл";
+            this.btn_UpdateReportsInDB.UseVisualStyleBackColor = true;
+            this.btn_UpdateReportsInDB.Click += new System.EventHandler(this.btn_UpdateReportsInDB_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1447, 599);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btn_UpdateReportsInDB);
+            this.Controls.Add(this.btn_SetNewReportsToDB);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_GetNewReportsFromFile);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
@@ -444,7 +456,7 @@
         #endregion
 
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_GetNewReportsFromFile;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
@@ -454,7 +466,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btn_SetNewReportsToDB;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
@@ -497,6 +509,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column48;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column49;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column50;
+        private System.Windows.Forms.Button btn_UpdateReportsInDB;
     }
 }
 
