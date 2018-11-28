@@ -23,11 +23,19 @@ GO
 IF NOT OBJECT_ID('ProductTypes') IS NULL DROP TABLE [ProductTypes]
 GO
 
+IF NOT OBJECT_ID('Marketplace') IS NULL DROP TABLE [Marketplace]
+GO
 
 /*
     "БД компании AHEAD"
 */
 
+CREATE TABLE [Marketplace](
+	[MarketPlaceId]		INT IDENTITY(1,1),
+	[MarketPlaceName]	VARCHAR(20),
+	CONSTRAINT PK_Marketplace_MarketPlaceId PRIMARY KEY ([MarketPlaceId])
+)
+GO
 
 CREATE TABLE [ProductTypes](
 	[ProductTypeId]		INT IDENTITY(0,1)	NOT NULL,
@@ -41,10 +49,13 @@ CREATE TABLE [Products](
 	[ProductId]			INT IDENTITY(0,1)	NOT NULL,
 	[Name]				NVARCHAR(500),
 	[ASIN]				VARCHAR(10),
-	[SKU]				VARCHAR(12),
+	[SKU]				VARCHAR(30),
 	[ProductTypeId]		INT					NOT NULL,
+	[MarketPlaceId]		INT,
 	CONSTRAINT PK_Products PRIMARY KEY ([ProductId]),
-	CONSTRAINT FK_Products_ProductTypes FOREIGN KEY ([ProductTypeId]) REFERENCES ProductTypes ([ProductTypeId])
+	CONSTRAINT UQ_Products_SKU UNIQUE ([SKU]),
+	CONSTRAINT FK_Products_ProductTypes FOREIGN KEY ([ProductTypeId]) REFERENCES ProductTypes ([ProductTypeId]),
+	CONSTRAINT FK_Products_Marketplace FOREIGN KEY ([MarketPlaceId]) REFERENCES Marketplace ([MarketPlaceId])
 )
 GO
 

@@ -1,25 +1,16 @@
 USE Analytics
 GO
 
-IF NOT OBJECT_ID('Payments') IS NULL DROP TABLE [Payments]
+
+IF NOT OBJECT_ID('CustomerReturns') IS NULL DROP TABLE [CustomerReturns]
 GO
-IF NOT OBJECT_ID('Orders') IS NULL DROP TABLE [Orders]
+IF NOT OBJECT_ID('Payments') IS NULL DROP TABLE [Payments]
 GO
 IF NOT OBJECT_ID('Shipments') IS NULL DROP TABLE [Shipments]
 GO
-
-CREATE TABLE [Payments](
-	[Date]					DATE,
-	[OrderId]				VARCHAR(50),
-	[SKU]					VARCHAR(50),
-	[TransactionType]		VARCHAR(100),
-	[PaymentType]			VARCHAR(100),
-	[PaymentDetail]			VARCHAR(100),
-	[Amount]				FLOAT,
-	[Quantity]				INT,
-	[ProductTitle]			VARCHAR(400)
-)
+IF NOT OBJECT_ID('Orders') IS NULL DROP TABLE [Orders]
 GO
+
 
 CREATE TABLE [Orders](
 	[AmazonOrderId]				VARCHAR(50),
@@ -55,7 +46,20 @@ CREATE TABLE [Orders](
 	[PurchaseOrderNumber]		VARCHAR(50),
 	[PriceDesignation]			VARCHAR(50),
 
-	CONSTRAINT OrdersOrderId_PK PRIMARY KEY ([AmazonOrderId])
+	CONSTRAINT Orders_AmazonOrderId_PK PRIMARY KEY ([AmazonOrderId])
+)
+GO
+
+CREATE TABLE [Payments](
+	[Date]					DATE,
+	[OrderId]				VARCHAR(50),
+	[SKU]					VARCHAR(50),
+	[TransactionType]		VARCHAR(100),
+	[PaymentType]			VARCHAR(100),
+	[PaymentDetail]			VARCHAR(100),
+	[Amount]				FLOAT,
+	[Quantity]				INT,
+	[ProductTitle]			VARCHAR(400)
 )
 GO
 
@@ -108,8 +112,26 @@ CREATE TABLE [Shipments](
 	[FullfilmentCenterId]		VARCHAR(100),
 	[FullfilmentChannel]		VARCHAR(100),
 	[SalesChannel]				VARCHAR(100),
+	CONSTRAINT Shipments_AmazonOrderId_PK PRIMARY KEY ([AmazonOrderId])
+)
+GO
 
-	CONSTRAINT ShipmentsOrderId_PK PRIMARY KEY ([AmazonOrderId])
+CREATE TABLE [CustomerReturns](
+	[ReturnDate]				DATE,
+	[OrderId]					VARCHAR(50),
+	[SKU]						VARCHAR(50),
+	[ASIN]						VARCHAR(50),
+	[FNSKU]						VARCHAR(50),
+	[ProductName]				VARCHAR(500),
+	[Quantity]					INT,
+	[FullfilmentCenterId]		VARCHAR(100),
+	[DetailedDisposition]		VARCHAR(50),
+	[Reason]					VARCHAR(100),
+	[Status]					VARCHAR(50),
+	[LicensePlateNumber]		VARCHAR(50),
+	[CustomerComments]			VARCHAR(1000),
+	CONSTRAINT PK_CustomerReturns_LicensePlateNumber PRIMARY KEY ([LicensePlateNumber])
+	--CONSTRAINT FK_CustomerReturns_Orders FOREIGN KEY ([OrderId]) REFERENCES Orders ([AmazonOrderId])
 )
 GO
 

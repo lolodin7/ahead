@@ -20,6 +20,12 @@ GO
 USE AHEAD
 GO
 
+INSERT INTO [Marketplace] ([MarketPlaceName])
+VALUES ('Без маркетплейса')
+
+INSERT INTO [Marketplace] ([MarketPlaceName])
+VALUES ('PowerDeWise - USA')
+
 /*         -- [ProductTypes] --             */
 INSERT INTO [ProductTypes] ([TypeName])
 VALUES ('Отсутствующие товары')
@@ -34,7 +40,7 @@ INSERT INTO [ProductTypes] ([TypeName])
 VALUES ('Ножи')
 
 INSERT INTO [ProductTypes] ([TypeName])
-VALUES ('Микрофон адаптер')
+VALUES ('Адаптеры для микрофонов')
 
 INSERT INTO [ProductTypes] ([TypeName])
 VALUES ('Точилки для ножей')
@@ -42,23 +48,124 @@ VALUES ('Точилки для ножей')
 INSERT INTO [ProductTypes] ([TypeName])
 VALUES ('Удлинители')
 
+INSERT INTO [ProductTypes] ([TypeName])
+VALUES ('Триподы')
 
+INSERT INTO [ProductTypes] ([TypeName])
+VALUES ('Клипсы для микрофонов')
+
+INSERT INTO [ProductTypes] ([TypeName])
+VALUES ('Ветрозащита для микрофонов')
+
+select * from products
 
 /*         -- [Products] --             */
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId])
-VALUES ('Товар отсутствует', '-', '-', 0)
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('Товар отсутствует', '-', '-', 0, 1)
 
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId])
-VALUES ('PDW Main Mic', 'B01AG56HYQ', 'E3-2RHF-EO7C', 1)
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('YouMic Main Microphone', 'B01E3L1ESS', '8R-MO3B-ZV8H', 1, 1)
 
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId])
-VALUES ('Walnut Knife Holder', 'B07DW5X3LY', 'adhhldrwlnt', 2)
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('Microphone Adapter 3.5mm (Old)', 'B01N5RG8EC', 'ZW-WW1I-PT7A', 1, 1)
 
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId])
-VALUES ('Acacia Knife Set', 'B07DWWMW8H', 'adhknfstlt', 3)
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('Micro USB Cable(3ft)', 'B01MDV1NSW', 'ZD-DES3-1YXC', 6, 1)
 
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId])
-VALUES ('YouMic Main Mic', 'B01E3L1ESS', '8R-MO3B-ZV8H', 1)
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('Extension Cable 3.5 mm(6 ft)', 'B01LZBEH3W', 'XZ-8LJT-BPX3', 6, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('YouMic Dual Lavalier Microphone', 'B07G2C8D7H', 'XW-I4VB-F8W5', 1, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('Extension Cable 3.5 mm(3 ft)', 'B07CHC94XT', 'PI-HW8D-6TTD', 6, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('PDW Podcast Microphone(Child)', 'B07FCN1K2N', 'pdwmcslvr6', 1, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('PDW iPhone Microphone(Child)', 'B07GYB43P2', 'pdwmcslvr4', 1, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('PDW Mini Microphone(Child)', 'B07FCSQGPY', 'pdwmcslvr3', 1, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('PDW Android Microphone(Child)', 'B07FCJCDDM', 'pdwmcslvr2', 1, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('Flexible Mini Tripod(Old)', 'B01MG2BEVZ', 'P9-8LPU-DGDW', 7, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('Furry Wind Muff', 'B075FS5Y7Z', 'O9-U3F0-WROB', 9, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('YouMic Microphone Clip', 'B07BFWVJH1', 'N5-YBHW-NM5X', 8, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('PDW Main Microphone', 'B01AG56HYQ', 'LR-44G2-7Y1Y', 1, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('PDW Y Splitter(Mic + Mic)', 'B01BNGAHCA', 'KS-ZYQB-G549', 4, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('PDW Main Microphone', 'B01AG56HYQ', 'IG-5UO9-SCW1', 1, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('PDW Dual Microphone', 'B07CHCSLVC', 'HR-9KQ2-IPD9', 1, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('Kitchen Knife Sharpener(Child)', 'B01FS5VJMY', 'GK-RHNH-11NI', 5, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('PDW Y Splitter New(Headphone + Mic)', 'B07G4DS728', 'GH-7TR8-5HPZ', 4, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('Kitchen Knife Sharpener(Main)', 'B079YP5L6J', 'FF-TB8V-VKY4', 5, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('PDW Main Microphone', 'B01AG56HYQ', 'E3-2RHF-EO7C', 1, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('Phone Tripod New', 'B07CJRB8YB', 'E3-1WM4-S3MY', 7, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('PDW Microphone Wind Muff', 'B01LL5U0NO', 'DL-LJ4D-RKZH', 9, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('Extension Cable 3.5 mm(10 ft)', 'B07CHFG1FN', 'BQ-CK10-HCVV', 6, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('YouMic Microphone Wind Muff', 'B07BFXR55J', 'AV-ALS4-5BSO', 9, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('Knife Holder(Old)', 'B01DIU9FP4', 'ArtDeHomeLightWalnut12', 2, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('Walnut Knife Set', 'B07FLYJTLB', 'adhknfstwlnt', 3, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('Acacia Knife Set', 'B07DWWMW8H', 'adhknfstlt', 3, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('Walnut Knife Holder', 'B07DW5X3LY', 'adhhldrwlnt', 2, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('Acacia Knife Holder', 'B07FCNH5SL', 'adhhldacca', 2, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('USB Audio Adapter', 'B0713SJ2ZD', 'AB-KG1N-IPYL', 4, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('Extension Cable 3.5 mm(15 ft)', 'B07CHBGV5X', '3J-03VY-3VT0', 6, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('Lightning Cable(3 ft)', 'B01MDV1TO4', '32-FM61-Q39H', 6, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('PDW Microphone Clip', 'B01LZ6T9XO', '1N-NPIV-XHND', 8, 1)
+
+
 
 
 /*         -- [Semantics] --             */

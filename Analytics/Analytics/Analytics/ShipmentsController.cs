@@ -17,32 +17,68 @@ namespace Analytics
         private SqlConnection connection;
         private List<ShipmentsModel> shipmentsList;
         private List<ShipmentsModel> newShipmentsList;
+        private int allLines;
+        private int addedLines;
+        private int updatedLines;
+        private AnalyticsForm form1;
 
-        public ShipmentsController()
+        public ShipmentsController(AnalyticsForm _form1)
         {
             connection = DBData.GetDBConnection();
             shipmentsList = new List<ShipmentsModel> { };
+            allLines = 0;
+            addedLines = 0;
+            updatedLines = 0;
+
+            form1 = _form1;
         }
 
 
         /* Вытаскиваем строки из Excel */
         public void GetShipmentsFromExcel()
         {
-            using (ExcelPackage xlPackage = new ExcelPackage(new FileInfo(@"C:\temp\shipments.xlsx")))
+            form1.openFileDialog1.Filter = "Выбери файл|*.csv;*.txt;*.xlsx";
+            form1.openFileDialog1.Title = "Выбор файла для открытия";
+
+            if (form1.openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                shipmentsList = new List<ShipmentsModel> { };
-                ExcelWorksheet workSheet = xlPackage.Workbook.Worksheets.First();
-                var start = workSheet.Dimension.Start;
-                var end = workSheet.Dimension.End;
-                
-                for (int row = start.Row + 1; row <= end.Row; row++)
+                using (ExcelPackage xlPackage = new ExcelPackage(new FileInfo(@form1.openFileDialog1.FileName)))
                 {
-                    ShipmentsModel sm = new ShipmentsModel();
-                    shipmentsList.Add(sm);
-                    for (int col = start.Column; col <= end.Column; col++)
+                    shipmentsList = new List<ShipmentsModel> { };
+                    allLines = 0;
+                    addedLines = 0;
+                    updatedLines = 0;
+
+                    ExcelWorksheet workSheet = xlPackage.Workbook.Worksheets.First();
+                    var start = workSheet.Dimension.Start;
+                    var end = workSheet.Dimension.End;
+
+                    ShipmentsModel checkFields = new ShipmentsModel();
+                    if (end.Column != checkFields.FieldCount)
                     {
-                        shipmentsList[shipmentsList.Count - 1].SetShipments(col - 1, workSheet.Cells[row, col].Text);
+                        MessageBox.Show("Выбранный файл не соответствует нужному формату отчета. Возможно, ошибочно был загружен некорректный файл. Приложение будет закрыто.", "Ошибка");
+                        return;
                     }
+
+                    form1.progressBar1.Maximum = end.Row;
+                    form1.progressBar1.Value = 0;
+                    form1.progressBar1.Visible = true;
+
+                    for (int row = start.Row + 1; row <= end.Row; row++)
+                    {
+                        ShipmentsModel sm = new ShipmentsModel();
+                        shipmentsList.Add(sm);
+                        for (int col = start.Column; col <= end.Column; col++)
+                        {
+                            shipmentsList[shipmentsList.Count - 1].SetShipments(col - 1, workSheet.Cells[row, col].Text);
+                        }
+                        allLines++;
+                        form1.progressBar1.Value++;
+                        form1.progressBar1.Refresh();
+                    }
+                    form1.progressBar1.Visible = false;
+
+                    SetNewShipmentsToDB();                //в будущем вызываем отсюда
                 }
             }
         }
@@ -54,6 +90,10 @@ namespace Analytics
             string sqlStatement;
             connection.Open();
 
+            form1.progressBar1.Maximum = shipmentsList.Count;
+            form1.progressBar1.Value = 0;
+            form1.progressBar1.Visible = true;
+
             for (int i = 0; i < shipmentsList.Count; i++)
             {
                 sqlStatement = "INSERT INTO[Shipments] ([AmazonOrderId], [MerchantOrderId], [ShipmentId], [ShipmentItemId], [AmazonOrderItemId], [MerchantOrderItemId], [PurchaseDate], [PaymentsDate], [ShipmentDate], [ReportingDate], [BuyerEmail], [BuyerName], [BuyerPhoneNumber], [Sku], [ProductName], [QuantityShipped], [Currency], [ItemPrice], [ItemTax], [ShippingPrice], [ShippingTax], [GiftWrapPrice], [GiftWrapTax], [ShipServiceLevel], [RecipientName], [ShipAddress1], [ShipAddress2], [ShipAddress3], [ShipCity], [ShipState], [ShipPostalCode], [ShipCountry], [ShipPhoneNumber], [BillAddress1], [BillAddress2], [BillAddress3], [BillCity], [BillState], [BillPostalCode], [BillCountry], [ItemPromotionDiscount], [ShipPromotionDiscount], [Carrier], [TrackingNumber], [EstimatedArrivalDate], [FullfilmentCenterId], [FullfilmentChannel], [SalesChannel]) VALUES ('" + shipmentsList[i].AmazonOrderId + "', '" + shipmentsList[i].MerchantOrderId + "','" + shipmentsList[i].ShipmentId + "', '" + shipmentsList[i].ShipmentItemId + "', '" + shipmentsList[i].AmazonOrderItemId + "', '" + shipmentsList[i].MerchantOrderItemId + "', '" + shipmentsList[i].PurchaseDate.ToString("yyyy-MM-dd") + "', '" + shipmentsList[i].PaymentsDate.ToString("yyyy-MM-dd") + "', '" + shipmentsList[i].ShipmentDate.ToString("yyyy-MM-dd") + "', '" + shipmentsList[i].ReportingDate.ToString("yyyy-MM-dd") + "', '" + shipmentsList[i].BuyerEmail + "', '" + shipmentsList[i].BuyerName + "', '" + shipmentsList[i].BuyerPhoneNumber + "', '" + shipmentsList[i].Sku + "', '" + shipmentsList[i].ProductName + "', " + shipmentsList[i].QuantityShipped + ", '" + shipmentsList[i].Currency + "', " + shipmentsList[i].ItemPrice.ToString(specifier, CultureInfo.InvariantCulture) + ", " + shipmentsList[i].ItemTax.ToString(specifier, CultureInfo.InvariantCulture) + ", " + shipmentsList[i].ShippingPrice.ToString(specifier, CultureInfo.InvariantCulture) + ", " + shipmentsList[i].ShippingTax.ToString(specifier, CultureInfo.InvariantCulture) + ", " + shipmentsList[i].GiftWrapPrice.ToString(specifier, CultureInfo.InvariantCulture) + ", " + shipmentsList[i].GiftWrapTax.ToString(specifier, CultureInfo.InvariantCulture) + ", '" + shipmentsList[i].ShipServiceLevel + "', '" + shipmentsList[i].RecipientName + "', '" + shipmentsList[i].ShipAddress1 + "', '" + shipmentsList[i].ShipAddress2 + "', '" + shipmentsList[i].ShipAddress3 + "', '" + shipmentsList[i].ShipCity + "', '" + shipmentsList[i].ShipState + "', '" + shipmentsList[i].ShipPostalCode + "', '" + shipmentsList[i].ShipCountry + "', '" + shipmentsList[i].ShipPhoneNumber + "', '" + shipmentsList[i].BillAddress1 + "', '" + shipmentsList[i].BillAddress2 + "', '" + shipmentsList[i].BillAddress3 + "', '" + shipmentsList[i].BillCity + "', '" + shipmentsList[i].BillState + "', '" + shipmentsList[i].BillPostalCode + "', '" + shipmentsList[i].BillCountry + "', " + shipmentsList[i].ItemPromotionDiscount.ToString(specifier, CultureInfo.InvariantCulture) + ", " + shipmentsList[i].ShipPromotionDiscount.ToString(specifier, CultureInfo.InvariantCulture) + ", '" + shipmentsList[i].Carrier + "', '" + shipmentsList[i].TrackingNumber + "', '" + shipmentsList[i].EstimatedArrivalDate.ToString("yyyy-MM-dd") + "', '" + shipmentsList[i].FullfilmentCenterId + "', '" + shipmentsList[i].FullfilmentChannel + "', '" + shipmentsList[i].SalesChannel + "')";
@@ -62,11 +102,19 @@ namespace Analytics
                     SqlCommand command = new SqlCommand(sqlStatement, connection);
 
                     command.ExecuteScalar();
+                    addedLines++;
                 }
                 catch (Exception ex) { }
+
+                form1.progressBar1.Value++;
+                form1.progressBar1.Refresh();
             }
+            form1.progressBar1.Visible = false;
+            connection.Close();
+            MessageBox.Show("Добавление прошло успешно!\nВсего записей: " + allLines + "\nДобавлено новых записей: " + addedLines + "\nОбновлено записей: " + updatedLines);
         }
 
+        /* Заливаем новые/обновляем старые строки в БД */
         public void UpdateShipmentsInDB()
         {
             GetShipmentsFromExcel();
@@ -76,6 +124,10 @@ namespace Analytics
             string sqlStatement;
             connection.Open();
 
+            form1.progressBar1.Maximum = shipmentsList.Count;
+            form1.progressBar1.Value = 0;
+            form1.progressBar1.Visible = true;
+
             for (int i = 0; i < shipmentsList.Count; i++)
             {
                 sqlStatement = "INSERT INTO[Shipments] ([AmazonOrderId], [MerchantOrderId], [ShipmentId], [ShipmentItemId], [AmazonOrderItemId], [MerchantOrderItemId], [PurchaseDate], [PaymentsDate], [ShipmentDate], [ReportingDate], [BuyerEmail], [BuyerName], [BuyerPhoneNumber], [Sku], [ProductName], [QuantityShipped], [Currency], [ItemPrice], [ItemTax], [ShippingPrice], [ShippingTax], [GiftWrapPrice], [GiftWrapTax], [ShipServiceLevel], [RecipientName], [ShipAddress1], [ShipAddress2], [ShipAddress3], [ShipCity], [ShipState], [ShipPostalCode], [ShipCountry], [ShipPhoneNumber], [BillAddress1], [BillAddress2], [BillAddress3], [BillCity], [BillState], [BillPostalCode], [BillCountry], [ItemPromotionDiscount], [ShipPromotionDiscount], [Carrier], [TrackingNumber], [EstimatedArrivalDate], [FullfilmentCenterId], [FullfilmentChannel], [SalesChannel]) VALUES ('" + shipmentsList[i].AmazonOrderId + "', '" + shipmentsList[i].MerchantOrderId + "','" + shipmentsList[i].ShipmentId + "', '" + shipmentsList[i].ShipmentItemId + "', '" + shipmentsList[i].AmazonOrderItemId + "', '" + shipmentsList[i].MerchantOrderItemId + "', '" + shipmentsList[i].PurchaseDate.ToString("yyyy-MM-dd") + "', '" + shipmentsList[i].PaymentsDate.ToString("yyyy-MM-dd") + "', '" + shipmentsList[i].ShipmentDate.ToString("yyyy-MM-dd") + "', '" + shipmentsList[i].ReportingDate.ToString("yyyy-MM-dd") + "', '" + shipmentsList[i].BuyerEmail + "', '" + shipmentsList[i].BuyerName + "', '" + shipmentsList[i].BuyerPhoneNumber + "', '" + shipmentsList[i].Sku + "', '" + shipmentsList[i].ProductName + "', " + shipmentsList[i].QuantityShipped + ", '" + shipmentsList[i].Currency + "', " + shipmentsList[i].ItemPrice.ToString(specifier, CultureInfo.InvariantCulture) + ", " + shipmentsList[i].ItemTax.ToString(specifier, CultureInfo.InvariantCulture) + ", " + shipmentsList[i].ShippingPrice.ToString(specifier, CultureInfo.InvariantCulture) + ", " + shipmentsList[i].ShippingTax.ToString(specifier, CultureInfo.InvariantCulture) + ", " + shipmentsList[i].GiftWrapPrice.ToString(specifier, CultureInfo.InvariantCulture) + ", " + shipmentsList[i].GiftWrapTax.ToString(specifier, CultureInfo.InvariantCulture) + ", '" + shipmentsList[i].ShipServiceLevel + "', '" + shipmentsList[i].RecipientName + "', '" + shipmentsList[i].ShipAddress1 + "', '" + shipmentsList[i].ShipAddress2 + "', '" + shipmentsList[i].ShipAddress3 + "', '" + shipmentsList[i].ShipCity + "', '" + shipmentsList[i].ShipState + "', '" + shipmentsList[i].ShipPostalCode + "', '" + shipmentsList[i].ShipCountry + "', '" + shipmentsList[i].ShipPhoneNumber + "', '" + shipmentsList[i].BillAddress1 + "', '" + shipmentsList[i].BillAddress2 + "', '" + shipmentsList[i].BillAddress3 + "', '" + shipmentsList[i].BillCity + "', '" + shipmentsList[i].BillState + "', '" + shipmentsList[i].BillPostalCode + "', '" + shipmentsList[i].BillCountry + "', " + shipmentsList[i].ItemPromotionDiscount.ToString(specifier, CultureInfo.InvariantCulture) + ", " + shipmentsList[i].ShipPromotionDiscount.ToString(specifier, CultureInfo.InvariantCulture) + ", '" + shipmentsList[i].Carrier + "', '" + shipmentsList[i].TrackingNumber + "', '" + shipmentsList[i].EstimatedArrivalDate.ToString("yyyy-MM-dd") + "', '" + shipmentsList[i].FullfilmentCenterId + "', '" + shipmentsList[i].FullfilmentChannel + "', '" + shipmentsList[i].SalesChannel + "')";
@@ -85,22 +137,31 @@ namespace Analytics
                     SqlCommand command = new SqlCommand(sqlStatement, connection);
 
                     command.ExecuteScalar();
-
-                } catch (Exception ex)
+                    addedLines++;
+                }
+                catch (Exception ex)
                 {
-                    ShipmentsModel sm = new ShipmentsModel();
-                    newShipmentsList.Add(sm);
-
-                    for (int j = 0; j < sm.FieldCount; j++)
+                    if (ex.HResult == -2146232060)
                     {
-                        newShipmentsList[newShipmentsList.Count - 1].SetShipmentsForUpdate(j, shipmentsList[i].GetShipments(j));
+                        ShipmentsModel sm = new ShipmentsModel();
+                        newShipmentsList.Add(sm);
+
+                        for (int j = 0; j < sm.FieldCount; j++)
+                        {
+                            newShipmentsList[newShipmentsList.Count - 1].SetShipmentsForUpdate(j, shipmentsList[i].GetShipments(j));
+                        }
                     }
                 }
+                form1.progressBar1.Value++;
+                form1.progressBar1.Refresh();
             }
+            form1.progressBar1.Visible = false;
             connection.Close();
 
             if (newShipmentsList.Count > 0)
                 UpdateExistingShipmentsInDB();
+
+            MessageBox.Show("Всего записей: " + allLines + "\nДобавлено новых записей: " + addedLines + "\nОбновлено записей: " + updatedLines);
         }
 
         private void UpdateExistingShipmentsInDB()
@@ -108,6 +169,10 @@ namespace Analytics
             string specifier = "G";
             string sqlStatement;
             connection.Open();
+
+            form1.progressBar1.Maximum = newShipmentsList.Count;
+            form1.progressBar1.Value = 0;
+            form1.progressBar1.Visible = true;
 
             for (int i = 0; i < newShipmentsList.Count; i++)
             {
@@ -118,8 +183,14 @@ namespace Analytics
                     SqlCommand command = new SqlCommand(sqlStatement, connection);
 
                     command.ExecuteScalar();
+                    updatedLines++;
                 } catch (Exception ex) { }
+
+                form1.progressBar1.Value++;
+                form1.progressBar1.Refresh();
+
             }
+            form1.progressBar1.Visible = false;
             connection.Close();
         }
     }

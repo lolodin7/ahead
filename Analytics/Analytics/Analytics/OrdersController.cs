@@ -17,33 +17,69 @@ namespace Analytics
         private SqlConnection connection;
         private List<OrdersModel> ordersList;
         private List<OrdersModel> newOrdersList;
-        private DataGridView dgv;
+        private int allLines;
+        private int addedLines;
+        private int updatedLines;
+        private AnalyticsForm form1;
 
-        public OrdersController()
+        public OrdersController(AnalyticsForm _form1)
         {
             connection = DBData.GetDBConnection();
             ordersList = new List<OrdersModel> { };
+            allLines = 0;
+            addedLines = 0;
+            updatedLines = 0;
+
+            form1 = _form1;
         }
 
         /* Вытаскиваем строки из Excel */
-        public void GetOrdersFromExcel()
+        public void GetOrdersFromExcel(bool update)
         {
-            using (ExcelPackage xlPackage = new ExcelPackage(new FileInfo(@"C:\temp\orders.xlsx")))
+            form1.openFileDialog1.Filter = "Выбери файл|*.csv;*.txt;*.xlsx";
+            form1.openFileDialog1.Title = "Выбор файла для открытия";
+            
+            if (form1.openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                ordersList = new List<OrdersModel> { };
-                ExcelWorksheet workSheet = xlPackage.Workbook.Worksheets.First();
-                var start = workSheet.Dimension.Start;
-                var end = workSheet.Dimension.End;
-
-                for (int row = start.Row + 1; row <= end.Row; row++)
+                using (ExcelPackage xlPackage = new ExcelPackage(new FileInfo(@form1.openFileDialog1.FileName)))
                 {
-                    OrdersModel om = new OrdersModel();
-                    ordersList.Add(om);
+                    ordersList = new List<OrdersModel> { };
+                    allLines = 0;
+                    addedLines = 0;
+                    updatedLines = 0;
+                    
+                    ExcelWorksheet workSheet = xlPackage.Workbook.Worksheets.First();
+                    var start = workSheet.Dimension.Start;
+                    var end = workSheet.Dimension.End;
 
-                    for (int col = start.Column; col <= end.Column; col++)
+                    OrdersModel checkFields = new OrdersModel();
+                    if (end.Column != checkFields.FieldCount)
                     {
-                        ordersList[ordersList.Count - 1].SetOrders(col - 1, workSheet.Cells[row, col].Text);
+                        MessageBox.Show("Выбранный файл не соответствует нужному формату отчета. Возможно, ошибочно был загружен некорректный файл. Попробуйте загрузить корректный файл.", "Ошибка");
+                        return;
                     }
+
+                    form1.progressBar1.Maximum = end.Row;
+                    form1.progressBar1.Value = 0;
+                    form1.progressBar1.Visible = true;
+
+                    for (int row = start.Row + 1; row <= end.Row; row++)
+                    {
+                        OrdersModel om = new OrdersModel();
+                        ordersList.Add(om);
+
+                        for (int col = start.Column; col <= end.Column; col++)
+                        {
+                            ordersList[ordersList.Count - 1].SetOrders(col - 1, workSheet.Cells[row, col].Text);
+                        }
+                        allLines++;
+                        form1.progressBar1.Value++;
+                        form1.progressBar1.Refresh();
+                    }
+                    form1.progressBar1.Visible = false;
+
+                    if (!update)
+                        SetNewOrdersToDB();
                 }
             }
         }
@@ -55,6 +91,10 @@ namespace Analytics
             string sqlStatement;
             connection.Open();
 
+            form1.progressBar1.Maximum = ordersList.Count;
+            form1.progressBar1.Value = 0;
+            form1.progressBar1.Visible = true;
+            
             for (int i = 0; i < ordersList.Count; i++)
             {
                 sqlStatement = "INSERT INTO [Orders] ([AmazonOrderId], [MerchantOrderId], [PurchaseDate], [LastUpdatedDate], [OrderStatus], [FullfilmentChannel], [SalesChannel], [OrderChannel], [Url], [ShipServiceLevel], [ProductName], [Sku], [Asin], [ItemStatus], [Quantity], [Currency], [ItemPrice], [ItemTax], [ShippingPrice], [ShippingTax], [GiftWrapPrice], [GiftWrapTax], [ItemPromotionDiscount], [ShipPromotionDiscount], [ShipCity], [ShipState], [ShipPostalCode], [ShipCountry], [PromotionIds], [IsBusinessOrder], [PurchaseOrderNumber], [PriceDesignation]) VALUES ('" + ordersList[i].AmazonOrderId + "', '" + ordersList[i].MerchantOrderId + "', '" + ordersList[i].PurchaseDate.ToString("yyyy-MM-dd") + "', '" + ordersList[i].LastUpdatedDate.ToString("yyyy-MM-dd") + "', '" + ordersList[i].OrderStatus + "', '" + ordersList[i].FullfilmentChannel + "', '" + ordersList[i].SalesChannel + "', '" + ordersList[i].OrderChannel + "', '" + ordersList[i].Url + "', '" + ordersList[i].ShipServiceLevel + "', '" + ordersList[i].ProductName + "', '" + ordersList[i].Sku + "', '" + ordersList[i].Asin + "', '" + ordersList[i].ItemStatus + "', " + ordersList[i].Quantity + ", '" + ordersList[i].Currency + "', " + ordersList[i].ItemPrice.ToString(specifier, CultureInfo.InvariantCulture) + ", " + ordersList[i].ItemTax.ToString(specifier, CultureInfo.InvariantCulture) + ", " + ordersList[i].ShippingPrice.ToString(specifier, CultureInfo.InvariantCulture) + ", " + ordersList[i].ShippingTax.ToString(specifier, CultureInfo.InvariantCulture) + ", " + ordersList[i].GiftWrapPrice.ToString(specifier, CultureInfo.InvariantCulture) + ", " + ordersList[i].GiftWrapTax.ToString(specifier, CultureInfo.InvariantCulture) + ", " + ordersList[i].ItemPromotionDiscount.ToString(specifier, CultureInfo.InvariantCulture) + ", " + ordersList[i].ShipPromotionDiscount.ToString(specifier, CultureInfo.InvariantCulture) + ", '" + ordersList[i].ShipCity + "', '" + ordersList[i].ShipState + "', '" + ordersList[i].ShipPostalCode + "', '" + ordersList[i].ShipCountry + "', '" + ordersList[i].PromotionIds + "', '" + ordersList[i].IsBusinessOrder + "', '" + ordersList[i].PurchaseOrderNumber + "', '" + ordersList[i].PriceDesignation + "')";
@@ -64,22 +104,32 @@ namespace Analytics
                     SqlCommand command = new SqlCommand(sqlStatement, connection);
 
                     command.ExecuteScalar();
+                    addedLines++;
                 }
                 catch (Exception ex) { }
+
+                form1.progressBar1.Value++;
+                form1.progressBar1.Refresh();
             }
+            form1.progressBar1.Visible = false;
             connection.Close();
+            MessageBox.Show("Добавление прошло успешно!\nВсего записей: " + allLines + "\nДобавлено новых записей: " + addedLines + "\nОбновлено записей: " + updatedLines);
         }
 
         /* Заливаем новые/обновляем старые строки в БД */
         public void UpdateOrdersInDB()
         {
-            GetOrdersFromExcel();
+            GetOrdersFromExcel(true);
             newOrdersList = new List<OrdersModel> { };
 
             string specifier = "G";
             string sqlStatement;
             connection.Open();
 
+            form1.progressBar1.Maximum = ordersList.Count;
+            form1.progressBar1.Value = 0;
+            form1.progressBar1.Visible = true;
+
             for (int i = 0; i < ordersList.Count; i++)
             {
                 sqlStatement = "INSERT INTO [Orders] ([AmazonOrderId], [MerchantOrderId], [PurchaseDate], [LastUpdatedDate], [OrderStatus], [FullfilmentChannel], [SalesChannel], [OrderChannel], [Url], [ShipServiceLevel], [ProductName], [Sku], [Asin], [ItemStatus], [Quantity], [Currency], [ItemPrice], [ItemTax], [ShippingPrice], [ShippingTax], [GiftWrapPrice], [GiftWrapTax], [ItemPromotionDiscount], [ShipPromotionDiscount], [ShipCity], [ShipState], [ShipPostalCode], [ShipCountry], [PromotionIds], [IsBusinessOrder], [PurchaseOrderNumber], [PriceDesignation]) VALUES ('" + ordersList[i].AmazonOrderId + "', '" + ordersList[i].MerchantOrderId + "', '" + ordersList[i].PurchaseDate.ToString("yyyy-MM-dd") + "', '" + ordersList[i].LastUpdatedDate.ToString("yyyy-MM-dd") + "', '" + ordersList[i].OrderStatus + "', '" + ordersList[i].FullfilmentChannel + "', '" + ordersList[i].SalesChannel + "', '" + ordersList[i].OrderChannel + "', '" + ordersList[i].Url + "', '" + ordersList[i].ShipServiceLevel + "', '" + ordersList[i].ProductName + "', '" + ordersList[i].Sku + "', '" + ordersList[i].Asin + "', '" + ordersList[i].ItemStatus + "', " + ordersList[i].Quantity + ", '" + ordersList[i].Currency + "', " + ordersList[i].ItemPrice.ToString(specifier, CultureInfo.InvariantCulture) + ", " + ordersList[i].ItemTax.ToString(specifier, CultureInfo.InvariantCulture) + ", " + ordersList[i].ShippingPrice.ToString(specifier, CultureInfo.InvariantCulture) + ", " + ordersList[i].ShippingTax.ToString(specifier, CultureInfo.InvariantCulture) + ", " + ordersList[i].GiftWrapPrice.ToString(specifier, CultureInfo.InvariantCulture) + ", " + ordersList[i].GiftWrapTax.ToString(specifier, CultureInfo.InvariantCulture) + ", " + ordersList[i].ItemPromotionDiscount.ToString(specifier, CultureInfo.InvariantCulture) + ", " + ordersList[i].ShipPromotionDiscount.ToString(specifier, CultureInfo.InvariantCulture) + ", '" + ordersList[i].ShipCity + "', '" + ordersList[i].ShipState + "', '" + ordersList[i].ShipPostalCode + "', '" + ordersList[i].ShipCountry + "', '" + ordersList[i].PromotionIds + "', '" + ordersList[i].IsBusinessOrder + "', '" + ordersList[i].PurchaseOrderNumber + "', '" + ordersList[i].PriceDesignation + "')";
@@ -89,22 +139,33 @@ namespace Analytics
                     SqlCommand command = new SqlCommand(sqlStatement, connection);
 
                     command.ExecuteScalar();
+                    addedLines++;
                 }
                 catch (Exception ex)
                 {
-                    OrdersModel om = new OrdersModel();
-                    newOrdersList.Add(om);
-
-                    for (int j = 0; j < om.FieldCount; j++)
+                    if (ex.HResult == -2146232060)
                     {
-                        newOrdersList[newOrdersList.Count - 1].SetOrdersForUpdate(j, ordersList[i].GetOrders(j));
+                        OrdersModel om = new OrdersModel();
+                        newOrdersList.Add(om);
+
+                        for (int j = 0; j < om.FieldCount; j++)
+                        {
+                            newOrdersList[newOrdersList.Count - 1].SetOrdersForUpdate(j, ordersList[i].GetOrders(j));
+                        }
                     }
                 }
+
+                form1.progressBar1.Value++;
+                form1.progressBar1.Refresh();
             }
+
+            form1.progressBar1.Visible = false;
             connection.Close();
 
             if (newOrdersList.Count > 0)
                 UpdateExistingOrdersInDB();
+
+            MessageBox.Show("Всего записей: " + allLines + "\nДобавлено новых записей: " + addedLines + "\nОбновлено записей: " + updatedLines);
         }
 
         /* Обновляем уже существующие строки в БД */
@@ -113,6 +174,10 @@ namespace Analytics
             string specifier = "G";
             string sqlStatement;
             connection.Open();
+
+            form1.progressBar1.Maximum = newOrdersList.Count;
+            form1.progressBar1.Value = 0;
+            form1.progressBar1.Visible = true;
 
             for (int i = 0; i < newOrdersList.Count; i++)
             {
@@ -123,9 +188,15 @@ namespace Analytics
                     SqlCommand command = new SqlCommand(sqlStatement, connection);
 
                     command.ExecuteScalar();
+                    updatedLines++;
                 }
                 catch (Exception ex) { }
+
+                form1.progressBar1.Value++;
+                form1.progressBar1.Refresh();
             }
+
+            form1.progressBar1.Visible = false;
             connection.Close();
         }
     }

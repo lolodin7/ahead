@@ -7,12 +7,13 @@ select * from Orders
 
 select * from Shipments
 
-
+select * from CustomerReturns
+select * from CustomerReturns where ReturnDate BETWEEN '2018-11-18' and '2018-11-19'
 
 
 delete from Orders
 
-select * from Orders
+select * from Orders where amazonorderid = '111-3126047-5877814'
 
 
 SET ANSI_WARNINGS  OFF;
@@ -27,11 +28,11 @@ INSERT INTO[Shipments] ([AmazonOrderId], [MerchantOrderId], [ShipmentId], [Shipm
 
 
 
+select SUM(Amount) from payments where OrderID = '111-8516251-1834653'
+select Quantity from payments where transactiontype = 'Order Payment' and PaymentType = 'Product charges' and OrderId = '111-8516251-1834653'
 
 
-
-
-
+select * from payments where OrderId = '111-3126047-587781'
 
 
 

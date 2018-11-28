@@ -17,33 +17,68 @@ namespace Analytics
         private SqlConnection connection;
         private List<PaymentsModel> paymentsList;
         private List<PaymentsModel> newPaymentsList;
+        private int allLines;
+        private int addedLines;
+        private int updatedLines;
+        private AnalyticsForm form1;
 
-        public PaymentsController()
+        public PaymentsController(AnalyticsForm _form1)
         {
             connection = DBData.GetDBConnection();
             paymentsList = new List<PaymentsModel> { };
+            allLines = 0;
+            addedLines = 0;
+            updatedLines = 0;
+
+            form1 = _form1;
         }
 
         /* Вытаскиваем строки из Excel */
         public void GetPaymentsFromExcel()
         {
-            using (ExcelPackage xlPackage = new ExcelPackage(new FileInfo(@"C:\temp\payments.xlsx")))
+            form1.openFileDialog1.Filter = "Выбери файл|*.csv;*.txt;*.xlsx";
+            form1.openFileDialog1.Title = "Выбор файла для открытия";
+
+            if (form1.openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                paymentsList = new List<PaymentsModel> { };
-                ExcelWorksheet workSheet = xlPackage.Workbook.Worksheets.First();
-                var start = workSheet.Dimension.Start;
-                var end = workSheet.Dimension.End;
-
-                for (int row = start.Row + 1; row <= end.Row; row++)
+                using (ExcelPackage xlPackage = new ExcelPackage(new FileInfo(@form1.openFileDialog1.FileName)))
                 {
-                    PaymentsModel pm = new PaymentsModel();
-                    paymentsList.Add(pm);
+                    paymentsList = new List<PaymentsModel> { };
+                    allLines = 0;
+                    addedLines = 0;
+                    updatedLines = 0;
 
-                    for (int col = start.Column; col <= end.Column; col++)
+                    ExcelWorksheet workSheet = xlPackage.Workbook.Worksheets.First();
+                    var start = workSheet.Dimension.Start;
+                    var end = workSheet.Dimension.End;
+
+                    PaymentsModel checkFields = new PaymentsModel();
+                    if (end.Column != checkFields.FieldCount)
                     {
-                        paymentsList[paymentsList.Count - 1].SetPayments(col - 1, workSheet.Cells[row, col].Text);
+                        MessageBox.Show("Выбранный файл не соответствует нужному формату отчета. Возможно, ошибочно был загружен некорректный файл. Приложение будет закрыто.", "Ошибка");
+                        return;
                     }
-                    Console.WriteLine(row.ToString());
+
+                    form1.progressBar1.Maximum = end.Row;
+                    form1.progressBar1.Value = 0;
+                    form1.progressBar1.Visible = true;
+
+                    for (int row = start.Row + 1; row <= end.Row; row++)
+                    {
+                        PaymentsModel pm = new PaymentsModel();
+                        paymentsList.Add(pm);
+
+                        for (int col = start.Column; col <= end.Column; col++)
+                        {
+                            paymentsList[paymentsList.Count - 1].SetPayments(col - 1, workSheet.Cells[row, col].Text);
+                        }
+                        allLines++;
+                        form1.progressBar1.Value++;
+                        form1.progressBar1.Refresh();
+                    }
+                    form1.progressBar1.Visible = false;
+
+                    SetNewPaymentsToDB();
                 }
             }
         }
@@ -55,16 +90,31 @@ namespace Analytics
             string specifier = "G";
             connection.Open();
 
+            form1.progressBar1.Maximum = paymentsList.Count;
+            form1.progressBar1.Value = 0;
+            form1.progressBar1.Visible = true;
+
             for (int i = 0; i < paymentsList.Count; i++)
             {
                 sqlStatement = "INSERT INTO [Payments] ([Date], [OrderId], [SKU], [TransactionType], [PaymentType], [PaymentDetail], [Amount], [Quantity], [ProductTitle]) VALUES ('" + paymentsList[i].Date.ToString("yyyy-MM-dd") + "', '" + paymentsList[i].OrderId + "', '" + paymentsList[i].Sku + "', '" + paymentsList[i].TransactionType + "', '" + paymentsList[i].PaymentType + "', '" + paymentsList[i].PaymentDetail + "', " + paymentsList[i].Amount.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].Quantity + ", '" + paymentsList[i].ProductTitle + "')";
                 SqlCommand command = new SqlCommand(sqlStatement, connection);
 
-                command.ExecuteScalar();
+                try
+                {
+                    command.ExecuteScalar();
+                    addedLines++;
+                }
+                catch (Exception ex) { }
+
+                form1.progressBar1.Value++;
+                form1.progressBar1.Refresh();
             }
+            form1.progressBar1.Visible = false;
             connection.Close();
+            MessageBox.Show("Добавление прошло успешно!\nВсего записей: " + allLines + "\nДобавлено новых записей: " + addedLines + "\nОбновлено записей: " + updatedLines);
         }
 
+        /*
         public void UpdatePaymentsInDB()
         {
             GetPaymentsFromExcel();
@@ -115,6 +165,7 @@ namespace Analytics
             }
             connection.Close();
         }
+        */
     }
 }
 
