@@ -59,12 +59,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChooseProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChooseProduct.Designer.cs">
+      <DependentUpon>ChooseProduct.cs</DependentUpon>
+    </Compile>
     <Compile Include="DBData.cs" />
     <Compile Include="AnalyticsForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AnalyticsForm.Designer.cs">
       <DependentUpon>AnalyticsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainFormView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainFormView.Designer.cs">
+      <DependentUpon>MainFormView.cs</DependentUpon>
     </Compile>
     <Compile Include="Month.cs" />
     <Compile Include="OrdersController.cs" />
@@ -73,6 +85,12 @@
     <Compile Include="PaymentsController.cs" />
     <Compile Include="PaymentsModel.cs" />
     <Compile Include="PaymentType.cs" />
+    <Compile Include="PnL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PnL.Designer.cs">
+      <DependentUpon>PnL.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CustomerReturnsController.cs" />
@@ -82,6 +100,15 @@
     <Compile Include="TransactionType.cs" />
     <EmbeddedResource Include="AnalyticsForm.resx">
       <DependentUpon>AnalyticsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChooseProduct.resx">
+      <DependentUpon>ChooseProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainFormView.resx">
+      <DependentUpon>MainFormView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PnL.resx">
+      <DependentUpon>PnL.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -48,6 +48,9 @@
             this.UpdateReportsInDBRefundsToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.GetCustomerReturnsByDateRangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pnLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bySKUToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.byASINToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_ChooseDate = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tb_DateEnd = new System.Windows.Forms.TextBox();
@@ -77,7 +80,8 @@
             this.shipmentsToolStripMenuItem,
             this.paymentsToolStripMenuItem,
             this.refundsToolStripMenuItem,
-            this.serviceToolStripMenuItem});
+            this.serviceToolStripMenuItem,
+            this.pnLToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1447, 24);
@@ -205,6 +209,29 @@
             this.serviceToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.serviceToolStripMenuItem.Text = "Сервис";
             // 
+            // pnLToolStripMenuItem
+            // 
+            this.pnLToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bySKUToolStripMenuItem,
+            this.byASINToolStripMenuItem});
+            this.pnLToolStripMenuItem.Name = "pnLToolStripMenuItem";
+            this.pnLToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.pnLToolStripMenuItem.Text = "PnL";
+            // 
+            // bySKUToolStripMenuItem
+            // 
+            this.bySKUToolStripMenuItem.Name = "bySKUToolStripMenuItem";
+            this.bySKUToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.bySKUToolStripMenuItem.Text = "По SKU";
+            this.bySKUToolStripMenuItem.Click += new System.EventHandler(this.bySKUToolStripMenuItem_Click);
+            // 
+            // byASINToolStripMenuItem
+            // 
+            this.byASINToolStripMenuItem.Name = "byASINToolStripMenuItem";
+            this.byASINToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.byASINToolStripMenuItem.Text = "По ASIN";
+            this.byASINToolStripMenuItem.Click += new System.EventHandler(this.byASINToolStripMenuItem_Click);
+            // 
             // btn_ChooseDate
             // 
             this.btn_ChooseDate.Location = new System.Drawing.Point(13, 28);
@@ -272,10 +299,10 @@
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToResizeRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(13, 57);
+            this.dataGridView1.Location = new System.Drawing.Point(437, 57);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(1422, 530);
+            this.dataGridView1.Size = new System.Drawing.Size(998, 530);
             this.dataGridView1.TabIndex = 7;
             // 
             // AnalyticsForm
@@ -330,6 +357,9 @@
         private System.Windows.Forms.TextBox tb_DateStart;
         private System.Windows.Forms.ToolStripMenuItem GetCustomerReturnsByDateRangeToolStripMenuItem;
         public System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.ToolStripMenuItem pnLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bySKUToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem byASINToolStripMenuItem;
     }
 }
 

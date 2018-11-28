@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Excel_Parse;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,97 +8,40 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.VisualBasic.FileIO;
-using OfficeOpenXml;
-using System.IO;
-using System.Data.SqlClient;
-using System.Globalization;
-using System.Diagnostics;
-using System.Threading;
-using System.Text.RegularExpressions;
-using Excel_Parse;
 
 namespace Analytics
 {
-    public partial class AnalyticsForm : Form
+    public partial class PnL : Form
     {
-        private PaymentsController paymentsController;
-        private OrdersController ordersController;
-        private ShipmentsController shipmentsController;
-        private CustomerReturnsController customerReturnsController;
-
-        private DateTime start;         
+        private DateTime start;
         private DateTime end;
+        private string SKU;
+        ChooseProduct cp;
 
-        public AnalyticsForm()
+        public PnL(ChooseProduct _cp, string _sku)
         {
             InitializeComponent();
-            paymentsController = new PaymentsController(this);
-            ordersController = new OrdersController(this);
-            shipmentsController = new ShipmentsController(this);
-            customerReturnsController = new CustomerReturnsController(this);
-
             start = DateTime.Today;
             end = DateTime.Today;
             tb_DateStart.Text = start.ToString().Substring(0, 10);
             tb_DateEnd.Text = end.ToString().Substring(0, 10);
             btn_ChooseDate.Text = btn_ChooseDate.Text = start.ToString().Substring(0, 10) + " - " + end.ToString().Substring(0, 10);
+
+            SKU = _sku;
+            cp = _cp;
         }
 
 
-        //-------ORDERS---------
-        private void GetNewReportsFromFileOrdersToolStripMenuItem_Click(object sender, EventArgs e)
+        private void fillDGVHeaders()
         {
-            ordersController.GetOrdersFromExcel(false);
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
+            CustomerReturnsModel crm = new CustomerReturnsModel();
+            for (int i = 0; i < crm.dgvColumnsHeadersText.Length; i++)
+            {
+                dataGridView1.Columns.Add(crm.dgvColumnsHeadersText[i], crm.dgvColumnsHeadersText[i]);
+            }
         }
-
-        private void UpdateReportsInDBOrdersToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ordersController.UpdateOrdersInDB();
-        }
-
-        //-------SHIPMENTS--------
-        private void GetNewReportsFromFileShipmentsToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            shipmentsController.GetShipmentsFromExcel();
-        }
-
-        private void UpdateReportsInDBShipmentsToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            shipmentsController.UpdateShipmentsInDB();
-        }
-
-        //-------PAYMENTS--------
-        private void GetNewReportsFromFilePaymentsToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            paymentsController.GetPaymentsFromExcel();
-        }
-
-        private void UpdateReportsInDBPaymentsToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-
-        }
-        //-------REFUNDS--------
-
-
-        private void GetNewReportsFromFileRefundsToolStripMenuItem3_Click(object sender, EventArgs e)
-        {
-            customerReturnsController.GetCustomerReturnsFromExcel(false);
-        }
-
-        private void UpdateReportsInDBRefundsToolStripMenuItem3_Click(object sender, EventArgs e)
-        {
-            customerReturnsController.UpdateCustomerReturnsInDB();
-        }
-
-        private void GetCustomerReturnsByDateRangeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            customerReturnsController.GetCustomerReturnsByDateRange(start, end);
-        }
-
-
-
-
 
 
         //------------------------------------------------DatePicker REGION START---------------------------------------------------------------
@@ -170,7 +114,8 @@ namespace Analytics
                             start = dt;
                             monthCalendarStart.SelectionStart = dt;
                         }
-                    } catch (Exception ex) { MessageBox.Show("При вводе данных была допущена ошибка!", "Ошибка"); }
+                    }
+                    catch (Exception ex) { MessageBox.Show("При вводе данных была допущена ошибка!", "Ошибка"); }
                     break;
                 case "End":
                     try
@@ -188,28 +133,18 @@ namespace Analytics
                     break;
             }
         }
+
+        private void btn_Close_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void PnL_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            cp.Close();
+        }
         #endregion
         //------------------------------------------------DatePicker REGION END-----------------------------------------------------------------
 
-
-        /* Закрываем приложение, убивая процесс */
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.GetCurrentProcess().Kill();
-        }
-
-        private void bySKUToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ChooseProduct cp = new ChooseProduct(this, "sku");
-            cp.Show();
-            this.Visible = false;
-        }
-
-        private void byASINToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ChooseProduct cp = new ChooseProduct(this, "asin");
-            cp.Show();
-            this.Visible = false;
-        }
     }
 }
