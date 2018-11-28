@@ -30,15 +30,20 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChooseProduct));
             this.dgv_Products = new System.Windows.Forms.DataGridView();
-            this.btn_Ok = new System.Windows.Forms.Button();
-            this.btn_Cancel = new System.Windows.Forms.Button();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btn_Ok = new System.Windows.Forms.Button();
+            this.btn_Cancel = new System.Windows.Forms.Button();
+            this.tb_FindSKUField = new System.Windows.Forms.TextBox();
+            this.tb_FindNameField = new System.Windows.Forms.TextBox();
+            this.tb_FindASINField = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Products)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,28 +70,6 @@
             this.dgv_Products.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dgv_Products.Size = new System.Drawing.Size(611, 498);
             this.dgv_Products.TabIndex = 7;
-            // 
-            // btn_Ok
-            // 
-            this.btn_Ok.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btn_Ok.Location = new System.Drawing.Point(632, 5);
-            this.btn_Ok.Name = "btn_Ok";
-            this.btn_Ok.Size = new System.Drawing.Size(147, 49);
-            this.btn_Ok.TabIndex = 9;
-            this.btn_Ok.Text = "Выбрать";
-            this.btn_Ok.UseVisualStyleBackColor = true;
-            this.btn_Ok.Click += new System.EventHandler(this.btn_Ok_Click);
-            // 
-            // btn_Cancel
-            // 
-            this.btn_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btn_Cancel.Location = new System.Drawing.Point(632, 60);
-            this.btn_Cancel.Name = "btn_Cancel";
-            this.btn_Cancel.Size = new System.Drawing.Size(147, 49);
-            this.btn_Cancel.TabIndex = 10;
-            this.btn_Cancel.Text = "Отмена";
-            this.btn_Cancel.UseVisualStyleBackColor = true;
-            this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
             // Column1
             // 
@@ -138,19 +121,90 @@
             this.Column6.ReadOnly = true;
             this.Column6.Visible = false;
             // 
-            // textBox1
+            // btn_Ok
             // 
-            this.textBox1.Location = new System.Drawing.Point(632, 228);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(147, 20);
-            this.textBox1.TabIndex = 11;
+            this.btn_Ok.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btn_Ok.Location = new System.Drawing.Point(632, 5);
+            this.btn_Ok.Name = "btn_Ok";
+            this.btn_Ok.Size = new System.Drawing.Size(147, 49);
+            this.btn_Ok.TabIndex = 9;
+            this.btn_Ok.Text = "Выбрать";
+            this.btn_Ok.UseVisualStyleBackColor = true;
+            this.btn_Ok.Click += new System.EventHandler(this.btn_Ok_Click);
+            // 
+            // btn_Cancel
+            // 
+            this.btn_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btn_Cancel.Location = new System.Drawing.Point(632, 60);
+            this.btn_Cancel.Name = "btn_Cancel";
+            this.btn_Cancel.Size = new System.Drawing.Size(147, 49);
+            this.btn_Cancel.TabIndex = 10;
+            this.btn_Cancel.Text = "Отмена";
+            this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
+            // 
+            // tb_FindSKUField
+            // 
+            this.tb_FindSKUField.Location = new System.Drawing.Point(632, 378);
+            this.tb_FindSKUField.Name = "tb_FindSKUField";
+            this.tb_FindSKUField.Size = new System.Drawing.Size(147, 20);
+            this.tb_FindSKUField.TabIndex = 11;
+            this.tb_FindSKUField.TextChanged += new System.EventHandler(this.tb_FindSKUField_TextChanged);
+            // 
+            // tb_FindNameField
+            // 
+            this.tb_FindNameField.Location = new System.Drawing.Point(632, 186);
+            this.tb_FindNameField.Name = "tb_FindNameField";
+            this.tb_FindNameField.Size = new System.Drawing.Size(141, 20);
+            this.tb_FindNameField.TabIndex = 12;
+            this.tb_FindNameField.TextChanged += new System.EventHandler(this.tb_FindNameField_TextChanged);
+            // 
+            // tb_FindASINField
+            // 
+            this.tb_FindASINField.Location = new System.Drawing.Point(632, 281);
+            this.tb_FindASINField.Name = "tb_FindASINField";
+            this.tb_FindASINField.Size = new System.Drawing.Size(141, 20);
+            this.tb_FindASINField.TabIndex = 13;
+            this.tb_FindASINField.TextChanged += new System.EventHandler(this.tb_FindASINField_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(631, 170);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(144, 13);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Найти по названию товара";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(662, 265);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(81, 13);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "Найти по ASIN";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(663, 362);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(78, 13);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "Найти по SKU";
             // 
             // ChooseProduct
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(785, 515);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.tb_FindASINField);
+            this.Controls.Add(this.tb_FindNameField);
+            this.Controls.Add(this.tb_FindSKUField);
             this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.btn_Ok);
             this.Controls.Add(this.dgv_Products);
@@ -177,6 +231,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tb_FindSKUField;
+        private System.Windows.Forms.TextBox tb_FindNameField;
+        private System.Windows.Forms.TextBox tb_FindASINField;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }

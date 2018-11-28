@@ -29,7 +29,7 @@ namespace Excel_Parse
             mf = _mf;
             OpenSuccess = false;
 
-            getDBProductInfo();
+            getDBProductSKUInfo();
         }
 
         public ChooseProduct(AnalyticsForm _analyticsForm, string _value)
@@ -44,13 +44,14 @@ namespace Excel_Parse
             else
                 byASIN = true;
             if (bySKU)
-                getDBProductInfo();
+                getDBProductSKUInfo();
             else if (byASIN)
                 getDBProductASINInfo();
         }
 
         private void getDBProductASINInfo()
         {
+            dgv_Products.Columns[3].Visible = false;
             string sqlSemanticsIds = "SELECT * FROM Products WHERE [ProductId] > 0";            //ТУТ НУЖНО БУДЕТ ПОМЕНЯТЬ ЗАПРОС ДЛЯ ВЫБОРКИ УНИКАЛЬНЫЙ ASIN
             SqlCommand command = new SqlCommand(sqlSemanticsIds, connection);
 
@@ -82,8 +83,9 @@ namespace Excel_Parse
         }
 
         /* Заполняем поля на форме инфо о продукте */
-        private void getDBProductInfo()
+        private void getDBProductSKUInfo()
         {
+            dgv_Products.Columns[3].Visible = true;
             string sqlSemanticsIds = "SELECT * FROM Products WHERE [ProductId] > 0";
             SqlCommand command = new SqlCommand(sqlSemanticsIds, connection);
 
@@ -114,7 +116,7 @@ namespace Excel_Parse
             }
         }
 
-        /* Заполняем "невидимую" dgv_Products, содержащую инфо о продукте */
+        /* Заполняем dgv_Products, содержащую инфо о продукте */
         private void SetProductsToDataGrid(IDataRecord record)
         {
             var index = dgv_Products.Rows.Add();
@@ -128,15 +130,23 @@ namespace Excel_Parse
         /* Открываем семантику для выбранного товара */
         private void btn_Ok_Click(object sender, EventArgs e)
         {
-            if (analyticsForm != null)
-            {                
-                PnL pnl = new PnL(this, dgv_Products.Rows[dgv_Products.CurrentCellAddress.Y].Cells[3].Value.ToString(););
-                pnl.Show();
-                this.Hide();
-            }
-            else if (mf != null)
+            if (analyticsForm != null)          //если вызвали из analyticsForm
             {
-
+                if (bySKU)
+                {
+                    PnL pnl = new PnL(this, dgv_Products.Rows[dgv_Products.CurrentCellAddress.Y].Cells[3].Value.ToString());
+                    pnl.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    PnL pnl = new PnL(dgv_Products.Rows[dgv_Products.CurrentCellAddress.Y].Cells[2].Value.ToString(), this);
+                    pnl.Show();
+                    this.Hide();
+                }
+            }   
+            else if (mf != null)                //если вызвали из MainForm
+            {
                 ProductId = int.Parse(dgv_Products.Rows[dgv_Products.CurrentCellAddress.Y].Cells[0].Value.ToString());
 
                 string sqlSemanticsIds = "SELECT * FROM Semantics WHERE [ProductId] = " + ProductId;
@@ -184,6 +194,42 @@ namespace Excel_Parse
         private void btn_Cancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void tb_FindSKUField_TextChanged(object sender, EventArgs e)
+        {
+            string findStr = tb_FindSKUField.Text;
+            for (int i = 0; i < dgv_Products.RowCount - 1; i++)
+            {
+                if (dgv_Products.Rows[i].Cells[3].Value.ToString().ToLower().Contains(findStr) && findStr != "")
+                    dgv_Products.Rows[i].Cells[3].Style.BackColor = Color.Aqua;
+                else
+                    dgv_Products.Rows[i].Cells[3].Style.BackColor = Color.White;
+            }
+        }
+
+        private void tb_FindASINField_TextChanged(object sender, EventArgs e)
+        {
+            string findStr = tb_FindASINField.Text;
+            for (int i = 0; i < dgv_Products.RowCount - 1; i++)
+            {
+                if (dgv_Products.Rows[i].Cells[2].Value.ToString().ToLower().Contains(findStr) && findStr != "")
+                    dgv_Products.Rows[i].Cells[2].Style.BackColor = Color.Aqua;
+                else 
+                    dgv_Products.Rows[i].Cells[2].Style.BackColor = Color.White;
+            }
+        }
+
+        private void tb_FindNameField_TextChanged(object sender, EventArgs e)
+        {
+            string findStr = tb_FindNameField.Text;
+            for (int i = 0; i < dgv_Products.RowCount - 1; i++)
+            {
+                if (dgv_Products.Rows[i].Cells[1].Value.ToString().ToLower().Contains(findStr) && findStr != "")
+                    dgv_Products.Rows[i].Cells[1].Style.BackColor = Color.Aqua;
+                else
+                    dgv_Products.Rows[i].Cells[1].Style.BackColor = Color.White;
+            }
         }
     }
 }

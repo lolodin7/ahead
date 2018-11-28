@@ -37,10 +37,13 @@
             this.btn_ChooseDate = new System.Windows.Forms.Button();
             this.btn_Close = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btn_7daysPeriod = new System.Windows.Forms.Button();
+            this.btn_30daysPeriod = new System.Windows.Forms.Button();
+            this.btn_6monthsPeriod = new System.Windows.Forms.Button();
+            this.btn_1yearPeriod = new System.Windows.Forms.Button();
+            this.btn_Today = new System.Windows.Forms.Button();
+            this.btn_ShowPnL = new System.Windows.Forms.Button();
+            this.btn_ExportToExcel = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -52,7 +55,7 @@
             this.panel1.Controls.Add(this.tb_DateStart);
             this.panel1.Controls.Add(this.monthCalendarEnd);
             this.panel1.Controls.Add(this.monthCalendarStart);
-            this.panel1.Location = new System.Drawing.Point(830, 30);
+            this.panel1.Location = new System.Drawing.Point(1021, 35);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(367, 199);
             this.panel1.TabIndex = 11;
@@ -79,7 +82,7 @@
             this.monthCalendarEnd.Location = new System.Drawing.Point(195, 31);
             this.monthCalendarEnd.MaxDate = new System.DateTime(2099, 12, 31, 0, 0, 0, 0);
             this.monthCalendarEnd.MaxSelectionCount = 1;
-            this.monthCalendarEnd.MinDate = new System.DateTime(1999, 1, 1, 0, 0, 0, 0);
+            this.monthCalendarEnd.MinDate = new System.DateTime(2001, 1, 1, 0, 0, 0, 0);
             this.monthCalendarEnd.Name = "monthCalendarEnd";
             this.monthCalendarEnd.ShowToday = false;
             this.monthCalendarEnd.TabIndex = 1;
@@ -90,7 +93,7 @@
             this.monthCalendarStart.Location = new System.Drawing.Point(4, 31);
             this.monthCalendarStart.MaxDate = new System.DateTime(2099, 12, 31, 0, 0, 0, 0);
             this.monthCalendarStart.MaxSelectionCount = 1;
-            this.monthCalendarStart.MinDate = new System.DateTime(1999, 1, 1, 0, 0, 0, 0);
+            this.monthCalendarStart.MinDate = new System.DateTime(2001, 1, 1, 0, 0, 0, 0);
             this.monthCalendarStart.Name = "monthCalendarStart";
             this.monthCalendarStart.ShowToday = false;
             this.monthCalendarStart.TabIndex = 0;
@@ -98,7 +101,7 @@
             // 
             // btn_ChooseDate
             // 
-            this.btn_ChooseDate.Location = new System.Drawing.Point(932, 2);
+            this.btn_ChooseDate.Location = new System.Drawing.Point(1146, 2);
             this.btn_ChooseDate.Name = "btn_ChooseDate";
             this.btn_ChooseDate.Size = new System.Drawing.Size(242, 22);
             this.btn_ChooseDate.TabIndex = 10;
@@ -108,9 +111,9 @@
             // 
             // btn_Close
             // 
-            this.btn_Close.Location = new System.Drawing.Point(108, 76);
+            this.btn_Close.Location = new System.Drawing.Point(12, 4);
             this.btn_Close.Name = "btn_Close";
-            this.btn_Close.Size = new System.Drawing.Size(141, 22);
+            this.btn_Close.Size = new System.Drawing.Size(49, 29);
             this.btn_Close.TabIndex = 12;
             this.btn_Close.Text = "Close";
             this.btn_Close.UseVisualStyleBackColor = true;
@@ -119,56 +122,93 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 159);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 52);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(1185, 432);
+            this.dataGridView1.Size = new System.Drawing.Size(1385, 639);
             this.dataGridView1.TabIndex = 13;
             // 
-            // button1
+            // btn_7daysPeriod
             // 
-            this.button1.Location = new System.Drawing.Point(466, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 23);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "7 дней";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn_7daysPeriod.Location = new System.Drawing.Point(431, 3);
+            this.btn_7daysPeriod.Name = "btn_7daysPeriod";
+            this.btn_7daysPeriod.Size = new System.Drawing.Size(100, 29);
+            this.btn_7daysPeriod.TabIndex = 14;
+            this.btn_7daysPeriod.Text = "7 дней";
+            this.btn_7daysPeriod.UseVisualStyleBackColor = true;
+            this.btn_7daysPeriod.Click += new System.EventHandler(this.btn_7daysPeriod_Click);
             // 
-            // button2
+            // btn_30daysPeriod
             // 
-            this.button2.Location = new System.Drawing.Point(572, 2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(100, 24);
-            this.button2.TabIndex = 15;
-            this.button2.Text = "30 дней";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btn_30daysPeriod.Location = new System.Drawing.Point(537, 2);
+            this.btn_30daysPeriod.Name = "btn_30daysPeriod";
+            this.btn_30daysPeriod.Size = new System.Drawing.Size(100, 30);
+            this.btn_30daysPeriod.TabIndex = 15;
+            this.btn_30daysPeriod.Text = "30 дней";
+            this.btn_30daysPeriod.UseVisualStyleBackColor = true;
+            this.btn_30daysPeriod.Click += new System.EventHandler(this.btn_30daysPeriod_Click);
             // 
-            // button3
+            // btn_6monthsPeriod
             // 
-            this.button3.Location = new System.Drawing.Point(678, 2);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(100, 24);
-            this.button3.TabIndex = 16;
-            this.button3.Text = "6 месяцев";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btn_6monthsPeriod.Location = new System.Drawing.Point(643, 2);
+            this.btn_6monthsPeriod.Name = "btn_6monthsPeriod";
+            this.btn_6monthsPeriod.Size = new System.Drawing.Size(100, 30);
+            this.btn_6monthsPeriod.TabIndex = 16;
+            this.btn_6monthsPeriod.Text = "6 месяцев";
+            this.btn_6monthsPeriod.UseVisualStyleBackColor = true;
+            this.btn_6monthsPeriod.Click += new System.EventHandler(this.btn_6monthsPeriod_Click);
             // 
-            // button4
+            // btn_1yearPeriod
             // 
-            this.button4.Location = new System.Drawing.Point(784, 2);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(100, 24);
-            this.button4.TabIndex = 17;
-            this.button4.Text = "Год";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btn_1yearPeriod.Location = new System.Drawing.Point(749, 2);
+            this.btn_1yearPeriod.Name = "btn_1yearPeriod";
+            this.btn_1yearPeriod.Size = new System.Drawing.Size(100, 30);
+            this.btn_1yearPeriod.TabIndex = 17;
+            this.btn_1yearPeriod.Text = "Год";
+            this.btn_1yearPeriod.UseVisualStyleBackColor = true;
+            this.btn_1yearPeriod.Click += new System.EventHandler(this.btn_1yearPeriod_Click);
+            // 
+            // btn_Today
+            // 
+            this.btn_Today.Location = new System.Drawing.Point(325, 3);
+            this.btn_Today.Name = "btn_Today";
+            this.btn_Today.Size = new System.Drawing.Size(100, 30);
+            this.btn_Today.TabIndex = 18;
+            this.btn_Today.Text = "Сегодня";
+            this.btn_Today.UseVisualStyleBackColor = true;
+            this.btn_Today.Click += new System.EventHandler(this.btn_Today_Click);
+            // 
+            // btn_ShowPnL
+            // 
+            this.btn_ShowPnL.Location = new System.Drawing.Point(900, 3);
+            this.btn_ShowPnL.Name = "btn_ShowPnL";
+            this.btn_ShowPnL.Size = new System.Drawing.Size(105, 29);
+            this.btn_ShowPnL.TabIndex = 19;
+            this.btn_ShowPnL.Text = "Показать";
+            this.btn_ShowPnL.UseVisualStyleBackColor = true;
+            this.btn_ShowPnL.Click += new System.EventHandler(this.btn_ShowPnL_Click);
+            // 
+            // btn_ExportToExcel
+            // 
+            this.btn_ExportToExcel.Location = new System.Drawing.Point(109, 4);
+            this.btn_ExportToExcel.Name = "btn_ExportToExcel";
+            this.btn_ExportToExcel.Size = new System.Drawing.Size(97, 28);
+            this.btn_ExportToExcel.TabIndex = 20;
+            this.btn_ExportToExcel.Text = "Экспорт в Excel";
+            this.btn_ExportToExcel.UseVisualStyleBackColor = true;
+            this.btn_ExportToExcel.Click += new System.EventHandler(this.btn_ExportToExcel_Click);
             // 
             // PnL
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1209, 603);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(1409, 703);
+            this.Controls.Add(this.btn_ExportToExcel);
+            this.Controls.Add(this.btn_ShowPnL);
+            this.Controls.Add(this.btn_Today);
+            this.Controls.Add(this.btn_1yearPeriod);
+            this.Controls.Add(this.btn_6monthsPeriod);
+            this.Controls.Add(this.btn_30daysPeriod);
+            this.Controls.Add(this.btn_7daysPeriod);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btn_Close);
             this.Controls.Add(this.panel1);
@@ -196,9 +236,12 @@
         private System.Windows.Forms.Button btn_ChooseDate;
         private System.Windows.Forms.Button btn_Close;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btn_7daysPeriod;
+        private System.Windows.Forms.Button btn_30daysPeriod;
+        private System.Windows.Forms.Button btn_6monthsPeriod;
+        private System.Windows.Forms.Button btn_1yearPeriod;
+        private System.Windows.Forms.Button btn_Today;
+        private System.Windows.Forms.Button btn_ShowPnL;
+        private System.Windows.Forms.Button btn_ExportToExcel;
     }
 }

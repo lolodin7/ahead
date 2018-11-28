@@ -16,7 +16,11 @@ namespace Analytics
         private DateTime start;
         private DateTime end;
         private string SKU;
+        private string ASIN;
         ChooseProduct cp;
+
+        private bool bySKU;
+        private bool byASIN;
 
         public PnL(ChooseProduct _cp, string _sku)
         {
@@ -27,10 +31,26 @@ namespace Analytics
             tb_DateEnd.Text = end.ToString().Substring(0, 10);
             btn_ChooseDate.Text = btn_ChooseDate.Text = start.ToString().Substring(0, 10) + " - " + end.ToString().Substring(0, 10);
 
+            bySKU = true;
             SKU = _sku;
             cp = _cp;
+            this.Text = this.Text + " - SKU: " + SKU;
         }
 
+        public PnL(string _asin, ChooseProduct _cp)
+        {
+            InitializeComponent();
+            start = DateTime.Today;
+            end = DateTime.Today;
+            tb_DateStart.Text = start.ToString().Substring(0, 10);
+            tb_DateEnd.Text = end.ToString().Substring(0, 10);
+            btn_ChooseDate.Text = btn_ChooseDate.Text = start.ToString().Substring(0, 10) + " - " + end.ToString().Substring(0, 10);
+
+            byASIN = true;
+            ASIN = _asin;
+            cp = _cp;
+            this.Text = this.Text + " - ASIN: " + ASIN;
+        }
 
         private void fillDGVHeaders()
         {
@@ -42,6 +62,17 @@ namespace Analytics
                 dataGridView1.Columns.Add(crm.dgvColumnsHeadersText[i], crm.dgvColumnsHeadersText[i]);
             }
         }
+
+
+
+
+
+
+
+
+
+
+
 
 
         //------------------------------------------------DatePicker REGION START---------------------------------------------------------------
@@ -143,8 +174,139 @@ namespace Analytics
         {
             cp.Close();
         }
+
+        /* Выбираем период за 7 дней */
+        private void btn_7daysPeriod_Click(object sender, EventArgs e)
+        {
+            int dayCnt = 7;
+            if ((start.Year - 1) > 2000)
+            {
+                try
+                {
+                    DateTime dt = new DateTime(start.Year, start.Month, start.Day - dayCnt);
+                    start = dt;
+                    monthCalendarStart.SelectionStart = start;
+                    btn_ChooseDate.Text = start.ToString().Substring(0, 10) + " - " + end.ToString().Substring(0, 10);
+                }
+                catch (Exception ex)
+                {
+                    if (ex.HResult == -2146233086)
+                    {
+                        try
+                        {
+                            DateTime dt = new DateTime(start.Year, start.Month - 1, (DateTime.DaysInMonth(start.Year, start.Month - 1) + start.Day) - dayCnt);
+                            start = dt;
+                            monthCalendarStart.SelectionStart = start;
+                            btn_ChooseDate.Text = start.ToString().Substring(0, 10) + " - " + end.ToString().Substring(0, 10);
+                        }
+                        catch (Exception exx)
+                        {
+                            if (ex.HResult == -2146233086)
+                            {
+                                DateTime dt = new DateTime(start.Year - 1, start.Month + 12 - 1, (DateTime.DaysInMonth(start.Year, start.Month + 12 - 1) + start.Day) - dayCnt);
+                                start = dt;
+                                monthCalendarStart.SelectionStart = start;
+                                btn_ChooseDate.Text = start.ToString().Substring(0, 10) + " - " + end.ToString().Substring(0, 10);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /* Выбираем период за 30 дней */
+        private void btn_30daysPeriod_Click(object sender, EventArgs e)
+        {
+            int dayCnt = 30;
+            if ((start.Year - 1) > 2000)
+            {
+                try
+                {
+                    DateTime dt = new DateTime(start.Year, start.Month, start.Day - dayCnt);
+                    start = dt;
+                    monthCalendarStart.SelectionStart = start;
+                    btn_ChooseDate.Text = start.ToString().Substring(0, 10) + " - " + end.ToString().Substring(0, 10);
+                }
+                catch (Exception ex)
+                {
+                    if (ex.HResult == -2146233086)
+                    {
+                        try
+                        {
+                            DateTime dt = new DateTime(start.Year, start.Month - 1, (DateTime.DaysInMonth(start.Year, start.Month - 1) + start.Day) - dayCnt);
+                            start = dt;
+                            monthCalendarStart.SelectionStart = start;
+                            btn_ChooseDate.Text = start.ToString().Substring(0, 10) + " - " + end.ToString().Substring(0, 10);
+                        }
+                        catch (Exception exx) { }
+                    }
+                }
+            }
+        }
+
+        /* Выбираем период за 6 месяцев */
+        private void btn_6monthsPeriod_Click(object sender, EventArgs e)
+        {
+            if ((start.Year - 1) > 2000)
+            {
+                try
+                {
+                    DateTime dt = new DateTime(start.Year, start.Month - 6, start.Day);
+                    start = dt;
+                    monthCalendarStart.SelectionStart = start;
+                    btn_ChooseDate.Text = start.ToString().Substring(0, 10) + " - " + end.ToString().Substring(0, 10);
+                }
+                catch (Exception ex)
+                {
+                    if (ex.HResult == -2146233086)
+                    {
+                        try
+                        {
+                            DateTime dt = new DateTime(start.Year - 1, start.Month + 12 - 6, start.Day);
+                            start = dt;
+                            monthCalendarStart.SelectionStart = start;
+                            btn_ChooseDate.Text = start.ToString().Substring(0, 10) + " - " + end.ToString().Substring(0, 10);
+                        }
+                        catch (Exception exx) { }
+                    }
+                }
+            }
+        }
+
+        /* Выбираем период за 1 год */
+        private void btn_1yearPeriod_Click(object sender, EventArgs e)
+        {
+            if ((start.Year - 1) > 2000)
+            {
+                try
+                {
+                    DateTime dt = new DateTime(start.Year - 1, start.Month, start.Day);
+                    start = dt;
+                    monthCalendarStart.SelectionStart = start;
+                    btn_ChooseDate.Text = start.ToString().Substring(0, 10) + " - " + end.ToString().Substring(0, 10);
+                }
+                catch (Exception ex) { }
+            }
+        }
+
+        private void btn_Today_Click(object sender, EventArgs e)
+        {
+            DateTime dt = DateTime.Today;
+            start = dt;
+            monthCalendarStart.SelectionStart = start;
+            btn_ChooseDate.Text = start.ToString().Substring(0, 10) + " - " + end.ToString().Substring(0, 10);
+        }
         #endregion
         //------------------------------------------------DatePicker REGION END-----------------------------------------------------------------
 
+        private void btn_ShowPnL_Click(object sender, EventArgs e)
+        {
+            //основной метод отображения PnL
+        }
+
+        private void btn_ExportToExcel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
