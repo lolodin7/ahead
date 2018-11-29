@@ -58,6 +58,7 @@
             this.monthCalendarEnd = new System.Windows.Forms.MonthCalendar();
             this.monthCalendarStart = new System.Windows.Forms.MonthCalendar();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.byMarketplaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -213,7 +214,8 @@
             // 
             this.pnLToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bySKUToolStripMenuItem,
-            this.byASINToolStripMenuItem});
+            this.byASINToolStripMenuItem,
+            this.byMarketplaceToolStripMenuItem});
             this.pnLToolStripMenuItem.Name = "pnLToolStripMenuItem";
             this.pnLToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.pnLToolStripMenuItem.Text = "PnL";
@@ -221,14 +223,14 @@
             // bySKUToolStripMenuItem
             // 
             this.bySKUToolStripMenuItem.Name = "bySKUToolStripMenuItem";
-            this.bySKUToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.bySKUToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.bySKUToolStripMenuItem.Text = "По SKU";
             this.bySKUToolStripMenuItem.Click += new System.EventHandler(this.bySKUToolStripMenuItem_Click);
             // 
             // byASINToolStripMenuItem
             // 
             this.byASINToolStripMenuItem.Name = "byASINToolStripMenuItem";
-            this.byASINToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.byASINToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.byASINToolStripMenuItem.Text = "По ASIN";
             this.byASINToolStripMenuItem.Click += new System.EventHandler(this.byASINToolStripMenuItem_Click);
             // 
@@ -305,6 +307,12 @@
             this.dataGridView1.Size = new System.Drawing.Size(998, 530);
             this.dataGridView1.TabIndex = 7;
             // 
+            // byMarketplaceToolStripMenuItem
+            // 
+            this.byMarketplaceToolStripMenuItem.Name = "byMarketplaceToolStripMenuItem";
+            this.byMarketplaceToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.byMarketplaceToolStripMenuItem.Text = "По Marketplace";
+            // 
             // AnalyticsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -360,6 +368,7 @@
         private System.Windows.Forms.ToolStripMenuItem pnLToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bySKUToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem byASINToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem byMarketplaceToolStripMenuItem;
     }
 }
 

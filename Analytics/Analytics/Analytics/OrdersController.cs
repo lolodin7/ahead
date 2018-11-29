@@ -113,7 +113,7 @@ namespace Analytics
             }
             form1.progressBar1.Visible = false;
             connection.Close();
-            MessageBox.Show("Добавление прошло успешно!\nВсего записей: " + allLines + "\nДобавлено новых записей: " + addedLines + "\nОбновлено записей: " + updatedLines);
+            MessageBox.Show("Добавление прошло успешно!\nВсего строк: " + allLines + "\nДобавлено новых строк: " + addedLines + "\nОбновлено строк: " + updatedLines);
         }
 
         /* Заливаем новые/обновляем старые строки в БД */

@@ -81,10 +81,8 @@
     <Compile Include="Month.cs" />
     <Compile Include="OrdersController.cs" />
     <Compile Include="OrdersModel.cs" />
-    <Compile Include="PaymentDetail.cs" />
     <Compile Include="PaymentsController.cs" />
     <Compile Include="PaymentsModel.cs" />
-    <Compile Include="PaymentType.cs" />
     <Compile Include="PnL.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,7 +95,6 @@
     <Compile Include="CustomerReturnsModel.cs" />
     <Compile Include="ShipmentsController.cs" />
     <Compile Include="ShipmentsModel.cs" />
-    <Compile Include="TransactionType.cs" />
     <EmbeddedResource Include="AnalyticsForm.resx">
       <DependentUpon>AnalyticsForm.cs</DependentUpon>
     </EmbeddedResource>

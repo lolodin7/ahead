@@ -1,4 +1,5 @@
-﻿using OfficeOpenXml;
+﻿using Microsoft.VisualBasic.FileIO;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -36,11 +37,41 @@ namespace Analytics
         /* Вытаскиваем строки из Excel */
         public void GetPaymentsFromExcel()
         {
-            form1.openFileDialog1.Filter = "Выбери файл|*.csv;*.txt;*.xlsx";
+            form1.openFileDialog1.Filter = "Выбери файл|*.csv";
             form1.openFileDialog1.Title = "Выбор файла для открытия";
 
             if (form1.openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+
+                using (TextFieldParser parser = new TextFieldParser(@form1.openFileDialog1.FileName))
+                {
+
+                    parser.TextFieldType = FieldType.Delimited;
+                    parser.SetDelimiters(new string[] { "," });                                     //?????????????
+                    parser.HasFieldsEnclosedInQuotes = false;                                                                              
+
+                    while (!parser.EndOfData)
+                    {
+                        PaymentsModel pm = new PaymentsModel();
+                        paymentsList.Add(pm);
+                        //Process row
+                        string[] fields = parser.ReadFields();
+                        //first
+                        string tmp1 = fields[0];
+                        paymentsList[paymentsList.Count - 1].SetPayments(0, fields[0].ToString());
+                        //last
+                        string tmp = fields[fields.Length - 1];
+                        string res = tmp.Substring(0, tmp.Length - 2);
+                        paymentsList[paymentsList.Count - 1].SetPayments(fields.Length - 1, fields[fields.Length - 1].ToString());
+
+                        for (int j = 1; j < fields.Length - 2; j++)
+                        {
+                            paymentsList[paymentsList.Count - 1].SetPayments(j, fields[j].ToString());
+                        }
+                    }
+
+                }
+
                 using (ExcelPackage xlPackage = new ExcelPackage(new FileInfo(@form1.openFileDialog1.FileName)))
                 {
                     paymentsList = new List<PaymentsModel> { };
@@ -53,7 +84,7 @@ namespace Analytics
                     var end = workSheet.Dimension.End;
 
                     PaymentsModel checkFields = new PaymentsModel();
-                    if (end.Column != checkFields.FieldCount)
+                    if (end.Column != checkFields.FieldCount + 1)
                     {
                         MessageBox.Show("Выбранный файл не соответствует нужному формату отчета. Возможно, ошибочно был загружен некорректный файл. Приложение будет закрыто.", "Ошибка");
                         return;
@@ -78,7 +109,34 @@ namespace Analytics
                     }
                     form1.progressBar1.Visible = false;
 
+                    CheckForDoubleOrders();
                     SetNewPaymentsToDB();
+                }
+            }
+        }
+
+        public void CheckForDoubleOrders()
+        {
+            for (int i = 0; i < paymentsList.Count; i++)
+            {
+                for (int j = i + 1; j < paymentsList.Count; j++)
+                {
+                    if (paymentsList[i].OrderId.Equals(paymentsList[j].OrderId))
+                    {
+                        paymentsList[i].Quantity += paymentsList[j].Quantity;
+                        paymentsList[i].ProductSales += paymentsList[j].ProductSales;
+                        paymentsList[i].ShippingCredits += paymentsList[j].ShippingCredits;
+                        paymentsList[i].GiftWrapCredits += paymentsList[j].GiftWrapCredits;
+                        paymentsList[i].PromotionalRebates += paymentsList[j].PromotionalRebates;
+                        paymentsList[i].SaleTaxCollected += paymentsList[j].SaleTaxCollected;
+                        paymentsList[i].MarketplaceFacilitatorTax += paymentsList[j].MarketplaceFacilitatorTax;
+                        paymentsList[i].SellingFees += paymentsList[j].SellingFees;
+                        paymentsList[i].FBAFees += paymentsList[j].FBAFees;
+                        paymentsList[i].OtherTransactionFees += paymentsList[j].OtherTransactionFees;
+                        paymentsList[i].Other += paymentsList[j].Other;
+                        paymentsList[i].Total += paymentsList[j].Total;
+                        paymentsList.RemoveAt(j);
+                    }
                 }
             }
         }
@@ -96,7 +154,8 @@ namespace Analytics
 
             for (int i = 0; i < paymentsList.Count; i++)
             {
-                sqlStatement = "INSERT INTO [Payments] ([Date], [OrderId], [SKU], [TransactionType], [PaymentType], [PaymentDetail], [Amount], [Quantity], [ProductTitle]) VALUES ('" + paymentsList[i].Date.ToString("yyyy-MM-dd") + "', '" + paymentsList[i].OrderId + "', '" + paymentsList[i].Sku + "', '" + paymentsList[i].TransactionType + "', '" + paymentsList[i].PaymentType + "', '" + paymentsList[i].PaymentDetail + "', " + paymentsList[i].Amount.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].Quantity + ", '" + paymentsList[i].ProductTitle + "')";
+                sqlStatement = "INSERT INTO [Payments] ([Date], [SettlementId], [Type], [OrderId], [Sku], [Description], [Quantity], [Marketplace], [Fullfilment], [OrderCity], [OrderState], [OrderPostal], [ProductSales], [ShippingCredits], [GiftWrapCredits], [PromotionalRebates], [SaleTaxCollected], [MarketplaceFacilitatorTax], [SellingFees], [FBAFees], [OtherTransactionFees], [Other], [Total]) VALUES (" + paymentsList[i].Date.ToString("yyyy-MM-dd") + ", " + paymentsList[i].SettlementId + ", " + paymentsList[i].Type + ", " + paymentsList[i].OrderId + ", " + paymentsList[i].Sku + ", " + paymentsList[i].Description + ", " + paymentsList[i].Quantity + ", " + paymentsList[i].Marketplace + ", " + paymentsList[i].Fullfilment + ", " + paymentsList[i].OrderCity + ", " + paymentsList[i].OrderState + ", " + paymentsList[i].OrderPostal + ", " + paymentsList[i].ProductSales.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].ShippingCredits.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].GiftWrapCredits.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].PromotionalRebates.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].SaleTaxCollected.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].MarketplaceFacilitatorTax.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].SellingFees.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].FBAFees.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].OtherTransactionFees.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].Other.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].Total.ToString(specifier, CultureInfo.InvariantCulture) + ")";
+
                 SqlCommand command = new SqlCommand(sqlStatement, connection);
 
                 try
@@ -111,7 +170,7 @@ namespace Analytics
             }
             form1.progressBar1.Visible = false;
             connection.Close();
-            MessageBox.Show("Добавление прошло успешно!\nВсего записей: " + allLines + "\nДобавлено новых записей: " + addedLines + "\nОбновлено записей: " + updatedLines);
+            MessageBox.Show("Добавление прошло успешно!\nВсего строк: " + allLines + "\nДобавлено новых строк: " + addedLines + "\nОбновлено строк: " + updatedLines);
         }
 
         /*

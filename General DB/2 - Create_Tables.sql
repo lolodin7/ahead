@@ -203,15 +203,30 @@ CREATE TABLE [Orders](
 GO
 
 CREATE TABLE [Payments](
-	[Date]					DATE,
-	[OrderId]				VARCHAR(50),
-	[SKU]					VARCHAR(50),
-	[TransactionType]		VARCHAR(100),
-	[PaymentType]			VARCHAR(100),
-	[PaymentDetail]			VARCHAR(100),
-	[Amount]				FLOAT,
-	[Quantity]				INT,
-	[ProductTitle]			VARCHAR(400)
+	[Date]						DATE,
+	[SettlementId]				VARCHAR(20),
+	[Type]						VARCHAR(30),
+	[OrderId]					VARCHAR(50),
+	[Sku]						VARCHAR(50),
+	[Description]				VARCHAR(500),
+	[Quantity]					INT,
+	[Marketplace]				VARCHAR(100),
+	[Fullfilment]				VARCHAR(30),
+	[OrderCity]					VARCHAR(100),
+	[OrderState]				VARCHAR(70),
+	[OrderPostal]				VARCHAR(50),
+	[ProductSales]				FLOAT,
+	[ShippingCredits]			FLOAT,
+	[GiftWrapCredits]			FLOAT,
+	[PromotionalRebates]		FLOAT,
+	[SaleTaxCollected]			FLOAT,
+	[MarketplaceFacilitatorTax]	FLOAT,
+	[SellingFees]				FLOAT,
+	[FBAFees]					FLOAT,
+	[OtherTransactionFees]		FLOAT,
+	[Other]						FLOAT,
+	[Total]						FLOAT,
+	CONSTRAINT PK_Payments_OrderId PRIMARY KEY ([OrderId])
 )
 GO
 

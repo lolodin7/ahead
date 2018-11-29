@@ -44,6 +44,9 @@
             this.btn_Today = new System.Windows.Forms.Button();
             this.btn_ShowPnL = new System.Windows.Forms.Button();
             this.btn_ExportToExcel = new System.Windows.Forms.Button();
+            this.btn_ShowByDays = new System.Windows.Forms.Button();
+            this.btn_ShowByWeeks = new System.Windows.Forms.Button();
+            this.btn_ShowByMonths = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -101,7 +104,7 @@
             // 
             // btn_ChooseDate
             // 
-            this.btn_ChooseDate.Location = new System.Drawing.Point(1146, 2);
+            this.btn_ChooseDate.Location = new System.Drawing.Point(1146, 5);
             this.btn_ChooseDate.Name = "btn_ChooseDate";
             this.btn_ChooseDate.Size = new System.Drawing.Size(242, 22);
             this.btn_ChooseDate.TabIndex = 10;
@@ -129,7 +132,7 @@
             // 
             // btn_7daysPeriod
             // 
-            this.btn_7daysPeriod.Location = new System.Drawing.Point(431, 3);
+            this.btn_7daysPeriod.Location = new System.Drawing.Point(722, 5);
             this.btn_7daysPeriod.Name = "btn_7daysPeriod";
             this.btn_7daysPeriod.Size = new System.Drawing.Size(100, 29);
             this.btn_7daysPeriod.TabIndex = 14;
@@ -139,7 +142,7 @@
             // 
             // btn_30daysPeriod
             // 
-            this.btn_30daysPeriod.Location = new System.Drawing.Point(537, 2);
+            this.btn_30daysPeriod.Location = new System.Drawing.Point(828, 4);
             this.btn_30daysPeriod.Name = "btn_30daysPeriod";
             this.btn_30daysPeriod.Size = new System.Drawing.Size(100, 30);
             this.btn_30daysPeriod.TabIndex = 15;
@@ -149,7 +152,7 @@
             // 
             // btn_6monthsPeriod
             // 
-            this.btn_6monthsPeriod.Location = new System.Drawing.Point(643, 2);
+            this.btn_6monthsPeriod.Location = new System.Drawing.Point(934, 4);
             this.btn_6monthsPeriod.Name = "btn_6monthsPeriod";
             this.btn_6monthsPeriod.Size = new System.Drawing.Size(100, 30);
             this.btn_6monthsPeriod.TabIndex = 16;
@@ -159,7 +162,7 @@
             // 
             // btn_1yearPeriod
             // 
-            this.btn_1yearPeriod.Location = new System.Drawing.Point(749, 2);
+            this.btn_1yearPeriod.Location = new System.Drawing.Point(1040, 4);
             this.btn_1yearPeriod.Name = "btn_1yearPeriod";
             this.btn_1yearPeriod.Size = new System.Drawing.Size(100, 30);
             this.btn_1yearPeriod.TabIndex = 17;
@@ -169,7 +172,7 @@
             // 
             // btn_Today
             // 
-            this.btn_Today.Location = new System.Drawing.Point(325, 3);
+            this.btn_Today.Location = new System.Drawing.Point(616, 5);
             this.btn_Today.Name = "btn_Today";
             this.btn_Today.Size = new System.Drawing.Size(100, 30);
             this.btn_Today.TabIndex = 18;
@@ -179,7 +182,7 @@
             // 
             // btn_ShowPnL
             // 
-            this.btn_ShowPnL.Location = new System.Drawing.Point(900, 3);
+            this.btn_ShowPnL.Location = new System.Drawing.Point(170, 5);
             this.btn_ShowPnL.Name = "btn_ShowPnL";
             this.btn_ShowPnL.Size = new System.Drawing.Size(105, 29);
             this.btn_ShowPnL.TabIndex = 19;
@@ -189,7 +192,7 @@
             // 
             // btn_ExportToExcel
             // 
-            this.btn_ExportToExcel.Location = new System.Drawing.Point(109, 4);
+            this.btn_ExportToExcel.Location = new System.Drawing.Point(67, 5);
             this.btn_ExportToExcel.Name = "btn_ExportToExcel";
             this.btn_ExportToExcel.Size = new System.Drawing.Size(97, 28);
             this.btn_ExportToExcel.TabIndex = 20;
@@ -197,11 +200,41 @@
             this.btn_ExportToExcel.UseVisualStyleBackColor = true;
             this.btn_ExportToExcel.Click += new System.EventHandler(this.btn_ExportToExcel_Click);
             // 
+            // btn_ShowByDays
+            // 
+            this.btn_ShowByDays.Location = new System.Drawing.Point(299, 4);
+            this.btn_ShowByDays.Name = "btn_ShowByDays";
+            this.btn_ShowByDays.Size = new System.Drawing.Size(75, 23);
+            this.btn_ShowByDays.TabIndex = 21;
+            this.btn_ShowByDays.Text = "По дням";
+            this.btn_ShowByDays.UseVisualStyleBackColor = true;
+            // 
+            // btn_ShowByWeeks
+            // 
+            this.btn_ShowByWeeks.Location = new System.Drawing.Point(380, 4);
+            this.btn_ShowByWeeks.Name = "btn_ShowByWeeks";
+            this.btn_ShowByWeeks.Size = new System.Drawing.Size(84, 23);
+            this.btn_ShowByWeeks.TabIndex = 22;
+            this.btn_ShowByWeeks.Text = "По неделям";
+            this.btn_ShowByWeeks.UseVisualStyleBackColor = true;
+            // 
+            // btn_ShowByMonths
+            // 
+            this.btn_ShowByMonths.Location = new System.Drawing.Point(470, 4);
+            this.btn_ShowByMonths.Name = "btn_ShowByMonths";
+            this.btn_ShowByMonths.Size = new System.Drawing.Size(84, 23);
+            this.btn_ShowByMonths.TabIndex = 23;
+            this.btn_ShowByMonths.Text = "По месяцам";
+            this.btn_ShowByMonths.UseVisualStyleBackColor = true;
+            // 
             // PnL
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1409, 703);
+            this.Controls.Add(this.btn_ShowByMonths);
+            this.Controls.Add(this.btn_ShowByWeeks);
+            this.Controls.Add(this.btn_ShowByDays);
             this.Controls.Add(this.btn_ExportToExcel);
             this.Controls.Add(this.btn_ShowPnL);
             this.Controls.Add(this.btn_Today);
@@ -243,5 +276,8 @@
         private System.Windows.Forms.Button btn_Today;
         private System.Windows.Forms.Button btn_ShowPnL;
         private System.Windows.Forms.Button btn_ExportToExcel;
+        private System.Windows.Forms.Button btn_ShowByDays;
+        private System.Windows.Forms.Button btn_ShowByWeeks;
+        private System.Windows.Forms.Button btn_ShowByMonths;
     }
 }

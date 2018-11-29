@@ -17,10 +17,12 @@ namespace Analytics
         private DateTime end;
         private string SKU;
         private string ASIN;
+        private string Marketplace;
         ChooseProduct cp;
 
         private bool bySKU;
         private bool byASIN;
+        private bool byMarketplace;
 
         public PnL(ChooseProduct _cp, string _sku)
         {
@@ -50,6 +52,21 @@ namespace Analytics
             ASIN = _asin;
             cp = _cp;
             this.Text = this.Text + " - ASIN: " + ASIN;
+        }
+
+        public PnL(ChooseProduct _cp, string _marketplace, int _marketplaceId)
+        {
+            InitializeComponent();
+            start = DateTime.Today;
+            end = DateTime.Today;
+            tb_DateStart.Text = start.ToString().Substring(0, 10);
+            tb_DateEnd.Text = end.ToString().Substring(0, 10);
+            btn_ChooseDate.Text = btn_ChooseDate.Text = start.ToString().Substring(0, 10) + " - " + end.ToString().Substring(0, 10);
+
+            byMarketplace = true;
+            Marketplace = _marketplace;
+            cp = _cp;
+            this.Text = this.Text + " - Marketplace: " + Marketplace;
         }
 
         private void fillDGVHeaders()
@@ -183,7 +200,7 @@ namespace Analytics
             {
                 try
                 {
-                    DateTime dt = new DateTime(start.Year, start.Month, start.Day - dayCnt);
+                    DateTime dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day - dayCnt);
                     start = dt;
                     monthCalendarStart.SelectionStart = start;
                     btn_ChooseDate.Text = start.ToString().Substring(0, 10) + " - " + end.ToString().Substring(0, 10);
@@ -194,7 +211,7 @@ namespace Analytics
                     {
                         try
                         {
-                            DateTime dt = new DateTime(start.Year, start.Month - 1, (DateTime.DaysInMonth(start.Year, start.Month - 1) + start.Day) - dayCnt);
+                            DateTime dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month - 1, (DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month - 1) + DateTime.Now.Day) - dayCnt);
                             start = dt;
                             monthCalendarStart.SelectionStart = start;
                             btn_ChooseDate.Text = start.ToString().Substring(0, 10) + " - " + end.ToString().Substring(0, 10);
@@ -203,7 +220,7 @@ namespace Analytics
                         {
                             if (ex.HResult == -2146233086)
                             {
-                                DateTime dt = new DateTime(start.Year - 1, start.Month + 12 - 1, (DateTime.DaysInMonth(start.Year, start.Month + 12 - 1) + start.Day) - dayCnt);
+                                DateTime dt = new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month + 12 - 1, (DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month + 12 - 1) + DateTime.Now.Day) - dayCnt);
                                 start = dt;
                                 monthCalendarStart.SelectionStart = start;
                                 btn_ChooseDate.Text = start.ToString().Substring(0, 10) + " - " + end.ToString().Substring(0, 10);
@@ -222,7 +239,7 @@ namespace Analytics
             {
                 try
                 {
-                    DateTime dt = new DateTime(start.Year, start.Month, start.Day - dayCnt);
+                    DateTime dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day - dayCnt);
                     start = dt;
                     monthCalendarStart.SelectionStart = start;
                     btn_ChooseDate.Text = start.ToString().Substring(0, 10) + " - " + end.ToString().Substring(0, 10);
@@ -233,7 +250,7 @@ namespace Analytics
                     {
                         try
                         {
-                            DateTime dt = new DateTime(start.Year, start.Month - 1, (DateTime.DaysInMonth(start.Year, start.Month - 1) + start.Day) - dayCnt);
+                            DateTime dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month - 1, (DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month - 1) + DateTime.Now.Day) - dayCnt);
                             start = dt;
                             monthCalendarStart.SelectionStart = start;
                             btn_ChooseDate.Text = start.ToString().Substring(0, 10) + " - " + end.ToString().Substring(0, 10);
@@ -251,7 +268,7 @@ namespace Analytics
             {
                 try
                 {
-                    DateTime dt = new DateTime(start.Year, start.Month - 6, start.Day);
+                    DateTime dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month - 6, DateTime.Now.Day);
                     start = dt;
                     monthCalendarStart.SelectionStart = start;
                     btn_ChooseDate.Text = start.ToString().Substring(0, 10) + " - " + end.ToString().Substring(0, 10);
@@ -262,7 +279,7 @@ namespace Analytics
                     {
                         try
                         {
-                            DateTime dt = new DateTime(start.Year - 1, start.Month + 12 - 6, start.Day);
+                            DateTime dt = new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month + 12 - 6, DateTime.Now.Day);
                             start = dt;
                             monthCalendarStart.SelectionStart = start;
                             btn_ChooseDate.Text = start.ToString().Substring(0, 10) + " - " + end.ToString().Substring(0, 10);
@@ -280,7 +297,7 @@ namespace Analytics
             {
                 try
                 {
-                    DateTime dt = new DateTime(start.Year - 1, start.Month, start.Day);
+                    DateTime dt = new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month, DateTime.Now.Day);
                     start = dt;
                     monthCalendarStart.SelectionStart = start;
                     btn_ChooseDate.Text = start.ToString().Substring(0, 10) + " - " + end.ToString().Substring(0, 10);
