@@ -132,7 +132,7 @@ namespace Analytics
                     Date = DateTransform(_value.ToString());
                     break;
                 case 1:
-                    Date = new DateTime(int.Parse(_value.ToString().Substring(0, 4)), Date.Month, Date.Day);
+                    Date = new DateTime(int.Parse(_value.ToString().Substring(1, 4)), Date.Month, Date.Day);
                     break;
                 case 2:
                     SettlementId = _value.ToString();
@@ -288,9 +288,16 @@ namespace Analytics
         /* Делаем правильный формат даты */
         private DateTime DateTransform(string _str)
         {
+            string res = _str;
+            if (_str.Length != 6)
+            {
+                string tmp1 = _str.Substring(0, 3);
+                string tmp2 = _str.Substring(4, 1);
+                res = tmp1 + " 0" + tmp2;
+            }
             int year = DateTime.Now.Year; //int.Parse(_str.Substring(8, 4));
-            int day = int.Parse(_str.Substring(4, 2));
-            int month = Month.GetMonthValue(_str.Substring(0, 3));
+            int day = int.Parse(res.Substring(4, 2));
+            int month = Month.GetMonthValue(res.Substring(0, 3));
             DateTime dt = new DateTime(year, month, day);
             return dt;
         }
@@ -300,16 +307,16 @@ namespace Analytics
             double _amount = 0;
             if (!_value.ToString().Equals(""))
             {
-                try
-                {
-                    _amount = double.Parse(_value.ToString());
-                }
-                catch (Exception ex)
-                {
+                //try
+                //{
+                //    _amount = double.Parse(_value.ToString());
+                //}
+                //catch (Exception ex)
+                //{
                     string s = _value.ToString();
-                    string str = s.Substring(1, s.Length - 1);
-                    _amount = double.Parse(str, CultureInfo.InvariantCulture);
-                }
+                    string str = s.Replace(",", ".");
+                    _amount = double.Parse(s, CultureInfo.InvariantCulture);
+                //}
             }
             else
                 _amount = 0;

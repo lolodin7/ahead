@@ -51,6 +51,7 @@
             this.pnLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bySKUToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.byASINToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.byMarketplaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_ChooseDate = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tb_DateEnd = new System.Windows.Forms.TextBox();
@@ -58,7 +59,7 @@
             this.monthCalendarEnd = new System.Windows.Forms.MonthCalendar();
             this.monthCalendarStart = new System.Windows.Forms.MonthCalendar();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.byMarketplaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lb_StatusText = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -66,7 +67,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(426, 27);
+            this.progressBar1.Location = new System.Drawing.Point(564, 27);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(351, 23);
             this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
@@ -234,6 +235,12 @@
             this.byASINToolStripMenuItem.Text = "По ASIN";
             this.byASINToolStripMenuItem.Click += new System.EventHandler(this.byASINToolStripMenuItem_Click);
             // 
+            // byMarketplaceToolStripMenuItem
+            // 
+            this.byMarketplaceToolStripMenuItem.Name = "byMarketplaceToolStripMenuItem";
+            this.byMarketplaceToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.byMarketplaceToolStripMenuItem.Text = "По Marketplace";
+            // 
             // btn_ChooseDate
             // 
             this.btn_ChooseDate.Location = new System.Drawing.Point(13, 28);
@@ -307,17 +314,22 @@
             this.dataGridView1.Size = new System.Drawing.Size(998, 530);
             this.dataGridView1.TabIndex = 7;
             // 
-            // byMarketplaceToolStripMenuItem
+            // lb_StatusText
             // 
-            this.byMarketplaceToolStripMenuItem.Name = "byMarketplaceToolStripMenuItem";
-            this.byMarketplaceToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.byMarketplaceToolStripMenuItem.Text = "По Marketplace";
+            this.lb_StatusText.Location = new System.Drawing.Point(437, 27);
+            this.lb_StatusText.Name = "lb_StatusText";
+            this.lb_StatusText.Size = new System.Drawing.Size(121, 23);
+            this.lb_StatusText.TabIndex = 10;
+            this.lb_StatusText.Text = "label1";
+            this.lb_StatusText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lb_StatusText.Visible = false;
             // 
             // AnalyticsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1447, 599);
+            this.Controls.Add(this.lb_StatusText);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btn_ChooseDate);
@@ -369,6 +381,7 @@
         private System.Windows.Forms.ToolStripMenuItem bySKUToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem byASINToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem byMarketplaceToolStripMenuItem;
+        public System.Windows.Forms.Label lb_StatusText;
     }
 }
 

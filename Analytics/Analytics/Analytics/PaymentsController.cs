@@ -37,13 +37,13 @@ namespace Analytics
         /* Вытаскиваем строки из Excel */
         public void GetPaymentsFromExcel()
         {
-            form1.openFileDialog1.Filter = "Выбери файл|*.csv";
+            form1.openFileDialog1.Filter = "Выбери файл|*.xlsx";
             form1.openFileDialog1.Title = "Выбор файла для открытия";
 
             if (form1.openFileDialog1.ShowDialog() == DialogResult.OK)
             {
 
-                using (TextFieldParser parser = new TextFieldParser(@form1.openFileDialog1.FileName))
+                /*using (TextFieldParser parser = new TextFieldParser(@form1.openFileDialog1.FileName))
                 {
 
                     parser.TextFieldType = FieldType.Delimited;
@@ -62,7 +62,7 @@ namespace Analytics
                         //last
                         string tmp = fields[fields.Length - 1];
                         string res = tmp.Substring(0, tmp.Length - 2);
-                        paymentsList[paymentsList.Count - 1].SetPayments(fields.Length - 1, fields[fields.Length - 1].ToString());
+                        paymentsList[paymentsList.Count - 1].SetPayments(fields.Length - 1, res);
 
                         for (int j = 1; j < fields.Length - 2; j++)
                         {
@@ -70,30 +70,36 @@ namespace Analytics
                         }
                     }
 
-                }
+                    CheckForDoubleOrders();
+                    SetNewPaymentsToDB();
 
+                }*/
+                
                 using (ExcelPackage xlPackage = new ExcelPackage(new FileInfo(@form1.openFileDialog1.FileName)))
                 {
                     paymentsList = new List<PaymentsModel> { };
                     allLines = 0;
                     addedLines = 0;
                     updatedLines = 0;
-
+                    form1.lb_StatusText.Text = "Загрузка файла...";
+                    form1.lb_StatusText.Visible = true;
+                    form1.Refresh();
                     ExcelWorksheet workSheet = xlPackage.Workbook.Worksheets.First();
                     var start = workSheet.Dimension.Start;
                     var end = workSheet.Dimension.End;
 
-                    PaymentsModel checkFields = new PaymentsModel();
-                    if (end.Column != checkFields.FieldCount + 1)
-                    {
-                        MessageBox.Show("Выбранный файл не соответствует нужному формату отчета. Возможно, ошибочно был загружен некорректный файл. Приложение будет закрыто.", "Ошибка");
-                        return;
-                    }
+                    //PaymentsModel checkFields = new PaymentsModel();
+                    //if (end.Column != checkFields.FieldCount + 1)
+                    //{
+                    //    MessageBox.Show("Выбранный файл не соответствует нужному формату отчета. Возможно, ошибочно был загружен некорректный файл. Приложение будет закрыто.", "Ошибка");
+                    //    return;
+                    //}
 
                     form1.progressBar1.Maximum = end.Row;
                     form1.progressBar1.Value = 0;
                     form1.progressBar1.Visible = true;
-
+                    form1.lb_StatusText.Text = "Обработка файла...";
+                    form1.Refresh();
                     for (int row = start.Row + 1; row <= end.Row; row++)
                     {
                         PaymentsModel pm = new PaymentsModel();
@@ -106,17 +112,24 @@ namespace Analytics
                         allLines++;
                         form1.progressBar1.Value++;
                         form1.progressBar1.Refresh();
+                        Console.WriteLine(row);
                     }
                     form1.progressBar1.Visible = false;
-
+                    form1.lb_StatusText.Text = "Удаление повторов...";
+                    form1.Refresh();
                     CheckForDoubleOrders();
+                    form1.lb_StatusText.Text = "Сохранение в БД...";
+                    form1.Refresh();
                     SetNewPaymentsToDB();
                 }
+                
             }
         }
 
         public void CheckForDoubleOrders()
         {
+            form1.progressBar1.Maximum = paymentsList.Count + 10;
+            form1.progressBar1.Value = 0;
             for (int i = 0; i < paymentsList.Count; i++)
             {
                 for (int j = i + 1; j < paymentsList.Count; j++)
@@ -138,6 +151,8 @@ namespace Analytics
                         paymentsList.RemoveAt(j);
                     }
                 }
+                form1.progressBar1.Value++;
+                form1.progressBar1.Refresh();
             }
         }
 
@@ -150,7 +165,6 @@ namespace Analytics
 
             form1.progressBar1.Maximum = paymentsList.Count;
             form1.progressBar1.Value = 0;
-            form1.progressBar1.Visible = true;
 
             for (int i = 0; i < paymentsList.Count; i++)
             {
@@ -169,6 +183,7 @@ namespace Analytics
                 form1.progressBar1.Refresh();
             }
             form1.progressBar1.Visible = false;
+            form1.lb_StatusText.Visible = false;
             connection.Close();
             MessageBox.Show("Добавление прошло успешно!\nВсего строк: " + allLines + "\nДобавлено новых строк: " + addedLines + "\nОбновлено строк: " + updatedLines);
         }
