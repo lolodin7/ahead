@@ -130,6 +130,7 @@ namespace Analytics
         {
             form1.progressBar1.Maximum = paymentsList.Count + 10;
             form1.progressBar1.Value = 0;
+            form1.progressBar1.Visible = true;
             for (int i = 0; i < paymentsList.Count; i++)
             {
                 for (int j = i + 1; j < paymentsList.Count; j++)
