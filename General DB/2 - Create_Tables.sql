@@ -226,7 +226,7 @@ CREATE TABLE [Payments](
 	[OtherTransactionFees]		FLOAT,
 	[Other]						FLOAT,
 	[Total]						FLOAT,
-	CONSTRAINT PK_Payments_OrderId PRIMARY KEY ([OrderId])
+	--CONSTRAINT PK_Payments_OrderIdandSku PRIMARY KEY ([OrderId], [Sku])
 )
 GO
 

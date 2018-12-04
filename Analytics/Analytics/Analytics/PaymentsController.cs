@@ -22,11 +22,13 @@ namespace Analytics
         private int addedLines;
         private int updatedLines;
         private AnalyticsForm form1;
+        List<int> orderIdIndexesForDelete;
 
         public PaymentsController(AnalyticsForm _form1)
         {
             connection = DBData.GetDBConnection();
             paymentsList = new List<PaymentsModel> { };
+            orderIdIndexesForDelete = new List<int> { };
             allLines = 0;
             addedLines = 0;
             updatedLines = 0;
@@ -75,6 +77,8 @@ namespace Analytics
 
                 }*/
                 
+
+
                 using (ExcelPackage xlPackage = new ExcelPackage(new FileInfo(@form1.openFileDialog1.FileName)))
                 {
                     paymentsList = new List<PaymentsModel> { };
@@ -88,18 +92,19 @@ namespace Analytics
                     var start = workSheet.Dimension.Start;
                     var end = workSheet.Dimension.End;
 
-                    //PaymentsModel checkFields = new PaymentsModel();
-                    //if (end.Column != checkFields.FieldCount + 1)
-                    //{
-                    //    MessageBox.Show("Выбранный файл не соответствует нужному формату отчета. Возможно, ошибочно был загружен некорректный файл. Приложение будет закрыто.", "Ошибка");
-                    //    return;
-                    //}
+                    PaymentsModel checkFields = new PaymentsModel();
+                    if (end.Column != checkFields.FieldCount + 1)
+                    {
+                        MessageBox.Show("Выбранный файл не соответствует нужному формату отчета. Возможно, ошибочно был загружен некорректный файл. Приложение будет закрыто.", "Ошибка");
+                        return;
+                    }
 
                     form1.progressBar1.Maximum = end.Row;
                     form1.progressBar1.Value = 0;
                     form1.progressBar1.Visible = true;
                     form1.lb_StatusText.Text = "Обработка файла...";
                     form1.Refresh();
+                    var watch = System.Diagnostics.Stopwatch.StartNew();
                     for (int row = start.Row + 1; row <= end.Row; row++)
                     {
                         PaymentsModel pm = new PaymentsModel();
@@ -109,18 +114,35 @@ namespace Analytics
                         {
                             paymentsList[paymentsList.Count - 1].SetPayments(col - 1, workSheet.Cells[row, col].Text);
                         }
+                        paymentsList[paymentsList.Count - 1].OrderIdHash = paymentsList[paymentsList.Count - 1].OrderId.GetHashCode();
                         allLines++;
                         form1.progressBar1.Value++;
                         form1.progressBar1.Refresh();
-                        Console.WriteLine(row);
+                        //Console.WriteLine(row);
                     }
-                    form1.progressBar1.Visible = false;
+                    watch.Stop();
+                    long i1 = watch.ElapsedMilliseconds / 1000;
+                    Console.WriteLine("Обрабатывали " + i1 + " сек");
+
+                    watch = System.Diagnostics.Stopwatch.StartNew();
                     form1.lb_StatusText.Text = "Удаление повторов...";
                     form1.Refresh();
                     CheckForDoubleOrders();
+                    watch.Stop();
+                    long i2 = watch.ElapsedMilliseconds / 1000;
+                    Console.WriteLine("Удаляли " + i2 + " сек");
+
+
+                    watch = System.Diagnostics.Stopwatch.StartNew();
                     form1.lb_StatusText.Text = "Сохранение в БД...";
                     form1.Refresh();
                     SetNewPaymentsToDB();
+                    watch.Stop();
+                    long i3 = watch.ElapsedMilliseconds / 1000;
+                    Console.WriteLine("Сохраняли " + i3 + " сек");
+                    form1.progressBar1.Visible = false;
+
+                    Console.WriteLine("\n\n\n\n\nОбрабатывали " + i1 + " сек" + "\nУдаляли " + i2 + " сек" + "\nСохраняли " + i3 + " сек");
                 }
                 
             }
@@ -131,29 +153,39 @@ namespace Analytics
             form1.progressBar1.Maximum = paymentsList.Count + 10;
             form1.progressBar1.Value = 0;
             form1.progressBar1.Visible = true;
-            for (int i = 0; i < paymentsList.Count; i++)
+
+            int i = 1;
+            foreach (var val in paymentsList)
             {
-                for (int j = i + 1; j < paymentsList.Count; j++)
+                for (int j = i; j < paymentsList.Count; j++)
                 {
-                    if (paymentsList[i].OrderId.Equals(paymentsList[j].OrderId))
+                    if (val.OrderId.Equals(paymentsList[j].OrderId) && val.Sku.Equals(paymentsList[j].Sku) && !paymentsList[j].OrderId.Equals("") && !val.OrderId.Equals(""))
                     {
-                        paymentsList[i].Quantity += paymentsList[j].Quantity;
-                        paymentsList[i].ProductSales += paymentsList[j].ProductSales;
-                        paymentsList[i].ShippingCredits += paymentsList[j].ShippingCredits;
-                        paymentsList[i].GiftWrapCredits += paymentsList[j].GiftWrapCredits;
-                        paymentsList[i].PromotionalRebates += paymentsList[j].PromotionalRebates;
-                        paymentsList[i].SaleTaxCollected += paymentsList[j].SaleTaxCollected;
-                        paymentsList[i].MarketplaceFacilitatorTax += paymentsList[j].MarketplaceFacilitatorTax;
-                        paymentsList[i].SellingFees += paymentsList[j].SellingFees;
-                        paymentsList[i].FBAFees += paymentsList[j].FBAFees;
-                        paymentsList[i].OtherTransactionFees += paymentsList[j].OtherTransactionFees;
-                        paymentsList[i].Other += paymentsList[j].Other;
-                        paymentsList[i].Total += paymentsList[j].Total;
-                        paymentsList.RemoveAt(j);
+                        val.Quantity += paymentsList[j].Quantity;
+                        val.ProductSales += paymentsList[j].ProductSales;
+                        val.ShippingCredits += paymentsList[j].ShippingCredits;
+                        val.GiftWrapCredits += paymentsList[j].GiftWrapCredits;
+                        val.PromotionalRebates += paymentsList[j].PromotionalRebates;
+                        val.SaleTaxCollected += paymentsList[j].SaleTaxCollected;
+                        val.MarketplaceFacilitatorTax += paymentsList[j].MarketplaceFacilitatorTax;
+                        val.SellingFees += paymentsList[j].SellingFees;
+                        val.FBAFees += paymentsList[j].FBAFees;
+                        val.OtherTransactionFees += paymentsList[j].OtherTransactionFees;
+                        val.Other += paymentsList[j].Other;
+                        val.Total += paymentsList[j].Total;
+                        orderIdIndexesForDelete.Add(j);
                     }
                 }
+                i++;
                 form1.progressBar1.Value++;
                 form1.progressBar1.Refresh();
+            }
+            Console.WriteLine("count = " + orderIdIndexesForDelete.Count);
+            orderIdIndexesForDelete.Sort();
+            for (int k = orderIdIndexesForDelete.Count - 1; k >= 0; k--)
+            {
+                paymentsList.RemoveAt(orderIdIndexesForDelete[k]);
+                allLines--;
             }
         }
 
@@ -169,7 +201,7 @@ namespace Analytics
 
             for (int i = 0; i < paymentsList.Count; i++)
             {
-                sqlStatement = "INSERT INTO [Payments] ([Date], [SettlementId], [Type], [OrderId], [Sku], [Description], [Quantity], [Marketplace], [Fullfilment], [OrderCity], [OrderState], [OrderPostal], [ProductSales], [ShippingCredits], [GiftWrapCredits], [PromotionalRebates], [SaleTaxCollected], [MarketplaceFacilitatorTax], [SellingFees], [FBAFees], [OtherTransactionFees], [Other], [Total]) VALUES (" + paymentsList[i].Date.ToString("yyyy-MM-dd") + ", " + paymentsList[i].SettlementId + ", " + paymentsList[i].Type + ", " + paymentsList[i].OrderId + ", " + paymentsList[i].Sku + ", " + paymentsList[i].Description + ", " + paymentsList[i].Quantity + ", " + paymentsList[i].Marketplace + ", " + paymentsList[i].Fullfilment + ", " + paymentsList[i].OrderCity + ", " + paymentsList[i].OrderState + ", " + paymentsList[i].OrderPostal + ", " + paymentsList[i].ProductSales.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].ShippingCredits.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].GiftWrapCredits.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].PromotionalRebates.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].SaleTaxCollected.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].MarketplaceFacilitatorTax.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].SellingFees.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].FBAFees.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].OtherTransactionFees.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].Other.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].Total.ToString(specifier, CultureInfo.InvariantCulture) + ")";
+                sqlStatement = "INSERT INTO [Payments] ([Date], [SettlementId], [Type], [OrderId], [Sku], [Description], [Quantity], [Marketplace], [Fullfilment], [OrderCity], [OrderState], [OrderPostal], [ProductSales], [ShippingCredits], [GiftWrapCredits], [PromotionalRebates], [SaleTaxCollected], [MarketplaceFacilitatorTax], [SellingFees], [FBAFees], [OtherTransactionFees], [Other], [Total]) VALUES ('" + paymentsList[i].Date.ToString("yyyy-MM-dd") + "', '" + paymentsList[i].SettlementId + "', '" + paymentsList[i].Type + "', '" + paymentsList[i].OrderId + "', '" + paymentsList[i].Sku + "', '" + paymentsList[i].Description + "', " + paymentsList[i].Quantity + ", '" + paymentsList[i].Marketplace + "', '" + paymentsList[i].Fullfilment + "', '" + paymentsList[i].OrderCity + "', '" + paymentsList[i].OrderState + "', '" + paymentsList[i].OrderPostal + "', " + paymentsList[i].ProductSales.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].ShippingCredits.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].GiftWrapCredits.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].PromotionalRebates.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].SaleTaxCollected.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].MarketplaceFacilitatorTax.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].SellingFees.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].FBAFees.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].OtherTransactionFees.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].Other.ToString(specifier, CultureInfo.InvariantCulture) + ", " + paymentsList[i].Total.ToString(specifier, CultureInfo.InvariantCulture) + ")";
 
                 SqlCommand command = new SqlCommand(sqlStatement, connection);
 
@@ -178,7 +210,10 @@ namespace Analytics
                     command.ExecuteScalar();
                     addedLines++;
                 }
-                catch (Exception ex) { }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(i);
+                }
 
                 form1.progressBar1.Value++;
                 form1.progressBar1.Refresh();

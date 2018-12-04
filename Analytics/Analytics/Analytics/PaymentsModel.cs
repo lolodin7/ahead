@@ -35,6 +35,7 @@ namespace Analytics
         public double OtherTransactionFees { get; set; }
         public double Other { get; set; }
         public double Total { get; set; }
+        public int OrderIdHash { get; set; }
 
 
         public int FieldCount { get; }
@@ -307,16 +308,31 @@ namespace Analytics
             double _amount = 0;
             if (!_value.ToString().Equals(""))
             {
-                //try
-                //{
-                //    _amount = double.Parse(_value.ToString());
-                //}
-                //catch (Exception ex)
-                //{
-                    string s = _value.ToString();
-                    string str = s.Replace(",", ".");
-                    _amount = double.Parse(s, CultureInfo.InvariantCulture);
-                //}
+                string s = _value.ToString();
+                string str = s.Replace(",", ".");
+                //если число выглядит так 27.245.76
+                if (str.Count(x => x == '.') > 1)
+                {
+                    List<int> del = new List<int> { };
+                    string res = "";
+                    for (int k = 0; k < str.Length; k++)
+                    {
+                        if (str[k].Equals('.'))
+                            del.Add(k);
+                    }
+                    int cnt = del.Count - 1;
+                    for (int h = cnt - 1; h >= 0; h--)
+                    {
+                        string tmp1 = "";
+                        string tmp2 = "";
+                        tmp1 = str.Remove(del[h]);
+                        tmp2 = str.Substring(del[h] + 1, str.Length - tmp1.Length - 1);
+                        res = tmp1 + tmp2;
+                    }
+                    _amount = double.Parse(res, CultureInfo.InvariantCulture);
+                }
+                else
+                    _amount = double.Parse(str, CultureInfo.InvariantCulture);
             }
             else
                 _amount = 0;
