@@ -23,12 +23,16 @@ namespace Analytics
         private int updatedLines;
         private AnalyticsForm form1;
         List<int> orderIdIndexesForDelete;
+        List<string> alreadySeenOrderIds;
+        List<string> alreadySeenDescriptions;
 
         public PaymentsController(AnalyticsForm _form1)
         {
             connection = DBData.GetDBConnection();
             paymentsList = new List<PaymentsModel> { };
             orderIdIndexesForDelete = new List<int> { };
+            alreadySeenOrderIds = new List<string> { };
+            alreadySeenDescriptions = new List<string> { };
             allLines = 0;
             addedLines = 0;
             updatedLines = 0;
@@ -43,42 +47,7 @@ namespace Analytics
             form1.openFileDialog1.Title = "Выбор файла для открытия";
 
             if (form1.openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-
-                /*using (TextFieldParser parser = new TextFieldParser(@form1.openFileDialog1.FileName))
-                {
-
-                    parser.TextFieldType = FieldType.Delimited;
-                    parser.SetDelimiters(new string[] { "," });                                     //?????????????
-                    parser.HasFieldsEnclosedInQuotes = false;                                                                              
-
-                    while (!parser.EndOfData)
-                    {
-                        PaymentsModel pm = new PaymentsModel();
-                        paymentsList.Add(pm);
-                        //Process row
-                        string[] fields = parser.ReadFields();
-                        //first
-                        string tmp1 = fields[0];
-                        paymentsList[paymentsList.Count - 1].SetPayments(0, fields[0].ToString());
-                        //last
-                        string tmp = fields[fields.Length - 1];
-                        string res = tmp.Substring(0, tmp.Length - 2);
-                        paymentsList[paymentsList.Count - 1].SetPayments(fields.Length - 1, res);
-
-                        for (int j = 1; j < fields.Length - 2; j++)
-                        {
-                            paymentsList[paymentsList.Count - 1].SetPayments(j, fields[j].ToString());
-                        }
-                    }
-
-                    CheckForDoubleOrders();
-                    SetNewPaymentsToDB();
-
-                }*/
-                
-
-
+            {                
                 using (ExcelPackage xlPackage = new ExcelPackage(new FileInfo(@form1.openFileDialog1.FileName)))
                 {
                     paymentsList = new List<PaymentsModel> { };
@@ -107,18 +76,21 @@ namespace Analytics
                     var watch = System.Diagnostics.Stopwatch.StartNew();
                     for (int row = start.Row + 1; row <= end.Row; row++)
                     {
-                        PaymentsModel pm = new PaymentsModel();
-                        paymentsList.Add(pm);
-
-                        for (int col = start.Column; col <= end.Column; col++)
+                        if (!workSheet.Cells[row, 1].Text.Equals(""))
                         {
-                            paymentsList[paymentsList.Count - 1].SetPayments(col - 1, workSheet.Cells[row, col].Text);
+                            PaymentsModel pm = new PaymentsModel();
+                            paymentsList.Add(pm);
+
+                            for (int col = start.Column; col <= end.Column; col++)
+                            {
+                                paymentsList[paymentsList.Count - 1].SetPayments(col - 1, workSheet.Cells[row, col].Text);
+                            }
+                            paymentsList[paymentsList.Count - 1].OrderIdHash = paymentsList[paymentsList.Count - 1].OrderId.GetHashCode();
+                            allLines++;
+                            form1.progressBar1.Value++;
+                            form1.progressBar1.Refresh();
                         }
-                        paymentsList[paymentsList.Count - 1].OrderIdHash = paymentsList[paymentsList.Count - 1].OrderId.GetHashCode();
-                        allLines++;
-                        form1.progressBar1.Value++;
-                        form1.progressBar1.Refresh();
-                        //Console.WriteLine(row);
+                        else { }
                     }
                     watch.Stop();
                     long i1 = watch.ElapsedMilliseconds / 1000;
@@ -143,6 +115,7 @@ namespace Analytics
                     form1.progressBar1.Visible = false;
 
                     Console.WriteLine("\n\n\n\n\nОбрабатывали " + i1 + " сек" + "\nУдаляли " + i2 + " сек" + "\nСохраняли " + i3 + " сек");
+                    //Console.WriteLine("\n\n\n\n\nОбрабатывали " + i1 + " сек" + "\nСохраняли " + i3 + " сек");
                 }
                 
             }
@@ -153,33 +126,65 @@ namespace Analytics
             form1.progressBar1.Maximum = paymentsList.Count + 10;
             form1.progressBar1.Value = 0;
             form1.progressBar1.Visible = true;
-
             int i = 1;
             foreach (var val in paymentsList)
             {
-                for (int j = i; j < paymentsList.Count; j++)
+                if (val.OrderId.Equals("") && val.Sku.Equals(""))
                 {
-                    if (val.OrderId.Equals(paymentsList[j].OrderId) && val.Sku.Equals(paymentsList[j].Sku) && !paymentsList[j].OrderId.Equals("") && !val.OrderId.Equals(""))
+                    //for (int j = i; j < paymentsList.Count; j++)
+                    //{
+                    //    if (val.Description.Equals(paymentsList[j].Description) && !alreadySeenDescriptions.Contains(paymentsList[j].Description))
+                    //    {
+                    //        val.Quantity += paymentsList[j].Quantity;
+                    //        val.ProductSales += paymentsList[j].ProductSales;
+                    //        val.ShippingCredits += paymentsList[j].ShippingCredits;
+                    //        val.GiftWrapCredits += paymentsList[j].GiftWrapCredits;
+                    //        val.PromotionalRebates += paymentsList[j].PromotionalRebates;
+                    //        val.SaleTaxCollected += paymentsList[j].SaleTaxCollected;
+                    //        val.MarketplaceFacilitatorTax += paymentsList[j].MarketplaceFacilitatorTax;
+                    //        val.SellingFees += paymentsList[j].SellingFees;
+                    //        val.FBAFees += paymentsList[j].FBAFees;
+                    //        val.OtherTransactionFees += paymentsList[j].OtherTransactionFees;
+                    //        val.Other += paymentsList[j].Other;
+                    //        val.Total += paymentsList[j].Total;
+                    //        orderIdIndexesForDelete.Add(j);
+                    //    }
+                    //}
+                    //alreadySeenDescriptions.Add(val.Description);
+                }
+                else if (!val.OrderId.Equals("") || !val.Sku.Equals(""))
+                {
+                    for (int j = i; j < paymentsList.Count; j++)
                     {
-                        val.Quantity += paymentsList[j].Quantity;
-                        val.ProductSales += paymentsList[j].ProductSales;
-                        val.ShippingCredits += paymentsList[j].ShippingCredits;
-                        val.GiftWrapCredits += paymentsList[j].GiftWrapCredits;
-                        val.PromotionalRebates += paymentsList[j].PromotionalRebates;
-                        val.SaleTaxCollected += paymentsList[j].SaleTaxCollected;
-                        val.MarketplaceFacilitatorTax += paymentsList[j].MarketplaceFacilitatorTax;
-                        val.SellingFees += paymentsList[j].SellingFees;
-                        val.FBAFees += paymentsList[j].FBAFees;
-                        val.OtherTransactionFees += paymentsList[j].OtherTransactionFees;
-                        val.Other += paymentsList[j].Other;
-                        val.Total += paymentsList[j].Total;
-                        orderIdIndexesForDelete.Add(j);
+                        if (val.OrderId.Equals(paymentsList[j].OrderId) && val.Sku.Equals(paymentsList[j].Sku) && !alreadySeenOrderIds.Contains(paymentsList[j].OrderId))
+                        {
+                            val.Quantity += paymentsList[j].Quantity;
+                            val.ProductSales += paymentsList[j].ProductSales;
+                            val.ShippingCredits += paymentsList[j].ShippingCredits;
+                            val.GiftWrapCredits += paymentsList[j].GiftWrapCredits;
+                            val.PromotionalRebates += paymentsList[j].PromotionalRebates;
+                            val.SaleTaxCollected += paymentsList[j].SaleTaxCollected;
+                            val.MarketplaceFacilitatorTax += paymentsList[j].MarketplaceFacilitatorTax;
+                            val.SellingFees += paymentsList[j].SellingFees;
+                            val.FBAFees += paymentsList[j].FBAFees;
+                            val.OtherTransactionFees += paymentsList[j].OtherTransactionFees;
+                            val.Other += paymentsList[j].Other;
+                            val.Total += paymentsList[j].Total;
+                            orderIdIndexesForDelete.Add(j);
+                        }
                     }
+                    alreadySeenOrderIds.Add(val.OrderId);
                 }
                 i++;
                 form1.progressBar1.Value++;
                 form1.progressBar1.Refresh();
             }
+
+            foreach (var s in orderIdIndexesForDelete)
+            {
+                Console.WriteLine(s + 2);
+            }
+
             Console.WriteLine("count = " + orderIdIndexesForDelete.Count);
             orderIdIndexesForDelete.Sort();
             for (int k = orderIdIndexesForDelete.Count - 1; k >= 0; k--)

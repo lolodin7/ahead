@@ -302,7 +302,14 @@ CREATE TABLE [CustomerReturns](
 )
 GO
 
+CREATE FUNCTION getUserId (@UserName SYSNAME)
+RETURNS TABLE
+	AS RETURN (SELECT *
+				FROM Payments u
+				WHERE u.OrderId = @UserName)
+GO
 
+DROP FUNCTION getUserId
 
 
 /*
