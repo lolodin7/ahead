@@ -211,5 +211,12 @@ namespace Analytics
             cp.Show();
             this.Visible = false;
         }
+
+        private void byMarketplaceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChooseMP cp = new ChooseMP(this);
+            cp.Show();
+            this.Visible = false;
+        }
     }
 }

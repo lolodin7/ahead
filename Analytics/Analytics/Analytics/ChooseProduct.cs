@@ -196,39 +196,18 @@ namespace Excel_Parse
             this.Close();
         }
 
-        private void tb_FindSKUField_TextChanged(object sender, EventArgs e)
-        {
-            string findStr = tb_FindSKUField.Text;
-            for (int i = 0; i < dgv_Products.RowCount - 1; i++)
-            {
-                if (dgv_Products.Rows[i].Cells[3].Value.ToString().ToLower().Contains(findStr) && findStr != "")
-                    dgv_Products.Rows[i].Cells[3].Style.BackColor = Color.Aqua;
-                else
-                    dgv_Products.Rows[i].Cells[3].Style.BackColor = Color.White;
-            }
-        }
-
-        private void tb_FindASINField_TextChanged(object sender, EventArgs e)
-        {
-            string findStr = tb_FindASINField.Text;
-            for (int i = 0; i < dgv_Products.RowCount - 1; i++)
-            {
-                if (dgv_Products.Rows[i].Cells[2].Value.ToString().ToLower().Contains(findStr) && findStr != "")
-                    dgv_Products.Rows[i].Cells[2].Style.BackColor = Color.Aqua;
-                else 
-                    dgv_Products.Rows[i].Cells[2].Style.BackColor = Color.White;
-            }
-        }
-
         private void tb_FindNameField_TextChanged(object sender, EventArgs e)
         {
             string findStr = tb_FindNameField.Text;
             for (int i = 0; i < dgv_Products.RowCount - 1; i++)
             {
-                if (dgv_Products.Rows[i].Cells[1].Value.ToString().ToLower().Contains(findStr) && findStr != "")
-                    dgv_Products.Rows[i].Cells[1].Style.BackColor = Color.Aqua;
-                else
-                    dgv_Products.Rows[i].Cells[1].Style.BackColor = Color.White;
+                for (int j = 0; j < dgv_Products.ColumnCount; j++)
+                {
+                    if (dgv_Products.Rows[i].Cells[j].Value.ToString().ToLower().Contains(findStr) && findStr != "")
+                        dgv_Products.Rows[i].Cells[j].Style.BackColor = Color.Aqua;
+                    else
+                        dgv_Products.Rows[i].Cells[j].Style.BackColor = Color.White;
+                }
             }
         }
     }

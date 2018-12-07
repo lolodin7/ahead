@@ -27,17 +27,6 @@ IF NOT OBJECT_ID('Marketplace') IS NULL DROP TABLE [Marketplace]
 GO
 
 
-----------------------Analytics---------------------------------
-
-IF NOT OBJECT_ID('CustomerReturns') IS NULL DROP TABLE [CustomerReturns]
-GO
-IF NOT OBJECT_ID('Payments') IS NULL DROP TABLE [Payments]
-GO
-IF NOT OBJECT_ID('Shipments') IS NULL DROP TABLE [Shipments]
-GO
-IF NOT OBJECT_ID('Orders') IS NULL DROP TABLE [Orders]
-GO
-
 
 /*
     "БД компании AHEAD"
@@ -162,6 +151,17 @@ GO
 
 --------------------------------------------Analytics--------------------------------------------
 
+
+----------------------Analytics---------------------------------
+
+IF NOT OBJECT_ID('CustomerReturns') IS NULL DROP TABLE [CustomerReturns]
+GO
+IF NOT OBJECT_ID('Payments') IS NULL DROP TABLE [Payments]
+GO
+IF NOT OBJECT_ID('Shipments') IS NULL DROP TABLE [Shipments]
+GO
+IF NOT OBJECT_ID('Orders') IS NULL DROP TABLE [Orders]
+GO
 
 
 CREATE TABLE [Orders](

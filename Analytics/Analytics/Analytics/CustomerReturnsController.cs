@@ -260,28 +260,28 @@ namespace Analytics
 
         private void fillDGVHeaders()
         {
-            form1.dataGridView1.Rows.Clear();
-            form1.dataGridView1.Columns.Clear();
-            CustomerReturnsModel crm = new CustomerReturnsModel();
-            for (int i = 0; i < crm.dgvColumnsHeadersText.Length; i++)
-            {
-                form1.dataGridView1.Columns.Add(crm.dgvColumnsHeadersText[i], crm.dgvColumnsHeadersText[i]);
-            }
+            //form1.dataGridView1.Rows.Clear();
+            //form1.dataGridView1.Columns.Clear();
+            //CustomerReturnsModel crm = new CustomerReturnsModel();
+            //for (int i = 0; i < crm.dgvColumnsHeadersText.Length; i++)
+            //{
+            //    form1.dataGridView1.Columns.Add(crm.dgvColumnsHeadersText[i], crm.dgvColumnsHeadersText[i]);
+            //}
         }
         
         /* Заносим данные в dataGridView */
         private void SetProductsToList(IDataRecord record)
         {
-            int index = form1.dataGridView1.Rows.Add();
-            for (int i = 0; i < record.FieldCount; i++)
-            {
-                if (i == 0)
-                    form1.dataGridView1.Rows[index].Cells[i].Value = record[i].ToString().Substring(0, 10);
-                else
-                    form1.dataGridView1.Rows[index].Cells[i].Value = record[i];
-            }
+            //int index = form1.dataGridView1.Rows.Add();
+            //for (int i = 0; i < record.FieldCount; i++)
+            //{
+            //    if (i == 0)
+            //        form1.dataGridView1.Rows[index].Cells[i].Value = record[i].ToString().Substring(0, 10);
+            //    else
+            //        form1.dataGridView1.Rows[index].Cells[i].Value = record[i];
+            //}
 
-            form1.dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            //form1.dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
     }
 }

@@ -59,6 +59,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChooseMP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChooseMP.Designer.cs">
+      <DependentUpon>ChooseMP.cs</DependentUpon>
+    </Compile>
     <Compile Include="ChooseProduct.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +103,9 @@
     <Compile Include="ShipmentsModel.cs" />
     <EmbeddedResource Include="AnalyticsForm.resx">
       <DependentUpon>AnalyticsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChooseMP.resx">
+      <DependentUpon>ChooseMP.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChooseProduct.resx">
       <DependentUpon>ChooseProduct.cs</DependentUpon>

@@ -26,6 +26,21 @@ VALUES ('Без маркетплейса')
 INSERT INTO [Marketplace] ([MarketPlaceName])
 VALUES ('PowerDeWise - USA')
 
+INSERT INTO [Marketplace] ([MarketPlaceName])
+VALUES ('PowerDeWise - CA')
+
+INSERT INTO [Marketplace] ([MarketPlaceName])
+VALUES ('LETIT.BEER - USA')
+
+INSERT INTO [Marketplace] ([MarketPlaceName])
+VALUES ('LETIT.BEER - CA')
+
+INSERT INTO [Marketplace] ([MarketPlaceName])
+VALUES ('LaFit - USA')
+
+INSERT INTO [Marketplace] ([MarketPlaceName])
+VALUES ('PowerDeWise - AU')
+
 /*         -- [ProductTypes] --             */
 INSERT INTO [ProductTypes] ([TypeName])
 VALUES ('Отсутствующие товары')
