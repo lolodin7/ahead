@@ -12,6 +12,7 @@ namespace Excel_Parse
     {
         private List<ProductsModel> pList;
         private List<ProductTypesModel> ptList;
+        private List<MarketplaceModel> mpList;
 
         private SqlConnection connection;
         private SqlCommand command;
@@ -32,7 +33,7 @@ namespace Excel_Parse
 
         public int GetProductsAllJOIN()
         {
-            string sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId WHERE Products.ProductId > 0";
+            string sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0";
             command = new SqlCommand(sqlStatement, connection);
             return Execute_SELECTJOIN_Command(command);
         }
@@ -56,9 +57,9 @@ namespace Excel_Parse
             return Execute_UPDATE_DELETE_INSERT_Command(command);
         }
 
-        public int UpdateExistingProduct(string _name, string _asin, string _sku, int _prodTypeId, int _productId)
+        public int UpdateExistingProduct(string _name, string _asin, string _sku, int _prodTypeId, int _productId, int _marketPlaceId)
         {
-            string sqlStatement = "UPDATE [Products] SET [Name] = '" + _name + "', [ASIN] = '" + _asin + "', [SKU] = '" + _sku + "', [ProductTypeId] = " + _prodTypeId + " WHERE [ProductId] = " + _productId;
+            string sqlStatement = "UPDATE [Products] SET [Name] = '" + _name + "', [ASIN] = '" + _asin + "', [SKU] = '" + _sku + "', [ProductTypeId] = " + _prodTypeId + ", [MarketPlaceId] = " + _marketPlaceId + " WHERE [ProductId] = " + _productId;
             command = new SqlCommand(sqlStatement, connection);
             return Execute_UPDATE_DELETE_INSERT_Command(command);
         }
@@ -80,9 +81,9 @@ namespace Excel_Parse
 
         /* -------------------------INSERT Statements--------------------- */
 
-        public int InsertNewProduct(string _name, string _asin, string _sku, int _prodTypeId)
+        public int InsertNewProduct(string _name, string _asin, string _sku, int _prodTypeId, int _marketPlaceId)
         {
-            string sqlStatement = "INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId]) VALUES ('" + _name + "', '" + _asin + "', '" + _sku + "', " + _prodTypeId + ")";
+            string sqlStatement = "INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId]) VALUES ('" + _name + "', '" + _asin + "', '" + _sku + "', " + _prodTypeId + ", " + _marketPlaceId + ")";
             command = new SqlCommand(sqlStatement, connection);
             return Execute_UPDATE_DELETE_INSERT_Command(command);
         }
@@ -180,6 +181,7 @@ namespace Excel_Parse
         {
             pList = new List<ProductsModel> { };
             ptList = new List<ProductTypesModel> { };
+            mpList = new List<MarketplaceModel> { };
             try
             {
                 connection.Open();
@@ -192,6 +194,7 @@ namespace Excel_Parse
                     {
                         SetProductsToList((IDataRecord)reader);
                         SetProductTypesToList((IDataRecord)reader);
+                        SetMarketPlacesToList((IDataRecord)reader);
                     }
                 }
                 else
@@ -203,9 +206,9 @@ namespace Excel_Parse
 
                 if (controlFormProductsView != null)                                    //вызывает нужный метод в зависимости, из какой формы нас вызывают
                 {
-
                     controlFormProductsView.GetProductsFromDB(pList);
                     controlFormProductsView.GetProductTypesFromDB(ptList);
+                    controlFormProductsView.GetMarketPlacesFromDB(mpList);
                 }
                 return 1;
             }
@@ -222,9 +225,19 @@ namespace Excel_Parse
             ProductTypesModel ptModel = new ProductTypesModel();
             ptList.Add(ptModel);
 
-            ptList[ptList.Count - 1].WriteData(0, record[5]);
-            ptList[ptList.Count - 1].WriteData(1, record[6]);
+            ptList[ptList.Count - 1].WriteData(0, record[6]);
+            ptList[ptList.Count - 1].WriteData(1, record[7]);
 
+        }
+
+        /* Построчно заносим данные o Marketplace */
+        private void SetMarketPlacesToList(IDataRecord record)
+        {
+            MarketplaceModel mpModel = new MarketplaceModel();
+            mpList.Add(mpModel);
+
+            mpList[mpList.Count - 1].WriteData(0, record[8]);
+            mpList[mpList.Count - 1].WriteData(1, record[9]);
         }
     }
 }

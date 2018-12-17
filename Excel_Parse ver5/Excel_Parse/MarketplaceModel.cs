@@ -6,17 +6,15 @@ using System.Threading.Tasks;
 
 namespace Excel_Parse
 {
-    class KeywordCategoryModel
+    class MarketplaceModel
     {
-        public int CategoryId { get; set; }
-        public string CategoryName { get; set; }
-        public int ProductTypeId { get; set; }
-
+        public int MarketPlaceId { get; set; }
+        public string MarketPlaceName { get; set; }
         public int ColumnCount { get; }
 
-        public KeywordCategoryModel()
+        public MarketplaceModel()
         {
-            ColumnCount = 3;
+            ColumnCount = 2;
         }
 
         public void WriteData(int index, object record)
@@ -24,13 +22,10 @@ namespace Excel_Parse
             switch (index)
             {
                 case 0:
-                    CategoryId = int.Parse(record.ToString());
+                    MarketPlaceId = int.Parse(record.ToString());
                     break;
                 case 1:
-                    CategoryName = record.ToString();
-                    break;
-                case 2:
-                    ProductTypeId = int.Parse(record.ToString());
+                    MarketPlaceName = record.ToString();
                     break;
             }
         }
@@ -40,13 +35,10 @@ namespace Excel_Parse
             switch (index)
             {
                 case 0:
-                    return CategoryId;
+                    return MarketPlaceId;
                     break;
                 case 1:
-                    return CategoryName;
-                    break;
-                case 2:
-                    return ProductTypeId;
+                    return MarketPlaceName;
                     break;
                 default:
                     return -1;
@@ -54,4 +46,6 @@ namespace Excel_Parse
             }
         }
     }
+
 }
+

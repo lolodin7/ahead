@@ -29,6 +29,7 @@ namespace Excel_Parse
         private bool SavedStatus = true;
         private string path = "";
 
+        private int currentProductTypeId = -1;
 
         /* Конструктор */
         public SemCoreView(MainFormView _mf)
@@ -42,10 +43,10 @@ namespace Excel_Parse
             kcController = new KeywordCategoryController(this);
             ptController = new ProductTypesController(this);
 
-            kcController.GetKeywordCategoriesAll();
             ptController.GetProductTypesAll();
-            Fill_CB_ByKeywordCategories();
             Fill_CB_ByProductTypes();
+            kcController.GetKeywordCategoriesByProductId(currentProductTypeId);
+            Fill_CB_ByKeywordCategories();
 
             tb_Link.Text = mf.AmazonLink;
         }
@@ -61,10 +62,16 @@ namespace Excel_Parse
             kcController = new KeywordCategoryController(this);
             ptController = new ProductTypesController(this);
 
-            kcController.GetKeywordCategoriesAll();
             ptController.GetProductTypesAll();
+            Fill_CB_ByProductTypes();
+            kcController.GetKeywordCategoriesByProductId(currentProductTypeId);
+            Fill_CB_ByKeywordCategories(); 
+        }
+
+        public void RefreshKeywordCategories()
+        {
+            kcController.GetKeywordCategoriesByProductId(currentProductTypeId);
             Fill_CB_ByKeywordCategories();
-            Fill_CB_ByProductTypes();            
         }
 
         /* Загружаем новые ключи из файла */
@@ -76,9 +83,7 @@ namespace Excel_Parse
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 path = openFileDialog1.FileName;
-
-                tb_AddCategory.Text = "";
-                rb_ExistingCategory.Checked = true;
+                
                 dgv_Source.Rows.Clear();
                 dgv_Target.Rows.Clear();
 
@@ -155,7 +160,8 @@ namespace Excel_Parse
             {
                 cb_KeywordCategory.Items.Add(kcList[i].CategoryName);
             }
-            cb_KeywordCategory.SelectedItem = cb_KeywordCategory.Items[0];
+            if (kcList.Count > 0)
+                cb_KeywordCategory.SelectedItem = cb_KeywordCategory.Items[0];
         }
         
         /* Обработчик нажатия клавиши в dgv_Source */
@@ -224,6 +230,12 @@ namespace Excel_Parse
                     dgv_Target.Rows[index].Cells[0].Value = dgv_Source.Rows[dgv_Source.CurrentCellAddress.Y].Cells[0].Value.ToString();
                     dgv_Target.Rows[index].Cells[1].Value = dgv_Source.Rows[dgv_Source.CurrentCellAddress.Y].Cells[1].Value.ToString();
                 }
+            } else
+            {
+                var index = dgv_Target.Rows.Add();
+
+                dgv_Target.Rows[index].Cells[0].Value = dgv_Source.Rows[dgv_Source.CurrentCellAddress.Y].Cells[0].Value.ToString();
+                dgv_Target.Rows[index].Cells[1].Value = dgv_Source.Rows[dgv_Source.CurrentCellAddress.Y].Cells[1].Value.ToString();
             }
         }
 
@@ -250,21 +262,6 @@ namespace Excel_Parse
                         dgv_Target.Rows.RemoveAt(i);
                     }
                 }
-            }
-        }
-
-        /* Изменяем метод ввода имени */
-        private void rb_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rb_ExistingCategory.Checked)
-            {
-                tb_AddCategory.Enabled = false;
-                cb_KeywordCategory.Enabled = true;
-            }
-            else
-            {
-                tb_AddCategory.Enabled = true;
-                cb_KeywordCategory.Enabled = false;
             }
         }
 
@@ -392,35 +389,31 @@ namespace Excel_Parse
             int productType = -1;
             string errors = "";
             int categoryId = -1;
-            bool categoryCreated = true;
+            //bool categoryCreated = true;
 
-            if (rb_NewCategory.Checked)        //сохраняем в новой categoryId
-            {
-                int result = kcController.SetNewKeywordCategory(tb_AddCategory.Text);
-                if (result == 1)
-                {
-                    kcController.GetKeywordCategoriesAll();
-                    Fill_CB_ByKeywordCategories();
-                    cb_KeywordCategory.SelectedItem = cb_KeywordCategory.Items[cb_KeywordCategory.Items.Count - 1];
-                }
-                else if (result == -2146232060)
-                {
-                    MessageBox.Show("Вы пытаетесь создать категорию ключей, которая уже существует. Пожалуйста, выберите категорию со списка или введите другое название.", "Ошибка");
-                    categoryCreated = false;
-                }
-            }
+            //if (rb_NewCategory.Checked)        //сохраняем в новой categoryId
+            //{
+            //    int result = 1; // kcController.SetNewKeywordCategory(tb_AddCategory.Text);
+            //    if (result == 1)
+            //    {
+            //        kcController.GetKeywordCategoriesByProductId(currentProductTypeId);
+            //        Fill_CB_ByKeywordCategories();
+            //        cb_KeywordCategory.SelectedItem = cb_KeywordCategory.Items[cb_KeywordCategory.Items.Count - 1];
+            //    }
+            //    else if (result == -2146232060)
+            //    {
+            //        MessageBox.Show("Вы пытаетесь создать категорию ключей, которая уже существует. Пожалуйста, выберите категорию со списка или введите другое название.", "Ошибка");
+            //        categoryCreated = false;
+            //    }
+            //}
 
-            if (categoryCreated)                            //проверяем на то, что при создании категории всё было ок и можно продолжать
-            {
-                for (int i = 0; i < ptList.Count; i++)     //находим productTypeId по выбранному в cb_ProductType
-                {
-                    if (ptList[i].TypeName.Equals(cb_ProductType.SelectedItem.ToString()))
-                    {
-                        productType = ptList[i].ProductTypeId;
-                    }
-                }
+            //if (categoryCreated)                            //проверяем на то, что при создании категории всё было ок и можно продолжать
+            //{
+                //находим productTypeId по выбранному в cb_ProductType 
+                productType = currentProductTypeId;
 
-                for (int i = 0; i < kcList.Count; i++)     //находим productTypeId по выбранному в cb_ProductType
+
+                for (int i = 0; i < kcList.Count; i++)     //находим keywordCategoryId по выбранному в cb_CategoryId
                 {
                     if (kcList[i].CategoryName.Equals(cb_KeywordCategory.SelectedItem.ToString()))
                     {
@@ -428,6 +421,11 @@ namespace Excel_Parse
                     }
                 }
 
+                if (productType == -1 || categoryId == -1)
+                {
+                    MessageBox.Show("Выберите вид продукта и категорию ключей.", "Ошибка");
+                    return;
+                }
                 int index = -1;
 
                 for (int i = 0; i < dgv_Target.RowCount; i++)
@@ -446,7 +444,7 @@ namespace Excel_Parse
                     MessageBox.Show("Все ключи были успешно добавлены!", "Успех");
 
                 SavedStatus = true;
-            }
+            //}
         }
 
         /* Выделяем все ключи */
@@ -470,6 +468,30 @@ namespace Excel_Parse
                 dgv_Source.Rows[i].Cells[0].Style.ForeColor = Color.Black;
             }
             dgv_Target.Rows.Clear();
+        }
+
+        /* Меняем вид товара и получаем соответствующий список категорий ключей */
+        private void cb_ProductType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < ptList.Count; i++)
+            {
+                if (cb_ProductType.SelectedItem.ToString().Equals(ptList[i].TypeName))
+                {
+                    tb_ProductTypeId.Text = ptList[i].ProductTypeId.ToString();
+                    currentProductTypeId = int.Parse(ptList[i].ProductTypeId.ToString());
+                }
+            }
+
+            kcController.GetKeywordCategoriesByProductId(currentProductTypeId);
+            Fill_CB_ByKeywordCategories();
+        }
+
+        /* Добавить новую категорию ключей */
+        private void btn_addKeywordCategory_Click(object sender, EventArgs e)
+        {
+            KeywordCategoryView keycat = new KeywordCategoryView(this);
+            keycat.Show();
+            this.Visible = false;
         }
     }
 }

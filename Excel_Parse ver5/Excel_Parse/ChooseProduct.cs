@@ -89,7 +89,7 @@ namespace Excel_Parse
 
                 if (reader.HasRows)
                 {
-                    Semantics semantics = new Semantics(ProductId, mf);
+                    SemanticsView semantics = new SemanticsView(ProductId, mf);
                     OpenSuccess = true;
                     semantics.Show();
                     this.Close();

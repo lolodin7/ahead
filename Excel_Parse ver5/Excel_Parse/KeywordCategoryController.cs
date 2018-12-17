@@ -20,6 +20,7 @@ namespace Excel_Parse
 
 
         public List<KeywordCategoryModel> kcList;       //список объектов (по факту, каждый элемент - одна строка из БД)
+        public List<ProductTypesModel> ptList;
 
         /* Конструктор */
         public KeywordCategoryController(KeywordCategoryView _controlForm)
@@ -51,7 +52,7 @@ namespace Excel_Parse
 
         public bool GetKeywordCategoriesAll()
         {
-            string sqlStatement = "SELECT * FROM KeywordCategory WHERE CategoryId > 0";
+            string sqlStatement = "SELECT * FROM KeywordCategory WHERE CategoryId > 0 ";
             command = new SqlCommand(sqlStatement, connection);
             return Execute_SELECT_Command(command);
         }
@@ -70,14 +71,93 @@ namespace Excel_Parse
             return Execute_SELECT_Command(command);
         }
 
-        public int SetNewKeywordCategory(string name)
+        public int SetNewKeywordCategory(string name, int _productTypeId)
         {
-            string sqlStatement = "INSERT INTO [KeywordCategory] ([CategoryName]) VALUES ('" + name + "')";     //переделать, т.к. теперь нужно указывать еще и productTypeId
+            string sqlStatement = "INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId]) VALUES ('" + name + "', " + _productTypeId + ")";     //переделать, т.к. теперь нужно указывать еще и productTypeId
             command = new SqlCommand(sqlStatement, connection);
             return Execute_INSERT_Command(command);
         }
 
+
+
+        public bool GetKeywordCategoriesJOINProductTypes()
+        {
+            string sqlStatement = "SELECT * FROM KeywordCategory LEFT JOIN ProductTypes ON KeywordCategory.ProductTypeId = ProductTypes.ProductTypeId WHERE CategoryId > 0";
+            command = new SqlCommand(sqlStatement, connection);
+            return Execute_SELECT_JOIN_Command(command);
+        }
+
+        public bool GetKeywordCategoriesJOINProductTypesByProductTypeId(int _productTypeId)
+        {
+            string sqlStatement = "SELECT * FROM KeywordCategory LEFT JOIN ProductTypes ON KeywordCategory.ProductTypeId = ProductTypes.ProductTypeId WHERE CategoryId > 0 AND KeywordCategory.ProductTypeId = " + _productTypeId;
+            command = new SqlCommand(sqlStatement, connection);
+            return Execute_SELECT_JOIN_Command(command);
+        }
         //-------------------------------МЕТОДЫ----------------------------------------
+
+
+
+        private bool Execute_SELECT_JOIN_Command(SqlCommand _command)
+        {
+            kcList = new List<KeywordCategoryModel> { };
+            ptList = new List<ProductTypesModel> { };
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = _command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        SetKeywordCategoryToList((IDataRecord)reader);
+                        SetProductTypesToList((IDataRecord)reader);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No rows found.");
+                }
+                reader.Close();
+                connection.Close();
+
+                if (controlFormKeywordCategoryView != null)             //вызывает нужный метод в зависимости, из какой формы нас вызывают
+                {            
+                    controlFormKeywordCategoryView.GetCategoriesFromDB(kcList);
+                    controlFormKeywordCategoryView.GetProductTypesFromDB(ptList);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                connection.Close();
+                return false;
+            }
+        }
+
+        /* Заносим данные в List<KeywordCategoryModel> */
+        private void SetKeywordCategoryToList(IDataRecord record)
+        {
+            KeywordCategoryModel kcModel = new KeywordCategoryModel();
+            kcList.Add(kcModel);
+            for (int i = 0; i < kcModel.ColumnCount; i++)
+            {
+                kcList[kcList.Count - 1].WriteData(i, record[i]);
+            }
+        }
+
+        /* Заносим данные в List<KeywordCategoryModel> */
+        private void SetProductTypesToList(IDataRecord record)
+        {
+            ProductTypesModel ptModel = new ProductTypesModel();
+            ptList.Add(ptModel);
+
+            ptList[ptList.Count - 1].WriteData(0, record[3]);
+            ptList[ptList.Count - 1].WriteData(1, record[4]);
+        }
+
 
 
         /* Выполняем запрос к БД и заносим полученные данные в List<SemCoreModel> */

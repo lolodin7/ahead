@@ -52,9 +52,9 @@ namespace Excel_Parse
 
         private void btn_DoKeywordCategory_Click(object sender, EventArgs e)
         {
-            //KeywordCategoryView keycat = new KeywordCategoryView(this);
-            //keycat.Show();
-            //this.Visible = false;
+            KeywordCategoryView keycat = new KeywordCategoryView(this);
+            keycat.Show();
+            this.Visible = false;
         }
 
         private void btn_DoRewriteSemCore_Click(object sender, EventArgs e)

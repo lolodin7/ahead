@@ -48,3 +48,18 @@ select * from Payments where Date = '2018-01-01' and sku = 'E3-2RHF-EO7C'
 select sum(quantity), sum (total) from payments where [type] = 'order' and sku = 'E3-2RHF-EO7C' and [date] = '2018-11-03'
 
 select sum(quantity), sum (total) from payments where [type] = 'refund' and sku = 'E3-2RHF-EO7C' and [date] between '2018-11-01' and '2018-11-07'
+
+select * from keywordcategory
+
+SELECT * FROM KeywordCategory WHERE ProductTypeId = 9
+
+select * from producttypes
+
+SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0
+
+
+SELECT * FROM KeywordCategory LEFT JOIN ProductTypes ON KeywordCategory.CategoryId = ProductTypes.ProductTypeId WHERE CategoryId > 0 
+
+select * from semcore
+
+SELECT * FROM KeywordCategory LEFT JOIN ProductTypes ON KeywordCategory.ProductTypeId = ProductTypes.ProductTypeId WHERE CategoryId > 0 AND KeywordCategory.ProductTypeId = 1

@@ -180,7 +180,8 @@ VALUES ('Lightning Cable(3 ft)', 'B01MDV1TO4', '32-FM61-Q39H', 6, 1)
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
 VALUES ('PDW Microphone Clip', 'B01LZ6T9XO', '1N-NPIV-XHND', 8, 1)
 
-
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
+VALUES ('TEST PRODUCT', 'AAAAAAAA', 'BBBBBBBB', 2, 4)
 
 
 /*         -- [Semantics] --             */

@@ -33,7 +33,7 @@ GO
 */
 
 CREATE TABLE [Marketplace](
-	[MarketPlaceId]		INT IDENTITY(1,1),
+	[MarketPlaceId]		INT IDENTITY(0,1),
 	[MarketPlaceName]	VARCHAR(20),
 	CONSTRAINT PK_Marketplace_MarketPlaceId PRIMARY KEY ([MarketPlaceId])
 )

@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace Excel_Parse
 {
-    public partial class Semantics : Form
+    public partial class SemanticsView : Form
     {
         private int TitleLength, BulletsLength, BackendLength, DescriptionLength, SubjectMatterLength, OtherAttributesLength, IntendedUseLength;
 
@@ -28,7 +28,7 @@ namespace Excel_Parse
         private bool reverseDescriptionTransform;
         MainFormView mf;
 
-        public Semantics(int _productId, MainFormView _mf)
+        public SemanticsView(int _productId, MainFormView _mf)
         {
             InitializeComponent();
 

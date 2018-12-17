@@ -18,6 +18,7 @@ namespace Excel_Parse
         private ProductsView controlFormProductsView;
         private FullSemCoreView controlFormFullSemCoreView;
         private SemCoreRebuildView controlFormSemCoreRebuildView;
+        private KeywordCategoryView controlKeywordCategoryView;
 
         public List<ProductTypesModel> ptList;       //список объектов (по факту, каждый элемент - одна строка из БД)
 
@@ -26,6 +27,13 @@ namespace Excel_Parse
         {
             connection = DBData.GetDBConnection();
             controlFormProductTypesView = _controlForm;
+        }
+
+        /* Конструктор */
+        public ProductTypesController(KeywordCategoryView _controlForm)
+        {
+            connection = DBData.GetDBConnection();
+            controlKeywordCategoryView = _controlForm;
         }
 
         /* Конструктор */
@@ -114,6 +122,8 @@ namespace Excel_Parse
                     controlFormFullSemCoreView.GetProductTypesFromDB(ptList);
                 else if (controlFormSemCoreRebuildView != null)
                     controlFormSemCoreRebuildView.GetProductTypesFromDB(ptList);
+                else if (controlKeywordCategoryView != null)
+                    controlKeywordCategoryView.GettFullProductTypesFromDB(ptList);
                 return true;
             }
             catch (Exception ex)

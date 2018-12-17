@@ -21,6 +21,9 @@ namespace Excel_Parse
         private ProductTypesController ptController;
         private List<ProductTypesModel> ptList;
 
+        private MarketplaceController mpController;
+        private List<MarketplaceModel> mpList;
+
         private MainFormView mf;
 
         /* Конструктор */
@@ -32,18 +35,7 @@ namespace Excel_Parse
 
             pController = new ProductsController(this);
             ptController = new ProductTypesController(this);
-
-            FillAllFields();
-        }
-        
-        /* Конструктор */
-        public ProductsView()
-        {
-            InitializeComponent();
-            connection = DBData.GetDBConnection();
-
-            pController = new ProductsController(this);
-            ptController = new ProductTypesController(this);
+            mpController = new MarketplaceController(this);
 
             FillAllFields();
         }
@@ -54,9 +46,13 @@ namespace Excel_Parse
             pController.GetProductsAllJOIN();
             DrawProducts();
             DrawProductTypes();
+            DrawMarketPlaces();
 
             ptController.GetProductTypesAll();
             Fill_CB_ByProductTypes();
+
+            mpController.GetMarketplaces();
+            Fill_CB_ByMarketplaces();
         }
 
         /* Перерисовываем таблицу новыми данными Products */
@@ -84,8 +80,24 @@ namespace Excel_Parse
                 {
                     if (dgv_Products.Rows[i].Cells[4].Value.Equals(ptList[j].ProductTypeId))
                     {
-                        dgv_Products.Rows[i].Cells[5].Value = dgv_Products.Rows[i].Cells[4].Value;
-                        dgv_Products.Rows[i].Cells[6].Value = ptList[j].TypeName.ToString();
+                        dgv_Products.Rows[i].Cells[6].Value = dgv_Products.Rows[i].Cells[4].Value;
+                        dgv_Products.Rows[i].Cells[7].Value = ptList[j].TypeName.ToString();
+                    }
+                }
+            }
+        }
+
+        /* Добавляем в таблицу данные с Marketplace */
+        private void DrawMarketPlaces()
+        {
+            for (int i = 0; i < dgv_Products.RowCount; i++)
+            {
+                for (int j = 0; j < mpList.Count; j++)
+                {
+                    if (dgv_Products.Rows[i].Cells[5].Value.Equals(mpList[j].MarketPlaceId))
+                    {
+                        dgv_Products.Rows[i].Cells[8].Value = dgv_Products.Rows[i].Cells[5].Value;
+                        dgv_Products.Rows[i].Cells[9].Value = mpList[j].MarketPlaceName.ToString();
                     }
                 }
             }
@@ -103,6 +115,12 @@ namespace Excel_Parse
             ptList = (List<ProductTypesModel>)_ptList;
         }
 
+        /* Получаем из контроллера Marketplaces, полученные с БД */
+        public void GetMarketPlacesFromDB(object _mpList)
+        {
+            mpList = (List<MarketplaceModel>)_mpList;
+        }
+
         /* Делает активной ячейку под курсором */
         private void dgv_Products_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -117,6 +135,7 @@ namespace Excel_Parse
             tb_editing_ASIN.Enabled = true;
             tb_editing_SKU.Enabled = true;
             cb_editing_ProductTypes.Enabled = true;
+            cb_editing_Marketplace.Enabled = true;
             btn_SaveEditing.Enabled = true;
             btn_CancelEditing.Enabled = true;
 
@@ -128,12 +147,20 @@ namespace Excel_Parse
 
             for (int i = 0; i < cb_editing_ProductTypes.Items.Count; i++)
             {
-                if (dgv_Products.Rows[e.RowIndex].Cells[6].Value.ToString().Equals(cb_editing_ProductTypes.Items[i].ToString()))
+                if (dgv_Products.Rows[e.RowIndex].Cells[7].Value.ToString().Equals(cb_editing_ProductTypes.Items[i].ToString()))
                 {
                     cb_editing_ProductTypes.SelectedItem = cb_editing_ProductTypes.Items[i];
                 }
             }
-            
+
+            for (int i = 0; i < cb_editing_Marketplace.Items.Count; i++)
+            {
+                if (dgv_Products.Rows[e.RowIndex].Cells[9].Value.ToString().Equals(cb_editing_Marketplace.Items[i].ToString()))
+                {
+                    cb_editing_Marketplace.SelectedItem = cb_editing_Marketplace.Items[i];
+                }
+            }
+
             groupBox2.Enabled = false;
         }
 
@@ -175,7 +202,23 @@ namespace Excel_Parse
             cb_editing_ProductTypes.SelectedItem = cb_editing_ProductTypes.Items[0];
             cb_adding_ProductTypes.SelectedItem = cb_adding_ProductTypes.Items[0];
         }
-        
+
+        /* Заполняем cb_Marketplace данными с mpList */
+        private void Fill_CB_ByMarketplaces()
+        {
+            cb_editing_Marketplace.Items.Clear();
+            cb_adding_Marketplace.Items.Clear();
+
+            for (int i = 0; i < mpList.Count; i++)
+            {
+                cb_editing_Marketplace.Items.Add(mpList[i].MarketPlaceName);
+                cb_adding_Marketplace.Items.Add(mpList[i].MarketPlaceName);
+            }
+
+            cb_editing_Marketplace.SelectedItem = cb_editing_Marketplace.Items[0];
+            cb_adding_Marketplace.SelectedItem = cb_adding_Marketplace.Items[0];
+        }
+
         /* Вызов справка */
         private void btn_Help_Click(object sender, EventArgs e)
         {
@@ -187,7 +230,7 @@ namespace Excel_Parse
         /* Закрываем форму */
         private void Products_FormClosed(object sender, FormClosedEventArgs e)
         {
-            //mf.Show();
+            mf.Show();
         }
 
         /* Отменяем изменения */
@@ -203,6 +246,7 @@ namespace Excel_Parse
             tb_editing_ASIN.Enabled = false;
             tb_editing_SKU.Enabled = false;
             cb_editing_ProductTypes.Enabled = false;
+            cb_editing_Marketplace.Enabled = false;
             btn_SaveEditing.Enabled = false;
             btn_CancelEditing.Enabled = false;
 
@@ -227,6 +271,18 @@ namespace Excel_Parse
             }
         }
 
+        /* Чтобы при изменении в tb_editing_MarketPlaceId появлялся корректный Id */
+        private void cb_editing_Marketplace_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < mpList.Count; i++)
+            {
+                if (cb_editing_Marketplace.SelectedItem.ToString().Equals(mpList[i].MarketPlaceName))
+                {
+                    tb_editing_MarketPlaceId.Text = mpList[i].MarketPlaceId.ToString();
+                }
+            }
+        }
+
         /* Очищаем поля с данными нового товара */
         private void btn_ClearAdding_Click(object sender, EventArgs e)
         {
@@ -247,12 +303,24 @@ namespace Excel_Parse
             }
         }
 
+        /* Чтобы при изменении в tb_adding_marketPlaceId появлялся корректный Id */
+        private void cb_adding_Marketplace_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < mpList.Count; i++)
+            {
+                if (cb_adding_Marketplace.SelectedItem.ToString().Equals(mpList[i].MarketPlaceName))
+                {
+                    tb_adding_MarketPlaceId.Text = mpList[i].MarketPlaceId.ToString();
+                }
+            }
+        }
+
         /* Сохраняем изменения */
         private void btn_Save_Click(object sender, EventArgs e)
         {
             if (!tb_editing_ProductName.Text.Equals("") && !tb_editing_ASIN.Text.Equals("") && !tb_editing_SKU.Text.Equals(""))
             {
-                pController.UpdateExistingProduct(tb_editing_ProductName.Text, tb_editing_ASIN.Text, tb_editing_SKU.Text, int.Parse(tb_editing_ProductTypeId.Text), int.Parse(tb_editing_ProductId.Text));
+                pController.UpdateExistingProduct(tb_editing_ProductName.Text, tb_editing_ASIN.Text, tb_editing_SKU.Text, int.Parse(tb_editing_ProductTypeId.Text), int.Parse(tb_editing_ProductId.Text), int.Parse(tb_editing_MarketPlaceId.Text));
 
                 RefreshFieldsAfterEditing();
                 FillAllFields();
@@ -267,7 +335,7 @@ namespace Excel_Parse
             if (!tb_adding_ProductName.Text.Equals("") && !tb_adding_ASIN.Text.Equals("") && !tb_adding_SKU.Text.Equals(""))
             {
                 int result = -1;
-                result = pController.InsertNewProduct(tb_adding_ProductName.Text, tb_adding_ASIN.Text, tb_adding_SKU.Text, int.Parse(tb_adding_ProductTypeId.Text));
+                result = pController.InsertNewProduct(tb_adding_ProductName.Text, tb_adding_ASIN.Text, tb_adding_SKU.Text, int.Parse(tb_adding_ProductTypeId.Text), int.Parse(tb_adding_MarketPlaceId.Text));
                 if (result == 1)
                 {
                     tb_adding_ASIN.Text = "";
@@ -281,6 +349,6 @@ namespace Excel_Parse
             }
             else
                 MessageBox.Show("Не все поля заполнены. Пожалуйста, заполните все поля чтобы продолжить.", "Ошибка");
-        }        
+        }
     }
 }

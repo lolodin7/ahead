@@ -1,6 +1,6 @@
 ﻿namespace Excel_Parse
 {
-    partial class Semantics
+    partial class SemanticsView
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Semantics));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SemanticsView));
             this.dgv_Keywords = new System.Windows.Forms.DataGridView();
             this.lb_TitleText = new System.Windows.Forms.Label();
             this.lb_BulletsText = new System.Windows.Forms.Label();

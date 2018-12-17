@@ -53,7 +53,7 @@
             // 
             // btn_DoSemantics
             // 
-            this.btn_DoSemantics.BackColor = System.Drawing.Color.YellowGreen;
+            this.btn_DoSemantics.BackColor = System.Drawing.Color.Beige;
             this.btn_DoSemantics.Location = new System.Drawing.Point(313, 12);
             this.btn_DoSemantics.Name = "btn_DoSemantics";
             this.btn_DoSemantics.Size = new System.Drawing.Size(195, 81);
@@ -64,7 +64,7 @@
             // 
             // btn_DoRewriteSemCore
             // 
-            this.btn_DoRewriteSemCore.BackColor = System.Drawing.Color.YellowGreen;
+            this.btn_DoRewriteSemCore.BackColor = System.Drawing.Color.Beige;
             this.btn_DoRewriteSemCore.Location = new System.Drawing.Point(12, 117);
             this.btn_DoRewriteSemCore.Name = "btn_DoRewriteSemCore";
             this.btn_DoRewriteSemCore.Size = new System.Drawing.Size(195, 81);
@@ -80,7 +80,7 @@
             this.btn_DoProductType.Name = "btn_DoProductType";
             this.btn_DoProductType.Size = new System.Drawing.Size(195, 81);
             this.btn_DoProductType.TabIndex = 3;
-            this.btn_DoProductType.Text = "Добавление новой категории товаров";
+            this.btn_DoProductType.Text = "Добавление вида товара";
             this.btn_DoProductType.UseVisualStyleBackColor = false;
             this.btn_DoProductType.Click += new System.EventHandler(this.btn_DoProductType_Click);
             // 
@@ -91,7 +91,7 @@
             this.btn_DoKeywordCategory.Name = "btn_DoKeywordCategory";
             this.btn_DoKeywordCategory.Size = new System.Drawing.Size(195, 81);
             this.btn_DoKeywordCategory.TabIndex = 4;
-            this.btn_DoKeywordCategory.Text = "Управление KeywordCategory";
+            this.btn_DoKeywordCategory.Text = "Управление категориями ключей";
             this.btn_DoKeywordCategory.UseVisualStyleBackColor = false;
             this.btn_DoKeywordCategory.Click += new System.EventHandler(this.btn_DoKeywordCategory_Click);
             // 
@@ -137,7 +137,7 @@
             this.btn_ShowSemStatistics.UseVisualStyleBackColor = true;
             this.btn_ShowSemStatistics.Click += new System.EventHandler(this.btn_ShowSemStatistics_Click);
             // 
-            // MainForm
+            // MainFormView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -153,7 +153,7 @@
             this.Controls.Add(this.btn_DoSemCore);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "MainForm";
+            this.Name = "MainFormView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Главное окно";
             this.ResumeLayout(false);

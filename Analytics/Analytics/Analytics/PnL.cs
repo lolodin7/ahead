@@ -366,6 +366,7 @@ namespace Analytics
             dataGridView1.Columns.Clear();
             dataGridView1.Columns.Add("typeCol", "Тип");
             dataGridView1.Columns.Add("descrCol", "Описание");
+            dataGridView1.Columns.Add("TotalColumn", "Всего");
         }
 
         private int getDayCount()
@@ -391,6 +392,11 @@ namespace Analytics
                     workDate = workDate.AddDays(1);
                 }
 
+                for (int i = 0; i < dataGridView1.ColumnCount; i++)
+                {
+                    dataGridView1.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
+                }
+
                 workDate = start;
                 int startPos = 1;
 
@@ -399,64 +405,64 @@ namespace Analytics
                     startPos = 1;
                     sqlSemanticsIds = "select sum(quantity), sum(total) from payments where [type] = 'adjustment' and sku = '" + SKU + "' and [Description] = 'FBA Inventory Reimbursement - Customer Return' and [date] = '" + workDate.ToString("yyyy-MM-dd") + "'";
                     command = new SqlCommand(sqlSemanticsIds, connection);
-                    GetInfoBySKUFromDB(command, "Корректирование", "FBA Inventory Reimbursement - Customer Return", i + 2, startPos);
+                    GetInfoBySKUFromDB(command, "Корректирование", "FBA Inventory Reimbursement - Customer Return", i, startPos);
                     startPos += 3;
 
                     //----------------------------------------  TYPE: adjustment---------------------------------
                     sqlSemanticsIds = "select sum(quantity), sum(total) from payments where [type] = 'adjustment' and sku = '" + SKU + "' and [Description] = 'FBA Inventory Reimbursement - Customer Return' and [date] = '" + workDate.ToString("yyyy-MM-dd") + "'";
                     command = new SqlCommand(sqlSemanticsIds, connection);
-                    GetInfoBySKUFromDB(command, "Корректирование", "FBA Inventory Reimbursement - Customer Return", i + 2, startPos);
+                    GetInfoBySKUFromDB(command, "Корректирование", "FBA Inventory Reimbursement - Customer Return", i, startPos);
                     startPos += 3;
 
 
                     sqlSemanticsIds = "select sum(quantity), sum(total) from payments where [type] = 'adjustment' and sku = '" + SKU + "' and [Description] = 'FBA Inventory Reimbursement - Damaged:Warehouse' and [date] = '" + workDate.ToString("yyyy-MM-dd") + "'";
                     command = new SqlCommand(sqlSemanticsIds, connection);
-                    GetInfoBySKUFromDB(command, "Корректирование", "FBA Inventory Reimbursement - Damaged:Warehouse", i + 2, startPos);
+                    GetInfoBySKUFromDB(command, "Корректирование", "FBA Inventory Reimbursement - Damaged:Warehouse", i, startPos);
                     startPos += 3;
 
 
                     sqlSemanticsIds = "select sum(quantity), sum(total) from payments where [type] = 'adjustment' and sku = '" + SKU + "' and [Description] = 'FBA Inventory Reimbursement - General Adjustment' and [date] = '" + workDate.ToString("yyyy-MM-dd") + "'";
                     command = new SqlCommand(sqlSemanticsIds, connection);
-                    GetInfoBySKUFromDB(command, "Корректирование", "FBA Inventory Reimbursement - General Adjustment", i + 2, startPos);
+                    GetInfoBySKUFromDB(command, "Корректирование", "FBA Inventory Reimbursement - General Adjustment", i, startPos);
                     startPos += 3;
 
                     //----------------------------------------  TYPE: chargeback refund---------------------------------
                     sqlSemanticsIds = "select sum(quantity), sum(total) from payments where [type] = 'chargeback refund' and sku = '" + SKU + "' and [date] = '" + workDate.ToString("yyyy-MM-dd") + "'";
                     command = new SqlCommand(sqlSemanticsIds, connection);
-                    GetInfoBySKUFromDB(command, "Возврат платежа", "", i + 2, startPos);
+                    GetInfoBySKUFromDB(command, "Возврат платежа", "", i, startPos);
                     startPos += 3;
 
                     //----------------------------------------  TYPE: order---------------------------------
                     sqlSemanticsIds = "select sum(quantity), sum(total) from payments where [type] = 'order' and sku = '" + SKU + "' and [date] = '" + workDate.ToString("yyyy-MM-dd") + "'";
                     command = new SqlCommand(sqlSemanticsIds, connection);
-                    GetInfoBySKUFromDB(command, "Продажи", "", i + 2, startPos);
+                    GetInfoBySKUFromDB(command, "Продажи", "", i, startPos);
                     startPos += 3;
 
                     //----------------------------------------  TYPE: refund---------------------------------
                     sqlSemanticsIds = "select sum(quantity), sum(total) from payments where [type] = 'refund' and sku = '" + SKU + "' and [date] = '" + workDate.ToString("yyyy-MM-dd") + "'";
                     command = new SqlCommand(sqlSemanticsIds, connection);
-                    GetInfoBySKUFromDB(command, "Возвраты", "", i + 2, startPos);
+                    GetInfoBySKUFromDB(command, "Возвраты", "", i, startPos);
 
 
                     workDate = workDate.AddDays(1);
                 }
 
                 workDate = start;
-                dataGridView1.Columns.Add("TotalColumn", "Всего");
+                //dataGridView1.Columns.Add("TotalColumn", "Всего");
 
                 int sumQuantity = 0;
                 double sumTotal = 0;
-                for (int j = 1; j < dataGridView1.RowCount - 1; j = j + 3)
+                for (int j = 1; j < dataGridView1.RowCount; j = j + 3)
                 {
                     sumQuantity = 0;
                     sumTotal = 0;
-                    for (int i = 2; i < dataGridView1.ColumnCount - 1; i++)
+                    for (int i = 3; i < dataGridView1.ColumnCount; i++)
                     {
                         sumQuantity += int.Parse(dataGridView1.Rows[j].Cells[i].Value.ToString());        //quantity
                         sumTotal += double.Parse(dataGridView1.Rows[j + 1].Cells[i].Value.ToString());        //total
                     }
-                    dataGridView1.Rows[j].Cells[dataGridView1.ColumnCount - 1].Value = sumQuantity;
-                    dataGridView1.Rows[j + 1].Cells[dataGridView1.ColumnCount - 1].Value = sumTotal;
+                    dataGridView1.Rows[j].Cells[2].Value = sumQuantity;
+                    dataGridView1.Rows[j + 1].Cells[2].Value = sumTotal;
                 }
             }
             
@@ -512,7 +518,9 @@ namespace Analytics
         /* Пишем в dataGridView по SKU */
         private void SetInfoBySKUToDataGrid(IDataRecord record, string _type, string _desc, int _startCol, int _startRow)
         {
-            if (_startCol - 2 == 0)        //при первом проходе создаем строки
+            _startCol = _startCol + 3;
+
+            if (_startCol - 3 == 0)        //при первом проходе создаем строки
             {
                 var index = dataGridView1.Rows.Add();
                 dataGridView1.Rows[index].DefaultCellStyle.BackColor = Color.LightGray;
@@ -520,7 +528,7 @@ namespace Analytics
                 dataGridView1.Rows[index].Cells[1].Value = _desc;
 
                 index = dataGridView1.Rows.Add();
-                dataGridView1.Rows[index].Cells[0].Value = "Количество";                
+                dataGridView1.Rows[index].Cells[0].Value = "   Количество";                
                 dataGridView1.Rows[index].Cells[_startCol].Value = record[0];
 
                 if (dataGridView1.Rows[index].Cells[_startCol].Value.ToString().Equals(""))
@@ -529,7 +537,7 @@ namespace Analytics
                 }
 
                 index = dataGridView1.Rows.Add();
-                dataGridView1.Rows[index].Cells[0].Value = "Всего";
+                dataGridView1.Rows[index].Cells[0].Value = "   Всего";
                 dataGridView1.Rows[index].Cells[_startCol].Value = record[1];
 
                 if (dataGridView1.Rows[index].Cells[_startCol].Value.ToString().Equals(""))
@@ -576,7 +584,7 @@ namespace Analytics
         /* Если строка из БД пустая. А нам нужно создать строки при первом проходе в dataGridView1 */
         private void SetInfoBySKUToDataGrid(string _type, string _desc, int _startCol, int _startRow)
         {
-            if (_startCol - 2 == 0)        //при первом проходе создаем строки
+            if (_startCol - 3 == 0)        //при первом проходе создаем строки
             {
                 var index = dataGridView1.Rows.Add();
                 dataGridView1.Rows[index].DefaultCellStyle.BackColor = Color.LightGray;
@@ -584,7 +592,7 @@ namespace Analytics
                 dataGridView1.Rows[index].Cells[1].Value = _desc;
 
                 index = dataGridView1.Rows.Add();
-                dataGridView1.Rows[index].Cells[0].Value = "Количество";
+                dataGridView1.Rows[index].Cells[0].Value = "   Количество";
 
                 if (dataGridView1.Rows[index].Cells[_startCol].Value == null)
                 {
@@ -592,7 +600,7 @@ namespace Analytics
                 }
 
                 index = dataGridView1.Rows.Add();
-                dataGridView1.Rows[index].Cells[0].Value = "Всего";
+                dataGridView1.Rows[index].Cells[0].Value = "   Всего";
 
                 if (dataGridView1.Rows[index].Cells[_startCol].Value == null)
                 {
@@ -600,6 +608,8 @@ namespace Analytics
                 }
             }
         }
+
+
         /* Получаем с БД инфу по Мarketplace и записываем её в dataGridView */
         private void showMarketPlacePnL()
         {
@@ -697,27 +707,36 @@ namespace Analytics
         private void btn_ShowByDays_Click(object sender, EventArgs e)
         {
             showByDays = true;
+            btn_ShowByDays.BackColor = Color.DarkGray;
             hideDaysButtons(true);
             showByWeeks = false;
+            btn_ShowByWeeks.BackColor = Color.LightGray;
             showByMonths = false;
+            btn_ShowByMonths.BackColor = Color.LightGray;
         }
 
         /* Показываем по неделям */
         private void btn_ShowByWeeks_Click(object sender, EventArgs e)
         {
             showByDays = false;
+            btn_ShowByDays.BackColor = Color.LightGray;
             hideDaysButtons(false);
             showByWeeks = true;
+            btn_ShowByWeeks.BackColor = Color.DarkGray;
             showByMonths = false;
+            btn_ShowByMonths.BackColor = Color.LightGray;
         }
 
         /* Показываем по месяцам */
         private void btn_ShowByMonths_Click(object sender, EventArgs e)
         {
             showByDays = false;
+            btn_ShowByDays.BackColor = Color.LightGray;
             hideDaysButtons(false);
             showByWeeks = false;
+            btn_ShowByWeeks.BackColor = Color.LightGray;
             showByMonths = true;
+            btn_ShowByMonths.BackColor = Color.DarkGray;
         }
 
         /* Прячем/показываем кнопки по дням при смене типа отображения (по дням/неделям/годам) */

@@ -15,39 +15,88 @@ namespace Excel_Parse
     {
         private KeywordCategoryController kcController;
         private List<KeywordCategoryModel> kcmList;     //список всех объектов (записей из БД)
-        private int CurrentColumnCount;
+
+        private ProductTypesController ptController;
 
         private SemCoreRebuildView controlSemCoreRebuildView;
+        private MainFormView controlMainFormView;
+        private SemCoreView controlSemCoreView;
+
         private SqlConnection connection;
 
         private bool wasAdded = false;
 
+        private List<ProductTypesModel> ptList;
+        private List<ProductTypesModel> fullPTList;
 
+        /* Конструктор */
         public KeywordCategoryView(SemCoreRebuildView _mf)
         {
             InitializeComponent();
-            CurrentColumnCount = 0;
 
             kcController = new KeywordCategoryController(this);
-            
+            ptController = new ProductTypesController(this);
+
             connection = DBData.GetDBConnection();
             controlSemCoreRebuildView = _mf;
 
-            kcController.GetKeywordCategoriesAll();
+            kcController.GetKeywordCategoriesJOINProductTypes();
             Draw();
+
+            ptController.GetProductTypesAll();
+            fill_cb_ProductTypes();
         }
 
-        public KeywordCategoryView()
+        /* Конструктор */
+        public KeywordCategoryView(MainFormView _mf)
         {
             InitializeComponent();
-            CurrentColumnCount = 0;
 
             kcController = new KeywordCategoryController(this);
+            ptController = new ProductTypesController(this);
 
             connection = DBData.GetDBConnection();
+            controlMainFormView = _mf;
 
-            kcController.GetKeywordCategoriesAll();
+            kcController.GetKeywordCategoriesJOINProductTypes();
             Draw();
+
+            ptController.GetProductTypesAll();
+            fill_cb_ProductTypes();
+        }
+
+        /* Конструктор */
+        public KeywordCategoryView(SemCoreView _mf)
+        {
+            InitializeComponent();
+
+            kcController = new KeywordCategoryController(this);
+            ptController = new ProductTypesController(this);
+
+            connection = DBData.GetDBConnection();
+            controlSemCoreView = _mf;
+
+            kcController.GetKeywordCategoriesJOINProductTypes();
+            Draw();
+
+            ptController.GetProductTypesAll();
+            fill_cb_ProductTypes();
+        }
+
+        /* Заполняем cb_ProductTypes */
+        private void fill_cb_ProductTypes()
+        {
+            cb_ShownProductType.Items.Clear();
+            cb_ShownProductType.Items.Add("Все");
+            cb_ProductType.Items.Clear();
+
+            for (int i = 0; i < fullPTList.Count; i++)
+            {
+                cb_ProductType.Items.Add(fullPTList[i].TypeName);
+                cb_ShownProductType.Items.Add(fullPTList[i].TypeName);
+            }
+            cb_ProductType.SelectedItem = cb_ProductType.Items[0];
+            cb_ShownProductType.SelectedItem = cb_ShownProductType.Items[0];
         }
 
         /* Перерисовываем таблицу новыми данными */
@@ -63,6 +112,10 @@ namespace Excel_Parse
                 {
                     dgv_KeywordCategory.Rows[index].Cells[j].Value = kcmList[i].ReadData(j);
                 }
+
+                dgv_KeywordCategory.Rows[index].Cells[3].Value = ptList[i].ReadData(0);
+                dgv_KeywordCategory.Rows[index].Cells[4].Value = ptList[i].ReadData(1);
+
             }
         }
 
@@ -72,31 +125,17 @@ namespace Excel_Parse
             kcmList = (List<KeywordCategoryModel>)_kcmList;
         }
 
-        /* Перерисовываем пустую таблицу на 2 столбцa */
-        public void RefreshTable_2()
+        /* Получаем из контроллера данные, полученные с БД */
+        public void GetProductTypesFromDB(object _ptList)
         {
-            dgv_KeywordCategory.Columns.Clear();
-            AddColumns_2();
+            ptList = (List<ProductTypesModel>)_ptList;
         }
 
-
-        /* Программно создаем столбцы в dataGridView */
-        public void AddColumns_2()
+        /* Получаем список всех существующих видов товара */
+        public void GettFullProductTypesFromDB(object _ptList)
         {
-            dgv_KeywordCategory.Columns.Add("categoryIdCl", "categoryIdCl");
-            dgv_KeywordCategory.Columns.Add("productTypeIdCl", "Название категории");
-
-            dgv_KeywordCategory.Columns[1].Width = 263;
-
-            dgv_KeywordCategory.Columns[0].Visible = false;
-
-            dgv_KeywordCategory.Width = 293;
-            dgv_KeywordCategory.ScrollBars = ScrollBars.Vertical;
-
-            CurrentColumnCount = 2;
+            fullPTList = (List<ProductTypesModel>)_ptList;
         }
-       
-
 
         /* Добавить новую категори в БД */
         private void btn_Save_Click(object sender, EventArgs e)
@@ -105,11 +144,13 @@ namespace Excel_Parse
             {
                 if (!ChechForExisting())
                 {
-                    int result = kcController.SetNewKeywordCategory(tb_CategoryName.Text); //вызываем метод для записи в БД и проверяем сразу на успешность
+                    int result = kcController.SetNewKeywordCategory(tb_CategoryName.Text, int.Parse(tb_ProductTypeId.Text)); //вызываем метод для записи в БД и проверяем сразу на успешность
                     if (result == 1)      
                     {
-                        kcController.GetKeywordCategoriesAll();
+                        kcController.GetKeywordCategoriesJOINProductTypes();
                         Draw();
+                        ptController.GetProductTypesAll();
+                        fill_cb_ProductTypes();
                         wasAdded = true;
                         MessageBox.Show("Категория \"" + tb_CategoryName.Text + "\" была добавлена успешно!", "Успешно");
                         tb_CategoryName.Text = "";
@@ -145,11 +186,24 @@ namespace Excel_Parse
             return flag;
         }
 
+        /* Закрытие формы */
         private void KeywordCategory_FormClosing(object sender, FormClosingEventArgs e)
         {
-            controlSemCoreRebuildView.NewCategoryWasAdded(wasAdded);
-            this.DialogResult = DialogResult.Cancel;
-            controlSemCoreRebuildView.Visible = true;
+            if (controlSemCoreRebuildView != null)
+            {
+                controlSemCoreRebuildView.NewCategoryWasAdded(wasAdded);
+                this.DialogResult = DialogResult.Cancel;
+                controlSemCoreRebuildView.Visible = true;
+            }
+            else if (controlMainFormView != null)
+            {
+                controlMainFormView.Visible = true;
+            }
+            else if (controlSemCoreView != null)
+            {
+                controlSemCoreView.Visible = true;
+                controlSemCoreView.RefreshKeywordCategories();
+            }
         }
 
         /* Закрыть окно */
@@ -169,8 +223,46 @@ namespace Excel_Parse
         /* Обновляем dgv_KeywordCategory принудительно */
         private void btn_RefreshDGV_Click(object sender, EventArgs e)
         {
-            kcController.GetKeywordCategoriesAll();
+            kcController.GetKeywordCategoriesJOINProductTypes();
             Draw();
+            ptController.GetProductTypesAll();
+            fill_cb_ProductTypes();
+        }
+
+        /* Изменение ProductTypeId для сохранения при смене вида товара */
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < fullPTList.Count; i++)
+            {
+                if (cb_ProductType.SelectedItem.ToString().Equals(fullPTList[i].TypeName))
+                {
+                    tb_ProductTypeId.Text = fullPTList[i].ProductTypeId.ToString();
+                }
+            }
+        }
+
+        /* Перерисовка таблицы при изменении выбранного вида товара */
+        private void cb_ShownProductType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool found = false;
+            for (int i = 1; i < cb_ShownProductType.Items.Count; i++)       //находим ProductTypeId
+            {
+                if (cb_ShownProductType.SelectedItem.ToString().Equals(fullPTList[i - 1].TypeName))
+                {
+                    tb_ShownProductTypes.Text = fullPTList[i - 1].ProductTypeId.ToString();
+                    found = true;
+                }
+            }
+            if (found)      //нашли
+            {
+                kcController.GetKeywordCategoriesJOINProductTypesByProductTypeId(int.Parse(tb_ShownProductTypes.Text));
+                Draw();
+            }
+            else        //не нашли, значит установлено "отобразить всё"
+            {
+                kcController.GetKeywordCategoriesJOINProductTypes();
+                Draw();
+            }
         }
     }
 }

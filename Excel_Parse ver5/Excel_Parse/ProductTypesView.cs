@@ -35,20 +35,6 @@ namespace Excel_Parse
             Draw();
         }
 
-        public ProductTypesView()
-        {
-            InitializeComponent();
-            CurrentColumnCount = 0;
-
-            ptController = new ProductTypesController(this);
-
-            connection = DBData.GetDBConnection();
-
-            ptController.GetProductTypesAll();
-            Draw();
-        }
-
-
         /* Перерисовываем таблицу новыми данными */
         private void Draw()
         {
