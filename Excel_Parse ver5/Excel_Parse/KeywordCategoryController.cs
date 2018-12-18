@@ -59,7 +59,11 @@ namespace Excel_Parse
 
         public bool GetKeywordCategoriesByProductId(int _prodTypeId)
         {
-            string sqlStatement = "SELECT * FROM KeywordCategory WHERE ProductTypeId = " + _prodTypeId;
+            string sqlStatement;
+            if (_prodTypeId != -1)
+                sqlStatement = "SELECT * FROM KeywordCategory WHERE ProductTypeId = " + _prodTypeId;
+            else
+                sqlStatement = "SELECT * FROM KeywordCategory WHERE CategoryId > 0 ";
             command = new SqlCommand(sqlStatement, connection);
             return Execute_SELECT_Command(command);
         }

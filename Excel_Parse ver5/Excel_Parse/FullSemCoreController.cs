@@ -63,7 +63,24 @@ namespace Excel_Parse
         }
         public int GetSemCoreByProductAndCategory(int _prodId, int _categoryId)
         {
-            string sqlStatement = "SELECT * FROM SemCore LEFT JOIN KeywordCategory ON SemCore.CategoryId = KeywordCategory.CategoryId LEFT JOIN ProductTypes ON SemCore.ProductTypeId = ProductTypes.ProductTypeId WHERE KeywordCategory.CategoryId = " + _categoryId + "AND SemCore.ProductTypeId = " + _prodId;
+            string sqlStatement = ""; ;
+            if (_prodId != -1 && _categoryId != -1)
+            {
+                sqlStatement = "SELECT * FROM SemCore LEFT JOIN KeywordCategory ON SemCore.CategoryId = KeywordCategory.CategoryId LEFT JOIN ProductTypes ON SemCore.ProductTypeId = ProductTypes.ProductTypeId WHERE KeywordCategory.CategoryId = " + _categoryId + "AND SemCore.ProductTypeId = " + _prodId;
+            }
+            else if (_prodId == -1 && _categoryId != -1)
+            {
+                sqlStatement = "SELECT * FROM SemCore LEFT JOIN KeywordCategory ON SemCore.CategoryId = KeywordCategory.CategoryId LEFT JOIN ProductTypes ON SemCore.ProductTypeId = ProductTypes.ProductTypeId WHERE KeywordCategory.CategoryId = " + _categoryId + "AND SemCore.ProductTypeId > 0";
+            }
+            else if (_prodId != -1 && _categoryId == -1)
+            {
+                sqlStatement = "SELECT * FROM SemCore LEFT JOIN KeywordCategory ON SemCore.CategoryId = KeywordCategory.CategoryId LEFT JOIN ProductTypes ON SemCore.ProductTypeId = ProductTypes.ProductTypeId WHERE KeywordCategory.CategoryId > 0 AND SemCore.ProductTypeId = " + _prodId;
+            }
+            else if (_prodId == -1 && _categoryId == -1)
+            {
+                sqlStatement = "SELECT * FROM SemCore LEFT JOIN KeywordCategory ON SemCore.CategoryId = KeywordCategory.CategoryId LEFT JOIN ProductTypes ON SemCore.ProductTypeId = ProductTypes.ProductTypeId WHERE KeywordCategory.CategoryId > 0 AND SemCore.ProductTypeId > 0";
+            }
+
             command = new SqlCommand(sqlStatement, connection);
             return Execute_SELECT_Command(command);
         }

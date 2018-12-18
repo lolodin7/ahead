@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Excel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -28,8 +29,10 @@ namespace Excel_Parse
 
         private string AllProductTypesCBName = "Все виды товаров";
         private string AllKeywordCategoriesCBName = "Все категории ключей";
-        
-        
+
+        private bool firstLaunch = true;
+
+
         /* Вызываем из KeywordsAreExisted для редактирования ключей из таблицы */
         public FullSemCoreView(KeywordsAreExistedView _form, string[,] arr)
         {
@@ -37,6 +40,7 @@ namespace Excel_Parse
             ControlFormKeywordsAreExisted = _form;
 
             GetStarted();
+            firstLaunch = false;
         }
 
         /* Вызываем из главной формы */
@@ -46,14 +50,17 @@ namespace Excel_Parse
             ControlFormMF = _mf;
 
             GetStarted();
+            firstLaunch = false;
         }
 
-        /* Пустой конструктор */
-        public FullSemCoreView()
+        /* Вызываем из FullSemCoreView */
+        public FullSemCoreView(FullSemCoreView _mf)
         {
             InitializeComponent();
+            ControlFullSemCoreView = _mf;
 
             GetStarted();
+            firstLaunch = false;
         }
 
         /* Выполняем в конструкторе */
@@ -63,22 +70,55 @@ namespace Excel_Parse
             kcController = new KeywordCategoryController(this);
             fscController = new FullSemCoreController(this);
 
-            fscController.GetSemCoreAll();
             ptController.GetProductTypesAll();
-            kcController.GetKeywordCategoriesAll();
-            DrawKeywords();
-            FillCB();
+            fill_cb_ProductTypes();
+            kcController.GetKeywordCategoriesByProductId(GetProductTypeIdFromCB());
+            fill_cb_KeywordCategory();
+            fscController.GetSemCoreByProductAndCategory(GetProductTypeIdFromCB(), GetKeywordCategoryIdFromCB());
+        }
+
+        /* Перезаполняем cb_KeywordCategory после смены вида товара */
+        private void RefreshData()
+        {
+            kcController.GetKeywordCategoriesByProductId(GetProductTypeIdFromCB());
+            fill_cb_KeywordCategory();
+        }
+
+        /* Получаем ProductTypeId с cb_ProductType */
+        private int GetProductTypeIdFromCB()
+        {
+            for (int i = 0; i < ptList.Count; i++)
+            {
+                if (ptList[i].TypeName.Equals(cb_ProductType.SelectedItem.ToString()))
+                {
+                    return ptList[i].ProductTypeId;
+                }
+            }
+            return -1;
+        }
+
+        /* Получаем CategoryId с cb_KeywordCategory */
+        private int GetKeywordCategoryIdFromCB()
+        {
+            for (int i = 0; i < kcList.Count; i++)
+            {
+                if (kcList[i].CategoryName.Equals(cb_KeywordCategory.SelectedItem.ToString()))
+                {
+                    return kcList[i].CategoryId;
+                }
+            }
+            return -1;
         }
 
         /* Перерисовываем таблицу новыми данными после изменения категории или вида продукта */
         private void ReDrawKeywords()
         {
             dgv_Keywords.Rows.Clear();
-            DrawKeywords();
+            FillKeywordsInDGV();
         }
 
         /* Перерисовываем таблицу новыми данными SemCore */
-        private void DrawKeywords()
+        private void FillKeywordsInDGV()
         {
             dgv_Keywords.Rows.Clear();
 
@@ -111,19 +151,11 @@ namespace Excel_Parse
             kcList = (List<KeywordCategoryModel>)_kcList;
         }
 
-        /* Заполняем cb_KeywordCategory и cb_ProductType */
-        private void FillCB()
+        /* Заполняем cb_ProductType */
+        private void fill_cb_ProductTypes()
         {
-            cb_KeywordCategory.Items.Clear();
             cb_ProductType.Items.Clear();
-            cb_KeywordCategory.Items.Add(AllKeywordCategoriesCBName);
             cb_ProductType.Items.Add(AllProductTypesCBName);
-
-            for (int i = 0; i < kcList.Count; i++)
-            {
-                cb_KeywordCategory.Items.Add(kcList[i].CategoryName);
-            }
-            cb_KeywordCategory.SelectedItem = cb_KeywordCategory.Items[0];
 
             for (int i = 0; i < ptList.Count; i++)
             {
@@ -132,62 +164,123 @@ namespace Excel_Parse
             cb_ProductType.SelectedItem = cb_ProductType.Items[0];
         }
 
+        /* Заполняем cb_KeywordCategory */
+        private void fill_cb_KeywordCategory()
+        {
+            cb_KeywordCategory.Items.Clear();
+            cb_KeywordCategory.Items.Add(AllKeywordCategoriesCBName);
+
+            for (int i = 0; i < kcList.Count; i++)
+            {
+                cb_KeywordCategory.Items.Add(kcList[i].CategoryName);
+            }
+            cb_KeywordCategory.SelectedItem = cb_KeywordCategory.Items[0];
+        }
 
         /* Получаем набор ключей по категории и виду товара после нажатия кнопки */
         private void btn_GetKeywords_Click(object sender, EventArgs e)
         {
-            if (!cb_ProductType.SelectedItem.ToString().Equals(AllProductTypesCBName) && cb_KeywordCategory.SelectedItem.ToString().Equals(AllKeywordCategoriesCBName))
-            {
-                fscController.GetSemCoreByProductId(GetSelectedProductTypeId());
-                ReDrawKeywords();
-            }
-            else if (cb_ProductType.SelectedItem.ToString().Equals(AllProductTypesCBName) && !cb_KeywordCategory.SelectedItem.ToString().Equals(AllKeywordCategoriesCBName))
-            {
-                fscController.GetSemCoreByCategoryId(GetSelectedCategoryId());
-                ReDrawKeywords();
-            }
-            else if (!cb_ProductType.SelectedItem.ToString().Equals(AllProductTypesCBName) && !cb_KeywordCategory.SelectedItem.ToString().Equals(AllKeywordCategoriesCBName))
-            {
-                fscController.GetSemCoreByProductAndCategory(GetSelectedProductTypeId(), GetSelectedCategoryId());
-                ReDrawKeywords();
-            }
-            else if (cb_ProductType.SelectedItem.ToString().Equals(AllProductTypesCBName) && cb_KeywordCategory.SelectedItem.ToString().Equals(AllKeywordCategoriesCBName))
-            {
-                fscController.GetSemCoreAll();
-                ReDrawKeywords();
-            }
+            fscController.GetSemCoreByProductAndCategory(GetProductTypeIdFromCB(), GetKeywordCategoryIdFromCB());
+            ReDrawKeywords();
         }
 
-        /* Получаем значение productTypeId по выбранному названию в cb_ProductType */
-        private int GetSelectedProductTypeId()
-        {
-            for (int i = 0; i < ptList.Count; i++)
-            {
-                if (ptList[i].TypeName.Equals(cb_ProductType.SelectedItem.ToString()))
-                {
-                    return ptList[i].ProductTypeId;
-                }
-            }
-            return -1;
-        }
-
-        /* Получаем значение keywordCategoryId по выбранному названию в cb_KeywordCategory */
-        private int GetSelectedCategoryId()
-        {
-            for (int i = 0; i < kcList.Count; i++)
-            {
-                if (kcList[i].CategoryName.Equals(cb_KeywordCategory.SelectedItem.ToString()))
-                {
-                    return kcList[i].CategoryId;
-                }
-            }
-            return -1;
-        }
-
+        /* Закрытие формы */
         private void FullSemCore_FormClosed(object sender, FormClosedEventArgs e)
         {
-            //this.DialogResult = DialogResult.OK;
-            //ControlFormKeywordsAreExisted.Visible = true;
-        }        
+            if (ControlFormKeywordsAreExisted != null)
+            {
+                this.DialogResult = DialogResult.OK;
+                ControlFormKeywordsAreExisted.Visible = true;
+            }
+            else if (ControlFormMF != null)
+            {
+                ControlFormMF.Visible = true;
+            }
+            else if (ControlFullSemCoreView != null)
+            {
+                ControlFullSemCoreView.Visible = true;
+            }
+        }
+
+        /* При смене выбранного вида товара, получаем список соответствующих ему категорий ключей */
+        private void cb_ProductType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!firstLaunch)
+                RefreshData();
+        }
+
+        /* Поиск ключа в таблице при наборе текста в tb_FindKeyword */
+        private void tb_FindKeyword_TextChanged(object sender, EventArgs e)
+        {
+            StartKeySearch();
+        }
+
+        /* Метод для поиска ключа в таблице */
+        private void StartKeySearch()
+        {
+            //2 колонка - ключ
+            for (int i = 0; i < dgv_Keywords.RowCount; i++)
+            {
+                if (dgv_Keywords.Rows[i].Cells[2].Value.ToString().Contains(tb_FindKeyword.Text) && !tb_FindKeyword.Text.Equals(""))
+                {
+                    dgv_Keywords.Rows[i].Cells[2].Style.BackColor = Color.LightGray;
+                }
+                else
+                    dgv_Keywords.Rows[i].Cells[2].Style.BackColor = Color.White;
+            }
+        }
+
+        /* Экспорт в *.xlsx */
+        private void btn_Export_Click(object sender, EventArgs e)
+        {
+            Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+            Workbook ExcelWorkBook;
+            Worksheet ExcelWorkSheet;
+
+            ExcelWorkBook = ExcelApp.Workbooks.Add(System.Reflection.Missing.Value);
+
+            //Таблица.
+            ExcelWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)ExcelWorkBook.Worksheets.get_Item(1);
+            
+            ExcelApp.Cells[1] = dgv_Keywords.Columns[2].HeaderText;
+            ExcelApp.Cells[2] = dgv_Keywords.Columns[3].HeaderText;
+            ExcelApp.Cells[3] = dgv_Keywords.Columns[4].HeaderText;
+            ExcelApp.Cells[4] = dgv_Keywords.Columns[7].HeaderText;
+            ExcelApp.Cells[5] = dgv_Keywords.Columns[10].HeaderText;
+
+            for (int i = 0; i < dgv_Keywords.Rows.Count; i++)
+            {
+                ExcelApp.Cells[i + 2, 1] = dgv_Keywords.Rows[i].Cells[2].Value;
+                ExcelApp.Cells[i + 2, 2] = dgv_Keywords.Rows[i].Cells[3].Value;
+                ExcelApp.Cells[i + 2, 3] = dgv_Keywords.Rows[i].Cells[4].Value;
+                ExcelApp.Cells[i + 2, 4] = dgv_Keywords.Rows[i].Cells[7].Value;
+                ExcelApp.Cells[i + 2, 5] = dgv_Keywords.Rows[i].Cells[10].Value;
+            }
+            
+            ExcelWorkSheet.get_Range("B1", "B10000").Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+            ExcelWorkSheet.get_Range("C1", "C10000").Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+            ExcelWorkSheet.get_Range("A1", "N1").Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+            ExcelWorkSheet.Columns[1].ColumnWidth = 42.14;
+            ExcelWorkSheet.Columns[2].ColumnWidth = 18;
+            ExcelWorkSheet.Columns[3].ColumnWidth = 23.57;
+            ExcelWorkSheet.Columns[4].ColumnWidth = 35;
+            ExcelWorkSheet.Columns[5].ColumnWidth = 42.14;
+
+            saveFileDialog1.Filter = "Excel(*.xlsx)|*.xlsx|All files(*.*)|*.*";
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
+            {
+
+            }
+            else
+            {
+                // получаем выбранный файл
+                string filename = saveFileDialog1.FileName;
+                ExcelWorkBook.SaveAs(filename);
+                ExcelWorkBook.Close(false);
+                MessageBox.Show("Успешно сохранено!", "Успех");
+            }
+        }
     }
 }
+

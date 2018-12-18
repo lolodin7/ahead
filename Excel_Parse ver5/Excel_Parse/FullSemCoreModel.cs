@@ -46,7 +46,8 @@ namespace Excel_Parse
                     Value = int.Parse(record.ToString());
                     break;
                 case 4:
-                    LastUpdated = (DateTime)record;    //record.GetDateTime(0);
+                    LastUpdated = (DateTime)record;   //record.GetDateTime(0);
+                    //LastUpdated = DateTime.Parse(LastUpdated.ToShortDateString());
                     break;
                 case 5:
                     SemCoreId = int.Parse(record.ToString());
