@@ -38,6 +38,7 @@
             this.btn_ShowAllKeywords = new System.Windows.Forms.Button();
             this.btn_Exit = new System.Windows.Forms.Button();
             this.btn_ShowSemStatistics = new System.Windows.Forms.Button();
+            this.btn_ShowIndexing = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_DoSemCore
@@ -108,7 +109,7 @@
             // 
             // btn_ShowAllKeywords
             // 
-            this.btn_ShowAllKeywords.BackColor = System.Drawing.Color.Orange;
+            this.btn_ShowAllKeywords.BackColor = System.Drawing.Color.YellowGreen;
             this.btn_ShowAllKeywords.Location = new System.Drawing.Point(12, 235);
             this.btn_ShowAllKeywords.Name = "btn_ShowAllKeywords";
             this.btn_ShowAllKeywords.Size = new System.Drawing.Size(195, 81);
@@ -137,11 +138,22 @@
             this.btn_ShowSemStatistics.UseVisualStyleBackColor = true;
             this.btn_ShowSemStatistics.Click += new System.EventHandler(this.btn_ShowSemStatistics_Click);
             // 
+            // btn_ShowIndexing
+            // 
+            this.btn_ShowIndexing.Location = new System.Drawing.Point(554, 235);
+            this.btn_ShowIndexing.Name = "btn_ShowIndexing";
+            this.btn_ShowIndexing.Size = new System.Drawing.Size(195, 81);
+            this.btn_ShowIndexing.TabIndex = 9;
+            this.btn_ShowIndexing.Text = "Индексация";
+            this.btn_ShowIndexing.UseVisualStyleBackColor = true;
+            this.btn_ShowIndexing.Click += new System.EventHandler(this.btn_ShowIndexing_Click);
+            // 
             // MainFormView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(923, 533);
+            this.Controls.Add(this.btn_ShowIndexing);
             this.Controls.Add(this.btn_ShowSemStatistics);
             this.Controls.Add(this.btn_Exit);
             this.Controls.Add(this.btn_ShowAllKeywords);
@@ -153,6 +165,7 @@
             this.Controls.Add(this.btn_DoSemCore);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "MainFormView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Главное окно";
@@ -171,5 +184,6 @@
         private System.Windows.Forms.Button btn_ShowAllKeywords;
         private System.Windows.Forms.Button btn_Exit;
         private System.Windows.Forms.Button btn_ShowSemStatistics;
+        private System.Windows.Forms.Button btn_ShowIndexing;
     }
 }

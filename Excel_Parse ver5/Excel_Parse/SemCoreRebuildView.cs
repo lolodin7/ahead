@@ -28,13 +28,18 @@ namespace Excel_Parse
         private Form mf;
         private bool SavedStatus = true;
         private string path = "";
-        private bool firstLoad = true;
+        
         private bool AddCat = false;
         private string str_NewKeys = "Новые добавленные ключи";
         private string str_UploadedKeys = "Загруженные ключи";
         private string str_UpdatedKeys = "Обновленные ключи";
         private bool NewCategorywasAdded;               //Чтобы знать, была ли добавленна новая категория в btn_AddCategory_Click
         string[,] myArr;
+
+        private bool firstLaunch = true;
+
+        private string AllProductTypesCBName = "Все виды товаров";
+        private string AllKeywordCategoriesCBName = "Все категории ключей";
 
         string urlAmazon = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=";
 
@@ -47,10 +52,9 @@ namespace Excel_Parse
             lb_NewKeys.Text = str_NewKeys;
             lb_UpdatedKeys.Text = str_UpdatedKeys;
             lb_UploadedKeys.Text = str_UploadedKeys;
-            
 
-
-            firstLoad = false;
+            GetStarted();
+            firstLaunch = false;
         }
 
         /* Конструктор */
@@ -61,22 +65,34 @@ namespace Excel_Parse
             lb_NewKeys.Text = str_NewKeys;
             lb_UpdatedKeys.Text = str_UpdatedKeys;
             lb_UploadedKeys.Text = str_UploadedKeys;
-            
-            kcController = new KeywordCategoryController(this);
+
+            //GetKeywords();
+
+            GetStarted();
+            firstLaunch = false;
+        }
+
+
+
+
+        /* Выполняем в конструкторе */
+        private void GetStarted()
+        {
             ptController = new ProductTypesController(this);
+            kcController = new KeywordCategoryController(this);
             scController = new SemCoreController(this);
 
-            kcController.GetKeywordCategoriesAll();
             ptController.GetProductTypesAll();
-
-            Fill_CB_ByKeywordCategories();
-            Fill_CB_ByProductTypes();
-
-            GetKeywords();
-
-            firstLoad = false;
+            fill_cb_ProductTypes();
+            kcController.GetKeywordCategoriesByProductId(GetProductTypeIdFromCB());
+            fill_cb_KeywordCategory();
         }
-        
+
+
+
+
+
+
 
         /* Заполняем cb_ProductType данными с ptList */
         private void Fill_CB_ByProductTypes()
@@ -123,13 +139,12 @@ namespace Excel_Parse
         /* Обновляемся после добавления категории */
         private void SemCoreRefresh()
         {
-            if (AddCat)
+            if (NewCategorywasAdded)
             {
-                RefreshDGVs();
+                kcController.GetKeywordCategoriesByProductId(GetProductTypeIdFromCB());
+                fill_cb_KeywordCategory();
 
-                Refresh_CB_AndKeywords();
-
-                AddCat = false;
+                NewCategorywasAdded = false;
                 btn_Begin.Enabled = false;
             }
         }
@@ -158,7 +173,7 @@ namespace Excel_Parse
         /* Метод загрузки нового файла */
         public void OpenNewFile()
         {
-            firstLoad = true;
+            firstLaunch = true;
             openFileDialog1.Filter = "Выбери файл|*.csv;*.txt";
             openFileDialog1.Title = "Выбор файла для открытия";
 
@@ -199,9 +214,9 @@ namespace Excel_Parse
 
                     SavedStatus = true;       
                    
-                    Refresh_CB_AndKeywords();
+                    //Refresh_CB_AndKeywords();
 
-                    firstLoad = false;                                                                                      
+                    firstLaunch = false;                                                                                      
 
                     lb_UploadedKeys.Text = str_UploadedKeys + " (" + dgv_Source.RowCount + ")";
                     lb_NewKeys.Text = str_NewKeys;
@@ -466,12 +481,138 @@ namespace Excel_Parse
             }
         }
 
-        /* Обновляем ключи после смены категории или вида товара */
-        private void cb_SelectedIndexChanged(object sender, EventArgs e)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* Получаем ProductTypeId с cb_ProductType */
+        private int GetProductTypeIdFromCB()
         {
-            if (!firstLoad)
-                GetKeywords();
+            for (int i = 0; i < ptList.Count; i++)
+            {
+                if (ptList[i].TypeName.Equals(cb_ProductType.SelectedItem.ToString()))
+                {
+                    return ptList[i].ProductTypeId;
+                }
+            }
+            return -1;
         }
+
+        /* Получаем CategoryId с cb_KeywordCategory */
+        private int GetKeywordCategoryIdFromCB()
+        {
+            for (int i = 0; i < kcList.Count; i++)
+            {
+                if (kcList[i].CategoryName.Equals(cb_KeywordCategory.SelectedItem.ToString()))
+                {
+                    return kcList[i].CategoryId;
+                }
+            }
+            return -1;
+        }
+
+        /* Перезаполняем cb_KeywordCategory после смены вида товара */
+        private void RefreshData()
+        {
+            kcController.GetKeywordCategoriesByProductId(GetProductTypeIdFromCB());
+            fill_cb_KeywordCategory();
+        }
+
+
+        private void cb_KeywordCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cb_ProductType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!firstLaunch)
+                RefreshData();
+        }
+
+        /* Заполняем cb_ProductType */
+        private void fill_cb_ProductTypes()
+        {
+            cb_ProductType.Items.Clear();
+            cb_KeywordCategory.Items.Clear();
+            //cb_ProductType.Items.Add(AllProductTypesCBName);
+
+            for (int i = 0; i < ptList.Count; i++)
+            {
+                cb_ProductType.Items.Add(ptList[i].TypeName);
+            }
+            cb_ProductType.SelectedItem = cb_ProductType.Items[0];
+        }
+
+        /* Заполняем cb_KeywordCategory */
+        private void fill_cb_KeywordCategory()
+        {
+            cb_KeywordCategory.Items.Clear();
+            //cb_KeywordCategory.Items.Add(AllKeywordCategoriesCBName);
+
+            for (int i = 0; i < kcList.Count; i++)
+            {
+                cb_KeywordCategory.Items.Add(kcList[i].CategoryName);
+            }
+            if (kcList.Count > 0 )
+                cb_KeywordCategory.SelectedItem = cb_KeywordCategory.Items[0];
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         /* Очищаем dgv и обновляем SemCore */
         private void btn_Clean_Click(object sender, EventArgs e)
@@ -485,7 +626,7 @@ namespace Excel_Parse
             lb_UpdatedKeys.Text = str_UpdatedKeys;
             lb_UploadedKeys.Text = str_UploadedKeys;
 
-            GetKeywords();
+            //GetKeywords();
         }
 
         /* Чтобы знать, была ли добавленна новая категория в btn_AddCategory_Click */
@@ -497,19 +638,9 @@ namespace Excel_Parse
         /* Добавляем новую категорию */
         private void btn_AddCategory_Click(object sender, EventArgs e)
         {
-            KeywordCategoryView kc = new KeywordCategoryView(this);
-            if (kc.ShowDialog() == DialogResult.Cancel)
-            {
-                if (NewCategorywasAdded)
-                {
-
-                    kcController.GetKeywordCategoriesAll();
-
-                    Fill_CB_ByKeywordCategories();
-
-                    cb_KeywordCategory.SelectedItem = cb_KeywordCategory.Items[cb_KeywordCategory.Items.Count - 1];
-                }
-            }
+            KeywordCategoryView keycat = new KeywordCategoryView(this);
+            keycat.Show();
+            this.Visible = false;
         }
 
         /* Проверяем, если dgv_Target не пустая, то выключаем кнопку для начала анализа */
@@ -796,5 +927,6 @@ namespace Excel_Parse
         {
             myArr = _arr;
         }
+
     }
 }

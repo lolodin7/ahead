@@ -30,14 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FullSemCoreView));
             this.dgv_Keywords = new System.Windows.Forms.DataGridView();
-            this.cb_ProductType = new System.Windows.Forms.ComboBox();
-            this.cb_KeywordCategory = new System.Windows.Forms.ComboBox();
-            this.lb_ProductType = new System.Windows.Forms.Label();
-            this.lb_KeywordCategory = new System.Windows.Forms.Label();
-            this.btn_GetKeywords = new System.Windows.Forms.Button();
-            this.tb_FindKeyword = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ProdTypeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CategoryId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Keyword = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,6 +41,14 @@
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cb_ProductType = new System.Windows.Forms.ComboBox();
+            this.cb_KeywordCategory = new System.Windows.Forms.ComboBox();
+            this.lb_ProductType = new System.Windows.Forms.Label();
+            this.lb_KeywordCategory = new System.Windows.Forms.Label();
+            this.btn_GetKeywords = new System.Windows.Forms.Button();
+            this.tb_FindKeyword = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btn_Export = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Keywords)).BeginInit();
@@ -78,87 +78,6 @@
             this.dgv_Keywords.ReadOnly = true;
             this.dgv_Keywords.Size = new System.Drawing.Size(1010, 644);
             this.dgv_Keywords.TabIndex = 2;
-            // 
-            // cb_ProductType
-            // 
-            this.cb_ProductType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_ProductType.FormattingEnabled = true;
-            this.cb_ProductType.Location = new System.Drawing.Point(18, 42);
-            this.cb_ProductType.Name = "cb_ProductType";
-            this.cb_ProductType.Size = new System.Drawing.Size(196, 21);
-            this.cb_ProductType.TabIndex = 3;
-            this.cb_ProductType.SelectedIndexChanged += new System.EventHandler(this.cb_ProductType_SelectedIndexChanged);
-            // 
-            // cb_KeywordCategory
-            // 
-            this.cb_KeywordCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_KeywordCategory.FormattingEnabled = true;
-            this.cb_KeywordCategory.Location = new System.Drawing.Point(259, 42);
-            this.cb_KeywordCategory.Name = "cb_KeywordCategory";
-            this.cb_KeywordCategory.Size = new System.Drawing.Size(196, 21);
-            this.cb_KeywordCategory.TabIndex = 4;
-            // 
-            // lb_ProductType
-            // 
-            this.lb_ProductType.Location = new System.Drawing.Point(64, 16);
-            this.lb_ProductType.Name = "lb_ProductType";
-            this.lb_ProductType.Size = new System.Drawing.Size(100, 23);
-            this.lb_ProductType.TabIndex = 8;
-            this.lb_ProductType.Text = "Вид товара";
-            this.lb_ProductType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lb_KeywordCategory
-            // 
-            this.lb_KeywordCategory.Location = new System.Drawing.Point(294, 16);
-            this.lb_KeywordCategory.Name = "lb_KeywordCategory";
-            this.lb_KeywordCategory.Size = new System.Drawing.Size(124, 23);
-            this.lb_KeywordCategory.TabIndex = 10;
-            this.lb_KeywordCategory.Text = "Категория ключей";
-            this.lb_KeywordCategory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btn_GetKeywords
-            // 
-            this.btn_GetKeywords.Location = new System.Drawing.Point(494, 16);
-            this.btn_GetKeywords.Name = "btn_GetKeywords";
-            this.btn_GetKeywords.Size = new System.Drawing.Size(149, 47);
-            this.btn_GetKeywords.TabIndex = 26;
-            this.btn_GetKeywords.Text = "Показать ключи";
-            this.btn_GetKeywords.UseVisualStyleBackColor = true;
-            this.btn_GetKeywords.Click += new System.EventHandler(this.btn_GetKeywords_Click);
-            // 
-            // tb_FindKeyword
-            // 
-            this.tb_FindKeyword.Location = new System.Drawing.Point(681, 43);
-            this.tb_FindKeyword.Name = "tb_FindKeyword";
-            this.tb_FindKeyword.Size = new System.Drawing.Size(196, 20);
-            this.tb_FindKeyword.TabIndex = 27;
-            this.tb_FindKeyword.TextChanged += new System.EventHandler(this.tb_FindKeyword_TextChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(745, 23);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(73, 13);
-            this.label1.TabIndex = 28;
-            this.label1.Text = "Поиск ключа";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.btn_Export);
-            this.groupBox1.Controls.Add(this.lb_ProductType);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.tb_FindKeyword);
-            this.groupBox1.Controls.Add(this.cb_ProductType);
-            this.groupBox1.Controls.Add(this.lb_KeywordCategory);
-            this.groupBox1.Controls.Add(this.btn_GetKeywords);
-            this.groupBox1.Controls.Add(this.cb_KeywordCategory);
-            this.groupBox1.Location = new System.Drawing.Point(13, 13);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1009, 86);
-            this.groupBox1.TabIndex = 29;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Управление";
             // 
             // ProdTypeId
             // 
@@ -255,6 +174,87 @@
             this.Column4.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.Column4.Width = 200;
+            // 
+            // cb_ProductType
+            // 
+            this.cb_ProductType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_ProductType.FormattingEnabled = true;
+            this.cb_ProductType.Location = new System.Drawing.Point(18, 42);
+            this.cb_ProductType.Name = "cb_ProductType";
+            this.cb_ProductType.Size = new System.Drawing.Size(196, 21);
+            this.cb_ProductType.TabIndex = 3;
+            this.cb_ProductType.SelectedIndexChanged += new System.EventHandler(this.cb_ProductType_SelectedIndexChanged);
+            // 
+            // cb_KeywordCategory
+            // 
+            this.cb_KeywordCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_KeywordCategory.FormattingEnabled = true;
+            this.cb_KeywordCategory.Location = new System.Drawing.Point(259, 42);
+            this.cb_KeywordCategory.Name = "cb_KeywordCategory";
+            this.cb_KeywordCategory.Size = new System.Drawing.Size(196, 21);
+            this.cb_KeywordCategory.TabIndex = 4;
+            // 
+            // lb_ProductType
+            // 
+            this.lb_ProductType.Location = new System.Drawing.Point(64, 16);
+            this.lb_ProductType.Name = "lb_ProductType";
+            this.lb_ProductType.Size = new System.Drawing.Size(100, 23);
+            this.lb_ProductType.TabIndex = 8;
+            this.lb_ProductType.Text = "Вид товара";
+            this.lb_ProductType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lb_KeywordCategory
+            // 
+            this.lb_KeywordCategory.Location = new System.Drawing.Point(294, 16);
+            this.lb_KeywordCategory.Name = "lb_KeywordCategory";
+            this.lb_KeywordCategory.Size = new System.Drawing.Size(124, 23);
+            this.lb_KeywordCategory.TabIndex = 10;
+            this.lb_KeywordCategory.Text = "Категория ключей";
+            this.lb_KeywordCategory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btn_GetKeywords
+            // 
+            this.btn_GetKeywords.Location = new System.Drawing.Point(495, 16);
+            this.btn_GetKeywords.Name = "btn_GetKeywords";
+            this.btn_GetKeywords.Size = new System.Drawing.Size(149, 47);
+            this.btn_GetKeywords.TabIndex = 26;
+            this.btn_GetKeywords.Text = "Показать ключи";
+            this.btn_GetKeywords.UseVisualStyleBackColor = true;
+            this.btn_GetKeywords.Click += new System.EventHandler(this.btn_GetKeywords_Click);
+            // 
+            // tb_FindKeyword
+            // 
+            this.tb_FindKeyword.Location = new System.Drawing.Point(681, 43);
+            this.tb_FindKeyword.Name = "tb_FindKeyword";
+            this.tb_FindKeyword.Size = new System.Drawing.Size(196, 20);
+            this.tb_FindKeyword.TabIndex = 27;
+            this.tb_FindKeyword.TextChanged += new System.EventHandler(this.tb_FindKeyword_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(745, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(73, 13);
+            this.label1.TabIndex = 28;
+            this.label1.Text = "Поиск ключа";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btn_Export);
+            this.groupBox1.Controls.Add(this.lb_ProductType);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.tb_FindKeyword);
+            this.groupBox1.Controls.Add(this.cb_ProductType);
+            this.groupBox1.Controls.Add(this.lb_KeywordCategory);
+            this.groupBox1.Controls.Add(this.btn_GetKeywords);
+            this.groupBox1.Controls.Add(this.cb_KeywordCategory);
+            this.groupBox1.Location = new System.Drawing.Point(13, 13);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(1009, 86);
+            this.groupBox1.TabIndex = 29;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Управление";
             // 
             // btn_Export
             // 

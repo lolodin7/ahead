@@ -270,7 +270,7 @@ namespace Excel_Parse
 
             if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
             {
-
+                ExcelWorkBook.Close(false);
             }
             else
             {

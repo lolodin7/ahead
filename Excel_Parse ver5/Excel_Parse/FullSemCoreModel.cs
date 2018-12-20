@@ -87,7 +87,7 @@ namespace Excel_Parse
                     return Value;
                     break;
                 case 4:
-                    return LastUpdated;    //record.GetDateTime(0);
+                    return LastUpdated.ToShortDateString();    //record.GetDateTime(0);
                     break;
                 case 5:
                     return SemCoreId;

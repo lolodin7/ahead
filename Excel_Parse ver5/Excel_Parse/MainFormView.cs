@@ -82,5 +82,12 @@ namespace Excel_Parse
             ss.Show();
             this.Visible = false;
         }
+
+        private void btn_ShowIndexing_Click(object sender, EventArgs e)
+        {
+            IndexingView iv = new IndexingView(this);
+            iv.Show();
+            this.Visible = false;
+        }
     }
 }

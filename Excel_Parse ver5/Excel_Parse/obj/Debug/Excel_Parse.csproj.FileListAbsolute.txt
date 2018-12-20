@@ -181,3 +181,4 @@ C:\AheadProject\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.ProductsView.
 C:\AheadProject\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.SemCoreRebuildView.resources
 C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.SemCoreRebuildView.resources
 C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.SemanticsView.resources
+C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.IndexingView.resources
