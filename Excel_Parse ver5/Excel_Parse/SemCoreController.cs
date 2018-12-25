@@ -189,7 +189,7 @@ namespace Excel_Parse
             scList.Add(_scm);
             for (int i = 0; i < record.FieldCount; i++)
             {
-                scList[scList.Count - 1].SetModelData(i, record[i]);
+                scList[scList.Count - 1].WriteData(i, record[i]);
             }
         }
 
@@ -200,7 +200,7 @@ namespace Excel_Parse
             scList.Add(_scm);
             for (int i = 0; i < arr.Length; i++)
             {
-                scList[scList.Count - 1].SetModelData(i, arr[i]);
+                scList[scList.Count - 1].WriteData(i, arr[i]);
             }
         }
     }

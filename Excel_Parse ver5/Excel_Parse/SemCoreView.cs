@@ -493,5 +493,35 @@ namespace Excel_Parse
             keycat.Show();
             this.Visible = false;
         }
+
+        /* Добавляем новый ключ вручную */
+        private void btn_AddCustomKeyword_Click(object sender, EventArgs e)
+        {
+            bool isExist = false;
+
+            if (!tb_CustomKey.Text.Equals("") && !tb_CustomValue.Text.Equals(""))
+            {
+                for (int i = 0; i < dgv_Target.RowCount; i++)
+                {
+                    if (dgv_Target.Rows[i].Cells[0].Value.ToString().Equals(tb_CustomKey.Text))
+                        isExist = true;
+                }
+
+                if (!isExist)
+                {
+                    var index = dgv_Target.Rows.Add();
+
+                    dgv_Target.Rows[index].Cells[0].Value = tb_CustomKey.Text;
+                    dgv_Target.Rows[index].Cells[1].Value = tb_CustomValue.Text;
+                }
+            }
+        }
+
+        /* Проверяем символ на цифру при вводе в поле tb_CustomValue */
+        private void tb_CustomValue_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != 8)
+                e.Handled = true;
+        }
     }
 }

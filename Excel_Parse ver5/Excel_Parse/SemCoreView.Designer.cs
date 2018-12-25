@@ -47,13 +47,18 @@
             this.tb_Link = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btn_addKeywordCategory = new System.Windows.Forms.Button();
+            this.tb_ProductTypeId = new System.Windows.Forms.TextBox();
             this.btn_DeselectAll = new System.Windows.Forms.Button();
             this.btn_SelectAll = new System.Windows.Forms.Button();
-            this.tb_ProductTypeId = new System.Windows.Forms.TextBox();
-            this.btn_addKeywordCategory = new System.Windows.Forms.Button();
+            this.tb_CustomKey = new System.Windows.Forms.TextBox();
+            this.tb_CustomValue = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btn_AddCustomKeyword = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Source)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Target)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgv_Source
@@ -102,7 +107,7 @@
             this.dgv_Target.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2});
-            this.dgv_Target.Location = new System.Drawing.Point(489, 156);
+            this.dgv_Target.Location = new System.Drawing.Point(494, 156);
             this.dgv_Target.MultiSelect = false;
             this.dgv_Target.Name = "dgv_Target";
             this.dgv_Target.ReadOnly = true;
@@ -129,9 +134,9 @@
             // 
             // lb_ProductType
             // 
-            this.lb_ProductType.Location = new System.Drawing.Point(5, 12);
+            this.lb_ProductType.Location = new System.Drawing.Point(27, 12);
             this.lb_ProductType.Name = "lb_ProductType";
-            this.lb_ProductType.Size = new System.Drawing.Size(100, 23);
+            this.lb_ProductType.Size = new System.Drawing.Size(80, 23);
             this.lb_ProductType.TabIndex = 3;
             this.lb_ProductType.Text = "Тип продукта: ";
             this.lb_ProductType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -140,7 +145,7 @@
             // 
             this.cb_ProductType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_ProductType.FormattingEnabled = true;
-            this.cb_ProductType.Location = new System.Drawing.Point(108, 14);
+            this.cb_ProductType.Location = new System.Drawing.Point(114, 14);
             this.cb_ProductType.Name = "cb_ProductType";
             this.cb_ProductType.Size = new System.Drawing.Size(216, 21);
             this.cb_ProductType.TabIndex = 4;
@@ -150,16 +155,16 @@
             // 
             this.cb_KeywordCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_KeywordCategory.FormattingEnabled = true;
-            this.cb_KeywordCategory.Location = new System.Drawing.Point(460, 14);
+            this.cb_KeywordCategory.Location = new System.Drawing.Point(114, 49);
             this.cb_KeywordCategory.Name = "cb_KeywordCategory";
             this.cb_KeywordCategory.Size = new System.Drawing.Size(216, 21);
             this.cb_KeywordCategory.TabIndex = 6;
             // 
             // lb_KeywordCategory
             // 
-            this.lb_KeywordCategory.Location = new System.Drawing.Point(330, 13);
+            this.lb_KeywordCategory.Location = new System.Drawing.Point(3, 48);
             this.lb_KeywordCategory.Name = "lb_KeywordCategory";
-            this.lb_KeywordCategory.Size = new System.Drawing.Size(124, 23);
+            this.lb_KeywordCategory.Size = new System.Drawing.Size(107, 23);
             this.lb_KeywordCategory.TabIndex = 5;
             this.lb_KeywordCategory.Text = "Категория ключей: ";
             this.lb_KeywordCategory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -169,9 +174,9 @@
             this.btn_Save.BackColor = System.Drawing.Color.LightGray;
             this.btn_Save.FlatAppearance.BorderSize = 0;
             this.btn_Save.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Save.Location = new System.Drawing.Point(697, 13);
+            this.btn_Save.Location = new System.Drawing.Point(745, 39);
             this.btn_Save.Name = "btn_Save";
-            this.btn_Save.Size = new System.Drawing.Size(135, 44);
+            this.btn_Save.Size = new System.Drawing.Size(138, 76);
             this.btn_Save.TabIndex = 9;
             this.btn_Save.Text = "Сохранить";
             this.btn_Save.UseVisualStyleBackColor = false;
@@ -179,12 +184,13 @@
             // 
             // btn_Cancel
             // 
-            this.btn_Cancel.Location = new System.Drawing.Point(754, 62);
+            this.btn_Cancel.Location = new System.Drawing.Point(417, 374);
             this.btn_Cancel.Name = "btn_Cancel";
-            this.btn_Cancel.Size = new System.Drawing.Size(135, 44);
+            this.btn_Cancel.Size = new System.Drawing.Size(79, 44);
             this.btn_Cancel.TabIndex = 10;
             this.btn_Cancel.Text = "Закрыть";
             this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.Visible = false;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
             // openFileDialog1
@@ -196,7 +202,7 @@
             this.btn_UploadAnotherFile.BackColor = System.Drawing.Color.LightGray;
             this.btn_UploadAnotherFile.FlatAppearance.BorderSize = 0;
             this.btn_UploadAnotherFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_UploadAnotherFile.Location = new System.Drawing.Point(6, 49);
+            this.btn_UploadAnotherFile.Location = new System.Drawing.Point(43, 80);
             this.btn_UploadAnotherFile.Name = "btn_UploadAnotherFile";
             this.btn_UploadAnotherFile.Size = new System.Drawing.Size(263, 57);
             this.btn_UploadAnotherFile.TabIndex = 18;
@@ -236,17 +242,15 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.btn_addKeywordCategory);
             this.groupBox1.Controls.Add(this.tb_ProductTypeId);
-            this.groupBox1.Controls.Add(this.btn_DeselectAll);
-            this.groupBox1.Controls.Add(this.btn_SelectAll);
             this.groupBox1.Controls.Add(this.lb_ProductType);
             this.groupBox1.Controls.Add(this.cb_ProductType);
             this.groupBox1.Controls.Add(this.lb_KeywordCategory);
             this.groupBox1.Controls.Add(this.cb_KeywordCategory);
             this.groupBox1.Controls.Add(this.btn_UploadAnotherFile);
             this.groupBox1.Controls.Add(this.btn_Save);
-            this.groupBox1.Controls.Add(this.btn_Cancel);
             this.groupBox1.Location = new System.Drawing.Point(7, 7);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(892, 143);
@@ -254,25 +258,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Управление";
             // 
-            // btn_DeselectAll
+            // btn_addKeywordCategory
             // 
-            this.btn_DeselectAll.Location = new System.Drawing.Point(333, 83);
-            this.btn_DeselectAll.Name = "btn_DeselectAll";
-            this.btn_DeselectAll.Size = new System.Drawing.Size(121, 23);
-            this.btn_DeselectAll.TabIndex = 20;
-            this.btn_DeselectAll.Text = "Снять выделение";
-            this.btn_DeselectAll.UseVisualStyleBackColor = true;
-            this.btn_DeselectAll.Click += new System.EventHandler(this.btn_DeselectAll_Click);
-            // 
-            // btn_SelectAll
-            // 
-            this.btn_SelectAll.Location = new System.Drawing.Point(333, 49);
-            this.btn_SelectAll.Name = "btn_SelectAll";
-            this.btn_SelectAll.Size = new System.Drawing.Size(121, 23);
-            this.btn_SelectAll.TabIndex = 19;
-            this.btn_SelectAll.Text = "Выделить всё";
-            this.btn_SelectAll.UseVisualStyleBackColor = true;
-            this.btn_SelectAll.Click += new System.EventHandler(this.btn_SelectAll_Click);
+            this.btn_addKeywordCategory.Location = new System.Drawing.Point(336, 49);
+            this.btn_addKeywordCategory.Name = "btn_addKeywordCategory";
+            this.btn_addKeywordCategory.Size = new System.Drawing.Size(23, 22);
+            this.btn_addKeywordCategory.TabIndex = 22;
+            this.btn_addKeywordCategory.Text = "+";
+            this.btn_addKeywordCategory.UseVisualStyleBackColor = true;
+            this.btn_addKeywordCategory.Click += new System.EventHandler(this.btn_addKeywordCategory_Click);
             // 
             // tb_ProductTypeId
             // 
@@ -282,15 +276,62 @@
             this.tb_ProductTypeId.TabIndex = 21;
             this.tb_ProductTypeId.Visible = false;
             // 
-            // btn_addKeywordCategory
+            // btn_DeselectAll
             // 
-            this.btn_addKeywordCategory.Location = new System.Drawing.Point(482, 49);
-            this.btn_addKeywordCategory.Name = "btn_addKeywordCategory";
-            this.btn_addKeywordCategory.Size = new System.Drawing.Size(178, 33);
-            this.btn_addKeywordCategory.TabIndex = 22;
-            this.btn_addKeywordCategory.Text = "Добавить категорию ключей";
-            this.btn_addKeywordCategory.UseVisualStyleBackColor = true;
-            this.btn_addKeywordCategory.Click += new System.EventHandler(this.btn_addKeywordCategory_Click);
+            this.btn_DeselectAll.Location = new System.Drawing.Point(413, 233);
+            this.btn_DeselectAll.Name = "btn_DeselectAll";
+            this.btn_DeselectAll.Size = new System.Drawing.Size(79, 56);
+            this.btn_DeselectAll.TabIndex = 20;
+            this.btn_DeselectAll.Text = "Снять выделение";
+            this.btn_DeselectAll.UseVisualStyleBackColor = true;
+            this.btn_DeselectAll.Click += new System.EventHandler(this.btn_DeselectAll_Click);
+            // 
+            // btn_SelectAll
+            // 
+            this.btn_SelectAll.Location = new System.Drawing.Point(413, 171);
+            this.btn_SelectAll.Name = "btn_SelectAll";
+            this.btn_SelectAll.Size = new System.Drawing.Size(79, 56);
+            this.btn_SelectAll.TabIndex = 19;
+            this.btn_SelectAll.Text = "Выделить всё";
+            this.btn_SelectAll.UseVisualStyleBackColor = true;
+            this.btn_SelectAll.Click += new System.EventHandler(this.btn_SelectAll_Click);
+            // 
+            // tb_CustomKey
+            // 
+            this.tb_CustomKey.Location = new System.Drawing.Point(13, 23);
+            this.tb_CustomKey.Name = "tb_CustomKey";
+            this.tb_CustomKey.Size = new System.Drawing.Size(200, 20);
+            this.tb_CustomKey.TabIndex = 23;
+            // 
+            // tb_CustomValue
+            // 
+            this.tb_CustomValue.Location = new System.Drawing.Point(219, 23);
+            this.tb_CustomValue.Name = "tb_CustomValue";
+            this.tb_CustomValue.Size = new System.Drawing.Size(73, 20);
+            this.tb_CustomValue.TabIndex = 24;
+            this.tb_CustomValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_CustomValue_KeyPress);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.btn_AddCustomKeyword);
+            this.groupBox2.Controls.Add(this.tb_CustomValue);
+            this.groupBox2.Controls.Add(this.tb_CustomKey);
+            this.groupBox2.Location = new System.Drawing.Point(411, 14);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(306, 79);
+            this.groupBox2.TabIndex = 25;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Добавить ключ вручную";
+            // 
+            // btn_AddCustomKeyword
+            // 
+            this.btn_AddCustomKeyword.Location = new System.Drawing.Point(96, 50);
+            this.btn_AddCustomKeyword.Name = "btn_AddCustomKeyword";
+            this.btn_AddCustomKeyword.Size = new System.Drawing.Size(117, 23);
+            this.btn_AddCustomKeyword.TabIndex = 25;
+            this.btn_AddCustomKeyword.Text = "Добавить";
+            this.btn_AddCustomKeyword.UseVisualStyleBackColor = true;
+            this.btn_AddCustomKeyword.Click += new System.EventHandler(this.btn_AddCustomKeyword_Click);
             // 
             // SemCoreView
             // 
@@ -300,9 +341,12 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.tb_Link);
+            this.Controls.Add(this.btn_SelectAll);
+            this.Controls.Add(this.btn_DeselectAll);
             this.Controls.Add(this.btn_Help);
             this.Controls.Add(this.dgv_Target);
             this.Controls.Add(this.dgv_Source);
+            this.Controls.Add(this.btn_Cancel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SemCoreView";
@@ -313,6 +357,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Target)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -342,6 +388,10 @@
         private System.Windows.Forms.Button btn_SelectAll;
         private System.Windows.Forms.TextBox tb_ProductTypeId;
         private System.Windows.Forms.Button btn_addKeywordCategory;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button btn_AddCustomKeyword;
+        private System.Windows.Forms.TextBox tb_CustomValue;
+        private System.Windows.Forms.TextBox tb_CustomKey;
     }
 }
 

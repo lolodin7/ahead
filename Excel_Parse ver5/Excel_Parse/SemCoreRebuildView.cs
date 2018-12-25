@@ -347,7 +347,7 @@ namespace Excel_Parse
         /* Закрытие окна */
         private void SemCoreRebuild_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //mf.Visible = true;
+            mf.Visible = true;
         }
 
         /* Выделяем все ключи */
@@ -473,9 +473,9 @@ namespace Excel_Parse
                 {
                     var index = dgv_KeywordsInCategory.Rows.Add();
 
-                    dgv_KeywordsInCategory.Rows[index].Cells[0].Value = scList[i].GetModelData(2);
-                    dgv_KeywordsInCategory.Rows[index].Cells[1].Value = scList[i].GetModelData(3);
-                    dgv_KeywordsInCategory.Rows[index].Cells[2].Value = scList[i].GetModelData(4);
+                    dgv_KeywordsInCategory.Rows[index].Cells[0].Value = scList[i].ReadData(2);
+                    dgv_KeywordsInCategory.Rows[index].Cells[1].Value = scList[i].ReadData(3);
+                    dgv_KeywordsInCategory.Rows[index].Cells[2].Value = scList[i].ReadData(4);
 
                 }
             }
@@ -750,7 +750,7 @@ namespace Excel_Parse
                             
                             for (int k = 0; k < scList[j].ColumnCount; k++)
                             {
-                                dgv_Target.Rows[index].Cells[k].Value = scList[j].GetModelData(k);
+                                dgv_Target.Rows[index].Cells[k].Value = scList[j].ReadData(k);
                             }
                             dgv_Target.Rows[index].Cells[3].Value = dgv_Source.Rows[i].Cells[1].Value;              //обновляем частоту
 

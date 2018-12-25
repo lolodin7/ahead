@@ -30,6 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SemanticsView));
             this.dgv_Keywords = new System.Windows.Forms.DataGridView();
+            this.ProdTypeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoryId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Keyword = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Name1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SemCoreId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lb_TitleText = new System.Windows.Forms.Label();
             this.lb_BulletsText = new System.Windows.Forms.Label();
             this.lb_BackendText = new System.Windows.Forms.Label();
@@ -147,12 +153,6 @@
             this.Keyword1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Position = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rtb_UsedKeywords = new System.Windows.Forms.RichTextBox();
-            this.ProdTypeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoryId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Keyword = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Name1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SemCoreId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Keywords)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSemantics)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).BeginInit();
@@ -179,6 +179,47 @@
             this.dgv_Keywords.Size = new System.Drawing.Size(360, 788);
             this.dgv_Keywords.TabIndex = 1;
             this.dgv_Keywords.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_Keywords_CellDoubleClick);
+            // 
+            // ProdTypeId
+            // 
+            this.ProdTypeId.HeaderText = "ProdTypeId";
+            this.ProdTypeId.Name = "ProdTypeId";
+            this.ProdTypeId.ReadOnly = true;
+            this.ProdTypeId.Visible = false;
+            // 
+            // CategoryId
+            // 
+            this.CategoryId.HeaderText = "CategoryId";
+            this.CategoryId.Name = "CategoryId";
+            this.CategoryId.ReadOnly = true;
+            this.CategoryId.Visible = false;
+            // 
+            // Keyword
+            // 
+            this.Keyword.HeaderText = "Keyword";
+            this.Keyword.Name = "Keyword";
+            this.Keyword.ReadOnly = true;
+            this.Keyword.Width = 200;
+            // 
+            // Value
+            // 
+            this.Value.HeaderText = "Value";
+            this.Value.Name = "Value";
+            this.Value.ReadOnly = true;
+            // 
+            // Name1
+            // 
+            this.Name1.HeaderText = "LastUpdatedColum";
+            this.Name1.Name = "Name1";
+            this.Name1.ReadOnly = true;
+            this.Name1.Visible = false;
+            // 
+            // SemCoreId
+            // 
+            this.SemCoreId.HeaderText = "SemCoreId";
+            this.SemCoreId.Name = "SemCoreId";
+            this.SemCoreId.ReadOnly = true;
+            this.SemCoreId.Visible = false;
             // 
             // lb_TitleText
             // 
@@ -340,7 +381,7 @@
             this.btn_SaveToDB.Name = "btn_SaveToDB";
             this.btn_SaveToDB.Size = new System.Drawing.Size(149, 35);
             this.btn_SaveToDB.TabIndex = 24;
-            this.btn_SaveToDB.Text = "Сохранить в БД";
+            this.btn_SaveToDB.Text = "Сохранить как новую версию";
             this.btn_SaveToDB.UseVisualStyleBackColor = true;
             this.btn_SaveToDB.Click += new System.EventHandler(this.btn_UpdateSemantics_Click);
             // 
@@ -1266,48 +1307,7 @@
             this.rtb_UsedKeywords.Text = "";
             this.rtb_UsedKeywords.Visible = false;
             // 
-            // ProdTypeId
-            // 
-            this.ProdTypeId.HeaderText = "ProdTypeId";
-            this.ProdTypeId.Name = "ProdTypeId";
-            this.ProdTypeId.ReadOnly = true;
-            this.ProdTypeId.Visible = false;
-            // 
-            // CategoryId
-            // 
-            this.CategoryId.HeaderText = "CategoryId";
-            this.CategoryId.Name = "CategoryId";
-            this.CategoryId.ReadOnly = true;
-            this.CategoryId.Visible = false;
-            // 
-            // Keyword
-            // 
-            this.Keyword.HeaderText = "Keyword";
-            this.Keyword.Name = "Keyword";
-            this.Keyword.ReadOnly = true;
-            this.Keyword.Width = 200;
-            // 
-            // Value
-            // 
-            this.Value.HeaderText = "Value";
-            this.Value.Name = "Value";
-            this.Value.ReadOnly = true;
-            // 
-            // Name1
-            // 
-            this.Name1.HeaderText = "LastUpdatedColum";
-            this.Name1.Name = "Name1";
-            this.Name1.ReadOnly = true;
-            this.Name1.Visible = false;
-            // 
-            // SemCoreId
-            // 
-            this.SemCoreId.HeaderText = "SemCoreId";
-            this.SemCoreId.Name = "SemCoreId";
-            this.SemCoreId.ReadOnly = true;
-            this.SemCoreId.Visible = false;
-            // 
-            // Semantics
+            // SemanticsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -1395,7 +1395,7 @@
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Semantics";
+            this.Name = "SemanticsView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Семантика";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Semantics_FormClosing);

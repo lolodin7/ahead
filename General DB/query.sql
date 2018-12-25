@@ -60,6 +60,10 @@ SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = Produc
 
 SELECT * FROM KeywordCategory LEFT JOIN ProductTypes ON KeywordCategory.CategoryId = ProductTypes.ProductTypeId WHERE CategoryId > 0 
 
-select * from semcore
+select * from semantics
 
 SELECT * FROM KeywordCategory LEFT JOIN ProductTypes ON KeywordCategory.ProductTypeId = ProductTypes.ProductTypeId WHERE CategoryId > 0 AND KeywordCategory.ProductTypeId = 1
+
+SELECT * FROM Products WHERE [ProductId] = 1
+
+SELECT * FROM Semantics WHERE ProductId = 1

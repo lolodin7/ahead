@@ -39,6 +39,7 @@
             this.btn_Exit = new System.Windows.Forms.Button();
             this.btn_ShowSemStatistics = new System.Windows.Forms.Button();
             this.btn_ShowIndexing = new System.Windows.Forms.Button();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.SuspendLayout();
             // 
             // btn_DoSemCore
@@ -54,7 +55,7 @@
             // 
             // btn_DoSemantics
             // 
-            this.btn_DoSemantics.BackColor = System.Drawing.Color.Beige;
+            this.btn_DoSemantics.BackColor = System.Drawing.Color.Gold;
             this.btn_DoSemantics.Location = new System.Drawing.Point(313, 12);
             this.btn_DoSemantics.Name = "btn_DoSemantics";
             this.btn_DoSemantics.Size = new System.Drawing.Size(195, 81);
@@ -148,11 +149,28 @@
             this.btn_ShowIndexing.UseVisualStyleBackColor = true;
             this.btn_ShowIndexing.Click += new System.EventHandler(this.btn_ShowIndexing_Click);
             // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.checkedListBox1.CheckOnClick = true;
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Items.AddRange(new object[] {
+            "first",
+            "second",
+            "third",
+            "fourth",
+            "fifth"});
+            this.checkedListBox1.Location = new System.Drawing.Point(266, 377);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(242, 60);
+            this.checkedListBox1.TabIndex = 10;
+            // 
             // MainFormView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(923, 533);
+            this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.btn_ShowIndexing);
             this.Controls.Add(this.btn_ShowSemStatistics);
             this.Controls.Add(this.btn_Exit);
@@ -185,5 +203,6 @@
         private System.Windows.Forms.Button btn_Exit;
         private System.Windows.Forms.Button btn_ShowSemStatistics;
         private System.Windows.Forms.Button btn_ShowIndexing;
+        private System.Windows.Forms.CheckedListBox checkedListBox1;
     }
 }

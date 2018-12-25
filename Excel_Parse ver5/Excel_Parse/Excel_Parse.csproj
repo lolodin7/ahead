@@ -122,7 +122,7 @@
     <Compile Include="ProductTypesView.Designer.cs">
       <DependentUpon>ProductTypesView.cs</DependentUpon>
     </Compile>
-    <Compile Include="SemanticsData.cs" />
+    <Compile Include="SemanticsModel.cs" />
     <Compile Include="SemCoreModel.cs" />
     <Compile Include="SemCoreRebuildModel.cs" />
     <Compile Include="SemCoreView.cs">
