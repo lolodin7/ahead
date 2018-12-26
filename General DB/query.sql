@@ -67,3 +67,6 @@ SELECT * FROM KeywordCategory LEFT JOIN ProductTypes ON KeywordCategory.ProductT
 SELECT * FROM Products WHERE [ProductId] = 1
 
 SELECT * FROM Semantics WHERE ProductId = 1
+select * from semcore where CategoryId = 2 or CategoryId = 6
+
+SELECT * FROM SemCore WHERE ProductTypeId = 1 AND (CategoryId = 1 OR CategoryId = 2)

@@ -115,6 +115,8 @@
             this.общееToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsMenu_fieldsLength = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chooseKeysProductTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chooseKeysKeywordCategoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lb_OtherAttributes2 = new System.Windows.Forms.Label();
             this.lb_OtherAttributes3 = new System.Windows.Forms.Label();
             this.lb_OtherAttributes4 = new System.Windows.Forms.Label();
@@ -149,15 +151,21 @@
             this.rtb_SubjectMatter3 = new System.Windows.Forms.RichTextBox();
             this.rtb_SubjectMatter4 = new System.Windows.Forms.RichTextBox();
             this.rtb_SubjectMatter5 = new System.Windows.Forms.RichTextBox();
-            this.dgv_UsedKeywords = new System.Windows.Forms.DataGridView();
-            this.Keyword1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Position = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rtb_UsedKeywords = new System.Windows.Forms.RichTextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btn_CloseGroupBox = new System.Windows.Forms.Button();
+            this.btn_AcceptGroupBox2 = new System.Windows.Forms.Button();
+            this.btn_DecheckAll = new System.Windows.Forms.Button();
+            this.btn_CheckAll = new System.Windows.Forms.Button();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.tb_ProductTypeId = new System.Windows.Forms.TextBox();
+            this.cb_ProductTypes = new System.Windows.Forms.ComboBox();
+            this.btn_AcceptGroupBox1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Keywords)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSemantics)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).BeginInit();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_UsedKeywords)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgv_Keywords
@@ -845,7 +853,9 @@
             // 
             this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.общееToolStripMenuItem});
+            this.общееToolStripMenuItem,
+            this.chooseKeysProductTypeToolStripMenuItem,
+            this.chooseKeysKeywordCategoryToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -874,6 +884,20 @@
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
             this.выходToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.выходToolStripMenuItem.Text = "Выход";
+            // 
+            // chooseKeysProductTypeToolStripMenuItem
+            // 
+            this.chooseKeysProductTypeToolStripMenuItem.Name = "chooseKeysProductTypeToolStripMenuItem";
+            this.chooseKeysProductTypeToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
+            this.chooseKeysProductTypeToolStripMenuItem.Text = "Вид товара";
+            this.chooseKeysProductTypeToolStripMenuItem.Click += new System.EventHandler(this.chooseKeysProductTypeToolStripMenuItem_Click);
+            // 
+            // chooseKeysKeywordCategoryToolStripMenuItem
+            // 
+            this.chooseKeysKeywordCategoryToolStripMenuItem.Name = "chooseKeysKeywordCategoryToolStripMenuItem";
+            this.chooseKeysKeywordCategoryToolStripMenuItem.Size = new System.Drawing.Size(122, 20);
+            this.chooseKeysKeywordCategoryToolStripMenuItem.Text = "Категории ключей";
+            this.chooseKeysKeywordCategoryToolStripMenuItem.Click += new System.EventHandler(this.chooseKeysKeywordCategoryToolStripMenuItem_Click);
             // 
             // lb_OtherAttributes2
             // 
@@ -1276,36 +1300,109 @@
             this.rtb_SubjectMatter5.Text = "";
             this.rtb_SubjectMatter5.TextChanged += new System.EventHandler(this.tb_TextChanged);
             // 
-            // dgv_UsedKeywords
-            // 
-            this.dgv_UsedKeywords.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_UsedKeywords.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Keyword1,
-            this.Position});
-            this.dgv_UsedKeywords.Location = new System.Drawing.Point(71, 843);
-            this.dgv_UsedKeywords.Name = "dgv_UsedKeywords";
-            this.dgv_UsedKeywords.Size = new System.Drawing.Size(259, 259);
-            this.dgv_UsedKeywords.TabIndex = 100;
-            this.dgv_UsedKeywords.Visible = false;
-            // 
-            // Keyword1
-            // 
-            this.Keyword1.HeaderText = "Keyword1";
-            this.Keyword1.Name = "Keyword1";
-            // 
-            // Position
-            // 
-            this.Position.HeaderText = "Position";
-            this.Position.Name = "Position";
-            // 
             // rtb_UsedKeywords
             // 
-            this.rtb_UsedKeywords.Location = new System.Drawing.Point(71, 1137);
+            this.rtb_UsedKeywords.Location = new System.Drawing.Point(578, 751);
             this.rtb_UsedKeywords.Name = "rtb_UsedKeywords";
             this.rtb_UsedKeywords.Size = new System.Drawing.Size(227, 75);
             this.rtb_UsedKeywords.TabIndex = 101;
             this.rtb_UsedKeywords.Text = "";
-            this.rtb_UsedKeywords.Visible = false;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btn_CloseGroupBox);
+            this.groupBox1.Controls.Add(this.btn_AcceptGroupBox2);
+            this.groupBox1.Controls.Add(this.btn_DecheckAll);
+            this.groupBox1.Controls.Add(this.btn_CheckAll);
+            this.groupBox1.Controls.Add(this.checkedListBox1);
+            this.groupBox1.Controls.Add(this.tb_ProductTypeId);
+            this.groupBox1.Controls.Add(this.cb_ProductTypes);
+            this.groupBox1.Controls.Add(this.btn_AcceptGroupBox1);
+            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox1.Location = new System.Drawing.Point(0, 38);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(362, 270);
+            this.groupBox1.TabIndex = 102;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "groupBox1";
+            this.groupBox1.Visible = false;
+            // 
+            // btn_CloseGroupBox
+            // 
+            this.btn_CloseGroupBox.Location = new System.Drawing.Point(216, 220);
+            this.btn_CloseGroupBox.Name = "btn_CloseGroupBox";
+            this.btn_CloseGroupBox.Size = new System.Drawing.Size(140, 36);
+            this.btn_CloseGroupBox.TabIndex = 7;
+            this.btn_CloseGroupBox.Text = "Закрыть";
+            this.btn_CloseGroupBox.UseVisualStyleBackColor = true;
+            this.btn_CloseGroupBox.Click += new System.EventHandler(this.btn_CloseGroupBox_Click);
+            // 
+            // btn_AcceptGroupBox2
+            // 
+            this.btn_AcceptGroupBox2.Location = new System.Drawing.Point(216, 27);
+            this.btn_AcceptGroupBox2.Name = "btn_AcceptGroupBox2";
+            this.btn_AcceptGroupBox2.Size = new System.Drawing.Size(140, 36);
+            this.btn_AcceptGroupBox2.TabIndex = 6;
+            this.btn_AcceptGroupBox2.Text = "Принять";
+            this.btn_AcceptGroupBox2.UseVisualStyleBackColor = true;
+            this.btn_AcceptGroupBox2.Click += new System.EventHandler(this.btn_AcceptGroupBox2_Click);
+            // 
+            // btn_DecheckAll
+            // 
+            this.btn_DecheckAll.Location = new System.Drawing.Point(216, 56);
+            this.btn_DecheckAll.Name = "btn_DecheckAll";
+            this.btn_DecheckAll.Size = new System.Drawing.Size(114, 23);
+            this.btn_DecheckAll.TabIndex = 5;
+            this.btn_DecheckAll.Text = "Снять выделение";
+            this.btn_DecheckAll.UseVisualStyleBackColor = true;
+            this.btn_DecheckAll.Click += new System.EventHandler(this.btn_DecheckAll_Click);
+            // 
+            // btn_CheckAll
+            // 
+            this.btn_CheckAll.Location = new System.Drawing.Point(216, 27);
+            this.btn_CheckAll.Name = "btn_CheckAll";
+            this.btn_CheckAll.Size = new System.Drawing.Size(114, 23);
+            this.btn_CheckAll.TabIndex = 4;
+            this.btn_CheckAll.Text = "Выделить всё";
+            this.btn_CheckAll.UseVisualStyleBackColor = true;
+            this.btn_CheckAll.Click += new System.EventHandler(this.btn_CheckAll_Click);
+            // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Location = new System.Drawing.Point(10, 27);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(199, 229);
+            this.checkedListBox1.TabIndex = 3;
+            this.checkedListBox1.Visible = false;
+            // 
+            // tb_ProductTypeId
+            // 
+            this.tb_ProductTypeId.Location = new System.Drawing.Point(314, 27);
+            this.tb_ProductTypeId.Name = "tb_ProductTypeId";
+            this.tb_ProductTypeId.Size = new System.Drawing.Size(42, 20);
+            this.tb_ProductTypeId.TabIndex = 2;
+            this.tb_ProductTypeId.Visible = false;
+            // 
+            // cb_ProductTypes
+            // 
+            this.cb_ProductTypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_ProductTypes.FormattingEnabled = true;
+            this.cb_ProductTypes.Location = new System.Drawing.Point(10, 27);
+            this.cb_ProductTypes.Name = "cb_ProductTypes";
+            this.cb_ProductTypes.Size = new System.Drawing.Size(199, 21);
+            this.cb_ProductTypes.TabIndex = 1;
+            this.cb_ProductTypes.SelectedIndexChanged += new System.EventHandler(this.cb_ProductTypes_SelectedIndexChanged);
+            // 
+            // btn_AcceptGroupBox1
+            // 
+            this.btn_AcceptGroupBox1.Location = new System.Drawing.Point(216, 142);
+            this.btn_AcceptGroupBox1.Name = "btn_AcceptGroupBox1";
+            this.btn_AcceptGroupBox1.Size = new System.Drawing.Size(140, 36);
+            this.btn_AcceptGroupBox1.TabIndex = 0;
+            this.btn_AcceptGroupBox1.Text = "Принять";
+            this.btn_AcceptGroupBox1.UseVisualStyleBackColor = true;
+            this.btn_AcceptGroupBox1.Click += new System.EventHandler(this.btn_AcceptGroupBox1_Click);
             // 
             // SemanticsView
             // 
@@ -1314,8 +1411,8 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1611, 845);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.rtb_UsedKeywords);
-            this.Controls.Add(this.dgv_UsedKeywords);
             this.Controls.Add(this.rtb_SubjectMatter5);
             this.Controls.Add(this.rtb_SubjectMatter4);
             this.Controls.Add(this.rtb_SubjectMatter3);
@@ -1405,7 +1502,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_UsedKeywords)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1520,10 +1618,7 @@
         private System.Windows.Forms.RichTextBox rtb_SubjectMatter3;
         private System.Windows.Forms.RichTextBox rtb_SubjectMatter4;
         private System.Windows.Forms.RichTextBox rtb_SubjectMatter5;
-        private System.Windows.Forms.DataGridView dgv_UsedKeywords;
         private System.Windows.Forms.RichTextBox rtb_UsedKeywords;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Keyword1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Position;
         private System.Windows.Forms.DataGridViewTextBoxColumn Products1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Products2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Products3;
@@ -1536,5 +1631,16 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Value;
         private System.Windows.Forms.DataGridViewTextBoxColumn Name1;
         private System.Windows.Forms.DataGridViewTextBoxColumn SemCoreId;
+        private System.Windows.Forms.ToolStripMenuItem chooseKeysProductTypeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem chooseKeysKeywordCategoryToolStripMenuItem;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btn_AcceptGroupBox1;
+        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.TextBox tb_ProductTypeId;
+        private System.Windows.Forms.ComboBox cb_ProductTypes;
+        private System.Windows.Forms.Button btn_DecheckAll;
+        private System.Windows.Forms.Button btn_CheckAll;
+        private System.Windows.Forms.Button btn_AcceptGroupBox2;
+        private System.Windows.Forms.Button btn_CloseGroupBox;
     }
 }

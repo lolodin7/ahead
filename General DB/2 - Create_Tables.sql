@@ -2,6 +2,9 @@ USE AHEAD
 GO
 --тут обратный порядок от порядка создания
 
+IF NOT OBJECT_ID('Indexing') IS NULL DROP TABLE [Indexing]
+GO
+
 IF NOT OBJECT_ID('SemCoreArchive') IS NULL DROP TABLE [SemCoreArchive]
 GO
 
@@ -50,7 +53,7 @@ GO
 CREATE TABLE [Products](
 	[ProductId]			INT IDENTITY(0,1)	NOT NULL,
 	[Name]				NVARCHAR(500),
-	[ASIN]				VARCHAR(10),
+	[ASIN]				VARCHAR(20),
 	[SKU]				VARCHAR(30),
 	[ProductTypeId]		INT					NOT NULL,
 	[MarketPlaceId]		INT,
@@ -63,7 +66,7 @@ GO
 
 
 CREATE TABLE [Semantics](
-	[SemanticsId]		INT IDENTITY(1,1)	NOT NULL,
+	[SemanticsId]		INT IDENTITY(0,1)	NOT NULL,
 	[ProductId]			INT					NOT NULL,
 	[Title]				NVARCHAR(300),
 	[Bullet1]			NVARCHAR(200),
@@ -112,7 +115,7 @@ CREATE TABLE [SemCore](
 	[Keyword]			VARCHAR(100),
 	[Value]				INT,
 	[LastUpdated]		DATETIME,
-	[SemCoreId]			INT IDENTITY(1,1)	NOT NULL,
+	[SemCoreId]			INT IDENTITY(0,1)	NOT NULL,
 	CONSTRAINT PK_SemCoreId PRIMARY KEY ([SemCoreId]),
 	CONSTRAINT UQ_SemCore_Keyword UNIQUE ([Keyword]),
 	CONSTRAINT FK_SemCore_ProductTypes FOREIGN KEY ([ProductTypeId]) REFERENCES ProductTypes ([ProductTypeId]),
@@ -145,7 +148,15 @@ CREATE TABLE [SemCoreArchive](
 )
 GO
 
-
+CREATE TABLE [Indexing](
+	[ProductId]			INT							NOT NULL,
+	[ASIN]				VARCHAR(20)					NOT NULL,
+	[Date]				DATETIME					NOT NULL,
+	[Status]			VARCHAR(100)				NOT NULL,
+	[Notes]				VARCHAR(500),
+	CONSTRAINT FK_Indexing_ProductId FOREIGN KEY ([ProductId]) REFERENCES Products ([ProductId])
+)
+GO
 
 
 

@@ -93,7 +93,7 @@ namespace Excel_Parse
                     {
 
                         parser.TextFieldType = FieldType.Delimited;
-                        parser.SetDelimiters(",");
+                        parser.SetDelimiters(";");
                         while (!parser.EndOfData)
                         {
                             //Process row

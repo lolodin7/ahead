@@ -40,6 +40,7 @@
             this.btn_ShowSemStatistics = new System.Windows.Forms.Button();
             this.btn_ShowIndexing = new System.Windows.Forms.Button();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_DoSemCore
@@ -165,11 +166,21 @@
             this.checkedListBox1.Size = new System.Drawing.Size(242, 60);
             this.checkedListBox1.TabIndex = 10;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(221, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(86, 81);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "создать новую семантику";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // MainFormView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(923, 533);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.btn_ShowIndexing);
             this.Controls.Add(this.btn_ShowSemStatistics);
@@ -204,5 +215,6 @@
         private System.Windows.Forms.Button btn_ShowSemStatistics;
         private System.Windows.Forms.Button btn_ShowIndexing;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.Button button1;
     }
 }
