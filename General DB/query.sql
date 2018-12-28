@@ -66,7 +66,21 @@ SELECT * FROM KeywordCategory LEFT JOIN ProductTypes ON KeywordCategory.ProductT
 
 SELECT * FROM Products WHERE [ProductId] = 1
 
-SELECT * FROM Semantics WHERE ProductId = 1
+SELECT UpdateDate FROM Semantics WHERE ProductId = 1
 select * from semcore where CategoryId = 2 or CategoryId = 6
 
 SELECT * FROM SemCore WHERE ProductTypeId = 1 AND (CategoryId = 1 OR CategoryId = 2)
+
+
+SELECT * FROM SemCore WHERE ProductTypeId = 1 AND (CategoryId = 1)
+
+INSERT INTO [Semantics] ([ProductId], [Title], [Bullet1], [Bullet2], [Bullet3], [Bullet4], [Bullet5], [Backend], [Description], [OtherAttributes1], [OtherAttributes2], [OtherAttributes3], [OtherAttributes4], [OtherAttributes5], [IntendedUse1], [IntendedUse2], [IntendedUse3], [IntendedUse4], [IntendedUse5], [SubjectMatter1], [SubjectMatter2], [SubjectMatter3], [SubjectMatter4], [SubjectMatter5], [UpdateDate], [Notes], [UsedKeywords]) VALUES (1, 'Test semanticsAgain', 'Bul4', 'Bul4', 'Bul4', 'Bul4', 'Bul4', 'Backend4', 'Descr444444', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '27.12.2018 15:43:20', 'Notes4', 'lapel microphone|2|lavalier microphone|0|')
+
+
+SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0
+
+SELECT * FROM Indexing
+
+SELECT [Date] FROM Indexing WHERE ProductId = 1
+
+SELECT [Notes] FROM [Indexing] WHERE ProductId = 1 AND [Date] = '2018-12-27'

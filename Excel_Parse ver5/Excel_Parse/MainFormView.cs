@@ -17,6 +17,15 @@ namespace Excel_Parse
         public string AmazonLink { get; set; }
         public MainFormView()
         {
+            //показывает картинку при запуске программы
+            //StartImage startImg = new StartImage();
+            //startImg.Show();
+            //this.Refresh();
+            //startImg.Refresh();
+            //System.Threading.Thread.Sleep(2000);
+            //startImg.Close();
+            //перестали показывать картинку при запуске программы
+
             InitializeComponent();
             connection = DBData.GetDBConnection();
             AmazonLink = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=";

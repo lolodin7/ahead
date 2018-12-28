@@ -183,3 +183,6 @@ C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.SemanticsView.resour
 C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.IndexingView.resources
 C:\AheadProject\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.IndexingView.resources
 C:\AheadProject\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.SemanticsView.resources
+C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.IndexingDetails.resources
+C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.IndexingStatus.resources
+C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.StartImage.resources

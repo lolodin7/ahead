@@ -55,6 +55,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StartImage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StartImage.Designer.cs">
+      <DependentUpon>StartImage.cs</DependentUpon>
+    </Compile>
     <Compile Include="ChooseProduct.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,7 +83,19 @@
     <Compile Include="FullSemCoreController.cs" />
     <Compile Include="FullSemCoreModel.cs" />
     <Compile Include="IndexingController.cs" />
+    <Compile Include="IndexingDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IndexingDetails.Designer.cs">
+      <DependentUpon>IndexingDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="IndexingModel.cs" />
+    <Compile Include="IndexingStatus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IndexingStatus.Designer.cs">
+      <DependentUpon>IndexingStatus.cs</DependentUpon>
+    </Compile>
     <Compile Include="IndexingView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,6 +170,9 @@
     <Compile Include="SemStatistics.Designer.cs">
       <DependentUpon>SemStatistics.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="StartImage.resx">
+      <DependentUpon>StartImage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ChooseProduct.resx">
       <DependentUpon>ChooseProduct.cs</DependentUpon>
     </EmbeddedResource>
@@ -160,6 +181,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FullSemCoreView.resx">
       <DependentUpon>FullSemCoreView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IndexingDetails.resx">
+      <DependentUpon>IndexingDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IndexingStatus.resx">
+      <DependentUpon>IndexingStatus.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IndexingView.resx">
       <DependentUpon>IndexingView.cs</DependentUpon>

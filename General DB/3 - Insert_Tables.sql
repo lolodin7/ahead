@@ -254,6 +254,34 @@ INSERT INTO [FieldsLength] ([TitleLength], [BulletsLength], [BackendLength], [Su
 VALUES (200, 100, 250, 150, 150, 150, 2000, 2)
 
 
+INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status] ,[Notes]) 
+VALUES (1, 'B01E3L1ESS', '2018-12-27', 'Not Ok', 'не в индексе@проблема с 1м буллетом@@@проблема с 4м буллетом@@@')
+
+INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status] ,[Notes]) 
+VALUES (1, 'B01E3L1ESS', '2018-12-20', 'Ok', '')
+
+INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status] ,[Notes]) 
+VALUES (1, 'B01E3L1ESS', '2018-12-22', 'Ok', '')
+
+INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status] ,[Notes]) 
+VALUES (1, 'B01E3L1ESS', '2018-11-02', 'Ok', '')
+
+INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status] ,[Notes]) 
+VALUES (1, 'B01E3L1ESS', '2018-12-20', 'Ok', '')
+
+INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status] ,[Notes]) 
+VALUES (2, 'B01N5RG8EC', '2018-11-23', 'Ok', '')
+
+INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status] ,[Notes]) 
+VALUES (2, 'B01N5RG8EC', '2018-10-23', 'Ok', '')
+
+INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status], [Notes]) 
+VALUES (7, 'B07FCN1K2N', '2018-53-28', 'Closed', '')
+
+
+
+
+
 select * from products
 
 

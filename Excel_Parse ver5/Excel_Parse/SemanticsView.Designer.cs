@@ -112,11 +112,9 @@
             this.btn_SaveCurrent = new System.Windows.Forms.Button();
             this.btn_Return = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.общееToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsMenu_fieldsLength = new System.Windows.Forms.ToolStripMenuItem();
-            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chooseKeysProductTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chooseKeysKeywordCategoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fieldsLengthToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lb_OtherAttributes2 = new System.Windows.Forms.Label();
             this.lb_OtherAttributes3 = new System.Windows.Forms.Label();
             this.lb_OtherAttributes4 = new System.Windows.Forms.Label();
@@ -161,6 +159,8 @@
             this.tb_ProductTypeId = new System.Windows.Forms.TextBox();
             this.cb_ProductTypes = new System.Windows.Forms.ComboBox();
             this.btn_AcceptGroupBox1 = new System.Windows.Forms.Button();
+            this.btn_Help = new System.Windows.Forms.Button();
+            this.rb_None = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Keywords)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSemantics)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).BeginInit();
@@ -187,6 +187,7 @@
             this.dgv_Keywords.Size = new System.Drawing.Size(360, 788);
             this.dgv_Keywords.TabIndex = 1;
             this.dgv_Keywords.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_Keywords_CellDoubleClick);
+            this.dgv_Keywords.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_Keywords_CellMouseClick);
             // 
             // ProdTypeId
             // 
@@ -333,6 +334,7 @@
             this.rtb_Description.Size = new System.Drawing.Size(556, 380);
             this.rtb_Description.TabIndex = 18;
             this.rtb_Description.Text = "";
+            this.rtb_Description.TextChanged += new System.EventHandler(this.rtb_Description_TextChanged);
             // 
             // rtb_Description2
             // 
@@ -344,6 +346,7 @@
             // 
             // btn_TransformDescr
             // 
+            this.btn_TransformDescr.Enabled = false;
             this.btn_TransformDescr.FlatAppearance.BorderSize = 0;
             this.btn_TransformDescr.Location = new System.Drawing.Point(979, 495);
             this.btn_TransformDescr.Name = "btn_TransformDescr";
@@ -385,22 +388,25 @@
             // 
             // btn_SaveToDB
             // 
-            this.btn_SaveToDB.Location = new System.Drawing.Point(1423, 772);
+            this.btn_SaveToDB.BackColor = System.Drawing.Color.DarkGray;
+            this.btn_SaveToDB.FlatAppearance.BorderSize = 0;
+            this.btn_SaveToDB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_SaveToDB.Location = new System.Drawing.Point(1397, 772);
             this.btn_SaveToDB.Name = "btn_SaveToDB";
-            this.btn_SaveToDB.Size = new System.Drawing.Size(149, 35);
+            this.btn_SaveToDB.Size = new System.Drawing.Size(175, 54);
             this.btn_SaveToDB.TabIndex = 24;
             this.btn_SaveToDB.Text = "Сохранить как новую версию";
-            this.btn_SaveToDB.UseVisualStyleBackColor = true;
+            this.btn_SaveToDB.UseVisualStyleBackColor = false;
             this.btn_SaveToDB.Click += new System.EventHandler(this.btn_UpdateSemantics_Click);
             // 
             // lb_LastUpdatedText
             // 
             this.lb_LastUpdatedText.AutoSize = true;
-            this.lb_LastUpdatedText.Location = new System.Drawing.Point(1364, 19);
+            this.lb_LastUpdatedText.Location = new System.Drawing.Point(1310, 19);
             this.lb_LastUpdatedText.Name = "lb_LastUpdatedText";
-            this.lb_LastUpdatedText.Size = new System.Drawing.Size(72, 13);
+            this.lb_LastUpdatedText.Size = new System.Drawing.Size(125, 13);
             this.lb_LastUpdatedText.TabIndex = 25;
-            this.lb_LastUpdatedText.Text = "Last updated:";
+            this.lb_LastUpdatedText.Text = "Последнее изменение:";
             // 
             // rb_Title
             // 
@@ -416,7 +422,7 @@
             // rb_Bullets
             // 
             this.rb_Bullets.AutoSize = true;
-            this.rb_Bullets.Location = new System.Drawing.Point(368, 105);
+            this.rb_Bullets.Location = new System.Drawing.Point(368, 126);
             this.rb_Bullets.Name = "rb_Bullets";
             this.rb_Bullets.Size = new System.Drawing.Size(14, 13);
             this.rb_Bullets.TabIndex = 28;
@@ -729,9 +735,9 @@
             // 
             // btn_ShowMore
             // 
-            this.btn_ShowMore.Location = new System.Drawing.Point(417, 773);
+            this.btn_ShowMore.Location = new System.Drawing.Point(417, 772);
             this.btn_ShowMore.Name = "btn_ShowMore";
-            this.btn_ShowMore.Size = new System.Drawing.Size(135, 35);
+            this.btn_ShowMore.Size = new System.Drawing.Size(161, 54);
             this.btn_ShowMore.TabIndex = 38;
             this.btn_ShowMore.Text = "Показать больше...";
             this.btn_ShowMore.UseVisualStyleBackColor = true;
@@ -740,7 +746,7 @@
             // lb_SubjectMatter1
             // 
             this.lb_SubjectMatter1.AutoSize = true;
-            this.lb_SubjectMatter1.Location = new System.Drawing.Point(388, 1168);
+            this.lb_SubjectMatter1.Location = new System.Drawing.Point(388, 1180);
             this.lb_SubjectMatter1.Name = "lb_SubjectMatter1";
             this.lb_SubjectMatter1.Size = new System.Drawing.Size(13, 13);
             this.lb_SubjectMatter1.TabIndex = 45;
@@ -751,7 +757,7 @@
             // lb_IntendedUse1
             // 
             this.lb_IntendedUse1.AutoSize = true;
-            this.lb_IntendedUse1.Location = new System.Drawing.Point(388, 1009);
+            this.lb_IntendedUse1.Location = new System.Drawing.Point(388, 1021);
             this.lb_IntendedUse1.Name = "lb_IntendedUse1";
             this.lb_IntendedUse1.Size = new System.Drawing.Size(13, 13);
             this.lb_IntendedUse1.TabIndex = 44;
@@ -762,7 +768,7 @@
             // lb_OtherAttributes1
             // 
             this.lb_OtherAttributes1.AutoSize = true;
-            this.lb_OtherAttributes1.Location = new System.Drawing.Point(388, 853);
+            this.lb_OtherAttributes1.Location = new System.Drawing.Point(388, 865);
             this.lb_OtherAttributes1.Name = "lb_OtherAttributes1";
             this.lb_OtherAttributes1.Size = new System.Drawing.Size(13, 13);
             this.lb_OtherAttributes1.TabIndex = 43;
@@ -772,7 +778,7 @@
             // 
             // lb_OtherAttributesText
             // 
-            this.lb_OtherAttributesText.Location = new System.Drawing.Point(917, 830);
+            this.lb_OtherAttributesText.Location = new System.Drawing.Point(917, 842);
             this.lb_OtherAttributesText.Name = "lb_OtherAttributesText";
             this.lb_OtherAttributesText.Size = new System.Drawing.Size(146, 13);
             this.lb_OtherAttributesText.TabIndex = 40;
@@ -782,7 +788,7 @@
             // 
             // lb_IntendedUseText
             // 
-            this.lb_IntendedUseText.Location = new System.Drawing.Point(917, 990);
+            this.lb_IntendedUseText.Location = new System.Drawing.Point(917, 1002);
             this.lb_IntendedUseText.Name = "lb_IntendedUseText";
             this.lb_IntendedUseText.Size = new System.Drawing.Size(146, 13);
             this.lb_IntendedUseText.TabIndex = 46;
@@ -792,7 +798,7 @@
             // 
             // lb_SubjectMatterText
             // 
-            this.lb_SubjectMatterText.Location = new System.Drawing.Point(917, 1147);
+            this.lb_SubjectMatterText.Location = new System.Drawing.Point(917, 1159);
             this.lb_SubjectMatterText.Name = "lb_SubjectMatterText";
             this.lb_SubjectMatterText.Size = new System.Drawing.Size(146, 13);
             this.lb_SubjectMatterText.TabIndex = 47;
@@ -802,16 +808,16 @@
             // 
             // rtb_Notes
             // 
-            this.rtb_Notes.Location = new System.Drawing.Point(416, 1337);
+            this.rtb_Notes.Location = new System.Drawing.Point(416, 1349);
             this.rtb_Notes.Name = "rtb_Notes";
-            this.rtb_Notes.Size = new System.Drawing.Size(1158, 208);
+            this.rtb_Notes.Size = new System.Drawing.Size(1158, 181);
             this.rtb_Notes.TabIndex = 48;
             this.rtb_Notes.Text = "";
             this.rtb_Notes.Visible = false;
             // 
             // lb_Notes
             // 
-            this.lb_Notes.Location = new System.Drawing.Point(917, 1321);
+            this.lb_Notes.Location = new System.Drawing.Point(917, 1333);
             this.lb_Notes.Name = "lb_Notes";
             this.lb_Notes.Size = new System.Drawing.Size(146, 13);
             this.lb_Notes.TabIndex = 49;
@@ -821,14 +827,14 @@
             // 
             // btn_SaveCurrent
             // 
-            this.btn_SaveCurrent.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.btn_SaveCurrent.BackColor = System.Drawing.Color.DarkGray;
             this.btn_SaveCurrent.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btn_SaveCurrent.FlatAppearance.BorderColor = System.Drawing.Color.DarkSeaGreen;
             this.btn_SaveCurrent.FlatAppearance.BorderSize = 0;
-            this.btn_SaveCurrent.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_SaveCurrent.Location = new System.Drawing.Point(822, 772);
+            this.btn_SaveCurrent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_SaveCurrent.Location = new System.Drawing.Point(796, 772);
             this.btn_SaveCurrent.Name = "btn_SaveCurrent";
-            this.btn_SaveCurrent.Size = new System.Drawing.Size(149, 35);
+            this.btn_SaveCurrent.Size = new System.Drawing.Size(175, 54);
             this.btn_SaveCurrent.TabIndex = 51;
             this.btn_SaveCurrent.Text = "Применить";
             this.btn_SaveCurrent.UseVisualStyleBackColor = false;
@@ -836,14 +842,11 @@
             // 
             // btn_Return
             // 
-            this.btn_Return.BackColor = System.Drawing.Color.IndianRed;
-            this.btn_Return.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btn_Return.FlatAppearance.BorderColor = System.Drawing.Color.DarkSeaGreen;
-            this.btn_Return.FlatAppearance.BorderSize = 0;
-            this.btn_Return.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_Return.BackColor = System.Drawing.SystemColors.Control;
+            this.btn_Return.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btn_Return.Location = new System.Drawing.Point(1016, 772);
             this.btn_Return.Name = "btn_Return";
-            this.btn_Return.Size = new System.Drawing.Size(149, 35);
+            this.btn_Return.Size = new System.Drawing.Size(175, 54);
             this.btn_Return.TabIndex = 52;
             this.btn_Return.Text = "Откатить";
             this.btn_Return.UseVisualStyleBackColor = false;
@@ -853,37 +856,16 @@
             // 
             this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.общееToolStripMenuItem,
             this.chooseKeysProductTypeToolStripMenuItem,
-            this.chooseKeysKeywordCategoryToolStripMenuItem});
+            this.chooseKeysKeywordCategoryToolStripMenuItem,
+            this.fieldsLengthToolStripMenuItem});
+            this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.menuStrip1.Size = new System.Drawing.Size(1594, 24);
+            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.menuStrip1.Size = new System.Drawing.Size(1577, 24);
             this.menuStrip1.TabIndex = 53;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // общееToolStripMenuItem
-            // 
-            this.общееToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsMenu_fieldsLength,
-            this.выходToolStripMenuItem});
-            this.общееToolStripMenuItem.Name = "общееToolStripMenuItem";
-            this.общееToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
-            this.общееToolStripMenuItem.Text = "Общее";
-            // 
-            // tsMenu_fieldsLength
-            // 
-            this.tsMenu_fieldsLength.Name = "tsMenu_fieldsLength";
-            this.tsMenu_fieldsLength.Size = new System.Drawing.Size(160, 22);
-            this.tsMenu_fieldsLength.Text = "Размеры полей";
-            this.tsMenu_fieldsLength.Click += new System.EventHandler(this.tsMenu_fieldsLength_Click);
-            // 
-            // выходToolStripMenuItem
-            // 
-            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.выходToolStripMenuItem.Text = "Выход";
             // 
             // chooseKeysProductTypeToolStripMenuItem
             // 
@@ -899,10 +881,17 @@
             this.chooseKeysKeywordCategoryToolStripMenuItem.Text = "Категории ключей";
             this.chooseKeysKeywordCategoryToolStripMenuItem.Click += new System.EventHandler(this.chooseKeysKeywordCategoryToolStripMenuItem_Click);
             // 
+            // fieldsLengthToolStripMenuItem
+            // 
+            this.fieldsLengthToolStripMenuItem.Name = "fieldsLengthToolStripMenuItem";
+            this.fieldsLengthToolStripMenuItem.Size = new System.Drawing.Size(105, 20);
+            this.fieldsLengthToolStripMenuItem.Text = "Размеры полей";
+            this.fieldsLengthToolStripMenuItem.Click += new System.EventHandler(this.fieldsLengthToolStripMenuItem_Click_1);
+            // 
             // lb_OtherAttributes2
             // 
             this.lb_OtherAttributes2.AutoSize = true;
-            this.lb_OtherAttributes2.Location = new System.Drawing.Point(388, 879);
+            this.lb_OtherAttributes2.Location = new System.Drawing.Point(388, 891);
             this.lb_OtherAttributes2.Name = "lb_OtherAttributes2";
             this.lb_OtherAttributes2.Size = new System.Drawing.Size(13, 13);
             this.lb_OtherAttributes2.TabIndex = 55;
@@ -913,7 +902,7 @@
             // lb_OtherAttributes3
             // 
             this.lb_OtherAttributes3.AutoSize = true;
-            this.lb_OtherAttributes3.Location = new System.Drawing.Point(388, 905);
+            this.lb_OtherAttributes3.Location = new System.Drawing.Point(388, 917);
             this.lb_OtherAttributes3.Name = "lb_OtherAttributes3";
             this.lb_OtherAttributes3.Size = new System.Drawing.Size(13, 13);
             this.lb_OtherAttributes3.TabIndex = 57;
@@ -924,7 +913,7 @@
             // lb_OtherAttributes4
             // 
             this.lb_OtherAttributes4.AutoSize = true;
-            this.lb_OtherAttributes4.Location = new System.Drawing.Point(388, 931);
+            this.lb_OtherAttributes4.Location = new System.Drawing.Point(388, 943);
             this.lb_OtherAttributes4.Name = "lb_OtherAttributes4";
             this.lb_OtherAttributes4.Size = new System.Drawing.Size(13, 13);
             this.lb_OtherAttributes4.TabIndex = 59;
@@ -935,7 +924,7 @@
             // lb_OtherAttributes5
             // 
             this.lb_OtherAttributes5.AutoSize = true;
-            this.lb_OtherAttributes5.Location = new System.Drawing.Point(388, 957);
+            this.lb_OtherAttributes5.Location = new System.Drawing.Point(388, 969);
             this.lb_OtherAttributes5.Name = "lb_OtherAttributes5";
             this.lb_OtherAttributes5.Size = new System.Drawing.Size(13, 13);
             this.lb_OtherAttributes5.TabIndex = 61;
@@ -946,7 +935,7 @@
             // lb_IntendedUse2
             // 
             this.lb_IntendedUse2.AutoSize = true;
-            this.lb_IntendedUse2.Location = new System.Drawing.Point(388, 1035);
+            this.lb_IntendedUse2.Location = new System.Drawing.Point(388, 1047);
             this.lb_IntendedUse2.Name = "lb_IntendedUse2";
             this.lb_IntendedUse2.Size = new System.Drawing.Size(13, 13);
             this.lb_IntendedUse2.TabIndex = 63;
@@ -957,7 +946,7 @@
             // lb_IntendedUse3
             // 
             this.lb_IntendedUse3.AutoSize = true;
-            this.lb_IntendedUse3.Location = new System.Drawing.Point(388, 1063);
+            this.lb_IntendedUse3.Location = new System.Drawing.Point(388, 1075);
             this.lb_IntendedUse3.Name = "lb_IntendedUse3";
             this.lb_IntendedUse3.Size = new System.Drawing.Size(13, 13);
             this.lb_IntendedUse3.TabIndex = 65;
@@ -968,7 +957,7 @@
             // lb_IntendedUse4
             // 
             this.lb_IntendedUse4.AutoSize = true;
-            this.lb_IntendedUse4.Location = new System.Drawing.Point(388, 1089);
+            this.lb_IntendedUse4.Location = new System.Drawing.Point(388, 1101);
             this.lb_IntendedUse4.Name = "lb_IntendedUse4";
             this.lb_IntendedUse4.Size = new System.Drawing.Size(13, 13);
             this.lb_IntendedUse4.TabIndex = 67;
@@ -979,7 +968,7 @@
             // lb_IntendedUse5
             // 
             this.lb_IntendedUse5.AutoSize = true;
-            this.lb_IntendedUse5.Location = new System.Drawing.Point(388, 1115);
+            this.lb_IntendedUse5.Location = new System.Drawing.Point(388, 1127);
             this.lb_IntendedUse5.Name = "lb_IntendedUse5";
             this.lb_IntendedUse5.Size = new System.Drawing.Size(13, 13);
             this.lb_IntendedUse5.TabIndex = 69;
@@ -990,7 +979,7 @@
             // lb_SubjectMatter2
             // 
             this.lb_SubjectMatter2.AutoSize = true;
-            this.lb_SubjectMatter2.Location = new System.Drawing.Point(388, 1194);
+            this.lb_SubjectMatter2.Location = new System.Drawing.Point(388, 1206);
             this.lb_SubjectMatter2.Name = "lb_SubjectMatter2";
             this.lb_SubjectMatter2.Size = new System.Drawing.Size(13, 13);
             this.lb_SubjectMatter2.TabIndex = 71;
@@ -1001,7 +990,7 @@
             // lb_SubjectMatter3
             // 
             this.lb_SubjectMatter3.AutoSize = true;
-            this.lb_SubjectMatter3.Location = new System.Drawing.Point(388, 1220);
+            this.lb_SubjectMatter3.Location = new System.Drawing.Point(388, 1232);
             this.lb_SubjectMatter3.Name = "lb_SubjectMatter3";
             this.lb_SubjectMatter3.Size = new System.Drawing.Size(13, 13);
             this.lb_SubjectMatter3.TabIndex = 73;
@@ -1012,7 +1001,7 @@
             // lb_SubjectMatter4
             // 
             this.lb_SubjectMatter4.AutoSize = true;
-            this.lb_SubjectMatter4.Location = new System.Drawing.Point(388, 1246);
+            this.lb_SubjectMatter4.Location = new System.Drawing.Point(388, 1258);
             this.lb_SubjectMatter4.Name = "lb_SubjectMatter4";
             this.lb_SubjectMatter4.Size = new System.Drawing.Size(13, 13);
             this.lb_SubjectMatter4.TabIndex = 75;
@@ -1023,7 +1012,7 @@
             // lb_SubjectMatter5
             // 
             this.lb_SubjectMatter5.AutoSize = true;
-            this.lb_SubjectMatter5.Location = new System.Drawing.Point(388, 1272);
+            this.lb_SubjectMatter5.Location = new System.Drawing.Point(388, 1284);
             this.lb_SubjectMatter5.Name = "lb_SubjectMatter5";
             this.lb_SubjectMatter5.Size = new System.Drawing.Size(13, 13);
             this.lb_SubjectMatter5.TabIndex = 77;
@@ -1123,7 +1112,7 @@
             // rtb_OtherAttributes1
             // 
             this.rtb_OtherAttributes1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_OtherAttributes1.Location = new System.Drawing.Point(416, 851);
+            this.rtb_OtherAttributes1.Location = new System.Drawing.Point(416, 863);
             this.rtb_OtherAttributes1.Multiline = false;
             this.rtb_OtherAttributes1.Name = "rtb_OtherAttributes1";
             this.rtb_OtherAttributes1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -1135,7 +1124,7 @@
             // rtb_OtherAttributes2
             // 
             this.rtb_OtherAttributes2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_OtherAttributes2.Location = new System.Drawing.Point(416, 877);
+            this.rtb_OtherAttributes2.Location = new System.Drawing.Point(416, 889);
             this.rtb_OtherAttributes2.Multiline = false;
             this.rtb_OtherAttributes2.Name = "rtb_OtherAttributes2";
             this.rtb_OtherAttributes2.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -1147,7 +1136,7 @@
             // rtb_OtherAttributes3
             // 
             this.rtb_OtherAttributes3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_OtherAttributes3.Location = new System.Drawing.Point(416, 903);
+            this.rtb_OtherAttributes3.Location = new System.Drawing.Point(416, 915);
             this.rtb_OtherAttributes3.Multiline = false;
             this.rtb_OtherAttributes3.Name = "rtb_OtherAttributes3";
             this.rtb_OtherAttributes3.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -1159,7 +1148,7 @@
             // rtb_OtherAttributes4
             // 
             this.rtb_OtherAttributes4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_OtherAttributes4.Location = new System.Drawing.Point(416, 929);
+            this.rtb_OtherAttributes4.Location = new System.Drawing.Point(416, 941);
             this.rtb_OtherAttributes4.Multiline = false;
             this.rtb_OtherAttributes4.Name = "rtb_OtherAttributes4";
             this.rtb_OtherAttributes4.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -1171,7 +1160,7 @@
             // rtb_OtherAttributes5
             // 
             this.rtb_OtherAttributes5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_OtherAttributes5.Location = new System.Drawing.Point(416, 955);
+            this.rtb_OtherAttributes5.Location = new System.Drawing.Point(416, 967);
             this.rtb_OtherAttributes5.Multiline = false;
             this.rtb_OtherAttributes5.Name = "rtb_OtherAttributes5";
             this.rtb_OtherAttributes5.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -1183,7 +1172,7 @@
             // rtb_IntendedUse1
             // 
             this.rtb_IntendedUse1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_IntendedUse1.Location = new System.Drawing.Point(416, 1007);
+            this.rtb_IntendedUse1.Location = new System.Drawing.Point(416, 1019);
             this.rtb_IntendedUse1.Multiline = false;
             this.rtb_IntendedUse1.Name = "rtb_IntendedUse1";
             this.rtb_IntendedUse1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -1195,7 +1184,7 @@
             // rtb_IntendedUse3
             // 
             this.rtb_IntendedUse3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_IntendedUse3.Location = new System.Drawing.Point(416, 1061);
+            this.rtb_IntendedUse3.Location = new System.Drawing.Point(416, 1073);
             this.rtb_IntendedUse3.Multiline = false;
             this.rtb_IntendedUse3.Name = "rtb_IntendedUse3";
             this.rtb_IntendedUse3.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -1207,7 +1196,7 @@
             // rtb_IntendedUse2
             // 
             this.rtb_IntendedUse2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_IntendedUse2.Location = new System.Drawing.Point(416, 1033);
+            this.rtb_IntendedUse2.Location = new System.Drawing.Point(416, 1045);
             this.rtb_IntendedUse2.Multiline = false;
             this.rtb_IntendedUse2.Name = "rtb_IntendedUse2";
             this.rtb_IntendedUse2.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -1219,7 +1208,7 @@
             // rtb_IntendedUse4
             // 
             this.rtb_IntendedUse4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_IntendedUse4.Location = new System.Drawing.Point(416, 1087);
+            this.rtb_IntendedUse4.Location = new System.Drawing.Point(416, 1099);
             this.rtb_IntendedUse4.Multiline = false;
             this.rtb_IntendedUse4.Name = "rtb_IntendedUse4";
             this.rtb_IntendedUse4.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -1231,7 +1220,7 @@
             // rtb_IntendedUse5
             // 
             this.rtb_IntendedUse5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_IntendedUse5.Location = new System.Drawing.Point(416, 1113);
+            this.rtb_IntendedUse5.Location = new System.Drawing.Point(416, 1125);
             this.rtb_IntendedUse5.Multiline = false;
             this.rtb_IntendedUse5.Name = "rtb_IntendedUse5";
             this.rtb_IntendedUse5.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -1243,7 +1232,7 @@
             // rtb_SubjectMatter1
             // 
             this.rtb_SubjectMatter1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_SubjectMatter1.Location = new System.Drawing.Point(416, 1166);
+            this.rtb_SubjectMatter1.Location = new System.Drawing.Point(416, 1178);
             this.rtb_SubjectMatter1.Multiline = false;
             this.rtb_SubjectMatter1.Name = "rtb_SubjectMatter1";
             this.rtb_SubjectMatter1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -1255,7 +1244,7 @@
             // rtb_SubjectMatter2
             // 
             this.rtb_SubjectMatter2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_SubjectMatter2.Location = new System.Drawing.Point(416, 1192);
+            this.rtb_SubjectMatter2.Location = new System.Drawing.Point(416, 1204);
             this.rtb_SubjectMatter2.Multiline = false;
             this.rtb_SubjectMatter2.Name = "rtb_SubjectMatter2";
             this.rtb_SubjectMatter2.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -1267,7 +1256,7 @@
             // rtb_SubjectMatter3
             // 
             this.rtb_SubjectMatter3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_SubjectMatter3.Location = new System.Drawing.Point(416, 1218);
+            this.rtb_SubjectMatter3.Location = new System.Drawing.Point(416, 1230);
             this.rtb_SubjectMatter3.Multiline = false;
             this.rtb_SubjectMatter3.Name = "rtb_SubjectMatter3";
             this.rtb_SubjectMatter3.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -1279,7 +1268,7 @@
             // rtb_SubjectMatter4
             // 
             this.rtb_SubjectMatter4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_SubjectMatter4.Location = new System.Drawing.Point(416, 1244);
+            this.rtb_SubjectMatter4.Location = new System.Drawing.Point(416, 1256);
             this.rtb_SubjectMatter4.Multiline = false;
             this.rtb_SubjectMatter4.Name = "rtb_SubjectMatter4";
             this.rtb_SubjectMatter4.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -1291,7 +1280,7 @@
             // rtb_SubjectMatter5
             // 
             this.rtb_SubjectMatter5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_SubjectMatter5.Location = new System.Drawing.Point(416, 1270);
+            this.rtb_SubjectMatter5.Location = new System.Drawing.Point(416, 1282);
             this.rtb_SubjectMatter5.Multiline = false;
             this.rtb_SubjectMatter5.Name = "rtb_SubjectMatter5";
             this.rtb_SubjectMatter5.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -1302,11 +1291,12 @@
             // 
             // rtb_UsedKeywords
             // 
-            this.rtb_UsedKeywords.Location = new System.Drawing.Point(578, 751);
+            this.rtb_UsedKeywords.Location = new System.Drawing.Point(233, 852);
             this.rtb_UsedKeywords.Name = "rtb_UsedKeywords";
-            this.rtb_UsedKeywords.Size = new System.Drawing.Size(227, 75);
+            this.rtb_UsedKeywords.Size = new System.Drawing.Size(149, 75);
             this.rtb_UsedKeywords.TabIndex = 101;
             this.rtb_UsedKeywords.Text = "";
+            this.rtb_UsedKeywords.Visible = false;
             // 
             // groupBox1
             // 
@@ -1329,7 +1319,7 @@
             // 
             // btn_CloseGroupBox
             // 
-            this.btn_CloseGroupBox.Location = new System.Drawing.Point(216, 220);
+            this.btn_CloseGroupBox.Location = new System.Drawing.Point(216, 69);
             this.btn_CloseGroupBox.Name = "btn_CloseGroupBox";
             this.btn_CloseGroupBox.Size = new System.Drawing.Size(140, 36);
             this.btn_CloseGroupBox.TabIndex = 7;
@@ -1349,7 +1339,7 @@
             // 
             // btn_DecheckAll
             // 
-            this.btn_DecheckAll.Location = new System.Drawing.Point(216, 56);
+            this.btn_DecheckAll.Location = new System.Drawing.Point(215, 233);
             this.btn_DecheckAll.Name = "btn_DecheckAll";
             this.btn_DecheckAll.Size = new System.Drawing.Size(114, 23);
             this.btn_DecheckAll.TabIndex = 5;
@@ -1359,7 +1349,7 @@
             // 
             // btn_CheckAll
             // 
-            this.btn_CheckAll.Location = new System.Drawing.Point(216, 27);
+            this.btn_CheckAll.Location = new System.Drawing.Point(215, 204);
             this.btn_CheckAll.Name = "btn_CheckAll";
             this.btn_CheckAll.Size = new System.Drawing.Size(114, 23);
             this.btn_CheckAll.TabIndex = 4;
@@ -1369,10 +1359,11 @@
             // 
             // checkedListBox1
             // 
+            this.checkedListBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Location = new System.Drawing.Point(10, 27);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(199, 229);
+            this.checkedListBox1.Size = new System.Drawing.Size(199, 227);
             this.checkedListBox1.TabIndex = 3;
             this.checkedListBox1.Visible = false;
             // 
@@ -1396,7 +1387,7 @@
             // 
             // btn_AcceptGroupBox1
             // 
-            this.btn_AcceptGroupBox1.Location = new System.Drawing.Point(216, 142);
+            this.btn_AcceptGroupBox1.Location = new System.Drawing.Point(216, 27);
             this.btn_AcceptGroupBox1.Name = "btn_AcceptGroupBox1";
             this.btn_AcceptGroupBox1.Size = new System.Drawing.Size(140, 36);
             this.btn_AcceptGroupBox1.TabIndex = 0;
@@ -1404,13 +1395,35 @@
             this.btn_AcceptGroupBox1.UseVisualStyleBackColor = true;
             this.btn_AcceptGroupBox1.Click += new System.EventHandler(this.btn_AcceptGroupBox1_Click);
             // 
+            // btn_Help
+            // 
+            this.btn_Help.Location = new System.Drawing.Point(463, 339);
+            this.btn_Help.Name = "btn_Help";
+            this.btn_Help.Size = new System.Drawing.Size(89, 39);
+            this.btn_Help.TabIndex = 103;
+            this.btn_Help.Text = "Help";
+            this.btn_Help.UseVisualStyleBackColor = true;
+            this.btn_Help.Click += new System.EventHandler(this.btn_Help_Click);
+            // 
+            // rb_None
+            // 
+            this.rb_None.AutoSize = true;
+            this.rb_None.Location = new System.Drawing.Point(368, 30);
+            this.rb_None.Name = "rb_None";
+            this.rb_None.Size = new System.Drawing.Size(14, 13);
+            this.rb_None.TabIndex = 104;
+            this.rb_None.TabStop = true;
+            this.rb_None.UseVisualStyleBackColor = true;
+            // 
             // SemanticsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1611, 845);
+            this.ClientSize = new System.Drawing.Size(1594, 845);
+            this.Controls.Add(this.rb_None);
+            this.Controls.Add(this.btn_Help);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.rtb_UsedKeywords);
             this.Controls.Add(this.rtb_SubjectMatter5);
@@ -1496,7 +1509,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Семантика";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Semantics_FormClosing);
-            this.Load += new System.EventHandler(this.Semantics_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Keywords)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSemantics)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).EndInit();
@@ -1553,9 +1565,6 @@
         private System.Windows.Forms.Button btn_SaveCurrent;
         private System.Windows.Forms.Button btn_Return;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem общееToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tsMenu_fieldsLength;
-        private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
         private System.Windows.Forms.Label lb_OtherAttributes2;
         private System.Windows.Forms.Label lb_OtherAttributes3;
         private System.Windows.Forms.Label lb_OtherAttributes4;
@@ -1642,5 +1651,8 @@
         private System.Windows.Forms.Button btn_CheckAll;
         private System.Windows.Forms.Button btn_AcceptGroupBox2;
         private System.Windows.Forms.Button btn_CloseGroupBox;
+        private System.Windows.Forms.Button btn_Help;
+        private System.Windows.Forms.RadioButton rb_None;
+        private System.Windows.Forms.ToolStripMenuItem fieldsLengthToolStripMenuItem;
     }
 }

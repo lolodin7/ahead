@@ -17,11 +17,11 @@ namespace Excel_Parse
         private int TitleLength, BulletsLength, BackendLength, DescriptionLength, SubjectMatterLength, OtherAttributesLength, IntendedUseLength;
 
         private string ProductName, ASIN, SKU;
-        private int ProductTypeId;          //это для заполнения таблицы ключей
+        private int ProductTypeId;                  //это для заполнения таблицы ключей
         private static int ProductId;
-        private List<SemanticsModel> smList;
+        private List<SemanticsModel> smList;        //список всех семантик для выбранного продукта
 
-        private List<string[]> usedK;           //храним все usedKeywords
+        private List<string[]> usedK;               //храним все usedKeywords
 
         private KeywordCategoryController kcController;
         private List<KeywordCategoryModel> kcList;
@@ -32,23 +32,54 @@ namespace Excel_Parse
         private bool checkedCategoriesWasChanged = true;
 
         private SqlConnection connection;
-        MainFormView mf;
+        MainFormView controlMainFormView;
+        IndexingView controlIndexingView;
 
-        private DateTime CurrentDay;
-        private bool DayCreated;
-
-        private bool firstStart;
+        private DateTime CurrentDay;                //храним сегодняшнюю дату
+        private bool DayCreated;                    //если сохраняем несколько раз изменений, чтобы не дублировать объекты и не создавать новые дни, просто указываем, что день уже создан и сохраняем все изменение в него
+        
 
         private bool CheckForUnsavedChanges;        //чтобы не закрыть прогу без сохранения
 
 
 
 
-
-
-
         private bool reverseDescriptionTransform;
 
+        /* Конструктор, если вызываем из формы индексации */
+        public SemanticsView(IndexingView _mf, int _productId, string _productName, string _asin, string _sku, int _prodTypeId)
+        {
+            InitializeComponent();
+
+            ProductId = _productId;
+            ProductName = _productName;
+            ASIN = _asin;
+            SKU = _sku;
+            ProductTypeId = _prodTypeId;
+
+            lb_ProductName.Text = ProductName;
+            lb_ASIN.Text = ASIN;
+            lb_SKU.Text = SKU;
+
+            this.Text = "Семантика - " + ProductName;
+
+            controlIndexingView = _mf;
+            connection = DBData.GetDBConnection();
+            smList = new List<SemanticsModel> { };
+            usedK = new List<string[]> { };
+            checkedCategories = new List<int> { };
+
+            kcController = new KeywordCategoryController(this);
+            ptController = new ProductTypesController(this);
+
+            DayCreated = false;
+            CurrentDay = DateTime.Now;
+
+
+            getStarted();
+        }
+
+        /* Конструктор, если вызываем из главной формы */
         public SemanticsView(MainFormView _mf, int _productId, string _productName, string _asin, string _sku, int _prodTypeId)
         {
             InitializeComponent();
@@ -65,7 +96,7 @@ namespace Excel_Parse
 
             this.Text = "Семантика - " + ProductName;
 
-            mf = _mf;
+            controlMainFormView = _mf;
             connection = DBData.GetDBConnection();
             smList = new List<SemanticsModel> { };
             usedK = new List<string[]> { };
@@ -76,8 +107,7 @@ namespace Excel_Parse
 
             DayCreated = false;
             CurrentDay = DateTime.Now;
-
-            firstStart = true;
+            
 
             getStarted();
         }
@@ -88,120 +118,13 @@ namespace Excel_Parse
             btn_TransformDescr.Text = "П\nр\nе\nо\nб\nр\nа\nз\nо\nв\nа\nт\nь\n";
             btn_ReplaceTexts.Text = "S\nw\na\np\n";
             reverseDescriptionTransform = true;
-            CheckForUnsavedChanges = false;
-
-
+             
             getDBFieldsLength();
-            getDBFields();
-            firstStart = false;
             getDBKeywords();
+            getDBFields();
 
             CheckForUnsavedChanges = false;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //------------------------------------------------------------------MAIN REGION----------------------------------------------------------------
-
-
-
 
         /* Заполняем значения длин для полей с БД */
         private void getDBFieldsLength()
@@ -316,31 +239,8 @@ namespace Excel_Parse
             {
                 cb_LastUpdated.Items.Add(smList[i].UpdateDate);
             }
+
             cb_LastUpdated.SelectedItem = cb_LastUpdated.Items[cb_LastUpdated.Items.Count - 1];
-
-            try
-            {
-                FillFieldsBySemanticsValues(cb_LastUpdated.SelectedItem.ToString());
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Упс! Возникла проблема с подключением к БД :( Приложение будет закрыто", "Ошибка");
-                Environment.Exit(0);
-            }
-        }
-
-        /* Обработчик изменения версии (даты) листинга */
-        private void cb_LastUpdated_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ComboBox cb = (ComboBox)sender;
-            FillFieldsBySemanticsValues(cb.SelectedItem.ToString());
-        }
-
-        /* Заполняем поля последними внесенными значениями с dgv_Semantics */
-        private void btn_Return_Click(object sender, EventArgs e)
-        {
-            FillFieldsBySemanticsValues(cb_LastUpdated.SelectedItem.ToString());
-            UsedKeywordsAnalyser();
         }
 
         /* Заполнение основных полей данными конкретной версии семантики */
@@ -383,69 +283,15 @@ namespace Excel_Parse
             rtb_UsedKeywords.Text = smList[index].UsedKeywords;
 
             ForcedTextBoxChanging();                    //Принудительно пересчитываем и перезаписываем фактическое значение длины поля
-
+            
             UsedKeywordsAnalyser();
-            //MarkUsedKeywords();
         }
 
-        /* Заганяем данные с полей в объект */
-        private void setSemanticsByFields()
+        /* Обработчик изменения версии (даты) листинга */
+        private void cb_LastUpdated_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int index = -1;
-
-            bool newItem = false;
-
-            if (!DayCreated)
-            {
-                SemanticsModel smModel = new SemanticsModel();
-                smList.Add(smModel);
-
-                index = smList.Count - 1;
-
-                DayCreated = true;
-                newItem = true;
-                CurrentDay = DateTime.Now;
-            }
-            else
-            {
-                index = smList.Count - 1;
-            }
-
-            smList[index].ProductId = ProductId;
-            smList[index].Title = rtb_Title.Text;
-            smList[index].Bullet1 = rtb_Bul1.Text;
-            smList[index].Bullet2 = rtb_Bul2.Text;
-            smList[index].Bullet3 = rtb_Bul3.Text;
-            smList[index].Bullet4 = rtb_Bul4.Text;
-            smList[index].Bullet5 = rtb_Bul5.Text;
-            smList[index].Backend = rtb_Backend.Text;
-            smList[index].Description = rtb_Description.Text;
-            smList[index].OtherAttributes1 = rtb_OtherAttributes1.Text;
-            smList[index].OtherAttributes2 = rtb_OtherAttributes2.Text;
-            smList[index].OtherAttributes3 = rtb_OtherAttributes3.Text;
-            smList[index].OtherAttributes4 = rtb_OtherAttributes4.Text;
-            smList[index].OtherAttributes5 = rtb_OtherAttributes5.Text;
-            smList[index].IntendedUse1 = rtb_IntendedUse1.Text;
-            smList[index].IntendedUse2 = rtb_IntendedUse2.Text;
-            smList[index].IntendedUse3 = rtb_IntendedUse3.Text;
-            smList[index].IntendedUse4 = rtb_IntendedUse4.Text;
-            smList[index].IntendedUse5 = rtb_IntendedUse5.Text;
-            smList[index].SubjectMatter1 = rtb_SubjectMatter1.Text;
-            smList[index].SubjectMatter2 = rtb_SubjectMatter2.Text;
-            smList[index].SubjectMatter3 = rtb_SubjectMatter3.Text;
-            smList[index].SubjectMatter4 = rtb_SubjectMatter4.Text;
-            smList[index].SubjectMatter5 = rtb_SubjectMatter5.Text;
-            smList[index].UpdateDate = CurrentDay;
-            smList[index].Notes = rtb_Notes.Text;
-            smList[index].UsedKeywords = rtb_UsedKeywords.Text;
-
-            if (newItem)
-            {
-                cb_LastUpdated.Items.Add(smList[index].UpdateDate);
-                newItem = false;
-            }
-
-            cb_LastUpdated.SelectedItem = smList[index].UpdateDate;
+            ComboBox cb = (ComboBox)sender;
+            FillFieldsBySemanticsValues(cb.SelectedItem.ToString());
         }
 
         /* Принудительно пересчитываем и перезаписываем фактическое значение длины поля (lb_Title, lb_Backend...) */
@@ -473,6 +319,12 @@ namespace Excel_Parse
             TextBoxChanged(rtb_SubjectMatter3);
             TextBoxChanged(rtb_SubjectMatter4);
             TextBoxChanged(rtb_SubjectMatter5);
+        }
+
+        /* Обработчик ввода текста в textbox'ы */
+        private void tb_TextChanged(object sender, EventArgs e)
+        {
+            TextBoxChanged(sender);
         }
 
         /* Окрашиваем текст поля, если он вне границы FieldLength */
@@ -643,50 +495,48 @@ namespace Excel_Parse
         /* "Синтаксический" анализатор для маркировки used keywords в dgv_Keywords */
         private void UsedKeywordsAnalyser()
         {
-            if (!firstStart)
+            string str = rtb_UsedKeywords.Text;
+            string[,] usedK = new string[dgv_Keywords.Rows.Count + 20, 2];         // 0 - title, 1 - bullets, 2 - description
+            string tmp = "";
+            int j = 0;
+            bool key = true;
+
+            for (int i = 0; i < str.Length; i++)
             {
-                string str = rtb_UsedKeywords.Text;
-                string[,] usedK = new string[dgv_Keywords.Rows.Count + 20, 2];         // 0 - title, 1 - bullets, 2 - description
-                string tmp = "";
-                int j = 0;
-                bool key = true;
-
-                for (int i = 0; i < str.Length; i++)
+                char g = str[i];
+                if (str[i].Equals('|'))
                 {
-                    char g = str[i];
-                    if (str[i].Equals('|'))
-                    {
-                        usedK[j, 0] = tmp;
-                        i++;
-                        usedK[j, 1] = str[i].ToString();
-                        tmp = "";
-                        j++;
-                        i++;
-                    }
-                    else
-                    {
-                        tmp += str[i];
-                    }
+                    usedK[j, 0] = tmp;
+                    i++;
+                    usedK[j, 1] = str[i].ToString();
+                    tmp = "";
+                    j++;
+                    i++;
                 }
-
-                string[,] _arrUsedKeywords = new string[j, 2];
-
-                for (int i = 0; i < j; i++)
+                else
                 {
-                    _arrUsedKeywords[i, 0] = usedK[i, 0];
-                    _arrUsedKeywords[i, 1] = usedK[i, 1];
+                    tmp += str[i];
                 }
-
-                SetUsedKeywordsTo_List(_arrUsedKeywords);
-                MarkUsedKeywords();
             }
+
+            string[,] _arrUsedKeywords = new string[j, 2];
+
+            for (int i = 0; i < j; i++)
+            {
+                _arrUsedKeywords[i, 0] = usedK[i, 0];
+                _arrUsedKeywords[i, 1] = usedK[i, 1];
+            }
+
+            SetUsedKeywordsTo_List(_arrUsedKeywords);
+            MarkUsedKeywords();
         }
+
 
         /* Вносим used keywords в UsedKeywordsList */
         private void SetUsedKeywordsTo_List(string[,] _arrUsedKeywords)
         {
             string[] tmp;
-
+            usedK.Clear();
             for (int j = 0; j < _arrUsedKeywords.Length / 2; j++)
             {
                 tmp = new string[2];
@@ -703,7 +553,7 @@ namespace Excel_Parse
         /* Маркируем ключи в dgv_Keywords */
         private void MarkUsedKeywords()
         {
-            for (int i = 0; i < dgv_Keywords.RowCount - 1; i++)
+            for (int i = 0; i < dgv_Keywords.RowCount; i++)
             {
                 dgv_Keywords.Rows[i].Cells[2].Style.BackColor = Color.White;
             }
@@ -725,6 +575,10 @@ namespace Excel_Parse
                                 dgv_Keywords.Rows[j].Cells[2].Style.BackColor = Color.LightBlue;
                                 break;
                             case "2":
+                                //backend
+                                dgv_Keywords.Rows[j].Cells[2].Style.BackColor = Color.LimeGreen;
+                                break;
+                            case "3":
                                 //description
                                 dgv_Keywords.Rows[j].Cells[2].Style.BackColor = Color.MistyRose;
                                 break;
@@ -733,53 +587,6 @@ namespace Excel_Parse
                 }
             }
         }
-
-        private void setUsedKeywordsTo_rtbUsedKeywords()
-        {
-            rtb_UsedKeywords.Text = "";
-            for (int i = 0; i < usedK.Count; i++)
-            {
-                rtb_UsedKeywords.Text += usedK[i].ElementAt(0) + "|" + usedK[i].ElementAt(1) + "|";
-            }
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         /* Заполняем таблицу с ключами из БД */
         private void getDBKeywords()
@@ -807,7 +614,6 @@ namespace Excel_Parse
                 }
                 reader.Close();
                 connection.Close();
-                UsedKeywordsAnalyser();
             }
             catch (Exception e)
             {
@@ -826,17 +632,88 @@ namespace Excel_Parse
                 dgv_Keywords.Rows[index].Cells[i].Value = record[i];
             }
         }
-        
 
-        
+        /* Заполняем поля последними внесенными значениями с dgv_Semantics */
+        private void btn_Return_Click(object sender, EventArgs e)
+        {
+            FillFieldsBySemanticsValues(cb_LastUpdated.SelectedItem.ToString());
+            UsedKeywordsAnalyser();
+        }
 
-        
 
 
+        /* Заганяем данные с полей в объект */
+        private void setSemanticsByFields()
+        {
+            int index = -1;
 
+            bool newItem = false;
+
+            if (!DayCreated)
+            {
+                SemanticsModel smModel = new SemanticsModel();
+                smList.Add(smModel);
+
+                index = smList.Count - 1;
+
+                DayCreated = true;
+                newItem = true;
+                CurrentDay = DateTime.Now;
+            }
+            else
+            {
+                index = smList.Count - 1;
+            }
+
+            smList[index].ProductId = ProductId;
+            smList[index].Title = rtb_Title.Text;
+            smList[index].Bullet1 = rtb_Bul1.Text;
+            smList[index].Bullet2 = rtb_Bul2.Text;
+            smList[index].Bullet3 = rtb_Bul3.Text;
+            smList[index].Bullet4 = rtb_Bul4.Text;
+            smList[index].Bullet5 = rtb_Bul5.Text;
+            smList[index].Backend = rtb_Backend.Text;
+            smList[index].Description = rtb_Description.Text;
+            smList[index].OtherAttributes1 = rtb_OtherAttributes1.Text;
+            smList[index].OtherAttributes2 = rtb_OtherAttributes2.Text;
+            smList[index].OtherAttributes3 = rtb_OtherAttributes3.Text;
+            smList[index].OtherAttributes4 = rtb_OtherAttributes4.Text;
+            smList[index].OtherAttributes5 = rtb_OtherAttributes5.Text;
+            smList[index].IntendedUse1 = rtb_IntendedUse1.Text;
+            smList[index].IntendedUse2 = rtb_IntendedUse2.Text;
+            smList[index].IntendedUse3 = rtb_IntendedUse3.Text;
+            smList[index].IntendedUse4 = rtb_IntendedUse4.Text;
+            smList[index].IntendedUse5 = rtb_IntendedUse5.Text;
+            smList[index].SubjectMatter1 = rtb_SubjectMatter1.Text;
+            smList[index].SubjectMatter2 = rtb_SubjectMatter2.Text;
+            smList[index].SubjectMatter3 = rtb_SubjectMatter3.Text;
+            smList[index].SubjectMatter4 = rtb_SubjectMatter4.Text;
+            smList[index].SubjectMatter5 = rtb_SubjectMatter5.Text;
+            smList[index].UpdateDate = CurrentDay;
+            smList[index].Notes = rtb_Notes.Text;
+            smList[index].UsedKeywords = rtb_UsedKeywords.Text;
+
+            if (newItem)
+            {
+                cb_LastUpdated.Items.Add(smList[index].UpdateDate);
+                newItem = false;
+            }
+
+            cb_LastUpdated.SelectedItem = smList[index].UpdateDate;
+        }
+
+        /* Заносим used keywords из dgv_UsedKeywords в rtb_UsedKeywords по шаблону*/
+        private void setUsedKeywordsTo_rtbUsedKeywords()
+        {
+            rtb_UsedKeywords.Text = "";
+            for (int i = 0; i < usedK.Count; i++)
+            {
+                rtb_UsedKeywords.Text += usedK[i].ElementAt(0) + "|" + usedK[i].ElementAt(1) + "|";
+            }
+        }
 
         /* Изменяем размеры длинн полей */
-        private void tsMenu_fieldsLength_Click(object sender, EventArgs e)
+        private void fieldsLengthToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             using (FieldsLength FieldsLength = new FieldsLength(TitleLength, BulletsLength, BackendLength, DescriptionLength, IntendedUseLength, SubjectMatterLength, OtherAttributesLength))
             {
@@ -863,12 +740,12 @@ namespace Excel_Parse
             }
         }
 
-        
 
 
-        //----------------------------------------------------------------------------------------------ВЫБОР ВИДА ТОВАРА И КАТЕГОРИЙ КЛЮЧЕЙ----------------------------------------
-       
 
+        //----------------------------------------------------------------ВЫБОР ВИДА ТОВАРА И КАТЕГОРИЙ КЛЮЧЕЙ----------------------------------------------------------------
+
+        #region выбор вида товара и категорий ключей
         /* Выбираем вид товара, чтобы отобразить ключи для него */
         private void chooseKeysProductTypeToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -893,6 +770,8 @@ namespace Excel_Parse
 
                 cb_ProductTypes.SelectedItem = cb_ProductTypes.Items[0];
             }
+
+            cb_ProductTypes.Focus();
         }
 
         /* Выбираем категории ключей для отображения ключей */
@@ -907,7 +786,6 @@ namespace Excel_Parse
             cb_ProductTypes.Visible = false;
             btn_AcceptGroupBox1.Visible = true;
             btn_AcceptGroupBox2.Visible = false;
-            checkedListBox1.Focus();
 
             //отображаем список категорий
             if (checkedCategoriesWasChanged)
@@ -925,12 +803,13 @@ namespace Excel_Parse
             }
             else
             {
-                
+
             }
 
+            checkedListBox1.Focus();
         }
 
-        /* Отображаем ключи по виду товара*/
+        /* Отображаем ключи по виду товара */
         private void btn_AcceptGroupBox2_Click(object sender, EventArgs e)
         {
             groupBox1.Visible = false;
@@ -988,7 +867,8 @@ namespace Excel_Parse
             if (checkedListBox1.CheckedItems.Count == checkedListBox1.Items.Count)  //если отмечены все элементы, то просто делаем select all
             {
                 getDBKeywords();
-            } 
+                UsedKeywordsAnalyser();
+            }
             else if (checkedListBox1.CheckedItems.Count > 0)        //если отмечена хотябы одна категория
             {
                 for (int i = 0; i < checkedListBox1.Items.Count; i++)
@@ -1038,7 +918,8 @@ namespace Excel_Parse
                     MessageBox.Show("Упс! Возникла проблема с подключением к БД :( Приложение будет закрыто", "Ошибка");
                     Environment.Exit(0);
                 }
-            } else
+            }
+            else
             {
                 dgv_Keywords.Rows.Clear();
             }
@@ -1089,275 +970,144 @@ namespace Excel_Parse
                 checkedListBox1.SetItemChecked(i, false);
             }
         }
-        //----------------------------------------------------------------------------------------------конец ВЫБОР ВИДА ТОВАРА И КАТЕГОРИЙ КЛЮЧЕЙ----------------------------------------
+        #endregion
+
+        //----------------------------------------------------------------конец ВЫБОР ВИДА ТОВАРА И КАТЕГОРИЙ КЛЮЧЕЙ----------------------------------------------------------
 
 
 
-        //---------------------------------------МЕТОДЫ ДЛЯ РАБОТЫ С UsedKeywords ---------------------------------
-        
-        /* Заносим used keywords из dgv_UsedKeywords в rtb_UsedKeywords по шаблону*/
 
+        //---------------------------------------------------------------ПОЛЬЗОВАТЕЛЬ ВЫДЕЛЯЕТ/СНИМАЕТ ВЫДЕЛЕНИЕ КЛЮЧЕЙ В dgv_Keywords----------------------------------------
+
+        #region выделяем/снимание выделение ключей пользователем 
+
+        /* Скрываем ключ из таблицы dgv_Keywords, попутно удаляя его из usedK */
+        private void dgv_Keywords_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (e.RowIndex >= 0)
+                {
+                    if (dgv_Keywords.Rows[e.RowIndex].Cells[2].Style.BackColor != Color.White)
+                    {
+                        GetMarkedKeywords(sender, e);
+                        dgv_Keywords.Rows.RemoveAt(e.RowIndex);
+                    }
+                    else
+                        dgv_Keywords.Rows.RemoveAt(e.RowIndex);
+                }
+            }
+        }
+
+
+        /* Копируем ключ из таблицы и сразу помечаем цветом, где мы его используем */
+        private void dgv_Keywords_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                try
+                {
+                    var str = dgv_Keywords.Rows[e.RowIndex].Cells[2].Value.ToString();
+
+                    Clipboard.SetText(str);
+
+                    if (rb_None.Checked)
+                    {
+                        dgv_Keywords.Rows[e.RowIndex].Cells[2].Style.BackColor = Color.White;  //нигде не используем, т.е. снимаем выделение
+                        GetMarkedKeywords(-1, sender, e);
+                    }
+                    else if (rb_Title.Checked)
+                    {
+                        dgv_Keywords.Rows[e.RowIndex].Cells[2].Style.BackColor = Color.Coral;  //title
+                        GetMarkedKeywords(0, sender, e);
+                    }
+                    else if (rb_Bullets.Checked)
+                    {
+                        dgv_Keywords.Rows[e.RowIndex].Cells[2].Style.BackColor = Color.LightBlue;  //bullets
+                        GetMarkedKeywords(1, sender, e);
+                    }
+                    else if (rb_Backend.Checked)
+                    {
+                        dgv_Keywords.Rows[e.RowIndex].Cells[2].Style.BackColor = Color.LimeGreen;  //backend
+                        GetMarkedKeywords(2, sender, e);
+                    }
+                    else if (rb_Description.Checked)
+                    {
+                        dgv_Keywords.Rows[e.RowIndex].Cells[2].Style.BackColor = Color.MistyRose;  //description
+                        GetMarkedKeywords(3, sender, e);
+                    }
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show("Упс! Произошел какой-то сбой, попробуйте ещё раз", "Ошибка");
+                }
+            }
+        }
 
         /* Изменяем used keywords в dgv_Keywords после изменения пользователем */
         private void GetMarkedKeywords(int val, object sender, DataGridViewCellEventArgs e)         // 0 - title, 1 - bullets, 2 - description
         {
             DataGridView dgv = (DataGridView)sender;
 
-            string tmp = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+            string tmp = dgv.Rows[e.RowIndex].Cells[2].Value.ToString();
+            if (val != -1)
+            {
+                bool flag = false;
+                for (int i = 0; i < usedK.Count; i++)
+                {
+                    if (usedK[i].ElementAt(0).Equals(tmp))
+                    {
+                        usedK[i].SetValue(val.ToString(), 1);
+                        flag = true;
+                    }
+                }
+                if (!flag)
+                {
+                    string[] usedKModel = new string[2];
+                    usedK.Add(usedKModel);
+                    usedK[usedK.Count - 1].SetValue(tmp, 0);
+                    usedK[usedK.Count - 1].SetValue(val.ToString(), 1);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < usedK.Count; i++)
+                {
+                    if (usedK[i].ElementAt(0).Equals(tmp))
+                    {
+                        usedK.RemoveAt(i);
+                    }
+                }
+            }
+        }
 
-            bool flag = false;
+        /* Изменяем used keywords в dgv_Keywords после изменения пользователем */
+        private void GetMarkedKeywords(object sender, DataGridViewCellMouseEventArgs e)         // 0 - title, 1 - bullets, 2 - description
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            string tmp = dgv.Rows[e.RowIndex].Cells[2].Value.ToString();
+
             for (int i = 0; i < usedK.Count; i++)
             {
                 if (usedK[i].ElementAt(0).Equals(tmp))
                 {
-                    usedK[i].SetValue(val, 1);
-                    flag = true;
+                    usedK.RemoveAt(i);
                 }
             }
-            if (!flag)
-            {
-                //tmp = new string[2];
-                //usedK.Add(tmp);
-                usedK[usedK.Count - 1].SetValue(tmp, 0);
-                usedK[usedK.Count - 1].SetValue(val, 1);
-
-
-            }
-        }
-        //--------------------------------КОНЕЦ ----------- МЕТОДЫ ДЛЯ РАБОТЫ С UsedKeywords -------- КОНЕЦ---------------------------------
-
-            
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        private void Rtb_Title_TextChanged(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        /* Перекрашывает ключи в dgv_Keywords после изменения версии (даты) семантики */
-        private void ChangeColorOf_dgvKeywords_afterChangingDate()
-        {
 
         }
 
-        /* Функция преобразования дескрипшн из текста в код */
-        private string DescToCode(string description)
-        {
-            string firstPart, secondPart;
-            char tmp;
-            for (int i = 0; i < description.Length; i++)
-            {
-                tmp = description[i];
-                switch (tmp)
-                {
-                    case '\n':
-                        firstPart = description.Substring(0, i);
-                        secondPart = description.Substring(i);
-                        description = firstPart + "<br>" + secondPart;
-                        i += 4;
-                        break;
-                }
-            }
-            return description;
-        }
+        #endregion
 
-        /* Функция преобразования дескрипшн из кода в текст */
-        private string DescToText(string description)
-        {
-            string firstPart, secondPart;
-            string tmp;
-            for (int i = 0; i < description.Length; i++)
-            {
-                if (description[i].Equals('<'))
-                {
-
-                }
-                else { }
-            }
-            return description;
-        }
+        //---------------------------------------------------------------конец ПОЛЬЗОВАТЕЛЬ ВЫДЕЛЯЕТ/СНИМАЕТ ВЫДЕЛЕНИЕ КЛЮЧЕЙ В dgv_Keywords----------------------------------
 
 
 
 
+        //---------------------------------------------------------------РАЗНЫЕ МЕТОДЫ ОБРАБОТКИ НАЖАТИЯ КНОПОК---------------------------------------------------------------
 
-
-
-        /* Заганяем данные с dgvSemantics в БД */
-        private void setDBFields()
-        {
-            int index = dgvSemantics.RowCount - 2;
-
-            DateTime dt = new DateTime();
-            dt = (DateTime)dgvSemantics.Rows[index].Cells[25].Value;
-
-            string sqlStatements = "INSERT INTO [Semantics] ([ProductId], [Title], [Bullet1], [Bullet2], [Bullet3], [Bullet4], [Bullet5], [Backend], [Description], [OtherAttributes1], [OtherAttributes2], [OtherAttributes3], [OtherAttributes4], [OtherAttributes5], [IntendedUse1], [IntendedUse2], [IntendedUse3], [IntendedUse4], [IntendedUse5], [SubjectMatter1], [SubjectMatter2], [SubjectMatter3], [SubjectMatter4], [SubjectMatter5], [UpdateDate], [Notes], [UsedKeywords]) VALUES (" + ProductId + ", '" + dgvSemantics.Rows[index].Cells[2].Value.ToString() + "', '" + dgvSemantics.Rows[index].Cells[3].Value.ToString() + "', '" + dgvSemantics.Rows[index].Cells[4].Value.ToString() + "', '" + dgvSemantics.Rows[index].Cells[5].Value.ToString() + "', '" + dgvSemantics.Rows[index].Cells[6].Value.ToString() + "', '" + dgvSemantics.Rows[index].Cells[7].Value.ToString() + "', '" + dgvSemantics.Rows[index].Cells[8].Value.ToString() + "', '" + dgvSemantics.Rows[index].Cells[9].Value.ToString() + "', '" + dgvSemantics.Rows[index].Cells[10].Value.ToString() + "', '" + dgvSemantics.Rows[index].Cells[11].Value.ToString() + "', '" + dgvSemantics.Rows[index].Cells[12].Value.ToString() + "', '" + dgvSemantics.Rows[index].Cells[13].Value.ToString() + "', '" + dgvSemantics.Rows[index].Cells[14].Value.ToString() + "', '" + dgvSemantics.Rows[index].Cells[15].Value.ToString() + "', '" + dgvSemantics.Rows[index].Cells[16].Value.ToString() + "', '" + dgvSemantics.Rows[index].Cells[17].Value.ToString() + "', '" + dgvSemantics.Rows[index].Cells[18].Value.ToString() + "', '" + dgvSemantics.Rows[index].Cells[19].Value.ToString() + "', '" + dgvSemantics.Rows[index].Cells[20].Value.ToString() + "', '" + dgvSemantics.Rows[index].Cells[21].Value.ToString() + "', '" + dgvSemantics.Rows[index].Cells[22].Value.ToString() + "', '" + dgvSemantics.Rows[index].Cells[23].Value.ToString() + "', '" + dgvSemantics.Rows[index].Cells[24].Value.ToString() + "', '" + dgvSemantics.Rows[index].Cells[25].Value.ToString() + "', '" + dgvSemantics.Rows[index].Cells[26].Value.ToString() + "', '" + dgvSemantics.Rows[index].Cells[27].Value.ToString() + "')";
-
-            try
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand(sqlStatements, connection);
-                command.ExecuteScalar();
-                connection.Close();
-
-                CheckForUnsavedChanges = false;
-                setDBFieldsLength();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Упс! Произошел какой-то сбой, попробуйте еще раз!", "Ошибка");
-                Environment.Exit(0);
-            }
-        }
-
-        /* Сохраняем новые значения длинн полей в БД */
-        private void setDBFieldsLength()
-        {
-            //Try-catch отслеживаем в методе setDBFields()
-
-            string sqlStatement = "UPDATE [FieldsLength] SET [TitleLength] = " + TitleLength + ", [BulletsLength] = " + BulletsLength + ", [BackendLength] = " + BackendLength + ", [SubjectMatterLength] = " + SubjectMatterLength + ", [OtherAttributesLength] = " + OtherAttributesLength + ", [IntendedUseLength] = " + IntendedUseLength + ", [DescriptionLength] = " + DescriptionLength + " WHERE [ProductId] = " + ProductId + "";
-
-            connection.Open();
-            SqlCommand command = new SqlCommand(sqlStatement, connection);
-            command.ExecuteScalar();
-            connection.Close();
-        }
-        //-----------------------------------------------------------------ENDREGION--------------------------------------------------------------
-
-
-
-        //------------------------------------------------------------------REGION----------------------------------------------------------------
-               
-
-        /* Обработчик ввода текста в textbox'ы */
-        private void tb_TextChanged(object sender, EventArgs e)
-        {
-            TextBoxChanged(sender);
-        }
-
-        /* Копируем ключ из таблицы и сразу помечаем цветом, где мы его используем */
-        private void dgv_Keywords_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            try
-            {
-                var str = dgv_Keywords.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-
-                Clipboard.SetText(str);
-
-                if (rb_Title.Checked)
-                {
-                    dgv_Keywords.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.Coral;  //title
-                    GetMarkedKeywords(0, sender, e);
-                }
-                else if (rb_Bullets.Checked)
-                {
-                    dgv_Keywords.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.LightBlue;  //bullets
-                    GetMarkedKeywords(1, sender, e);
-                }
-                else if (rb_Backend.Checked)
-                {
-                    //dgv_Keywords.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.LimeGreen;  //backend
-
-                }
-                else if (rb_Description.Checked)
-                {
-                    dgv_Keywords.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.MistyRose;  //description
-                    GetMarkedKeywords(2, sender, e);
-                }
-            }
-            catch (Exception exc)
-            {
-                MessageBox.Show("Упс! Произошел какой-то сбой, попробуйте ещё раз", "Ошибка");
-            }
-        }
-
-        /* Вставляем скопированый ключ в text_box средней кнопкой мыши */
-        private void rtb_Title_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                rtb_Title.Text = rtb_Title.Text + " " + Clipboard.GetText();
-                rtb_Title.Select(rtb_Title.TextLength, 0);
-            }
-        }
-
-        /* Закрываем окно */
-        private void Semantics_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (CheckForUnsavedChanges)
-            {
-                if (MessageBox.Show("Имеются несохраненные изменения. Сохранить?", "Сохранение", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    try
-                    {
-                        setSemanticsByFields();
-                        setDBFields();
-                        mf.Show();
-                    }
-                    catch (Exception exc)
-                    {
-                        MessageBox.Show("Упс! Произошел какой-то сбой, приложение будет закрыто без сохранения", "Ошибка");
-                        Environment.Exit(0);
-                        mf.Show();
-                    }
-                }
-            }
-            CheckForUnsavedChanges = false;
-            connection.Close();     //закрываем соединение с БД
-            mf.Show();
-        }
+        #region разные методы обработки нажатия кнопок
 
         /*  Копируем ASIN в буфер по клику ЛКМ */
         private void lb_ASIN_Click(object sender, EventArgs e)
@@ -1373,38 +1123,50 @@ namespace Excel_Parse
             Clipboard.SetText(label.Text);
         }
 
-
-        
-        //-----------------------------------------------------------------ENDREGION--------------------------------------------------------------
-
-
-
-        //------------------------------------------------------------------REGION----------------------------------------------------------------
-        
-        /* Преобразовываем дескрипшн */
-        private void btn_TransformDescr_Click(object sender, EventArgs e)
+        /* Показываем/скрываем дополнительные поля внизу формы */
+        private void btn_ShowMore_Click(object sender, EventArgs e)
         {
-            if (reverseDescriptionTransform == true)
-                rtb_Description2.Text = DescToCode(rtb_Description.Text);
-            else
-                rtb_Description2.Text = DescToText(rtb_Description.Text);
-        }
-
-        /* Назначаем, во что трансформируем дескрипшн: в текст или в код */
-        private void btn_ReverseDescTransform_Click(object sender, EventArgs e)
-        {
-            if (reverseDescriptionTransform == true)
+            if (btn_ShowMore.Text.Equals("Показать больше..."))
             {
-                reverseDescriptionTransform = false;
-                btn_ReverseDescTransform.Text = "В текст";
+                btn_ShowMore.Text = "Показать меньше...";
+                ShowMore(true);
+                rtb_Notes.Focus();
+                dgv_Keywords.Height = 1488;
             }
             else
             {
-                reverseDescriptionTransform = true;
-                btn_ReverseDescTransform.Text = "В код";
+                btn_ShowMore.Text = "Показать больше...";
+                ShowMore(false);
+                dgv_Keywords.Height = 775;
             }
         }
 
+        /* Вспомогательный метод для btn_ShowMore_Click() */
+        private void ShowMore(bool value)
+        {
+            RichTextBox[] tb_Array = new RichTextBox[15] { rtb_IntendedUse1, rtb_IntendedUse2, rtb_IntendedUse3, rtb_IntendedUse4, rtb_IntendedUse5, rtb_OtherAttributes1, rtb_OtherAttributes2, rtb_OtherAttributes3, rtb_OtherAttributes4, rtb_OtherAttributes5, rtb_SubjectMatter1, rtb_SubjectMatter2, rtb_SubjectMatter3, rtb_SubjectMatter4, rtb_SubjectMatter5 };
+
+            Label[] lb_Array = new Label[15] { lb_IntendedUse1, lb_IntendedUse2, lb_IntendedUse3, lb_IntendedUse4, lb_IntendedUse5, lb_OtherAttributes1, lb_OtherAttributes2, lb_OtherAttributes3, lb_OtherAttributes4, lb_OtherAttributes5, lb_SubjectMatter1, lb_SubjectMatter2, lb_SubjectMatter3, lb_SubjectMatter4, lb_SubjectMatter5 };
+
+            for (int i = 0; i < 15; i++)
+            {
+                lb_Array[i].Visible = value;
+                tb_Array[i].Visible = value;
+            }
+
+            lb_IntendedUseText.Visible = value;
+            lb_OtherAttributesText.Visible = value;
+            lb_SubjectMatterText.Visible = value;
+
+            lb_Notes.Visible = value;
+            rtb_Notes.Visible = value;
+        }
+
+        /* Кнопка "Помощь" с информацией об основных функциях системы */
+        private void btn_Help_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Двойной ЛКМ по ключу в таблице - пометить цветом + скопировать ключ в буфер / снять его выделение\n\nПКМ по ключу в таблице - скрыть его\n\n", "Помощь");
+        }
 
         /* Выделение жирным или курсивом ключей в любом richTextBox */
         private void rtb_FontChanging(RichTextBox sender, string font)
@@ -1445,8 +1207,6 @@ namespace Excel_Parse
             }
         }
 
-
-
         /* Событие при нажатии Ctrl+B или Ctrl+U */
         private void rtb_KeyDown(object sender, KeyEventArgs e)
         {
@@ -1462,9 +1222,227 @@ namespace Excel_Parse
             }
         }
 
-        private void Semantics_Load(object sender, EventArgs e)
-        {
+        #endregion
 
+        //---------------------------------------------------------------конец РАЗНЫЕ МЕТОДЫ ОБРАБОТКИ НАЖАТИЯ КНОПОК---------------------------------------------------------
+
+
+
+
+        //---------------------------------------------------------------МЕТОДЫ ПО ЗАНЕСЕНИЕ ДАННЫХ В БД----------------------------------------------------------------------
+
+        #region методы по занесению данных в БД
+
+        /* Сохранияем изменения с полей в объект */
+        private void btn_SaveCurrent_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                setUsedKeywordsTo_rtbUsedKeywords();
+                setSemanticsByFields();
+                CheckForUnsavedChanges = true;
+            }
+            catch (Exception exc) { MessageBox.Show("Упс! Что-то не так, проверьте корректность введенных данных", "Ошибка"); }
+        }
+
+
+        /* Cохранение новой версии семантики в БД */
+        private void btn_UpdateSemantics_Click(object sender, EventArgs e)
+        {
+            if (CheckForUnsavedChanges)
+            {
+                if (MessageBox.Show("Имеются несохраненные изменения. Применить их перед сохранение в БД?", "Сохранение", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    setUsedKeywordsTo_rtbUsedKeywords();
+                    setSemanticsByFields();
+                    CheckForUnsavedChanges = true;
+                    setDBFields();
+                }
+            }
+            else
+            {
+                try
+                {
+                    setDBFields();
+                    MessageBox.Show("Данные были сохранены успешно!", "Успешно");
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show("Упс! Что-то пошло не так. Проблема с введенными данными или подключением к БД", "Ошибка");
+                }
+            }
+        }
+
+        /* Заганяем данные с dgvSemantics в БД */
+        private void setDBFields()
+        {
+            int index = smList.Count - 1;
+
+            smList[index].UpdateDate = DateTime.Now;
+
+            string sqlStatements = "INSERT INTO [Semantics] ([ProductId], [Title], [Bullet1], [Bullet2], [Bullet3], [Bullet4], [Bullet5], [Backend], [Description], [OtherAttributes1], [OtherAttributes2], [OtherAttributes3], [OtherAttributes4], [OtherAttributes5], [IntendedUse1], [IntendedUse2], [IntendedUse3], [IntendedUse4], [IntendedUse5], [SubjectMatter1], [SubjectMatter2], [SubjectMatter3], [SubjectMatter4], [SubjectMatter5], [UpdateDate], [Notes], [UsedKeywords]) VALUES (" + ProductId + ", '" + smList[index].Title + "', '" + smList[index].Bullet1 + "', '" + smList[index].Bullet2 + "', '" + smList[index].Bullet3 + "', '" + smList[index].Bullet4 + "', '" + smList[index].Bullet5 + "', '" + smList[index].Backend + "', '" + smList[index].Description + "', '" + smList[index].OtherAttributes1 + "', '" + smList[index].OtherAttributes2 + "', '" + smList[index].OtherAttributes3 + "', '" + smList[index].OtherAttributes4 + "', '" + smList[index].OtherAttributes5 + "', '" + smList[index].IntendedUse1 + "', '" + smList[index].IntendedUse2 + "', '" + smList[index].IntendedUse3 + "', '" + smList[index].IntendedUse4 + "', '" + smList[index].IntendedUse5 + "', '" + smList[index].SubjectMatter1 + "', '" + smList[index].SubjectMatter2 + "', '" + smList[index].SubjectMatter3 + "', '" + smList[index].SubjectMatter4 + "', '" + smList[index].SubjectMatter5 + "', '" + smList[index].UpdateDate.ToString("yyyy-MM-dd HH':'mm':'ss") + "', '" + smList[index].Notes + "', '" + smList[index].UsedKeywords + "')";
+
+            try
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(sqlStatements, connection);
+                command.ExecuteScalar();
+                connection.Close();
+
+                CheckForUnsavedChanges = false;
+                setDBFieldsLength();
+                MessageBox.Show("Данные были сохранены успешно!", "Успешно");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Упс! Произошел какой-то сбой, попробуйте еще раз!", "Ошибка");
+                Environment.Exit(0);
+            }
+        }
+
+        /* Сохраняем новые значения длинн полей в БД */
+        private void setDBFieldsLength()
+        {
+            //Try-catch отслеживаем в методе setDBFields()
+
+            string sqlStatement = "UPDATE [FieldsLength] SET [TitleLength] = " + TitleLength + ", [BulletsLength] = " + BulletsLength + ", [BackendLength] = " + BackendLength + ", [SubjectMatterLength] = " + SubjectMatterLength + ", [OtherAttributesLength] = " + OtherAttributesLength + ", [IntendedUseLength] = " + IntendedUseLength + ", [DescriptionLength] = " + DescriptionLength + " WHERE [ProductId] = " + ProductId + "";
+
+            connection.Open();
+            SqlCommand command = new SqlCommand(sqlStatement, connection);
+            command.ExecuteScalar();
+            connection.Close();
+        }
+
+
+
+
+        /* Закрываем окно */
+        private void Semantics_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (controlMainFormView != null)
+            {
+                if (CheckForUnsavedChanges)
+                {
+                    if (MessageBox.Show("Имеются несохраненные изменения. Сохранить?", "Сохранение", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        try
+                        {
+                            setDBFields();
+                            controlMainFormView.Show();
+                        }
+                        catch (Exception exc)
+                        {
+                            MessageBox.Show("Упс! Произошел какой-то сбой, приложение будет закрыто без сохранения", "Ошибка");
+                            Environment.Exit(0);
+                            controlMainFormView.Show();
+                        }
+                    }
+                }
+                CheckForUnsavedChanges = false;
+                connection.Close();     //закрываем соединение с БД
+                controlMainFormView.Show();
+            }
+            else
+            {
+                if (CheckForUnsavedChanges)
+                {
+                    if (MessageBox.Show("Имеются несохраненные изменения. Сохранить?", "Сохранение", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        try
+                        {
+                            setDBFields();
+                            controlIndexingView.Show();
+                        }
+                        catch (Exception exc)
+                        {
+                            MessageBox.Show("Упс! Произошел какой-то сбой, приложение будет закрыто без сохранения", "Ошибка");
+                            Environment.Exit(0);
+                            controlIndexingView.Show();
+                        }
+                    }
+                }
+                CheckForUnsavedChanges = false;
+                connection.Close();     //закрываем соединение с БД
+                controlIndexingView.Show();
+            }
+        }
+
+        #endregion
+
+        //---------------------------------------------------------------конец МЕТОДЫ ПО ЗАНЕСЕНИЕ ДАННЫХ В БД----------------------------------------------------------------
+
+
+
+
+        //---------------------------------------------------------------МЕТОДЫ ДЛЯ РАБОТЫ С РАЗДЕЛОМ DESCRIPTION-------------------------------------------------------------
+
+        #region работа с разделом description
+
+        /* Функция преобразования дескрипшн из текста в код */
+        private string DescToCode(string description)
+        {
+            string firstPart, secondPart;
+            char tmp;
+            for (int i = 0; i < description.Length; i++)
+            {
+                tmp = description[i];
+                switch (tmp)
+                {
+                    case '\n':
+                        firstPart = description.Substring(0, i);
+                        secondPart = description.Substring(i);
+                        description = firstPart + "<br>" + secondPart;
+                        i += 4;
+                        break;
+                }
+            }
+            return description;
+        }
+
+        /* Функция преобразования дескрипшн из кода в текст */
+        private string DescToText(string description)
+        {
+            string firstPart, secondPart;
+            string tmp;
+            for (int i = 0; i < description.Length; i++)
+            {
+                if (description[i].Equals('<'))
+                {
+
+                }
+                else { }
+            }
+            return description;
+        }
+
+        /* Изменили текст в Description -> появились изменения и нужно сохранение */
+        private void rtb_Description_TextChanged(object sender, EventArgs e)
+        {
+            CheckForUnsavedChanges = true;
+        }
+
+        /* Преобразовываем дескрипшн */
+        private void btn_TransformDescr_Click(object sender, EventArgs e)
+        {
+            if (reverseDescriptionTransform == true)
+                rtb_Description2.Text = DescToCode(rtb_Description.Text);
+            else
+                rtb_Description2.Text = DescToText(rtb_Description.Text);
+        }
+
+        /* Назначаем, во что трансформируем дескрипшн: в текст или в код */
+        private void btn_ReverseDescTransform_Click(object sender, EventArgs e)
+        {
+            if (reverseDescriptionTransform == true)
+            {
+                reverseDescriptionTransform = false;
+                btn_ReverseDescTransform.Text = "В текст";
+            }
+            else
+            {
+                reverseDescriptionTransform = true;
+                btn_ReverseDescTransform.Text = "В код";
+            }
         }
 
         /* Меняем текст в richTextBox'ах местами */
@@ -1476,123 +1454,9 @@ namespace Excel_Parse
             rtb_Description2.Text = tmp;
         }
 
-        /* Показываем/скрываем дополнительные поля внизу формы */
-        private void btn_ShowMore_Click(object sender, EventArgs e)
-        {
-            if (btn_ShowMore.Text.Equals("Показать больше..."))
-            {
-                btn_ShowMore.Text = "Показать меньше...";
-                ShowMore(true);
-                rtb_Notes.Focus();
-                dgv_Keywords.Height = 1500;
-            }
-            else
-            {
-                btn_ShowMore.Text = "Показать больше...";
-                ShowMore(false);
-                dgv_Keywords.Height = 775;
-            }
-        }
+        #endregion
 
-        /* Вспомогательный метод для btn_ShowMore_Click() */
-        private void ShowMore(bool value)
-        {
-            RichTextBox[] tb_Array = new RichTextBox[15] { rtb_IntendedUse1, rtb_IntendedUse2, rtb_IntendedUse3, rtb_IntendedUse4, rtb_IntendedUse5, rtb_OtherAttributes1, rtb_OtherAttributes2, rtb_OtherAttributes3, rtb_OtherAttributes4, rtb_OtherAttributes5, rtb_SubjectMatter1, rtb_SubjectMatter2, rtb_SubjectMatter3, rtb_SubjectMatter4, rtb_SubjectMatter5 };
-
-            Label[] lb_Array = new Label[15] { lb_IntendedUse1, lb_IntendedUse2, lb_IntendedUse3, lb_IntendedUse4, lb_IntendedUse5, lb_OtherAttributes1, lb_OtherAttributes2, lb_OtherAttributes3, lb_OtherAttributes4, lb_OtherAttributes5, lb_SubjectMatter1, lb_SubjectMatter2, lb_SubjectMatter3, lb_SubjectMatter4, lb_SubjectMatter5 };
-
-            for (int i = 0; i < 15; i++)
-            {
-                lb_Array[i].Visible = value;
-                tb_Array[i].Visible = value;
-            }
-
-            lb_IntendedUseText.Visible = value;
-            lb_OtherAttributesText.Visible = value;
-            lb_SubjectMatterText.Visible = value;
-
-            lb_Notes.Visible = value;
-            rtb_Notes.Visible = value;
-        }
-
-        /* Cохранение новой версии семантики в БД */
-        private void btn_UpdateSemantics_Click(object sender, EventArgs e)
-        {
-            try { setDBFields(); }
-            catch (Exception exc) { MessageBox.Show("Упс! Что-то пошло не так. Проблема с введенными данными или подключением к БД", "Ошибка"); }
-        }
-
-        /* Сохранияем изменения с полей в таблицу dgv_Semantics */
-        private void btn_SaveCurrent_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                setUsedKeywordsTo_rtbUsedKeywords();
-                setSemanticsByFields();
-            }
-            catch (Exception exc) { MessageBox.Show("Упс! Что-то не так, проверьте корректность введенных данных", "Ошибка"); }
-        }
+        //---------------------------------------------------------------конец МЕТОДЫ ДЛЯ РАБОТЫ С РАЗДЕЛОМ DESCRIPTION-------------------------------------------------------
         
-        //-----------------------------------------------------------------ENDREGION--------------------------------------------------------------
-
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//string sqlTitle = "SELECT TitleLength FROM FieldsLength WHERE ProductId = " + ProductId;
-//string sqlBullets = "SELECT BulletsLength FROM FieldsLength WHERE ProductId = " + ProductId;
-//string sqlBackend = "SELECT BackendLength FROM FieldsLength WHERE ProductId = " + ProductId;
-//string sqlDescription = "SELECT DescriptionLength FROM FieldsLength WHERE ProductId = " + ProductId;
-//string sqlSubjectMatter = "SELECT SubjectMatterLength FROM FieldsLength WHERE ProductId = " + ProductId;
-//string sqlOtherAttributes = "SELECT OtherAttributesLength FROM FieldsLength WHERE ProductId = " + ProductId;
-//string sqlIntendedUse = "SELECT IntendedUseLength FROM FieldsLength WHERE ProductId = " + ProductId;
-
-//connection.Open(); 
-
-//SqlCommand command = new SqlCommand(sqlTitle, connection);
-//TitleLength = int.Parse(command.ExecuteScalar().ToString());
-//lb_TitleText.Text = "Title (" + TitleLength + ")";
-
-//command = new SqlCommand(sqlBullets, connection);
-//BulletsLength = int.Parse(command.ExecuteScalar().ToString());
-//lb_BulletsText.Text = "Bullets (" + BulletsLength + ")";
-
-//command = new SqlCommand(sqlBackend, connection);
-//BackendLength = int.Parse(command.ExecuteScalar().ToString());
-//lb_BackendText.Text = "Backend (" + BackendLength + ")";
-
-//command = new SqlCommand(sqlDescription, connection);
-//DescriptionLength = int.Parse(command.ExecuteScalar().ToString());
-//lb_DescriptionText.Text = "Description (" + DescriptionLength + ")";
-
-//command = new SqlCommand(sqlSubjectMatter, connection);
-//SubjectMatterLength = int.Parse(command.ExecuteScalar().ToString());
-//lb_SubjectMatterText.Text = "Subject Matter (" + SubjectMatterLength + ")";
-
-//command = new SqlCommand(sqlOtherAttributes, connection);
-//OtherAttributesLength = int.Parse(command.ExecuteScalar().ToString());
-//lb_OtherAttributesText.Text = "Other Attributes (" + OtherAttributesLength + ")";
-
-//command = new SqlCommand(sqlIntendedUse, connection);
-//IntendedUseLength = int.Parse(command.ExecuteScalar().ToString());
-//lb_IntendedUseText.Text = "Intended Use (" + IntendedUseLength + ")";
-
-//connection.Close();
