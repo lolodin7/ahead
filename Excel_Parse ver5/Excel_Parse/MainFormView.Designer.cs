@@ -56,7 +56,7 @@
             // btn_DoSemantics
             // 
             this.btn_DoSemantics.BackColor = System.Drawing.Color.YellowGreen;
-            this.btn_DoSemantics.Location = new System.Drawing.Point(313, 12);
+            this.btn_DoSemantics.Location = new System.Drawing.Point(423, 12);
             this.btn_DoSemantics.Name = "btn_DoSemantics";
             this.btn_DoSemantics.Size = new System.Drawing.Size(195, 81);
             this.btn_DoSemantics.TabIndex = 1;
@@ -78,7 +78,7 @@
             // btn_DoProductType
             // 
             this.btn_DoProductType.BackColor = System.Drawing.Color.YellowGreen;
-            this.btn_DoProductType.Location = new System.Drawing.Point(554, 12);
+            this.btn_DoProductType.Location = new System.Drawing.Point(664, 12);
             this.btn_DoProductType.Name = "btn_DoProductType";
             this.btn_DoProductType.Size = new System.Drawing.Size(195, 81);
             this.btn_DoProductType.TabIndex = 3;
@@ -89,7 +89,7 @@
             // btn_DoKeywordCategory
             // 
             this.btn_DoKeywordCategory.BackColor = System.Drawing.Color.YellowGreen;
-            this.btn_DoKeywordCategory.Location = new System.Drawing.Point(554, 117);
+            this.btn_DoKeywordCategory.Location = new System.Drawing.Point(664, 117);
             this.btn_DoKeywordCategory.Name = "btn_DoKeywordCategory";
             this.btn_DoKeywordCategory.Size = new System.Drawing.Size(195, 81);
             this.btn_DoKeywordCategory.TabIndex = 4;
@@ -100,7 +100,7 @@
             // btn_DoProducts
             // 
             this.btn_DoProducts.BackColor = System.Drawing.Color.YellowGreen;
-            this.btn_DoProducts.Location = new System.Drawing.Point(313, 117);
+            this.btn_DoProducts.Location = new System.Drawing.Point(423, 117);
             this.btn_DoProducts.Name = "btn_DoProducts";
             this.btn_DoProducts.Size = new System.Drawing.Size(195, 81);
             this.btn_DoProducts.TabIndex = 5;
@@ -131,7 +131,7 @@
             // 
             // btn_ShowSemStatistics
             // 
-            this.btn_ShowSemStatistics.Location = new System.Drawing.Point(313, 235);
+            this.btn_ShowSemStatistics.Location = new System.Drawing.Point(423, 235);
             this.btn_ShowSemStatistics.Name = "btn_ShowSemStatistics";
             this.btn_ShowSemStatistics.Size = new System.Drawing.Size(195, 81);
             this.btn_ShowSemStatistics.TabIndex = 8;
@@ -141,8 +141,8 @@
             // 
             // btn_ShowIndexing
             // 
-            this.btn_ShowIndexing.BackColor = System.Drawing.Color.SandyBrown;
-            this.btn_ShowIndexing.Location = new System.Drawing.Point(554, 235);
+            this.btn_ShowIndexing.BackColor = System.Drawing.Color.YellowGreen;
+            this.btn_ShowIndexing.Location = new System.Drawing.Point(664, 235);
             this.btn_ShowIndexing.Name = "btn_ShowIndexing";
             this.btn_ShowIndexing.Size = new System.Drawing.Size(195, 81);
             this.btn_ShowIndexing.TabIndex = 9;
@@ -152,9 +152,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(221, 12);
+            this.button1.Location = new System.Drawing.Point(218, 12);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(86, 81);
+            this.button1.Size = new System.Drawing.Size(195, 81);
             this.button1.TabIndex = 11;
             this.button1.Text = "создать новую семантику";
             this.button1.UseVisualStyleBackColor = true;

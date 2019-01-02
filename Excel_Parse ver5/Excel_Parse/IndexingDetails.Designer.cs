@@ -44,6 +44,8 @@
             this.tb_Bullet5 = new System.Windows.Forms.TextBox();
             this.tb_Backend = new System.Windows.Forms.TextBox();
             this.btn_Save = new System.Windows.Forms.Button();
+            this.btn_CloseWatch = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lb_Title
@@ -171,11 +173,37 @@
             this.btn_Save.UseVisualStyleBackColor = false;
             this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
             // 
+            // btn_CloseWatch
+            // 
+            this.btn_CloseWatch.Location = new System.Drawing.Point(234, 315);
+            this.btn_CloseWatch.Name = "btn_CloseWatch";
+            this.btn_CloseWatch.Size = new System.Drawing.Size(150, 42);
+            this.btn_CloseWatch.TabIndex = 15;
+            this.btn_CloseWatch.Text = "Закрыть";
+            this.btn_CloseWatch.UseVisualStyleBackColor = true;
+            this.btn_CloseWatch.Visible = false;
+            this.btn_CloseWatch.Click += new System.EventHandler(this.btn_CloseWatch_Click);
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.LightGray;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(570, 347);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(33, 23);
+            this.button1.TabIndex = 16;
+            this.button1.Text = "X";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // IndexingDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(606, 373);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_CloseWatch);
             this.Controls.Add(this.btn_Save);
             this.Controls.Add(this.tb_Backend);
             this.Controls.Add(this.tb_Bullet5);
@@ -197,7 +225,7 @@
             this.MinimizeBox = false;
             this.Name = "IndexingDetails";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "IndexingDetails";
+            this.Text = "Подробности индексации";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.IndexingDetails_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -221,5 +249,7 @@
         private System.Windows.Forms.TextBox tb_Bullet5;
         private System.Windows.Forms.TextBox tb_Backend;
         private System.Windows.Forms.Button btn_Save;
+        private System.Windows.Forms.Button btn_CloseWatch;
+        private System.Windows.Forms.Button button1;
     }
 }

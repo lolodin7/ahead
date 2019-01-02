@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,18 +16,27 @@ namespace Excel_Parse
         private string ProductName;
         private int ProductId;
         private string ASIN;
+        private string SKU;
+        private DateTime Date;
+        
+        private SqlConnection connection;
+        private SqlCommand command;
 
         private IndexingView controlIndexingView;
 
         private bool firstLoad;     //первая запуск формы, или нет
 
-        public IndexingStatus(int _productId, string _asin, string _productName, IndexingView _mf)
+        public IndexingStatus(int _productId, string _asin, string _sku, string _productName, IndexingView _mf, DateTime _dt)
         {
             InitializeComponent();
 
             ProductId = _productId;
             ASIN = _asin;
             ProductName = _productName;
+            SKU = _sku;
+            Date = _dt;
+
+            connection = DBData.GetDBConnection();
 
             controlIndexingView = _mf;
             firstLoad = true;
@@ -35,13 +45,18 @@ namespace Excel_Parse
         }
 
 
-
         /* Статус Ок (всё хорошо) */
         private void btn_Ok_Click(object sender, EventArgs e)
         {
             //сохраняем в БД со статусом Ок без каких-либо Notes
 
+            string sqlStatement = "INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status], [Notes]) VALUES (" + ProductId + ", '" + ASIN + "', '" + Date.ToString("yyyy-MM-dd") + "', 'Ok', '')";
 
+            command = new SqlCommand(sqlStatement, connection);
+
+            connection.Open();
+            command.ExecuteScalar();
+            connection.Close();
 
             //если всё хорошо, то
             this.Close();
@@ -51,15 +66,28 @@ namespace Excel_Parse
         private void btn_Closed_Click(object sender, EventArgs e)
         {
             //сохраняем в БД со статусом Closed без каких-либо Notes
+            
+            string sqlStatement = "INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status], [Notes]) VALUES (" + ProductId + ", '" + ASIN + "', '" + Date.ToString("yyyy-MM-dd") + "', 'Closed', '')";
 
+            command = new SqlCommand(sqlStatement, connection);
 
+            connection.Open();
+            command.ExecuteScalar();
+            connection.Close();
 
             //если всё хорошо, то
             this.Close();
         }
 
+        /* Статус Not Ok (не всё хорошо, открываем форму для внесения пометок) */
+        private void btn_NotOk_Click(object sender, EventArgs e)
+        {
+            IndexingDetails id = new IndexingDetails(ProductId, ASIN, SKU, ProductName, this, Date);
 
+            id.Show();
 
+            this.Visible = false;
+        }
 
 
         /* Закрытие формы */
@@ -67,15 +95,7 @@ namespace Excel_Parse
         {
             controlIndexingView.Visible = true;
         }
-
-        /* Статус Not Ok (не всё хорошо, открываем форму для внесения пометок) */
-        private void btn_NotOk_Click(object sender, EventArgs e)
-        {
-            IndexingDetails id = new IndexingDetails(ProductId, ASIN, ProductName, this);
-            id.Show();
-            this.Visible = false;
-        }
-
+        
         /* Изменение видимости формы */
         private void IndexingStatus_VisibleChanged(object sender, EventArgs e)
         {

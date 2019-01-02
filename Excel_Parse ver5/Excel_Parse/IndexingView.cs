@@ -15,22 +15,20 @@ namespace Excel_Parse
     {
         private MainFormView controlMainFormView;
 
+        private List<SemanticsModel> smList;
+
         private SqlConnection connection;
         private SqlCommand command;
 
         private List<ProductsModel> pList;
-
         private List<IndexingModel> imList;     //список индексаций, который получаем из БД
-
         private List<IndexingModel> imNEWList;  //список индексаций товаров для сегодняшнего дня, которые нужно добавить в БД
 
         private DateTime todayDate;         //храним сегодняшнюю дату
 
-        public IndexingView()
-        {
-            InitializeComponent();
-        }
-
+        string urlAmazon = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=";
+        
+        /* Конструктор */
         public IndexingView(MainFormView _mf)
         {
             InitializeComponent();
@@ -39,6 +37,7 @@ namespace Excel_Parse
             connection = DBData.GetDBConnection();
             imNEWList = new List<IndexingModel> { };
             todayDate = DateTime.Now;
+            smList = new List<SemanticsModel> { };
 
             GetStarted();
         }
@@ -47,6 +46,8 @@ namespace Excel_Parse
         /* Метод при первом запуске формы */
         private void GetStarted()
         {
+            Add6ColumnsToDGV();
+
             GetProductFromDB();
             SetProductsListToDGV();
 
@@ -54,6 +55,33 @@ namespace Excel_Parse
             SetDatesToDGV();
         }
 
+        /* Добавляем 6 столбцов в начало dgv */
+        private void Add6ColumnsToDGV()
+        {
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
+
+            dataGridView1.Columns.Add("1", "1");
+            dataGridView1.Columns[dataGridView1.ColumnCount - 1].Visible = false;
+
+            dataGridView1.Columns.Add("proNameColmn", "Название товара");
+            dataGridView1.Columns[dataGridView1.ColumnCount - 1].Width = 250;
+            dataGridView1.Columns[dataGridView1.ColumnCount - 1].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+            dataGridView1.Columns.Add("asinColmn", "ASIN");
+            dataGridView1.Columns[dataGridView1.ColumnCount - 1].Width = 125;
+            dataGridView1.Columns[dataGridView1.ColumnCount - 1].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+            dataGridView1.Columns.Add("skuColmn", "SKU");
+            dataGridView1.Columns[dataGridView1.ColumnCount - 1].Width = 125;
+            dataGridView1.Columns[dataGridView1.ColumnCount - 1].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+            dataGridView1.Columns.Add("5", "5");
+            dataGridView1.Columns[dataGridView1.ColumnCount - 1].Visible = false;
+
+            dataGridView1.Columns.Add("6", "6");
+            dataGridView1.Columns[dataGridView1.ColumnCount - 1].Visible = false;
+        }
 
         /* Получаем товары из БД */
         private void GetProductFromDB()
@@ -99,6 +127,7 @@ namespace Excel_Parse
         {
             for (int i = 0; i < pList.Count; i++)
             {
+                
                 var index = dataGridView1.Rows.Add();
 
                 for (int j = 0; j < pList[0].ColumnCount; j++)
@@ -165,7 +194,7 @@ namespace Excel_Parse
             for (int i = 0; i < dataGridView1.RowCount; i++)
             {
                 _prodId = int.Parse(dataGridView1.Rows[i].Cells[0].Value.ToString());
-                
+
                 for (int j = 0; j < imList.Count; j++)
                 {
                     if (_prodId == imList[j].ProductId)
@@ -194,13 +223,13 @@ namespace Excel_Parse
                     }
                 }
             }
-        }        
+        }
 
         /* Добавляем колонки дат в dgv */
         private void PrepareDGVColumns()
         {
             List<DateTime> tmpListDateTime = new List<DateTime> { };
-            List<int> tmp = new List<int> { };
+            List<DateTime> ListDateTime = new List<DateTime> { };
 
             //получаем список дублирующихся дат для всех товаров
             for (int i = 0; i < imList.Count; i++)
@@ -213,35 +242,30 @@ namespace Excel_Parse
             }
 
             //удаляем дубликаты дат, оставляем только уникальные даты
-            for (int i = 0; i < tmpListDateTime.Count - 1; i++)
+            for (int i = 0; i < tmpListDateTime.Count; i++)
             {
-                for (int j = i + 1; j < tmpListDateTime.Count; j++)
+                if (!ListDateTime.Contains(tmpListDateTime[i]))
                 {
-                    if (tmpListDateTime[i] == tmpListDateTime[j])
-                        //tmpListDateTime.RemoveAt(j);
-                        tmp.Add(j);
-                }
+                    ListDateTime.Add(tmpListDateTime[i]);
+                }                
             }
 
+            //сортируем, чтобы не было вразброс
+            ListDateTime.Sort();
 
             //добавляем сегодняшний день
-            if (!tmpListDateTime[tmpListDateTime.Count - 1].ToShortDateString().Equals(todayDate.ToShortDateString()))      //если сегодня еще не добавляли индексации
-                tmpListDateTime.Add(todayDate);
+            if (!ListDateTime[ListDateTime.Count - 1].ToShortDateString().Equals(todayDate.ToShortDateString()))      //если сегодня еще не добавляли индексации
+                ListDateTime.Add(todayDate);
 
-            //сортируем, чтобы не было вразброс
-            tmpListDateTime.Sort();
 
             //создаем колонки по уникальным датам
-            for (int i = tmpListDateTime.Count - 1; i >= 0; i--)
+            for (int i = ListDateTime.Count - 1; i >= 0; i--)
             {
-                dataGridView1.Columns.Add(tmpListDateTime[i].ToShortDateString(), tmpListDateTime[i].ToShortDateString());
+                dataGridView1.Columns.Add(ListDateTime[i].ToShortDateString(), ListDateTime[i].ToShortDateString());
                 dataGridView1.Columns[dataGridView1.ColumnCount - 1].Width = 70;
             }
         }
-
-
-
-
+        
         /* Отметить новый день как Closed */
         private void markAsClosedToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -252,20 +276,10 @@ namespace Excel_Parse
 
             if (col == 0)       //если это текущий день
             {
-                //dataGridView1.Rows[row].Cells[col + 6].Style.BackColor = Color.Cyan;
-
                 for (int i = 0; i < imList.Count; i++)
                 {
                     if (_productId == pList[i].ProductId)
                     {
-                        //imNEWList.Add(new IndexingModel());
-
-                        //imNEWList[imNEWList.Count - 1].WriteIndexing(0, imList[i].ProductId);
-                        //imNEWList[imNEWList.Count - 1].WriteIndexing(1, imList[i].ASIN);
-                        //imNEWList[imNEWList.Count - 1].WriteIndexing(2, todayDate);
-                        //imNEWList[imNEWList.Count - 1].WriteIndexing(3, "Closed");
-                        //imNEWList[imNEWList.Count - 1].WriteIndexing(4, "");
-
                         dataGridView1.Rows[row].Cells[col + 6].Value = "Closed";
 
                         string sqlStatement = "INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status], [Notes]) VALUES (" + pList[i].ProductId + ", '" + pList[i].ASIN + "', '" + todayDate.ToString("yyyy-MM-dd") + "', 'Closed', '')";
@@ -292,8 +306,17 @@ namespace Excel_Parse
             int _ProductTypeId = int.Parse(dataGridView1.Rows[row].Cells[4].Value.ToString());
 
             SemanticsView sv = new SemanticsView(this, _ProductId, _ProductName, _ASIN, _SKU, _ProductTypeId);
-            sv.Show();
-            this.Visible = false;
+
+            try
+            {
+                sv.Show();
+                this.Visible = false;
+            } 
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.HResult);
+                MessageBox.Show("Возникли проблемы с отображением семантики для выбранного товара. Попробуйте позже.", "Ошибка");
+            }
         }
 
         /* Показать Notes для выбранного дня */
@@ -306,11 +329,12 @@ namespace Excel_Parse
             {
                 int proId = int.Parse(dataGridView1.Rows[row].Cells[0].Value.ToString());
                 string asin = dataGridView1.Rows[row].Cells[2].Value.ToString();
+                string prodName = dataGridView1.Rows[row].Cells[1].Value.ToString();
                 string sku = dataGridView1.Rows[row].Cells[3].Value.ToString();
-                string dt = dataGridView1.Columns[col].HeaderText;            
+                string dt = dataGridView1.Columns[col].HeaderText;
 
 
-                using (IndexingDetails indStatus = new IndexingDetails(proId, asin, sku, this, getDT(dt)))
+                using (IndexingDetails indStatus = new IndexingDetails(proId, asin, sku, prodName, this, getDT(dt)))
                 {
                     indStatus.ShowDialog();
                 }
@@ -325,71 +349,179 @@ namespace Excel_Parse
 
             return new DateTime(year, month, day);
         }
-
         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         /* Закрытие формы */
         private void IndexingView_FormClosing(object sender, FormClosingEventArgs e)
         {
             controlMainFormView.Visible = true;
         }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            IndexingStatus indst = new IndexingStatus(1, "asfsF3f", "Product Name", this);
-            indst.Show();
-            this.Visible = false;
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            IndexingDetails indd = new IndexingDetails(1, "asfsF3f", "Product Name", this, DateTime.Now);
-            indd.Show();
-            this.Visible = false;
-        }
-
+        
         /* Выделяем ячейку под укуазателем мыши */
         private void dataGridView1_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
                 dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
         }
+    
+        /* Запускаем индексацию, получаем поля семантики из БД и открываем с их помощью вкладки поиска на Амазон */
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex == 6 && (dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == null || dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Equals("")))
+            {
+                int row = dataGridView1.CurrentCell.RowIndex;
+                int col = dataGridView1.CurrentCell.ColumnIndex;
 
+
+                int proId = int.Parse(dataGridView1.Rows[row].Cells[0].Value.ToString());
+                string asin = dataGridView1.Rows[row].Cells[2].Value.ToString();
+                string prodName = dataGridView1.Rows[row].Cells[1].Value.ToString();
+                string sku = dataGridView1.Rows[row].Cells[3].Value.ToString();
+                DateTime dt = DateTime.Now;
+
+                //IndexingStatus indst = new IndexingStatus(proId, asin, sku, prodName, this, dt);
+
+                //indst.Show();
+                //this.Visible = false;
+
+                //getSemanticsFromDBAndOpenURL(proId);
+
+                string sqlSemantics = "SELECT * FROM Semantics WHERE ProductId = " + proId;
+                SqlCommand command = new SqlCommand(sqlSemantics, connection);
+
+                try
+                {
+                    connection.Open();
+
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            SetSemanticsToList((IDataRecord)reader);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No rows found.");
+                    }
+                    reader.Close();
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Упс! Возникла проблема с подключением к БД.", "Ошибка");
+                    return;
+                }
+                if (smList.Count > 0)
+                {
+                    IndexingStatus indst = new IndexingStatus(proId, asin, sku, prodName, this, dt);
+
+                    indst.Show();
+                    this.Visible = false;
+
+                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Title.Replace(' ', '+'));
+                    System.Threading.Thread.Sleep(100);
+                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Title.Replace(' ', '+'));
+                    System.Threading.Thread.Sleep(100);
+                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Title.Replace(' ', '+'));
+                    System.Threading.Thread.Sleep(100);
+                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Title.Replace(' ', '+'));
+                    System.Threading.Thread.Sleep(100);
+                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Title.Replace(' ', '+'));
+                    System.Threading.Thread.Sleep(100);
+                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Title.Replace(' ', '+'));
+                    System.Threading.Thread.Sleep(100);
+                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Title.Replace(' ', '+'));
+                }
+                else
+                {
+                    MessageBox.Show("Семантики для выбранного товара не найдено.", "Ошибка");
+
+                }
+            }
+        }
+        
+        /* Заполняем список семантиками данными, полученными с БД */
+        private void SetSemanticsToList(IDataRecord record)
+        {
+            SemanticsModel sm = new SemanticsModel();
+            smList.Add(sm);
+
+            for (int i = 0; i < record.FieldCount; i++)
+            {
+                smList[smList.Count - 1].SetSemantics(i, record[i]);
+            }
+        }
+
+
+        /* Чтобы обновлялись данные в dgv после проверки индексации товара */
+        private void IndexingView_VisibleChanged(object sender, EventArgs e)
+        {
+            GetStarted();
+        }
+
+        /* Тест, проверяем, корректен ли наш адрес на амазоне */
+        private void checkAddressToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(urlAmazon + "lavalier+microphone");
+        }
+
+        /* При открытии контекстного меню, включаем/выключаем кликабельность определенных пунктов меню */
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+            int row = dataGridView1.CurrentCell.RowIndex;
+            int col = dataGridView1.CurrentCell.ColumnIndex;
+
+            if (col == 6)
+            {
+                if (dataGridView1.Rows[row].Cells[col].Value != null)
+                {
+                    if (dataGridView1.Rows[row].Cells[col].Value.ToString().Equals("Not Ok"))
+                    {
+                        markAsClosedToolStripMenuItem.Enabled = false;
+                        showHistoryToolStripMenuItem.Enabled = true;
+                    } 
+                    else if (dataGridView1.Rows[row].Cells[col].Value.ToString().Equals("Ok") || dataGridView1.Rows[row].Cells[col].Value.ToString().Equals("Closed"))
+                    {
+                        markAsClosedToolStripMenuItem.Enabled = false;
+                        showHistoryToolStripMenuItem.Enabled = false;
+                    }
+                }
+                else
+                {
+                    markAsClosedToolStripMenuItem.Enabled = true;
+                    showHistoryToolStripMenuItem.Enabled = false;
+                }
+            } 
+            else
+            {
+                markAsClosedToolStripMenuItem.Enabled = false;
+                showHistoryToolStripMenuItem.Enabled = false;
+            }
+        }
+
+        /* Изменить url из контекстного меню */
+        private void changeURLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            tb_URL.Text = urlAmazon;
+            tb_URL.Visible = true;
+            btn_SaveUrl.Visible = true;
+
+            dataGridView1.Size = new Size(1255, 612);
+            dataGridView1.Location = new Point(13, 26);
+        }
+
+        /* Сохранить новый url */
+        private void btn_SaveUrl_Click(object sender, EventArgs e)
+        {
+            urlAmazon = tb_URL.Text;
+            tb_URL.Visible = false;
+            btn_SaveUrl.Visible = false;
+
+            dataGridView1.Size = new Size(1255, 635);
+            dataGridView1.Location = new Point(13, 3);
+        }
     }
 }

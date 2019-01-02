@@ -155,7 +155,7 @@ namespace Excel_Parse
             catch (Exception e)
             {
                 MessageBox.Show("Упс! Возникла проблема с подключением к БД :( Приложение будет закрыто", "Ошибка");
-                Environment.Exit(0);
+                this.Close();
             }
         }
 
@@ -213,8 +213,8 @@ namespace Excel_Parse
             }
             catch (Exception e)
             {
-                MessageBox.Show("Упс! Возникла проблема с подключением к БД :( Приложение будет закрыто", "Ошибка");
-                Environment.Exit(0);
+                MessageBox.Show("Упс! Возникла проблема с подключением к БД.", "Ошибка");
+                return;
             }
         }
 

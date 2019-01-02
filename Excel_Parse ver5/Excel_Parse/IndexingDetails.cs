@@ -16,6 +16,7 @@ namespace Excel_Parse
         private string ProductName;
         private int ProductId;
         private string ASIN;
+        private string SKU;
         private DateTime Date;
         private string Notes;           //для работы анализатора по разбиению/склейке инфы
 
@@ -30,24 +31,7 @@ namespace Excel_Parse
         private bool isSaved;           //проверка, чтобы не выйти без сохранения
 
         /* Конструктор, если будем сохранять результаты индексации в БД */
-        public IndexingDetails(int _productId, string _asin, string _productName, IndexingStatus _mf)
-        {
-            InitializeComponent();
-
-            ProductId = _productId;
-            ASIN = _asin;
-            ProductName = _productName;
-
-            controlIndexingStatus = _mf;
-            connection = DBData.GetDBConnection();
-
-            isSaved = false;
-
-            this.Text = ProductName + " : " + ASIN;
-        }
-
-        /* Конструктор, просто смотрим результаты индексации за какое-то число */
-        public IndexingDetails(int _productId, string _asin, string _productName, IndexingView _mf, DateTime _date)
+        public IndexingDetails(int _productId, string _asin, string _sku, string _productName, IndexingStatus _mf, DateTime _date)
         {
             InitializeComponent();
 
@@ -55,11 +39,31 @@ namespace Excel_Parse
             ASIN = _asin;
             ProductName = _productName;
             Date = _date;
+            SKU = _sku;
+
+            controlIndexingStatus = _mf;
+            connection = DBData.GetDBConnection();
+
+            isSaved = false;
+
+            this.Text = ProductName + " : " + ASIN + ", " + SKU;
+        }
+
+        /* Конструктор, просто смотрим результаты индексации за какое-то число */
+        public IndexingDetails(int _productId, string _asin, string _sku, string _productName, IndexingView _mf, DateTime _date)
+        {
+            InitializeComponent();
+
+            ProductId = _productId;
+            ASIN = _asin;
+            ProductName = _productName;
+            Date = _date;
+            SKU = _sku;
 
             controlIndexingView = _mf;
             connection = DBData.GetDBConnection();
 
-            this.Text = ProductName + " : " + ASIN;
+            this.Text = ProductName + " : " + ASIN + ", " + SKU;
             btn_Save.Visible = false;
 
             isSaved = true;
@@ -71,17 +75,28 @@ namespace Excel_Parse
         /* Получаем все данные из БД и заносим их по полям на форме */
         private void getDetailsFromDB()
         {
-            tb_Title.Enabled = false;
-            tb_Bullet1.Enabled = false;
-            tb_Bullet2.Enabled = false;
-            tb_Bullet3.Enabled = false;
-            tb_Bullet4.Enabled = false;
-            tb_Bullet5.Enabled = false;
-            tb_Backend.Enabled = false;
+            //tb_Title.Enabled = false;
+            //tb_Bullet1.Enabled = false;
+            //tb_Bullet2.Enabled = false;
+            //tb_Bullet3.Enabled = false;
+            //tb_Bullet4.Enabled = false;
+            //tb_Bullet5.Enabled = false;
+            //tb_Backend.Enabled = false;
+
+            tb_Title.ReadOnly = true;
+            tb_Bullet1.ReadOnly = true;
+            tb_Bullet2.ReadOnly = true;
+            tb_Bullet3.ReadOnly = true;
+            tb_Bullet4.ReadOnly = true;
+            tb_Bullet5.ReadOnly = true;
+            tb_Backend.ReadOnly = true;
 
             //получаем все поля из БД и заполняем форму
             GetNotesFromDB();       //получаем Notes из БД
             RunNotesAnalyser();     //разбивает Notes и заносим по полям
+
+            btn_CloseWatch.Visible = true;
+            btn_CloseWatch.Focus();
         }
 
         /* Получаем Notes из БД */
@@ -170,19 +185,24 @@ namespace Excel_Parse
                 //тут функция преобразования текста из полей в формат по шаблону для БД
                 RunNotesCompress();
                 //сохраняем статус, дату, текст в БД
-                string sqlStatement = "INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status], [Notes]) VALUES (" + ProductId + ", '" + ASIN + "', '" + Date.ToString("yyyy-mm-dd") + "', 'Not Ok', '" + Notes + "')";
-                
-                command = new SqlCommand(sqlStatement, connection);
+                string sqlStatement = "INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status], [Notes]) VALUES (" + ProductId + ", '" + ASIN + "', '" + Date.ToString("yyyy-MM-dd") + "', 'Not Ok', '" + Notes + "')";
+                try
+                {
+                    command = new SqlCommand(sqlStatement, connection);
 
-                connection.Open();
-                command.ExecuteScalar();
-                connection.Close();
+                    connection.Open();
+                    command.ExecuteScalar();
+                    connection.Close();
 
-                //если всё прошло хорошо, то {
-                MessageBox.Show("Все данные сохранены успешно!", "Успешно");
-                isSaved = true;
-                this.Close();
-                //}
+                    //если всё прошло хорошо, то {
+                    MessageBox.Show("Все данные сохранены успешно!", "Успешно");
+                    isSaved = true;
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.HResult);
+                }//}
             }
         }
 
@@ -201,6 +221,17 @@ namespace Excel_Parse
                 MessageBox.Show("Перед выходом сохраните, пожалуйста, данные!", "Ошибка");
                 e.Cancel = true;
             }
+        }
+
+        private void btn_CloseWatch_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            isSaved = true;
+            this.Close();
         }
     }
 }

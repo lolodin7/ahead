@@ -84,3 +84,6 @@ SELECT * FROM Indexing
 SELECT [Date] FROM Indexing WHERE ProductId = 1
 
 SELECT [Notes] FROM [Indexing] WHERE ProductId = 1 AND [Date] = '2018-12-27'
+
+INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status], [Notes]) VALUES (11, 'B01MG2BEVZ', '2019-40-02', 'Not Ok', '@something wrong@@@@@@')
+

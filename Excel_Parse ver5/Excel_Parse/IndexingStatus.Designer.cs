@@ -43,7 +43,7 @@
             this.btn_Ok.Name = "btn_Ok";
             this.btn_Ok.Size = new System.Drawing.Size(177, 61);
             this.btn_Ok.TabIndex = 0;
-            this.btn_Ok.Text = "Ok";
+            this.btn_Ok.Text = "Всё в порядке (Ok)";
             this.btn_Ok.UseVisualStyleBackColor = false;
             this.btn_Ok.Click += new System.EventHandler(this.btn_Ok_Click);
             // 
@@ -56,7 +56,7 @@
             this.btn_NotOk.Name = "btn_NotOk";
             this.btn_NotOk.Size = new System.Drawing.Size(177, 61);
             this.btn_NotOk.TabIndex = 1;
-            this.btn_NotOk.Text = "Not Ok";
+            this.btn_NotOk.Text = "Есть проблемы (Not Ok)";
             this.btn_NotOk.UseVisualStyleBackColor = false;
             this.btn_NotOk.Click += new System.EventHandler(this.btn_NotOk_Click);
             // 
@@ -69,7 +69,7 @@
             this.btn_Closed.Name = "btn_Closed";
             this.btn_Closed.Size = new System.Drawing.Size(177, 61);
             this.btn_Closed.TabIndex = 2;
-            this.btn_Closed.Text = "Closed";
+            this.btn_Closed.Text = "Листинг закрыт (Closed)";
             this.btn_Closed.UseVisualStyleBackColor = false;
             this.btn_Closed.Click += new System.EventHandler(this.btn_Closed_Click);
             // 
@@ -87,7 +87,7 @@
             this.MinimizeBox = false;
             this.Name = "IndexingStatus";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "IndexingStatus";
+            this.Text = "Выбор статуса";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.IndexingStatus_FormClosing);
             this.VisibleChanged += new System.EventHandler(this.IndexingStatus_VisibleChanged);
             this.ResumeLayout(false);
