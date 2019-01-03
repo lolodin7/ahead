@@ -45,7 +45,7 @@
             this.tb_Backend = new System.Windows.Forms.TextBox();
             this.btn_Save = new System.Windows.Forms.Button();
             this.btn_CloseWatch = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_Close = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lb_Title
@@ -184,25 +184,25 @@
             this.btn_CloseWatch.Visible = false;
             this.btn_CloseWatch.Click += new System.EventHandler(this.btn_CloseWatch_Click);
             // 
-            // button1
+            // btn_Close
             // 
-            this.button1.BackColor = System.Drawing.Color.LightGray;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(570, 347);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(33, 23);
-            this.button1.TabIndex = 16;
-            this.button1.Text = "X";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btn_Close.BackColor = System.Drawing.Color.LightGray;
+            this.btn_Close.FlatAppearance.BorderSize = 0;
+            this.btn_Close.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Close.Location = new System.Drawing.Point(570, 347);
+            this.btn_Close.Name = "btn_Close";
+            this.btn_Close.Size = new System.Drawing.Size(33, 23);
+            this.btn_Close.TabIndex = 16;
+            this.btn_Close.Text = "X";
+            this.btn_Close.UseVisualStyleBackColor = false;
+            this.btn_Close.Click += new System.EventHandler(this.button1_Click);
             // 
             // IndexingDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(606, 373);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_Close);
             this.Controls.Add(this.btn_CloseWatch);
             this.Controls.Add(this.btn_Save);
             this.Controls.Add(this.tb_Backend);
@@ -250,6 +250,6 @@
         private System.Windows.Forms.TextBox tb_Backend;
         private System.Windows.Forms.Button btn_Save;
         private System.Windows.Forms.Button btn_CloseWatch;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_Close;
     }
 }

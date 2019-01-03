@@ -126,13 +126,13 @@ namespace Excel_Parse
         private void SetProductsListToDGV()
         {
             for (int i = 0; i < pList.Count; i++)
-            {
-                
+            {                
                 var index = dataGridView1.Rows.Add();
 
                 for (int j = 0; j < pList[0].ColumnCount; j++)
                 {
                     dataGridView1.Rows[index].Cells[j].Value = pList[i].ReadData(j);
+                    dataGridView1.Rows[index].Resizable = DataGridViewTriState.False;
                 }
             }
         }
@@ -263,6 +263,7 @@ namespace Excel_Parse
             {
                 dataGridView1.Columns.Add(ListDateTime[i].ToShortDateString(), ListDateTime[i].ToShortDateString());
                 dataGridView1.Columns[dataGridView1.ColumnCount - 1].Width = 70;
+                dataGridView1.Columns[dataGridView1.ColumnCount - 1].SortMode = DataGridViewColumnSortMode.NotSortable;
             }
         }
         
@@ -423,17 +424,17 @@ namespace Excel_Parse
 
                     System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Title.Replace(' ', '+'));
                     System.Threading.Thread.Sleep(100);
-                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Title.Replace(' ', '+'));
+                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Bullet1.Replace(' ', '+'));
                     System.Threading.Thread.Sleep(100);
-                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Title.Replace(' ', '+'));
+                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Bullet2.Replace(' ', '+'));
                     System.Threading.Thread.Sleep(100);
-                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Title.Replace(' ', '+'));
+                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Bullet3.Replace(' ', '+'));
                     System.Threading.Thread.Sleep(100);
-                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Title.Replace(' ', '+'));
+                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Bullet4.Replace(' ', '+'));
                     System.Threading.Thread.Sleep(100);
-                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Title.Replace(' ', '+'));
+                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Bullet5.Replace(' ', '+'));
                     System.Threading.Thread.Sleep(100);
-                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Title.Replace(' ', '+'));
+                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Backend.Replace(' ', '+'));
                 }
                 else
                 {
@@ -497,8 +498,16 @@ namespace Excel_Parse
             } 
             else
             {
-                markAsClosedToolStripMenuItem.Enabled = false;
-                showHistoryToolStripMenuItem.Enabled = false;
+                if (dataGridView1.Rows[row].Cells[col].Value != null && dataGridView1.Rows[row].Cells[col].Value.ToString().Equals("Not Ok"))
+                {
+                    markAsClosedToolStripMenuItem.Enabled = false;
+                    showHistoryToolStripMenuItem.Enabled = true;
+                }
+                else
+                {
+                    markAsClosedToolStripMenuItem.Enabled = false;
+                    showHistoryToolStripMenuItem.Enabled = false;
+                }
             }
         }
 

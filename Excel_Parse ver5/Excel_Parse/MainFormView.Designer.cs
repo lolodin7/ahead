@@ -37,7 +37,6 @@
             this.btn_DoProducts = new System.Windows.Forms.Button();
             this.btn_ShowAllKeywords = new System.Windows.Forms.Button();
             this.btn_Exit = new System.Windows.Forms.Button();
-            this.btn_ShowSemStatistics = new System.Windows.Forms.Button();
             this.btn_ShowIndexing = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -56,7 +55,7 @@
             // btn_DoSemantics
             // 
             this.btn_DoSemantics.BackColor = System.Drawing.Color.YellowGreen;
-            this.btn_DoSemantics.Location = new System.Drawing.Point(423, 12);
+            this.btn_DoSemantics.Location = new System.Drawing.Point(313, 117);
             this.btn_DoSemantics.Name = "btn_DoSemantics";
             this.btn_DoSemantics.Size = new System.Drawing.Size(195, 81);
             this.btn_DoSemantics.TabIndex = 1;
@@ -78,7 +77,7 @@
             // btn_DoProductType
             // 
             this.btn_DoProductType.BackColor = System.Drawing.Color.YellowGreen;
-            this.btn_DoProductType.Location = new System.Drawing.Point(664, 12);
+            this.btn_DoProductType.Location = new System.Drawing.Point(611, 235);
             this.btn_DoProductType.Name = "btn_DoProductType";
             this.btn_DoProductType.Size = new System.Drawing.Size(195, 81);
             this.btn_DoProductType.TabIndex = 3;
@@ -89,7 +88,7 @@
             // btn_DoKeywordCategory
             // 
             this.btn_DoKeywordCategory.BackColor = System.Drawing.Color.YellowGreen;
-            this.btn_DoKeywordCategory.Location = new System.Drawing.Point(664, 117);
+            this.btn_DoKeywordCategory.Location = new System.Drawing.Point(12, 343);
             this.btn_DoKeywordCategory.Name = "btn_DoKeywordCategory";
             this.btn_DoKeywordCategory.Size = new System.Drawing.Size(195, 81);
             this.btn_DoKeywordCategory.TabIndex = 4;
@@ -100,11 +99,11 @@
             // btn_DoProducts
             // 
             this.btn_DoProducts.BackColor = System.Drawing.Color.YellowGreen;
-            this.btn_DoProducts.Location = new System.Drawing.Point(423, 117);
+            this.btn_DoProducts.Location = new System.Drawing.Point(611, 12);
             this.btn_DoProducts.Name = "btn_DoProducts";
             this.btn_DoProducts.Size = new System.Drawing.Size(195, 81);
             this.btn_DoProducts.TabIndex = 5;
-            this.btn_DoProducts.Text = "Управление продуктами";
+            this.btn_DoProducts.Text = "Управление товарами";
             this.btn_DoProducts.UseVisualStyleBackColor = false;
             this.btn_DoProducts.Click += new System.EventHandler(this.btn_DoProducts_Click);
             // 
@@ -121,7 +120,7 @@
             // 
             // btn_Exit
             // 
-            this.btn_Exit.Location = new System.Drawing.Point(724, 449);
+            this.btn_Exit.Location = new System.Drawing.Point(611, 440);
             this.btn_Exit.Name = "btn_Exit";
             this.btn_Exit.Size = new System.Drawing.Size(195, 81);
             this.btn_Exit.TabIndex = 7;
@@ -129,20 +128,10 @@
             this.btn_Exit.UseVisualStyleBackColor = true;
             this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
             // 
-            // btn_ShowSemStatistics
-            // 
-            this.btn_ShowSemStatistics.Location = new System.Drawing.Point(423, 235);
-            this.btn_ShowSemStatistics.Name = "btn_ShowSemStatistics";
-            this.btn_ShowSemStatistics.Size = new System.Drawing.Size(195, 81);
-            this.btn_ShowSemStatistics.TabIndex = 8;
-            this.btn_ShowSemStatistics.Text = "Статистика семантик";
-            this.btn_ShowSemStatistics.UseVisualStyleBackColor = true;
-            this.btn_ShowSemStatistics.Click += new System.EventHandler(this.btn_ShowSemStatistics_Click);
-            // 
             // btn_ShowIndexing
             // 
             this.btn_ShowIndexing.BackColor = System.Drawing.Color.YellowGreen;
-            this.btn_ShowIndexing.Location = new System.Drawing.Point(664, 235);
+            this.btn_ShowIndexing.Location = new System.Drawing.Point(611, 117);
             this.btn_ShowIndexing.Name = "btn_ShowIndexing";
             this.btn_ShowIndexing.Size = new System.Drawing.Size(195, 81);
             this.btn_ShowIndexing.TabIndex = 9;
@@ -152,7 +141,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(218, 12);
+            this.button1.Location = new System.Drawing.Point(309, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(195, 81);
             this.button1.TabIndex = 11;
@@ -163,10 +152,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(923, 533);
+            this.ClientSize = new System.Drawing.Size(815, 533);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btn_ShowIndexing);
-            this.Controls.Add(this.btn_ShowSemStatistics);
             this.Controls.Add(this.btn_Exit);
             this.Controls.Add(this.btn_ShowAllKeywords);
             this.Controls.Add(this.btn_DoProducts);
@@ -195,7 +183,6 @@
         private System.Windows.Forms.Button btn_DoProducts;
         private System.Windows.Forms.Button btn_ShowAllKeywords;
         private System.Windows.Forms.Button btn_Exit;
-        private System.Windows.Forms.Button btn_ShowSemStatistics;
         private System.Windows.Forms.Button btn_ShowIndexing;
         private System.Windows.Forms.Button button1;
     }

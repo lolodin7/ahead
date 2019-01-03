@@ -95,6 +95,7 @@ namespace Excel_Parse
             GetNotesFromDB();       //получаем Notes из БД
             RunNotesAnalyser();     //разбивает Notes и заносим по полям
 
+            btn_Close.Visible = false;
             btn_CloseWatch.Visible = true;
             btn_CloseWatch.Focus();
         }
