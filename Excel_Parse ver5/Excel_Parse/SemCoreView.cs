@@ -77,49 +77,101 @@ namespace Excel_Parse
         /* Загружаем новые ключи из файла */
         public void OpenNewFile()
         {
-            openFileDialog1.Filter = "Выбери файл|*.csv;*.txt";
+            bool isExcel = false;
+            bool isCsv = false;
+
+            openFileDialog1.Filter = "Неразмеченные файлы|*.csv;*.txt|Excel файлы (*.xlsx)|*.xlsx";
             openFileDialog1.Title = "Выбор файла для открытия";
+            openFileDialog1.FileName = "";
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 path = openFileDialog1.FileName;
-                
+
+                if (path.Contains(".xlsx"))
+                    isExcel = true;
+                else if (path.Contains(".csv"))
+                    isCsv = true;
+
                 dgv_Source.Rows.Clear();
                 dgv_Target.Rows.Clear();
 
-                try
+                if (isCsv)
                 {
-                    using (TextFieldParser parser = new TextFieldParser(@path))
+                    try
                     {
-
-                        parser.TextFieldType = FieldType.Delimited;
-                        parser.SetDelimiters(";");
-                        while (!parser.EndOfData)
+                        using (TextFieldParser parser = new TextFieldParser(@path))
                         {
-                            //Process row
-                            string[] fields = parser.ReadFields();
+                            parser.TextFieldType = FieldType.Delimited;
+                            if (radioButton1.Checked)
+                                parser.SetDelimiters(radioButton1.Text);
+                            else if (radioButton2.Checked)
+                                parser.SetDelimiters(radioButton2.Text);
+                            else
+                                parser.SetDelimiters(tb_OwnDelimiter.Text);
 
-                            var index = dgv_Source.Rows.Add();
-                            int i = 0;
-
-                            foreach (string field in fields)
+                            while (!parser.EndOfData)
                             {
-                                if (i == 1)
-                                    dgv_Source.Rows[index].Cells[i].Value = double.Parse(field);
-                                else
-                                    dgv_Source.Rows[index].Cells[i].Value = field;
-                                i++;
+                                //Process row
+                                string[] fields = parser.ReadFields();
+
+                                var index = dgv_Source.Rows.Add();
+                                int i = 0;
+
+                                foreach (string field in fields)
+                                {
+                                    if (i == 1)
+                                        dgv_Source.Rows[index].Cells[i].Value = double.Parse(field);
+                                    else
+                                        dgv_Source.Rows[index].Cells[i].Value = field;
+                                    i++;
+                                }
                             }
                         }
-
                     }
-                }
-                catch (Exception ex)
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Проблема при открытии файла. Убедитесь, что Вы выбрали файл с нужны расширением. Возможно, разметка файла не поддерживается программой.", "Ошибка при открытии");
+                        dgv_Source.Rows.Clear();
+                    }
+                    SavedStatus = true;
+                    dgv_Source.Focus();
+                } 
+                else if (isExcel)
                 {
-                    MessageBox.Show("Проблема при открытии файла. Убедитесь, что Вы выбрали файл с нужны расширением. Возможно, разметка файла не поддерживается программой.", "Ошибка при открытии");
+                    try
+                    {
+                        using (TextFieldParser parser = new TextFieldParser(@path))
+                        {
+                            parser.TextFieldType = FieldType.Delimited;
+                            //parser.SetDelimiters(",");
+                            while (!parser.EndOfData)
+                            {
+                                //Process row
+                                string[] fields = parser.ReadFields();
+
+                                var index = dgv_Source.Rows.Add();
+                                int i = 0;
+
+                                foreach (string field in fields)
+                                {
+                                    if (i == 1)
+                                        dgv_Source.Rows[index].Cells[i].Value = double.Parse(field);
+                                    else
+                                        dgv_Source.Rows[index].Cells[i].Value = field;
+                                    i++;
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Проблема при открытии файла. Убедитесь, что Вы выбрали файл с нужны расширением. Возможно, разметка файла не поддерживается программой.", "Ошибка при открытии");
+                        dgv_Source.Rows.Clear();
+                    }
+                    SavedStatus = true;
+                    dgv_Source.Focus();
                 }
-                SavedStatus = true;
-                dgv_Source.Focus();
             }
         }
         
@@ -388,63 +440,48 @@ namespace Excel_Parse
         {
             int productType = -1;
             string errors = "";
+            string errorsToCopy = "";
             int categoryId = -1;
-            //bool categoryCreated = true;
 
-            //if (rb_NewCategory.Checked)        //сохраняем в новой categoryId
-            //{
-            //    int result = 1; // kcController.SetNewKeywordCategory(tb_AddCategory.Text);
-            //    if (result == 1)
-            //    {
-            //        kcController.GetKeywordCategoriesByProductId(currentProductTypeId);
-            //        Fill_CB_ByKeywordCategories();
-            //        cb_KeywordCategory.SelectedItem = cb_KeywordCategory.Items[cb_KeywordCategory.Items.Count - 1];
-            //    }
-            //    else if (result == -2146232060)
-            //    {
-            //        MessageBox.Show("Вы пытаетесь создать категорию ключей, которая уже существует. Пожалуйста, выберите категорию со списка или введите другое название.", "Ошибка");
-            //        categoryCreated = false;
-            //    }
-            //}
-
-            //if (categoryCreated)                            //проверяем на то, что при создании категории всё было ок и можно продолжать
-            //{
-                //находим productTypeId по выбранному в cb_ProductType 
-                productType = currentProductTypeId;
+            //находим productTypeId по выбранному в cb_ProductType 
+            productType = currentProductTypeId;
 
 
-                for (int i = 0; i < kcList.Count; i++)     //находим keywordCategoryId по выбранному в cb_CategoryId
+            for (int i = 0; i < kcList.Count; i++)     //находим keywordCategoryId по выбранному в cb_CategoryId
+            {
+                if (kcList[i].CategoryName.Equals(cb_KeywordCategory.SelectedItem.ToString()))
                 {
-                    if (kcList[i].CategoryName.Equals(cb_KeywordCategory.SelectedItem.ToString()))
-                    {
-                        categoryId = kcList[i].CategoryId;
-                    }
+                    categoryId = kcList[i].CategoryId;
                 }
+            }
 
-                if (productType == -1 || categoryId == -1)
+            if (productType == -1 || categoryId == -1)
+            {
+                MessageBox.Show("Выберите вид продукта и категорию ключей.", "Ошибка");
+                return;
+            }
+            int index = -1;
+
+            for (int i = 0; i < dgv_Target.RowCount; i++)
+            {
+                index = i;
+                //если ключ уже есть в БД, БД выдаст ошибку -2146232060. Сверяем и записываем ключи в массив недобавленных ключей
+                if (scController.InsertNewKeyword(productType, categoryId, dgv_Target.Rows[i].Cells[0].Value.ToString(), int.Parse(dgv_Target.Rows[i].Cells[1].Value.ToString()), DateTime.Now) == -2146232060)
                 {
-                    MessageBox.Show("Выберите вид продукта и категорию ключей.", "Ошибка");
-                    return;
+                    errors += dgv_Target.Rows[index].Cells[0].Value.ToString() + "\n";
+                    errorsToCopy += dgv_Target.Rows[index].Cells[0].Value.ToString() + "\t" + dgv_Target.Rows[index].Cells[1].Value.ToString() + "\n";
                 }
-                int index = -1;
+            }
 
-                for (int i = 0; i < dgv_Target.RowCount; i++)
-                {
-                    index = i;
-                    //если ключ уже есть в БД, БД выдаст ошибку -2146232060. Сверяем и записываем ключи в массив недобавленных ключей
-                    if (scController.InsertNewKeyword(productType, categoryId, dgv_Target.Rows[i].Cells[0].Value.ToString(), int.Parse(dgv_Target.Rows[i].Cells[1].Value.ToString()), DateTime.Now) == -2146232060)
-                    {
-                        errors += dgv_Target.Rows[index].Cells[0].Value.ToString() + "\n";
-                    }
-                }
+            if (!errors.Equals(""))
+            {
+                MessageBox.Show("Следующие ключи не были добавлены, т.к. они уже есть в БД. Эти ключи были скопированы и сейчас находятся в буфере обмена. Можете вставить их в Excel или любой текстовый редактор. Ниже приведен список этих ключей:\n\n" + errors, "Не всё прошло гладко");
+                Clipboard.SetText(errorsToCopy);
+            }
+            else
+                MessageBox.Show("Все ключи были успешно добавлены!", "Успех");
 
-                if (!errors.Equals(""))
-                    MessageBox.Show("Следующие ключи не были добавлены, т.к. они уже есть в БД:\n\n" + errors, "Не всё прошло гладко");
-                else
-                    MessageBox.Show("Все ключи были успешно добавлены!", "Успех");
-
-                SavedStatus = true;
-            //}
+            SavedStatus = true;
         }
 
         /* Выделяем все ключи */
@@ -514,6 +551,9 @@ namespace Excel_Parse
                     dgv_Target.Rows[index].Cells[0].Value = tb_CustomKey.Text;
                     dgv_Target.Rows[index].Cells[1].Value = tb_CustomValue.Text;
                 }
+
+                tb_CustomKey.Text = "";
+                tb_CustomValue.Text = "";
             }
         }
 
@@ -522,6 +562,55 @@ namespace Excel_Parse
         {
             if (!Char.IsDigit(e.KeyChar) && e.KeyChar != 8)
                 e.Handled = true;
+        }
+
+        private void dgv_Target_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.X)
+            {
+                //Check
+                dgv_UnCheck2((DataGridView)sender);
+                e.Handled = true;
+            }
+        }
+
+
+        /* Снимает пометку ключа в таблице dgv_Source */
+        private void dgv_UnCheck2(DataGridView sender)
+        {
+            if (sender.CurrentCellAddress.X == 0)
+            {
+                Refresh_dgvTarget_Del2();
+            }
+        }
+
+        /* Удаляем ключ из dgv_Target при снятии его выделения в dgv_Source */
+        private void Refresh_dgvTarget_Del2()
+        {
+            if (dgv_Source.RowCount > 0)
+            {
+                string str = dgv_Target.Rows[dgv_Target.CurrentCellAddress.Y].Cells[dgv_Target.CurrentCellAddress.X].Value.ToString();
+                for (int i = 0; i < dgv_Source.RowCount; i++)
+                {
+                    if (dgv_Source.Rows[i].Cells[0].Value.ToString().Equals(str))
+                    {
+                        //dgv_Source.Rows.RemoveAt(i);
+                        dgv_Source.Rows[i].Cells[0].Style.ForeColor = Color.Black;
+                    }
+                }
+                dgv_Target.Rows.RemoveAt(dgv_Target.CurrentCellAddress.Y);
+            }
+        }
+
+        private void tb_OwnDelimiter_TextChanged(object sender, EventArgs e)
+        {
+            if (tb_OwnDelimiter.Text.Length > 0)
+            {
+                radioButton1.Checked = false;
+                radioButton2.Checked = false;
+            }
+            else
+                radioButton1.Checked = true;
         }
     }
 }

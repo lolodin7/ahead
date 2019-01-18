@@ -87,3 +87,15 @@ SELECT [Notes] FROM [Indexing] WHERE ProductId = 1 AND [Date] = '2018-12-27'
 
 INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status], [Notes]) VALUES (11, 'B01MG2BEVZ', '2019-40-02', 'Not Ok', '@something wrong@@@@@@')
 
+
+SELECT * FROM Products WHERE [ProductId] = 1
+
+SELECT COUNT(SemanticsId) FROM semantics WHERE ProductId = 6
+
+SELECT COUNT(SemanticsId) FROM semantics WHERE [ProductId] = 1
+
+select * from semantics where productid = 8
+select * from FieldsLength where productid = 8
+
+SELECT * FROM SemCore LEFT JOIN KeywordCategory ON SemCore.CategoryId = KeywordCategory.CategoryId LEFT JOIN ProductTypes ON SemCore.ProductTypeId = ProductTypes.ProductTypeId WHERE KeywordCategory.CategoryId > 0 AND SemCore.ProductTypeId > 0
+select * from KeywordCategory

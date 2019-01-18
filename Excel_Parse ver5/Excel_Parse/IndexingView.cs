@@ -253,10 +253,14 @@ namespace Excel_Parse
             //сортируем, чтобы не было вразброс
             ListDateTime.Sort();
 
-            //добавляем сегодняшний день
-            if (!ListDateTime[ListDateTime.Count - 1].ToShortDateString().Equals(todayDate.ToShortDateString()))      //если сегодня еще не добавляли индексации
+            if (ListDateTime.Count > 0) {
+                //добавляем сегодняшний день
+                if (!ListDateTime[ListDateTime.Count - 1].ToShortDateString().Equals(todayDate.ToShortDateString()))      //если сегодня еще не добавляли индексации
+                    ListDateTime.Add(todayDate);
+            } else
+            {
                 ListDateTime.Add(todayDate);
-
+            }
 
             //создаем колонки по уникальным датам
             for (int i = ListDateTime.Count - 1; i >= 0; i--)
@@ -306,17 +310,17 @@ namespace Excel_Parse
             string _SKU = dataGridView1.Rows[row].Cells[3].Value.ToString();
             int _ProductTypeId = int.Parse(dataGridView1.Rows[row].Cells[4].Value.ToString());
 
-            SemanticsView sv = new SemanticsView(this, _ProductId, _ProductName, _ASIN, _SKU, _ProductTypeId);
 
             try
             {
+                SemanticsView sv = new SemanticsView(this, _ProductId, _ProductName, _ASIN, _SKU, _ProductTypeId);
                 sv.Show();
                 this.Visible = false;
             } 
             catch (Exception ex)
             {
                 Console.WriteLine(ex.HResult);
-                MessageBox.Show("Возникли проблемы с отображением семантики для выбранного товара. Попробуйте позже.", "Ошибка");
+                MessageBox.Show("Возникли проблемы с отображением семантики для выбранного товара, либо для этого товара ещё нет семантики.", "Ошибка");
             }
         }
 

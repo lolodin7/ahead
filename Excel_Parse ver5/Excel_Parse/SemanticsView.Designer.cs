@@ -1119,6 +1119,7 @@
             this.rtb_OtherAttributes1.Size = new System.Drawing.Size(1156, 20);
             this.rtb_OtherAttributes1.TabIndex = 86;
             this.rtb_OtherAttributes1.Text = "";
+            this.rtb_OtherAttributes1.Visible = false;
             this.rtb_OtherAttributes1.TextChanged += new System.EventHandler(this.tb_TextChanged);
             // 
             // rtb_OtherAttributes2
@@ -1131,6 +1132,7 @@
             this.rtb_OtherAttributes2.Size = new System.Drawing.Size(1156, 20);
             this.rtb_OtherAttributes2.TabIndex = 87;
             this.rtb_OtherAttributes2.Text = "";
+            this.rtb_OtherAttributes2.Visible = false;
             this.rtb_OtherAttributes2.TextChanged += new System.EventHandler(this.tb_TextChanged);
             // 
             // rtb_OtherAttributes3
@@ -1143,6 +1145,7 @@
             this.rtb_OtherAttributes3.Size = new System.Drawing.Size(1156, 20);
             this.rtb_OtherAttributes3.TabIndex = 88;
             this.rtb_OtherAttributes3.Text = "";
+            this.rtb_OtherAttributes3.Visible = false;
             this.rtb_OtherAttributes3.TextChanged += new System.EventHandler(this.tb_TextChanged);
             // 
             // rtb_OtherAttributes4
@@ -1155,6 +1158,7 @@
             this.rtb_OtherAttributes4.Size = new System.Drawing.Size(1156, 20);
             this.rtb_OtherAttributes4.TabIndex = 89;
             this.rtb_OtherAttributes4.Text = "";
+            this.rtb_OtherAttributes4.Visible = false;
             this.rtb_OtherAttributes4.TextChanged += new System.EventHandler(this.tb_TextChanged);
             // 
             // rtb_OtherAttributes5
@@ -1167,6 +1171,7 @@
             this.rtb_OtherAttributes5.Size = new System.Drawing.Size(1156, 20);
             this.rtb_OtherAttributes5.TabIndex = 90;
             this.rtb_OtherAttributes5.Text = "";
+            this.rtb_OtherAttributes5.Visible = false;
             this.rtb_OtherAttributes5.TextChanged += new System.EventHandler(this.tb_TextChanged);
             // 
             // rtb_IntendedUse1
@@ -1179,6 +1184,7 @@
             this.rtb_IntendedUse1.Size = new System.Drawing.Size(1156, 20);
             this.rtb_IntendedUse1.TabIndex = 91;
             this.rtb_IntendedUse1.Text = "";
+            this.rtb_IntendedUse1.Visible = false;
             this.rtb_IntendedUse1.TextChanged += new System.EventHandler(this.tb_TextChanged);
             // 
             // rtb_IntendedUse3
@@ -1191,6 +1197,7 @@
             this.rtb_IntendedUse3.Size = new System.Drawing.Size(1156, 20);
             this.rtb_IntendedUse3.TabIndex = 92;
             this.rtb_IntendedUse3.Text = "";
+            this.rtb_IntendedUse3.Visible = false;
             this.rtb_IntendedUse3.TextChanged += new System.EventHandler(this.tb_TextChanged);
             // 
             // rtb_IntendedUse2
@@ -1203,6 +1210,7 @@
             this.rtb_IntendedUse2.Size = new System.Drawing.Size(1156, 20);
             this.rtb_IntendedUse2.TabIndex = 92;
             this.rtb_IntendedUse2.Text = "";
+            this.rtb_IntendedUse2.Visible = false;
             this.rtb_IntendedUse2.TextChanged += new System.EventHandler(this.tb_TextChanged);
             // 
             // rtb_IntendedUse4
@@ -1215,6 +1223,7 @@
             this.rtb_IntendedUse4.Size = new System.Drawing.Size(1156, 20);
             this.rtb_IntendedUse4.TabIndex = 93;
             this.rtb_IntendedUse4.Text = "";
+            this.rtb_IntendedUse4.Visible = false;
             this.rtb_IntendedUse4.TextChanged += new System.EventHandler(this.tb_TextChanged);
             // 
             // rtb_IntendedUse5
@@ -1227,6 +1236,7 @@
             this.rtb_IntendedUse5.Size = new System.Drawing.Size(1156, 20);
             this.rtb_IntendedUse5.TabIndex = 94;
             this.rtb_IntendedUse5.Text = "";
+            this.rtb_IntendedUse5.Visible = false;
             this.rtb_IntendedUse5.TextChanged += new System.EventHandler(this.tb_TextChanged);
             // 
             // rtb_SubjectMatter1
@@ -1239,6 +1249,7 @@
             this.rtb_SubjectMatter1.Size = new System.Drawing.Size(1156, 20);
             this.rtb_SubjectMatter1.TabIndex = 95;
             this.rtb_SubjectMatter1.Text = "";
+            this.rtb_SubjectMatter1.Visible = false;
             this.rtb_SubjectMatter1.TextChanged += new System.EventHandler(this.tb_TextChanged);
             // 
             // rtb_SubjectMatter2
@@ -1251,6 +1262,7 @@
             this.rtb_SubjectMatter2.Size = new System.Drawing.Size(1156, 20);
             this.rtb_SubjectMatter2.TabIndex = 96;
             this.rtb_SubjectMatter2.Text = "";
+            this.rtb_SubjectMatter2.Visible = false;
             this.rtb_SubjectMatter2.TextChanged += new System.EventHandler(this.tb_TextChanged);
             // 
             // rtb_SubjectMatter3
@@ -1263,6 +1275,7 @@
             this.rtb_SubjectMatter3.Size = new System.Drawing.Size(1156, 20);
             this.rtb_SubjectMatter3.TabIndex = 97;
             this.rtb_SubjectMatter3.Text = "";
+            this.rtb_SubjectMatter3.Visible = false;
             this.rtb_SubjectMatter3.TextChanged += new System.EventHandler(this.tb_TextChanged);
             // 
             // rtb_SubjectMatter4
@@ -1275,6 +1288,7 @@
             this.rtb_SubjectMatter4.Size = new System.Drawing.Size(1156, 20);
             this.rtb_SubjectMatter4.TabIndex = 98;
             this.rtb_SubjectMatter4.Text = "";
+            this.rtb_SubjectMatter4.Visible = false;
             this.rtb_SubjectMatter4.TextChanged += new System.EventHandler(this.tb_TextChanged);
             // 
             // rtb_SubjectMatter5
@@ -1287,6 +1301,7 @@
             this.rtb_SubjectMatter5.Size = new System.Drawing.Size(1156, 20);
             this.rtb_SubjectMatter5.TabIndex = 99;
             this.rtb_SubjectMatter5.Text = "";
+            this.rtb_SubjectMatter5.Visible = false;
             this.rtb_SubjectMatter5.TextChanged += new System.EventHandler(this.tb_TextChanged);
             // 
             // rtb_UsedKeywords

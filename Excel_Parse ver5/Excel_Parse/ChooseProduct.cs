@@ -18,9 +18,12 @@ namespace Excel_Parse
         private MainFormView mf;
         private List<ProductsModel> pmList;
         private List<ProductsModel> pmUniqueList;
+        private List<ProductsModel> tmpPList;       //используем для товаров без семантик
 
+        private bool isNew;     //если вызвали для создания новой семантики
         private bool OpenSuccess;
 
+        /* Вызываем для редактирования семантики продукта */
         public ChooseProduct(MainFormView _mf)
         {
             InitializeComponent();
@@ -28,11 +31,80 @@ namespace Excel_Parse
             pmList = new List<ProductsModel> { };
             mf = _mf;
             OpenSuccess = false;
+            isNew = false;
 
             getDBProductSKUInfo();
             getUniquesASIN();
             SetDataToDGV();
         }
+
+        /* Вызываем, если хотим создать семантику для продукта */
+        public ChooseProduct(MainFormView _mf, bool _new)
+        {
+            InitializeComponent();
+            connection = DBData.GetDBConnection();
+            pmList = new List<ProductsModel> { };
+            mf = _mf;
+            OpenSuccess = false;
+            isNew = _new;
+
+            getDBProductSKUInfo();
+
+            //проверяем, есть ли у них семантики
+            checkForExistingSemantics();
+            getUniquesASIN(tmpPList);
+
+            SetDataToDGV();
+        }
+
+        /* Проверяем, есть ли у продукта хотябы одна семантика */
+        private void checkForExistingSemantics()
+        {
+            tmpPList = new List<ProductsModel> { };
+            ProductsModel pmModel;
+
+            for (int i = 0; i < pmList.Count; i++)
+            {
+                string sqlSemanticsIds = "SELECT COUNT(SemanticsId) FROM semantics WHERE [ProductId] = " + pmList[i].ProductId;
+                SqlCommand command = new SqlCommand(sqlSemanticsIds, connection);
+
+                try
+                {
+                    connection.Open();
+
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            IDataRecord dr = (IDataRecord)reader;
+                            int cnt = int.Parse(dr[0].ToString());
+
+                            if (cnt == 0)
+                            {
+                                pmModel = new ProductsModel();
+                                tmpPList.Add(pmModel);
+
+                                tmpPList[tmpPList.Count - 1] = pmList[i];
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No rows found.");
+                    }
+                    reader.Close();
+                    connection.Close();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Упс! Возникла проблема с подключением к БД :( Приложение будет закрыто", "Ошибка");
+                    Environment.Exit(0);
+                }
+            }
+        }
+
 
         /* Заносим инфо о продуктах в dgv */
         private void SetDataToDGV()
@@ -120,6 +192,32 @@ namespace Excel_Parse
             }
         }
 
+        /* Выделяем уникальные ASIN с разных SKU (работа с товарами, у которых ещё нет семантики) */
+        private void getUniquesASIN(List<ProductsModel> _pmList)
+        {
+            List<string> tmp = new List<string> { };
+            pmUniqueList = new List<ProductsModel> { };
+
+            if (_pmList != null)
+            {
+                for (int i = 0; i < _pmList.Count; i++)
+                {
+                    if (!tmp.Contains(_pmList[i].SKU))
+                    {
+                        ProductsModel pmModel = new ProductsModel();
+                        pmUniqueList.Add(pmModel);
+
+                        for (int k = 0; k < pmUniqueList[0].ColumnCount; k++)
+                        {
+                            pmUniqueList[pmUniqueList.Count - 1].WriteData(k, _pmList[i].ReadData(k));
+                        }
+                        tmp.Add(_pmList[i].SKU);
+                    }
+
+                }
+            }
+        }
+
         /* Открываем семантику для выбранного товара */
         private void btn_Ok_Click(object sender, EventArgs e)
         {
@@ -133,31 +231,40 @@ namespace Excel_Parse
 
                 string sqlSemanticsIds = "SELECT * FROM Semantics WHERE [ProductId] = " + ProductId;
                 SqlCommand command = new SqlCommand(sqlSemanticsIds, connection);
-
-                try
+                if (!isNew)
                 {
-                    connection.Open();
-
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    if (reader.HasRows)
+                    try
                     {
-                        SemanticsView semantics = new SemanticsView(mf, ProductId, _productName, _asin, _sku, _prodTypeId);
-                        OpenSuccess = true;
-                        semantics.Show();
-                        this.Close();
+                        connection.Open();
+
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        if (reader.HasRows)
+                        {
+                            SemanticsView semantics = new SemanticsView(mf, ProductId, _productName, _asin, _sku, _prodTypeId);
+                            OpenSuccess = true;
+                            semantics.Show();
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("У данного товара пока что нет ни одной семантики", "Ошибка");
+                        }
+                        reader.Close();
+                        connection.Close();
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        MessageBox.Show("У данного товара пока что нет ни одной семантики", "Ошибка");
+                        MessageBox.Show("Упс! Возникла проблема с подключением к БД :( Приложение будет закрыто", "Ошибка");
+                        Environment.Exit(0);
                     }
-                    reader.Close();
-                    connection.Close();
                 }
-                catch (Exception ex)
+                else if (isNew) //создаем новую семантику
                 {
-                    MessageBox.Show("Упс! Возникла проблема с подключением к БД :( Приложение будет закрыто", "Ошибка");
-                    Environment.Exit(0);
+                    SemanticsView semantics = new SemanticsView(mf, ProductId, _productName, _asin, _sku, _prodTypeId, isNew);
+                    OpenSuccess = true;
+                    semantics.Show();
+                    this.Close();
                 }
             }
         }

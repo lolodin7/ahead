@@ -150,10 +150,11 @@ namespace Excel_Parse
                         kcController.GetKeywordCategoriesJOINProductTypes();
                         Draw();
                         ptController.GetProductTypesAll();
-                        fill_cb_ProductTypes();
+                        //fill_cb_ProductTypes();
                         wasAdded = true;
                         MessageBox.Show("Категория \"" + tb_CategoryName.Text + "\" была добавлена успешно!", "Успешно");
                         tb_CategoryName.Text = "";
+                        tb_CategoryName.Focus();
                     }
                     else if (result == -2146232060)
                     {
@@ -262,6 +263,44 @@ namespace Excel_Parse
             {
                 kcController.GetKeywordCategoriesJOINProductTypes();
                 Draw();
+            }
+        }
+
+        /* Добавляем категорию по нажатию Enter в поле вводе */
+        private void tb_CategoryName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (tb_CategoryName.Text != "")
+                {
+                    if (!ChechForExisting())
+                    {
+                        int result = kcController.SetNewKeywordCategory(tb_CategoryName.Text, int.Parse(tb_ProductTypeId.Text)); //вызываем метод для записи в БД и проверяем сразу на успешность
+                        if (result == 1)
+                        {
+                            kcController.GetKeywordCategoriesJOINProductTypes();
+                            Draw();
+                            ptController.GetProductTypesAll();
+                            //fill_cb_ProductTypes();
+                            wasAdded = true;
+                            MessageBox.Show("Категория \"" + tb_CategoryName.Text + "\" была добавлена успешно!", "Успешно");
+                            tb_CategoryName.Text = "";
+                            tb_CategoryName.Focus();
+                        }
+                        else if (result == -2146232060)
+                        {
+                            MessageBox.Show("Такая категория уже существует. Нажмите \"Обновить\" для просмотра.", "Ошибка");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Такая категория уже существует!", "Ошибка");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Введите название новой категории.", "Ошибка");
+                }
             }
         }
     }

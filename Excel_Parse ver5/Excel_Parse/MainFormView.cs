@@ -91,5 +91,12 @@ namespace Excel_Parse
             iv.Show();
             this.Visible = false;
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ChooseProduct cp = new ChooseProduct(this, true);
+            cp.Show();
+            this.Visible = false;
+        }
     }
 }

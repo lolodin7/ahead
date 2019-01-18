@@ -180,8 +180,35 @@ VALUES ('Lightning Cable(3 ft)', 'B01MDV1TO4', '32-FM61-Q39H', 6, 1)
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
 VALUES ('PDW Microphone Clip', 'B01LZ6T9XO', '1N-NPIV-XHND', 8, 1)
 
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId])
-VALUES ('TEST PRODUCT', 'AAAAAAAA', 'BBBBBBBB', 2, 4)
+
+/*         -- [KeywordCategory] --             */
+INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
+VALUES ('Пустая категория', 0)
+
+
+
+
+
+
+
+
+
+INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
+VALUES ('Lavalier Mic', 1)
+
+INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
+VALUES ('Lapel Mic', 1)
+
+INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
+VALUES ('Magnetic Strip', 2)
+
+INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
+VALUES ('5 Knife Set', 3)
+
+INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
+VALUES ('iPhone Mic', 1)
+
+
 
 
 /*         -- [Semantics] --             */
@@ -199,26 +226,6 @@ VALUES (2, 'Title4 not smaLL title', 'Bul4', 'Bul4', 'Bul4', 'Bul4', 'Bul4', 'Ba
 
 INSERT INTO [Semantics] ([ProductId], [Title], [Bullet1], [Bullet2], [Bullet3], [Bullet4], [Bullet5], [Backend], [Description], [UpdateDate], [Notes], [UsedKeywords])
 VALUES (1, 'Title4 not smaLL title', 'Bul4', 'Bul4', 'Bul4', 'Bul4', 'Bul4', 'Backend4', 'Descr444444', '2018-05-05 14:14:00.000', 'Notes4', 'lapel microphone|2|lavalier microphone|0|')
-
-
-/*         -- [KeywordCategory] --             */
-INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
-VALUES ('Пустая категория', 0)
-
-INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
-VALUES ('Lavalier Mic', 1)
-
-INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
-VALUES ('Lapel Mic', 1)
-
-INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
-VALUES ('Magnetic Strip', 2)
-
-INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
-VALUES ('5 Knife Set', 3)
-
-INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
-VALUES ('iPhone Mic', 1)
 
 
 /*         -- [SemCore] --             */

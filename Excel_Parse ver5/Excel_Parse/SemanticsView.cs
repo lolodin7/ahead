@@ -41,7 +41,7 @@ namespace Excel_Parse
 
         private bool CheckForUnsavedChanges;        //чтобы не закрыть прогу без сохранения
 
-
+        private bool isNew;                 //указывает, создаем новую семантику или открываем на редактирование
 
 
         private bool reverseDescriptionTransform;
@@ -110,6 +110,53 @@ namespace Excel_Parse
             
 
             getStarted();
+        }
+
+
+        /* Конструктор, если вызываем из главной формы для добавления новой семантики */
+        public SemanticsView(MainFormView _mf, int _productId, string _productName, string _asin, string _sku, int _prodTypeId, bool _isNew)
+        {
+            InitializeComponent();
+
+            isNew = _isNew;
+
+            ProductId = _productId;
+            ProductName = _productName;
+            ASIN = _asin;
+            SKU = _sku;
+            ProductTypeId = _prodTypeId;
+
+            lb_ProductName.Text = ProductName;
+            lb_ASIN.Text = ASIN;
+            lb_SKU.Text = SKU;
+
+            this.Text = "Семантика - " + ProductName;
+
+            controlMainFormView = _mf;
+            connection = DBData.GetDBConnection();
+            smList = new List<SemanticsModel> { };
+            usedK = new List<string[]> { };
+            checkedCategories = new List<int> { };
+
+            kcController = new KeywordCategoryController(this);
+            ptController = new ProductTypesController(this);
+
+            DayCreated = false;
+            CurrentDay = DateTime.Now;
+
+            lb_LastUpdatedText.Visible = false;
+            cb_LastUpdated.Visible = false;
+
+
+            btn_TransformDescr.Text = "П\nр\nе\nо\nб\nр\nа\nз\nо\nв\nа\nт\nь\n";
+            btn_ReplaceTexts.Text = "S\nw\na\np\n";
+            reverseDescriptionTransform = true;
+
+            getDBFieldsLength();
+            getDBKeywords();
+            //getDBFields();
+
+            CheckForUnsavedChanges = false;
         }
 
         /* Первая загрузка формы */
@@ -209,13 +256,14 @@ namespace Excel_Parse
                 }
                 reader.Close();
                 connection.Close();
-                Fill_CB_byDates();
             }
             catch (Exception e)
             {
                 MessageBox.Show("Упс! Возникла проблема с подключением к БД.", "Ошибка");
                 return;
             }
+
+            Fill_CB_byDates();          //вынес сюда из try, потому что при запуске этой формы из indexingView, если семантики нет, то ошибка не отлавливается
         }
 
         /* Заполняем список семантиками данными, полученными с БД */
@@ -1304,9 +1352,15 @@ namespace Excel_Parse
         private void setDBFieldsLength()
         {
             //Try-catch отслеживаем в методе setDBFields()
-
-            string sqlStatement = "UPDATE [FieldsLength] SET [TitleLength] = " + TitleLength + ", [BulletsLength] = " + BulletsLength + ", [BackendLength] = " + BackendLength + ", [SubjectMatterLength] = " + SubjectMatterLength + ", [OtherAttributesLength] = " + OtherAttributesLength + ", [IntendedUseLength] = " + IntendedUseLength + ", [DescriptionLength] = " + DescriptionLength + " WHERE [ProductId] = " + ProductId + "";
-
+            string sqlStatement = "";
+            if (!isNew)
+            {
+                sqlStatement = "UPDATE [FieldsLength] SET [TitleLength] = " + TitleLength + ", [BulletsLength] = " + BulletsLength + ", [BackendLength] = " + BackendLength + ", [SubjectMatterLength] = " + SubjectMatterLength + ", [OtherAttributesLength] = " + OtherAttributesLength + ", [IntendedUseLength] = " + IntendedUseLength + ", [DescriptionLength] = " + DescriptionLength + " WHERE [ProductId] = " + ProductId + "";
+            }
+            else
+            {
+                sqlStatement = "INSERT INTO [FieldsLength] ([TitleLength], [BulletsLength], [BackendLength], [SubjectMatterLength], [OtherAttributesLength], [IntendedUseLength], [DescriptionLength], [ProductId]) VALUES (" + TitleLength + ", " + BulletsLength + ", " + BackendLength + ", " + SubjectMatterLength + ", " + OtherAttributesLength + ", " + IntendedUseLength + ", " + DescriptionLength + ", " + ProductId + ")";
+            }
             connection.Open();
             SqlCommand command = new SqlCommand(sqlStatement, connection);
             command.ExecuteScalar();

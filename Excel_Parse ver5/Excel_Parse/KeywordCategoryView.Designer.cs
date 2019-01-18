@@ -141,6 +141,7 @@
             this.tb_CategoryName.Name = "tb_CategoryName";
             this.tb_CategoryName.Size = new System.Drawing.Size(193, 20);
             this.tb_CategoryName.TabIndex = 0;
+            this.tb_CategoryName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_CategoryName_KeyDown);
             // 
             // dgv_KeywordCategory
             // 
