@@ -131,6 +131,23 @@ namespace Excel_Parse
                     dgv_Keywords.Rows[index].Cells[j].Value = fscList[i].ReadData(j);
                 }
             }
+
+            int cnt = dgv_Keywords.RowCount;
+            if (cnt == 1)
+                this.Text = "Семантическая база - " + cnt + " ключ";
+            else if (cnt == 2 || cnt == 3 || cnt == 4)
+                this.Text = "Семантическая база - " + cnt + " ключа";
+            else if (cnt >= 5 && cnt <= 19)
+                this.Text = "Семантическая база - " + cnt + " ключей";
+            else
+            {
+                if (cnt % 10 == 1)
+                    this.Text = "Семантическая база - " + cnt + " ключ";
+                else if (cnt % 10 == 2 || cnt % 10 == 3 || cnt % 10 == 4)
+                    this.Text = "Семантическая база - " + cnt + " ключа";
+                else if (cnt % 10 >=5 || cnt % 10 <= 9 || cnt % 10 == 0)
+                    this.Text = "Семантическая база - " + cnt + " ключей";
+            }
         }
 
         /* Получаем ключи из БД */
@@ -221,9 +238,9 @@ namespace Excel_Parse
             //2 колонка - ключ
             for (int i = 0; i < dgv_Keywords.RowCount; i++)
             {
-                if (dgv_Keywords.Rows[i].Cells[2].Value.ToString().Contains(tb_FindKeyword.Text) && !tb_FindKeyword.Text.Equals(""))
+                if (dgv_Keywords.Rows[i].Cells[2].Value.ToString().ToLower().Contains(tb_FindKeyword.Text.ToLower()) && !tb_FindKeyword.Text.Equals(""))
                 {
-                    dgv_Keywords.Rows[i].Cells[2].Style.BackColor = Color.LightGray;
+                    dgv_Keywords.Rows[i].Cells[2].Style.BackColor = Color.DeepSkyBlue;
                 }
                 else
                     dgv_Keywords.Rows[i].Cells[2].Style.BackColor = Color.White;

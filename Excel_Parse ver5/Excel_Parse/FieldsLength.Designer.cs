@@ -52,6 +52,8 @@
             this.label14 = new System.Windows.Forms.Label();
             this.btn_Save = new System.Windows.Forms.Button();
             this.btn_Close = new System.Windows.Forms.Button();
+            this.cb_CountBulSpaces = new System.Windows.Forms.CheckBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -94,7 +96,7 @@
             this.tb_Bullets.Location = new System.Drawing.Point(49, 96);
             this.tb_Bullets.Name = "tb_Bullets";
             this.tb_Bullets.Size = new System.Drawing.Size(66, 20);
-            this.tb_Bullets.TabIndex = 4;
+            this.tb_Bullets.TabIndex = 2;
             this.tb_Bullets.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_KeyPress);
             // 
             // label4
@@ -120,7 +122,7 @@
             this.tb_Backend.Location = new System.Drawing.Point(49, 168);
             this.tb_Backend.Name = "tb_Backend";
             this.tb_Backend.Size = new System.Drawing.Size(66, 20);
-            this.tb_Backend.TabIndex = 7;
+            this.tb_Backend.TabIndex = 3;
             this.tb_Backend.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_KeyPress);
             // 
             // label6
@@ -146,7 +148,7 @@
             this.tb_Description.Location = new System.Drawing.Point(49, 243);
             this.tb_Description.Name = "tb_Description";
             this.tb_Description.Size = new System.Drawing.Size(66, 20);
-            this.tb_Description.TabIndex = 10;
+            this.tb_Description.TabIndex = 4;
             this.tb_Description.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_KeyPress);
             // 
             // label8
@@ -172,7 +174,7 @@
             this.tb_IntendedUse.Location = new System.Drawing.Point(229, 32);
             this.tb_IntendedUse.Name = "tb_IntendedUse";
             this.tb_IntendedUse.Size = new System.Drawing.Size(66, 20);
-            this.tb_IntendedUse.TabIndex = 13;
+            this.tb_IntendedUse.TabIndex = 5;
             this.tb_IntendedUse.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_KeyPress);
             // 
             // label10
@@ -198,7 +200,7 @@
             this.tb_OtherAttributes.Location = new System.Drawing.Point(229, 96);
             this.tb_OtherAttributes.Name = "tb_OtherAttributes";
             this.tb_OtherAttributes.Size = new System.Drawing.Size(66, 20);
-            this.tb_OtherAttributes.TabIndex = 16;
+            this.tb_OtherAttributes.TabIndex = 6;
             this.tb_OtherAttributes.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_KeyPress);
             // 
             // label12
@@ -224,7 +226,7 @@
             this.tb_SubjectMatter.Location = new System.Drawing.Point(229, 168);
             this.tb_SubjectMatter.Name = "tb_SubjectMatter";
             this.tb_SubjectMatter.Size = new System.Drawing.Size(66, 20);
-            this.tb_SubjectMatter.TabIndex = 19;
+            this.tb_SubjectMatter.TabIndex = 7;
             this.tb_SubjectMatter.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_KeyPress);
             // 
             // label14
@@ -242,7 +244,7 @@
             this.btn_Save.Location = new System.Drawing.Point(119, 292);
             this.btn_Save.Name = "btn_Save";
             this.btn_Save.Size = new System.Drawing.Size(109, 31);
-            this.btn_Save.TabIndex = 21;
+            this.btn_Save.TabIndex = 8;
             this.btn_Save.Text = "Сохранить";
             this.btn_Save.UseVisualStyleBackColor = true;
             this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
@@ -257,12 +259,31 @@
             this.btn_Close.Text = "Отмена";
             this.btn_Close.UseVisualStyleBackColor = true;
             // 
+            // cb_CountBulSpaces
+            // 
+            this.cb_CountBulSpaces.AutoSize = true;
+            this.cb_CountBulSpaces.Location = new System.Drawing.Point(186, 245);
+            this.cb_CountBulSpaces.Name = "cb_CountBulSpaces";
+            this.cb_CountBulSpaces.Size = new System.Drawing.Size(15, 14);
+            this.cb_CountBulSpaces.TabIndex = 23;
+            this.cb_CountBulSpaces.UseVisualStyleBackColor = true;
+            // 
+            // label15
+            // 
+            this.label15.Location = new System.Drawing.Point(202, 237);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(112, 30);
+            this.label15.TabIndex = 24;
+            this.label15.Text = "Учитывать пробелы в Bullets";
+            // 
             // FieldsLength
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(348, 333);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.cb_CountBulSpaces);
             this.Controls.Add(this.btn_Close);
             this.Controls.Add(this.btn_Save);
             this.Controls.Add(this.label13);
@@ -323,5 +344,7 @@
         private System.Windows.Forms.TextBox tb_IntendedUse;
         private System.Windows.Forms.TextBox tb_OtherAttributes;
         private System.Windows.Forms.TextBox tb_SubjectMatter;
+        private System.Windows.Forms.CheckBox cb_CountBulSpaces;
+        private System.Windows.Forms.Label label15;
     }
 }

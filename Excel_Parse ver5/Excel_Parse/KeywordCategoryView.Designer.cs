@@ -81,6 +81,7 @@
             this.cb_ProductType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_ProductType.FormattingEnabled = true;
             this.cb_ProductType.Location = new System.Drawing.Point(325, 59);
+            this.cb_ProductType.MaxDropDownItems = 25;
             this.cb_ProductType.Name = "cb_ProductType";
             this.cb_ProductType.Size = new System.Drawing.Size(193, 21);
             this.cb_ProductType.TabIndex = 7;
@@ -215,6 +216,7 @@
             this.cb_ShownProductType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_ShownProductType.FormattingEnabled = true;
             this.cb_ShownProductType.Location = new System.Drawing.Point(283, 4);
+            this.cb_ShownProductType.MaxDropDownItems = 25;
             this.cb_ShownProductType.Name = "cb_ShownProductType";
             this.cb_ShownProductType.Size = new System.Drawing.Size(193, 21);
             this.cb_ShownProductType.TabIndex = 5;

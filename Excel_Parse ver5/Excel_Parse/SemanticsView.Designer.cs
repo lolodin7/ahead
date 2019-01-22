@@ -161,6 +161,7 @@
             this.btn_AcceptGroupBox1 = new System.Windows.Forms.Button();
             this.btn_Help = new System.Windows.Forms.Button();
             this.rb_None = new System.Windows.Forms.RadioButton();
+            this.lb_Description = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Keywords)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSemantics)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).BeginInit();
@@ -232,7 +233,7 @@
             // 
             // lb_TitleText
             // 
-            this.lb_TitleText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_TitleText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lb_TitleText.Location = new System.Drawing.Point(919, 34);
             this.lb_TitleText.Name = "lb_TitleText";
             this.lb_TitleText.Size = new System.Drawing.Size(146, 27);
@@ -242,7 +243,7 @@
             // 
             // lb_BulletsText
             // 
-            this.lb_BulletsText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_BulletsText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lb_BulletsText.Location = new System.Drawing.Point(919, 103);
             this.lb_BulletsText.Name = "lb_BulletsText";
             this.lb_BulletsText.Size = new System.Drawing.Size(146, 19);
@@ -252,8 +253,8 @@
             // 
             // lb_BackendText
             // 
-            this.lb_BackendText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_BackendText.Location = new System.Drawing.Point(919, 287);
+            this.lb_BackendText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_BackendText.Location = new System.Drawing.Point(919, 277);
             this.lb_BackendText.Name = "lb_BackendText";
             this.lb_BackendText.Size = new System.Drawing.Size(146, 21);
             this.lb_BackendText.TabIndex = 10;
@@ -324,7 +325,7 @@
             // lb_Backend
             // 
             this.lb_Backend.AutoSize = true;
-            this.lb_Backend.Location = new System.Drawing.Point(391, 317);
+            this.lb_Backend.Location = new System.Drawing.Point(391, 307);
             this.lb_Backend.Name = "lb_Backend";
             this.lb_Backend.Size = new System.Drawing.Size(13, 13);
             this.lb_Backend.TabIndex = 17;
@@ -339,7 +340,7 @@
             this.rtb_Description.Size = new System.Drawing.Size(556, 380);
             this.rtb_Description.TabIndex = 18;
             this.rtb_Description.Text = "";
-            this.rtb_Description.TextChanged += new System.EventHandler(this.rtb_Description_TextChanged);
+            this.rtb_Description.TextChanged += new System.EventHandler(this.tb_TextChanged);
             // 
             // rtb_Description2
             // 
@@ -363,8 +364,8 @@
             // 
             // lb_DescriptionText
             // 
-            this.lb_DescriptionText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_DescriptionText.Location = new System.Drawing.Point(920, 337);
+            this.lb_DescriptionText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_DescriptionText.Location = new System.Drawing.Point(920, 333);
             this.lb_DescriptionText.Name = "lb_DescriptionText";
             this.lb_DescriptionText.Size = new System.Drawing.Size(146, 21);
             this.lb_DescriptionText.TabIndex = 21;
@@ -408,17 +409,19 @@
             // lb_LastUpdatedText
             // 
             this.lb_LastUpdatedText.AutoSize = true;
-            this.lb_LastUpdatedText.Location = new System.Drawing.Point(1310, 19);
+            this.lb_LastUpdatedText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_LastUpdatedText.Location = new System.Drawing.Point(1270, 4);
             this.lb_LastUpdatedText.Name = "lb_LastUpdatedText";
-            this.lb_LastUpdatedText.Size = new System.Drawing.Size(125, 13);
+            this.lb_LastUpdatedText.Size = new System.Drawing.Size(170, 19);
             this.lb_LastUpdatedText.TabIndex = 25;
             this.lb_LastUpdatedText.Text = "Последнее изменение:";
+            this.lb_LastUpdatedText.Visible = false;
             // 
             // rb_Title
             // 
             this.rb_Title.AutoSize = true;
             this.rb_Title.Checked = true;
-            this.rb_Title.Location = new System.Drawing.Point(368, 57);
+            this.rb_Title.Location = new System.Drawing.Point(368, 61);
             this.rb_Title.Name = "rb_Title";
             this.rb_Title.Size = new System.Drawing.Size(14, 13);
             this.rb_Title.TabIndex = 27;
@@ -428,7 +431,7 @@
             // rb_Bullets
             // 
             this.rb_Bullets.AutoSize = true;
-            this.rb_Bullets.Location = new System.Drawing.Point(368, 126);
+            this.rb_Bullets.Location = new System.Drawing.Point(368, 131);
             this.rb_Bullets.Name = "rb_Bullets";
             this.rb_Bullets.Size = new System.Drawing.Size(14, 13);
             this.rb_Bullets.TabIndex = 28;
@@ -437,7 +440,7 @@
             // rb_Backend
             // 
             this.rb_Backend.AutoSize = true;
-            this.rb_Backend.Location = new System.Drawing.Point(368, 315);
+            this.rb_Backend.Location = new System.Drawing.Point(368, 305);
             this.rb_Backend.Name = "rb_Backend";
             this.rb_Backend.Size = new System.Drawing.Size(14, 13);
             this.rb_Backend.TabIndex = 29;
@@ -461,36 +464,36 @@
             "29.08.2018 15:44",
             "10.10.2018 18:36",
             "01.11.2018 12:05"});
-            this.cb_LastUpdated.Location = new System.Drawing.Point(1437, 15);
+            this.cb_LastUpdated.Location = new System.Drawing.Point(1430, 26);
+            this.cb_LastUpdated.MaxDropDownItems = 25;
             this.cb_LastUpdated.Name = "cb_LastUpdated";
-            this.cb_LastUpdated.Size = new System.Drawing.Size(135, 21);
+            this.cb_LastUpdated.Size = new System.Drawing.Size(142, 21);
             this.cb_LastUpdated.TabIndex = 31;
             this.cb_LastUpdated.SelectedIndexChanged += new System.EventHandler(this.cb_LastUpdated_SelectedIndexChanged);
             // 
             // lb_ASINText
             // 
-            this.lb_ASINText.AutoSize = true;
-            this.lb_ASINText.Location = new System.Drawing.Point(414, 30);
+            this.lb_ASINText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_ASINText.Location = new System.Drawing.Point(1426, 4);
             this.lb_ASINText.Name = "lb_ASINText";
-            this.lb_ASINText.Size = new System.Drawing.Size(35, 13);
+            this.lb_ASINText.Size = new System.Drawing.Size(47, 22);
             this.lb_ASINText.TabIndex = 33;
             this.lb_ASINText.Text = "ASIN:";
             // 
             // lb_SKUText
             // 
-            this.lb_SKUText.AutoSize = true;
-            this.lb_SKUText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_SKUText.Location = new System.Drawing.Point(414, 30);
+            this.lb_SKUText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_SKUText.Location = new System.Drawing.Point(414, 7);
             this.lb_SKUText.Name = "lb_SKUText";
-            this.lb_SKUText.Size = new System.Drawing.Size(38, 19);
+            this.lb_SKUText.Size = new System.Drawing.Size(64, 19);
             this.lb_SKUText.TabIndex = 34;
             this.lb_SKUText.Text = "SKU:";
             this.lb_SKUText.Visible = false;
             // 
             // lb_SKU
             // 
-            this.lb_SKU.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_SKU.Location = new System.Drawing.Point(449, 30);
+            this.lb_SKU.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_SKU.Location = new System.Drawing.Point(466, 9);
             this.lb_SKU.Name = "lb_SKU";
             this.lb_SKU.Size = new System.Drawing.Size(112, 17);
             this.lb_SKU.TabIndex = 0;
@@ -501,12 +504,13 @@
             // 
             // lb_ASIN
             // 
-            this.lb_ASIN.Location = new System.Drawing.Point(451, 26);
+            this.lb_ASIN.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_ASIN.Location = new System.Drawing.Point(1464, 3);
             this.lb_ASIN.Name = "lb_ASIN";
-            this.lb_ASIN.Size = new System.Drawing.Size(112, 21);
+            this.lb_ASIN.Size = new System.Drawing.Size(110, 21);
             this.lb_ASIN.TabIndex = 32;
             this.lb_ASIN.Text = "B01AG56HYQ";
-            this.lb_ASIN.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lb_ASIN.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lb_ASIN.Click += new System.EventHandler(this.lb_ASIN_Click);
             // 
             // lb_ProductName
@@ -788,7 +792,7 @@
             // 
             // lb_OtherAttributesText
             // 
-            this.lb_OtherAttributesText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_OtherAttributesText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lb_OtherAttributesText.Location = new System.Drawing.Point(917, 840);
             this.lb_OtherAttributesText.Name = "lb_OtherAttributesText";
             this.lb_OtherAttributesText.Size = new System.Drawing.Size(146, 21);
@@ -799,7 +803,7 @@
             // 
             // lb_IntendedUseText
             // 
-            this.lb_IntendedUseText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_IntendedUseText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lb_IntendedUseText.Location = new System.Drawing.Point(917, 1014);
             this.lb_IntendedUseText.Name = "lb_IntendedUseText";
             this.lb_IntendedUseText.Size = new System.Drawing.Size(146, 19);
@@ -810,7 +814,7 @@
             // 
             // lb_SubjectMatterText
             // 
-            this.lb_SubjectMatterText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_SubjectMatterText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lb_SubjectMatterText.Location = new System.Drawing.Point(917, 1186);
             this.lb_SubjectMatterText.Name = "lb_SubjectMatterText";
             this.lb_SubjectMatterText.Size = new System.Drawing.Size(146, 18);
@@ -830,7 +834,7 @@
             // 
             // lb_Notes
             // 
-            this.lb_Notes.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_Notes.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lb_Notes.Location = new System.Drawing.Point(917, 1354);
             this.lb_Notes.Name = "lb_Notes";
             this.lb_Notes.Size = new System.Drawing.Size(146, 19);
@@ -1121,7 +1125,7 @@
             // 
             this.rtb_Backend.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtb_Backend.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_Backend.Location = new System.Drawing.Point(416, 311);
+            this.rtb_Backend.Location = new System.Drawing.Point(416, 301);
             this.rtb_Backend.Multiline = false;
             this.rtb_Backend.Name = "rtb_Backend";
             this.rtb_Backend.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -1448,11 +1452,11 @@
             // 
             // btn_Help
             // 
-            this.btn_Help.Location = new System.Drawing.Point(463, 339);
+            this.btn_Help.Location = new System.Drawing.Point(314, 2);
             this.btn_Help.Name = "btn_Help";
-            this.btn_Help.Size = new System.Drawing.Size(89, 39);
+            this.btn_Help.Size = new System.Drawing.Size(21, 21);
             this.btn_Help.TabIndex = 103;
-            this.btn_Help.Text = "Help";
+            this.btn_Help.Text = "?";
             this.btn_Help.UseVisualStyleBackColor = true;
             this.btn_Help.Click += new System.EventHandler(this.btn_Help_Click);
             // 
@@ -1466,6 +1470,15 @@
             this.rb_None.TabStop = true;
             this.rb_None.UseVisualStyleBackColor = true;
             // 
+            // lb_Description
+            // 
+            this.lb_Description.AutoSize = true;
+            this.lb_Description.Location = new System.Drawing.Point(391, 386);
+            this.lb_Description.Name = "lb_Description";
+            this.lb_Description.Size = new System.Drawing.Size(13, 13);
+            this.lb_Description.TabIndex = 105;
+            this.lb_Description.Text = "0";
+            // 
             // SemanticsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1473,6 +1486,7 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1594, 845);
+            this.Controls.Add(this.lb_Description);
             this.Controls.Add(this.rb_None);
             this.Controls.Add(this.btn_Help);
             this.Controls.Add(this.groupBox1);
@@ -1705,5 +1719,6 @@
         private System.Windows.Forms.Button btn_Help;
         private System.Windows.Forms.RadioButton rb_None;
         private System.Windows.Forms.ToolStripMenuItem fieldsLengthToolStripMenuItem;
+        private System.Windows.Forms.Label lb_Description;
     }
 }

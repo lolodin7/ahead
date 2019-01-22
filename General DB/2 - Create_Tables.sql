@@ -131,6 +131,7 @@ CREATE TABLE [FieldsLength](
 	[IntendedUseLength]		INT,
 	[DescriptionLength]		INT,
 	[ProductId]				INT,
+	[CountBulSpaces]		BIT,
 	CONSTRAINT FK_FieldsLength_Products FOREIGN KEY ([ProductId]) REFERENCES Products ([ProductId])
 )
 GO

@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.FileIO;
 using System.Data.SqlClient;
+using System.IO;
+using OfficeOpenXml;
 
 namespace Excel_Parse
 {
@@ -51,22 +53,6 @@ namespace Excel_Parse
             tb_Link.Text = mf.AmazonLink;
         }
 
-
-        /* Конструктор */
-        public SemCoreView()
-        {
-            InitializeComponent();
-            CurrentColumnCount = 0;
-
-            scController = new SemCoreController(this);
-            kcController = new KeywordCategoryController(this);
-            ptController = new ProductTypesController(this);
-
-            ptController.GetProductTypesAll();
-            Fill_CB_ByProductTypes();
-            kcController.GetKeywordCategoriesByProductId(currentProductTypeId);
-            Fill_CB_ByKeywordCategories(); 
-        }
 
         public void RefreshKeywordCategories()
         {
@@ -141,25 +127,23 @@ namespace Excel_Parse
                 {
                     try
                     {
-                        using (TextFieldParser parser = new TextFieldParser(@path))
+                        FileInfo existingFile = new FileInfo(@path);
+                        using (ExcelPackage package = new ExcelPackage(existingFile))
                         {
-                            parser.TextFieldType = FieldType.Delimited;
-                            //parser.SetDelimiters(",");
-                            while (!parser.EndOfData)
+                            //get the first worksheet in the workbook
+                            ExcelWorksheet worksheet = package.Workbook.Worksheets[1];
+                            int colCount = worksheet.Dimension.End.Column;  //get Column Count
+                            int rowCount = worksheet.Dimension.End.Row;     //get row count
+                            for (int row = 1; row <= rowCount; row++)
                             {
-                                //Process row
-                                string[] fields = parser.ReadFields();
-
                                 var index = dgv_Source.Rows.Add();
-                                int i = 0;
 
-                                foreach (string field in fields)
+                                for (int col = 1; col <= colCount; col++)
                                 {
-                                    if (i == 1)
-                                        dgv_Source.Rows[index].Cells[i].Value = double.Parse(field);
+                                    if (col == 2)
+                                        dgv_Source.Rows[index].Cells[col - 1].Value = double.Parse(worksheet.Cells[row, col].Value.ToString().Trim());
                                     else
-                                        dgv_Source.Rows[index].Cells[i].Value = field;
-                                    i++;
+                                        dgv_Source.Rows[index].Cells[col - 1].Value = worksheet.Cells[row, col].Value.ToString().Trim();
                                 }
                             }
                         }
@@ -410,7 +394,10 @@ namespace Excel_Parse
             }
             else
             {
-                setDataToDB();
+                if (MessageBox.Show("Сохранить выбранные ключи в категорию " + cb_KeywordCategory.SelectedItem.ToString() + "?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    setDataToDB();
+                }
             }
         }
 

@@ -1,5 +1,5 @@
-use ahead
-go
+USE AHEAD
+GO
 
 select COUNT(orderid) from payments where sku = ''
 
@@ -106,5 +106,11 @@ SELECT COUNT(SemanticsId) FROM semantics WHERE [ProductId] = 14
 
 SELECT COUNT(SemanticsId) FROM semantics WHERE [ProductId] = getProductIdByASIN(1)
 
-SELECT * FROM Semantics  
+SELECT * FROM Semantics
+SELECT * FROM [FieldsLength]  
 
+INSERT INTO [FieldsLength] ([TitleLength], [BulletsLength], [BackendLength], [SubjectMatterLength], [OtherAttributesLength], [IntendedUseLength], [DescriptionLength], [ProductId], [CountBulSpaces]) 
+VALUES (200, 500, 250, 50, 100, 100, 1999, 14, 'false')
+
+UPDATE [FieldsLength] SET [CountBulSpaces] = 1
+SELECT * FROM FieldsLength WHERE ProductId = 14

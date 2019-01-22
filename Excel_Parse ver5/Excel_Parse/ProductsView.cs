@@ -174,6 +174,7 @@ namespace Excel_Parse
                 {
                     SetDeletedProductToDB(e.RowIndex);
                     pController.GetProductsAllJOIN();
+                    RefreshFieldsAfterEditing();
                     FillAllFields();
                 }
             }

@@ -19,9 +19,10 @@ namespace Excel_Parse
         public int IntendedUseLength { get; set; }
         public int SubjectMatterLength { get; set; }
         public int OtherAttributesLength { get; set; }
+        public bool CountBulSpaces { get; set; }
 
 
-        public FieldsLength(int _titleLength, int _bulletsLength, int _backendLength, int _descriptionLength, int _intendedUseLength, int _subjectMatterLength, int _otherAttributesLength)
+        public FieldsLength(int _titleLength, int _bulletsLength, int _backendLength, int _descriptionLength, int _intendedUseLength, int _subjectMatterLength, int _otherAttributesLength, bool _countBulSpaces)
         {
             InitializeComponent();
 
@@ -32,6 +33,7 @@ namespace Excel_Parse
             IntendedUseLength = _intendedUseLength;
             SubjectMatterLength = _subjectMatterLength;
             OtherAttributesLength = _otherAttributesLength;
+            CountBulSpaces = _countBulSpaces;
 
             FillFields();
         }
@@ -45,6 +47,7 @@ namespace Excel_Parse
             tb_IntendedUse.Text = IntendedUseLength.ToString();
             tb_SubjectMatter.Text = SubjectMatterLength.ToString();
             tb_OtherAttributes.Text = OtherAttributesLength.ToString();
+            cb_CountBulSpaces.Checked = CountBulSpaces;
         }
 
         private void tb_KeyPress(object sender, KeyPressEventArgs e)
@@ -72,6 +75,7 @@ namespace Excel_Parse
             IntendedUseLength = int.Parse(tb_IntendedUse.Text);
             SubjectMatterLength = int.Parse(tb_SubjectMatter.Text);
             OtherAttributesLength = int.Parse(tb_OtherAttributes.Text);
+            CountBulSpaces = cb_CountBulSpaces.Checked;
         }
     }
 }

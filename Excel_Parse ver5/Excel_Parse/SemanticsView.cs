@@ -15,6 +15,7 @@ namespace Excel_Parse
     public partial class SemanticsView : Form
     {
         private int TitleLength, BulletsLength, BackendLength, DescriptionLength, SubjectMatterLength, OtherAttributesLength, IntendedUseLength;
+        private bool CountBulSpaces;
 
         private string ProductName, ASIN, SKU;
         private int ProductTypeId;                  //это для заполнения таблицы ключей
@@ -49,7 +50,9 @@ namespace Excel_Parse
 
         private bool reverseDescriptionTransform;
 
-        /* Конструктор, если вызываем из формы индексации */
+        private string helpText = "Двойной ЛКМ по ключу в таблице - пометить его цветом + скопировать ключ в буфер. Цвет указывает на то, в каком поле использован ключ (bullets, title и т.д.). Сменить выбор можно посредством переключателей на форме, слева от каждого вида поля.\nЧтобы отменить выделение ключа, выберите самый верхний переключатель.\n\nПКМ по ключу в таблице - скрыть его\n\nДвойной ЛКМ по ASIN - скопировать его в буфер обмена\n\nДвойной ЛКМ по названию товара - скопировать его в буфер обмена\n\n";
+
+        /* Конструктор, если вызываем из формы индексации для просмотра семантики */
         public SemanticsView(IndexingView _mf, int _productId, string _productName, string _asin, string _sku, int _prodTypeId)
         {
             InitializeComponent();
@@ -64,7 +67,7 @@ namespace Excel_Parse
             lb_ASIN.Text = ASIN;
             lb_SKU.Text = SKU;
 
-            this.Text = "Семантика - " + ProductName;
+            this.Text = "Семантика - " + ProductName + " - " + ASIN;
 
             controlIndexingView = _mf;
             connection = DBData.GetDBConnection();
@@ -78,11 +81,10 @@ namespace Excel_Parse
             DayCreated = false;
             CurrentDay = DateTime.Now;
 
-
             getStarted();
         }
 
-        /* Конструктор, если вызываем из главной формы */
+        /* Конструктор, если вызываем из главной формы для редактирования семантики */
         public SemanticsView(MainFormView _mf, int _productId, string _productName, string _asin, string _sku, int _prodTypeId)
         {
             InitializeComponent();
@@ -97,7 +99,7 @@ namespace Excel_Parse
             lb_ASIN.Text = ASIN;
             lb_SKU.Text = SKU;
 
-            this.Text = "Семантика - " + ProductName;
+            this.Text = "Семантика - " + ProductName + " - " + ASIN;
 
             controlMainFormView = _mf;
             connection = DBData.GetDBConnection();
@@ -133,7 +135,7 @@ namespace Excel_Parse
             lb_ASIN.Text = ASIN;
             lb_SKU.Text = SKU;
 
-            this.Text = "Семантика - " + ProductName;
+            this.Text = "Семантика - " + ProductName + " - " + ASIN;
 
             controlMainFormView = _mf;
             connection = DBData.GetDBConnection();
@@ -232,6 +234,8 @@ namespace Excel_Parse
 
             DescriptionLength = int.Parse(record[6].ToString());
             lb_DescriptionText.Text = "Description (" + DescriptionLength + ")";
+
+            CountBulSpaces = (bool)record[8];
         }
 
         /* Заполняем все поля на форме */
@@ -382,6 +386,7 @@ namespace Excel_Parse
         private void TextBoxChanged(object sender)
         {
             RichTextBox textBox = (RichTextBox)sender;
+            string s = textBox.Text;
 
             switch (textBox.Name)
             {
@@ -393,39 +398,106 @@ namespace Excel_Parse
                     lb_Title.Text = textBox.TextLength.ToString();
                     break;
                 case "rtb_Bul1":
-                    if (textBox.TextLength > BulletsLength)
-                        textBox.ForeColor = Color.Red;
-                    else
-                        textBox.ForeColor = Color.Black;
-                    lb_Bullet1.Text = textBox.TextLength.ToString();
-                    break;
+                    if (CountBulSpaces)     //если учитываем пробелы
+                    {
+                        if (textBox.TextLength > BulletsLength)
+                            textBox.ForeColor = Color.Red;
+                        else
+                            textBox.ForeColor = Color.Black;
+                        lb_Bullet1.Text = textBox.TextLength.ToString();
+                        break;
+                    }
+                    else        //если пробелы не учитываем
+                    {
+                        if (s.Replace(" ", "").Length > BulletsLength)
+                            textBox.ForeColor = Color.Red;
+                        else
+                            textBox.ForeColor = Color.Black;
+                        lb_Bullet1.Text = s.Replace(" ", "").Length.ToString();
+                        break;
+                    }
                 case "rtb_Bul2":
-                    if (textBox.TextLength > BulletsLength)
-                        textBox.ForeColor = Color.Red;
-                    else
-                        textBox.ForeColor = Color.Black;
-                    lb_Bullet2.Text = textBox.TextLength.ToString();
-                    break;
+                    if (CountBulSpaces)     //если учитываем пробелы
+                    {
+                        if (textBox.TextLength > BulletsLength)
+                            textBox.ForeColor = Color.Red;
+                        else
+                            textBox.ForeColor = Color.Black;
+                        lb_Bullet2.Text = textBox.TextLength.ToString();
+                        break;
+                    }
+                    else        //если пробелы не учитываем
+                    {
+                        if (s.Replace(" ", "").Length > BulletsLength)
+                            textBox.ForeColor = Color.Red;
+                        else
+                            textBox.ForeColor = Color.Black;
+                        lb_Bullet2.Text = s.Replace(" ", "").Length.ToString();
+                        break;
+                    }
                 case "rtb_Bul3":
-                    if (textBox.TextLength > BulletsLength)
-                        textBox.ForeColor = Color.Red;
-                    else
-                        textBox.ForeColor = Color.Black;
-                    lb_Bullet3.Text = textBox.TextLength.ToString();
-                    break;
+                    if (CountBulSpaces)     //если учитываем пробелы
+                    {
+                        if (textBox.TextLength > BulletsLength)
+                            textBox.ForeColor = Color.Red;
+                        else
+                            textBox.ForeColor = Color.Black;
+                        lb_Bullet3.Text = textBox.TextLength.ToString();
+                        break;
+                    }
+                    else        //если пробелы не учитываем
+                    {
+                        if (s.Replace(" ", "").Length > BulletsLength)
+                            textBox.ForeColor = Color.Red;
+                        else
+                            textBox.ForeColor = Color.Black;
+                        lb_Bullet3.Text = s.Replace(" ", "").Length.ToString();
+                        break;
+                    }
                 case "rtb_Bul4":
-                    if (textBox.TextLength > BulletsLength)
-                        textBox.ForeColor = Color.Red;
-                    else
-                        textBox.ForeColor = Color.Black;
-                    lb_Bullet4.Text = textBox.TextLength.ToString();
-                    break;
+                    if (CountBulSpaces)     //если учитываем пробелы
+                    {
+                        if (textBox.TextLength > BulletsLength)
+                            textBox.ForeColor = Color.Red;
+                        else
+                            textBox.ForeColor = Color.Black;
+                        lb_Bullet4.Text = textBox.TextLength.ToString();
+                        break;
+                    }
+                    else        //если пробелы не учитываем
+                    {
+                        if (s.Replace(" ", "").Length > BulletsLength)
+                            textBox.ForeColor = Color.Red;
+                        else
+                            textBox.ForeColor = Color.Black;
+                        lb_Bullet4.Text = s.Replace(" ", "").Length.ToString();
+                        break;
+                    }
                 case "rtb_Bul5":
-                    if (textBox.TextLength > BulletsLength)
+                    if (CountBulSpaces)     //если учитываем пробелы
+                    {
+                        if (textBox.TextLength > BulletsLength)
+                            textBox.ForeColor = Color.Red;
+                        else
+                            textBox.ForeColor = Color.Black;
+                        lb_Bullet5.Text = textBox.TextLength.ToString();
+                        break;
+                    }
+                    else        //если пробелы не учитываем
+                    {
+                        if (s.Replace(" ", "").Length > BulletsLength)
+                            textBox.ForeColor = Color.Red;
+                        else
+                            textBox.ForeColor = Color.Black;
+                        lb_Bullet5.Text = s.Replace(" ", "").Length.ToString();
+                        break;
+                    }
+                case "rtb_Description":
+                    if (textBox.TextLength > DescriptionLength)
                         textBox.ForeColor = Color.Red;
                     else
                         textBox.ForeColor = Color.Black;
-                    lb_Bullet5.Text = textBox.TextLength.ToString();
+                    lb_Description.Text = textBox.TextLength.ToString();
                     break;
                 case "rtb_Backend":
                     if (textBox.TextLength > BackendLength)
@@ -766,7 +838,7 @@ namespace Excel_Parse
         /* Изменяем размеры длинн полей */
         private void fieldsLengthToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            using (FieldsLength FieldsLength = new FieldsLength(TitleLength, BulletsLength, BackendLength, DescriptionLength, IntendedUseLength, SubjectMatterLength, OtherAttributesLength))
+            using (FieldsLength FieldsLength = new FieldsLength(TitleLength, BulletsLength, BackendLength, DescriptionLength, IntendedUseLength, SubjectMatterLength, OtherAttributesLength, CountBulSpaces))
             {
                 if (FieldsLength.ShowDialog() == DialogResult.OK)
                 {
@@ -777,6 +849,7 @@ namespace Excel_Parse
                     IntendedUseLength = FieldsLength.IntendedUseLength;
                     SubjectMatterLength = FieldsLength.SubjectMatterLength;
                     OtherAttributesLength = FieldsLength.OtherAttributesLength;
+                    CountBulSpaces = FieldsLength.CountBulSpaces;
 
                     ForcedTextBoxChanging();
 
@@ -1216,7 +1289,7 @@ namespace Excel_Parse
         /* Кнопка "Помощь" с информацией об основных функциях системы */
         private void btn_Help_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Двойной ЛКМ по ключу в таблице - пометить цветом + скопировать ключ в буфер / снять его выделение\n\nПКМ по ключу в таблице - скрыть его\n\n", "Помощь");
+            MessageBox.Show(helpText, "Помощь");
         }
 
         /* Выделение жирным или курсивом ключей в любом richTextBox */
@@ -1436,11 +1509,11 @@ namespace Excel_Parse
             string sqlStatement = "";
             if (!isNew)     //указываем, что семантику мы редактируем, а не создаем новую
             {
-                sqlStatement = "UPDATE [FieldsLength] SET [TitleLength] = " + TitleLength + ", [BulletsLength] = " + BulletsLength + ", [BackendLength] = " + BackendLength + ", [SubjectMatterLength] = " + SubjectMatterLength + ", [OtherAttributesLength] = " + OtherAttributesLength + ", [IntendedUseLength] = " + IntendedUseLength + ", [DescriptionLength] = " + DescriptionLength + " WHERE [ProductId] = " + ProductId + "";
+                sqlStatement = "UPDATE [FieldsLength] SET [TitleLength] = " + TitleLength + ", [BulletsLength] = " + BulletsLength + ", [BackendLength] = " + BackendLength + ", [SubjectMatterLength] = " + SubjectMatterLength + ", [OtherAttributesLength] = " + OtherAttributesLength + ", [IntendedUseLength] = " + IntendedUseLength + ", [DescriptionLength] = " + DescriptionLength + ", [CountBulSpaces] = '" + CountBulSpaces + "' WHERE [ProductId] = " + ProductId + "";
             }
             else        //указываем, что семантика новая и данных для редактирования ещё не существует
             {
-                sqlStatement = "INSERT INTO [FieldsLength] ([TitleLength], [BulletsLength], [BackendLength], [SubjectMatterLength], [OtherAttributesLength], [IntendedUseLength], [DescriptionLength], [ProductId]) VALUES (" + TitleLength + ", " + BulletsLength + ", " + BackendLength + ", " + SubjectMatterLength + ", " + OtherAttributesLength + ", " + IntendedUseLength + ", " + DescriptionLength + ", " + ProductId + ")";
+                sqlStatement = "INSERT INTO [FieldsLength] ([TitleLength], [BulletsLength], [BackendLength], [SubjectMatterLength], [OtherAttributesLength], [IntendedUseLength], [DescriptionLength], [ProductId], [CountBulSpaces]) VALUES (" + TitleLength + ", " + BulletsLength + ", " + BackendLength + ", " + SubjectMatterLength + ", " + OtherAttributesLength + ", " + IntendedUseLength + ", " + DescriptionLength + ", " + ProductId + ", '" + CountBulSpaces + "')";
             }
             connection.Open();
             SqlCommand command = new SqlCommand(sqlStatement, connection);
@@ -1546,12 +1619,6 @@ namespace Excel_Parse
                 else { }
             }
             return description;
-        }
-
-        /* Изменили текст в Description -> появились изменения и нужно сохранение */
-        private void rtb_Description_TextChanged(object sender, EventArgs e)
-        {
-            CheckForUnsavedChanges = true;
         }
 
         /* Преобразовываем дескрипшн */

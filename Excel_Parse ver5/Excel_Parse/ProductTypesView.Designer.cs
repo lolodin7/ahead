@@ -33,11 +33,11 @@
             this.ProductTypeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TypeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btn_RefreshDGV = new System.Windows.Forms.Button();
             this.btn_Clear = new System.Windows.Forms.Button();
             this.btn_Save = new System.Windows.Forms.Button();
             this.lb_ProductType = new System.Windows.Forms.Label();
             this.tb_ProductType = new System.Windows.Forms.TextBox();
-            this.btn_RefreshDGV = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ProductTypes)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -88,7 +88,17 @@
             this.groupBox1.Size = new System.Drawing.Size(293, 152);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Добавление новой категории продуктов";
+            this.groupBox1.Text = "Добавление новой категории товаров";
+            // 
+            // btn_RefreshDGV
+            // 
+            this.btn_RefreshDGV.Location = new System.Drawing.Point(227, 9);
+            this.btn_RefreshDGV.Name = "btn_RefreshDGV";
+            this.btn_RefreshDGV.Size = new System.Drawing.Size(64, 26);
+            this.btn_RefreshDGV.TabIndex = 5;
+            this.btn_RefreshDGV.Text = "Обновить";
+            this.btn_RefreshDGV.UseVisualStyleBackColor = true;
+            this.btn_RefreshDGV.Click += new System.EventHandler(this.btn_RefreshDGV_Click);
             // 
             // btn_Clear
             // 
@@ -126,16 +136,6 @@
             this.tb_ProductType.Size = new System.Drawing.Size(193, 20);
             this.tb_ProductType.TabIndex = 0;
             // 
-            // btn_RefreshDGV
-            // 
-            this.btn_RefreshDGV.Location = new System.Drawing.Point(227, 9);
-            this.btn_RefreshDGV.Name = "btn_RefreshDGV";
-            this.btn_RefreshDGV.Size = new System.Drawing.Size(64, 26);
-            this.btn_RefreshDGV.TabIndex = 5;
-            this.btn_RefreshDGV.Text = "Обновить";
-            this.btn_RefreshDGV.UseVisualStyleBackColor = true;
-            this.btn_RefreshDGV.Click += new System.EventHandler(this.btn_RefreshDGV_Click);
-            // 
             // ProductTypesView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -147,7 +147,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ProductTypesView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Категории продуктов";
+            this.Text = "Категории товаров";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProductTypes_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ProductTypes)).EndInit();
             this.groupBox1.ResumeLayout(false);

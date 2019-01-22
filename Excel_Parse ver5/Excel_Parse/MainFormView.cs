@@ -29,6 +29,7 @@ namespace Excel_Parse
             InitializeComponent();
             connection = DBData.GetDBConnection();
             AmazonLink = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=";
+            
         }
 
         private void btn_DoSemCore_Click(object sender, EventArgs e)

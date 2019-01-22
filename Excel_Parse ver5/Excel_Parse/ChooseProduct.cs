@@ -78,11 +78,6 @@ namespace Excel_Parse
 
                 }
             }
-
-            for (int i = 0; i < pmUniqueList.Count; i++)
-            {
-                Console.WriteLine(pmUniqueList[i].ProductId + " " + pmUniqueList[i].ASIN + " " + pmUniqueList[i].SKU);
-            }
         }
 
         /* Проверяем, есть ли у продукта хотябы одна семантика */
@@ -324,13 +319,7 @@ namespace Excel_Parse
                     {
                         ProductsModel pmModel = new ProductsModel();
                         pmUniqueList.Add(pmModel);
-
-                        //for (int k = 0; k < pmUniqueList[0].ColumnCount; k++)
-                        //{
-                        //    pmUniqueList[pmUniqueList.Count - 1].WriteData(k, pmList[i].ReadData(k));
-                        //}
-                        //tmp.Add(pmList[i].ASIN);
-
+                        
                         pmUniqueList[pmUniqueList.Count - 1] = pmList[i];
                         tmp.Add(pmList[i].ASIN);
                     }
@@ -420,7 +409,7 @@ namespace Excel_Parse
                 for (int j = 0; j < dgv_Products.ColumnCount; j++)
                 {
                     if (dgv_Products.Rows[i].Cells[j].Value.ToString().ToLower().Contains(findStr) && findStr != "")
-                        dgv_Products.Rows[i].Cells[j].Style.BackColor = Color.Aqua;
+                        dgv_Products.Rows[i].Cells[j].Style.BackColor = Color.DeepSkyBlue;
                     else
                         dgv_Products.Rows[i].Cells[j].Style.BackColor = Color.White;
                 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductsView));
             this.dgv_Products = new System.Windows.Forms.DataGridView();
             this.tb_editing_ProductName = new System.Windows.Forms.TextBox();
@@ -44,7 +45,11 @@
             this.btn_SaveEditing = new System.Windows.Forms.Button();
             this.btn_CancelEditing = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tb_editing_MarketPlaceId = new System.Windows.Forms.TextBox();
+            this.cb_editing_Marketplace = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tb_adding_MarketPlaceId = new System.Windows.Forms.TextBox();
+            this.cb_adding_Marketplace = new System.Windows.Forms.ComboBox();
             this.lb_ProductName2 = new System.Windows.Forms.Label();
             this.btn_SaveAdding = new System.Windows.Forms.Button();
             this.tb_adding_ProductName = new System.Windows.Forms.TextBox();
@@ -56,10 +61,7 @@
             this.tb_adding_ProductTypeId = new System.Windows.Forms.TextBox();
             this.tb_adding_SKU = new System.Windows.Forms.TextBox();
             this.cb_adding_ProductTypes = new System.Windows.Forms.ComboBox();
-            this.cb_editing_Marketplace = new System.Windows.Forms.ComboBox();
-            this.cb_adding_Marketplace = new System.Windows.Forms.ComboBox();
-            this.tb_editing_MarketPlaceId = new System.Windows.Forms.TextBox();
-            this.tb_adding_MarketPlaceId = new System.Windows.Forms.TextBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.ProductIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductASIN = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -174,7 +176,7 @@
             this.lb_ProductTypes.Name = "lb_ProductTypes";
             this.lb_ProductTypes.Size = new System.Drawing.Size(64, 13);
             this.lb_ProductTypes.TabIndex = 8;
-            this.lb_ProductTypes.Text = "Тип товара";
+            this.lb_ProductTypes.Text = "Вид товара";
             // 
             // btn_Help
             // 
@@ -252,6 +254,25 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Редактирование товара";
             // 
+            // tb_editing_MarketPlaceId
+            // 
+            this.tb_editing_MarketPlaceId.Location = new System.Drawing.Point(1024, 42);
+            this.tb_editing_MarketPlaceId.Name = "tb_editing_MarketPlaceId";
+            this.tb_editing_MarketPlaceId.Size = new System.Drawing.Size(47, 20);
+            this.tb_editing_MarketPlaceId.TabIndex = 15;
+            this.tb_editing_MarketPlaceId.Visible = false;
+            // 
+            // cb_editing_Marketplace
+            // 
+            this.cb_editing_Marketplace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_editing_Marketplace.Enabled = false;
+            this.cb_editing_Marketplace.FormattingEnabled = true;
+            this.cb_editing_Marketplace.Location = new System.Drawing.Point(894, 42);
+            this.cb_editing_Marketplace.Name = "cb_editing_Marketplace";
+            this.cb_editing_Marketplace.Size = new System.Drawing.Size(155, 21);
+            this.cb_editing_Marketplace.TabIndex = 14;
+            this.cb_editing_Marketplace.SelectedIndexChanged += new System.EventHandler(this.cb_editing_Marketplace_SelectedIndexChanged);
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.tb_adding_MarketPlaceId);
@@ -273,6 +294,24 @@
             this.groupBox2.TabIndex = 16;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Добавление нового товара";
+            // 
+            // tb_adding_MarketPlaceId
+            // 
+            this.tb_adding_MarketPlaceId.Location = new System.Drawing.Point(1024, 51);
+            this.tb_adding_MarketPlaceId.Name = "tb_adding_MarketPlaceId";
+            this.tb_adding_MarketPlaceId.Size = new System.Drawing.Size(47, 20);
+            this.tb_adding_MarketPlaceId.TabIndex = 16;
+            this.tb_adding_MarketPlaceId.Visible = false;
+            // 
+            // cb_adding_Marketplace
+            // 
+            this.cb_adding_Marketplace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_adding_Marketplace.FormattingEnabled = true;
+            this.cb_adding_Marketplace.Location = new System.Drawing.Point(894, 51);
+            this.cb_adding_Marketplace.Name = "cb_adding_Marketplace";
+            this.cb_adding_Marketplace.Size = new System.Drawing.Size(155, 21);
+            this.cb_adding_Marketplace.TabIndex = 15;
+            this.cb_adding_Marketplace.SelectedIndexChanged += new System.EventHandler(this.cb_adding_Marketplace_SelectedIndexChanged);
             // 
             // lb_ProductName2
             // 
@@ -307,7 +346,7 @@
             this.lb_ProductTypes2.Name = "lb_ProductTypes2";
             this.lb_ProductTypes2.Size = new System.Drawing.Size(64, 13);
             this.lb_ProductTypes2.TabIndex = 21;
-            this.lb_ProductTypes2.Text = "Тип товара";
+            this.lb_ProductTypes2.Text = "Вид товара";
             // 
             // btn_ClearAdding
             // 
@@ -370,42 +409,9 @@
             this.cb_adding_ProductTypes.TabIndex = 17;
             this.cb_adding_ProductTypes.SelectedIndexChanged += new System.EventHandler(this.cb_adding_ProductTypes_SelectedIndexChanged);
             // 
-            // cb_editing_Marketplace
+            // toolTip1
             // 
-            this.cb_editing_Marketplace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_editing_Marketplace.Enabled = false;
-            this.cb_editing_Marketplace.FormattingEnabled = true;
-            this.cb_editing_Marketplace.Location = new System.Drawing.Point(894, 42);
-            this.cb_editing_Marketplace.Name = "cb_editing_Marketplace";
-            this.cb_editing_Marketplace.Size = new System.Drawing.Size(155, 21);
-            this.cb_editing_Marketplace.TabIndex = 14;
-            this.cb_editing_Marketplace.SelectedIndexChanged += new System.EventHandler(this.cb_editing_Marketplace_SelectedIndexChanged);
-            // 
-            // cb_adding_Marketplace
-            // 
-            this.cb_adding_Marketplace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_adding_Marketplace.FormattingEnabled = true;
-            this.cb_adding_Marketplace.Location = new System.Drawing.Point(894, 51);
-            this.cb_adding_Marketplace.Name = "cb_adding_Marketplace";
-            this.cb_adding_Marketplace.Size = new System.Drawing.Size(155, 21);
-            this.cb_adding_Marketplace.TabIndex = 15;
-            this.cb_adding_Marketplace.SelectedIndexChanged += new System.EventHandler(this.cb_adding_Marketplace_SelectedIndexChanged);
-            // 
-            // tb_editing_MarketPlaceId
-            // 
-            this.tb_editing_MarketPlaceId.Location = new System.Drawing.Point(1024, 42);
-            this.tb_editing_MarketPlaceId.Name = "tb_editing_MarketPlaceId";
-            this.tb_editing_MarketPlaceId.Size = new System.Drawing.Size(47, 20);
-            this.tb_editing_MarketPlaceId.TabIndex = 15;
-            this.tb_editing_MarketPlaceId.Visible = false;
-            // 
-            // tb_adding_MarketPlaceId
-            // 
-            this.tb_adding_MarketPlaceId.Location = new System.Drawing.Point(1024, 51);
-            this.tb_adding_MarketPlaceId.Name = "tb_adding_MarketPlaceId";
-            this.tb_adding_MarketPlaceId.Size = new System.Drawing.Size(47, 20);
-            this.tb_adding_MarketPlaceId.TabIndex = 16;
-            this.tb_adding_MarketPlaceId.Visible = false;
+            this.toolTip1.ToolTipTitle = "vxvxc";
             // 
             // ProductIdColumn
             // 
@@ -421,6 +427,7 @@
             this.ProductName.HeaderText = "Название товара";
             this.ProductName.Name = "ProductName";
             this.ProductName.ReadOnly = true;
+            this.ProductName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ProductName.Width = 430;
             // 
             // ProductASIN
@@ -429,6 +436,7 @@
             this.ProductASIN.HeaderText = "ASIN";
             this.ProductASIN.Name = "ProductASIN";
             this.ProductASIN.ReadOnly = true;
+            this.ProductASIN.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ProductASIN.Width = 130;
             // 
             // ProductSKU
@@ -437,6 +445,7 @@
             this.ProductSKU.HeaderText = "SKU";
             this.ProductSKU.Name = "ProductSKU";
             this.ProductSKU.ReadOnly = true;
+            this.ProductSKU.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ProductSKU.Width = 130;
             // 
             // ProductTypeId
@@ -464,9 +473,10 @@
             // ProductTypeNameColumn
             // 
             this.ProductTypeNameColumn.FillWeight = 10.15228F;
-            this.ProductTypeNameColumn.HeaderText = "Тип товара";
+            this.ProductTypeNameColumn.HeaderText = "Вид товара";
             this.ProductTypeNameColumn.Name = "ProductTypeNameColumn";
             this.ProductTypeNameColumn.ReadOnly = true;
+            this.ProductTypeNameColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ProductTypeNameColumn.Width = 280;
             // 
             // marketplaceid
@@ -481,6 +491,7 @@
             this.marketplacename.HeaderText = "Маркетплейс";
             this.marketplacename.Name = "marketplacename";
             this.marketplacename.ReadOnly = true;
+            this.marketplacename.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.marketplacename.Width = 285;
             // 
             // ProductsView
@@ -540,6 +551,7 @@
         private System.Windows.Forms.ComboBox cb_editing_Marketplace;
         private System.Windows.Forms.TextBox tb_adding_MarketPlaceId;
         private System.Windows.Forms.ComboBox cb_adding_Marketplace;
+        private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductIdColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductASIN;

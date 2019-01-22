@@ -30,11 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SemCoreView));
             this.dgv_Source = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgv_Target = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lb_ProductType = new System.Windows.Forms.Label();
             this.cb_ProductType = new System.Windows.Forms.ComboBox();
             this.cb_KeywordCategory = new System.Windows.Forms.ComboBox();
@@ -47,6 +43,10 @@
             this.tb_Link = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.gp_Delimiters = new System.Windows.Forms.GroupBox();
+            this.tb_OwnDelimiter = new System.Windows.Forms.TextBox();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btn_AddCustomKeyword = new System.Windows.Forms.Button();
             this.tb_CustomValue = new System.Windows.Forms.TextBox();
@@ -55,15 +55,15 @@
             this.tb_ProductTypeId = new System.Windows.Forms.TextBox();
             this.btn_DeselectAll = new System.Windows.Forms.Button();
             this.btn_SelectAll = new System.Windows.Forms.Button();
-            this.gp_Delimiters = new System.Windows.Forms.GroupBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.tb_OwnDelimiter = new System.Windows.Forms.TextBox();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Source)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Target)).BeginInit();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.gp_Delimiters.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgv_Source
@@ -88,19 +88,6 @@
             this.dgv_Source.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_Source_CellDoubleClick);
             this.dgv_Source.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_Source_KeyDown);
             // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Keyword";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 250;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Value";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
             // dgv_Target
             // 
             this.dgv_Target.AllowUserToAddRows = false;
@@ -124,19 +111,6 @@
             this.dgv_Target.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgv_Target_RowsAdded);
             this.dgv_Target.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgv_Target_RowsRemoved);
             this.dgv_Target.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_Target_KeyDown);
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Keyword";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 250;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Value";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
             // 
             // lb_ProductType
             // 
@@ -265,6 +239,50 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Управление";
             // 
+            // gp_Delimiters
+            // 
+            this.gp_Delimiters.Controls.Add(this.tb_OwnDelimiter);
+            this.gp_Delimiters.Controls.Add(this.radioButton2);
+            this.gp_Delimiters.Controls.Add(this.radioButton1);
+            this.gp_Delimiters.Location = new System.Drawing.Point(112, 87);
+            this.gp_Delimiters.Name = "gp_Delimiters";
+            this.gp_Delimiters.Size = new System.Drawing.Size(93, 71);
+            this.gp_Delimiters.TabIndex = 26;
+            this.gp_Delimiters.TabStop = false;
+            this.gp_Delimiters.Text = "Разделитель";
+            // 
+            // tb_OwnDelimiter
+            // 
+            this.tb_OwnDelimiter.Location = new System.Drawing.Point(6, 46);
+            this.tb_OwnDelimiter.Name = "tb_OwnDelimiter";
+            this.tb_OwnDelimiter.Size = new System.Drawing.Size(81, 20);
+            this.tb_OwnDelimiter.TabIndex = 2;
+            this.tb_OwnDelimiter.TextChanged += new System.EventHandler(this.tb_OwnDelimiter_TextChanged);
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radioButton2.Location = new System.Drawing.Point(56, 19);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(31, 24);
+            this.radioButton2.TabIndex = 1;
+            this.radioButton2.Text = ";";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radioButton1.Location = new System.Drawing.Point(6, 19);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(31, 24);
+            this.radioButton1.TabIndex = 0;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = ",";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.btn_AddCustomKeyword);
@@ -340,49 +358,35 @@
             this.btn_SelectAll.UseVisualStyleBackColor = true;
             this.btn_SelectAll.Click += new System.EventHandler(this.btn_SelectAll_Click);
             // 
-            // gp_Delimiters
+            // dataGridViewTextBoxColumn1
             // 
-            this.gp_Delimiters.Controls.Add(this.tb_OwnDelimiter);
-            this.gp_Delimiters.Controls.Add(this.radioButton2);
-            this.gp_Delimiters.Controls.Add(this.radioButton1);
-            this.gp_Delimiters.Location = new System.Drawing.Point(112, 87);
-            this.gp_Delimiters.Name = "gp_Delimiters";
-            this.gp_Delimiters.Size = new System.Drawing.Size(93, 71);
-            this.gp_Delimiters.TabIndex = 26;
-            this.gp_Delimiters.TabStop = false;
-            this.gp_Delimiters.Text = "Разделитель";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Keyword";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn1.Width = 250;
             // 
-            // radioButton1
+            // dataGridViewTextBoxColumn2
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.radioButton1.Location = new System.Drawing.Point(6, 19);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(31, 24);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = ",";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Value";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // radioButton2
+            // Column1
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.radioButton2.Location = new System.Drawing.Point(56, 19);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(31, 24);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.Text = ";";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.Column1.HeaderText = "Keyword";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Column1.Width = 250;
             // 
-            // tb_OwnDelimiter
+            // Column2
             // 
-            this.tb_OwnDelimiter.Location = new System.Drawing.Point(6, 46);
-            this.tb_OwnDelimiter.Name = "tb_OwnDelimiter";
-            this.tb_OwnDelimiter.Size = new System.Drawing.Size(81, 20);
-            this.tb_OwnDelimiter.TabIndex = 2;
-            this.tb_OwnDelimiter.TextChanged += new System.EventHandler(this.tb_OwnDelimiter_TextChanged);
+            this.Column2.HeaderText = "Value";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // SemCoreView
             // 
@@ -408,10 +412,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Target)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.gp_Delimiters.ResumeLayout(false);
             this.gp_Delimiters.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -420,11 +424,7 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgv_Source;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridView dgv_Target;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.Label lb_ProductType;
         private System.Windows.Forms.ComboBox cb_ProductType;
         private System.Windows.Forms.ComboBox cb_KeywordCategory;
@@ -449,6 +449,10 @@
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.TextBox tb_OwnDelimiter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
     }
 }
 

@@ -21,6 +21,7 @@ namespace Excel_Parse
         private SqlCommand command;
 
         private List<ProductsModel> pList;
+        private List<ProductsModel> pmUniqueList;
         private List<IndexingModel> imList;     //список индексаций, который получаем из БД
         private List<IndexingModel> imNEWList;  //список индексаций товаров для сегодняшнего дня, которые нужно добавить в БД
 
@@ -49,10 +50,34 @@ namespace Excel_Parse
             Add6ColumnsToDGV();
 
             GetProductFromDB();
+            getUniquesASIN();
             SetProductsListToDGV();
 
             GetDatesFromDB();
             SetDatesToDGV();
+        }
+
+        /* Выделяем уникальные ASIN с разных SKU (работа с товарами, у которых ещё нет семантики) */
+        private void getUniquesASIN()
+        {
+            List<string> tmp = new List<string> { };
+            pList = new List<ProductsModel> { };
+
+            if (pmUniqueList != null)
+            {
+                for (int i = 0; i < pmUniqueList.Count; i++)
+                {
+                    if (!tmp.Contains(pmUniqueList[i].ASIN))
+                    {
+                        ProductsModel pmModel = new ProductsModel();
+                        pList.Add(pmModel);
+
+                        pList[pList.Count - 1] = pmUniqueList[i];
+                        tmp.Add(pmUniqueList[i].ASIN);
+                    }
+
+                }
+            }
         }
 
         /* Добавляем 6 столбцов в начало dgv */
@@ -75,6 +100,7 @@ namespace Excel_Parse
             dataGridView1.Columns.Add("skuColmn", "SKU");
             dataGridView1.Columns[dataGridView1.ColumnCount - 1].Width = 125;
             dataGridView1.Columns[dataGridView1.ColumnCount - 1].SortMode = DataGridViewColumnSortMode.NotSortable;
+            dataGridView1.Columns[dataGridView1.ColumnCount - 1].Visible = false;
 
             dataGridView1.Columns.Add("5", "5");
             dataGridView1.Columns[dataGridView1.ColumnCount - 1].Visible = false;
@@ -86,7 +112,7 @@ namespace Excel_Parse
         /* Получаем товары из БД */
         private void GetProductFromDB()
         {
-            pList = new List<ProductsModel> { };
+            pmUniqueList = new List<ProductsModel> { };
 
             string sqlStatement = "SELECT * FROM Products WHERE ProductId > 0";
 
@@ -115,10 +141,10 @@ namespace Excel_Parse
         private void SetProductsToList(IDataRecord record)
         {
             ProductsModel pModel = new ProductsModel();
-            pList.Add(pModel);
+            pmUniqueList.Add(pModel);
             for (int i = 0; i < record.FieldCount; i++)
             {
-                pList[pList.Count - 1].WriteData(i, record[i]);
+                pmUniqueList[pmUniqueList.Count - 1].WriteData(i, record[i]);
             }
         }
 

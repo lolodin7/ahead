@@ -185,3 +185,5 @@ C:\AheadProject\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.SemanticsView
 C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.IndexingDetails.resources
 C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.IndexingStatus.resources
 C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.StartImage.resources
+C:\ahead\Excel_Parse ver5\Excel_Parse\bin\Debug\EPPlus.dll
+C:\ahead\Excel_Parse ver5\Excel_Parse\bin\Debug\EPPlus.xml

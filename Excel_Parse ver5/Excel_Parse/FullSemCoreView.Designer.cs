@@ -214,12 +214,15 @@
             // 
             // btn_GetKeywords
             // 
+            this.btn_GetKeywords.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.btn_GetKeywords.FlatAppearance.BorderSize = 0;
+            this.btn_GetKeywords.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_GetKeywords.Location = new System.Drawing.Point(495, 16);
             this.btn_GetKeywords.Name = "btn_GetKeywords";
             this.btn_GetKeywords.Size = new System.Drawing.Size(149, 47);
             this.btn_GetKeywords.TabIndex = 26;
             this.btn_GetKeywords.Text = "Показать ключи";
-            this.btn_GetKeywords.UseVisualStyleBackColor = true;
+            this.btn_GetKeywords.UseVisualStyleBackColor = false;
             this.btn_GetKeywords.Click += new System.EventHandler(this.btn_GetKeywords_Click);
             // 
             // tb_FindKeyword
