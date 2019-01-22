@@ -99,3 +99,12 @@ select * from FieldsLength where productid = 8
 
 SELECT * FROM SemCore LEFT JOIN KeywordCategory ON SemCore.CategoryId = KeywordCategory.CategoryId LEFT JOIN ProductTypes ON SemCore.ProductTypeId = ProductTypes.ProductTypeId WHERE KeywordCategory.CategoryId > 0 AND SemCore.ProductTypeId > 0
 select * from KeywordCategory
+
+
+
+SELECT COUNT(SemanticsId) FROM semantics WHERE [ProductId] = 14
+
+SELECT COUNT(SemanticsId) FROM semantics WHERE [ProductId] = getProductIdByASIN(1)
+
+SELECT * FROM Semantics  
+

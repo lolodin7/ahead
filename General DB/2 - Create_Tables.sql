@@ -29,8 +29,6 @@ GO
 IF NOT OBJECT_ID('Marketplace') IS NULL DROP TABLE [Marketplace]
 GO
 
-
-
 /*
     "БД компании AHEAD"
 */
@@ -68,12 +66,12 @@ GO
 CREATE TABLE [Semantics](
 	[SemanticsId]		INT IDENTITY(0,1)	NOT NULL,
 	[ProductId]			INT					NOT NULL,
-	[Title]				NVARCHAR(300),
-	[Bullet1]			NVARCHAR(200),
-	[Bullet2]			NVARCHAR(200),
-	[Bullet3]			NVARCHAR(200),
-	[Bullet4]			NVARCHAR(200),
-	[Bullet5]			NVARCHAR(200),
+	[Title]				NVARCHAR(400),
+	[Bullet1]			NVARCHAR(550),
+	[Bullet2]			NVARCHAR(550),
+	[Bullet3]			NVARCHAR(550),
+	[Bullet4]			NVARCHAR(550),
+	[Bullet5]			NVARCHAR(550),
 	[Backend]			NVARCHAR(500),
 	[Description]		NVARCHAR(4000),
 	[OtherAttributes1]	NVARCHAR(200),
@@ -86,14 +84,14 @@ CREATE TABLE [Semantics](
 	[IntendedUse3]		NVARCHAR(200),
 	[IntendedUse4]		NVARCHAR(200),
 	[IntendedUse5]		NVARCHAR(200),
-	[SubjectMatter1]	NVARCHAR(200),
-	[SubjectMatter2]	NVARCHAR(200),
-	[SubjectMatter3]	NVARCHAR(200),
-	[SubjectMatter4]	NVARCHAR(200),
-	[SubjectMatter5]	NVARCHAR(200),
+	[SubjectMatter1]	NVARCHAR(100),
+	[SubjectMatter2]	NVARCHAR(100),
+	[SubjectMatter3]	NVARCHAR(100),
+	[SubjectMatter4]	NVARCHAR(100),
+	[SubjectMatter5]	NVARCHAR(100),
 	[UpdateDate]		DATETIME			NOT NULL,
 	[Notes]				NVARCHAR(4000),
-	[UsedKeywords]		NVARCHAR(4000),
+	[UsedKeywords]		TEXT,
 	CONSTRAINT FK_Semantics_Products FOREIGN KEY ([ProductId]) REFERENCES Products ([ProductId])
 )
 GO
@@ -157,6 +155,8 @@ CREATE TABLE [Indexing](
 	CONSTRAINT FK_Indexing_ProductId FOREIGN KEY ([ProductId]) REFERENCES Products ([ProductId])
 )
 GO
+
+
 
 
 
@@ -313,18 +313,18 @@ CREATE TABLE [CustomerReturns](
 )
 GO
 
-CREATE FUNCTION getUserId (@UserName SYSNAME)
-RETURNS TABLE
-	AS RETURN (SELECT *
-				FROM Payments u
-				WHERE u.OrderId = @UserName)
-GO
-
-DROP FUNCTION getUserId
-
 
 /*
 
+/*
+Функция возвращает ProductIdтовара по передаваемом в функцию значению @ASIN
+*/
+CREATE FUNCTION getProductIdByASIN (@ASIN SYSNAME)
+RETURNS TABLE
+	AS RETURN (SELECT p.ProductId
+				FROM Products p
+				WHERE p.ASIN = @ASIN)
+GO
 
 --ENDDDDDDDDDDDDDDDDD
 
@@ -454,6 +454,14 @@ RETURNS TABLE
 	AS RETURN (SELECT u.UserDataId
 				FROM UserData u
 				WHERE u.UserName = @UserName)
+GO
+
+
+CREATE FUNCTION getProductASIN (@ProductId SYSNAME)
+RETURNS TABLE
+	AS RETURN (SELECT p.ASIN
+				FROM Products p
+				WHERE p.ProductId = @ProductId)
 GO
 
 

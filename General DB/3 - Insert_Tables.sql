@@ -193,6 +193,13 @@ VALUES ('Пустая категория', 0)
 
 
 
+
+
+
+
+
+
+
 INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
 VALUES ('Lavalier Mic', 1)
 
@@ -446,6 +453,7 @@ SELECT (SELECT [UserGroupId] FROM [UserGroup] WHERE [CourseId] = 100),
        [UserDataId]
 FROM   [UserData] WHERE UserDataId > 1
 UNION ALL
+
 SELECT (SELECT [UserGroupId] FROM [UserGroup] WHERE [CourseId] = 200),
        [UserDataId]
 FROM   [UserData] WHERE UserDataId IN (1, 2, 4, 5, 6)

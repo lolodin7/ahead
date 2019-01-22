@@ -232,27 +232,30 @@
             // 
             // lb_TitleText
             // 
-            this.lb_TitleText.Location = new System.Drawing.Point(919, 38);
+            this.lb_TitleText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_TitleText.Location = new System.Drawing.Point(919, 34);
             this.lb_TitleText.Name = "lb_TitleText";
-            this.lb_TitleText.Size = new System.Drawing.Size(146, 13);
+            this.lb_TitleText.Size = new System.Drawing.Size(146, 27);
             this.lb_TitleText.TabIndex = 2;
             this.lb_TitleText.Text = "Title";
             this.lb_TitleText.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // lb_BulletsText
             // 
-            this.lb_BulletsText.Location = new System.Drawing.Point(919, 109);
+            this.lb_BulletsText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_BulletsText.Location = new System.Drawing.Point(919, 103);
             this.lb_BulletsText.Name = "lb_BulletsText";
-            this.lb_BulletsText.Size = new System.Drawing.Size(146, 13);
+            this.lb_BulletsText.Size = new System.Drawing.Size(146, 19);
             this.lb_BulletsText.TabIndex = 4;
             this.lb_BulletsText.Text = "Bullets";
             this.lb_BulletsText.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // lb_BackendText
             // 
-            this.lb_BackendText.Location = new System.Drawing.Point(919, 295);
+            this.lb_BackendText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_BackendText.Location = new System.Drawing.Point(919, 287);
             this.lb_BackendText.Name = "lb_BackendText";
-            this.lb_BackendText.Size = new System.Drawing.Size(146, 13);
+            this.lb_BackendText.Size = new System.Drawing.Size(146, 21);
             this.lb_BackendText.TabIndex = 10;
             this.lb_BackendText.Text = "Backend";
             this.lb_BackendText.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -260,7 +263,8 @@
             // lb_Title
             // 
             this.lb_Title.AutoSize = true;
-            this.lb_Title.Location = new System.Drawing.Point(388, 57);
+            this.lb_Title.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lb_Title.Location = new System.Drawing.Point(391, 61);
             this.lb_Title.Name = "lb_Title";
             this.lb_Title.Size = new System.Drawing.Size(13, 13);
             this.lb_Title.TabIndex = 11;
@@ -270,7 +274,7 @@
             // lb_Bullet1
             // 
             this.lb_Bullet1.AutoSize = true;
-            this.lb_Bullet1.Location = new System.Drawing.Point(388, 128);
+            this.lb_Bullet1.Location = new System.Drawing.Point(391, 131);
             this.lb_Bullet1.Name = "lb_Bullet1";
             this.lb_Bullet1.Size = new System.Drawing.Size(13, 13);
             this.lb_Bullet1.TabIndex = 12;
@@ -280,7 +284,7 @@
             // lb_Bullet2
             // 
             this.lb_Bullet2.AutoSize = true;
-            this.lb_Bullet2.Location = new System.Drawing.Point(388, 154);
+            this.lb_Bullet2.Location = new System.Drawing.Point(391, 159);
             this.lb_Bullet2.Name = "lb_Bullet2";
             this.lb_Bullet2.Size = new System.Drawing.Size(13, 13);
             this.lb_Bullet2.TabIndex = 13;
@@ -290,7 +294,7 @@
             // lb_Bullet3
             // 
             this.lb_Bullet3.AutoSize = true;
-            this.lb_Bullet3.Location = new System.Drawing.Point(388, 180);
+            this.lb_Bullet3.Location = new System.Drawing.Point(391, 188);
             this.lb_Bullet3.Name = "lb_Bullet3";
             this.lb_Bullet3.Size = new System.Drawing.Size(13, 13);
             this.lb_Bullet3.TabIndex = 14;
@@ -300,7 +304,7 @@
             // lb_Bullet4
             // 
             this.lb_Bullet4.AutoSize = true;
-            this.lb_Bullet4.Location = new System.Drawing.Point(388, 206);
+            this.lb_Bullet4.Location = new System.Drawing.Point(391, 216);
             this.lb_Bullet4.Name = "lb_Bullet4";
             this.lb_Bullet4.Size = new System.Drawing.Size(13, 13);
             this.lb_Bullet4.TabIndex = 15;
@@ -310,7 +314,7 @@
             // lb_Bullet5
             // 
             this.lb_Bullet5.AutoSize = true;
-            this.lb_Bullet5.Location = new System.Drawing.Point(388, 232);
+            this.lb_Bullet5.Location = new System.Drawing.Point(391, 244);
             this.lb_Bullet5.Name = "lb_Bullet5";
             this.lb_Bullet5.Size = new System.Drawing.Size(13, 13);
             this.lb_Bullet5.TabIndex = 16;
@@ -320,7 +324,7 @@
             // lb_Backend
             // 
             this.lb_Backend.AutoSize = true;
-            this.lb_Backend.Location = new System.Drawing.Point(388, 315);
+            this.lb_Backend.Location = new System.Drawing.Point(391, 317);
             this.lb_Backend.Name = "lb_Backend";
             this.lb_Backend.Size = new System.Drawing.Size(13, 13);
             this.lb_Backend.TabIndex = 17;
@@ -329,6 +333,7 @@
             // 
             // rtb_Description
             // 
+            this.rtb_Description.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rtb_Description.Location = new System.Drawing.Point(416, 383);
             this.rtb_Description.Name = "rtb_Description";
             this.rtb_Description.Size = new System.Drawing.Size(556, 380);
@@ -358,9 +363,10 @@
             // 
             // lb_DescriptionText
             // 
-            this.lb_DescriptionText.Location = new System.Drawing.Point(919, 339);
+            this.lb_DescriptionText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_DescriptionText.Location = new System.Drawing.Point(920, 337);
             this.lb_DescriptionText.Name = "lb_DescriptionText";
-            this.lb_DescriptionText.Size = new System.Drawing.Size(146, 13);
+            this.lb_DescriptionText.Size = new System.Drawing.Size(146, 21);
             this.lb_DescriptionText.TabIndex = 21;
             this.lb_DescriptionText.Text = "Desription";
             this.lb_DescriptionText.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -464,7 +470,7 @@
             // lb_ASINText
             // 
             this.lb_ASINText.AutoSize = true;
-            this.lb_ASINText.Location = new System.Drawing.Point(414, 9);
+            this.lb_ASINText.Location = new System.Drawing.Point(414, 30);
             this.lb_ASINText.Name = "lb_ASINText";
             this.lb_ASINText.Size = new System.Drawing.Size(35, 13);
             this.lb_ASINText.TabIndex = 33;
@@ -473,25 +479,29 @@
             // lb_SKUText
             // 
             this.lb_SKUText.AutoSize = true;
+            this.lb_SKUText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lb_SKUText.Location = new System.Drawing.Point(414, 30);
             this.lb_SKUText.Name = "lb_SKUText";
-            this.lb_SKUText.Size = new System.Drawing.Size(32, 13);
+            this.lb_SKUText.Size = new System.Drawing.Size(38, 19);
             this.lb_SKUText.TabIndex = 34;
             this.lb_SKUText.Text = "SKU:";
+            this.lb_SKUText.Visible = false;
             // 
             // lb_SKU
             // 
-            this.lb_SKU.Location = new System.Drawing.Point(451, 28);
+            this.lb_SKU.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_SKU.Location = new System.Drawing.Point(449, 30);
             this.lb_SKU.Name = "lb_SKU";
             this.lb_SKU.Size = new System.Drawing.Size(112, 17);
             this.lb_SKU.TabIndex = 0;
             this.lb_SKU.Text = "E3-2RHF-EO7C";
             this.lb_SKU.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lb_SKU.Visible = false;
             this.lb_SKU.Click += new System.EventHandler(this.lb_SKU_Click);
             // 
             // lb_ASIN
             // 
-            this.lb_ASIN.Location = new System.Drawing.Point(451, 5);
+            this.lb_ASIN.Location = new System.Drawing.Point(451, 26);
             this.lb_ASIN.Name = "lb_ASIN";
             this.lb_ASIN.Size = new System.Drawing.Size(112, 21);
             this.lb_ASIN.TabIndex = 32;
@@ -746,7 +756,7 @@
             // lb_SubjectMatter1
             // 
             this.lb_SubjectMatter1.AutoSize = true;
-            this.lb_SubjectMatter1.Location = new System.Drawing.Point(388, 1180);
+            this.lb_SubjectMatter1.Location = new System.Drawing.Point(391, 1216);
             this.lb_SubjectMatter1.Name = "lb_SubjectMatter1";
             this.lb_SubjectMatter1.Size = new System.Drawing.Size(13, 13);
             this.lb_SubjectMatter1.TabIndex = 45;
@@ -757,7 +767,7 @@
             // lb_IntendedUse1
             // 
             this.lb_IntendedUse1.AutoSize = true;
-            this.lb_IntendedUse1.Location = new System.Drawing.Point(388, 1021);
+            this.lb_IntendedUse1.Location = new System.Drawing.Point(391, 1043);
             this.lb_IntendedUse1.Name = "lb_IntendedUse1";
             this.lb_IntendedUse1.Size = new System.Drawing.Size(13, 13);
             this.lb_IntendedUse1.TabIndex = 44;
@@ -768,7 +778,7 @@
             // lb_OtherAttributes1
             // 
             this.lb_OtherAttributes1.AutoSize = true;
-            this.lb_OtherAttributes1.Location = new System.Drawing.Point(388, 865);
+            this.lb_OtherAttributes1.Location = new System.Drawing.Point(391, 870);
             this.lb_OtherAttributes1.Name = "lb_OtherAttributes1";
             this.lb_OtherAttributes1.Size = new System.Drawing.Size(13, 13);
             this.lb_OtherAttributes1.TabIndex = 43;
@@ -778,9 +788,10 @@
             // 
             // lb_OtherAttributesText
             // 
-            this.lb_OtherAttributesText.Location = new System.Drawing.Point(917, 842);
+            this.lb_OtherAttributesText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_OtherAttributesText.Location = new System.Drawing.Point(917, 840);
             this.lb_OtherAttributesText.Name = "lb_OtherAttributesText";
-            this.lb_OtherAttributesText.Size = new System.Drawing.Size(146, 13);
+            this.lb_OtherAttributesText.Size = new System.Drawing.Size(146, 21);
             this.lb_OtherAttributesText.TabIndex = 40;
             this.lb_OtherAttributesText.Text = "Other Attributes";
             this.lb_OtherAttributesText.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -788,9 +799,10 @@
             // 
             // lb_IntendedUseText
             // 
-            this.lb_IntendedUseText.Location = new System.Drawing.Point(917, 1002);
+            this.lb_IntendedUseText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_IntendedUseText.Location = new System.Drawing.Point(917, 1014);
             this.lb_IntendedUseText.Name = "lb_IntendedUseText";
-            this.lb_IntendedUseText.Size = new System.Drawing.Size(146, 13);
+            this.lb_IntendedUseText.Size = new System.Drawing.Size(146, 19);
             this.lb_IntendedUseText.TabIndex = 46;
             this.lb_IntendedUseText.Text = "Intended Use";
             this.lb_IntendedUseText.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -798,9 +810,10 @@
             // 
             // lb_SubjectMatterText
             // 
-            this.lb_SubjectMatterText.Location = new System.Drawing.Point(917, 1159);
+            this.lb_SubjectMatterText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_SubjectMatterText.Location = new System.Drawing.Point(917, 1186);
             this.lb_SubjectMatterText.Name = "lb_SubjectMatterText";
-            this.lb_SubjectMatterText.Size = new System.Drawing.Size(146, 13);
+            this.lb_SubjectMatterText.Size = new System.Drawing.Size(146, 18);
             this.lb_SubjectMatterText.TabIndex = 47;
             this.lb_SubjectMatterText.Text = "Subject Matter";
             this.lb_SubjectMatterText.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -808,18 +821,19 @@
             // 
             // rtb_Notes
             // 
-            this.rtb_Notes.Location = new System.Drawing.Point(416, 1349);
+            this.rtb_Notes.Location = new System.Drawing.Point(416, 1376);
             this.rtb_Notes.Name = "rtb_Notes";
-            this.rtb_Notes.Size = new System.Drawing.Size(1158, 181);
+            this.rtb_Notes.Size = new System.Drawing.Size(1158, 154);
             this.rtb_Notes.TabIndex = 48;
             this.rtb_Notes.Text = "";
             this.rtb_Notes.Visible = false;
             // 
             // lb_Notes
             // 
-            this.lb_Notes.Location = new System.Drawing.Point(917, 1333);
+            this.lb_Notes.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_Notes.Location = new System.Drawing.Point(917, 1354);
             this.lb_Notes.Name = "lb_Notes";
-            this.lb_Notes.Size = new System.Drawing.Size(146, 13);
+            this.lb_Notes.Size = new System.Drawing.Size(146, 19);
             this.lb_Notes.TabIndex = 49;
             this.lb_Notes.Text = "Notes";
             this.lb_Notes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -891,7 +905,7 @@
             // lb_OtherAttributes2
             // 
             this.lb_OtherAttributes2.AutoSize = true;
-            this.lb_OtherAttributes2.Location = new System.Drawing.Point(388, 891);
+            this.lb_OtherAttributes2.Location = new System.Drawing.Point(391, 898);
             this.lb_OtherAttributes2.Name = "lb_OtherAttributes2";
             this.lb_OtherAttributes2.Size = new System.Drawing.Size(13, 13);
             this.lb_OtherAttributes2.TabIndex = 55;
@@ -902,7 +916,7 @@
             // lb_OtherAttributes3
             // 
             this.lb_OtherAttributes3.AutoSize = true;
-            this.lb_OtherAttributes3.Location = new System.Drawing.Point(388, 917);
+            this.lb_OtherAttributes3.Location = new System.Drawing.Point(391, 926);
             this.lb_OtherAttributes3.Name = "lb_OtherAttributes3";
             this.lb_OtherAttributes3.Size = new System.Drawing.Size(13, 13);
             this.lb_OtherAttributes3.TabIndex = 57;
@@ -913,7 +927,7 @@
             // lb_OtherAttributes4
             // 
             this.lb_OtherAttributes4.AutoSize = true;
-            this.lb_OtherAttributes4.Location = new System.Drawing.Point(388, 943);
+            this.lb_OtherAttributes4.Location = new System.Drawing.Point(391, 954);
             this.lb_OtherAttributes4.Name = "lb_OtherAttributes4";
             this.lb_OtherAttributes4.Size = new System.Drawing.Size(13, 13);
             this.lb_OtherAttributes4.TabIndex = 59;
@@ -924,7 +938,7 @@
             // lb_OtherAttributes5
             // 
             this.lb_OtherAttributes5.AutoSize = true;
-            this.lb_OtherAttributes5.Location = new System.Drawing.Point(388, 969);
+            this.lb_OtherAttributes5.Location = new System.Drawing.Point(391, 982);
             this.lb_OtherAttributes5.Name = "lb_OtherAttributes5";
             this.lb_OtherAttributes5.Size = new System.Drawing.Size(13, 13);
             this.lb_OtherAttributes5.TabIndex = 61;
@@ -935,7 +949,7 @@
             // lb_IntendedUse2
             // 
             this.lb_IntendedUse2.AutoSize = true;
-            this.lb_IntendedUse2.Location = new System.Drawing.Point(388, 1047);
+            this.lb_IntendedUse2.Location = new System.Drawing.Point(391, 1071);
             this.lb_IntendedUse2.Name = "lb_IntendedUse2";
             this.lb_IntendedUse2.Size = new System.Drawing.Size(13, 13);
             this.lb_IntendedUse2.TabIndex = 63;
@@ -946,7 +960,7 @@
             // lb_IntendedUse3
             // 
             this.lb_IntendedUse3.AutoSize = true;
-            this.lb_IntendedUse3.Location = new System.Drawing.Point(388, 1075);
+            this.lb_IntendedUse3.Location = new System.Drawing.Point(391, 1101);
             this.lb_IntendedUse3.Name = "lb_IntendedUse3";
             this.lb_IntendedUse3.Size = new System.Drawing.Size(13, 13);
             this.lb_IntendedUse3.TabIndex = 65;
@@ -957,7 +971,7 @@
             // lb_IntendedUse4
             // 
             this.lb_IntendedUse4.AutoSize = true;
-            this.lb_IntendedUse4.Location = new System.Drawing.Point(388, 1101);
+            this.lb_IntendedUse4.Location = new System.Drawing.Point(391, 1129);
             this.lb_IntendedUse4.Name = "lb_IntendedUse4";
             this.lb_IntendedUse4.Size = new System.Drawing.Size(13, 13);
             this.lb_IntendedUse4.TabIndex = 67;
@@ -968,7 +982,7 @@
             // lb_IntendedUse5
             // 
             this.lb_IntendedUse5.AutoSize = true;
-            this.lb_IntendedUse5.Location = new System.Drawing.Point(388, 1127);
+            this.lb_IntendedUse5.Location = new System.Drawing.Point(391, 1157);
             this.lb_IntendedUse5.Name = "lb_IntendedUse5";
             this.lb_IntendedUse5.Size = new System.Drawing.Size(13, 13);
             this.lb_IntendedUse5.TabIndex = 69;
@@ -979,7 +993,7 @@
             // lb_SubjectMatter2
             // 
             this.lb_SubjectMatter2.AutoSize = true;
-            this.lb_SubjectMatter2.Location = new System.Drawing.Point(388, 1206);
+            this.lb_SubjectMatter2.Location = new System.Drawing.Point(391, 1244);
             this.lb_SubjectMatter2.Name = "lb_SubjectMatter2";
             this.lb_SubjectMatter2.Size = new System.Drawing.Size(13, 13);
             this.lb_SubjectMatter2.TabIndex = 71;
@@ -990,7 +1004,7 @@
             // lb_SubjectMatter3
             // 
             this.lb_SubjectMatter3.AutoSize = true;
-            this.lb_SubjectMatter3.Location = new System.Drawing.Point(388, 1232);
+            this.lb_SubjectMatter3.Location = new System.Drawing.Point(391, 1272);
             this.lb_SubjectMatter3.Name = "lb_SubjectMatter3";
             this.lb_SubjectMatter3.Size = new System.Drawing.Size(13, 13);
             this.lb_SubjectMatter3.TabIndex = 73;
@@ -1001,7 +1015,7 @@
             // lb_SubjectMatter4
             // 
             this.lb_SubjectMatter4.AutoSize = true;
-            this.lb_SubjectMatter4.Location = new System.Drawing.Point(388, 1258);
+            this.lb_SubjectMatter4.Location = new System.Drawing.Point(391, 1300);
             this.lb_SubjectMatter4.Name = "lb_SubjectMatter4";
             this.lb_SubjectMatter4.Size = new System.Drawing.Size(13, 13);
             this.lb_SubjectMatter4.TabIndex = 75;
@@ -1012,7 +1026,7 @@
             // lb_SubjectMatter5
             // 
             this.lb_SubjectMatter5.AutoSize = true;
-            this.lb_SubjectMatter5.Location = new System.Drawing.Point(388, 1284);
+            this.lb_SubjectMatter5.Location = new System.Drawing.Point(391, 1328);
             this.lb_SubjectMatter5.Name = "lb_SubjectMatter5";
             this.lb_SubjectMatter5.Size = new System.Drawing.Size(13, 13);
             this.lb_SubjectMatter5.TabIndex = 77;
@@ -1023,11 +1037,12 @@
             // rtb_Bul1
             // 
             this.rtb_Bul1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_Bul1.Location = new System.Drawing.Point(416, 126);
+            this.rtb_Bul1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtb_Bul1.Location = new System.Drawing.Point(416, 125);
             this.rtb_Bul1.Multiline = false;
             this.rtb_Bul1.Name = "rtb_Bul1";
             this.rtb_Bul1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_Bul1.Size = new System.Drawing.Size(1156, 20);
+            this.rtb_Bul1.Size = new System.Drawing.Size(1156, 26);
             this.rtb_Bul1.TabIndex = 79;
             this.rtb_Bul1.Text = "";
             this.rtb_Bul1.TextChanged += new System.EventHandler(this.tb_TextChanged);
@@ -1036,11 +1051,12 @@
             // rtb_Bul2
             // 
             this.rtb_Bul2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_Bul2.Location = new System.Drawing.Point(416, 151);
+            this.rtb_Bul2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtb_Bul2.Location = new System.Drawing.Point(416, 153);
             this.rtb_Bul2.Multiline = false;
             this.rtb_Bul2.Name = "rtb_Bul2";
             this.rtb_Bul2.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_Bul2.Size = new System.Drawing.Size(1156, 20);
+            this.rtb_Bul2.Size = new System.Drawing.Size(1156, 26);
             this.rtb_Bul2.TabIndex = 80;
             this.rtb_Bul2.Text = "";
             this.rtb_Bul2.TextChanged += new System.EventHandler(this.tb_TextChanged);
@@ -1049,11 +1065,12 @@
             // rtb_Bul3
             // 
             this.rtb_Bul3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_Bul3.Location = new System.Drawing.Point(416, 178);
+            this.rtb_Bul3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtb_Bul3.Location = new System.Drawing.Point(416, 182);
             this.rtb_Bul3.Multiline = false;
             this.rtb_Bul3.Name = "rtb_Bul3";
             this.rtb_Bul3.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_Bul3.Size = new System.Drawing.Size(1156, 20);
+            this.rtb_Bul3.Size = new System.Drawing.Size(1156, 26);
             this.rtb_Bul3.TabIndex = 81;
             this.rtb_Bul3.Text = "";
             this.rtb_Bul3.TextChanged += new System.EventHandler(this.tb_TextChanged);
@@ -1062,11 +1079,12 @@
             // rtb_Bul4
             // 
             this.rtb_Bul4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_Bul4.Location = new System.Drawing.Point(416, 204);
+            this.rtb_Bul4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtb_Bul4.Location = new System.Drawing.Point(416, 210);
             this.rtb_Bul4.Multiline = false;
             this.rtb_Bul4.Name = "rtb_Bul4";
             this.rtb_Bul4.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_Bul4.Size = new System.Drawing.Size(1156, 20);
+            this.rtb_Bul4.Size = new System.Drawing.Size(1156, 26);
             this.rtb_Bul4.TabIndex = 82;
             this.rtb_Bul4.Text = "";
             this.rtb_Bul4.TextChanged += new System.EventHandler(this.tb_TextChanged);
@@ -1075,11 +1093,12 @@
             // rtb_Bul5
             // 
             this.rtb_Bul5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_Bul5.Location = new System.Drawing.Point(416, 230);
+            this.rtb_Bul5.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtb_Bul5.Location = new System.Drawing.Point(416, 238);
             this.rtb_Bul5.Multiline = false;
             this.rtb_Bul5.Name = "rtb_Bul5";
             this.rtb_Bul5.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_Bul5.Size = new System.Drawing.Size(1156, 20);
+            this.rtb_Bul5.Size = new System.Drawing.Size(1156, 26);
             this.rtb_Bul5.TabIndex = 83;
             this.rtb_Bul5.Text = "";
             this.rtb_Bul5.TextChanged += new System.EventHandler(this.tb_TextChanged);
@@ -1088,23 +1107,25 @@
             // rtb_Title
             // 
             this.rtb_Title.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.rtb_Title.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rtb_Title.Location = new System.Drawing.Point(416, 55);
             this.rtb_Title.Multiline = false;
             this.rtb_Title.Name = "rtb_Title";
             this.rtb_Title.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_Title.Size = new System.Drawing.Size(1156, 20);
-            this.rtb_Title.TabIndex = 84;
+            this.rtb_Title.Size = new System.Drawing.Size(1156, 26);
+            this.rtb_Title.TabIndex = 78;
             this.rtb_Title.Text = "";
             this.rtb_Title.TextChanged += new System.EventHandler(this.tb_TextChanged);
             // 
             // rtb_Backend
             // 
             this.rtb_Backend.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_Backend.Location = new System.Drawing.Point(416, 313);
+            this.rtb_Backend.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtb_Backend.Location = new System.Drawing.Point(416, 311);
             this.rtb_Backend.Multiline = false;
             this.rtb_Backend.Name = "rtb_Backend";
             this.rtb_Backend.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_Backend.Size = new System.Drawing.Size(1156, 20);
+            this.rtb_Backend.Size = new System.Drawing.Size(1156, 26);
             this.rtb_Backend.TabIndex = 85;
             this.rtb_Backend.Text = "";
             this.rtb_Backend.TextChanged += new System.EventHandler(this.tb_TextChanged);
@@ -1112,11 +1133,12 @@
             // rtb_OtherAttributes1
             // 
             this.rtb_OtherAttributes1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_OtherAttributes1.Location = new System.Drawing.Point(416, 863);
+            this.rtb_OtherAttributes1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtb_OtherAttributes1.Location = new System.Drawing.Point(416, 864);
             this.rtb_OtherAttributes1.Multiline = false;
             this.rtb_OtherAttributes1.Name = "rtb_OtherAttributes1";
             this.rtb_OtherAttributes1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_OtherAttributes1.Size = new System.Drawing.Size(1156, 20);
+            this.rtb_OtherAttributes1.Size = new System.Drawing.Size(1156, 26);
             this.rtb_OtherAttributes1.TabIndex = 86;
             this.rtb_OtherAttributes1.Text = "";
             this.rtb_OtherAttributes1.Visible = false;
@@ -1125,11 +1147,12 @@
             // rtb_OtherAttributes2
             // 
             this.rtb_OtherAttributes2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_OtherAttributes2.Location = new System.Drawing.Point(416, 889);
+            this.rtb_OtherAttributes2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtb_OtherAttributes2.Location = new System.Drawing.Point(416, 892);
             this.rtb_OtherAttributes2.Multiline = false;
             this.rtb_OtherAttributes2.Name = "rtb_OtherAttributes2";
             this.rtb_OtherAttributes2.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_OtherAttributes2.Size = new System.Drawing.Size(1156, 20);
+            this.rtb_OtherAttributes2.Size = new System.Drawing.Size(1156, 26);
             this.rtb_OtherAttributes2.TabIndex = 87;
             this.rtb_OtherAttributes2.Text = "";
             this.rtb_OtherAttributes2.Visible = false;
@@ -1138,11 +1161,12 @@
             // rtb_OtherAttributes3
             // 
             this.rtb_OtherAttributes3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_OtherAttributes3.Location = new System.Drawing.Point(416, 915);
+            this.rtb_OtherAttributes3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtb_OtherAttributes3.Location = new System.Drawing.Point(416, 920);
             this.rtb_OtherAttributes3.Multiline = false;
             this.rtb_OtherAttributes3.Name = "rtb_OtherAttributes3";
             this.rtb_OtherAttributes3.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_OtherAttributes3.Size = new System.Drawing.Size(1156, 20);
+            this.rtb_OtherAttributes3.Size = new System.Drawing.Size(1156, 26);
             this.rtb_OtherAttributes3.TabIndex = 88;
             this.rtb_OtherAttributes3.Text = "";
             this.rtb_OtherAttributes3.Visible = false;
@@ -1151,11 +1175,12 @@
             // rtb_OtherAttributes4
             // 
             this.rtb_OtherAttributes4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_OtherAttributes4.Location = new System.Drawing.Point(416, 941);
+            this.rtb_OtherAttributes4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtb_OtherAttributes4.Location = new System.Drawing.Point(416, 948);
             this.rtb_OtherAttributes4.Multiline = false;
             this.rtb_OtherAttributes4.Name = "rtb_OtherAttributes4";
             this.rtb_OtherAttributes4.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_OtherAttributes4.Size = new System.Drawing.Size(1156, 20);
+            this.rtb_OtherAttributes4.Size = new System.Drawing.Size(1156, 26);
             this.rtb_OtherAttributes4.TabIndex = 89;
             this.rtb_OtherAttributes4.Text = "";
             this.rtb_OtherAttributes4.Visible = false;
@@ -1164,11 +1189,12 @@
             // rtb_OtherAttributes5
             // 
             this.rtb_OtherAttributes5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_OtherAttributes5.Location = new System.Drawing.Point(416, 967);
+            this.rtb_OtherAttributes5.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtb_OtherAttributes5.Location = new System.Drawing.Point(416, 976);
             this.rtb_OtherAttributes5.Multiline = false;
             this.rtb_OtherAttributes5.Name = "rtb_OtherAttributes5";
             this.rtb_OtherAttributes5.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_OtherAttributes5.Size = new System.Drawing.Size(1156, 20);
+            this.rtb_OtherAttributes5.Size = new System.Drawing.Size(1156, 26);
             this.rtb_OtherAttributes5.TabIndex = 90;
             this.rtb_OtherAttributes5.Text = "";
             this.rtb_OtherAttributes5.Visible = false;
@@ -1177,11 +1203,12 @@
             // rtb_IntendedUse1
             // 
             this.rtb_IntendedUse1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_IntendedUse1.Location = new System.Drawing.Point(416, 1019);
+            this.rtb_IntendedUse1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtb_IntendedUse1.Location = new System.Drawing.Point(416, 1037);
             this.rtb_IntendedUse1.Multiline = false;
             this.rtb_IntendedUse1.Name = "rtb_IntendedUse1";
             this.rtb_IntendedUse1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_IntendedUse1.Size = new System.Drawing.Size(1156, 20);
+            this.rtb_IntendedUse1.Size = new System.Drawing.Size(1156, 26);
             this.rtb_IntendedUse1.TabIndex = 91;
             this.rtb_IntendedUse1.Text = "";
             this.rtb_IntendedUse1.Visible = false;
@@ -1190,11 +1217,12 @@
             // rtb_IntendedUse3
             // 
             this.rtb_IntendedUse3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_IntendedUse3.Location = new System.Drawing.Point(416, 1073);
+            this.rtb_IntendedUse3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtb_IntendedUse3.Location = new System.Drawing.Point(416, 1095);
             this.rtb_IntendedUse3.Multiline = false;
             this.rtb_IntendedUse3.Name = "rtb_IntendedUse3";
             this.rtb_IntendedUse3.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_IntendedUse3.Size = new System.Drawing.Size(1156, 20);
+            this.rtb_IntendedUse3.Size = new System.Drawing.Size(1156, 26);
             this.rtb_IntendedUse3.TabIndex = 92;
             this.rtb_IntendedUse3.Text = "";
             this.rtb_IntendedUse3.Visible = false;
@@ -1203,11 +1231,12 @@
             // rtb_IntendedUse2
             // 
             this.rtb_IntendedUse2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_IntendedUse2.Location = new System.Drawing.Point(416, 1045);
+            this.rtb_IntendedUse2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtb_IntendedUse2.Location = new System.Drawing.Point(416, 1065);
             this.rtb_IntendedUse2.Multiline = false;
             this.rtb_IntendedUse2.Name = "rtb_IntendedUse2";
             this.rtb_IntendedUse2.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_IntendedUse2.Size = new System.Drawing.Size(1156, 20);
+            this.rtb_IntendedUse2.Size = new System.Drawing.Size(1156, 26);
             this.rtb_IntendedUse2.TabIndex = 92;
             this.rtb_IntendedUse2.Text = "";
             this.rtb_IntendedUse2.Visible = false;
@@ -1216,11 +1245,12 @@
             // rtb_IntendedUse4
             // 
             this.rtb_IntendedUse4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_IntendedUse4.Location = new System.Drawing.Point(416, 1099);
+            this.rtb_IntendedUse4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtb_IntendedUse4.Location = new System.Drawing.Point(416, 1123);
             this.rtb_IntendedUse4.Multiline = false;
             this.rtb_IntendedUse4.Name = "rtb_IntendedUse4";
             this.rtb_IntendedUse4.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_IntendedUse4.Size = new System.Drawing.Size(1156, 20);
+            this.rtb_IntendedUse4.Size = new System.Drawing.Size(1156, 26);
             this.rtb_IntendedUse4.TabIndex = 93;
             this.rtb_IntendedUse4.Text = "";
             this.rtb_IntendedUse4.Visible = false;
@@ -1229,11 +1259,12 @@
             // rtb_IntendedUse5
             // 
             this.rtb_IntendedUse5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_IntendedUse5.Location = new System.Drawing.Point(416, 1125);
+            this.rtb_IntendedUse5.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtb_IntendedUse5.Location = new System.Drawing.Point(416, 1151);
             this.rtb_IntendedUse5.Multiline = false;
             this.rtb_IntendedUse5.Name = "rtb_IntendedUse5";
             this.rtb_IntendedUse5.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_IntendedUse5.Size = new System.Drawing.Size(1156, 20);
+            this.rtb_IntendedUse5.Size = new System.Drawing.Size(1156, 26);
             this.rtb_IntendedUse5.TabIndex = 94;
             this.rtb_IntendedUse5.Text = "";
             this.rtb_IntendedUse5.Visible = false;
@@ -1242,11 +1273,12 @@
             // rtb_SubjectMatter1
             // 
             this.rtb_SubjectMatter1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_SubjectMatter1.Location = new System.Drawing.Point(416, 1178);
+            this.rtb_SubjectMatter1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtb_SubjectMatter1.Location = new System.Drawing.Point(416, 1210);
             this.rtb_SubjectMatter1.Multiline = false;
             this.rtb_SubjectMatter1.Name = "rtb_SubjectMatter1";
             this.rtb_SubjectMatter1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_SubjectMatter1.Size = new System.Drawing.Size(1156, 20);
+            this.rtb_SubjectMatter1.Size = new System.Drawing.Size(1156, 26);
             this.rtb_SubjectMatter1.TabIndex = 95;
             this.rtb_SubjectMatter1.Text = "";
             this.rtb_SubjectMatter1.Visible = false;
@@ -1255,11 +1287,12 @@
             // rtb_SubjectMatter2
             // 
             this.rtb_SubjectMatter2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_SubjectMatter2.Location = new System.Drawing.Point(416, 1204);
+            this.rtb_SubjectMatter2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtb_SubjectMatter2.Location = new System.Drawing.Point(416, 1238);
             this.rtb_SubjectMatter2.Multiline = false;
             this.rtb_SubjectMatter2.Name = "rtb_SubjectMatter2";
             this.rtb_SubjectMatter2.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_SubjectMatter2.Size = new System.Drawing.Size(1156, 20);
+            this.rtb_SubjectMatter2.Size = new System.Drawing.Size(1156, 26);
             this.rtb_SubjectMatter2.TabIndex = 96;
             this.rtb_SubjectMatter2.Text = "";
             this.rtb_SubjectMatter2.Visible = false;
@@ -1268,11 +1301,12 @@
             // rtb_SubjectMatter3
             // 
             this.rtb_SubjectMatter3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_SubjectMatter3.Location = new System.Drawing.Point(416, 1230);
+            this.rtb_SubjectMatter3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtb_SubjectMatter3.Location = new System.Drawing.Point(416, 1266);
             this.rtb_SubjectMatter3.Multiline = false;
             this.rtb_SubjectMatter3.Name = "rtb_SubjectMatter3";
             this.rtb_SubjectMatter3.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_SubjectMatter3.Size = new System.Drawing.Size(1156, 20);
+            this.rtb_SubjectMatter3.Size = new System.Drawing.Size(1156, 26);
             this.rtb_SubjectMatter3.TabIndex = 97;
             this.rtb_SubjectMatter3.Text = "";
             this.rtb_SubjectMatter3.Visible = false;
@@ -1281,11 +1315,12 @@
             // rtb_SubjectMatter4
             // 
             this.rtb_SubjectMatter4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_SubjectMatter4.Location = new System.Drawing.Point(416, 1256);
+            this.rtb_SubjectMatter4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtb_SubjectMatter4.Location = new System.Drawing.Point(416, 1294);
             this.rtb_SubjectMatter4.Multiline = false;
             this.rtb_SubjectMatter4.Name = "rtb_SubjectMatter4";
             this.rtb_SubjectMatter4.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_SubjectMatter4.Size = new System.Drawing.Size(1156, 20);
+            this.rtb_SubjectMatter4.Size = new System.Drawing.Size(1156, 26);
             this.rtb_SubjectMatter4.TabIndex = 98;
             this.rtb_SubjectMatter4.Text = "";
             this.rtb_SubjectMatter4.Visible = false;
@@ -1294,11 +1329,12 @@
             // rtb_SubjectMatter5
             // 
             this.rtb_SubjectMatter5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtb_SubjectMatter5.Location = new System.Drawing.Point(416, 1282);
+            this.rtb_SubjectMatter5.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtb_SubjectMatter5.Location = new System.Drawing.Point(416, 1322);
             this.rtb_SubjectMatter5.Multiline = false;
             this.rtb_SubjectMatter5.Name = "rtb_SubjectMatter5";
             this.rtb_SubjectMatter5.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_SubjectMatter5.Size = new System.Drawing.Size(1156, 20);
+            this.rtb_SubjectMatter5.Size = new System.Drawing.Size(1156, 26);
             this.rtb_SubjectMatter5.TabIndex = 99;
             this.rtb_SubjectMatter5.Text = "";
             this.rtb_SubjectMatter5.Visible = false;
@@ -1306,7 +1342,7 @@
             // 
             // rtb_UsedKeywords
             // 
-            this.rtb_UsedKeywords.Location = new System.Drawing.Point(233, 852);
+            this.rtb_UsedKeywords.Location = new System.Drawing.Point(227, 852);
             this.rtb_UsedKeywords.Name = "rtb_UsedKeywords";
             this.rtb_UsedKeywords.Size = new System.Drawing.Size(149, 75);
             this.rtb_UsedKeywords.TabIndex = 101;

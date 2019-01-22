@@ -66,6 +66,7 @@
             this.dgv_Products.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dgv_Products.Size = new System.Drawing.Size(611, 498);
             this.dgv_Products.TabIndex = 7;
+            this.dgv_Products.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_Products_CellDoubleClick);
             // 
             // Column1
             // 
