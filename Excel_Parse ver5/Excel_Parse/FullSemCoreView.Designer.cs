@@ -280,7 +280,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FullSemCoreView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Семантическая база";
+            this.Text = "Семантическая база - Bona Fides";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FullSemCore_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Keywords)).EndInit();
             this.groupBox1.ResumeLayout(false);

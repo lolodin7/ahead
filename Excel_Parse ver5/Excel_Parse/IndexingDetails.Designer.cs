@@ -225,7 +225,7 @@
             this.MinimizeBox = false;
             this.Name = "IndexingDetails";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Подробности индексации";
+            this.Text = "Подробности индексации - Bona Fides";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.IndexingDetails_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();

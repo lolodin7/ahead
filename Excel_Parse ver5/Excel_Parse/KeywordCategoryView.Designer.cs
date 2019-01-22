@@ -244,7 +244,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "KeywordCategoryView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Категории ключей";
+            this.Text = "Категории ключей - Bona Fides";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.KeywordCategory_FormClosing);
             this.lb_ProductName.ResumeLayout(false);
             this.lb_ProductName.PerformLayout();

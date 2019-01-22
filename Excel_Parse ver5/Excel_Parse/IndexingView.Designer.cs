@@ -198,7 +198,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "IndexingView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Индексация товаров";
+            this.Text = "Индексация товаров - Bona Fides";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.IndexingView_FormClosing);
             this.VisibleChanged += new System.EventHandler(this.IndexingView_VisibleChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

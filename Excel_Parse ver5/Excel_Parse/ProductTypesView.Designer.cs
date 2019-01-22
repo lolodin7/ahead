@@ -147,7 +147,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ProductTypesView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Категории товаров";
+            this.Text = "Категории товаров - Bona Fides";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProductTypes_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ProductTypes)).EndInit();
             this.groupBox1.ResumeLayout(false);

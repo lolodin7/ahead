@@ -166,7 +166,6 @@ C:\AheadProject\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.KeywordCatego
 C:\AheadProject\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.ProductTypesView.resources
 C:\AheadProject\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.SemCoreView.resources
 C:\AheadProject\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.Properties.Resources.resources
-C:\AheadProject\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.SemStatistics.resources
 C:\AheadProject\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.csproj.GenerateResource.Cache
 C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.ProductsView.resources
 C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.FullSemCoreView.resources
@@ -187,3 +186,8 @@ C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.IndexingStatus.resou
 C:\ahead\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.StartImage.resources
 C:\ahead\Excel_Parse ver5\Excel_Parse\bin\Debug\EPPlus.dll
 C:\ahead\Excel_Parse ver5\Excel_Parse\bin\Debug\EPPlus.xml
+C:\AheadProject\Excel_Parse ver5\Excel_Parse\bin\Debug\EPPlus.dll
+C:\AheadProject\Excel_Parse ver5\Excel_Parse\bin\Debug\EPPlus.xml
+C:\AheadProject\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.StartImage.resources
+C:\AheadProject\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.IndexingDetails.resources
+C:\AheadProject\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.IndexingStatus.resources

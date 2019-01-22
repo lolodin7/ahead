@@ -1452,12 +1452,15 @@
             // 
             // btn_Help
             // 
+            this.btn_Help.BackColor = System.Drawing.Color.Gainsboro;
+            this.btn_Help.FlatAppearance.BorderSize = 0;
+            this.btn_Help.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Help.Location = new System.Drawing.Point(314, 2);
             this.btn_Help.Name = "btn_Help";
             this.btn_Help.Size = new System.Drawing.Size(21, 21);
             this.btn_Help.TabIndex = 103;
             this.btn_Help.Text = "?";
-            this.btn_Help.UseVisualStyleBackColor = true;
+            this.btn_Help.UseVisualStyleBackColor = false;
             this.btn_Help.Click += new System.EventHandler(this.btn_Help_Click);
             // 
             // rb_None
@@ -1572,7 +1575,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SemanticsView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Семантика";
+            this.Text = "Семантика - Bona Fides";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Semantics_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Keywords)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSemantics)).EndInit();

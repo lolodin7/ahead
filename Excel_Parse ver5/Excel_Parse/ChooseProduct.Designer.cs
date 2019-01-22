@@ -171,7 +171,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ChooseProduct";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Выбор товара";
+            this.Text = "Выбор товара - Bona Fides";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChooseProduct_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Products)).EndInit();
             this.ResumeLayout(false);

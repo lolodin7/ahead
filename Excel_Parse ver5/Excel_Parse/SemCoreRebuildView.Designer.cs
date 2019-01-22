@@ -564,7 +564,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SemCoreRebuildView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Изменение семантического ядра";
+            this.Text = "Изменение семантического ядра - Bona Fides";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SemCoreRebuild_FormClosing);
             this.VisibleChanged += new System.EventHandler(this.SemCoreRebuild_VisibleChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Source)).EndInit();

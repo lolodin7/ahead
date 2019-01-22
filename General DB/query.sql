@@ -114,3 +114,5 @@ VALUES (200, 500, 250, 50, 100, 100, 1999, 14, 'false')
 
 UPDATE [FieldsLength] SET [CountBulSpaces] = 1
 SELECT * FROM FieldsLength WHERE ProductId = 14
+
+select * from semcore where keyword = 'miNi'

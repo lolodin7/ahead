@@ -44,6 +44,8 @@
             // btn_DoSemCore
             // 
             this.btn_DoSemCore.BackColor = System.Drawing.Color.YellowGreen;
+            this.btn_DoSemCore.FlatAppearance.BorderSize = 0;
+            this.btn_DoSemCore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_DoSemCore.Location = new System.Drawing.Point(12, 12);
             this.btn_DoSemCore.Name = "btn_DoSemCore";
             this.btn_DoSemCore.Size = new System.Drawing.Size(195, 81);
@@ -55,6 +57,8 @@
             // btn_DoSemantics
             // 
             this.btn_DoSemantics.BackColor = System.Drawing.Color.YellowGreen;
+            this.btn_DoSemantics.FlatAppearance.BorderSize = 0;
+            this.btn_DoSemantics.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_DoSemantics.Location = new System.Drawing.Point(313, 117);
             this.btn_DoSemantics.Name = "btn_DoSemantics";
             this.btn_DoSemantics.Size = new System.Drawing.Size(195, 81);
@@ -66,6 +70,8 @@
             // btn_DoRewriteSemCore
             // 
             this.btn_DoRewriteSemCore.BackColor = System.Drawing.Color.Beige;
+            this.btn_DoRewriteSemCore.FlatAppearance.BorderSize = 0;
+            this.btn_DoRewriteSemCore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_DoRewriteSemCore.Location = new System.Drawing.Point(12, 117);
             this.btn_DoRewriteSemCore.Name = "btn_DoRewriteSemCore";
             this.btn_DoRewriteSemCore.Size = new System.Drawing.Size(195, 81);
@@ -77,6 +83,8 @@
             // btn_DoProductType
             // 
             this.btn_DoProductType.BackColor = System.Drawing.Color.YellowGreen;
+            this.btn_DoProductType.FlatAppearance.BorderSize = 0;
+            this.btn_DoProductType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_DoProductType.Location = new System.Drawing.Point(611, 235);
             this.btn_DoProductType.Name = "btn_DoProductType";
             this.btn_DoProductType.Size = new System.Drawing.Size(195, 81);
@@ -88,6 +96,8 @@
             // btn_DoKeywordCategory
             // 
             this.btn_DoKeywordCategory.BackColor = System.Drawing.Color.YellowGreen;
+            this.btn_DoKeywordCategory.FlatAppearance.BorderSize = 0;
+            this.btn_DoKeywordCategory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_DoKeywordCategory.Location = new System.Drawing.Point(12, 343);
             this.btn_DoKeywordCategory.Name = "btn_DoKeywordCategory";
             this.btn_DoKeywordCategory.Size = new System.Drawing.Size(195, 81);
@@ -99,6 +109,8 @@
             // btn_DoProducts
             // 
             this.btn_DoProducts.BackColor = System.Drawing.Color.YellowGreen;
+            this.btn_DoProducts.FlatAppearance.BorderSize = 0;
+            this.btn_DoProducts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_DoProducts.Location = new System.Drawing.Point(611, 12);
             this.btn_DoProducts.Name = "btn_DoProducts";
             this.btn_DoProducts.Size = new System.Drawing.Size(195, 81);
@@ -110,6 +122,8 @@
             // btn_ShowAllKeywords
             // 
             this.btn_ShowAllKeywords.BackColor = System.Drawing.Color.YellowGreen;
+            this.btn_ShowAllKeywords.FlatAppearance.BorderSize = 0;
+            this.btn_ShowAllKeywords.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_ShowAllKeywords.Location = new System.Drawing.Point(12, 235);
             this.btn_ShowAllKeywords.Name = "btn_ShowAllKeywords";
             this.btn_ShowAllKeywords.Size = new System.Drawing.Size(195, 81);
@@ -131,6 +145,8 @@
             // btn_ShowIndexing
             // 
             this.btn_ShowIndexing.BackColor = System.Drawing.Color.YellowGreen;
+            this.btn_ShowIndexing.FlatAppearance.BorderSize = 0;
+            this.btn_ShowIndexing.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_ShowIndexing.Location = new System.Drawing.Point(611, 117);
             this.btn_ShowIndexing.Name = "btn_ShowIndexing";
             this.btn_ShowIndexing.Size = new System.Drawing.Size(195, 81);
@@ -142,6 +158,8 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.YellowGreen;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Location = new System.Drawing.Point(309, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(195, 81);
@@ -170,7 +188,7 @@
             this.MaximizeBox = false;
             this.Name = "MainFormView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Главное окно";
+            this.Text = "Bona Fides";
             this.ResumeLayout(false);
 
         }

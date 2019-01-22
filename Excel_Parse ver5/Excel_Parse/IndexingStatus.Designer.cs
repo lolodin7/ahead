@@ -87,7 +87,7 @@
             this.MinimizeBox = false;
             this.Name = "IndexingStatus";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Выбор статуса";
+            this.Text = "Выбор статуса - Bona Fides";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.IndexingStatus_FormClosing);
             this.VisibleChanged += new System.EventHandler(this.IndexingStatus_VisibleChanged);
             this.ResumeLayout(false);

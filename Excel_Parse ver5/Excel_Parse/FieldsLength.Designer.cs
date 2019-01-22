@@ -313,7 +313,7 @@
             this.MinimizeBox = false;
             this.Name = "FieldsLength";
             this.Opacity = 0.95D;
-            this.Text = "Размеры полей";
+            this.Text = "Размеры полей - Bona Fides";
             this.ResumeLayout(false);
             this.PerformLayout();
 
