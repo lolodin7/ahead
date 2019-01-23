@@ -24,6 +24,9 @@ namespace Excel_Parse
         private MarketplaceController mpController;
         private List<MarketplaceModel> mpList;
 
+        private List<string> activeProducts;
+        private bool ActiveStatus;
+
         private MainFormView mf;
 
         /* Конструктор */
@@ -43,7 +46,10 @@ namespace Excel_Parse
         /* Заполняем (перезаполняем после изменений) все поля на форме данными с БД */
         private void FillAllFields()
         {
-            pController.GetProductsAllJOIN();
+            if (checkbox_ActiveStatus.Checked == true)
+                pController.GetProductsAllJOIN();
+            else
+                pController.GetActiveProductsJOIN();
             DrawProducts();
             DrawProductTypes();
             DrawMarketPlaces();
@@ -80,8 +86,8 @@ namespace Excel_Parse
                 {
                     if (dgv_Products.Rows[i].Cells[4].Value.Equals(ptList[j].ProductTypeId))
                     {
-                        dgv_Products.Rows[i].Cells[6].Value = dgv_Products.Rows[i].Cells[4].Value;
-                        dgv_Products.Rows[i].Cells[7].Value = ptList[j].TypeName.ToString();
+                        dgv_Products.Rows[i].Cells[7].Value = dgv_Products.Rows[i].Cells[4].Value;
+                        dgv_Products.Rows[i].Cells[8].Value = ptList[j].TypeName.ToString();
                     }
                 }
             }
@@ -96,8 +102,8 @@ namespace Excel_Parse
                 {
                     if (dgv_Products.Rows[i].Cells[5].Value.Equals(mpList[j].MarketPlaceId))
                     {
-                        dgv_Products.Rows[i].Cells[8].Value = dgv_Products.Rows[i].Cells[5].Value;
-                        dgv_Products.Rows[i].Cells[9].Value = mpList[j].MarketPlaceName.ToString();
+                        dgv_Products.Rows[i].Cells[9].Value = dgv_Products.Rows[i].Cells[5].Value;
+                        dgv_Products.Rows[i].Cells[10].Value = mpList[j].MarketPlaceName.ToString();
                     }
                 }
             }
@@ -131,37 +137,42 @@ namespace Excel_Parse
         /* Включаем режим редактировани выбранного в таблице товара */
         private void dgv_Products_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            tb_editing_ProductName.Enabled = true;
-            tb_editing_ASIN.Enabled = true;
-            tb_editing_SKU.Enabled = true;
-            cb_editing_ProductTypes.Enabled = true;
-            cb_editing_Marketplace.Enabled = true;
-            btn_SaveEditing.Enabled = true;
-            btn_CancelEditing.Enabled = true;
-
-            tb_editing_ProductId.Text = dgv_Products.Rows[e.RowIndex].Cells[0].Value.ToString();
-            tb_editing_ProductName.Text = dgv_Products.Rows[e.RowIndex].Cells[1].Value.ToString();
-            tb_editing_ASIN.Text = dgv_Products.Rows[e.RowIndex].Cells[2].Value.ToString();
-            tb_editing_SKU.Text = dgv_Products.Rows[e.RowIndex].Cells[3].Value.ToString();
-            tb_editing_ProductTypeId.Text = dgv_Products.Rows[e.RowIndex].Cells[4].Value.ToString();
-
-            for (int i = 0; i < cb_editing_ProductTypes.Items.Count; i++)
+            if (dgv_Products.RowCount > 0)
             {
-                if (dgv_Products.Rows[e.RowIndex].Cells[7].Value.ToString().Equals(cb_editing_ProductTypes.Items[i].ToString()))
-                {
-                    cb_editing_ProductTypes.SelectedItem = cb_editing_ProductTypes.Items[i];
-                }
-            }
+                tb_editing_ProductName.Enabled = true;
+                tb_editing_ASIN.Enabled = true;
+                tb_editing_SKU.Enabled = true;
+                cb_editing_ProductTypes.Enabled = true;
+                cb_editing_Marketplace.Enabled = true;
+                btn_SaveEditing.Enabled = true;
+                btn_CancelEditing.Enabled = true;
+                btn_ActivateProduct.Enabled = true;
 
-            for (int i = 0; i < cb_editing_Marketplace.Items.Count; i++)
-            {
-                if (dgv_Products.Rows[e.RowIndex].Cells[9].Value.ToString().Equals(cb_editing_Marketplace.Items[i].ToString()))
-                {
-                    cb_editing_Marketplace.SelectedItem = cb_editing_Marketplace.Items[i];
-                }
-            }
+                tb_editing_ProductId.Text = dgv_Products.Rows[e.RowIndex].Cells[0].Value.ToString();
+                tb_editing_ProductName.Text = dgv_Products.Rows[e.RowIndex].Cells[1].Value.ToString();
+                tb_editing_ASIN.Text = dgv_Products.Rows[e.RowIndex].Cells[2].Value.ToString();
+                tb_editing_SKU.Text = dgv_Products.Rows[e.RowIndex].Cells[3].Value.ToString();
+                tb_editing_ProductTypeId.Text = dgv_Products.Rows[e.RowIndex].Cells[4].Value.ToString();
+                ActiveStatus = (bool)dgv_Products.Rows[e.RowIndex].Cells[6].Value;
 
-            groupBox2.Enabled = false;
+                for (int i = 0; i < cb_editing_ProductTypes.Items.Count; i++)
+                {
+                    if (dgv_Products.Rows[e.RowIndex].Cells[8].Value.ToString().Equals(cb_editing_ProductTypes.Items[i].ToString()))
+                    {
+                        cb_editing_ProductTypes.SelectedItem = cb_editing_ProductTypes.Items[i];
+                    }
+                }
+
+                for (int i = 0; i < cb_editing_Marketplace.Items.Count; i++)
+                {
+                    if (dgv_Products.Rows[e.RowIndex].Cells[10].Value.ToString().Equals(cb_editing_Marketplace.Items[i].ToString()))
+                    {
+                        cb_editing_Marketplace.SelectedItem = cb_editing_Marketplace.Items[i];
+                    }
+                }
+
+                groupBox2.Enabled = false;
+            }
         }
 
         /* Удаление товара по клику ПКМ в dgv_Products */
@@ -169,13 +180,25 @@ namespace Excel_Parse
         {
             if (e.Button == MouseButtons.Right)
             {
-                dgv_Products.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
-                if (MessageBox.Show("Товар \"" + dgv_Products.Rows[e.RowIndex].Cells[1].Value.ToString() + "\" будет удален навсегда. Вы уверены?", "Удаление товара", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (dgv_Products.RowCount > 0 && dgv_Products.Rows[e.RowIndex].DefaultCellStyle.BackColor != Color.LightGray)      //если таблица пустая, чтобы не было ошибки
                 {
-                    SetDeletedProductToDB(e.RowIndex);
-                    pController.GetProductsAllJOIN();
-                    RefreshFieldsAfterEditing();
-                    FillAllFields();
+                    dgv_Products.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
+                    if (MessageBox.Show("Товар \"" + dgv_Products.Rows[e.RowIndex].Cells[1].Value.ToString() + "\" будет отключен. Вы уверены?", "Отключение товара", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        //SetDeletedProductToDB(e.RowIndex);
+
+                        //if (checkbox_ActiveStatus.Checked == true)
+                        //    pController.GetProductsAllJOIN();
+                        //else
+                        //    pController.GetActiveProductsJOIN();
+
+                        RefreshFieldsAfterEditing();
+
+                        //тут метод для обновлений в базе активстатуса
+                        pController.UpdateProductActiveStatus(int.Parse(dgv_Products.Rows[e.RowIndex].Cells[0].Value.ToString()), false);
+
+                        dgv_Products.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightGray;
+                    }
                 }
             }
         }
@@ -199,9 +222,11 @@ namespace Excel_Parse
                 cb_editing_ProductTypes.Items.Add(ptList[i].TypeName);
                 cb_adding_ProductTypes.Items.Add(ptList[i].TypeName);
             }
-
-            cb_editing_ProductTypes.SelectedItem = cb_editing_ProductTypes.Items[0];
-            cb_adding_ProductTypes.SelectedItem = cb_adding_ProductTypes.Items[0];
+            if (ptList.Count > 0)
+            {
+                cb_editing_ProductTypes.SelectedItem = cb_editing_ProductTypes.Items[0];
+                cb_adding_ProductTypes.SelectedItem = cb_adding_ProductTypes.Items[0];
+            }
         }
 
         /* Заполняем cb_Marketplace данными с mpList */
@@ -215,9 +240,11 @@ namespace Excel_Parse
                 cb_editing_Marketplace.Items.Add(mpList[i].MarketPlaceName);
                 cb_adding_Marketplace.Items.Add(mpList[i].MarketPlaceName);
             }
-
-            cb_editing_Marketplace.SelectedItem = cb_editing_Marketplace.Items[0];
-            cb_adding_Marketplace.SelectedItem = cb_adding_Marketplace.Items[0];
+            if (mpList.Count > 0)
+            {
+                cb_editing_Marketplace.SelectedItem = cb_editing_Marketplace.Items[0];
+                cb_adding_Marketplace.SelectedItem = cb_adding_Marketplace.Items[0];
+            }
         }
 
         /* Вызов справка */
@@ -250,6 +277,7 @@ namespace Excel_Parse
             cb_editing_Marketplace.Enabled = false;
             btn_SaveEditing.Enabled = false;
             btn_CancelEditing.Enabled = false;
+            btn_ActivateProduct.Enabled = false;
 
             tb_editing_ProductId.Text = "";
             tb_editing_ProductName.Text = "";
@@ -321,10 +349,12 @@ namespace Excel_Parse
         {
             if (!tb_editing_ProductName.Text.Equals("") && !tb_editing_ASIN.Text.Equals("") && !tb_editing_SKU.Text.Equals(""))
             {
-                pController.UpdateExistingProduct(tb_editing_ProductName.Text, tb_editing_ASIN.Text, tb_editing_SKU.Text, int.Parse(tb_editing_ProductTypeId.Text), int.Parse(tb_editing_ProductId.Text), int.Parse(tb_editing_MarketPlaceId.Text));
+                pController.UpdateExistingProduct(tb_editing_ProductName.Text, tb_editing_ASIN.Text, tb_editing_SKU.Text, int.Parse(tb_editing_ProductTypeId.Text), int.Parse(tb_editing_ProductId.Text), int.Parse(tb_editing_MarketPlaceId.Text), ActiveStatus);
 
                 RefreshFieldsAfterEditing();
-                FillAllFields();
+                //FillAllFields();
+                checkbox_ActiveStatus.Checked = !checkbox_ActiveStatus.Checked;
+                checkbox_ActiveStatus.Checked = !checkbox_ActiveStatus.Checked;
             }
             else
                 MessageBox.Show("Не все поля заполнены. Пожалуйста, заполните все поля чтобы продолжить.", "Ошибка");
@@ -333,23 +363,110 @@ namespace Excel_Parse
         /* Сохраняем новый товар в БД */
         private void btn_SaveAdding_Click(object sender, EventArgs e)
         {
+            string errorsList = "";
+            bool errorMade = false;
+
             if (!tb_adding_ProductName.Text.Equals("") && !tb_adding_ASIN.Text.Equals("") && !tb_adding_SKU.Text.Equals(""))
             {
-                int result = -1;
-                result = pController.InsertNewProduct(tb_adding_ProductName.Text, tb_adding_ASIN.Text, tb_adding_SKU.Text, int.Parse(tb_adding_ProductTypeId.Text), int.Parse(tb_adding_MarketPlaceId.Text));
-                if (result == 1)
-                {
-                    tb_adding_ASIN.Text = "";
-                    tb_adding_ProductName.Text = "";
-                    tb_adding_SKU.Text = "";
+                int prodTypeId, marketPlcId;
 
-                    FillAllFields();
+                try { prodTypeId = int.Parse(tb_adding_ProductTypeId.Text); } catch (Exception ex) { errorsList += "Выберите вид товара!\n"; errorMade = true; }
+                try { marketPlcId = int.Parse(tb_adding_MarketPlaceId.Text); } catch (Exception ex) { errorsList += "Выберите маркетплейс для товара!"; errorMade = true; }
+
+                if (!errorMade)
+                {
+                    int result = -1;
+                    result = pController.InsertNewProduct(tb_adding_ProductName.Text, tb_adding_ASIN.Text, tb_adding_SKU.Text, int.Parse(tb_adding_ProductTypeId.Text), int.Parse(tb_adding_MarketPlaceId.Text), true);
+
+                    if (result == 1)
+                    {
+                        tb_adding_ASIN.Text = "";
+                        tb_adding_ProductName.Text = "";
+                        tb_adding_SKU.Text = "";
+
+                        //FillAllFields();
+                        checkbox_ActiveStatus.Checked = !checkbox_ActiveStatus.Checked;
+                        checkbox_ActiveStatus.Checked = !checkbox_ActiveStatus.Checked;
+                    }
+                    else
+                        MessageBox.Show("Произошла ошибка при сохранении.", "Ошибка");
                 }
                 else
-                    MessageBox.Show("Произошла ошибка при сохранении.", "Ошибка");
+                    MessageBox.Show(errorsList, "Ошибка");
             }
             else
                 MessageBox.Show("Не все поля заполнены. Пожалуйста, заполните все поля чтобы продолжить.", "Ошибка");
+        }
+
+        /* Отображаем/скрываем неактивные, закрытые товары */
+        private void checkbox_ActiveStatus_CheckedChanged(object sender, EventArgs e)
+        {
+            RefreshAllFieldsDependOnActivation();
+        }
+
+        /* Перерисовываем таблицу при вкл/выкл флажка на отображение закрытых товаров */
+        private void RefreshAllFieldsDependOnActivation()
+        {
+            if (checkbox_ActiveStatus.Checked)
+            {
+                activeProducts = new List<string> { };
+
+                List<string> tmp = new List<string> { };
+
+                for (int i = 0; i < pList.Count; i++)
+                {
+                    activeProducts.Add(pList[i].ASIN);
+                }
+
+                FillAllFields();
+
+                for (int i = 0; i < pList.Count; i++)
+                {
+                    if (!activeProducts.Contains(pList[i].ASIN))
+                        tmp.Add(pList[i].ASIN);
+                }
+
+                for (int i = 0; i < dgv_Products.RowCount; i++)
+                {
+                    for (int j = 0; j < tmp.Count; j++)
+                    {
+                        if (dgv_Products.Rows[i].Cells[2].Value.ToString().Equals(tmp[j]))
+                        {
+                            dgv_Products.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
+                        }
+                    }
+                }
+
+                if (tmp.Count == 0)
+                    RefreshFieldsAfterEditing();
+            }
+            else
+            {
+                FillAllFields();
+            }
+        }
+
+        private void btn_ActivateProduct_Click(object sender, EventArgs e)
+        {
+            ActiveStatus = true;
+        }
+
+        /* Поиск товаров */
+        private void tb_FindNameField_TextChanged(object sender, EventArgs e)
+        {
+            string findStr = rtb_FindFieldName.Text;
+            for (int i = 0; i < dgv_Products.RowCount - 1; i++)
+            {
+                for (int j = 0; j < dgv_Products.ColumnCount; j++)
+                {
+                    if (dgv_Products.Rows[i].Cells[j].Value.ToString().ToLower().Contains(findStr) && findStr != "")
+                        dgv_Products.Rows[i].Cells[j].Style.BackColor = Color.DeepSkyBlue;
+                    else if (dgv_Products.Rows[i].DefaultCellStyle.BackColor == Color.LightGray)
+                        dgv_Products.Rows[i].Cells[j].Style.BackColor = Color.LightGray;
+                    else
+                        dgv_Products.Rows[i].Cells[j].Style.BackColor = Color.White;
+                }
+            }
         }
     }
 }

@@ -38,6 +38,12 @@ namespace Excel_Parse
             return Execute_SELECTJOIN_Command(command);
         }
 
+        public int GetActiveProductsJOIN()
+        {
+            string sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0 and Products.ActiveStatus = 'true'";
+            command = new SqlCommand(sqlStatement, connection);
+            return Execute_SELECTJOIN_Command(command);
+        }
 
 
 
@@ -57,9 +63,16 @@ namespace Excel_Parse
             return Execute_UPDATE_DELETE_INSERT_Command(command);
         }
 
-        public int UpdateExistingProduct(string _name, string _asin, string _sku, int _prodTypeId, int _productId, int _marketPlaceId)
+        public int UpdateExistingProduct(string _name, string _asin, string _sku, int _prodTypeId, int _productId, int _marketPlaceId, bool _activeStatus)
         {
-            string sqlStatement = "UPDATE [Products] SET [Name] = '" + _name + "', [ASIN] = '" + _asin + "', [SKU] = '" + _sku + "', [ProductTypeId] = " + _prodTypeId + ", [MarketPlaceId] = " + _marketPlaceId + " WHERE [ProductId] = " + _productId;
+            string sqlStatement = "UPDATE [Products] SET [Name] = '" + _name + "', [ASIN] = '" + _asin + "', [SKU] = '" + _sku + "', [ProductTypeId] = " + _prodTypeId + ", [MarketPlaceId] = " + _marketPlaceId + ", [ActiveStatus] = '" + _activeStatus + "' WHERE [ProductId] = " + _productId;
+            command = new SqlCommand(sqlStatement, connection);
+            return Execute_UPDATE_DELETE_INSERT_Command(command);
+        }
+
+        public int UpdateProductActiveStatus(int _productId, bool _activeStatus)
+        {
+            string sqlStatement = "UPDATE [Products] SET [ActiveStatus] = '" + _activeStatus + "' WHERE [ProductId] = " + _productId;
             command = new SqlCommand(sqlStatement, connection);
             return Execute_UPDATE_DELETE_INSERT_Command(command);
         }
@@ -81,9 +94,9 @@ namespace Excel_Parse
 
         /* -------------------------INSERT Statements--------------------- */
 
-        public int InsertNewProduct(string _name, string _asin, string _sku, int _prodTypeId, int _marketPlaceId)
+        public int InsertNewProduct(string _name, string _asin, string _sku, int _prodTypeId, int _marketPlaceId, bool _activeStatus)
         {
-            string sqlStatement = "INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId]) VALUES ('" + _name + "', '" + _asin + "', '" + _sku + "', " + _prodTypeId + ", " + _marketPlaceId + ")";
+            string sqlStatement = "INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus]) VALUES ('" + _name + "', '" + _asin + "', '" + _sku + "', " + _prodTypeId + ", " + _marketPlaceId + ", '" + _activeStatus + "')";
             command = new SqlCommand(sqlStatement, connection);
             return Execute_UPDATE_DELETE_INSERT_Command(command);
         }
@@ -225,8 +238,8 @@ namespace Excel_Parse
             ProductTypesModel ptModel = new ProductTypesModel();
             ptList.Add(ptModel);
 
-            ptList[ptList.Count - 1].WriteData(0, record[6]);
-            ptList[ptList.Count - 1].WriteData(1, record[7]);
+            ptList[ptList.Count - 1].WriteData(0, record[7]);
+            ptList[ptList.Count - 1].WriteData(1, record[8]);
 
         }
 
@@ -236,8 +249,8 @@ namespace Excel_Parse
             MarketplaceModel mpModel = new MarketplaceModel();
             mpList.Add(mpModel);
 
-            mpList[mpList.Count - 1].WriteData(0, record[8]);
-            mpList[mpList.Count - 1].WriteData(1, record[9]);
+            mpList[mpList.Count - 1].WriteData(0, record[9]);
+            mpList[mpList.Count - 1].WriteData(1, record[10]);
         }
     }
 }
