@@ -216,9 +216,12 @@ namespace Excel_Parse
         /* Скопировать название категории по двойному ЛКМ на ячейку */
         private void dgv_KeywordCategory_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            var str = dgv_KeywordCategory.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-
-            Clipboard.SetText(str);
+            if (e.RowIndex > 0)
+            {
+                FullSemCoreView scv = new FullSemCoreView(this, dgv_KeywordCategory.Rows[e.RowIndex].Cells[1].Value.ToString(), dgv_KeywordCategory.Rows[e.RowIndex].Cells[4].Value.ToString());
+                scv.Show();
+                this.Visible = false;
+            }
         }
 
         /* Обновляем dgv_KeywordCategory принудительно */

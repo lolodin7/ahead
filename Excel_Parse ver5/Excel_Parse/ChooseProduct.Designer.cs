@@ -30,16 +30,17 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChooseProduct));
             this.dgv_Products = new System.Windows.Forms.DataGridView();
+            this.btn_Ok = new System.Windows.Forms.Button();
+            this.btn_Cancel = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tb_FindNameField = new System.Windows.Forms.TextBox();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btn_Ok = new System.Windows.Forms.Button();
-            this.btn_Cancel = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tb_FindNameField = new System.Windows.Forms.TextBox();
+            this.ActSt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Products)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,7 +59,8 @@
             this.Column3,
             this.Column4,
             this.Column5,
-            this.Column6});
+            this.Column6,
+            this.ActSt});
             this.dgv_Products.Location = new System.Drawing.Point(5, 5);
             this.dgv_Products.MultiSelect = false;
             this.dgv_Products.Name = "dgv_Products";
@@ -67,6 +69,45 @@
             this.dgv_Products.Size = new System.Drawing.Size(611, 498);
             this.dgv_Products.TabIndex = 7;
             this.dgv_Products.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_Products_CellDoubleClick);
+            // 
+            // btn_Ok
+            // 
+            this.btn_Ok.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btn_Ok.Location = new System.Drawing.Point(622, 5);
+            this.btn_Ok.Name = "btn_Ok";
+            this.btn_Ok.Size = new System.Drawing.Size(147, 49);
+            this.btn_Ok.TabIndex = 9;
+            this.btn_Ok.Text = "Выбрать";
+            this.btn_Ok.UseVisualStyleBackColor = true;
+            this.btn_Ok.Click += new System.EventHandler(this.btn_Ok_Click);
+            // 
+            // btn_Cancel
+            // 
+            this.btn_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btn_Cancel.Location = new System.Drawing.Point(622, 60);
+            this.btn_Cancel.Name = "btn_Cancel";
+            this.btn_Cancel.Size = new System.Drawing.Size(147, 49);
+            this.btn_Cancel.TabIndex = 10;
+            this.btn_Cancel.Text = "Отмена";
+            this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(671, 133);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(38, 13);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "Найти";
+            // 
+            // tb_FindNameField
+            // 
+            this.tb_FindNameField.Location = new System.Drawing.Point(620, 149);
+            this.tb_FindNameField.Name = "tb_FindNameField";
+            this.tb_FindNameField.Size = new System.Drawing.Size(141, 20);
+            this.tb_FindNameField.TabIndex = 15;
+            this.tb_FindNameField.TextChanged += new System.EventHandler(this.tb_FindNameField_TextChanged);
             // 
             // Column1
             // 
@@ -118,44 +159,12 @@
             this.Column6.ReadOnly = true;
             this.Column6.Visible = false;
             // 
-            // btn_Ok
+            // ActSt
             // 
-            this.btn_Ok.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btn_Ok.Location = new System.Drawing.Point(622, 5);
-            this.btn_Ok.Name = "btn_Ok";
-            this.btn_Ok.Size = new System.Drawing.Size(147, 49);
-            this.btn_Ok.TabIndex = 9;
-            this.btn_Ok.Text = "Выбрать";
-            this.btn_Ok.UseVisualStyleBackColor = true;
-            this.btn_Ok.Click += new System.EventHandler(this.btn_Ok_Click);
-            // 
-            // btn_Cancel
-            // 
-            this.btn_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btn_Cancel.Location = new System.Drawing.Point(622, 60);
-            this.btn_Cancel.Name = "btn_Cancel";
-            this.btn_Cancel.Size = new System.Drawing.Size(147, 49);
-            this.btn_Cancel.TabIndex = 10;
-            this.btn_Cancel.Text = "Отмена";
-            this.btn_Cancel.UseVisualStyleBackColor = true;
-            this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(671, 133);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 13);
-            this.label1.TabIndex = 16;
-            this.label1.Text = "Найти";
-            // 
-            // tb_FindNameField
-            // 
-            this.tb_FindNameField.Location = new System.Drawing.Point(620, 149);
-            this.tb_FindNameField.Name = "tb_FindNameField";
-            this.tb_FindNameField.Size = new System.Drawing.Size(141, 20);
-            this.tb_FindNameField.TabIndex = 15;
-            this.tb_FindNameField.TextChanged += new System.EventHandler(this.tb_FindNameField_TextChanged);
+            this.ActSt.HeaderText = "ActiveStatus";
+            this.ActSt.Name = "ActSt";
+            this.ActSt.ReadOnly = true;
+            this.ActSt.Visible = false;
             // 
             // ChooseProduct
             // 
@@ -192,5 +201,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActSt;
     }
 }

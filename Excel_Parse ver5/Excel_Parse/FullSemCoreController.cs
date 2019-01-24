@@ -87,7 +87,50 @@ namespace Excel_Parse
 
 
 
+
+        public int SetNewKeywordToSemCore(int _productTypeId, int _keyCategoryId, string _keyName, int _keyValue, DateTime dt)
+        {
+            string sqlStatement = "INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastUpdated]) VALUES (" + _productTypeId + ", " + _keyCategoryId + ", '" + _keyName + "', " + _keyValue + ", '" + dt.ToString("yyyy-MM-dd") + "')";
+            command = new SqlCommand(sqlStatement, connection);
+            return Execute_UPDATE_DELETE_INSERT_Command(command);
+        }
+
+        public int SetEditedKeywordToSemCore(int _productTypeId, int _keyCategoryId, string _keyName, int _keyValue, DateTime dt, int _semCoreId)
+        {
+            string sqlStatement = "UPDATE [SemCore] SET [ProductTypeId] = " + _productTypeId + ", [CategoryId] = " + _keyCategoryId + ", [Keyword] = '" + _keyName + "', [Value] = " + _keyValue + ", [LastUpdated] = '" + dt.ToString("yyyy-MM-dd") + "' WHERE [SemCoreId] = " + _semCoreId;
+            command = new SqlCommand(sqlStatement, connection);
+            return Execute_UPDATE_DELETE_INSERT_Command(command);
+        }
+
+
+        public int DeleteKeywordFromSemCore(int _semCoreId)
+        {
+            string sqlStatement = "DELETE FROM [SemCore] WHERE [SemCoreId] = " + _semCoreId;
+            command = new SqlCommand(sqlStatement, connection);
+            return Execute_UPDATE_DELETE_INSERT_Command(command);
+        }
+
+
         /* -------------------------------Methods---------------------------------------- */
+
+
+        /* Выполняем запрос UPDATE/INSERT/DELETE к БД */
+        private int Execute_UPDATE_DELETE_INSERT_Command(SqlCommand _command)
+        {
+            try
+            {
+                connection.Open();
+                _command.ExecuteScalar();
+                connection.Close();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                connection.Close();
+                return ex.HResult;
+            }
+        }
+
 
         /* Выполняем запрос к БД и заносим полученные данные в List<ProductsModel> */
         private int Execute_SELECT_Command(SqlCommand _command)

@@ -141,10 +141,8 @@ CREATE TABLE [SemCoreArchive](
 	[ProductTypeId]		INT					NOT NULL,
 	[CategoryId]		INT					NOT NULL,
 	[Keyword]			VARCHAR(100)		NOT NULL,
-	[Value]				INT					NOT NULL,
-	[LastUpdated]		DATETIME			NOT NULL,
 	[SemCoreId]			INT					NOT NULL,
-	CONSTRAINT FK_SemCoreArchive_SemCore FOREIGN KEY ([SemCoreId]) REFERENCES SemCore ([SemCoreId])
+	[ValuesAndDates]	TEXT
 )
 GO
 

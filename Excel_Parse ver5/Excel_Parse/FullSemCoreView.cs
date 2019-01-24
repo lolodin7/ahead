@@ -17,6 +17,7 @@ namespace Excel_Parse
         private KeywordsAreExistedView ControlFormKeywordsAreExisted;
         private MainFormView ControlFormMF;
         private FullSemCoreView ControlFullSemCoreView;
+        private KeywordCategoryView ControlKeywordCategoryView;
 
         private FullSemCoreController fscController;
         private List<FullSemCoreModel> fscList;
@@ -27,17 +28,29 @@ namespace Excel_Parse
         private ProductTypesController ptController;
         private List<ProductTypesModel> ptList;
 
+        private SqlConnection connection;
+        private SqlCommand command;
+
         private string AllProductTypesCBName = "Все виды товаров";
         private string AllKeywordCategoriesCBName = "Все категории ключей";
 
         private bool firstLaunch = true;
 
+        private Color foundedKeywordColor = Color.DeepSkyBlue;
+
+        private bool SaveEditTrigger;       //true - add keyword, false - edit keyword
+        private int ProductTypeId, KeyCategoryId;
+
+        private int CurrentSemCoreId;
+
+        
 
         /* Вызываем из KeywordsAreExisted для редактирования ключей из таблицы */
         public FullSemCoreView(KeywordsAreExistedView _form, string[,] arr)
         {
             InitializeComponent();
             ControlFormKeywordsAreExisted = _form;
+            connection = DBData.GetDBConnection();
 
             GetStarted();
             firstLaunch = false;
@@ -63,6 +76,16 @@ namespace Excel_Parse
             firstLaunch = false;
         }
 
+        /* Вызываем из KeywordCategoryView */
+        public FullSemCoreView(KeywordCategoryView _mf, string _categoryName, string _prodTypeName)
+        {
+            InitializeComponent();
+            ControlKeywordCategoryView = _mf;
+
+            GetStarted(_categoryName, _prodTypeName);
+            firstLaunch = false;
+        }
+
         /* Выполняем в конструкторе */
         private void GetStarted()
         {
@@ -75,6 +98,34 @@ namespace Excel_Parse
             kcController.GetKeywordCategoriesByProductId(GetProductTypeIdFromCB());
             fill_cb_KeywordCategory();
             fscController.GetSemCoreByProductAndCategory(GetProductTypeIdFromCB(), GetKeywordCategoryIdFromCB());
+        }
+
+        /* Выполняем в конструкторе */
+        private void GetStarted(string _categoryName, string _prodTypeName)
+        {
+            ptController = new ProductTypesController(this);
+            kcController = new KeywordCategoryController(this);
+            fscController = new FullSemCoreController(this);
+
+            ptController.GetProductTypesAll();
+            fill_cb_ProductTypes();
+            kcController.GetKeywordCategoriesByProductId(GetProductTypeIdFromCB());
+            fill_cb_KeywordCategory();
+            fscController.GetSemCoreByProductAndCategory(GetProductTypeIdFromCB(), GetKeywordCategoryIdFromCB());
+
+            for (int i = 0; i < cb_ProductType.Items.Count; i++)
+            {
+                if (cb_ProductType.Items[i].ToString().Equals(_prodTypeName))
+                    cb_ProductType.SelectedItem = cb_ProductType.Items[i];
+            }
+
+            for (int i = 0; i < cb_KeywordCategory.Items.Count; i++)
+            {
+                if (cb_KeywordCategory.Items[i].ToString().Equals(_categoryName))
+                    cb_KeywordCategory.SelectedItem = cb_KeywordCategory.Items[i];
+            }
+
+            ShowKeywords();
         }
 
         /* Перезаполняем cb_KeywordCategory после смены вида товара */
@@ -134,19 +185,19 @@ namespace Excel_Parse
 
             int cnt = dgv_Keywords.RowCount;
             if (cnt == 1)
-                this.Text = "Семантическая база - " + cnt + " ключ";
+                this.Text = "Семантическая база - " + cnt + " ключ - Bona Fides";
             else if (cnt == 2 || cnt == 3 || cnt == 4)
-                this.Text = "Семантическая база - " + cnt + " ключа";
+                this.Text = "Семантическая база - " + cnt + " ключа - Bona Fides";
             else if (cnt >= 5 && cnt <= 19)
-                this.Text = "Семантическая база - " + cnt + " ключей";
+                this.Text = "Семантическая база - " + cnt + " ключей - Bona Fides";
             else
             {
                 if (cnt % 10 == 1)
-                    this.Text = "Семантическая база - " + cnt + " ключ";
+                    this.Text = "Семантическая база - " + cnt + " ключ - Bona Fides";
                 else if (cnt % 10 == 2 || cnt % 10 == 3 || cnt % 10 == 4)
-                    this.Text = "Семантическая база - " + cnt + " ключа";
+                    this.Text = "Семантическая база - " + cnt + " ключа - Bona Fides";
                 else if (cnt % 10 >=5 || cnt % 10 <= 9 || cnt % 10 == 0)
-                    this.Text = "Семантическая база - " + cnt + " ключей";
+                    this.Text = "Семантическая база - " + cnt + " ключей - Bona Fides";
             }
         }
 
@@ -168,7 +219,7 @@ namespace Excel_Parse
             kcList = (List<KeywordCategoryModel>)_kcList;
         }
 
-        /* Заполняем cb_ProductType */
+        /* Заполняем cb_ProductType и cb_ProductType2 */
         private void fill_cb_ProductTypes()
         {
             cb_ProductType.Items.Clear();
@@ -179,9 +230,17 @@ namespace Excel_Parse
                 cb_ProductType.Items.Add(ptList[i].TypeName);
             }
             cb_ProductType.SelectedItem = cb_ProductType.Items[0];
+
+            cb_ProductType2.Items.Clear();
+
+            for (int i = 0; i < ptList.Count; i++)
+            {
+                cb_ProductType2.Items.Add(ptList[i].TypeName);
+            }
+            cb_ProductType2.SelectedItem = cb_ProductType2.Items[0];
         }
 
-        /* Заполняем cb_KeywordCategory */
+        /* Заполняем cb_KeywordCategory и cb_KeywordCategory2 */
         private void fill_cb_KeywordCategory()
         {
             cb_KeywordCategory.Items.Clear();
@@ -192,13 +251,57 @@ namespace Excel_Parse
                 cb_KeywordCategory.Items.Add(kcList[i].CategoryName);
             }
             cb_KeywordCategory.SelectedItem = cb_KeywordCategory.Items[0];
+
+            cb_KeywordCategory2.Items.Clear();
+
+            for (int i = 0; i < kcList.Count; i++)
+            {
+                cb_KeywordCategory2.Items.Add(kcList[i].CategoryName);
+            }
+            cb_KeywordCategory2.SelectedItem = cb_KeywordCategory2.Items[0];
+        }
+
+        /* Получаем ProductTypeId при смене выбранного элемента в cb_ProductType2 */
+        private void cb_ProductType2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string str = cb_ProductType2.SelectedItem.ToString();
+            for (int i = 0; i < ptList.Count; i++)
+            {
+                if (ptList[i].TypeName.Equals(str))
+                {
+                    ProductTypeId = ptList[i].ProductTypeId;
+                    return;
+                }
+                ProductTypeId = 0;
+            }
+        }
+
+        /* Получаем CategoryId при смене выбранного элемента в cb_KeywordCategory2 */
+        private void cb_KeywordCategory2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string str = cb_KeywordCategory2.SelectedItem.ToString();
+            for (int i = 0; i < kcList.Count; i++)
+            {
+                if (kcList[i].CategoryName.Equals(str))
+                {
+                    KeyCategoryId = kcList[i].CategoryId;
+                    return;
+                }
+                KeyCategoryId = 0;
+            }
         }
 
         /* Получаем набор ключей по категории и виду товара после нажатия кнопки */
         private void btn_GetKeywords_Click(object sender, EventArgs e)
         {
+            ShowKeywords();
+        }
+
+        private void ShowKeywords()
+        {
             fscController.GetSemCoreByProductAndCategory(GetProductTypeIdFromCB(), GetKeywordCategoryIdFromCB());
             ReDrawKeywords();
+            StartKeySearch();
         }
 
         /* Закрытие формы */
@@ -216,6 +319,10 @@ namespace Excel_Parse
             else if (ControlFullSemCoreView != null)
             {
                 ControlFullSemCoreView.Visible = true;
+            }
+            else if (ControlKeywordCategoryView != null)
+            {
+                ControlKeywordCategoryView.Visible = true;
             }
         }
 
@@ -235,16 +342,19 @@ namespace Excel_Parse
         /* Метод для поиска ключа в таблице */
         private void StartKeySearch()
         {
+            int cnt = 0;
             //2 колонка - ключ
             for (int i = 0; i < dgv_Keywords.RowCount; i++)
             {
-                if (dgv_Keywords.Rows[i].Cells[2].Value.ToString().ToLower().Contains(tb_FindKeyword.Text.ToLower()) && !tb_FindKeyword.Text.Equals(""))
+                if (dgv_Keywords.Rows[i].Cells[2].Value.ToString().ToLower().Contains(rtb_FindKeyword.Text.ToLower()) && !rtb_FindKeyword.Text.Equals(""))
                 {
-                    dgv_Keywords.Rows[i].Cells[2].Style.BackColor = Color.DeepSkyBlue;
+                    dgv_Keywords.Rows[i].Cells[2].Style.BackColor = foundedKeywordColor;
+                    cnt++;
                 }
                 else
                     dgv_Keywords.Rows[i].Cells[2].Style.BackColor = Color.White;
             }
+            label2.Text = "Найдено: " + cnt.ToString();
         }
 
         /* Экспорт в *.xlsx */
@@ -298,6 +408,143 @@ namespace Excel_Parse
                 MessageBox.Show("Успешно сохранено!", "Успех");
             }
         }
+
+        /* Ходим по результатам поиска в таблице по нажатию Enter */
+        private void tb_FindKeyword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (rtb_FindKeyword.Text != "" && e.KeyCode == Keys.Enter && dgv_Keywords.RowCount > 0)
+            {
+                if (dgv_Keywords.CurrentRow.Index + 1 < dgv_Keywords.Rows.Count)
+                {
+                    for (int i = dgv_Keywords.CurrentRow.Index + 1; i < dgv_Keywords.Rows.Count; i++)
+                    {
+                        if (dgv_Keywords.Rows[i].Cells[2].Style.BackColor == foundedKeywordColor)
+                        {
+                            dgv_Keywords.ClearSelection();
+                            dgv_Keywords.Rows[i].Cells[2].Selected = true;
+                            dgv_Keywords.CurrentCell = dgv_Keywords.Rows[i].Cells[2];
+                            e.SuppressKeyPress = true;          //отключили системный звук, который возникал при нажатии Enter
+                            return;
+                        }
+                    }
+                    e.SuppressKeyPress = true;          //отключили системный звук, который возникал при нажатии Enter
+                    MessageBox.Show("Достигнут последний результат поиска!", "Конец");
+                }
+                else
+                    MessageBox.Show("Достигнут конец таблицы!", "Конец");
+            }
+            else if (e.KeyCode == Keys.Enter)
+                e.SuppressKeyPress = true;          //отключили системный звук, который возникал при нажатии Enter
+        }
+
+        /* Изменяем видимость label2, отображающей количество результатов поиска */
+        private void label2_TextChanged(object sender, EventArgs e)
+        {
+            if (int.Parse(label2.Text.Substring(9)) > 0)
+                label2.Visible = true;
+            else
+                label2.Visible = false;
+        }
+
+        /* Нажатие кнопки "Добавление нового ключа" */
+        private void btn_StartAddingKey_Click(object sender, EventArgs e)
+        {
+            SaveEditTrigger = true;
+            groupBox_Editing.Text = "Добавление нового ключа";
+            groupBox_Editing.Enabled = true;
+
+            rtb_KeyName.Text = "";
+            rtb_KeyValue.Text = "";
+            cb_KeywordCategory2.SelectedItem = cb_KeywordCategory2.Items[0];
+            cb_ProductType2.SelectedItem = cb_ProductType2.Items[0];
+        }
+
+        /* Включаем редактирование ключа по двойному ЛКМ в таблице */
+        private void dgv_Keywords_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > 0)
+            {
+                SaveEditTrigger = false;
+                groupBox_Editing.Text = "Редактирование ключа";
+                groupBox_Editing.Enabled = true;
+
+                rtb_KeyName.Text = dgv_Keywords.Rows[e.RowIndex].Cells[2].Value.ToString();
+                rtb_KeyValue.Text = dgv_Keywords.Rows[e.RowIndex].Cells[3].Value.ToString();
+
+                for (int i = 0; i < cb_ProductType2.Items.Count; i++)
+                {
+                    if (cb_ProductType2.Items[i].ToString().Equals(dgv_Keywords.Rows[e.RowIndex].Cells[10].Value.ToString()))
+                    {
+                        cb_ProductType2.SelectedItem = cb_ProductType2.Items[i];
+                    }
+                }
+
+                for (int i = 0; i < cb_KeywordCategory2.Items.Count; i++)
+                {
+                    if (cb_KeywordCategory2.Items[i].ToString().Equals(dgv_Keywords.Rows[e.RowIndex].Cells[7].Value.ToString()))
+                    {
+                        cb_KeywordCategory2.SelectedItem = cb_KeywordCategory2.Items[i];
+                    }
+                }
+
+                CurrentSemCoreId = int.Parse(dgv_Keywords.Rows[e.RowIndex].Cells[5].Value.ToString());
+            }
+        }
+
+        /* Сохраняем изменения/добавляем новый ключ в БД */
+        private void btn_Save_Click(object sender, EventArgs e)
+        {
+            //сохраняем в БД в зависимости от триггера, add или edit
+            if (!rtb_KeyName.Text.Equals("") && !rtb_KeyValue.Text.Equals(""))
+            {
+                if (SaveEditTrigger)
+                    fscController.SetNewKeywordToSemCore(ProductTypeId, KeyCategoryId, rtb_KeyName.Text, int.Parse(rtb_KeyValue.Text), DateTime.Now);
+                else
+                    fscController.SetEditedKeywordToSemCore(ProductTypeId, KeyCategoryId, rtb_KeyName.Text, int.Parse(rtb_KeyValue.Text), DateTime.Now, CurrentSemCoreId);
+
+                groupBox_Editing.Enabled = false;
+                rtb_KeyName.Text = "";
+                rtb_KeyValue.Text = "";
+                cb_KeywordCategory2.SelectedItem = cb_KeywordCategory2.Items[0];
+                cb_ProductType2.SelectedItem = cb_ProductType2.Items[0];
+
+                MessageBox.Show("Данные были успешно сохранены. Обновите таблицу, чтобы увидеть внесенные изменения.", "Успех");
+            }
+            else
+                MessageBox.Show("Заполните все поля!", "Ошибка");                
+        }
+
+        private void rtb_KeyValue_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != 8)
+                e.Handled = true;
+        }
+
+        private void dgv_Keywords_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (dgv_Keywords.RowCount > 0)      //если таблица пустая, чтобы не было ошибки
+                {
+                    dgv_Keywords.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
+                    if (MessageBox.Show("Ключ \"" + dgv_Keywords.Rows[e.RowIndex].Cells[2].Value.ToString() + "\" будет удален. Вы уверены?", "Удаление ключа", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        fscController.DeleteKeywordFromSemCore(int.Parse(dgv_Keywords.Rows[e.RowIndex].Cells[5].Value.ToString()));
+                        MessageBox.Show("Ключ был успешно удален. Обновите таблицу, чтобы увидеть внесенные изменения.", "Успех");
+                    }
+                }
+            }
+        }
+
+        private void btn_Cancel_Click(object sender, EventArgs e)
+        {
+            groupBox_Editing.Enabled = false;
+            rtb_KeyName.Text = "";
+            rtb_KeyValue.Text = "";
+            cb_KeywordCategory2.SelectedItem = cb_KeywordCategory2.Items[0];
+            cb_ProductType2.SelectedItem = cb_ProductType2.Items[0];
+        }
+
     }
 }
 

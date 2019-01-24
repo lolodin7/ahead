@@ -62,6 +62,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SemCoreArchiveController.cs" />
+    <Compile Include="SemCoreArchiveModel.cs" />
+    <Compile Include="SemCoreArchiveView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SemCoreArchiveView.Designer.cs">
+      <DependentUpon>SemCoreArchiveView.cs</DependentUpon>
+    </Compile>
     <Compile Include="StartImage.cs">
       <SubType>Form</SubType>
     </Compile>

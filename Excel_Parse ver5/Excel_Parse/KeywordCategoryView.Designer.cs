@@ -39,14 +39,14 @@
             this.lb_CategoryName = new System.Windows.Forms.Label();
             this.tb_CategoryName = new System.Windows.Forms.TextBox();
             this.dgv_KeywordCategory = new System.Windows.Forms.DataGridView();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cb_ShownProductType = new System.Windows.Forms.ComboBox();
+            this.tb_ShownProductTypes = new System.Windows.Forms.TextBox();
             this.ProductTypeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TypeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cb_ShownProductType = new System.Windows.Forms.ComboBox();
-            this.tb_ShownProductTypes = new System.Windows.Forms.TextBox();
             this.lb_ProductName.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_KeywordCategory)).BeginInit();
             this.SuspendLayout();
@@ -165,6 +165,34 @@
             this.dgv_KeywordCategory.TabIndex = 2;
             this.dgv_KeywordCategory.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_KeywordCategory_CellDoubleClick);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(133, 8);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(146, 13);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Показывать категории для";
+            // 
+            // cb_ShownProductType
+            // 
+            this.cb_ShownProductType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_ShownProductType.FormattingEnabled = true;
+            this.cb_ShownProductType.Location = new System.Drawing.Point(283, 4);
+            this.cb_ShownProductType.MaxDropDownItems = 25;
+            this.cb_ShownProductType.Name = "cb_ShownProductType";
+            this.cb_ShownProductType.Size = new System.Drawing.Size(193, 21);
+            this.cb_ShownProductType.TabIndex = 5;
+            this.cb_ShownProductType.SelectedIndexChanged += new System.EventHandler(this.cb_ShownProductType_SelectedIndexChanged);
+            // 
+            // tb_ShownProductTypes
+            // 
+            this.tb_ShownProductTypes.Location = new System.Drawing.Point(422, 0);
+            this.tb_ShownProductTypes.Name = "tb_ShownProductTypes";
+            this.tb_ShownProductTypes.Size = new System.Drawing.Size(100, 20);
+            this.tb_ShownProductTypes.TabIndex = 6;
+            this.tb_ShownProductTypes.Visible = false;
+            // 
             // ProductTypeId
             // 
             this.ProductTypeId.HeaderText = "ProductTypeId";
@@ -202,34 +230,6 @@
             this.Column3.ReadOnly = true;
             this.Column3.Width = 250;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(133, 8);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(146, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Показывать категории для";
-            // 
-            // cb_ShownProductType
-            // 
-            this.cb_ShownProductType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_ShownProductType.FormattingEnabled = true;
-            this.cb_ShownProductType.Location = new System.Drawing.Point(283, 4);
-            this.cb_ShownProductType.MaxDropDownItems = 25;
-            this.cb_ShownProductType.Name = "cb_ShownProductType";
-            this.cb_ShownProductType.Size = new System.Drawing.Size(193, 21);
-            this.cb_ShownProductType.TabIndex = 5;
-            this.cb_ShownProductType.SelectedIndexChanged += new System.EventHandler(this.cb_ShownProductType_SelectedIndexChanged);
-            // 
-            // tb_ShownProductTypes
-            // 
-            this.tb_ShownProductTypes.Location = new System.Drawing.Point(422, 0);
-            this.tb_ShownProductTypes.Name = "tb_ShownProductTypes";
-            this.tb_ShownProductTypes.Size = new System.Drawing.Size(100, 20);
-            this.tb_ShownProductTypes.TabIndex = 6;
-            this.tb_ShownProductTypes.Visible = false;
-            // 
             // KeywordCategoryView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -266,13 +266,13 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tb_ProductTypeId;
         private System.Windows.Forms.ComboBox cb_ProductType;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox cb_ShownProductType;
+        private System.Windows.Forms.TextBox tb_ShownProductTypes;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductTypeId;
         private System.Windows.Forms.DataGridViewTextBoxColumn TypeName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cb_ShownProductType;
-        private System.Windows.Forms.TextBox tb_ShownProductTypes;
     }
 }

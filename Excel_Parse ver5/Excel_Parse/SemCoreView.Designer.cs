@@ -59,6 +59,8 @@
             this.tb_ProductTypeId = new System.Windows.Forms.TextBox();
             this.btn_DeselectAll = new System.Windows.Forms.Button();
             this.btn_SelectAll = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Source)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Target)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -77,13 +79,13 @@
             this.dgv_Source.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2});
-            this.dgv_Source.Location = new System.Drawing.Point(1, 165);
+            this.dgv_Source.Location = new System.Drawing.Point(1, 6);
             this.dgv_Source.MultiSelect = false;
             this.dgv_Source.Name = "dgv_Source";
             this.dgv_Source.ReadOnly = true;
             this.dgv_Source.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dgv_Source.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv_Source.Size = new System.Drawing.Size(410, 668);
+            this.dgv_Source.Size = new System.Drawing.Size(410, 827);
             this.dgv_Source.TabIndex = 0;
             this.dgv_Source.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_Source_CellDoubleClick);
             this.dgv_Source.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_Source_KeyDown);
@@ -114,13 +116,13 @@
             this.dgv_Target.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2});
-            this.dgv_Target.Location = new System.Drawing.Point(494, 165);
+            this.dgv_Target.Location = new System.Drawing.Point(494, 6);
             this.dgv_Target.MultiSelect = false;
             this.dgv_Target.Name = "dgv_Target";
             this.dgv_Target.ReadOnly = true;
             this.dgv_Target.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dgv_Target.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv_Target.Size = new System.Drawing.Size(410, 668);
+            this.dgv_Target.Size = new System.Drawing.Size(410, 827);
             this.dgv_Target.TabIndex = 2;
             this.dgv_Target.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_Target_CellDoubleClick);
             this.dgv_Target.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgv_Target_RowsAdded);
@@ -144,7 +146,7 @@
             // 
             // lb_ProductType
             // 
-            this.lb_ProductType.Location = new System.Drawing.Point(146, 14);
+            this.lb_ProductType.Location = new System.Drawing.Point(79, 233);
             this.lb_ProductType.Name = "lb_ProductType";
             this.lb_ProductType.Size = new System.Drawing.Size(80, 23);
             this.lb_ProductType.TabIndex = 3;
@@ -155,7 +157,7 @@
             // 
             this.cb_ProductType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_ProductType.FormattingEnabled = true;
-            this.cb_ProductType.Location = new System.Drawing.Point(233, 16);
+            this.cb_ProductType.Location = new System.Drawing.Point(9, 259);
             this.cb_ProductType.Name = "cb_ProductType";
             this.cb_ProductType.Size = new System.Drawing.Size(216, 21);
             this.cb_ProductType.TabIndex = 4;
@@ -165,14 +167,14 @@
             // 
             this.cb_KeywordCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_KeywordCategory.FormattingEnabled = true;
-            this.cb_KeywordCategory.Location = new System.Drawing.Point(233, 47);
+            this.cb_KeywordCategory.Location = new System.Drawing.Point(9, 314);
             this.cb_KeywordCategory.Name = "cb_KeywordCategory";
             this.cb_KeywordCategory.Size = new System.Drawing.Size(216, 21);
             this.cb_KeywordCategory.TabIndex = 6;
             // 
             // lb_KeywordCategory
             // 
-            this.lb_KeywordCategory.Location = new System.Drawing.Point(122, 46);
+            this.lb_KeywordCategory.Location = new System.Drawing.Point(67, 288);
             this.lb_KeywordCategory.Name = "lb_KeywordCategory";
             this.lb_KeywordCategory.Size = new System.Drawing.Size(107, 23);
             this.lb_KeywordCategory.TabIndex = 5;
@@ -184,9 +186,9 @@
             this.btn_Save.BackColor = System.Drawing.Color.LightGray;
             this.btn_Save.FlatAppearance.BorderSize = 0;
             this.btn_Save.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Save.Location = new System.Drawing.Point(794, 14);
+            this.btn_Save.Location = new System.Drawing.Point(6, 376);
             this.btn_Save.Name = "btn_Save";
-            this.btn_Save.Size = new System.Drawing.Size(100, 144);
+            this.btn_Save.Size = new System.Drawing.Size(248, 65);
             this.btn_Save.TabIndex = 9;
             this.btn_Save.Text = "Сохранить";
             this.btn_Save.UseVisualStyleBackColor = false;
@@ -212,9 +214,9 @@
             this.btn_UploadAnotherFile.BackColor = System.Drawing.Color.LightGray;
             this.btn_UploadAnotherFile.FlatAppearance.BorderSize = 0;
             this.btn_UploadAnotherFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_UploadAnotherFile.Location = new System.Drawing.Point(6, 14);
+            this.btn_UploadAnotherFile.Location = new System.Drawing.Point(6, 45);
             this.btn_UploadAnotherFile.Name = "btn_UploadAnotherFile";
-            this.btn_UploadAnotherFile.Size = new System.Drawing.Size(100, 144);
+            this.btn_UploadAnotherFile.Size = new System.Drawing.Size(248, 64);
             this.btn_UploadAnotherFile.TabIndex = 18;
             this.btn_UploadAnotherFile.Text = "Загрузить другой файл";
             this.btn_UploadAnotherFile.UseVisualStyleBackColor = false;
@@ -222,28 +224,31 @@
             // 
             // btn_Help
             // 
-            this.btn_Help.Location = new System.Drawing.Point(1045, 792);
+            this.btn_Help.BackColor = System.Drawing.Color.Gainsboro;
+            this.btn_Help.FlatAppearance.BorderSize = 0;
+            this.btn_Help.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Help.Location = new System.Drawing.Point(234, 9);
             this.btn_Help.Name = "btn_Help";
-            this.btn_Help.Size = new System.Drawing.Size(109, 29);
+            this.btn_Help.Size = new System.Drawing.Size(24, 24);
             this.btn_Help.TabIndex = 19;
-            this.btn_Help.Text = "Помощь";
-            this.btn_Help.UseVisualStyleBackColor = true;
+            this.btn_Help.Text = "?";
+            this.btn_Help.UseVisualStyleBackColor = false;
             this.btn_Help.Click += new System.EventHandler(this.btn_Help_Click);
             // 
             // tb_Link
             // 
             this.tb_Link.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tb_Link.Enabled = false;
-            this.tb_Link.Location = new System.Drawing.Point(946, 766);
+            this.tb_Link.Location = new System.Drawing.Point(35, 804);
             this.tb_Link.Name = "tb_Link";
-            this.tb_Link.Size = new System.Drawing.Size(305, 20);
+            this.tb_Link.Size = new System.Drawing.Size(219, 20);
             this.tb_Link.TabIndex = 20;
             this.tb_Link.Text = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=";
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(926, 769);
+            this.checkBox1.Location = new System.Drawing.Point(15, 807);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(15, 14);
             this.checkBox1.TabIndex = 21;
@@ -253,18 +258,21 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.gp_Delimiters);
+            this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Controls.Add(this.groupBox2);
+            this.groupBox1.Controls.Add(this.tb_Link);
             this.groupBox1.Controls.Add(this.btn_addKeywordCategory);
             this.groupBox1.Controls.Add(this.btn_UploadAnotherFile);
+            this.groupBox1.Controls.Add(this.btn_Help);
             this.groupBox1.Controls.Add(this.tb_ProductTypeId);
             this.groupBox1.Controls.Add(this.lb_ProductType);
             this.groupBox1.Controls.Add(this.cb_ProductType);
             this.groupBox1.Controls.Add(this.lb_KeywordCategory);
             this.groupBox1.Controls.Add(this.cb_KeywordCategory);
             this.groupBox1.Controls.Add(this.btn_Save);
-            this.groupBox1.Location = new System.Drawing.Point(3, 1);
+            this.groupBox1.Location = new System.Drawing.Point(918, 1);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(901, 164);
+            this.groupBox1.Size = new System.Drawing.Size(261, 832);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Управление";
@@ -274,7 +282,7 @@
             this.gp_Delimiters.Controls.Add(this.tb_OwnDelimiter);
             this.gp_Delimiters.Controls.Add(this.radioButton2);
             this.gp_Delimiters.Controls.Add(this.radioButton1);
-            this.gp_Delimiters.Location = new System.Drawing.Point(112, 87);
+            this.gp_Delimiters.Location = new System.Drawing.Point(87, 133);
             this.gp_Delimiters.Name = "gp_Delimiters";
             this.gp_Delimiters.Size = new System.Drawing.Size(93, 71);
             this.gp_Delimiters.TabIndex = 26;
@@ -315,21 +323,23 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.btn_AddCustomKeyword);
             this.groupBox2.Controls.Add(this.tb_CustomValue);
             this.groupBox2.Controls.Add(this.tb_CustomKey);
-            this.groupBox2.Location = new System.Drawing.Point(482, 87);
+            this.groupBox2.Location = new System.Drawing.Point(9, 510);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(306, 70);
+            this.groupBox2.Size = new System.Drawing.Size(245, 188);
             this.groupBox2.TabIndex = 25;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Добавить ключ вручную";
             // 
             // btn_AddCustomKeyword
             // 
-            this.btn_AddCustomKeyword.Location = new System.Drawing.Point(96, 43);
+            this.btn_AddCustomKeyword.Location = new System.Drawing.Point(35, 132);
             this.btn_AddCustomKeyword.Name = "btn_AddCustomKeyword";
-            this.btn_AddCustomKeyword.Size = new System.Drawing.Size(117, 23);
+            this.btn_AddCustomKeyword.Size = new System.Drawing.Size(176, 42);
             this.btn_AddCustomKeyword.TabIndex = 25;
             this.btn_AddCustomKeyword.Text = "Добавить";
             this.btn_AddCustomKeyword.UseVisualStyleBackColor = true;
@@ -337,7 +347,7 @@
             // 
             // tb_CustomValue
             // 
-            this.tb_CustomValue.Location = new System.Drawing.Point(219, 19);
+            this.tb_CustomValue.Location = new System.Drawing.Point(87, 94);
             this.tb_CustomValue.Name = "tb_CustomValue";
             this.tb_CustomValue.Size = new System.Drawing.Size(73, 20);
             this.tb_CustomValue.TabIndex = 24;
@@ -345,14 +355,14 @@
             // 
             // tb_CustomKey
             // 
-            this.tb_CustomKey.Location = new System.Drawing.Point(13, 19);
+            this.tb_CustomKey.Location = new System.Drawing.Point(15, 50);
             this.tb_CustomKey.Name = "tb_CustomKey";
-            this.tb_CustomKey.Size = new System.Drawing.Size(200, 20);
+            this.tb_CustomKey.Size = new System.Drawing.Size(213, 20);
             this.tb_CustomKey.TabIndex = 23;
             // 
             // btn_addKeywordCategory
             // 
-            this.btn_addKeywordCategory.Location = new System.Drawing.Point(455, 47);
+            this.btn_addKeywordCategory.Location = new System.Drawing.Point(231, 314);
             this.btn_addKeywordCategory.Name = "btn_addKeywordCategory";
             this.btn_addKeywordCategory.Size = new System.Drawing.Size(23, 22);
             this.btn_addKeywordCategory.TabIndex = 22;
@@ -388,17 +398,32 @@
             this.btn_SelectAll.UseVisualStyleBackColor = true;
             this.btn_SelectAll.Click += new System.EventHandler(this.btn_SelectAll_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(77, 31);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(91, 13);
+            this.label1.TabIndex = 26;
+            this.label1.Text = "Название ключа";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(98, 75);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(49, 13);
+            this.label2.TabIndex = 27;
+            this.label2.Text = "Частота";
+            // 
             // SemCoreView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(908, 839);
+            this.ClientSize = new System.Drawing.Size(1184, 839);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.tb_Link);
             this.Controls.Add(this.btn_SelectAll);
             this.Controls.Add(this.btn_DeselectAll);
-            this.Controls.Add(this.btn_Help);
             this.Controls.Add(this.dgv_Target);
             this.Controls.Add(this.dgv_Source);
             this.Controls.Add(this.btn_Cancel);
@@ -417,7 +442,6 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -453,6 +477,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }
 
