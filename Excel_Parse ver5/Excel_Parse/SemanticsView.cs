@@ -52,6 +52,12 @@ namespace Excel_Parse
 
         private string helpText = "Двойной ЛКМ по ключу в таблице - пометить его цветом + скопировать ключ в буфер. Цвет указывает на то, в каком поле использован ключ (bullets, title и т.д.). Сменить выбор можно посредством переключателей на форме, слева от каждого вида поля.\nЧтобы отменить выделение ключа, выберите самый верхний переключатель.\n\nПКМ по ключу в таблице - скрыть его\n\nДвойной ЛКМ по ASIN - скопировать его в буфер обмена\n\nДвойной ЛКМ по названию товара - скопировать его в буфер обмена\n\n";
 
+        private Color foundedKeywordColor = Color.DeepSkyBlue;
+        private Color titleColor = Color.Coral;
+        private Color bulletsColor = Color.LightBlue;
+        private Color backendColor = Color.LimeGreen;
+        private Color descriptionColor = Color.MistyRose;
+
         /* Конструктор, если вызываем из формы индексации для просмотра семантики */
         public SemanticsView(IndexingView _mf, int _productId, string _productName, string _asin, string _sku, int _prodTypeId)
         {
@@ -380,6 +386,7 @@ namespace Excel_Parse
         private void tb_TextChanged(object sender, EventArgs e)
         {
             TextBoxChanged(sender);
+            //CheckForUsedKeys(sender);                                                             //ТУТ ДОДЕЛАТЬ!!!!!
         }
 
         /* Окрашиваем текст поля, если он вне границы FieldLength */
@@ -615,6 +622,82 @@ namespace Excel_Parse
             CheckForUnsavedChanges = true;
         }
 
+        /* Выделяем использованные ключи в полях rtb */
+        private void CheckForUsedKeys(object sender)
+        {
+            RichTextBox textBox = (RichTextBox)sender;
+            string s = textBox.Text;
+            int startPos;
+            int keyLength;
+            bool found = false;
+
+            Font currentFont = rtb_Title.SelectionFont;
+            FontStyle newFontStyle = FontStyle.Regular;
+
+            switch (textBox.Name)
+            {
+                case "rtb_Title":
+                    for (int i = 0; i < dgv_Keywords.RowCount; i++)
+                    {
+                        if (textBox.Text.ToLower().Contains(dgv_Keywords.Rows[i].Cells[2].Value.ToString().ToLower()) && dgv_Keywords.Rows[i].Cells[2].Style.BackColor == titleColor)
+                        {
+                            startPos = textBox.Text.ToLower().IndexOf(dgv_Keywords.Rows[i].Cells[2].Value.ToString().ToLower());
+                            keyLength = dgv_Keywords.Rows[i].Cells[2].Value.ToString().ToLower().Length;
+                            //MessageBox.Show("pos = " + startPos + ", length = " + keyLength);
+                            textBox.Select(startPos, keyLength);
+                            newFontStyle = FontStyle.Bold;
+
+                            textBox.SelectionFont = new Font(
+                            currentFont.FontFamily,
+                            currentFont.Size,
+                            newFontStyle
+                            );
+                            found = true;
+                        }
+                    }
+                    if (found)
+                    {
+                        textBox.Select(0, 0);
+                        
+                    }
+                    break;
+                case "rtb_Bul1":
+                    for (int i = 0; i < dgv_Keywords.RowCount; i++)
+                    {
+                        if (textBox.Text.ToLower().Contains(dgv_Keywords.Rows[i].Cells[2].Value.ToString().ToLower()) && dgv_Keywords.Rows[i].Cells[2].Style.BackColor == bulletsColor)
+                        {
+                            startPos = textBox.Text.ToLower().IndexOf(dgv_Keywords.Rows[i].Cells[2].Value.ToString().ToLower());
+                            keyLength = dgv_Keywords.Rows[i].Cells[2].Value.ToString().ToLower().Length;
+                            //MessageBox.Show("pos = " + startPos + ", length = " + keyLength);
+                            textBox.Select(startPos, keyLength);
+                            newFontStyle = FontStyle.Bold;
+
+                            textBox.SelectionFont = new Font(
+                            currentFont.FontFamily,
+                            currentFont.Size,
+                            newFontStyle
+                            );
+                            found = true;
+                        }
+                    }
+                    if (found)
+                        textBox.Select(0, 0);
+                    break;
+                case "rtb_Bul2":
+
+                    break;
+                case "rtb_Bul3":
+                    
+                    break;
+                case "rtb_Bul4":
+
+                    break;
+                case "rtb_Bul5":
+
+                    break;
+            }
+        }
+
         /* "Синтаксический" анализатор для маркировки used keywords в dgv_Keywords */
         private void UsedKeywordsAnalyser()
         {
@@ -679,6 +762,7 @@ namespace Excel_Parse
             for (int i = 0; i < dgv_Keywords.RowCount; i++)
             {
                 dgv_Keywords.Rows[i].Cells[2].Style.BackColor = Color.White;
+                dgv_Keywords.Rows[i].Cells[3].Style.BackColor = Color.White;
             }
 
             for (int i = 0; i < usedK.Count; i++)
@@ -691,24 +775,112 @@ namespace Excel_Parse
                         {
                             case "0":
                                 //title
-                                dgv_Keywords.Rows[j].Cells[2].Style.BackColor = Color.Coral;
+                                dgv_Keywords.Rows[j].Cells[2].Style.BackColor = titleColor;
+                                dgv_Keywords.Rows[j].Cells[3].Style.BackColor = titleColor;
                                 break;
                             case "1":
                                 //bullets
-                                dgv_Keywords.Rows[j].Cells[2].Style.BackColor = Color.LightBlue;
+                                dgv_Keywords.Rows[j].Cells[2].Style.BackColor = bulletsColor;
+                                dgv_Keywords.Rows[j].Cells[3].Style.BackColor = bulletsColor;
                                 break;
                             case "2":
                                 //backend
-                                dgv_Keywords.Rows[j].Cells[2].Style.BackColor = Color.LimeGreen;
+                                dgv_Keywords.Rows[j].Cells[2].Style.BackColor = backendColor;
+                                dgv_Keywords.Rows[j].Cells[3].Style.BackColor = backendColor;
                                 break;
                             case "3":
                                 //description
-                                dgv_Keywords.Rows[j].Cells[2].Style.BackColor = Color.MistyRose;
+                                dgv_Keywords.Rows[j].Cells[2].Style.BackColor = descriptionColor;
+                                dgv_Keywords.Rows[j].Cells[3].Style.BackColor = descriptionColor;
                                 break;
                         }
                     }
                 }
             }
+        }
+
+        /* Пересчитываем ключи в таблице при добавлении строк */
+        private void dgv_Keywords_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            CountKeys();
+        }
+
+        /* Пересчитываем ключи в таблице при удалении строк */
+        private void dgv_Keywords_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            CountKeys();
+        }
+
+        /* Метод подсчета ключей в таблице */
+        private void CountKeys()
+        {
+            label1.Text = "Всего: " + dgv_Keywords.RowCount + " ключей";
+        }
+
+        /* Ищем ключ в таблице по изменению текста в richTextBox1 */
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            StartKeySearch();
+        }
+
+        /* Метод для поиска ключа в таблице */
+        private void StartKeySearch()
+        {
+            int cnt = 0;
+
+            for (int i = 0; i < dgv_Keywords.RowCount; i++)
+            {
+                if (dgv_Keywords.Rows[i].Cells[2].Value.ToString().ToLower().Contains(rtb_FindKeyword.Text.ToLower()) && !rtb_FindKeyword.Text.Equals(""))
+                {
+                    dgv_Keywords.Rows[i].Cells[2].Style.BackColor = foundedKeywordColor;
+                    cnt++;
+                }
+                else if (dgv_Keywords.Rows[i].Cells[3].Style.BackColor == titleColor)
+                    dgv_Keywords.Rows[i].Cells[2].Style.BackColor = titleColor;
+                else if (dgv_Keywords.Rows[i].Cells[3].Style.BackColor == bulletsColor)
+                    dgv_Keywords.Rows[i].Cells[2].Style.BackColor = bulletsColor;
+                else if (dgv_Keywords.Rows[i].Cells[3].Style.BackColor == backendColor)
+                    dgv_Keywords.Rows[i].Cells[2].Style.BackColor = backendColor;
+                else if (dgv_Keywords.Rows[i].Cells[3].Style.BackColor == descriptionColor)
+                    dgv_Keywords.Rows[i].Cells[2].Style.BackColor = descriptionColor;
+                else
+                    dgv_Keywords.Rows[i].Cells[2].Style.BackColor = Color.White;
+            }
+
+            if (rtb_FindKeyword.Text.Length > 0)
+            {
+                label1.Text = "Найдено: " + cnt.ToString();
+            }
+            else
+                label1.Text = "Всего: " + dgv_Keywords.RowCount + " ключей";
+        }
+
+        /* Ходим по результатам поиска в таблице по нажатию Enter */
+        private void rtb_FindKeyword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (rtb_FindKeyword.Text != "" && e.KeyCode == Keys.Enter && dgv_Keywords.RowCount > 0)
+            {
+                if (dgv_Keywords.CurrentRow.Index + 1 < dgv_Keywords.Rows.Count)
+                {
+                    for (int i = dgv_Keywords.CurrentRow.Index + 1; i < dgv_Keywords.Rows.Count; i++)
+                    {
+                        if (dgv_Keywords.Rows[i].Cells[2].Style.BackColor == foundedKeywordColor)
+                        {
+                            dgv_Keywords.ClearSelection();
+                            dgv_Keywords.Rows[i].Cells[2].Selected = true;
+                            dgv_Keywords.CurrentCell = dgv_Keywords.Rows[i].Cells[2];
+                            e.SuppressKeyPress = true;          //отключили системный звук, который возникал при нажатии Enter
+                            return;
+                        }
+                    }
+                    e.SuppressKeyPress = true;          //отключили системный звук, который возникал при нажатии Enter
+                    MessageBox.Show("Достигнут последний результат поиска!", "Конец");
+                }
+                else
+                    MessageBox.Show("Достигнут конец таблицы!", "Конец");
+            }
+            else if (e.KeyCode == Keys.Enter)
+                e.SuppressKeyPress = true;          //отключили системный звук, который возникал при нажатии Enter
         }
 
         /* Заполняем таблицу с ключами из БД */
@@ -1138,26 +1310,31 @@ namespace Excel_Parse
                     if (rb_None.Checked)
                     {
                         dgv_Keywords.Rows[e.RowIndex].Cells[2].Style.BackColor = Color.White;  //нигде не используем, т.е. снимаем выделение
+                        dgv_Keywords.Rows[e.RowIndex].Cells[3].Style.BackColor = Color.White;
                         GetMarkedKeywords(-1, sender, e);
                     }
                     else if (rb_Title.Checked)
                     {
-                        dgv_Keywords.Rows[e.RowIndex].Cells[2].Style.BackColor = Color.Coral;  //title
+                        dgv_Keywords.Rows[e.RowIndex].Cells[2].Style.BackColor = titleColor;  //title
+                        dgv_Keywords.Rows[e.RowIndex].Cells[3].Style.BackColor = titleColor;
                         GetMarkedKeywords(0, sender, e);
                     }
                     else if (rb_Bullets.Checked)
                     {
-                        dgv_Keywords.Rows[e.RowIndex].Cells[2].Style.BackColor = Color.LightBlue;  //bullets
+                        dgv_Keywords.Rows[e.RowIndex].Cells[2].Style.BackColor = bulletsColor;  //bullets
+                        dgv_Keywords.Rows[e.RowIndex].Cells[3].Style.BackColor = bulletsColor;
                         GetMarkedKeywords(1, sender, e);
                     }
                     else if (rb_Backend.Checked)
                     {
-                        dgv_Keywords.Rows[e.RowIndex].Cells[2].Style.BackColor = Color.LimeGreen;  //backend
+                        dgv_Keywords.Rows[e.RowIndex].Cells[2].Style.BackColor = backendColor;  //backend
+                        dgv_Keywords.Rows[e.RowIndex].Cells[3].Style.BackColor = backendColor;
                         GetMarkedKeywords(2, sender, e);
                     }
                     else if (rb_Description.Checked)
                     {
-                        dgv_Keywords.Rows[e.RowIndex].Cells[2].Style.BackColor = Color.MistyRose;  //description
+                        dgv_Keywords.Rows[e.RowIndex].Cells[2].Style.BackColor = descriptionColor;  //description
+                        dgv_Keywords.Rows[e.RowIndex].Cells[3].Style.BackColor = descriptionColor;
                         GetMarkedKeywords(3, sender, e);
                     }
                 }

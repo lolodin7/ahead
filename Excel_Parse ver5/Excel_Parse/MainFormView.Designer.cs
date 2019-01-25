@@ -69,7 +69,7 @@
             // 
             // btn_DoRewriteSemCore
             // 
-            this.btn_DoRewriteSemCore.BackColor = System.Drawing.Color.Beige;
+            this.btn_DoRewriteSemCore.BackColor = System.Drawing.Color.YellowGreen;
             this.btn_DoRewriteSemCore.FlatAppearance.BorderSize = 0;
             this.btn_DoRewriteSemCore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_DoRewriteSemCore.Location = new System.Drawing.Point(12, 117);
@@ -144,7 +144,7 @@
             // 
             // btn_ShowIndexing
             // 
-            this.btn_ShowIndexing.BackColor = System.Drawing.Color.YellowGreen;
+            this.btn_ShowIndexing.BackColor = System.Drawing.Color.LightGoldenrodYellow;
             this.btn_ShowIndexing.FlatAppearance.BorderSize = 0;
             this.btn_ShowIndexing.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_ShowIndexing.Location = new System.Drawing.Point(611, 117);

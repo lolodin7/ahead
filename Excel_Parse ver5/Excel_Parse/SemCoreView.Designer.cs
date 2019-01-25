@@ -52,6 +52,8 @@
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.btn_AddCustomKeyword = new System.Windows.Forms.Button();
             this.tb_CustomValue = new System.Windows.Forms.TextBox();
             this.tb_CustomKey = new System.Windows.Forms.TextBox();
@@ -59,8 +61,6 @@
             this.tb_ProductTypeId = new System.Windows.Forms.TextBox();
             this.btn_DeselectAll = new System.Windows.Forms.Button();
             this.btn_SelectAll = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Source)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Target)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -218,7 +218,7 @@
             this.btn_UploadAnotherFile.Name = "btn_UploadAnotherFile";
             this.btn_UploadAnotherFile.Size = new System.Drawing.Size(248, 64);
             this.btn_UploadAnotherFile.TabIndex = 18;
-            this.btn_UploadAnotherFile.Text = "Загрузить другой файл";
+            this.btn_UploadAnotherFile.Text = "Загрузить файл";
             this.btn_UploadAnotherFile.UseVisualStyleBackColor = false;
             this.btn_UploadAnotherFile.Click += new System.EventHandler(this.btn_UploadAnotherFile_Click);
             // 
@@ -312,10 +312,10 @@
             // 
             this.radioButton1.AutoSize = true;
             this.radioButton1.Checked = true;
-            this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radioButton1.Font = new System.Drawing.Font("Caslon", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.radioButton1.Location = new System.Drawing.Point(6, 19);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(31, 24);
+            this.radioButton1.Size = new System.Drawing.Size(29, 20);
             this.radioButton1.TabIndex = 0;
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = ",";
@@ -334,6 +334,24 @@
             this.groupBox2.TabIndex = 25;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Добавить ключ вручную";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(98, 75);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(49, 13);
+            this.label2.TabIndex = 27;
+            this.label2.Text = "Частота";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(77, 31);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(91, 13);
+            this.label1.TabIndex = 26;
+            this.label1.Text = "Название ключа";
             // 
             // btn_AddCustomKeyword
             // 
@@ -397,24 +415,6 @@
             this.btn_SelectAll.Text = "Выделить всё";
             this.btn_SelectAll.UseVisualStyleBackColor = true;
             this.btn_SelectAll.Click += new System.EventHandler(this.btn_SelectAll_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(77, 31);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(91, 13);
-            this.label1.TabIndex = 26;
-            this.label1.Text = "Название ключа";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(98, 75);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 13);
-            this.label2.TabIndex = 27;
-            this.label2.Text = "Частота";
             // 
             // SemCoreView
             // 

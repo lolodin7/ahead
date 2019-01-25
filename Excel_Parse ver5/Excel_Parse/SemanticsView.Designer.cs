@@ -64,42 +64,6 @@
             this.lb_SKU = new System.Windows.Forms.Label();
             this.lb_ASIN = new System.Windows.Forms.Label();
             this.lb_ProductName = new System.Windows.Forms.Label();
-            this.dgvSemantics = new System.Windows.Forms.DataGridView();
-            this.Semantics1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics21 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics22 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics23 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics24 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics25 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics26 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics27 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semantics28 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvProducts = new System.Windows.Forms.DataGridView();
-            this.Products1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Products2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Products3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Products4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Products5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Products6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btn_ShowMore = new System.Windows.Forms.Button();
             this.lb_SubjectMatter1 = new System.Windows.Forms.Label();
             this.lb_IntendedUse1 = new System.Windows.Forms.Label();
@@ -162,9 +126,9 @@
             this.btn_Help = new System.Windows.Forms.Button();
             this.rb_None = new System.Windows.Forms.RadioButton();
             this.lb_Description = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.rtb_FindKeyword = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Keywords)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSemantics)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -182,13 +146,15 @@
             this.Value,
             this.Name1,
             this.SemCoreId});
-            this.dgv_Keywords.Location = new System.Drawing.Point(2, 38);
+            this.dgv_Keywords.Location = new System.Drawing.Point(2, 52);
             this.dgv_Keywords.Name = "dgv_Keywords";
             this.dgv_Keywords.ReadOnly = true;
-            this.dgv_Keywords.Size = new System.Drawing.Size(360, 788);
+            this.dgv_Keywords.Size = new System.Drawing.Size(360, 786);
             this.dgv_Keywords.TabIndex = 1;
             this.dgv_Keywords.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_Keywords_CellDoubleClick);
             this.dgv_Keywords.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_Keywords_CellMouseClick);
+            this.dgv_Keywords.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgv_Keywords_RowsAdded);
+            this.dgv_Keywords.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgv_Keywords_RowsRemoved);
             // 
             // ProdTypeId
             // 
@@ -395,7 +361,7 @@
             // 
             // btn_SaveToDB
             // 
-            this.btn_SaveToDB.BackColor = System.Drawing.Color.DarkGray;
+            this.btn_SaveToDB.BackColor = System.Drawing.Color.Silver;
             this.btn_SaveToDB.FlatAppearance.BorderSize = 0;
             this.btn_SaveToDB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_SaveToDB.Location = new System.Drawing.Point(1397, 772);
@@ -523,230 +489,6 @@
             this.lb_ProductName.Text = "PowerDeWise Dual Lavalier Microphone";
             this.lb_ProductName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // dgvSemantics
-            // 
-            this.dgvSemantics.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSemantics.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Semantics1,
-            this.Semantics2,
-            this.Semantics3,
-            this.Semantics4,
-            this.Semantics5,
-            this.Semantics6,
-            this.Semantics7,
-            this.Semantics8,
-            this.Semantics9,
-            this.Semantics10,
-            this.Semantics11,
-            this.Semantics12,
-            this.Semantics13,
-            this.Semantics14,
-            this.Semantics15,
-            this.Semantics16,
-            this.Semantics17,
-            this.Semantics18,
-            this.Semantics19,
-            this.Semantics20,
-            this.Semantics21,
-            this.Semantics22,
-            this.Semantics23,
-            this.Semantics24,
-            this.Semantics25,
-            this.Semantics26,
-            this.Semantics27,
-            this.Semantics28});
-            this.dgvSemantics.Location = new System.Drawing.Point(-305, 1689);
-            this.dgvSemantics.Name = "dgvSemantics";
-            this.dgvSemantics.Size = new System.Drawing.Size(1648, 342);
-            this.dgvSemantics.TabIndex = 36;
-            this.dgvSemantics.Visible = false;
-            // 
-            // Semantics1
-            // 
-            this.Semantics1.HeaderText = "Semantics0";
-            this.Semantics1.Name = "Semantics1";
-            // 
-            // Semantics2
-            // 
-            this.Semantics2.HeaderText = "Semantics1";
-            this.Semantics2.Name = "Semantics2";
-            // 
-            // Semantics3
-            // 
-            this.Semantics3.HeaderText = "Semantics2";
-            this.Semantics3.Name = "Semantics3";
-            // 
-            // Semantics4
-            // 
-            this.Semantics4.HeaderText = "Semantics3";
-            this.Semantics4.Name = "Semantics4";
-            // 
-            // Semantics5
-            // 
-            this.Semantics5.HeaderText = "Semantics4";
-            this.Semantics5.Name = "Semantics5";
-            // 
-            // Semantics6
-            // 
-            this.Semantics6.HeaderText = "Semantics5";
-            this.Semantics6.Name = "Semantics6";
-            // 
-            // Semantics7
-            // 
-            this.Semantics7.HeaderText = "Semantics6";
-            this.Semantics7.Name = "Semantics7";
-            // 
-            // Semantics8
-            // 
-            this.Semantics8.HeaderText = "Semantics7";
-            this.Semantics8.Name = "Semantics8";
-            // 
-            // Semantics9
-            // 
-            this.Semantics9.HeaderText = "Semantics8";
-            this.Semantics9.Name = "Semantics9";
-            // 
-            // Semantics10
-            // 
-            this.Semantics10.HeaderText = "Semantics9";
-            this.Semantics10.Name = "Semantics10";
-            // 
-            // Semantics11
-            // 
-            this.Semantics11.HeaderText = "Semantics10";
-            this.Semantics11.Name = "Semantics11";
-            // 
-            // Semantics12
-            // 
-            this.Semantics12.HeaderText = "Semantics11";
-            this.Semantics12.Name = "Semantics12";
-            // 
-            // Semantics13
-            // 
-            this.Semantics13.HeaderText = "Semantics12";
-            this.Semantics13.Name = "Semantics13";
-            // 
-            // Semantics14
-            // 
-            this.Semantics14.HeaderText = "Semantics13";
-            this.Semantics14.Name = "Semantics14";
-            // 
-            // Semantics15
-            // 
-            this.Semantics15.HeaderText = "Semantics14";
-            this.Semantics15.Name = "Semantics15";
-            // 
-            // Semantics16
-            // 
-            this.Semantics16.HeaderText = "Semantics15";
-            this.Semantics16.Name = "Semantics16";
-            // 
-            // Semantics17
-            // 
-            this.Semantics17.HeaderText = "Semantics16";
-            this.Semantics17.Name = "Semantics17";
-            // 
-            // Semantics18
-            // 
-            this.Semantics18.HeaderText = "Semantics17";
-            this.Semantics18.Name = "Semantics18";
-            // 
-            // Semantics19
-            // 
-            this.Semantics19.HeaderText = "Semantics18";
-            this.Semantics19.Name = "Semantics19";
-            // 
-            // Semantics20
-            // 
-            this.Semantics20.HeaderText = "Semantics19";
-            this.Semantics20.Name = "Semantics20";
-            // 
-            // Semantics21
-            // 
-            this.Semantics21.HeaderText = "Semantics20";
-            this.Semantics21.Name = "Semantics21";
-            // 
-            // Semantics22
-            // 
-            this.Semantics22.HeaderText = "Semantics21";
-            this.Semantics22.Name = "Semantics22";
-            // 
-            // Semantics23
-            // 
-            this.Semantics23.HeaderText = "Semantics22";
-            this.Semantics23.Name = "Semantics23";
-            // 
-            // Semantics24
-            // 
-            this.Semantics24.HeaderText = "Semantics23";
-            this.Semantics24.Name = "Semantics24";
-            // 
-            // Semantics25
-            // 
-            this.Semantics25.HeaderText = "Semantics24";
-            this.Semantics25.Name = "Semantics25";
-            // 
-            // Semantics26
-            // 
-            this.Semantics26.HeaderText = "Semantics25";
-            this.Semantics26.Name = "Semantics26";
-            // 
-            // Semantics27
-            // 
-            this.Semantics27.HeaderText = "Semantics26";
-            this.Semantics27.Name = "Semantics27";
-            // 
-            // Semantics28
-            // 
-            this.Semantics28.HeaderText = "Semantics27";
-            this.Semantics28.Name = "Semantics28";
-            // 
-            // dgvProducts
-            // 
-            this.dgvProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProducts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Products1,
-            this.Products2,
-            this.Products3,
-            this.Products4,
-            this.Products5,
-            this.Products6});
-            this.dgvProducts.Location = new System.Drawing.Point(354, 1764);
-            this.dgvProducts.Name = "dgvProducts";
-            this.dgvProducts.Size = new System.Drawing.Size(652, 206);
-            this.dgvProducts.TabIndex = 37;
-            this.dgvProducts.Visible = false;
-            // 
-            // Products1
-            // 
-            this.Products1.HeaderText = "ProductId";
-            this.Products1.Name = "Products1";
-            // 
-            // Products2
-            // 
-            this.Products2.HeaderText = "ProductName";
-            this.Products2.Name = "Products2";
-            // 
-            // Products3
-            // 
-            this.Products3.HeaderText = "ASIN";
-            this.Products3.Name = "Products3";
-            // 
-            // Products4
-            // 
-            this.Products4.HeaderText = "SKU";
-            this.Products4.Name = "Products4";
-            // 
-            // Products5
-            // 
-            this.Products5.HeaderText = "ProductTypeId";
-            this.Products5.Name = "Products5";
-            // 
-            // Products6
-            // 
-            this.Products6.HeaderText = "Inventory";
-            this.Products6.Name = "Products6";
-            // 
             // btn_ShowMore
             // 
             this.btn_ShowMore.Location = new System.Drawing.Point(417, 772);
@@ -845,7 +587,7 @@
             // 
             // btn_SaveCurrent
             // 
-            this.btn_SaveCurrent.BackColor = System.Drawing.Color.DarkGray;
+            this.btn_SaveCurrent.BackColor = System.Drawing.Color.Silver;
             this.btn_SaveCurrent.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btn_SaveCurrent.FlatAppearance.BorderColor = System.Drawing.Color.DarkSeaGreen;
             this.btn_SaveCurrent.FlatAppearance.BorderSize = 0;
@@ -1364,9 +1106,9 @@
             this.groupBox1.Controls.Add(this.cb_ProductTypes);
             this.groupBox1.Controls.Add(this.btn_AcceptGroupBox1);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Location = new System.Drawing.Point(0, 38);
+            this.groupBox1.Location = new System.Drawing.Point(0, 43);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(362, 270);
+            this.groupBox1.Size = new System.Drawing.Size(362, 277);
             this.groupBox1.TabIndex = 102;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
@@ -1482,6 +1224,26 @@
             this.lb_Description.TabIndex = 105;
             this.lb_Description.Text = "0";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(244, 26);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(116, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Всего - 99999 ключей";
+            // 
+            // rtb_FindKeyword
+            // 
+            this.rtb_FindKeyword.Location = new System.Drawing.Point(2, 23);
+            this.rtb_FindKeyword.Multiline = false;
+            this.rtb_FindKeyword.Name = "rtb_FindKeyword";
+            this.rtb_FindKeyword.Size = new System.Drawing.Size(218, 20);
+            this.rtb_FindKeyword.TabIndex = 106;
+            this.rtb_FindKeyword.Text = "";
+            this.rtb_FindKeyword.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+            this.rtb_FindKeyword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtb_FindKeyword_KeyDown);
+            // 
             // SemanticsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1489,6 +1251,8 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1594, 845);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.rtb_FindKeyword);
             this.Controls.Add(this.lb_Description);
             this.Controls.Add(this.rb_None);
             this.Controls.Add(this.btn_Help);
@@ -1539,8 +1303,6 @@
             this.Controls.Add(this.lb_OtherAttributes1);
             this.Controls.Add(this.lb_OtherAttributesText);
             this.Controls.Add(this.btn_ShowMore);
-            this.Controls.Add(this.dgvProducts);
-            this.Controls.Add(this.dgvSemantics);
             this.Controls.Add(this.lb_ProductName);
             this.Controls.Add(this.lb_SKU);
             this.Controls.Add(this.lb_SKUText);
@@ -1578,8 +1340,6 @@
             this.Text = "Семантика - Bona Fides";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Semantics_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Keywords)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSemantics)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -1619,8 +1379,6 @@
         private System.Windows.Forms.Label lb_SKU;
         private System.Windows.Forms.Label lb_ASIN;
         private System.Windows.Forms.Label lb_ProductName;
-        private System.Windows.Forms.DataGridView dgvSemantics;
-        private System.Windows.Forms.DataGridView dgvProducts;
         private System.Windows.Forms.Button btn_ShowMore;
         private System.Windows.Forms.Label lb_SubjectMatter1;
         private System.Windows.Forms.Label lb_IntendedUse1;
@@ -1645,34 +1403,6 @@
         private System.Windows.Forms.Label lb_SubjectMatter3;
         private System.Windows.Forms.Label lb_SubjectMatter4;
         private System.Windows.Forms.Label lb_SubjectMatter5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics11;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics12;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics13;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics14;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics15;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics16;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics17;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics18;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics19;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics20;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics21;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics22;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics23;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics24;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics25;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics26;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics27;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semantics28;
         private System.Windows.Forms.RichTextBox rtb_Bul1;
         private System.Windows.Forms.RichTextBox rtb_Bul2;
         private System.Windows.Forms.RichTextBox rtb_Bul3;
@@ -1696,12 +1426,6 @@
         private System.Windows.Forms.RichTextBox rtb_SubjectMatter4;
         private System.Windows.Forms.RichTextBox rtb_SubjectMatter5;
         private System.Windows.Forms.RichTextBox rtb_UsedKeywords;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Products1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Products2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Products3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Products4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Products5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Products6;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProdTypeId;
         private System.Windows.Forms.DataGridViewTextBoxColumn CategoryId;
         private System.Windows.Forms.DataGridViewTextBoxColumn Keyword;
@@ -1723,5 +1447,7 @@
         private System.Windows.Forms.RadioButton rb_None;
         private System.Windows.Forms.ToolStripMenuItem fieldsLengthToolStripMenuItem;
         private System.Windows.Forms.Label lb_Description;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.RichTextBox rtb_FindKeyword;
     }
 }

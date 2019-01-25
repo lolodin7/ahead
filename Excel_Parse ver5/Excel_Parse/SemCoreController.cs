@@ -43,6 +43,14 @@ namespace Excel_Parse
         //---------------------SELECT STATEMENTS-------------------
 
 
+        public IDataRecord GetSemCoreByKeyword(string _keyword)
+        {
+            string sqlStatement = "SELECT * FROM SemCore WHERE [Keyword] = '" + _keyword + "'";
+            command = new SqlCommand(sqlStatement, connection);
+            return GetRecord(command);
+        }
+
+
         public int GetSemCoreByProductId(int _prodTypeId)
         {
             string sqlStatement = "SELECT * FROM SemCore WHERE ProductTypeId = " + _prodTypeId;
@@ -170,6 +178,7 @@ namespace Excel_Parse
         {
             try
             {
+                connection.Close();
                 connection.Open();
                 _command.ExecuteScalar();
                 connection.Close();
@@ -201,6 +210,40 @@ namespace Excel_Parse
             for (int i = 0; i < arr.Length; i++)
             {
                 scList[scList.Count - 1].WriteData(i, arr[i]);
+            }
+        }
+
+        private IDataRecord GetRecord(SqlCommand _command)
+        {
+            scList = new List<SemCoreModel> { };
+            try
+            {
+                connection.Close();
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        IDataRecord dr = (IDataRecord)reader;
+                        return dr;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No rows found.");
+                    return null;
+                }
+                reader.Close();
+                connection.Close();
+                return null;
+            }
+            catch (Exception ex)
+            {
+                connection.Close();
+                return null;
             }
         }
     }
