@@ -462,7 +462,7 @@ namespace Excel_Parse
         /* Включаем редактирование ключа по двойному ЛКМ в таблице */
         private void dgv_Keywords_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex > 0)
+            if (e.RowIndex >= 0)
             {
                 SaveEditTrigger = false;
                 groupBox_Editing.Text = "Редактирование ключа";
@@ -524,7 +524,7 @@ namespace Excel_Parse
         {
             if (e.Button == MouseButtons.Right)
             {
-                if (dgv_Keywords.RowCount > 0)      //если таблица пустая, чтобы не было ошибки
+                if (dgv_Keywords.RowCount >= 0 && e.RowIndex >= 0)      //если таблица пустая, чтобы не было ошибки
                 {
                     dgv_Keywords.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
                     if (MessageBox.Show("Ключ \"" + dgv_Keywords.Rows[e.RowIndex].Cells[2].Value.ToString() + "\" будет удален. Вы уверены?", "Удаление ключа", MessageBoxButtons.YesNo) == DialogResult.Yes)

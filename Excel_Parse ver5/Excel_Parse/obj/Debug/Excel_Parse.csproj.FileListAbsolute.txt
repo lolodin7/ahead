@@ -197,7 +197,6 @@ C:\Bona Fides\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.pdb
 C:\Bona Fides\Excel_Parse ver5\Excel_Parse\bin\Debug\Excel_Parse.exe
 C:\Bona Fides\Excel_Parse ver5\Excel_Parse\bin\Debug\Excel_Parse.pdb
 C:\Bona Fides\Excel_Parse ver5\Excel_Parse\bin\Debug\EPPlus.dll
-C:\Bona Fides\Excel_Parse ver5\Excel_Parse\bin\Debug\MySql.Data.DLL
 C:\Bona Fides\Excel_Parse ver5\Excel_Parse\bin\Debug\EPPlus.xml
 C:\Bona Fides\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.csprojResolveAssemblyReference.cache
 C:\Bona Fides\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.StartImage.resources
