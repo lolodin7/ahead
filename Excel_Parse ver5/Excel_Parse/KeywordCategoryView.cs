@@ -25,9 +25,12 @@ namespace Excel_Parse
         private SqlConnection connection;
 
         private bool wasAdded = false;
-
+        
         private List<ProductTypesModel> ptList;
         private List<ProductTypesModel> fullPTList;
+
+        private bool renamingInProgress;        //указатель, что сейчас идет процесс переименования выбранной категории
+        private int renamedCategoryId;
 
         /* Конструктор */
         public KeywordCategoryView(SemCoreRebuildView _mf)
@@ -140,35 +143,93 @@ namespace Excel_Parse
         /* Добавить новую категори в БД */
         private void btn_Save_Click(object sender, EventArgs e)
         {
+            int result;
             if (tb_CategoryName.Text != "")
             {
                 if (!ChechForExisting())
                 {
-                    int result = kcController.SetNewKeywordCategory(tb_CategoryName.Text, int.Parse(tb_ProductTypeId.Text)); //вызываем метод для записи в БД и проверяем сразу на успешность
-                    if (result == 1)      
+                    if (!renamingInProgress)
+                        result = kcController.SetNewKeywordCategory(tb_CategoryName.Text, int.Parse(tb_ProductTypeId.Text)); //вызываем метод для записи в БД и проверяем сразу на успешность
+                    else
+                        result = kcController.UpdateKeywordCategory(tb_CategoryName.Text, renamedCategoryId);
+
+                    if (result == 1)
                     {
                         kcController.GetKeywordCategoriesJOINProductTypes();
                         Draw();
                         ptController.GetProductTypesAll();
                         //fill_cb_ProductTypes();
                         wasAdded = true;
-                        MessageBox.Show("Категория \"" + tb_CategoryName.Text + "\" была добавлена успешно!", "Успешно");
+                        if (!renamingInProgress)
+                            MessageBox.Show("Категория \"" + tb_CategoryName.Text + "\" была добавлена успешно!", "Успешно");
+                        else
+                            MessageBox.Show("Категория \"" + tb_CategoryName.Text + "\" была переименована успешно!", "Успешно");
                         tb_CategoryName.Text = "";
+                        RenameCategoryEnd();
                         tb_CategoryName.Focus();
                     }
                     else if (result == -2146232060)
                     {
                         MessageBox.Show("Такая категория уже существует. Нажмите \"Обновить\" для просмотра.", "Ошибка");
                     }
+
                 }
                 else
                 {
-                    MessageBox.Show("Такая категория уже существует!", "Ошибка");           
+                    MessageBox.Show("Такая категория уже существует!", "Ошибка");
                 }
             }
             else
             {
-                MessageBox.Show("Введите название новой категории.", "Ошибка");
+                MessageBox.Show("Введите название категории.", "Ошибка");
+            }
+        }
+
+        /* Добавляем категорию по нажатию Enter в поле вводе */
+        private void tb_CategoryName_KeyDown(object sender, KeyEventArgs e)
+        {
+            int result;
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (tb_CategoryName.Text != "")
+                {
+                    if (!ChechForExisting())
+                    {
+                        if (!renamingInProgress)
+                            result = kcController.SetNewKeywordCategory(tb_CategoryName.Text, int.Parse(tb_ProductTypeId.Text)); //вызываем метод для записи в БД и проверяем сразу на успешность
+                        else
+                            result = kcController.UpdateKeywordCategory(tb_CategoryName.Text, renamedCategoryId);
+
+                        if (result == 1)
+                        {
+                            kcController.GetKeywordCategoriesJOINProductTypes();
+                            Draw();
+                            ptController.GetProductTypesAll();
+                            //fill_cb_ProductTypes();
+                            wasAdded = true;
+                            if (!renamingInProgress)
+                                MessageBox.Show("Категория \"" + tb_CategoryName.Text + "\" была добавлена успешно!", "Успешно");
+                            else
+                                MessageBox.Show("Категория \"" + tb_CategoryName.Text + "\" была переименована успешно!", "Успешно");
+                            tb_CategoryName.Text = "";
+                            RenameCategoryEnd();
+                            tb_CategoryName.Focus();
+                        }
+                        else if (result == -2146232060)
+                        {
+                            MessageBox.Show("Такая категория уже существует. Нажмите \"Обновить\" для просмотра.", "Ошибка");
+                        }
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Такая категория уже существует!", "Ошибка");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Введите название категории.", "Ошибка");
+                }
             }
         }
 
@@ -210,7 +271,10 @@ namespace Excel_Parse
         /* Закрыть окно */
         private void btn_Close_Click(object sender, EventArgs e)
         {
-            this.Close();
+            if (renamingInProgress)
+                RenameCategoryEnd();
+            else 
+                this.Close();
         }
 
         /* Скопировать название категории по двойному ЛКМ на ячейку */
@@ -268,43 +332,44 @@ namespace Excel_Parse
                 Draw();
             }
         }
+        
 
-        /* Добавляем категорию по нажатию Enter в поле вводе */
-        private void tb_CategoryName_KeyDown(object sender, KeyEventArgs e)
+
+        private void dgv_KeywordCategory_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (e.Button == MouseButtons.Right)
             {
-                if (tb_CategoryName.Text != "")
+                if (e.RowIndex >= 0 && e.ColumnIndex == 1)
                 {
-                    if (!ChechForExisting())
-                    {
-                        int result = kcController.SetNewKeywordCategory(tb_CategoryName.Text, int.Parse(tb_ProductTypeId.Text)); //вызываем метод для записи в БД и проверяем сразу на успешность
-                        if (result == 1)
-                        {
-                            kcController.GetKeywordCategoriesJOINProductTypes();
-                            Draw();
-                            ptController.GetProductTypesAll();
-                            //fill_cb_ProductTypes();
-                            wasAdded = true;
-                            MessageBox.Show("Категория \"" + tb_CategoryName.Text + "\" была добавлена успешно!", "Успешно");
-                            tb_CategoryName.Text = "";
-                            tb_CategoryName.Focus();
-                        }
-                        else if (result == -2146232060)
-                        {
-                            MessageBox.Show("Такая категория уже существует. Нажмите \"Обновить\" для просмотра.", "Ошибка");
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Такая категория уже существует!", "Ошибка");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Введите название новой категории.", "Ошибка");
+                    dgv_KeywordCategory.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
+                    renamedCategoryId = int.Parse(dgv_KeywordCategory.Rows[e.RowIndex].Cells[0].Value.ToString());
+                    RenameCategoryBegin(dgv_KeywordCategory.Rows[e.RowIndex].Cells[1].Value.ToString());
                 }
             }
+        }
+        
+        private void RenameCategoryBegin(string name)
+        {
+            cb_ProductType.Enabled = false;
+            lb_ProductName.Text = "Изменение названия категории";
+            btn_Close.Text = "Отмена";
+            renamingInProgress = true;
+            tb_CategoryName.Text = name;
+            tb_CategoryName.Focus();
+        }
+
+        private void RenameCategoryEnd()
+        {
+            cb_ProductType.Enabled = true;
+            lb_ProductName.Text = "Добавление новой категории ключей";
+            btn_Close.Text = "Закрыть";
+            renamingInProgress = false;
+            tb_CategoryName.Text = "";
+        }
+
+        private void btn_Help_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Нажмите ПКМ по названию категории в таблице для перехода в режим редактирования названия.\nДля завершения нажмите \"Применить\" или \"Отмена\".\n\n", "Справка");
         }
     }
 }

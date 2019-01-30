@@ -82,15 +82,7 @@ namespace Excel_Parse
             command = new SqlCommand(sqlStatement, connection);
             return Execute_SELECT_Command(command);
         }
-
-        public int SetNewKeywordCategory(string name, int _productTypeId)
-        {
-            string sqlStatement = "INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId]) VALUES ('" + name + "', " + _productTypeId + ")";     //переделать, т.к. теперь нужно указывать еще и productTypeId
-            command = new SqlCommand(sqlStatement, connection);
-            return Execute_INSERT_Command(command);
-        }
-
-
+        
 
         public bool GetKeywordCategoriesJOINProductTypes()
         {
@@ -105,6 +97,29 @@ namespace Excel_Parse
             command = new SqlCommand(sqlStatement, connection);
             return Execute_SELECT_JOIN_Command(command);
         }
+
+
+
+
+
+
+
+
+        public int SetNewKeywordCategory(string name, int _productTypeId)
+        {
+            string sqlStatement = "INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId]) VALUES ('" + name + "', " + _productTypeId + ")";     
+            command = new SqlCommand(sqlStatement, connection);
+            return Execute_INSERT_Command(command);
+        }
+        
+
+        public int UpdateKeywordCategory(string name, int _categoryId)
+        {
+            string sqlStatement = "UPDATE [KeywordCategory] SET [CategoryName] = '" + name + "' WHERE [CategoryId] = " + _categoryId;     
+            command = new SqlCommand(sqlStatement, connection);
+            return Execute_INSERT_Command(command);
+        }
+
         //-------------------------------МЕТОДЫ----------------------------------------
 
 

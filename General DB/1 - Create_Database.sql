@@ -27,3 +27,36 @@ GO
 
 PRINT 'Database [AHEAD] created'
 GO
+
+
+--////////////////////////////////////////////
+
+USE master
+GO
+
+IF EXISTS (SELECT *
+           FROM   master..sysdatabases
+           WHERE  name = 'AHEAD-test')
+BEGIN
+  DROP DATABASE [AHEAD-test]
+  PRINT 'Database [AHEAD-test] dropped'
+END
+GO
+
+CREATE DATABASE [AHEAD-test] ON (
+  NAME = N'tc_data',
+  FILENAME = N'C:\MSSQL2\Data\tc_data.mdf',
+  SIZE = 10,
+  -- MAXSIZE = 100MB,
+  FILEGROWTH = 10%) 
+LOG ON (
+  NAME = N'tc_log',
+  FILENAME = N'C:\MSSQL2\Log\tc_log.ldf',
+  SIZE = 20, 
+  -- MAXSIZE = 200MB,
+  FILEGROWTH = 20%)
+COLLATE Cyrillic_General_CI_AS
+GO
+
+PRINT 'Database [AHEAD-test] created'
+GO
