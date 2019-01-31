@@ -9,8 +9,6 @@ namespace Excel_Parse
 {
     class DBData
     {
-        //Data Source = LOLODIN; Initial Catalog = AHEAD; Integrated Security = True
-
         private const string InitialCatalog = "AHEAD";
         private const string DataSource = "KCRF1NH-AHEAD-M";
         private const bool IntegratedSecurity = true;

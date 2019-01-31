@@ -43,6 +43,9 @@ namespace Excel_Parse
 
         private int CurrentSemCoreId;
 
+        public bool NoProdType { get; set; }
+        public bool NoKeyCat { get; set; }
+
         
 
         /* Вызываем из KeywordsAreExisted для редактирования ключей из таблицы */
@@ -51,6 +54,9 @@ namespace Excel_Parse
             InitializeComponent();
             ControlFormKeywordsAreExisted = _form;
             connection = DBData.GetDBConnection();
+
+            NoProdType = false;
+            NoKeyCat = false;
 
             GetStarted();
             firstLaunch = false;
@@ -62,6 +68,9 @@ namespace Excel_Parse
             InitializeComponent();
             ControlFormMF = _mf;
 
+            NoProdType = false;
+            NoKeyCat = false;
+
             GetStarted();
             firstLaunch = false;
         }
@@ -72,6 +81,9 @@ namespace Excel_Parse
             InitializeComponent();
             ControlFullSemCoreView = _mf;
 
+            NoProdType = false;
+            NoKeyCat = false;
+
             GetStarted();
             firstLaunch = false;
         }
@@ -81,6 +93,9 @@ namespace Excel_Parse
         {
             InitializeComponent();
             ControlKeywordCategoryView = _mf;
+
+            NoProdType = false;
+            NoKeyCat = false;
 
             GetStarted(_categoryName, _prodTypeName);
             firstLaunch = false;
@@ -222,43 +237,59 @@ namespace Excel_Parse
         /* Заполняем cb_ProductType и cb_ProductType2 */
         private void fill_cb_ProductTypes()
         {
-            cb_ProductType.Items.Clear();
-            cb_ProductType.Items.Add(AllProductTypesCBName);
-
-            for (int i = 0; i < ptList.Count; i++)
+            if (ptList.Count > 0)
             {
-                cb_ProductType.Items.Add(ptList[i].TypeName);
-            }
-            cb_ProductType.SelectedItem = cb_ProductType.Items[0];
+                cb_ProductType.Items.Clear();
+                cb_ProductType.Items.Add(AllProductTypesCBName);
 
-            cb_ProductType2.Items.Clear();
+                for (int i = 0; i < ptList.Count; i++)
+                {
+                    cb_ProductType.Items.Add(ptList[i].TypeName);
+                }
+                cb_ProductType.SelectedItem = cb_ProductType.Items[0];
 
-            for (int i = 0; i < ptList.Count; i++)
+                cb_ProductType2.Items.Clear();
+
+                for (int i = 0; i < ptList.Count; i++)
+                {
+                    cb_ProductType2.Items.Add(ptList[i].TypeName);
+                }
+                cb_ProductType2.SelectedItem = cb_ProductType2.Items[0];
+            } 
+            else
             {
-                cb_ProductType2.Items.Add(ptList[i].TypeName);
+                MessageBox.Show("Видимо, в системе нет ни одного вида товара. Для работы в этом разделе, пожалуйста, сначала добавьте хотя бы один вид товара.", "Ошибка");
+                NoProdType = true;
             }
-            cb_ProductType2.SelectedItem = cb_ProductType2.Items[0];
         }
 
         /* Заполняем cb_KeywordCategory и cb_KeywordCategory2 */
         private void fill_cb_KeywordCategory()
         {
-            cb_KeywordCategory.Items.Clear();
-            cb_KeywordCategory.Items.Add(AllKeywordCategoriesCBName);
-
-            for (int i = 0; i < kcList.Count; i++)
+            if (kcList.Count > 0)
             {
-                cb_KeywordCategory.Items.Add(kcList[i].CategoryName);
+                cb_KeywordCategory.Items.Clear();
+                cb_KeywordCategory.Items.Add(AllKeywordCategoriesCBName);
+
+                for (int i = 0; i < kcList.Count; i++)
+                {
+                    cb_KeywordCategory.Items.Add(kcList[i].CategoryName);
+                }
+                cb_KeywordCategory.SelectedItem = cb_KeywordCategory.Items[0];
+
+                cb_KeywordCategory2.Items.Clear();
+
+                for (int i = 0; i < kcList.Count; i++)
+                {
+                    cb_KeywordCategory2.Items.Add(kcList[i].CategoryName);
+                }
+                cb_KeywordCategory2.SelectedItem = cb_KeywordCategory2.Items[0];
             }
-            cb_KeywordCategory.SelectedItem = cb_KeywordCategory.Items[0];
-
-            cb_KeywordCategory2.Items.Clear();
-
-            for (int i = 0; i < kcList.Count; i++)
+            else
             {
-                cb_KeywordCategory2.Items.Add(kcList[i].CategoryName);
+                MessageBox.Show("Видимо, в системе нет ни одной категории ключей. Для работы в этом разделе, пожалуйста, сначала добавьте хотя бы одну категорию ключей.", "Ошибка");
+                NoKeyCat = true;
             }
-            cb_KeywordCategory2.SelectedItem = cb_KeywordCategory2.Items[0];
         }
 
         /* Получаем ProductTypeId при смене выбранного элемента в cb_ProductType2 */

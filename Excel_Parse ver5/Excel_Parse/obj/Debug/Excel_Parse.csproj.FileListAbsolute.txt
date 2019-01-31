@@ -217,3 +217,4 @@ C:\Bona Fides\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.SemanticsView.r
 C:\Bona Fides\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.SemCoreRebuildView.resources
 C:\Bona Fides\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.csproj.GenerateResource.Cache
 C:\Bona Fides\Excel_Parse ver5\Excel_Parse\bin\Debug\MySql.Data.DLL
+C:\Bona Fides\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.About.resources

@@ -28,7 +28,9 @@ namespace Excel_Parse
         private DateTime todayDate;         //храним сегодняшнюю дату
 
         string urlAmazon = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=";
-        
+
+        private string helpString = "Дважды ЛКМ по сегодняшней дате - запуск проверки индексации.\n\n";
+
         /* Конструктор */
         public IndexingView(MainFormView _mf)
         {
@@ -106,6 +108,9 @@ namespace Excel_Parse
             dataGridView1.Columns[dataGridView1.ColumnCount - 1].Visible = false;
 
             dataGridView1.Columns.Add("6", "6");
+            dataGridView1.Columns[dataGridView1.ColumnCount - 1].Visible = false;
+
+            dataGridView1.Columns.Add("7", "7");
             dataGridView1.Columns[dataGridView1.ColumnCount - 1].Visible = false;
         }
 
@@ -301,7 +306,7 @@ namespace Excel_Parse
         private void markAsClosedToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int row = dataGridView1.CurrentCell.RowIndex;
-            int col = dataGridView1.CurrentCell.ColumnIndex - 6;
+            int col = dataGridView1.CurrentCell.ColumnIndex - 7;
 
             int _productId = int.Parse(dataGridView1.Rows[row].Cells[0].Value.ToString());
 
@@ -311,7 +316,7 @@ namespace Excel_Parse
                 {
                     if (_productId == pList[i].ProductId)
                     {
-                        dataGridView1.Rows[row].Cells[col + 6].Value = "Closed";
+                        dataGridView1.Rows[row].Cells[col + 7].Value = "Closed";
 
                         string sqlStatement = "INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status], [Notes]) VALUES (" + pList[i].ProductId + ", '" + pList[i].ASIN + "', '" + todayDate.ToString("yyyy-MM-dd") + "', 'Closed', '')";
 
@@ -398,7 +403,7 @@ namespace Excel_Parse
         /* Запускаем индексацию, получаем поля семантики из БД и открываем с их помощью вкладки поиска на Амазон */
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.ColumnIndex == 6 && (dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == null || dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Equals("")))
+            if (e.RowIndex >= 0 && e.ColumnIndex == 7 && (dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == null || dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Equals("")))
             {
                 int row = dataGridView1.CurrentCell.RowIndex;
                 int col = dataGridView1.CurrentCell.ColumnIndex;
@@ -453,23 +458,24 @@ namespace Excel_Parse
                     this.Visible = false;
 
                     System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Title.Replace(' ', '+'));
-                    System.Threading.Thread.Sleep(100);
+                    System.Threading.Thread.Sleep(200);
                     System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Bullet1.Replace(' ', '+'));
-                    System.Threading.Thread.Sleep(100);
+                    System.Threading.Thread.Sleep(200);
                     System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Bullet2.Replace(' ', '+'));
-                    System.Threading.Thread.Sleep(100);
+                    System.Threading.Thread.Sleep(200);
                     System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Bullet3.Replace(' ', '+'));
-                    System.Threading.Thread.Sleep(100);
+                    System.Threading.Thread.Sleep(200);
                     System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Bullet4.Replace(' ', '+'));
-                    System.Threading.Thread.Sleep(100);
+                    System.Threading.Thread.Sleep(200);
                     System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Bullet5.Replace(' ', '+'));
-                    System.Threading.Thread.Sleep(100);
+                    System.Threading.Thread.Sleep(200);
                     System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Backend.Replace(' ', '+'));
+
+                    smList.RemoveAt(0);
                 }
                 else
                 {
                     MessageBox.Show("Семантики для выбранного товара не найдено.", "Ошибка");
-
                 }
             }
         }
@@ -502,42 +508,50 @@ namespace Excel_Parse
         /* При открытии контекстного меню, включаем/выключаем кликабельность определенных пунктов меню */
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
-            int row = dataGridView1.CurrentCell.RowIndex;
-            int col = dataGridView1.CurrentCell.ColumnIndex;
-
-            if (col == 6)
+            if (dataGridView1.RowCount > 0 && dataGridView1.ColumnCount > 0)
             {
-                if (dataGridView1.Rows[row].Cells[col].Value != null)
+                contextMenuStrip1.Enabled = true;
+                int row = dataGridView1.CurrentCell.RowIndex;
+                int col = dataGridView1.CurrentCell.ColumnIndex;
+
+                if (col == 7)
                 {
-                    if (dataGridView1.Rows[row].Cells[col].Value.ToString().Equals("Not Ok"))
+                    if (dataGridView1.Rows[row].Cells[col].Value != null)
                     {
-                        markAsClosedToolStripMenuItem.Enabled = false;
-                        showHistoryToolStripMenuItem.Enabled = true;
-                    } 
-                    else if (dataGridView1.Rows[row].Cells[col].Value.ToString().Equals("Ok") || dataGridView1.Rows[row].Cells[col].Value.ToString().Equals("Closed"))
+                        if (dataGridView1.Rows[row].Cells[col].Value.ToString().Equals("Not Ok"))
+                        {
+                            markAsClosedToolStripMenuItem.Enabled = false;
+                            showHistoryToolStripMenuItem.Enabled = true;
+                        }
+                        else if (dataGridView1.Rows[row].Cells[col].Value.ToString().Equals("Ok") || dataGridView1.Rows[row].Cells[col].Value.ToString().Equals("Closed"))
+                        {
+                            markAsClosedToolStripMenuItem.Enabled = false;
+                            showHistoryToolStripMenuItem.Enabled = false;
+                        }
+                    }
+                    else
                     {
-                        markAsClosedToolStripMenuItem.Enabled = false;
+                        markAsClosedToolStripMenuItem.Enabled = true;
                         showHistoryToolStripMenuItem.Enabled = false;
                     }
                 }
                 else
                 {
-                    markAsClosedToolStripMenuItem.Enabled = true;
-                    showHistoryToolStripMenuItem.Enabled = false;
+                    if (dataGridView1.Rows[row].Cells[col].Value != null && dataGridView1.Rows[row].Cells[col].Value.ToString().Equals("Not Ok"))
+                    {
+                        markAsClosedToolStripMenuItem.Enabled = false;
+                        showHistoryToolStripMenuItem.Enabled = true;
+                    }
+                    else
+                    {
+                        markAsClosedToolStripMenuItem.Enabled = false;
+                        showHistoryToolStripMenuItem.Enabled = false;
+                    }
                 }
-            } 
+            }
             else
             {
-                if (dataGridView1.Rows[row].Cells[col].Value != null && dataGridView1.Rows[row].Cells[col].Value.ToString().Equals("Not Ok"))
-                {
-                    markAsClosedToolStripMenuItem.Enabled = false;
-                    showHistoryToolStripMenuItem.Enabled = true;
-                }
-                else
-                {
-                    markAsClosedToolStripMenuItem.Enabled = false;
-                    showHistoryToolStripMenuItem.Enabled = false;
-                }
+                contextMenuStrip1.Enabled = false;
             }
         }
 
@@ -562,5 +576,10 @@ namespace Excel_Parse
             dataGridView1.Size = new Size(1255, 635);
             dataGridView1.Location = new Point(13, 3);
         }
+
+        private void helpToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(helpString, "Помощь");
+        }        
     }
 }

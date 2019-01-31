@@ -35,8 +35,11 @@ namespace Excel_Parse
         private void btn_DoSemCore_Click(object sender, EventArgs e)
         {
             SemCoreView semcore = new SemCoreView(this);
-            semcore.Show();
-            this.Visible = false;
+            if (!semcore.NoProdType && !semcore.NoKeyCat)
+            {
+                semcore.Show();
+                this.Visible = false;
+            }
         }
 
         private void btn_DoSemantics_Click(object sender, EventArgs e)
@@ -63,22 +66,31 @@ namespace Excel_Parse
         private void btn_DoKeywordCategory_Click(object sender, EventArgs e)
         {
             KeywordCategoryView keycat = new KeywordCategoryView(this);
-            keycat.Show();
-            this.Visible = false;
+            if (!keycat.HardClose)
+            {
+                keycat.Show();
+                this.Visible = false;
+            }
         }
 
         private void btn_DoRewriteSemCore_Click(object sender, EventArgs e)
         {
             SemCoreRebuildView scr = new SemCoreRebuildView(this);
-            scr.Show();
-            this.Visible = false;
+            if (!scr.NoKeyCat && !scr.NoProdType)
+            {
+                scr.Show();
+                this.Visible = false;
+            }
         }
 
         private void btn_ShowAllKeywords_Click(object sender, EventArgs e)
         {
             FullSemCoreView fsc = new FullSemCoreView(this);
-            fsc.Show();
-            this.Visible = false;
+            if (!fsc.NoProdType && !fsc.NoKeyCat)
+            {
+                fsc.Show();
+                this.Visible = false;
+            }
         }
 
         private void btn_Exit_Click(object sender, EventArgs e)
@@ -98,6 +110,18 @@ namespace Excel_Parse
             ChooseProduct cp = new ChooseProduct(this, true);
             cp.Show();
             this.Visible = false;
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            About ab = new About(this);
+            ab.Show();
+            this.Visible = false;
+        }
+
+        private void btn_DoMarketplaces_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

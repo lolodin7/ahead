@@ -116,9 +116,12 @@ namespace Excel_Parse
         /* Скопировать название категории по двойному ЛКМ на ячейку */
         private void dgv_ProductTypes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            var str = dgv_ProductTypes.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+            if (dgv_ProductTypes.RowCount > 0)
+            {
+                var str = dgv_ProductTypes.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
 
-            Clipboard.SetText(str);
+                Clipboard.SetText(str);
+            }
         }
 
         /* Обновляем dgv_KeywordCategory принудительно */

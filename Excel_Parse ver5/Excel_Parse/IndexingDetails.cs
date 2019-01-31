@@ -20,6 +20,8 @@ namespace Excel_Parse
         private DateTime Date;
         private string Notes;           //для работы анализатора по разбиению/склейке инфы
 
+        private List<int> ProductIds;
+
         private IndexingStatus controlIndexingStatus;
         private IndexingView controlIndexingView;
 
@@ -47,6 +49,8 @@ namespace Excel_Parse
             isSaved = false;
 
             this.Text = ProductName + " : " + ASIN + ", " + SKU;
+
+            GetAllProductWithSameASIN();
         }
 
         /* Конструктор, просто смотрим результаты индексации за какое-то число */
@@ -70,6 +74,8 @@ namespace Excel_Parse
 
             //тут метод для заполнения всех полей
             getDetailsFromDB();
+
+            GetAllProductWithSameASIN();
         }
 
         /* Получаем все данные из БД и заносим их по полям на форме */
@@ -181,29 +187,76 @@ namespace Excel_Parse
         /* Сохраняем данные в БД */
         private void btn_Save_Click(object sender, EventArgs e)
         {
+            bool success = false;
             if (MessageBox.Show("Вы собираетесь сохранить все введенные данные. Продолжить?", "Подтверждение", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 //тут функция преобразования текста из полей в формат по шаблону для БД
                 RunNotesCompress();
                 //сохраняем статус, дату, текст в БД
-                string sqlStatement = "INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status], [Notes]) VALUES (" + ProductId + ", '" + ASIN + "', '" + Date.ToString("yyyy-MM-dd") + "', 'Not Ok', '" + Notes + "')";
-                try
+                for (int i = 0; i < ProductIds.Count; i++)
                 {
-                    command = new SqlCommand(sqlStatement, connection);
+                    string sqlStatement = "INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status], [Notes]) VALUES (" + ProductId + ", '" + ASIN + "', '" + Date.ToString("yyyy-MM-dd") + "', 'Not Ok', '" + Notes + "')";
+                    try
+                    {
+                        command = new SqlCommand(sqlStatement, connection);
 
-                    connection.Open();
-                    command.ExecuteScalar();
-                    connection.Close();
+                        connection.Open();
+                        command.ExecuteScalar();
+                        connection.Close();
 
-                    //если всё прошло хорошо, то {
+                        success = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.HResult);
+                        success = false;
+                    }
+                }
+                if (success)
+                {
+                    //если всё прошло хорошо
                     MessageBox.Show("Все данные сохранены успешно!", "Успешно");
                     isSaved = true;
                     this.Close();
                 }
-                catch (Exception ex)
+            }
+        }
+
+        /* Получаем список всех товаров с таким же ASIN, чтобы потом продублировать индексацию на них, т.к. один ASIN = один товар и не важно, что SKU разные */
+        private void GetAllProductWithSameASIN()
+        {
+            string sqlStatements;
+            sqlStatements = "SELECT [ProductId] FROM [Products] WHERE [ASIN] = '" + ASIN + "'";
+            IDataRecord record;
+            ProductIds = new List<int> { };
+
+            SqlCommand command = new SqlCommand(sqlStatements, connection);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
                 {
-                    Console.WriteLine(ex.HResult);
-                }//}
+                    while (reader.Read())
+                    {
+                        record = (IDataRecord)reader;
+                        ProductIds.Add(int.Parse(record[0].ToString()));
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No rows found.");
+                }
+                reader.Close();
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Упс! Возникла проблема с подключением к БД :( Приложение будет закрыто", "Ошибка");
+                this.Close();
             }
         }
 

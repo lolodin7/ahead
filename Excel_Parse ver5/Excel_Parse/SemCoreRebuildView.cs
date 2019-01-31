@@ -46,7 +46,8 @@ namespace Excel_Parse
 
         string urlAmazon = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=";
 
-
+        public bool NoProdType { get; set; }
+        public bool NoKeyCat { get; set; }
 
 
 
@@ -59,6 +60,9 @@ namespace Excel_Parse
             lb_UpdatedKeys.Text = str_UpdatedKeys;
             lb_UploadedKeys.Text = str_UploadedKeys;
 
+            NoProdType = false;
+            NoKeyCat = false;
+
             GetStarted();
             firstLaunch = false;
         }
@@ -70,6 +74,9 @@ namespace Excel_Parse
             connection = DBData.GetDBConnection();
             lb_UpdatedKeys.Text = str_UpdatedKeys;
             lb_UploadedKeys.Text = str_UploadedKeys;
+
+            NoProdType = false;
+            NoKeyCat = false;
 
             GetStarted();
             firstLaunch = false;
@@ -587,27 +594,43 @@ namespace Excel_Parse
         /* Заполняем cb_ProductType */
         private void fill_cb_ProductTypes()
         {
-            cb_ProductType.Items.Clear();
-            cb_KeywordCategory.Items.Clear();
-
-            for (int i = 0; i < ptList.Count; i++)
+            if (ptList.Count > 0)
             {
-                cb_ProductType.Items.Add(ptList[i].TypeName);
+                cb_ProductType.Items.Clear();
+                cb_KeywordCategory.Items.Clear();
+
+                for (int i = 0; i < ptList.Count; i++)
+                {
+                    cb_ProductType.Items.Add(ptList[i].TypeName);
+                }
+                cb_ProductType.SelectedItem = cb_ProductType.Items[0];
             }
-            cb_ProductType.SelectedItem = cb_ProductType.Items[0];
+            else
+            {
+                MessageBox.Show("Видимо, в системе нет ни одного вида товара. Для работы в этом разделе, пожалуйста, сначала добавьте хотя бы один вид товара.", "Ошибка");
+                NoProdType = true;
+            }
         }
 
         /* Заполняем cb_KeywordCategory */
         private void fill_cb_KeywordCategory()
         {
-            cb_KeywordCategory.Items.Clear();
-
-            for (int i = 0; i < kcList.Count; i++)
-            {
-                cb_KeywordCategory.Items.Add(kcList[i].CategoryName);
-            }
             if (kcList.Count > 0)
-                cb_KeywordCategory.SelectedItem = cb_KeywordCategory.Items[0];
+            {
+                cb_KeywordCategory.Items.Clear();
+
+                for (int i = 0; i < kcList.Count; i++)
+                {
+                    cb_KeywordCategory.Items.Add(kcList[i].CategoryName);
+                }
+                if (kcList.Count > 0)
+                    cb_KeywordCategory.SelectedItem = cb_KeywordCategory.Items[0];
+            }
+            else
+            {
+                MessageBox.Show("Видимо, в системе нет ни одной категории ключей. Для работы в этом разделе, пожалуйста, сначала добавьте хотя бы одну категорию ключей.", "Ошибка");
+                NoKeyCat = true;
+            }
         }
 
 

@@ -20,6 +20,7 @@ namespace Excel_Parse
         private string ProductName, ASIN, SKU;
         private int ProductTypeId;                  //это для заполнения таблицы ключей
         private static int ProductId;
+        private List<int> ProductIds;
         private List<SemanticsModel> smList;        //список всех семантик для выбранного продукта
 
         private List<string[]> usedK;               //храним все usedKeywords
@@ -87,6 +88,8 @@ namespace Excel_Parse
             DayCreated = false;
             CurrentDay = DateTime.Now;
 
+            GetAllProductWithSameASIN();
+
             getStarted();
         }
 
@@ -118,7 +121,8 @@ namespace Excel_Parse
 
             DayCreated = false;
             CurrentDay = DateTime.Now;
-            
+
+            GetAllProductWithSameASIN();
 
             getStarted();
         }
@@ -163,10 +167,12 @@ namespace Excel_Parse
             btn_ReplaceTexts.Text = "S\nw\na\np\n";
             reverseDescriptionTransform = true;
 
+            GetAllProductWithSameASIN();
+
             getDBFieldsLength();
             getDBKeywords();
             //getDBFields();
-
+            CountKeys();
             CheckForUnsavedChanges = false;
         }
 
@@ -182,12 +188,13 @@ namespace Excel_Parse
             getDBFields();
 
             CheckForUnsavedChanges = false;
+            CountKeys();
         }
 
         /* Заполняем значения длин для полей с БД */
         private void getDBFieldsLength()
         {
-            string sqlSemanticsIds = "SELECT * FROM FieldsLength WHERE ProductId = " + ProductId;
+            string sqlSemanticsIds = "SELECT * FROM FieldsLength WHERE [ProductId] = " + ProductId;
             SqlCommand command = new SqlCommand(sqlSemanticsIds, connection);
 
             try
@@ -953,7 +960,7 @@ namespace Excel_Parse
 
                 DayCreated = true;
                 newItem = true;
-                CurrentDay = DateTime.Now;
+                //CurrentDay = DateTime.Now;
             }
             else
             {
@@ -1587,56 +1594,68 @@ namespace Excel_Parse
             string sqlStatements;
             smList[index].UpdateDate = DateTime.Now;
 
-            if (!firstSaveDone)     //если первый раз за сегодня сохраняем изменения в семантику
+            bool success = false; 
+
+            for (int i = 0; i < ProductIds.Count; i++)
             {
-                sqlStatements = "INSERT INTO [Semantics] ([ProductId], [Title], [Bullet1], [Bullet2], [Bullet3], [Bullet4], [Bullet5], [Backend], [Description], [OtherAttributes1], [OtherAttributes2], [OtherAttributes3], [OtherAttributes4], [OtherAttributes5], [IntendedUse1], [IntendedUse2], [IntendedUse3], [IntendedUse4], [IntendedUse5], [SubjectMatter1], [SubjectMatter2], [SubjectMatter3], [SubjectMatter4], [SubjectMatter5], [UpdateDate], [Notes], [UsedKeywords]) VALUES (" + ProductId + ", '" + smList[index].Title + "', '" + smList[index].Bullet1 + "', '" + smList[index].Bullet2 + "', '" + smList[index].Bullet3 + "', '" + smList[index].Bullet4 + "', '" + smList[index].Bullet5 + "', '" + smList[index].Backend + "', '" + smList[index].Description + "', '" + smList[index].OtherAttributes1 + "', '" + smList[index].OtherAttributes2 + "', '" + smList[index].OtherAttributes3 + "', '" + smList[index].OtherAttributes4 + "', '" + smList[index].OtherAttributes5 + "', '" + smList[index].IntendedUse1 + "', '" + smList[index].IntendedUse2 + "', '" + smList[index].IntendedUse3 + "', '" + smList[index].IntendedUse4 + "', '" + smList[index].IntendedUse5 + "', '" + smList[index].SubjectMatter1 + "', '" + smList[index].SubjectMatter2 + "', '" + smList[index].SubjectMatter3 + "', '" + smList[index].SubjectMatter4 + "', '" + smList[index].SubjectMatter5 + "', '" + CurrentDay.ToString("yyyy-MM-dd HH':'mm':'ss") + "', '" + smList[index].Notes + "', '" + smList[index].UsedKeywords + "')";
-
-                firstSaveDone = true;
-
-                try
+                if (!firstSaveDone)     //если первый раз за сегодня сохраняем изменения в семантику
                 {
-                    connection.Open();
-                    SqlCommand command = new SqlCommand(sqlStatements, connection);
-                    command.ExecuteScalar();
-                    connection.Close();
+                    sqlStatements = "INSERT INTO [Semantics] ([ProductId], [Title], [Bullet1], [Bullet2], [Bullet3], [Bullet4], [Bullet5], [Backend], [Description], [OtherAttributes1], [OtherAttributes2], [OtherAttributes3], [OtherAttributes4], [OtherAttributes5], [IntendedUse1], [IntendedUse2], [IntendedUse3], [IntendedUse4], [IntendedUse5], [SubjectMatter1], [SubjectMatter2], [SubjectMatter3], [SubjectMatter4], [SubjectMatter5], [UpdateDate], [Notes], [UsedKeywords]) VALUES (" + ProductIds[i] + ", '" + smList[index].Title + "', '" + smList[index].Bullet1 + "', '" + smList[index].Bullet2 + "', '" + smList[index].Bullet3 + "', '" + smList[index].Bullet4 + "', '" + smList[index].Bullet5 + "', '" + smList[index].Backend + "', '" + smList[index].Description + "', '" + smList[index].OtherAttributes1 + "', '" + smList[index].OtherAttributes2 + "', '" + smList[index].OtherAttributes3 + "', '" + smList[index].OtherAttributes4 + "', '" + smList[index].OtherAttributes5 + "', '" + smList[index].IntendedUse1 + "', '" + smList[index].IntendedUse2 + "', '" + smList[index].IntendedUse3 + "', '" + smList[index].IntendedUse4 + "', '" + smList[index].IntendedUse5 + "', '" + smList[index].SubjectMatter1 + "', '" + smList[index].SubjectMatter2 + "', '" + smList[index].SubjectMatter3 + "', '" + smList[index].SubjectMatter4 + "', '" + smList[index].SubjectMatter5 + "', '" + CurrentDay.ToString("yyyy-MM-dd HH':'mm':'ss") + "', '" + smList[index].Notes + "', '" + smList[index].UsedKeywords + "')";
 
-                    CheckForUnsavedChanges = false;
-                    setDBFieldsLength();
+                    try
+                    {
+                        connection.Open();
+                        SqlCommand command = new SqlCommand(sqlStatements, connection);
+                        command.ExecuteScalar();
+                        connection.Close();
 
-                    semanticsId = getSavedSemanticsId();
-                    MessageBox.Show("Данные были сохранены успешно!", "Успешно");
+                        CheckForUnsavedChanges = false;
+                        setDBFieldsLength();
 
-                    if (isNew)      //если это создание новой семантики, то сразу закрываем окно
-                        this.Close();
+                        semanticsId = getSavedSemanticsId();
+                        
+                        success = true;
+                        
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show("Упс! Произошел какой-то сбой, попробуйте еще раз!", "Ошибка");
+                        success = false;
+                        Environment.Exit(0);
+                    }
                 }
-                catch (Exception e)
+                else            //если сегодня уже сохранили изменения один раз, чтобы не создавать дубли в БД, то просто апдейтим
                 {
-                    MessageBox.Show("Упс! Произошел какой-то сбой, попробуйте еще раз!", "Ошибка");
-                    Environment.Exit(0);
+                    sqlStatements = "UPDATE [Semantics] SET [ProductId] = " + ProductIds[i] + ", [Title] = '" + smList[index].Title + "', [Bullet1] = '" + smList[index].Bullet1 + "', [Bullet2] = '" + smList[index].Bullet2 + "', [Bullet3] = '" + smList[index].Bullet3 + "', [Bullet4] = '" + smList[index].Bullet4 + "', [Bullet5] = '" + smList[index].Bullet5 + "', [Backend] = '" + smList[index].Backend + "', [Description] = '" + smList[index].Description + "', [OtherAttributes1] = '" + smList[index].OtherAttributes1 + "', [OtherAttributes2] = '" + smList[index].OtherAttributes2 + "', [OtherAttributes3] = '" + smList[index].OtherAttributes3 + "', [OtherAttributes4] = '" + smList[index].OtherAttributes4 + "', [OtherAttributes5] = '" + smList[index].OtherAttributes5 + "', [IntendedUse1] = '" + smList[index].IntendedUse1 + "', [IntendedUse2] = '" + smList[index].IntendedUse2 + "', [IntendedUse3] = '" + smList[index].IntendedUse3 + "', [IntendedUse4] = '" + smList[index].IntendedUse4 + "', [IntendedUse5] = '" + smList[index].IntendedUse5 + "', [SubjectMatter1] = '" + smList[index].SubjectMatter1 + "', [SubjectMatter2] = '" + smList[index].SubjectMatter2 + "', [SubjectMatter3] = '" + smList[index].SubjectMatter3 + "', [SubjectMatter4] = '" + smList[index].SubjectMatter4 + "', [SubjectMatter5] = '" + smList[index].SubjectMatter5 + "', [UpdateDate] = '" + CurrentDay.ToString("yyyy-MM-dd HH':'mm':'ss") + "', [Notes] = '" + smList[index].Notes + "', [UsedKeywords] = '" + smList[index].UsedKeywords + "' WHERE [ProductId] = " + ProductIds[i] + " AND [UpdateDate] = '" + CurrentDay.ToString("yyyy-MM-dd HH':'mm':'ss") + "'";
+
+                    try
+                    {
+                        connection.Open();
+                        SqlCommand command = new SqlCommand(sqlStatements, connection);
+                        command.ExecuteScalar();
+                        connection.Close();
+
+                        CheckForUnsavedChanges = false;
+                        setDBFieldsLength();
+
+                        //MessageBox.Show("Данные были сохранены успешно!", "Успешно");
+                        success = true;
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show("Упс! Произошел какой-то сбой, попробуйте еще раз!", "Ошибка");
+                        success = false;
+                        Environment.Exit(0);
+                    }
                 }
             }
-            else            //если сегодня уже сохранили изменения один раз, чтобы не создавать дубли в БД, то просто апдейтим
-            {
-                sqlStatements = "UPDATE [Semantics] SET [ProductId] = " + ProductId + ", [Title] = '" + smList[index].Title + "', [Bullet1] = '" + smList[index].Bullet1 + "', [Bullet2] = '" + smList[index].Bullet2 + "', [Bullet3] = '" + smList[index].Bullet3 + "', [Bullet4] = '" + smList[index].Bullet4 + "', [Bullet5] = '" + smList[index].Bullet5 + "', [Backend] = '" + smList[index].Backend + "', [Description] = '" + smList[index].Description + "', [OtherAttributes1] = '" + smList[index].OtherAttributes1 + "', [OtherAttributes2] = '" + smList[index].OtherAttributes2 + "', [OtherAttributes3] = '" + smList[index].OtherAttributes3 + "', [OtherAttributes4] = '" + smList[index].OtherAttributes4 + "', [OtherAttributes5] = '" + smList[index].OtherAttributes5 + "', [IntendedUse1] = '" + smList[index].IntendedUse1 + "', [IntendedUse2] = '" + smList[index].IntendedUse2 + "', [IntendedUse3] = '" + smList[index].IntendedUse3 + "', [IntendedUse4] = '" + smList[index].IntendedUse4 + "', [IntendedUse5] = '" + smList[index].IntendedUse5 + "', [SubjectMatter1] = '" + smList[index].SubjectMatter1 + "', [SubjectMatter2] = '" + smList[index].SubjectMatter2 + "', [SubjectMatter3] = '" + smList[index].SubjectMatter3 + "', [SubjectMatter4] = '" + smList[index].SubjectMatter4 + "', [SubjectMatter5] = '" + smList[index].SubjectMatter5 + "', [UpdateDate] = '" + CurrentDay.ToString("yyyy-MM-dd HH':'mm':'ss") + "', [Notes] = '" + smList[index].Notes + "', [UsedKeywords] = '" + smList[index].UsedKeywords + "' WHERE [ASIN] = '" + lb_ASIN.Text + "'";
 
-                try
-                {
-                    connection.Open();
-                    SqlCommand command = new SqlCommand(sqlStatements, connection);
-                    command.ExecuteScalar();
-                    connection.Close();
 
-                    CheckForUnsavedChanges = false;
-                    setDBFieldsLength();
-                    
-                    MessageBox.Show("Данные были сохранены успешно!", "Успешно");
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show("Упс! Произошел какой-то сбой, попробуйте еще раз!", "Ошибка");
-                    Environment.Exit(0);
-                }
-            }
+            firstSaveDone = true;
+            if (success)
+                MessageBox.Show("Данные были сохранены успешно!", "Успешно");
+            if (isNew)      //если это создание новой семантики, то сразу закрываем окно
+                this.Close();
         }
 
         /* Получаем SemanticsId для последней созданной семантики и используем его, чтобы в этом сеансе обновлять эту семантику, а не плодить дубликаты */
@@ -1684,18 +1703,21 @@ namespace Excel_Parse
         {
             //Try-catch отслеживаем в методе setDBFields()
             string sqlStatement = "";
-            if (!isNew)     //указываем, что семантику мы редактируем, а не создаем новую
+            for (int i = 0; i < ProductIds.Count; i++)
             {
-                sqlStatement = "UPDATE [FieldsLength] SET [TitleLength] = " + TitleLength + ", [BulletsLength] = " + BulletsLength + ", [BackendLength] = " + BackendLength + ", [SubjectMatterLength] = " + SubjectMatterLength + ", [OtherAttributesLength] = " + OtherAttributesLength + ", [IntendedUseLength] = " + IntendedUseLength + ", [DescriptionLength] = " + DescriptionLength + ", [CountBulSpaces] = '" + CountBulSpaces + "' WHERE [ProductId] = " + ProductId + "";
+                if (!isNew)     //указываем, что семантику мы редактируем, а не создаем новую
+                {
+                    sqlStatement = "UPDATE [FieldsLength] SET [TitleLength] = " + TitleLength + ", [BulletsLength] = " + BulletsLength + ", [BackendLength] = " + BackendLength + ", [SubjectMatterLength] = " + SubjectMatterLength + ", [OtherAttributesLength] = " + OtherAttributesLength + ", [IntendedUseLength] = " + IntendedUseLength + ", [DescriptionLength] = " + DescriptionLength + ", [CountBulSpaces] = '" + CountBulSpaces + "' WHERE [ProductId] = " + ProductIds[i];
+                }
+                else        //указываем, что семантика новая и данных для редактирования ещё не существует
+                {
+                    sqlStatement = "INSERT INTO [FieldsLength] ([TitleLength], [BulletsLength], [BackendLength], [SubjectMatterLength], [OtherAttributesLength], [IntendedUseLength], [DescriptionLength], [ProductId], [CountBulSpaces]) VALUES (" + TitleLength + ", " + BulletsLength + ", " + BackendLength + ", " + SubjectMatterLength + ", " + OtherAttributesLength + ", " + IntendedUseLength + ", " + DescriptionLength + ", " + ProductIds[i] + ", '" + CountBulSpaces + "')";
+                }
+                connection.Open();
+                SqlCommand command = new SqlCommand(sqlStatement, connection);
+                command.ExecuteScalar();
+                connection.Close();
             }
-            else        //указываем, что семантика новая и данных для редактирования ещё не существует
-            {
-                sqlStatement = "INSERT INTO [FieldsLength] ([TitleLength], [BulletsLength], [BackendLength], [SubjectMatterLength], [OtherAttributesLength], [IntendedUseLength], [DescriptionLength], [ProductId], [CountBulSpaces]) VALUES (" + TitleLength + ", " + BulletsLength + ", " + BackendLength + ", " + SubjectMatterLength + ", " + OtherAttributesLength + ", " + IntendedUseLength + ", " + DescriptionLength + ", " + ProductId + ", '" + CountBulSpaces + "')";
-            }
-            connection.Open();
-            SqlCommand command = new SqlCommand(sqlStatement, connection);
-            command.ExecuteScalar();
-            connection.Close();
         }
         
 
@@ -1749,6 +1771,46 @@ namespace Excel_Parse
                 controlIndexingView.Show();
             }
         }
+
+        /* Получаем список всех товаров с таким же ASIN, чтобы потом продублировать семантику и все изменения на них, т.к. один ASIN = один товар и не важно, что SKU разные */
+        private void GetAllProductWithSameASIN()
+        {
+            string sqlStatements;
+            sqlStatements = "SELECT [ProductId] FROM [Products] WHERE [ASIN] = '" + ASIN + "'";
+            IDataRecord record;
+            ProductIds = new List<int> { };
+
+            SqlCommand command = new SqlCommand(sqlStatements, connection);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        record = (IDataRecord)reader;
+                        ProductIds.Add(int.Parse(record[0].ToString()));
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No rows found.");
+                }
+                reader.Close();
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Упс! Возникла проблема с подключением к БД :( Приложение будет закрыто", "Ошибка");
+                this.Close();
+            }
+        }
+
+
 
         #endregion
 

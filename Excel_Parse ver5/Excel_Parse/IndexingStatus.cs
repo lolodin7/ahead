@@ -18,7 +18,9 @@ namespace Excel_Parse
         private string ASIN;
         private string SKU;
         private DateTime Date;
-        
+
+        private List<int> ProductIds;
+
         private SqlConnection connection;
         private SqlCommand command;
 
@@ -41,6 +43,8 @@ namespace Excel_Parse
             controlIndexingView = _mf;
             firstLoad = true;
 
+            GetAllProductWithSameASIN();
+
             this.Text = ProductName + " : " + ASIN;
         }
 
@@ -49,14 +53,16 @@ namespace Excel_Parse
         private void btn_Ok_Click(object sender, EventArgs e)
         {
             //сохраняем в БД со статусом Ок без каких-либо Notes
+            for (int i = 0; i < ProductIds.Count; i++)
+            {
+                string sqlStatement = "INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status], [Notes]) VALUES (" + ProductId + ", '" + ASIN + "', '" + Date.ToString("yyyy-MM-dd") + "', 'Ok', '')";
 
-            string sqlStatement = "INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status], [Notes]) VALUES (" + ProductId + ", '" + ASIN + "', '" + Date.ToString("yyyy-MM-dd") + "', 'Ok', '')";
+                command = new SqlCommand(sqlStatement, connection);
 
-            command = new SqlCommand(sqlStatement, connection);
-
-            connection.Open();
-            command.ExecuteScalar();
-            connection.Close();
+                connection.Open();
+                command.ExecuteScalar();
+                connection.Close();
+            }
 
             //если всё хорошо, то
             this.Close();
@@ -66,15 +72,16 @@ namespace Excel_Parse
         private void btn_Closed_Click(object sender, EventArgs e)
         {
             //сохраняем в БД со статусом Closed без каких-либо Notes
-            
-            string sqlStatement = "INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status], [Notes]) VALUES (" + ProductId + ", '" + ASIN + "', '" + Date.ToString("yyyy-MM-dd") + "', 'Closed', '')";
+            for (int i = 0; i < ProductIds.Count; i++)
+            {
+                string sqlStatement = "INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status], [Notes]) VALUES (" + ProductId + ", '" + ASIN + "', '" + Date.ToString("yyyy-MM-dd") + "', 'Closed', '')";
 
-            command = new SqlCommand(sqlStatement, connection);
+                command = new SqlCommand(sqlStatement, connection);
 
-            connection.Open();
-            command.ExecuteScalar();
-            connection.Close();
-
+                connection.Open();
+                command.ExecuteScalar();
+                connection.Close();
+            }
             //если всё хорошо, то
             this.Close();
         }
@@ -109,6 +116,45 @@ namespace Excel_Parse
             else            //если первый запуск формы
             {
                 firstLoad = false;
+            }
+        }
+
+
+        /* Получаем список всех товаров с таким же ASIN, чтобы потом продублировать индексацию на них, т.к. один ASIN = один товар и не важно, что SKU разные */
+        private void GetAllProductWithSameASIN()
+        {
+            string sqlStatements;
+            sqlStatements = "SELECT [ProductId] FROM [Products] WHERE [ASIN] = '" + ASIN + "'";
+            IDataRecord record;
+            ProductIds = new List<int> { };
+
+            SqlCommand command = new SqlCommand(sqlStatements, connection);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        record = (IDataRecord)reader;
+                        ProductIds.Add(int.Parse(record[0].ToString()));
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No rows found.");
+                }
+                reader.Close();
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Упс! Возникла проблема с подключением к БД :( Приложение будет закрыто", "Ошибка");
+                this.Close();
             }
         }
     }

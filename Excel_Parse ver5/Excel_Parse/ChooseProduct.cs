@@ -331,7 +331,8 @@ namespace Excel_Parse
         /* Открываем семантику для выбранного товара по двойному ЛКМ по ячейке товара в таблице */
         private void dgv_Products_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            openSemantics();
+            if (dgv_Products.RowCount > 0)
+                openSemantics();
         }
 
         /* Открываем семантику для выбранного товара */
@@ -344,6 +345,7 @@ namespace Excel_Parse
         {
             if (mf != null)                //если вызвали из MainForm
             {
+                if (dgv_Products.RowCount > 0) { 
                 ProductId = int.Parse(dgv_Products.Rows[dgv_Products.CurrentCellAddress.Y].Cells[0].Value.ToString());
                 string _productName = dgv_Products.Rows[dgv_Products.CurrentCellAddress.Y].Cells[1].Value.ToString();
                 string _asin = dgv_Products.Rows[dgv_Products.CurrentCellAddress.Y].Cells[2].Value.ToString();
@@ -386,6 +388,11 @@ namespace Excel_Parse
                     OpenSuccess = true;
                     semantics.Show();
                     this.Close();
+                }
+            }
+                else
+                {
+                    MessageBox.Show("Семантику не выбрано." , "Ошибка");
                 }
             }
         }

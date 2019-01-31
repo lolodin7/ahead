@@ -33,6 +33,10 @@ namespace Excel_Parse
 
         private int currentProductTypeId = -1;
 
+        public bool NoProdType { get; set; }
+        public bool NoKeyCat { get; set; }
+
+
         /* Конструктор */
         public SemCoreView(MainFormView _mf)
         {
@@ -45,7 +49,10 @@ namespace Excel_Parse
             kcController = new KeywordCategoryController(this);
             ptController = new ProductTypesController(this);
 
-            ptController.GetProductTypesAll();
+            NoProdType = false;
+            NoKeyCat = false;
+
+                ptController.GetProductTypesAll();
             Fill_CB_ByProductTypes();
             kcController.GetKeywordCategoriesByProductId(currentProductTypeId);
             Fill_CB_ByKeywordCategories();
@@ -180,24 +187,40 @@ namespace Excel_Parse
         /* Заполняем cb_ProductType данными с ptList */
         private void Fill_CB_ByProductTypes()
         {
-            cb_ProductType.Items.Clear();
-            for (int i = 0; i < ptList.Count; i++)
+            if (ptList.Count > 0)
             {
-                cb_ProductType.Items.Add(ptList[i].TypeName);
+                cb_ProductType.Items.Clear();
+                for (int i = 0; i < ptList.Count; i++)
+                {
+                    cb_ProductType.Items.Add(ptList[i].TypeName);
+                }
+                cb_ProductType.SelectedItem = cb_ProductType.Items[0];
             }
-            cb_ProductType.SelectedItem = cb_ProductType.Items[0];
+            else
+            {
+                MessageBox.Show("Видимо, в системе нет ни одного вида товара. Для работы в этом разделе, пожалуйста, сначала добавьте хотя бы один вид товара.", "Ошибка");
+                NoProdType = true;
+            }
         }
 
         /* Заполняем cb_KeywordCategory данными с kcList */
         private void Fill_CB_ByKeywordCategories()
         {
-            cb_KeywordCategory.Items.Clear();
-            for (int i = 0; i < kcList.Count; i++)
-            {
-                cb_KeywordCategory.Items.Add(kcList[i].CategoryName);
-            }
             if (kcList.Count > 0)
-                cb_KeywordCategory.SelectedItem = cb_KeywordCategory.Items[0];
+            {
+                cb_KeywordCategory.Items.Clear();
+                for (int i = 0; i < kcList.Count; i++)
+                {
+                    cb_KeywordCategory.Items.Add(kcList[i].CategoryName);
+                }
+                if (kcList.Count > 0)
+                    cb_KeywordCategory.SelectedItem = cb_KeywordCategory.Items[0];
+            }
+            else
+            {
+                MessageBox.Show("Видимо, в системе нет ни одной категории ключей. Для работы в этом разделе, пожалуйста, сначала добавьте хотя бы одну категорию ключей.", "Ошибка");
+                NoKeyCat = true;
+            }
         }
         
         /* Обработчик нажатия клавиши в dgv_Source */

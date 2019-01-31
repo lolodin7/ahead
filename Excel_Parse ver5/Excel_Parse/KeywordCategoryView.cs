@@ -32,6 +32,8 @@ namespace Excel_Parse
         private bool renamingInProgress;        //указатель, что сейчас идет процесс переименования выбранной категории
         private int renamedCategoryId;
 
+        public bool HardClose { get; set; }
+
         /* Конструктор */
         public KeywordCategoryView(SemCoreRebuildView _mf)
         {
@@ -39,6 +41,8 @@ namespace Excel_Parse
 
             kcController = new KeywordCategoryController(this);
             ptController = new ProductTypesController(this);
+
+            HardClose = false;
 
             connection = DBData.GetDBConnection();
             controlSemCoreRebuildView = _mf;
@@ -58,6 +62,8 @@ namespace Excel_Parse
             kcController = new KeywordCategoryController(this);
             ptController = new ProductTypesController(this);
 
+            HardClose = false;
+
             connection = DBData.GetDBConnection();
             controlMainFormView = _mf;
 
@@ -76,6 +82,8 @@ namespace Excel_Parse
             kcController = new KeywordCategoryController(this);
             ptController = new ProductTypesController(this);
 
+            HardClose = false;
+
             connection = DBData.GetDBConnection();
             controlSemCoreView = _mf;
 
@@ -89,17 +97,25 @@ namespace Excel_Parse
         /* Заполняем cb_ProductTypes */
         private void fill_cb_ProductTypes()
         {
-            cb_ShownProductType.Items.Clear();
-            cb_ShownProductType.Items.Add("Все");
-            cb_ProductType.Items.Clear();
-
-            for (int i = 0; i < fullPTList.Count; i++)
+            if (fullPTList.Count > 0)
             {
-                cb_ProductType.Items.Add(fullPTList[i].TypeName);
-                cb_ShownProductType.Items.Add(fullPTList[i].TypeName);
+                cb_ShownProductType.Items.Clear();
+                cb_ShownProductType.Items.Add("Все");
+                cb_ProductType.Items.Clear();
+
+                for (int i = 0; i < fullPTList.Count; i++)
+                {
+                    cb_ProductType.Items.Add(fullPTList[i].TypeName);
+                    cb_ShownProductType.Items.Add(fullPTList[i].TypeName);
+                }
+                cb_ProductType.SelectedItem = cb_ProductType.Items[0];
+                cb_ShownProductType.SelectedItem = cb_ShownProductType.Items[0];
             }
-            cb_ProductType.SelectedItem = cb_ProductType.Items[0];
-            cb_ShownProductType.SelectedItem = cb_ShownProductType.Items[0];
+            else
+            {
+                MessageBox.Show("Видимо, в системе нет ни одного вида товара. Для работы в этом разделе, пожалуйста, сначала добавьте хотя бы один вид товара.", "Ошибка");
+                HardClose = true;
+            }
         }
 
         /* Перерисовываем таблицу новыми данными */

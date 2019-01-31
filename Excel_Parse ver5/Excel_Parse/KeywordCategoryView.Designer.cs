@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KeywordCategoryView));
             this.lb_ProductName = new System.Windows.Forms.GroupBox();
+            this.btn_Help = new System.Windows.Forms.Button();
             this.tb_ProductTypeId = new System.Windows.Forms.TextBox();
             this.cb_ProductType = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -50,7 +51,6 @@
             this.tb_ShownProductTypes = new System.Windows.Forms.TextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.btn_Help = new System.Windows.Forms.Button();
             this.lb_ProductName.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_KeywordCategory)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -73,6 +73,16 @@
             this.lb_ProductName.TabIndex = 3;
             this.lb_ProductName.TabStop = false;
             this.lb_ProductName.Text = "Добавление новой категории ключей";
+            // 
+            // btn_Help
+            // 
+            this.btn_Help.Location = new System.Drawing.Point(578, 127);
+            this.btn_Help.Name = "btn_Help";
+            this.btn_Help.Size = new System.Drawing.Size(24, 24);
+            this.btn_Help.TabIndex = 9;
+            this.btn_Help.Text = "?";
+            this.btn_Help.UseVisualStyleBackColor = true;
+            this.btn_Help.Click += new System.EventHandler(this.btn_Help_Click);
             // 
             // tb_ProductTypeId
             // 
@@ -250,16 +260,6 @@
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(161, 22);
             this.toolStripMenuItem1.Text = "Переименовать";
-            // 
-            // btn_Help
-            // 
-            this.btn_Help.Location = new System.Drawing.Point(578, 127);
-            this.btn_Help.Name = "btn_Help";
-            this.btn_Help.Size = new System.Drawing.Size(24, 24);
-            this.btn_Help.TabIndex = 9;
-            this.btn_Help.Text = "?";
-            this.btn_Help.UseVisualStyleBackColor = true;
-            this.btn_Help.Click += new System.EventHandler(this.btn_Help_Click);
             // 
             // KeywordCategoryView
             // 
