@@ -191,11 +191,6 @@ C:\AheadProject\Excel_Parse ver5\Excel_Parse\bin\Debug\EPPlus.xml
 C:\AheadProject\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.StartImage.resources
 C:\AheadProject\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.IndexingDetails.resources
 C:\AheadProject\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.IndexingStatus.resources
-C:\Bona Fides\Excel_Parse ver5\Excel_Parse\bin\Debug\Excel_Parse.exe.config
-C:\Bona Fides\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.exe
-C:\Bona Fides\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.pdb
-C:\Bona Fides\Excel_Parse ver5\Excel_Parse\bin\Debug\Excel_Parse.exe
-C:\Bona Fides\Excel_Parse ver5\Excel_Parse\bin\Debug\Excel_Parse.pdb
 C:\Bona Fides\Excel_Parse ver5\Excel_Parse\bin\Debug\EPPlus.dll
 C:\Bona Fides\Excel_Parse ver5\Excel_Parse\bin\Debug\EPPlus.xml
 C:\Bona Fides\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.csprojResolveAssemblyReference.cache
@@ -212,9 +207,14 @@ C:\Bona Fides\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.MainFormView.re
 C:\Bona Fides\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.ProductsView.resources
 C:\Bona Fides\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.ProductTypesView.resources
 C:\Bona Fides\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.SemCoreView.resources
-C:\Bona Fides\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.Properties.Resources.resources
 C:\Bona Fides\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.SemanticsView.resources
 C:\Bona Fides\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.SemCoreRebuildView.resources
 C:\Bona Fides\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.csproj.GenerateResource.Cache
 C:\Bona Fides\Excel_Parse ver5\Excel_Parse\bin\Debug\MySql.Data.DLL
 C:\Bona Fides\Excel_Parse ver5\Excel_Parse\obj\Debug\Excel_Parse.About.resources
+C:\Bona Fides\Excel_Parse ver5\Excel_Parse\bin\Debug\Bona Fides.exe.config
+C:\Bona Fides\Excel_Parse ver5\Excel_Parse\bin\Debug\Bona Fides.exe
+C:\Bona Fides\Excel_Parse ver5\Excel_Parse\bin\Debug\Bona Fides.pdb
+C:\Bona Fides\Excel_Parse ver5\Excel_Parse\obj\Debug\Bona_Fides.Properties.Resources.resources
+C:\Bona Fides\Excel_Parse ver5\Excel_Parse\obj\Debug\Bona Fides.exe
+C:\Bona Fides\Excel_Parse ver5\Excel_Parse\obj\Debug\Bona Fides.pdb

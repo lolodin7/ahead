@@ -20,8 +20,36 @@ GO
 USE AHEAD
 GO
 
+/*         -- [MarketPlaceName] --             */
 INSERT INTO [Marketplace] ([MarketPlaceName])
 VALUES ('Без маркетплейса')
+
+
+/*         -- [ProductTypes] --             */
+INSERT INTO [ProductTypes] ([TypeName])
+VALUES ('Отсутствующие товары')
+
+
+/*         -- [Products] --             */
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
+VALUES ('Товар отсутствует', '-', '-', 0, 0, 'false')
+
+
+/*         -- [KeywordCategory] --             */
+INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
+VALUES ('Пустая категория', 0)
+
+
+
+
+
+
+
+USE AHEAD
+GO
+
+
+/*         -- [MarketPlaceName] --             */
 
 INSERT INTO [Marketplace] ([MarketPlaceName])
 VALUES ('PowerDeWise - USA')
@@ -41,9 +69,8 @@ VALUES ('LaFit - USA')
 INSERT INTO [Marketplace] ([MarketPlaceName])
 VALUES ('PowerDeWise - AU')
 
+
 /*         -- [ProductTypes] --             */
-INSERT INTO [ProductTypes] ([TypeName])
-VALUES ('Отсутствующие товары')
 
 INSERT INTO [ProductTypes] ([TypeName])
 VALUES ('Микрофоны')
@@ -75,8 +102,6 @@ VALUES ('Ветрозащита для микрофонов')
 
 
 /*         -- [Products] --             */
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('Товар отсутствует', '-', '-', 0, 1, 'false')
 
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
 VALUES ('YouMic Main Microphone', 'B01E3L1ESS', '8R-MO3B-ZV8H', 1, 1, 'false')
@@ -182,23 +207,6 @@ VALUES ('PDW Microphone Clip', 'B01LZ6T9XO', '1N-NPIV-XHND', 8, 1, 'true')
 
 
 /*         -- [KeywordCategory] --             */
-INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
-VALUES ('Пустая категория', 0)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
 VALUES ('Lavalier Mic', 1)
@@ -267,6 +275,8 @@ VALUES (200, 100, 250, 50, 100, 100, 2000, 1)
 INSERT INTO [FieldsLength] ([TitleLength], [BulletsLength], [BackendLength], [SubjectMatterLength], [OtherAttributesLength], [IntendedUseLength], [DescriptionLength], [ProductId])
 VALUES (200, 100, 250, 150, 150, 150, 2000, 2)
 
+
+/*         -- [Indexing] --             */
 
 INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status] ,[Notes]) 
 VALUES (1, 'B01E3L1ESS', '2018-12-27', 'Not Ok', 'не в индексе@проблема с 1м буллетом@@@проблема с 4м буллетом@@@')

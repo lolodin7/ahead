@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Excel_Parse", "Excel_Parse\Excel_Parse.csproj", "{58A67637-1298-439E-B798-93170A84B489}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bona_Fides", "Excel_Parse\Bona_Fides.csproj", "{58A67637-1298-439E-B798-93170A84B489}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

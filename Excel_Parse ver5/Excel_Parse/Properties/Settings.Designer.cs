@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Excel_Parse.Properties {
+namespace Bona_Fides.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

@@ -102,6 +102,7 @@ select * from KeywordCategory
 
 
 
+
 SELECT COUNT(SemanticsId) FROM semantics WHERE [ProductId] = 14
 
 SELECT COUNT(SemanticsId) FROM semantics WHERE [ProductId] = getProductIdByASIN(1)
@@ -128,3 +129,12 @@ select * from semcore where [semcoreid] = 93
 SELECT * FROM SemCore WHERE [Keyword] = 'mini microphone'
 SELECT * FROM SemCore WHERE [Keyword] = 'mic mini'
 SELECT * FROM SemCore WHERE [Keyword] = 'mini mic'
+
+select * from products
+
+
+
+
+SELECT ProductId FROM Products Where [ASIN] = 'B01AG56HYQ'
+
+select * from indexing
