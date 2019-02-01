@@ -30,11 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SemCoreView));
             this.dgv_Source = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgv_Target = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lb_ProductType = new System.Windows.Forms.Label();
             this.cb_ProductType = new System.Windows.Forms.ComboBox();
             this.cb_KeywordCategory = new System.Windows.Forms.ComboBox();
@@ -61,6 +57,11 @@
             this.tb_ProductTypeId = new System.Windows.Forms.TextBox();
             this.btn_DeselectAll = new System.Windows.Forms.Button();
             this.btn_SelectAll = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Source)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Target)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -85,25 +86,12 @@
             this.dgv_Source.ReadOnly = true;
             this.dgv_Source.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dgv_Source.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv_Source.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgv_Source.Size = new System.Drawing.Size(410, 827);
             this.dgv_Source.TabIndex = 0;
+            this.dgv_Source.Visible = false;
             this.dgv_Source.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_Source_CellDoubleClick);
             this.dgv_Source.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_Source_KeyDown);
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Keyword";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column1.Width = 250;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Value";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // dgv_Target
             // 
@@ -122,27 +110,14 @@
             this.dgv_Target.ReadOnly = true;
             this.dgv_Target.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dgv_Target.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv_Target.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgv_Target.Size = new System.Drawing.Size(410, 827);
             this.dgv_Target.TabIndex = 2;
+            this.dgv_Target.Visible = false;
             this.dgv_Target.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_Target_CellDoubleClick);
             this.dgv_Target.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgv_Target_RowsAdded);
             this.dgv_Target.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgv_Target_RowsRemoved);
             this.dgv_Target.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_Target_KeyDown);
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Keyword";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataGridViewTextBoxColumn1.Width = 250;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Value";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // lb_ProductType
             // 
@@ -404,6 +379,7 @@
             this.btn_DeselectAll.TabIndex = 20;
             this.btn_DeselectAll.Text = "Очистить";
             this.btn_DeselectAll.UseVisualStyleBackColor = true;
+            this.btn_DeselectAll.Visible = false;
             this.btn_DeselectAll.Click += new System.EventHandler(this.btn_DeselectAll_Click);
             // 
             // btn_SelectAll
@@ -414,13 +390,55 @@
             this.btn_SelectAll.TabIndex = 19;
             this.btn_SelectAll.Text = "Выделить всё";
             this.btn_SelectAll.UseVisualStyleBackColor = true;
+            this.btn_SelectAll.Visible = false;
             this.btn_SelectAll.Click += new System.EventHandler(this.btn_SelectAll_Click);
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(152, 268);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(623, 150);
+            this.label3.TabIndex = 23;
+            this.label3.Text = "Чтобы начать, нажмите \"Загрузить файл\"";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Keyword";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Column1.Width = 270;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Value";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Keyword";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn1.Width = 270;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Value";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // SemCoreView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 839);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btn_SelectAll);
             this.Controls.Add(this.btn_DeselectAll);
@@ -473,12 +491,13 @@
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.TextBox tb_OwnDelimiter;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
     }
 }
 

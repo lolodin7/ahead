@@ -152,12 +152,21 @@ namespace Excel_Parse
                                 }
                             }
                         }
+
+                        label1.Visible = false;
+                        dgv_Source.Visible = true;
+                        dgv_Target.Visible = true;
+                        btn_SelectAll.Visible = true;
+                        btn_DeselectAll.Visible = true;
+                        lb_UploadedKeys.Visible = true;
+                        lb_UpdatedKeys.Visible = true;
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show("Проблема при открытии файла. Убедитесь, что Вы выбрали файл с нужны расширением. Возможно, разметка файла не поддерживается программой.", "Ошибка при открытии");
                         dgv_Source.Rows.Clear();
                     }
+                    
                     dgv_Source.Focus();
                 }
                 else if (isExcel)
@@ -184,12 +193,21 @@ namespace Excel_Parse
                                 }
                             }
                         }
+
+                        label1.Visible = false;
+                        dgv_Source.Visible = true;
+                        dgv_Target.Visible = true;
+                        btn_SelectAll.Visible = true;
+                        btn_DeselectAll.Visible = true;
+                        lb_UploadedKeys.Visible = true;
+                        lb_UpdatedKeys.Visible = true;
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show("Проблема при открытии файла. Убедитесь, что Вы выбрали файл с нужны расширением. Возможно, разметка файла не поддерживается программой.", "Ошибка при открытии");
                         dgv_Source.Rows.Clear();
                     }
+                    
                     dgv_Source.Focus();
                 }
             }
@@ -418,7 +436,8 @@ namespace Excel_Parse
                     var index = dgv_Target.Rows.Add();
 
                     dgv_Target.Rows[index].Cells[0].Value = dgv_Source.Rows[i].Cells[0].Value.ToString();
-                    dgv_Target.Rows[index].Cells[1].Value = dgv_Source.Rows[i].Cells[1].Value.ToString();
+                    if (dgv_Source.Rows[i].Cells[1].Value != null)
+                        dgv_Target.Rows[index].Cells[1].Value = dgv_Source.Rows[i].Cells[1].Value.ToString();
                 }
 
             }
@@ -761,11 +780,14 @@ namespace Excel_Parse
 
                 this.Enabled = false;
 
+                int val = 0;
+
                 for (int i = 0; i < dgv_Source.RowCount; i++)
                 {
                     scNewList.Add(new SemCoreModel());
                     scNewList[scNewList.Count - 1].Keyword = dgv_Source.Rows[i].Cells[0].Value.ToString();
-                    scNewList[scNewList.Count - 1].Value = int.Parse(dgv_Source.Rows[i].Cells[1].Value.ToString());
+                    try { val = int.Parse(dgv_Source.Rows[i].Cells[1].Value.ToString()); } catch (Exception exx) { val = 0; }           //это если вдруг ячейка с частотой будет пустая
+                    scNewList[scNewList.Count - 1].Value = val;
 
                     if (scController.InsertNewKeyword(GetSelectedProductTypeId(), GetSelectedCategoryId(), scNewList[scNewList.Count - 1].Keyword, scNewList[scNewList.Count - 1].Value, DateTime.Now) != 1)
                     {
@@ -797,6 +819,14 @@ namespace Excel_Parse
                     dgv_Target.Rows.Clear();
                     Fill_dgv_Source_ByAddedKeys(scAddedList);
                 }
+
+                label1.Visible = true;
+                dgv_Source.Visible = false;
+                dgv_Target.Visible = false;
+                btn_SelectAll.Visible = false;
+                btn_DeselectAll.Visible = false;
+                lb_UploadedKeys.Visible = false;
+                lb_UpdatedKeys.Visible = false;
 
                 this.Enabled = true;
             }

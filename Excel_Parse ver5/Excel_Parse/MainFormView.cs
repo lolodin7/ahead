@@ -121,7 +121,9 @@ namespace Excel_Parse
 
         private void btn_DoMarketplaces_Click(object sender, EventArgs e)
         {
-
+            MarketplaceView mp = new MarketplaceView(this);
+            mp.Show();
+            this.Visible = false;
         }
     }
 }

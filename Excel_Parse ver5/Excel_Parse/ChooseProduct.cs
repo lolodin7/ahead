@@ -27,6 +27,9 @@ namespace Excel_Parse
         public ChooseProduct(MainFormView _mf)
         {
             InitializeComponent();
+
+            label2.Text = "Товары в системе отсутствуют";
+
             connection = DBData.GetDBConnection();
             pmList = new List<ProductsModel> { };
             mf = _mf;
@@ -42,6 +45,9 @@ namespace Excel_Parse
         public ChooseProduct(MainFormView _mf, bool _new)
         {
             InitializeComponent();
+
+            label2.Text = "Товары в системе отсутствуют";
+
             connection = DBData.GetDBConnection();
             pmList = new List<ProductsModel> { };
             mf = _mf;
@@ -234,6 +240,12 @@ namespace Excel_Parse
             btn_Cancel.Location = new Point(btn_Cancel.Location.X - 125, btn_Cancel.Location.Y);
             tb_FindNameField.Location = new Point(tb_FindNameField.Location.X - 125, tb_FindNameField.Location.Y);
             this.Width -= 125;
+
+            if (dgv_Products.RowCount > 0)
+            {
+                label2.Visible = false;
+                dgv_Products.Visible = true;
+            }
         }
 
         /* Заносим инфо о продуктах в dgv */
@@ -256,6 +268,12 @@ namespace Excel_Parse
             btn_Cancel.Location = new Point(btn_Cancel.Location.X - 125, btn_Cancel.Location.Y);
             tb_FindNameField.Location = new Point(tb_FindNameField.Location.X - 125, tb_FindNameField.Location.Y);
             this.Width -= 125;
+
+            if (dgv_Products.RowCount > 0)
+            {
+                label2.Visible = false;
+                dgv_Products.Visible = true;
+            }
         }
 
         /* Заполняем поля на форме инфо о продукте */

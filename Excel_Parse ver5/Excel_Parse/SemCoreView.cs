@@ -121,13 +121,19 @@ namespace Excel_Parse
                                 }
                             }
                         }
+
+                        SavedStatus = true;
+                        label3.Visible = false;
+                        dgv_Source.Visible = true;
+                        dgv_Target.Visible = true;
+                        btn_SelectAll.Visible = true;
+                        btn_DeselectAll.Visible = true;
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show("Проблема при открытии файла. Убедитесь, что Вы выбрали файл с нужны расширением. Возможно, разметка файла не поддерживается программой.", "Ошибка при открытии");
                         dgv_Source.Rows.Clear();
                     }
-                    SavedStatus = true;
                     dgv_Source.Focus();
                 } 
                 else if (isExcel)
@@ -154,14 +160,20 @@ namespace Excel_Parse
                                 }
                             }
                         }
+
+                        SavedStatus = true;
+                        label3.Visible = false;
+                        dgv_Source.Visible = true;
+                        dgv_Target.Visible = true;
+                        btn_SelectAll.Visible = true;
+                        btn_DeselectAll.Visible = true;
+                        dgv_Source.Focus();
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show("Проблема при открытии файла. Убедитесь, что Вы выбрали файл с нужны расширением. Возможно, разметка файла не поддерживается программой.", "Ошибка при открытии");
                         dgv_Source.Rows.Clear();
                     }
-                    SavedStatus = true;
-                    dgv_Source.Focus();
                 }
             }
         }
@@ -475,11 +487,13 @@ namespace Excel_Parse
             for (int i = 0; i < dgv_Target.RowCount; i++)
             {
                 index = i;
+                int val = 0;
+                try { val = int.Parse(dgv_Target.Rows[i].Cells[1].Value.ToString());  } catch (Exception exx) { val = 0; }
                 //если ключ уже есть в БД, БД выдаст ошибку -2146232060. Сверяем и записываем ключи в массив недобавленных ключей
-                if (scController.InsertNewKeyword(productType, categoryId, dgv_Target.Rows[i].Cells[0].Value.ToString(), int.Parse(dgv_Target.Rows[i].Cells[1].Value.ToString()), DateTime.Now) == -2146232060)
+                if (scController.InsertNewKeyword(productType, categoryId, dgv_Target.Rows[i].Cells[0].Value.ToString(), val, DateTime.Now) == -2146232060)
                 {
                     errors += dgv_Target.Rows[index].Cells[0].Value.ToString() + "\n";
-                    errorsToCopy += dgv_Target.Rows[index].Cells[0].Value.ToString() + "\t" + dgv_Target.Rows[index].Cells[1].Value.ToString() + "\n";
+                    errorsToCopy += dgv_Target.Rows[index].Cells[0].Value.ToString() + "\t" + val + "\n";
                 }
             }
 
@@ -503,7 +517,8 @@ namespace Excel_Parse
 
                 var index = dgv_Target.Rows.Add();
                 dgv_Target.Rows[index].Cells[0].Value = dgv_Source.Rows[i].Cells[0].Value.ToString();
-                dgv_Target.Rows[index].Cells[1].Value = dgv_Source.Rows[i].Cells[1].Value.ToString();
+                if (dgv_Source.Rows[i].Cells[1].Value != null)
+                    dgv_Target.Rows[index].Cells[1].Value = dgv_Source.Rows[i].Cells[1].Value.ToString();
             }  
         }
 

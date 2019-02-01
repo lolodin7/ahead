@@ -16,12 +16,24 @@ namespace Excel_Parse
         private List<MarketplaceModel> mpList;
 
         private ProductsView controlProductsView;
+        private MarketplaceView controlMarketPlaceView;
+        //private MarketplaceView
 
         public MarketplaceController(ProductsView _mf)
         {
             connection = DBData.GetDBConnection();
             controlProductsView = _mf;
         }
+
+        public MarketplaceController(MarketplaceView _mf)
+        {
+            connection = DBData.GetDBConnection();
+            controlMarketPlaceView = _mf;
+        }
+
+
+
+
 
         public int GetMarketplaces()
         {
@@ -30,6 +42,44 @@ namespace Excel_Parse
             return Execute_SELECT_Command(command);
         }
 
+
+        public int SetNewMarketplace(string name)
+        {
+            string sqlStatement = "INSERT INTO [Marketplace] ([MarketPlaceName]) VALUES ('" + name + "')";
+            command = new SqlCommand(sqlStatement, connection);
+            return (Execute_INSERT_Command(command));
+        }
+
+
+        public int UpdateExistingMarketplace(string name, int id)
+        {
+            string sqlStatement = "UPDATE [Marketplace] SET [MarketPlaceName] = '" + name + "' WHERE [MarketPlaceId] = " + id;
+            command = new SqlCommand(sqlStatement, connection);
+            return (Execute_INSERT_Command(command));
+        }
+
+
+
+
+
+        /* Выполняем запрос к БД и заносим полученные данные в List<SemCoreModel> */
+        private int Execute_INSERT_Command(SqlCommand _command)
+        {
+            try
+            {
+                connection.Open();
+                _command.ExecuteScalar();
+                connection.Close();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                connection.Close();
+                return ex.HResult;
+            }
+        }
+
+        /* Выполняем запрос к БД и заносим полученные данные в List<SemCoreModel> */
         private int Execute_SELECT_Command(SqlCommand _command)
         {
             mpList = new List<MarketplaceModel> { };
@@ -55,6 +105,8 @@ namespace Excel_Parse
 
                 if (controlProductsView != null)
                     controlProductsView.GetMarketPlacesFromDB(mpList);
+                else if (controlMarketPlaceView != null)
+                    controlMarketPlaceView.GetMarketPlacesFromDB(mpList);
 
                 return 1;
             }

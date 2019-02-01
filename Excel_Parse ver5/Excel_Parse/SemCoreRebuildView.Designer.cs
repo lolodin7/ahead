@@ -37,8 +37,6 @@
             this.btn_Clean = new System.Windows.Forms.Button();
             this.btn_Begin = new System.Windows.Forms.Button();
             this.dgv_Source = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgv_Target = new System.Windows.Forms.DataGridView();
             this.lb_UploadedKeys = new System.Windows.Forms.Label();
             this.lb_UpdatedKeys = new System.Windows.Forms.Label();
@@ -55,8 +53,11 @@
             this.btn_KeysAreDone = new System.Windows.Forms.Button();
             this.btn_SelectAll = new System.Windows.Forms.Button();
             this.btn_DeselectAll = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Source)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Target)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -164,28 +165,11 @@
             this.dgv_Source.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgv_Source.Size = new System.Drawing.Size(410, 807);
             this.dgv_Source.TabIndex = 15;
+            this.dgv_Source.Visible = false;
             this.dgv_Source.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_Source_CellDoubleClick);
             this.dgv_Source.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgv_Source_RowsAdded);
             this.dgv_Source.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgv_Source_RowsRemoved);
             this.dgv_Source.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_Source_KeyDown);
-            // 
-            // Column1
-            // 
-            this.Column1.FillWeight = 136.2398F;
-            this.Column1.HeaderText = "Ключ";
-            this.Column1.Name = "Column1";
-            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column1.Width = 250;
-            // 
-            // Column2
-            // 
-            this.Column2.FillWeight = 63.76023F;
-            this.Column2.HeaderText = "Частота";
-            this.Column2.Name = "Column2";
-            this.Column2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column2.Width = 117;
             // 
             // dgv_Target
             // 
@@ -206,8 +190,10 @@
             this.dgv_Target.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dgv_Target.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToFirstHeader;
             this.dgv_Target.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv_Target.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgv_Target.Size = new System.Drawing.Size(410, 807);
             this.dgv_Target.TabIndex = 16;
+            this.dgv_Target.Visible = false;
             this.dgv_Target.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_Target_CellDoubleClick);
             this.dgv_Target.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgv_Target_RowsAdded);
             this.dgv_Target.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgv_Target_RowsRemoved);
@@ -221,16 +207,18 @@
             this.lb_UploadedKeys.TabIndex = 17;
             this.lb_UploadedKeys.Text = "Новые ключи";
             this.lb_UploadedKeys.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lb_UploadedKeys.Visible = false;
             // 
             // lb_UpdatedKeys
             // 
             this.lb_UpdatedKeys.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_UpdatedKeys.Location = new System.Drawing.Point(497, 1);
+            this.lb_UpdatedKeys.Location = new System.Drawing.Point(507, 1);
             this.lb_UpdatedKeys.Name = "lb_UpdatedKeys";
             this.lb_UpdatedKeys.Size = new System.Drawing.Size(385, 23);
             this.lb_UpdatedKeys.TabIndex = 18;
             this.lb_UpdatedKeys.Text = "Обновленные ключи";
             this.lb_UpdatedKeys.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lb_UpdatedKeys.Visible = false;
             // 
             // openFileDialog1
             // 
@@ -263,7 +251,7 @@
             this.groupBox2.Controls.Add(this.radioButton1);
             this.groupBox2.Controls.Add(this.radioButton2);
             this.groupBox2.Controls.Add(this.tb_OwnDelimiter);
-            this.groupBox2.Location = new System.Drawing.Point(96, 125);
+            this.groupBox2.Location = new System.Drawing.Point(91, 125);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(93, 67);
             this.groupBox2.TabIndex = 29;
@@ -370,6 +358,7 @@
             this.btn_SelectAll.TabIndex = 21;
             this.btn_SelectAll.Text = "Выделить всё";
             this.btn_SelectAll.UseVisualStyleBackColor = true;
+            this.btn_SelectAll.Visible = false;
             this.btn_SelectAll.Click += new System.EventHandler(this.btn_CheckAll_Click);
             // 
             // btn_DeselectAll
@@ -380,7 +369,18 @@
             this.btn_DeselectAll.TabIndex = 22;
             this.btn_DeselectAll.Text = "Очистить";
             this.btn_DeselectAll.UseVisualStyleBackColor = true;
+            this.btn_DeselectAll.Visible = false;
             this.btn_DeselectAll.Click += new System.EventHandler(this.btn_UnChekAll_Click);
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(71, 268);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(759, 163);
+            this.label1.TabIndex = 23;
+            this.label1.Text = "Чтобы начать, нажмите \"Загрузить файл\"";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -390,7 +390,7 @@
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
             this.dataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataGridViewTextBoxColumn1.Width = 250;
+            this.dataGridViewTextBoxColumn1.Width = 270;
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -402,11 +402,30 @@
             this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.dataGridViewTextBoxColumn2.Width = 117;
             // 
+            // Column1
+            // 
+            this.Column1.FillWeight = 136.2398F;
+            this.Column1.HeaderText = "Ключ";
+            this.Column1.Name = "Column1";
+            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Column1.Width = 270;
+            // 
+            // Column2
+            // 
+            this.Column2.FillWeight = 63.76023F;
+            this.Column2.HeaderText = "Частота";
+            this.Column2.Name = "Column2";
+            this.Column2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Column2.Width = 117;
+            // 
             // SemCoreRebuildView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 839);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btn_SelectAll);
             this.Controls.Add(this.btn_DeselectAll);
             this.Controls.Add(this.groupBox1);
@@ -453,12 +472,13 @@
         private System.Windows.Forms.TextBox tb_OwnDelimiter;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.Button btn_SelectAll;
         private System.Windows.Forms.Button btn_DeselectAll;
         private System.Windows.Forms.Button btn_Help;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
     }

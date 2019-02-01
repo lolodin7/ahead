@@ -41,6 +41,12 @@ namespace Excel_Parse
             mpController = new MarketplaceController(this);
 
             FillAllFields();
+
+            if (dgv_Products.RowCount > 0)
+            {
+                label2.Visible = false;
+                dgv_Products.Visible = true;
+            }
         }
 
         /* Заполняем (перезаполняем после изменений) все поля на форме данными с БД */
@@ -393,6 +399,12 @@ namespace Excel_Parse
                 }
                 else
                     MessageBox.Show(errorsList, "Ошибка");
+
+                if (dgv_Products.RowCount > 0)
+                {
+                    label2.Visible = false;
+                    dgv_Products.Visible = true;
+                }
             }
             else
                 MessageBox.Show("Не все поля заполнены. Пожалуйста, заполните все поля чтобы продолжить.", "Ошибка");

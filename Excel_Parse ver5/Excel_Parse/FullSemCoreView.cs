@@ -268,6 +268,7 @@ namespace Excel_Parse
         {
             if (kcList.Count > 0)
             {
+                cb_KeywordCategory.Enabled = true;
                 cb_KeywordCategory.Items.Clear();
                 cb_KeywordCategory.Items.Add(AllKeywordCategoriesCBName);
 
@@ -285,10 +286,20 @@ namespace Excel_Parse
                 }
                 cb_KeywordCategory2.SelectedItem = cb_KeywordCategory2.Items[0];
             }
+            else if (ptList.Count > 0)
+            {
+                MessageBox.Show("В системе нет ни одной категории ключей для этого вида товара. Пожалуйста, добавьте хотя бы одну категорию ключей для продолжения.", "Ошибка");
+                label5.Text = "Упс, похоже, не найдено ни одного ключа :(";
+
+                dgv_Keywords.Visible = false;
+                label5.Visible = true;
+                cb_KeywordCategory.Enabled = false;
+
+                NoKeyCat = true;
+            }
             else
             {
                 MessageBox.Show("Видимо, в системе нет ни одной категории ключей. Для работы в этом разделе, пожалуйста, сначала добавьте хотя бы одну категорию ключей.", "Ошибка");
-                NoKeyCat = true;
             }
         }
 
@@ -333,6 +344,17 @@ namespace Excel_Parse
             fscController.GetSemCoreByProductAndCategory(GetProductTypeIdFromCB(), GetKeywordCategoryIdFromCB());
             ReDrawKeywords();
             StartKeySearch();
+            if (dgv_Keywords.RowCount > 0)
+            {
+                label5.Visible = false;
+                dgv_Keywords.Visible = true;
+            }
+            else
+            {
+                label5.Text = "Упс, похоже, не найдено ни одного ключа :(";
+                dgv_Keywords.Visible = false;
+                label5.Visible = true;
+            }
         }
 
         /* Закрытие формы */
@@ -528,18 +550,26 @@ namespace Excel_Parse
             //сохраняем в БД в зависимости от триггера, add или edit
             if (!rtb_KeyName.Text.Equals("") && !rtb_KeyValue.Text.Equals(""))
             {
+                int res;
                 if (SaveEditTrigger)
-                    fscController.SetNewKeywordToSemCore(ProductTypeId, KeyCategoryId, rtb_KeyName.Text, int.Parse(rtb_KeyValue.Text), DateTime.Now);
+                    res = fscController.SetNewKeywordToSemCore(ProductTypeId, KeyCategoryId, rtb_KeyName.Text, int.Parse(rtb_KeyValue.Text), DateTime.Now);
                 else
-                    fscController.SetEditedKeywordToSemCore(ProductTypeId, KeyCategoryId, rtb_KeyName.Text, int.Parse(rtb_KeyValue.Text), DateTime.Now, CurrentSemCoreId);
+                    res = fscController.SetEditedKeywordToSemCore(ProductTypeId, KeyCategoryId, rtb_KeyName.Text, int.Parse(rtb_KeyValue.Text), DateTime.Now, CurrentSemCoreId);
+                
+                if (res == -2146232060)
+                {
+                    MessageBox.Show("Такой ключ уже существует в системе.", "Ошибка");
+                }
+                else
+                {
+                    groupBox_Editing.Enabled = false;
+                    rtb_KeyName.Text = "";
+                    rtb_KeyValue.Text = "";
+                    cb_KeywordCategory2.SelectedItem = cb_KeywordCategory2.Items[0];
+                    cb_ProductType2.SelectedItem = cb_ProductType2.Items[0];
 
-                groupBox_Editing.Enabled = false;
-                rtb_KeyName.Text = "";
-                rtb_KeyValue.Text = "";
-                cb_KeywordCategory2.SelectedItem = cb_KeywordCategory2.Items[0];
-                cb_ProductType2.SelectedItem = cb_ProductType2.Items[0];
-
-                MessageBox.Show("Данные были успешно сохранены. Обновите таблицу, чтобы увидеть внесенные изменения.", "Успех");
+                    MessageBox.Show("Данные были успешно сохранены. Обновите таблицу, чтобы увидеть внесенные изменения.", "Успех");
+                }
             }
             else
                 MessageBox.Show("Заполните все поля!", "Ошибка");                

@@ -71,6 +71,12 @@
     <Compile Include="About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
+    <Compile Include="MarketplaceView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MarketplaceView.Designer.cs">
+      <DependentUpon>MarketplaceView.cs</DependentUpon>
+    </Compile>
     <Compile Include="SemCoreArchiveController.cs" />
     <Compile Include="SemCoreArchiveModel.cs" />
     <Compile Include="SemCoreArchiveView.cs">
@@ -190,6 +196,9 @@
     </Compile>
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MarketplaceView.resx">
+      <DependentUpon>MarketplaceView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StartImage.resx">
       <DependentUpon>StartImage.cs</DependentUpon>

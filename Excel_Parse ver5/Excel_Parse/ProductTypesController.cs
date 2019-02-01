@@ -93,6 +93,13 @@ namespace Excel_Parse
             return (Execute_INSERT_Command(command));
         }
 
+        public int UpdateExistingProductType(string name, int id)
+        {
+            string sqlStatement = "UPDATE [ProductTypes] SET [TypeName] = '" + name + "' WHERE [ProductTypeId] = " + id;
+            command = new SqlCommand(sqlStatement, connection);
+            return (Execute_INSERT_Command(command));
+        }
+
         //-------------------------------МЕТОДЫ----------------------------------------
 
 

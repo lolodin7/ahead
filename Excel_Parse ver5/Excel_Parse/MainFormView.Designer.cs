@@ -94,7 +94,7 @@
             this.btn_DoProductType.Name = "btn_DoProductType";
             this.btn_DoProductType.Size = new System.Drawing.Size(195, 81);
             this.btn_DoProductType.TabIndex = 3;
-            this.btn_DoProductType.Text = "Добавление вида товара";
+            this.btn_DoProductType.Text = "Управление видами товаров";
             this.btn_DoProductType.UseVisualStyleBackColor = false;
             this.btn_DoProductType.Click += new System.EventHandler(this.btn_DoProductType_Click);
             // 
@@ -103,7 +103,7 @@
             this.btn_DoKeywordCategory.BackColor = System.Drawing.Color.YellowGreen;
             this.btn_DoKeywordCategory.FlatAppearance.BorderSize = 0;
             this.btn_DoKeywordCategory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_DoKeywordCategory.Location = new System.Drawing.Point(12, 363);
+            this.btn_DoKeywordCategory.Location = new System.Drawing.Point(12, 352);
             this.btn_DoKeywordCategory.Name = "btn_DoKeywordCategory";
             this.btn_DoKeywordCategory.Size = new System.Drawing.Size(195, 81);
             this.btn_DoKeywordCategory.TabIndex = 4;
@@ -129,7 +129,7 @@
             this.btn_ShowAllKeywords.BackColor = System.Drawing.Color.YellowGreen;
             this.btn_ShowAllKeywords.FlatAppearance.BorderSize = 0;
             this.btn_ShowAllKeywords.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_ShowAllKeywords.Location = new System.Drawing.Point(12, 255);
+            this.btn_ShowAllKeywords.Location = new System.Drawing.Point(12, 244);
             this.btn_ShowAllKeywords.Name = "btn_ShowAllKeywords";
             this.btn_ShowAllKeywords.Size = new System.Drawing.Size(195, 81);
             this.btn_ShowAllKeywords.TabIndex = 6;
@@ -152,7 +152,7 @@
             this.btn_ShowIndexing.BackColor = System.Drawing.Color.YellowGreen;
             this.btn_ShowIndexing.FlatAppearance.BorderSize = 0;
             this.btn_ShowIndexing.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_ShowIndexing.Location = new System.Drawing.Point(313, 255);
+            this.btn_ShowIndexing.Location = new System.Drawing.Point(313, 244);
             this.btn_ShowIndexing.Name = "btn_ShowIndexing";
             this.btn_ShowIndexing.Size = new System.Drawing.Size(195, 81);
             this.btn_ShowIndexing.TabIndex = 9;
@@ -194,20 +194,20 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.aboutToolStripMenuItem.Text = "Справка";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // btn_DoMarketplaces
             // 
-            this.btn_DoMarketplaces.BackColor = System.Drawing.Color.LemonChiffon;
+            this.btn_DoMarketplaces.BackColor = System.Drawing.Color.YellowGreen;
             this.btn_DoMarketplaces.FlatAppearance.BorderSize = 0;
             this.btn_DoMarketplaces.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_DoMarketplaces.Location = new System.Drawing.Point(611, 255);
+            this.btn_DoMarketplaces.Location = new System.Drawing.Point(611, 244);
             this.btn_DoMarketplaces.Name = "btn_DoMarketplaces";
             this.btn_DoMarketplaces.Size = new System.Drawing.Size(195, 81);
             this.btn_DoMarketplaces.TabIndex = 13;
-            this.btn_DoMarketplaces.Text = "Маркетплейсы";
+            this.btn_DoMarketplaces.Text = "Управление маркетплейсами";
             this.btn_DoMarketplaces.UseVisualStyleBackColor = false;
             this.btn_DoMarketplaces.Click += new System.EventHandler(this.btn_DoMarketplaces_Click);
             // 
