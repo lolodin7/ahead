@@ -18,7 +18,7 @@ namespace Excel_Parse
         private FullSemCoreView controlFormFullSemCoreView;
         private SemCoreRebuildView controlFormSemCoreRebuildView;
         private SemanticsView controlSemanticsView;
-
+        private SemCoreArchiveView controlSemCoreArchiveView;
 
         public List<KeywordCategoryModel> kcList;       //список объектов (по факту, каждый элемент - одна строка из БД)
         public List<ProductTypesModel> ptList;
@@ -57,6 +57,14 @@ namespace Excel_Parse
             connection = DBData.GetDBConnection();
             controlFormSemCoreRebuildView = _controlForm;
         }
+        
+        /* Конструктор */
+        public KeywordCategoryController(SemCoreArchiveView _controlForm)
+        {
+            connection = DBData.GetDBConnection();
+            controlSemCoreArchiveView = _controlForm;
+        }
+
 
         public bool GetKeywordCategoriesAll()
         {
@@ -221,6 +229,8 @@ namespace Excel_Parse
                     controlFormSemCoreRebuildView.GetCategoriesFromDB(kcList);
                 else if (controlSemanticsView != null)
                     controlSemanticsView.GetCategoriesFromDB(kcList);
+                else if (controlSemCoreArchiveView != null)
+                    controlSemCoreArchiveView.GetCategoriesFromDB(kcList);
                 return true;
             }
             catch (Exception ex)

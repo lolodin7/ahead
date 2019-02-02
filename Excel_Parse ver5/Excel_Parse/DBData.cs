@@ -9,12 +9,12 @@ namespace Excel_Parse
 {
     class DBData
     {
-        private const string InitialCatalog = "AHEAD";
-        private const string DataSource = "KCRF1NH-AHEAD-M";
-        private const bool IntegratedSecurity = true;
         //private const string InitialCatalog = "AHEAD";
-        //private const string DataSource = "LOLODIN";
+        //private const string DataSource = "KCRF1NH-AHEAD-M";
         //private const bool IntegratedSecurity = true;
+        private const string InitialCatalog = "AHEAD";
+        private const string DataSource = "LOLODIN";
+        private const bool IntegratedSecurity = true;
 
         public static SqlConnection GetDBConnection()
         {

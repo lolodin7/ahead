@@ -125,5 +125,12 @@ namespace Excel_Parse
             mp.Show();
             this.Visible = false;
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SemCoreArchiveView sca = new SemCoreArchiveView(this);
+            sca.Show();
+            this.Visible = false;
+        }
     }
 }

@@ -13,13 +13,15 @@ namespace Excel_Parse
         public string Keyword { get; set; }
         public int SemCoreId { get; set; }
         public string ValuesAndDates { get; set; }
+        public string CategoryName { get; set; }
+        public string TypeName { get; set; }
 
         public int ColumnCount { get; }
 
 
         public SemCoreArchiveModel()
         {
-            ColumnCount = 5;
+            ColumnCount = 7;
         }
 
         public void WriteData(int index, object record)
@@ -27,19 +29,25 @@ namespace Excel_Parse
             switch (index)
             {
                 case 0:
-                    Keyword = record.ToString();
+                    ProductTypeId = int.Parse(record.ToString());
                     break;
                 case 1:
-                    SemCoreId = int.Parse(record.ToString());
-                    break;
-                case 2:
                     CategoryId = int.Parse(record.ToString());
                     break;
+                case 2:
+                    Keyword = record.ToString();
+                    break;
                 case 3:
-                    ProductTypeId = int.Parse(record.ToString());
+                    SemCoreId = int.Parse(record.ToString());
                     break;
                 case 4:
                     ValuesAndDates = record.ToString();
+                    break;
+                case 5:
+                    CategoryName = record.ToString();
+                    break;
+                case 6:
+                    TypeName = record.ToString();
                     break;
             }
         }
@@ -49,19 +57,25 @@ namespace Excel_Parse
             switch (index)
             {
                 case 0:
-                    return Keyword;
+                    return ProductTypeId;
                     break;
                 case 1:
-                    return SemCoreId;
-                    break;
-                case 2:
                     return CategoryId;
                     break;
+                case 2:
+                    return Keyword;
+                    break;
                 case 3:
-                    return ProductTypeId;
+                    return SemCoreId;
                     break;
                 case 4:
                     return ValuesAndDates;
+                    break;
+                case 5:
+                    return CategoryName;
+                    break;
+                case 6:
+                    return TypeName;
                     break;
                 default:
                     return -1;

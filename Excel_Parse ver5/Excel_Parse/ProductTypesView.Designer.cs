@@ -30,15 +30,15 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductTypesView));
             this.dgv_ProductTypes = new System.Windows.Forms.DataGridView();
+            this.ProductTypeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TypeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rtb_ProductType = new System.Windows.Forms.RichTextBox();
             this.btn_RefreshDGV = new System.Windows.Forms.Button();
             this.btn_Close = new System.Windows.Forms.Button();
             this.btn_Save = new System.Windows.Forms.Button();
             this.lb_ProductType = new System.Windows.Forms.Label();
-            this.ProductTypeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TypeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
-            this.rtb_ProductType = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ProductTypes)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -64,6 +64,22 @@
             this.dgv_ProductTypes.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_ProductTypes_CellDoubleClick);
             this.dgv_ProductTypes.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_ProductTypes_CellMouseClick);
             // 
+            // ProductTypeId
+            // 
+            this.ProductTypeId.HeaderText = "ProductTypeId";
+            this.ProductTypeId.Name = "ProductTypeId";
+            this.ProductTypeId.ReadOnly = true;
+            this.ProductTypeId.Visible = false;
+            // 
+            // TypeName
+            // 
+            this.TypeName.HeaderText = "Название вида";
+            this.TypeName.Name = "TypeName";
+            this.TypeName.ReadOnly = true;
+            this.TypeName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.TypeName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.TypeName.Width = 250;
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.rtb_ProductType);
@@ -77,6 +93,16 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Добавление нового вида товара";
+            // 
+            // rtb_ProductType
+            // 
+            this.rtb_ProductType.Location = new System.Drawing.Point(50, 60);
+            this.rtb_ProductType.Multiline = false;
+            this.rtb_ProductType.Name = "rtb_ProductType";
+            this.rtb_ProductType.Size = new System.Drawing.Size(193, 20);
+            this.rtb_ProductType.TabIndex = 6;
+            this.rtb_ProductType.Text = "";
+            this.rtb_ProductType.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_ProductType_KeyDown);
             // 
             // btn_RefreshDGV
             // 
@@ -117,41 +143,15 @@
             this.lb_ProductType.TabIndex = 1;
             this.lb_ProductType.Text = "Название вида";
             // 
-            // ProductTypeId
-            // 
-            this.ProductTypeId.HeaderText = "ProductTypeId";
-            this.ProductTypeId.Name = "ProductTypeId";
-            this.ProductTypeId.ReadOnly = true;
-            this.ProductTypeId.Visible = false;
-            // 
-            // TypeName
-            // 
-            this.TypeName.HeaderText = "Название вида";
-            this.TypeName.Name = "TypeName";
-            this.TypeName.ReadOnly = true;
-            this.TypeName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.TypeName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.TypeName.Width = 250;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(19, 135);
+            this.label1.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(26, 141);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(269, 37);
+            this.label1.Size = new System.Drawing.Size(256, 39);
             this.label1.TabIndex = 2;
             this.label1.Text = "Виды отсутствуют";
-            // 
-            // rtb_ProductType
-            // 
-            this.rtb_ProductType.Location = new System.Drawing.Point(50, 60);
-            this.rtb_ProductType.Multiline = false;
-            this.rtb_ProductType.Name = "rtb_ProductType";
-            this.rtb_ProductType.Size = new System.Drawing.Size(193, 20);
-            this.rtb_ProductType.TabIndex = 6;
-            this.rtb_ProductType.Text = "";
-            this.rtb_ProductType.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_ProductType_KeyDown);
             // 
             // ProductTypesView
             // 

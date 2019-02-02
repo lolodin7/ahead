@@ -100,6 +100,24 @@ INSERT INTO [ProductTypes] ([TypeName])
 VALUES ('Ветрозащита для микрофонов')
 
 
+/*         -- [KeywordCategory] --             */
+
+INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
+VALUES ('Lavalier Mic', 1)
+
+INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
+VALUES ('Lapel Mic', 1)
+
+INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
+VALUES ('Magnetic Strip', 2)
+
+INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
+VALUES ('5 Knife Set', 3)
+
+INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
+VALUES ('iPhone Mic', 1)
+
+
 
 /*         -- [Products] --             */
 
@@ -206,22 +224,6 @@ INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId],
 VALUES ('PDW Microphone Clip', 'B01LZ6T9XO', '1N-NPIV-XHND', 8, 1, 'true')
 
 
-/*         -- [KeywordCategory] --             */
-
-INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
-VALUES ('Lavalier Mic', 1)
-
-INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
-VALUES ('Lapel Mic', 1)
-
-INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
-VALUES ('Magnetic Strip', 2)
-
-INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
-VALUES ('5 Knife Set', 3)
-
-INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
-VALUES ('iPhone Mic', 1)
 
 
 

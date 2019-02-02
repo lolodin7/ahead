@@ -28,7 +28,7 @@ namespace Excel_Parse
         {
             InitializeComponent();
 
-            label1.Text = "Marketplace\n\nотсутствуют";
+            label1.Text = "Marketplace\nотсутствуют";
 
             mpController = new MarketplaceController(this);
             

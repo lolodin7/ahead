@@ -27,9 +27,7 @@ namespace Excel_Parse
 
         private ProductTypesController ptController;
         private List<ProductTypesModel> ptList;
-
-        private SqlConnection connection;
-        private SqlCommand command;
+        
 
         private string AllProductTypesCBName = "Все виды товаров";
         private string AllKeywordCategoriesCBName = "Все категории ключей";
@@ -53,7 +51,6 @@ namespace Excel_Parse
         {
             InitializeComponent();
             ControlFormKeywordsAreExisted = _form;
-            connection = DBData.GetDBConnection();
 
             NoProdType = false;
             NoKeyCat = false;

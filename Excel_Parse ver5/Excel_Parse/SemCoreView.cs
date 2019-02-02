@@ -25,6 +25,8 @@ namespace Excel_Parse
         private ProductTypesController ptController;
         private List<ProductTypesModel> ptList;
 
+        private SemCoreArchiveController scaController;
+
         private int CurrentColumnCount;
         
         private MainFormView mf;
@@ -48,6 +50,7 @@ namespace Excel_Parse
             scController = new SemCoreController(this);
             kcController = new KeywordCategoryController(this);
             ptController = new ProductTypesController(this);
+            scaController = new SemCoreArchiveController(this);
 
             NoProdType = false;
             NoKeyCat = false;
@@ -464,6 +467,7 @@ namespace Excel_Parse
             string errors = "";
             string errorsToCopy = "";
             int categoryId = -1;
+            DateTime dtNow;
 
             //находим productTypeId по выбранному в cb_ProductType 
             productType = currentProductTypeId;
@@ -489,11 +493,18 @@ namespace Excel_Parse
                 index = i;
                 int val = 0;
                 try { val = int.Parse(dgv_Target.Rows[i].Cells[1].Value.ToString());  } catch (Exception exx) { val = 0; }
+                dtNow = DateTime.Now;
+
                 //если ключ уже есть в БД, БД выдаст ошибку -2146232060. Сверяем и записываем ключи в массив недобавленных ключей
-                if (scController.InsertNewKeyword(productType, categoryId, dgv_Target.Rows[i].Cells[0].Value.ToString(), val, DateTime.Now) == -2146232060)
+                if (scController.InsertNewKeyword(productType, categoryId, dgv_Target.Rows[i].Cells[0].Value.ToString(), val, dtNow) == -2146232060)
                 {
                     errors += dgv_Target.Rows[index].Cells[0].Value.ToString() + "\n";
                     errorsToCopy += dgv_Target.Rows[index].Cells[0].Value.ToString() + "\t" + val + "\n";
+                }
+                else
+                {
+                    //сюда для АРХИВА
+                    scaController.SetNewKeywordToSemCoreArchive(productType, categoryId, dgv_Target.Rows[i].Cells[0].Value.ToString(), val, dtNow,  scaController.GetSemCoreIdForKey(dgv_Target.Rows[i].Cells[0].Value.ToString()));
                 }
             }
 

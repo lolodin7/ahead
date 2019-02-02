@@ -200,6 +200,9 @@
     <EmbeddedResource Include="MarketplaceView.resx">
       <DependentUpon>MarketplaceView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SemCoreArchiveView.resx">
+      <DependentUpon>SemCoreArchiveView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StartImage.resx">
       <DependentUpon>StartImage.cs</DependentUpon>
     </EmbeddedResource>

@@ -143,10 +143,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(54, 86);
+            this.label1.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(63, 101);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(368, 37);
+            this.label1.Size = new System.Drawing.Size(346, 39);
             this.label1.TabIndex = 4;
             this.label1.Text = "Marketplace отсутствуют";
             // 

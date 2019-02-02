@@ -43,6 +43,7 @@
             this.serviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_DoMarketplaces = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -103,7 +104,7 @@
             this.btn_DoKeywordCategory.BackColor = System.Drawing.Color.YellowGreen;
             this.btn_DoKeywordCategory.FlatAppearance.BorderSize = 0;
             this.btn_DoKeywordCategory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_DoKeywordCategory.Location = new System.Drawing.Point(12, 352);
+            this.btn_DoKeywordCategory.Location = new System.Drawing.Point(12, 440);
             this.btn_DoKeywordCategory.Name = "btn_DoKeywordCategory";
             this.btn_DoKeywordCategory.Size = new System.Drawing.Size(195, 81);
             this.btn_DoKeywordCategory.TabIndex = 4;
@@ -211,11 +212,25 @@
             this.btn_DoMarketplaces.UseVisualStyleBackColor = false;
             this.btn_DoMarketplaces.Click += new System.EventHandler(this.btn_DoMarketplaces_Click);
             // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.Khaki;
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Location = new System.Drawing.Point(12, 353);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(195, 81);
+            this.button2.TabIndex = 14;
+            this.button2.Text = "Просмотреть историю ключей";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // MainFormView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(815, 533);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.btn_DoMarketplaces);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btn_ShowIndexing);
@@ -258,5 +273,6 @@
         private System.Windows.Forms.ToolStripMenuItem serviceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.Button btn_DoMarketplaces;
+        private System.Windows.Forms.Button button2;
     }
 }

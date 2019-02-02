@@ -138,3 +138,14 @@ select * from products
 SELECT ProductId FROM Products Where [ASIN] = 'B01AG56HYQ'
 
 select * from Marketplace
+
+SELECT [SemCoreId] FROM [SemCore] WHERE [Keyword] = 'iphone microphone for video iphone 7'
+
+
+INSERT INTO [SemCoreArchive] ([ProductTypeId], [CategoryId], [Keyword], [SemCoreId], [ValuesAndDates]) VALUES (1, 1, 'iphone microphone for video iphone 7', 0, '')
+
+SELECT * FROM SemCoreArchive
+
+SELECT * FROM SemCoreArchive LEFT JOIN KeywordCategory ON SemCoreArchive.CategoryId = KeywordCategory.CategoryId LEFT JOIN ProductTypes ON SemCoreArchive.ProductTypeId = ProductTypes.ProductTypeId WHERE KeywordCategory.CategoryId > 0 AND SemCoreArchive.ProductTypeId > 0
+
+update SemCoreArchive set ValuesAndDates = '1254&02.02.2019 18:42:43@324&02.03.2019 19:42:43@5484&02.03.2019 17:42:43@' where SemCoreId = 0

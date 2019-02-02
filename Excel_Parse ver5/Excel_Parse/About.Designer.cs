@@ -37,7 +37,7 @@
             // 
             // label1
             // 
-            this.label1.Font = new System.Drawing.Font("CyrillicGoth", 65F);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 58F);
             this.label1.Location = new System.Drawing.Point(12, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(478, 125);
