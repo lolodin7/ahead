@@ -71,7 +71,7 @@ namespace Excel_Parse
             fill_cb_KeywordCategory();
 
             scaController.GetSemCoreByProductAndCategory(GetProductTypeIdFromCB(), GetKeywordCategoryIdFromCB());
-            scaController.TransformStringToValuesAndDates(scaList[0].ValuesAndDates);
+            //scaController.TransformStringToValuesAndDates(scaList[0].ValuesAndDates);
         }
 
         /* Заполняем cb_ProductType и cb_ProductType2 */
