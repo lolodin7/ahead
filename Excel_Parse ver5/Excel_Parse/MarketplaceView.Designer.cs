@@ -110,6 +110,7 @@
             this.dgv_Marketplaces.AllowUserToDeleteRows = false;
             this.dgv_Marketplaces.AllowUserToResizeColumns = false;
             this.dgv_Marketplaces.AllowUserToResizeRows = false;
+            this.dgv_Marketplaces.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgv_Marketplaces.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv_Marketplaces.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.MarketplaceId,

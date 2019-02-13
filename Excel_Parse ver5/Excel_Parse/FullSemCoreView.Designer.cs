@@ -30,6 +30,17 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FullSemCoreView));
             this.dgv_Keywords = new System.Windows.Forms.DataGridView();
+            this.ProdTypeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoryId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Keyword = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Name1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SemCoreId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cb_ProductType = new System.Windows.Forms.ComboBox();
             this.cb_KeywordCategory = new System.Windows.Forms.ComboBox();
             this.lb_ProductType = new System.Windows.Forms.Label();
@@ -52,17 +63,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btn_StartAddingKey = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.ProdTypeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoryId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Keyword = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Name1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SemCoreId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Keywords)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox_Editing.SuspendLayout();
@@ -72,6 +73,7 @@
             // 
             this.dgv_Keywords.AllowUserToAddRows = false;
             this.dgv_Keywords.AllowUserToDeleteRows = false;
+            this.dgv_Keywords.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgv_Keywords.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgv_Keywords.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Keywords.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -96,11 +98,108 @@
             this.dgv_Keywords.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_Keywords_CellDoubleClick);
             this.dgv_Keywords.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_Keywords_CellMouseClick);
             // 
+            // ProdTypeId
+            // 
+            this.ProdTypeId.HeaderText = "ProdTypeId";
+            this.ProdTypeId.Name = "ProdTypeId";
+            this.ProdTypeId.ReadOnly = true;
+            this.ProdTypeId.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.ProdTypeId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ProdTypeId.Visible = false;
+            // 
+            // CategoryId
+            // 
+            this.CategoryId.HeaderText = "CategoryId";
+            this.CategoryId.Name = "CategoryId";
+            this.CategoryId.ReadOnly = true;
+            this.CategoryId.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.CategoryId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.CategoryId.Visible = false;
+            // 
+            // Keyword
+            // 
+            this.Keyword.HeaderText = "Ключ";
+            this.Keyword.Name = "Keyword";
+            this.Keyword.ReadOnly = true;
+            this.Keyword.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Keyword.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Keyword.Width = 270;
+            // 
+            // Value
+            // 
+            this.Value.HeaderText = "Частота";
+            this.Value.Name = "Value";
+            this.Value.ReadOnly = true;
+            this.Value.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // Name1
+            // 
+            this.Name1.HeaderText = "Последнее обновление";
+            this.Name1.Name = "Name1";
+            this.Name1.ReadOnly = true;
+            this.Name1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Name1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Name1.Width = 200;
+            // 
+            // SemCoreId
+            // 
+            this.SemCoreId.HeaderText = "SemCoreId";
+            this.SemCoreId.Name = "SemCoreId";
+            this.SemCoreId.ReadOnly = true;
+            this.SemCoreId.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.SemCoreId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.SemCoreId.Visible = false;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "categId";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Column1.Visible = false;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Название категории";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Column2.Width = 200;
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "prdotypeID";
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
+            this.Column8.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column8.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Column8.Visible = false;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "prodTypeId";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Column3.Visible = false;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Название группы товаров";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Column4.Width = 200;
+            // 
             // cb_ProductType
             // 
             this.cb_ProductType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_ProductType.FormattingEnabled = true;
-            this.cb_ProductType.Location = new System.Drawing.Point(18, 42);
+            this.cb_ProductType.Location = new System.Drawing.Point(18, 40);
             this.cb_ProductType.Name = "cb_ProductType";
             this.cb_ProductType.Size = new System.Drawing.Size(196, 21);
             this.cb_ProductType.TabIndex = 3;
@@ -110,14 +209,14 @@
             // 
             this.cb_KeywordCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_KeywordCategory.FormattingEnabled = true;
-            this.cb_KeywordCategory.Location = new System.Drawing.Point(259, 42);
+            this.cb_KeywordCategory.Location = new System.Drawing.Point(259, 40);
             this.cb_KeywordCategory.Name = "cb_KeywordCategory";
             this.cb_KeywordCategory.Size = new System.Drawing.Size(196, 21);
             this.cb_KeywordCategory.TabIndex = 4;
             // 
             // lb_ProductType
             // 
-            this.lb_ProductType.Location = new System.Drawing.Point(64, 16);
+            this.lb_ProductType.Location = new System.Drawing.Point(64, 14);
             this.lb_ProductType.Name = "lb_ProductType";
             this.lb_ProductType.Size = new System.Drawing.Size(100, 23);
             this.lb_ProductType.TabIndex = 8;
@@ -126,7 +225,7 @@
             // 
             // lb_KeywordCategory
             // 
-            this.lb_KeywordCategory.Location = new System.Drawing.Point(294, 16);
+            this.lb_KeywordCategory.Location = new System.Drawing.Point(294, 14);
             this.lb_KeywordCategory.Name = "lb_KeywordCategory";
             this.lb_KeywordCategory.Size = new System.Drawing.Size(124, 23);
             this.lb_KeywordCategory.TabIndex = 10;
@@ -138,7 +237,7 @@
             this.btn_GetKeywords.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.btn_GetKeywords.FlatAppearance.BorderSize = 0;
             this.btn_GetKeywords.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_GetKeywords.Location = new System.Drawing.Point(495, 27);
+            this.btn_GetKeywords.Location = new System.Drawing.Point(495, 22);
             this.btn_GetKeywords.Name = "btn_GetKeywords";
             this.btn_GetKeywords.Size = new System.Drawing.Size(149, 47);
             this.btn_GetKeywords.TabIndex = 26;
@@ -149,7 +248,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(741, 23);
+            this.label1.Location = new System.Drawing.Point(741, 18);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(73, 13);
             this.label1.TabIndex = 28;
@@ -176,7 +275,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(740, 67);
+            this.label2.Location = new System.Drawing.Point(740, 62);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(75, 13);
             this.label2.TabIndex = 31;
@@ -186,7 +285,7 @@
             // 
             // rtb_FindKeyword
             // 
-            this.rtb_FindKeyword.Location = new System.Drawing.Point(681, 42);
+            this.rtb_FindKeyword.Location = new System.Drawing.Point(681, 37);
             this.rtb_FindKeyword.Multiline = false;
             this.rtb_FindKeyword.Name = "rtb_FindKeyword";
             this.rtb_FindKeyword.Size = new System.Drawing.Size(196, 20);
@@ -200,7 +299,7 @@
             this.btn_Export.BackColor = System.Drawing.Color.Gainsboro;
             this.btn_Export.FlatAppearance.BorderSize = 0;
             this.btn_Export.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Export.Location = new System.Drawing.Point(899, 27);
+            this.btn_Export.Location = new System.Drawing.Point(899, 22);
             this.btn_Export.Name = "btn_Export";
             this.btn_Export.Size = new System.Drawing.Size(104, 47);
             this.btn_Export.TabIndex = 29;
@@ -333,108 +432,23 @@
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label5.Visible = false;
             // 
-            // ProdTypeId
+            // label6
             // 
-            this.ProdTypeId.HeaderText = "ProdTypeId";
-            this.ProdTypeId.Name = "ProdTypeId";
-            this.ProdTypeId.ReadOnly = true;
-            this.ProdTypeId.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.ProdTypeId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ProdTypeId.Visible = false;
-            // 
-            // CategoryId
-            // 
-            this.CategoryId.HeaderText = "CategoryId";
-            this.CategoryId.Name = "CategoryId";
-            this.CategoryId.ReadOnly = true;
-            this.CategoryId.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.CategoryId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.CategoryId.Visible = false;
-            // 
-            // Keyword
-            // 
-            this.Keyword.HeaderText = "Ключ";
-            this.Keyword.Name = "Keyword";
-            this.Keyword.ReadOnly = true;
-            this.Keyword.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Keyword.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Keyword.Width = 270;
-            // 
-            // Value
-            // 
-            this.Value.HeaderText = "Частота";
-            this.Value.Name = "Value";
-            this.Value.ReadOnly = true;
-            this.Value.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // Name1
-            // 
-            this.Name1.HeaderText = "Последнее обновление";
-            this.Name1.Name = "Name1";
-            this.Name1.ReadOnly = true;
-            this.Name1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Name1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Name1.Width = 200;
-            // 
-            // SemCoreId
-            // 
-            this.SemCoreId.HeaderText = "SemCoreId";
-            this.SemCoreId.Name = "SemCoreId";
-            this.SemCoreId.ReadOnly = true;
-            this.SemCoreId.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.SemCoreId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.SemCoreId.Visible = false;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "categId";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column1.Visible = false;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Название категории";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column2.Width = 200;
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "prdotypeID";
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
-            this.Column8.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Column8.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column8.Visible = false;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "prodTypeId";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column3.Visible = false;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Название группы товаров";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column4.Width = 200;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Location = new System.Drawing.Point(170, 338);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(679, 107);
+            this.label6.TabIndex = 39;
+            this.label6.Text = "Файл подготавливается, это может занять некоторое время...";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label6.Visible = false;
             // 
             // FullSemCoreView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1031, 801);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btn_StartAddingKey);
             this.Controls.Add(this.groupBox_Editing);
@@ -490,5 +504,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.Label label6;
     }
 }

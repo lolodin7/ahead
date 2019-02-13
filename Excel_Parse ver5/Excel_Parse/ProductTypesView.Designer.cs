@@ -49,6 +49,7 @@
             this.dgv_ProductTypes.AllowUserToDeleteRows = false;
             this.dgv_ProductTypes.AllowUserToResizeColumns = false;
             this.dgv_ProductTypes.AllowUserToResizeRows = false;
+            this.dgv_ProductTypes.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgv_ProductTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv_ProductTypes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ProductTypeId,

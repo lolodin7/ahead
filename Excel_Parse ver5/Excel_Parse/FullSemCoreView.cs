@@ -19,6 +19,8 @@ namespace Excel_Parse
         private FullSemCoreView ControlFullSemCoreView;
         private KeywordCategoryView ControlKeywordCategoryView;
 
+        private SemCoreArchiveController scaController;
+
         private FullSemCoreController fscController;
         private List<FullSemCoreModel> fscList;
 
@@ -51,10 +53,11 @@ namespace Excel_Parse
         {
             InitializeComponent();
             ControlFormKeywordsAreExisted = _form;
+            scaController = new SemCoreArchiveController(this);
 
             NoProdType = false;
             NoKeyCat = false;
-
+            
             GetStarted();
             firstLaunch = false;
         }
@@ -64,6 +67,7 @@ namespace Excel_Parse
         {
             InitializeComponent();
             ControlFormMF = _mf;
+            scaController = new SemCoreArchiveController(this);
 
             NoProdType = false;
             NoKeyCat = false;
@@ -77,6 +81,7 @@ namespace Excel_Parse
         {
             InitializeComponent();
             ControlFullSemCoreView = _mf;
+            scaController = new SemCoreArchiveController(this);
 
             NoProdType = false;
             NoKeyCat = false;
@@ -90,6 +95,7 @@ namespace Excel_Parse
         {
             InitializeComponent();
             ControlKeywordCategoryView = _mf;
+            scaController = new SemCoreArchiveController(this);
 
             NoProdType = false;
             NoKeyCat = false;
@@ -404,12 +410,23 @@ namespace Excel_Parse
                 else
                     dgv_Keywords.Rows[i].Cells[2].Style.BackColor = Color.White;
             }
-            label2.Text = "Найдено: " + cnt.ToString();
+            if (rtb_FindKeyword.TextLength > 0 && dgv_Keywords.RowCount > 0)
+            {
+                label2.Text = "Найдено: " + cnt.ToString();
+                label2.Visible = true;
+            }
+            else
+            {
+                label2.Visible = false;
+            }
         }
 
         /* Экспорт в *.xlsx */
         private void btn_Export_Click(object sender, EventArgs e)
         {
+            this.Enabled = false;
+            label6.Visible = true;
+
             Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
             Workbook ExcelWorkBook;
             Worksheet ExcelWorkSheet;
@@ -437,13 +454,15 @@ namespace Excel_Parse
             ExcelWorkSheet.get_Range("B1", "B10000").Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
             ExcelWorkSheet.get_Range("C1", "C10000").Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
             ExcelWorkSheet.get_Range("A1", "N1").Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
-            ExcelWorkSheet.Columns[1].ColumnWidth = 42.14;
-            ExcelWorkSheet.Columns[2].ColumnWidth = 18;
+            ExcelWorkSheet.Columns[1].ColumnWidth = 50;
+            ExcelWorkSheet.Columns[2].ColumnWidth = 12;
             ExcelWorkSheet.Columns[3].ColumnWidth = 23.57;
-            ExcelWorkSheet.Columns[4].ColumnWidth = 35;
-            ExcelWorkSheet.Columns[5].ColumnWidth = 42.14;
+            ExcelWorkSheet.Columns[4].ColumnWidth = 30;
+            ExcelWorkSheet.Columns[5].ColumnWidth = 30;
 
             saveFileDialog1.Filter = "Excel(*.xlsx)|*.xlsx|All files(*.*)|*.*";
+
+            saveFileDialog1.FileName = "Keyword Book 1";
 
             if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
             {
@@ -457,6 +476,9 @@ namespace Excel_Parse
                 ExcelWorkBook.Close(false);
                 MessageBox.Show("Успешно сохранено!", "Успех");
             }
+            
+            label6.Visible = false;
+            this.Enabled = true;
         }
 
         /* Ходим по результатам поиска в таблице по нажатию Enter */
@@ -549,9 +571,18 @@ namespace Excel_Parse
             {
                 int res;
                 if (SaveEditTrigger)
+                {
                     res = fscController.SetNewKeywordToSemCore(ProductTypeId, KeyCategoryId, rtb_KeyName.Text, int.Parse(rtb_KeyValue.Text), DateTime.Now);
+                    //сюда для АРХИВА - обновляем
+                    if (res != -2146232060)
+                        scaController.InsertNewKeywordToSemCoreArchive(ProductTypeId, KeyCategoryId, rtb_KeyName.Text, int.Parse(rtb_KeyValue.Text), DateTime.Now, scaController.GetSemCoreIdForKey(rtb_KeyName.Text));
+                }
                 else
+                {
                     res = fscController.SetEditedKeywordToSemCore(ProductTypeId, KeyCategoryId, rtb_KeyName.Text, int.Parse(rtb_KeyValue.Text), DateTime.Now, CurrentSemCoreId);
+                    //сюда для АРХИВА - обновляем
+                    scaController.UpdateExistingKeywordBySemCoreId(ProductTypeId, KeyCategoryId, rtb_KeyName.Text, int.Parse(rtb_KeyValue.Text), DateTime.Now, CurrentSemCoreId);
+                }
                 
                 if (res == -2146232060)
                 {

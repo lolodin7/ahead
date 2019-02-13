@@ -26,6 +26,8 @@ namespace Excel_Parse
         private SemCoreController scController;
         private List<SemCoreModel> scList;
 
+        private SemCoreArchiveController scaController;
+
         private List<SemCoreModel> scNewList;
         private List<SemCoreModel> scUpdateList;
         private List<SemCoreModel> scExistingFromDBList;
@@ -39,9 +41,9 @@ namespace Excel_Parse
             
         private string str_UploadedKeys = "Новые ключи";
         private string str_UpdatedKeys = "Обновленные ключи";
-        
-        string[,] myArr;
 
+        private string helpString = "Для начала откройте файл с ключевыми словами при помощи кнопки \"Загрузить файл\".\n\nИспользуйте клавишу \"C\" для выделения ключевого слова.\nИспользуйте клавишу \"X\" для снятия выделения ключевого слова.\n\nДважды клацните ЛКМ по ключевому слову, чтобы просмотреть его на Amazon.";
+        
         private bool firstLaunch = true;       
 
         string urlAmazon = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=";
@@ -56,6 +58,7 @@ namespace Excel_Parse
         {
             InitializeComponent();
             connection = DBData.GetDBConnection();
+            scaController = new SemCoreArchiveController(this);
             mf = _mf;
             lb_UpdatedKeys.Text = str_UpdatedKeys;
             lb_UploadedKeys.Text = str_UploadedKeys;
@@ -72,6 +75,7 @@ namespace Excel_Parse
         {
             InitializeComponent();
             connection = DBData.GetDBConnection();
+            scaController = new SemCoreArchiveController(this);
             lb_UpdatedKeys.Text = str_UpdatedKeys;
             lb_UploadedKeys.Text = str_UploadedKeys;
 
@@ -80,10 +84,8 @@ namespace Excel_Parse
 
             GetStarted();
             firstLaunch = false;
-        }
+        }     
         
-
-
 
         /* Выполняем в конструкторе */
         private void GetStarted()
@@ -160,6 +162,7 @@ namespace Excel_Parse
                         btn_DeselectAll.Visible = true;
                         lb_UploadedKeys.Visible = true;
                         lb_UpdatedKeys.Visible = true;
+                        btn_Begin.Enabled = true;
                     }
                     catch (Exception ex)
                     {
@@ -806,6 +809,9 @@ namespace Excel_Parse
                         scAddedList.Add(new SemCoreModel());
                         scAddedList[scAddedList.Count - 1].Keyword = scNewList[scNewList.Count - 1].Keyword;
                         scAddedList[scAddedList.Count - 1].Value = scNewList[scNewList.Count - 1].Value;
+
+                        //сюда для АРХИВА - новые
+                        scaController.InsertNewKeywordToSemCoreArchive(GetSelectedProductTypeId(), GetSelectedCategoryId(), scNewList[scNewList.Count - 1].Keyword, scNewList[scNewList.Count - 1].Value, DateTime.Now, scaController.GetSemCoreIdForKey(scNewList[scNewList.Count - 1].Keyword));
                     }
                 }
 
@@ -893,6 +899,9 @@ namespace Excel_Parse
                         errorKeys[errorKeys.Count - 1].SetValue(scExistingFromDBList[i].Keyword, 0, 0);
                         errorKeys[errorKeys.Count - 1].SetValue(scExistingFromDBList[i].Value.ToString(), 0, 1);
                     }
+
+                    //сюда для АРХИВА - обновляем
+                    scaController.UpdateExistingKeywordBySemCoreId(scExistingFromDBList[i].ProductTypeId, scExistingFromDBList[i].CategoryId, scExistingFromDBList[i].Keyword, scExistingFromDBList[i].Value, DateTime.Now, scExistingFromDBList[i].SemCoreId);
                 }                  
             }
 
@@ -940,16 +949,10 @@ namespace Excel_Parse
 
         //------------------------------------------------------------------------------------------------------------------------------------------
 
-            
-        /* Получили список ключей после их ручного изменения в KeywordsAreExisted */
-        public void GetKeywordsFromKeywordsAreExisted(string[,] _arr)
-        {
-            myArr = _arr;
-        }
 
         private void btn_Help_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Для начала откройте файл с ключевыми словами при помощи кнопки \"Загрузить файл\".\n\nИспользуйте клавишу \"C\" для выделения ключевого слова.\nИспользуйте клавишу \"X\" для снятия выделения ключевого слова.\n\nДважды клацните ЛКМ по ключевому слову, чтобы просмотреть его на Amazon.", "Помощь");
+            MessageBox.Show(helpString, "Помощь");
         }
 
         private void dgv_Source_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

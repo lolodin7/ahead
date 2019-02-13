@@ -13,18 +13,14 @@ namespace Excel_Parse
         private SqlConnection connection;
         private SqlCommand command;
 
-        private SemCoreArchiveView controlSemCoreArchiveView;
-        private SemCoreView controlSemCoreView;
-
-
         private List<SemCoreArchiveModel> scaList;
-        
 
-        public SemCoreArchiveController(SemCoreArchiveView _form)
-        {
-            connection = DBData.GetDBConnection();
-            controlSemCoreArchiveView = _form;
-        }
+        private SemCoreView controlSemCoreView;
+        private SemCoreRebuildView controlSemCoreRebuildView;
+        private FullSemCoreView controlFullSemCoreView;
+        private SemCoreArchiveView controlSemCoreArchiveView;
+
+
 
         public SemCoreArchiveController(SemCoreView _form)
         {
@@ -32,19 +28,41 @@ namespace Excel_Parse
             controlSemCoreView = _form;
         }
 
+        public SemCoreArchiveController(SemCoreRebuildView _form)
+        {
+            connection = DBData.GetDBConnection();
+            controlSemCoreRebuildView = _form;
+        }
+
+        public SemCoreArchiveController(SemCoreArchiveView _form)
+        {
+            connection = DBData.GetDBConnection();
+            controlSemCoreArchiveView = _form;
+        }
+
+        public SemCoreArchiveController(FullSemCoreView _form)
+        {
+            connection = DBData.GetDBConnection();
+            controlFullSemCoreView = _form;
+        }
 
 
-
-
-
-
-        /* Добавляем новый ключ в БД из SemCoreView */
-        public int SetNewKeywordToSemCoreArchive(int _productTypeId, int _keyCategoryId, string _keyName, int _keyValue, DateTime dt, int _semcoreId)
+        /* Добавляем новый ключ в БД */
+        public int InsertNewKeywordToSemCoreArchive(int _productTypeId, int _keyCategoryId, string _keyName, int _keyValue, DateTime dt, int _semcoreId)
         {
             string sqlStatement = "INSERT INTO [SemCoreArchive] ([ProductTypeId], [CategoryId], [Keyword], [SemCoreId], [ValuesAndDates]) VALUES (" + _productTypeId + ", " + _keyCategoryId + ", '" + _keyName + "', " + _semcoreId + ", '" + TransformValuesAndDatesToString(_keyValue, dt) + "')";
             command = new SqlCommand(sqlStatement, connection);
             return Execute_UPDATE_DELETE_INSERT_Command(command);
         }
+
+
+        public int UpdateExistingKeywordBySemCoreId(int _prodTypeId, int _categoryId, string _keyName, int _value, DateTime _dt, int _semCoreId)
+        {
+            string sqlStatement = "UPDATE [SemCoreArchive] SET [ProductTypeId] = " + _prodTypeId + ", [CategoryId] = " + _categoryId + ", [Keyword] = '" + _keyName + "',  [ValuesAndDates] = '" + TransformValuesAndDatesToString(_value, _dt, GetValuesAndDatesForKey(_semCoreId)) + "' WHERE [SemCoreId] = " + _semCoreId;
+            command = new SqlCommand(sqlStatement, connection);
+            return Execute_UPDATE_DELETE_INSERT_Command(command);
+        }
+
 
         /* Получаем SemCoreId для заданного Keyword */
         public int GetSemCoreIdForKey(string _name)
@@ -79,6 +97,38 @@ namespace Excel_Parse
             }
         }
 
+        public string GetValuesAndDatesForKey(int _semCoreId)
+        {
+            string sqlStatement = "SELECT [ValuesAndDates] FROM [SemCoreArchive] WHERE [SemCoreId] = " + _semCoreId;
+            command = new SqlCommand(sqlStatement, connection);
+            IDataRecord record = null;
+            string result = "";
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        record = (IDataRecord)reader;
+                        result = record[0].ToString();
+                    }
+                }
+                reader.Close();
+                connection.Close();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                connection.Close();
+                return ex.HResult.ToString();
+            }
+        }
+
         /* Получаем ключи по заданным ProductTypeId и CategoryId */
         public int GetSemCoreByProductAndCategory(int _prodId, int _categoryId)
         {
@@ -103,6 +153,38 @@ namespace Excel_Parse
             command = new SqlCommand(sqlStatement, connection);
             return Execute_SELECT_Command(command);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -152,7 +234,9 @@ namespace Excel_Parse
                 connection.Close();
 
                 if (controlSemCoreArchiveView != null)                       //вызывает нужный метод в зависимости, из какой формы нас вызывают
+                {
                     controlSemCoreArchiveView.GetKeywordsFromDB(scaList);
+                }
                 return 1;
             }
             catch (Exception ex)
@@ -184,7 +268,14 @@ namespace Excel_Parse
             return result;
         }
 
-        public DateTime TransformStringToValuesAndDates(string _text)
+        private string TransformValuesAndDatesToString(int _value, DateTime _date, string _oldText)
+        {
+            string result = _value.ToString() + "&" + _date.ToString() + "@";
+            return _oldText + result;
+        }
+
+
+        public void TransformStringToValuesAndDates(string _text)
         {
             List<int> valuesList = new List<int> { };
             List<DateTime> datesList = new List<DateTime> { };
@@ -192,19 +283,54 @@ namespace Excel_Parse
             int posStart = 0;
             int posEnd = -1;
 
+            bool checkForValue = true;
+
             for (int i = 0; i < _text.Length; i++)
             {
-                if (_text[i].Equals("@"))
+                switch (checkForValue)
                 {
-                    posEnd++;
-
+                    case true:
+                        if (_text[i].Equals('&'))
+                        {
+                            posEnd = i;
+                            string ghj = _text.Substring(posStart, posEnd - posStart);
+                            valuesList.Add(int.Parse(ghj));
+                            checkForValue = false;
+                            posStart = i + 1;
+                        }
+                        break;
+                    case false:
+                        if (_text[i].Equals('@'))
+                        {
+                            posEnd = i;
+                            string gh = _text.Substring(posStart, posEnd - posStart);
+                            datesList.Add(DateTime.Parse(gh));
+                            checkForValue = true;
+                            posStart = i + 1;
+                        }
+                        break;
                 }
-                else
-                    posEnd++;
             }
-            return DateTime.Now;
+
+            //тут, в зависимости откуда вызвали, передаем в нужный класс два списка
+            if (controlSemCoreArchiveView != null)
+            {
+                //вызывает два метода из этого класса
+                controlSemCoreArchiveView.GetDatesForKey(datesList);
+                controlSemCoreArchiveView.GetValuesForKey(valuesList);
+            }
         }
 
+        private void ReturnValuesAndDates(List<DateTime> _dt, List<int> _values)
+        {
+            //тут, в зависимости откуда вызвали, передаем в нужный класс два списка
+            if (controlSemCoreArchiveView != null)
+            {
+                //вызывает два метода из этого класса
+                controlSemCoreArchiveView.GetDatesForKey(_dt);
+                controlSemCoreArchiveView.GetValuesForKey(_values);
+            }
+        }
 
     }
 }

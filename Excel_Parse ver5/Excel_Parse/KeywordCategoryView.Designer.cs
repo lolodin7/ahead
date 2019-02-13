@@ -41,16 +41,16 @@
             this.lb_CategoryName = new System.Windows.Forms.Label();
             this.tb_CategoryName = new System.Windows.Forms.TextBox();
             this.dgv_KeywordCategory = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cb_ShownProductType = new System.Windows.Forms.ComboBox();
-            this.tb_ShownProductTypes = new System.Windows.Forms.TextBox();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ProductTypeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TypeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cb_ShownProductType = new System.Windows.Forms.ComboBox();
+            this.tb_ShownProductTypes = new System.Windows.Forms.TextBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.lb_ProductName.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_KeywordCategory)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -166,6 +166,7 @@
             this.dgv_KeywordCategory.AllowUserToDeleteRows = false;
             this.dgv_KeywordCategory.AllowUserToResizeColumns = false;
             this.dgv_KeywordCategory.AllowUserToResizeRows = false;
+            this.dgv_KeywordCategory.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgv_KeywordCategory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv_KeywordCategory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ProductTypeId,
@@ -182,6 +183,43 @@
             this.dgv_KeywordCategory.TabIndex = 2;
             this.dgv_KeywordCategory.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_KeywordCategory_CellDoubleClick);
             this.dgv_KeywordCategory.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_KeywordCategory_CellMouseClick);
+            // 
+            // ProductTypeId
+            // 
+            this.ProductTypeId.HeaderText = "ProductTypeId";
+            this.ProductTypeId.Name = "ProductTypeId";
+            this.ProductTypeId.ReadOnly = true;
+            this.ProductTypeId.Visible = false;
+            // 
+            // TypeName
+            // 
+            this.TypeName.HeaderText = "Название категории";
+            this.TypeName.Name = "TypeName";
+            this.TypeName.ReadOnly = true;
+            this.TypeName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.TypeName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.TypeName.Width = 310;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Column1";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Visible = false;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Column2";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Visible = false;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Вид товара";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 250;
             // 
             // label2
             // 
@@ -224,43 +262,6 @@
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(161, 22);
             this.toolStripMenuItem1.Text = "Переименовать";
-            // 
-            // ProductTypeId
-            // 
-            this.ProductTypeId.HeaderText = "ProductTypeId";
-            this.ProductTypeId.Name = "ProductTypeId";
-            this.ProductTypeId.ReadOnly = true;
-            this.ProductTypeId.Visible = false;
-            // 
-            // TypeName
-            // 
-            this.TypeName.HeaderText = "Название категории";
-            this.TypeName.Name = "TypeName";
-            this.TypeName.ReadOnly = true;
-            this.TypeName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.TypeName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.TypeName.Width = 310;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Column1";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Visible = false;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Column2";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Visible = false;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Вид товара";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.Width = 250;
             // 
             // KeywordCategoryView
             // 

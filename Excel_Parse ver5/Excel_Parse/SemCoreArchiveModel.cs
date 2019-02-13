@@ -15,6 +15,8 @@ namespace Excel_Parse
         public string ValuesAndDates { get; set; }
         public string CategoryName { get; set; }
         public string TypeName { get; set; }
+        public List<int> Value { get; set; }
+        public List<DateTime> UpdateDate { get; set; }
 
         public int ColumnCount { get; }
 
@@ -22,6 +24,8 @@ namespace Excel_Parse
         public SemCoreArchiveModel()
         {
             ColumnCount = 7;
+            Value = new List<int> { };
+            UpdateDate = new List<DateTime> { };
         }
 
         public void WriteData(int index, object record)
@@ -82,15 +86,5 @@ namespace Excel_Parse
                     break;
             }
         }
-
-        public void SetValues(int _prodTypeId, int _categoryId, string _keyword, int _value, DateTime _dt)
-        {
-            ProductTypeId = _prodTypeId;
-            CategoryId = _categoryId;
-            Keyword = _keyword;
-
-            ValuesAndDates = _value + _dt.ToString(); 
-        }
-
     }
 }

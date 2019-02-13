@@ -26,11 +26,11 @@ namespace Excel_Parse
         private List<ProductTypesModel> ptList;
 
         private SemCoreArchiveController scaController;
-
-        private int CurrentColumnCount;
         
+        private string helpString = "Для начала откройте файл с ключевыми словами при помощи кнопки \"Загрузить другой файл\".\n\nИспользуйте клавишу \"C\" для выделения ключевого слова.\nИспользуйте клавишу \"X\" для снятия выделения ключевого слова.\n\nДважды клацните ЛКМ по ключевому слову, чтобы просмотреть его на Amazon.";
+
+
         private MainFormView mf;
-        private bool SavedStatus = true;
         private string path = "";
 
         private int currentProductTypeId = -1;
@@ -43,7 +43,6 @@ namespace Excel_Parse
         public SemCoreView(MainFormView _mf)
         {
             InitializeComponent();
-            CurrentColumnCount = 0;
             
             mf = _mf;
 
@@ -55,7 +54,7 @@ namespace Excel_Parse
             NoProdType = false;
             NoKeyCat = false;
 
-                ptController.GetProductTypesAll();
+            ptController.GetProductTypesAll();
             Fill_CB_ByProductTypes();
             kcController.GetKeywordCategoriesByProductId(currentProductTypeId);
             Fill_CB_ByKeywordCategories();
@@ -124,8 +123,7 @@ namespace Excel_Parse
                                 }
                             }
                         }
-
-                        SavedStatus = true;
+                        
                         label3.Visible = false;
                         dgv_Source.Visible = true;
                         dgv_Target.Visible = true;
@@ -163,8 +161,7 @@ namespace Excel_Parse
                                 }
                             }
                         }
-
-                        SavedStatus = true;
+                        
                         label3.Visible = false;
                         dgv_Source.Visible = true;
                         dgv_Target.Visible = true;
@@ -339,22 +336,10 @@ namespace Excel_Parse
             }
         }
 
-        /* Отслеживание несохраненных изменений */
-        private void dgv_Target_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
-        {
-            SavedStatus = false;
-        }
-
-        /* Отслеживание несохраненных изменений */
-        private void dgv_Target_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
-        {
-            SavedStatus = false;
-        }
-
         /* Вызываем Help */
         private void btn_Help_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Для начала откройте файл с ключевыми словами при помощи кнопки \"Загрузить другой файл\".\n\nИспользуйте клавишу \"C\" для выделения ключевого слова.\nИспользуйте клавишу \"X\" для снятия выделения ключевого слова.\n\nДважды клацните ЛКМ по ключевому слову, чтобы просмотреть его на Amazon.", "Помощь");
+            MessageBox.Show(helpString, "Помощь");
         }
 
         /* Ищем на амазоне товары по ключу, на который дважды ЛКМ */
@@ -383,44 +368,13 @@ namespace Excel_Parse
         /* Загрузить другой файл */
         private void btn_UploadAnotherFile_Click(object sender, EventArgs e)
         {
-            if (SavedStatus)
-            {
-                OpenNewFile();
-            }
-            else
-            {
-                if (MessageBox.Show("Имеются несохраненные изменения. Сохранить?", "Сохранение", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    setDataToDB();
-                    OpenNewFile();
-                }
-                else
-                {
-                    OpenNewFile();
-                }
-            }
+            OpenNewFile();
         }
 
         /* Закрытие формы */
         private void SemCore_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (SavedStatus)
-            {
-                mf.Show();
-            }
-            else
-            {
-                if (MessageBox.Show("Имеются несохраненные изменения. Сохранить?", "Сохранение", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    setDataToDB();
-                    mf.Show();
-                }
-                else
-                {
-                    SavedStatus = true;
-                    mf.Show();
-                }
-            }
+            mf.Show();
         }
 
         /* Кнопка "Сохранить" */
@@ -442,22 +396,7 @@ namespace Excel_Parse
         /* Кнопка "Закрыть" */
         private void btn_Cancel_Click(object sender, EventArgs e)
         {
-            if (SavedStatus)
-            {
-                this.Close();
-            }
-            else
-            {
-                if (MessageBox.Show("Имеются несохраненные изменения. Сохранить?", "Сохранение", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    setDataToDB();
-                    this.Close();
-                }
-                else
-                {
-                    this.Close();
-                }
-            }
+            this.Close();
         }
 
         /* Загрузка изменений в БД */
@@ -504,7 +443,7 @@ namespace Excel_Parse
                 else
                 {
                     //сюда для АРХИВА
-                    scaController.SetNewKeywordToSemCoreArchive(productType, categoryId, dgv_Target.Rows[i].Cells[0].Value.ToString(), val, dtNow,  scaController.GetSemCoreIdForKey(dgv_Target.Rows[i].Cells[0].Value.ToString()));
+                    scaController.InsertNewKeywordToSemCoreArchive(productType, categoryId, dgv_Target.Rows[i].Cells[0].Value.ToString(), val, dtNow,  scaController.GetSemCoreIdForKey(dgv_Target.Rows[i].Cells[0].Value.ToString()));
                 }
             }
 
@@ -515,8 +454,6 @@ namespace Excel_Parse
             }
             else
                 MessageBox.Show("Все ключи были успешно добавлены!", "Успех");
-
-            SavedStatus = true;
         }
 
         /* Выделяем все ключи */

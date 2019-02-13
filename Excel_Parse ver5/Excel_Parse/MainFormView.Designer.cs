@@ -104,7 +104,7 @@
             this.btn_DoKeywordCategory.BackColor = System.Drawing.Color.YellowGreen;
             this.btn_DoKeywordCategory.FlatAppearance.BorderSize = 0;
             this.btn_DoKeywordCategory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_DoKeywordCategory.Location = new System.Drawing.Point(12, 440);
+            this.btn_DoKeywordCategory.Location = new System.Drawing.Point(12, 456);
             this.btn_DoKeywordCategory.Name = "btn_DoKeywordCategory";
             this.btn_DoKeywordCategory.Size = new System.Drawing.Size(195, 81);
             this.btn_DoKeywordCategory.TabIndex = 4;
@@ -140,7 +140,7 @@
             // 
             // btn_Exit
             // 
-            this.btn_Exit.Location = new System.Drawing.Point(611, 440);
+            this.btn_Exit.Location = new System.Drawing.Point(611, 456);
             this.btn_Exit.Name = "btn_Exit";
             this.btn_Exit.Size = new System.Drawing.Size(195, 81);
             this.btn_Exit.TabIndex = 7;
@@ -180,7 +180,7 @@
             this.serviceToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(815, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(825, 24);
             this.menuStrip1.TabIndex = 12;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -214,10 +214,10 @@
             // 
             // button2
             // 
-            this.button2.BackColor = System.Drawing.Color.Khaki;
+            this.button2.BackColor = System.Drawing.Color.YellowGreen;
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(12, 353);
+            this.button2.Location = new System.Drawing.Point(12, 349);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(195, 81);
             this.button2.TabIndex = 14;
@@ -229,7 +229,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(815, 533);
+            this.ClientSize = new System.Drawing.Size(825, 546);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.btn_DoMarketplaces);
             this.Controls.Add(this.button1);

@@ -52,6 +52,7 @@
             this.dgv_Products.AllowUserToResizeColumns = false;
             this.dgv_Products.AllowUserToResizeRows = false;
             this.dgv_Products.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders;
+            this.dgv_Products.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgv_Products.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dgv_Products.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Products.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {

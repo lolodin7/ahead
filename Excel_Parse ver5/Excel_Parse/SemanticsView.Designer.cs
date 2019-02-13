@@ -137,6 +137,7 @@
             // 
             this.dgv_Keywords.AllowUserToAddRows = false;
             this.dgv_Keywords.AllowUserToDeleteRows = false;
+            this.dgv_Keywords.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgv_Keywords.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgv_Keywords.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Keywords.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {

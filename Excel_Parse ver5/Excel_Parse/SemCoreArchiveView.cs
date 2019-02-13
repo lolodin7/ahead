@@ -23,10 +23,12 @@ namespace Excel_Parse
 
         private ProductTypesController ptController;
         private List<ProductTypesModel> ptList;
+        
 
-        private List<DateTime> uniqueDatesList;     //список уникальных дат
-
-
+        private List<DateTime> dtKeyList;
+        private List<int> valKeyList;
+        private List<DateTime> allDTKeyList;
+        private List<DateTime> uniqueDTKeyList;
 
         private string AllProductTypesCBName = "Все виды товаров";
         private string AllKeywordCategoriesCBName = "Все категории ключей";
@@ -52,6 +54,10 @@ namespace Excel_Parse
             InitializeComponent();
             controlMainFormView = _form;
 
+            dtKeyList = new List<DateTime> { };
+            valKeyList = new List<int> { };
+            allDTKeyList = new List<DateTime> { };
+            uniqueDTKeyList = new List<DateTime> { };
 
             GetStarted();
             firstLaunch = false;
@@ -69,12 +75,9 @@ namespace Excel_Parse
             fill_cb_ProductTypes();
             kcController.GetKeywordCategoriesByProductId(GetProductTypeIdFromCB());
             fill_cb_KeywordCategory();
-
-            scaController.GetSemCoreByProductAndCategory(GetProductTypeIdFromCB(), GetKeywordCategoryIdFromCB());
-            //scaController.TransformStringToValuesAndDates(scaList[0].ValuesAndDates);
         }
 
-        /* Заполняем cb_ProductType и cb_ProductType2 */
+        /* Заполняем cb_ProductType */
         private void fill_cb_ProductTypes()
         {
             if (ptList.Count > 0)
@@ -87,14 +90,6 @@ namespace Excel_Parse
                     cb_ProductType.Items.Add(ptList[i].TypeName);
                 }
                 cb_ProductType.SelectedItem = cb_ProductType.Items[0];
-
-                cb_ProductType2.Items.Clear();
-
-                for (int i = 0; i < ptList.Count; i++)
-                {
-                    cb_ProductType2.Items.Add(ptList[i].TypeName);
-                }
-                cb_ProductType2.SelectedItem = cb_ProductType2.Items[0];
             }
             else
             {
@@ -103,7 +98,7 @@ namespace Excel_Parse
             }
         }
 
-        /* Заполняем cb_KeywordCategory и cb_KeywordCategory2 */
+        /* Заполняем cb_KeywordCategory */
         private void fill_cb_KeywordCategory()
         {
             if (kcList.Count > 0)
@@ -117,14 +112,6 @@ namespace Excel_Parse
                     cb_KeywordCategory.Items.Add(kcList[i].CategoryName);
                 }
                 cb_KeywordCategory.SelectedItem = cb_KeywordCategory.Items[0];
-
-                cb_KeywordCategory2.Items.Clear();
-
-                for (int i = 0; i < kcList.Count; i++)
-                {
-                    cb_KeywordCategory2.Items.Add(kcList[i].CategoryName);
-                }
-                cb_KeywordCategory2.SelectedItem = cb_KeywordCategory2.Items[0];
             }
             else if (ptList.Count > 0)
             {
@@ -201,16 +188,23 @@ namespace Excel_Parse
             ShowKeywords();
         }
 
+
+        /* Отобразить ключи (основная логика) */
         private void ShowKeywords()
         {
+            dgv_Keywords.Rows.Clear();
+            //получаем список ключей из БД
             scaController.GetSemCoreByProductAndCategory(GetProductTypeIdFromCB(), GetKeywordCategoryIdFromCB());
-            //ReDrawKeywords();
+
             //основная логика
 
             //получаем уникальные даты
             GetUniqueDates();
-            //рисуем столбцы в таблице
+            //рисуем столбцы в таблице по уникальным датам
+            DrawColumns();
             //заполняем построчно таблицу
+            FillDgvByKeywords();
+
 
             StartKeySearch();
 
@@ -227,53 +221,125 @@ namespace Excel_Parse
             }
         }
 
+        /* Заполняем dgv_Keywords частотами ключей построчно */
+        private void FillDgvByKeywords()
+        {
+            for (int i = 0; i < scaList.Count; i++)
+            {
+                var index = dgv_Keywords.Rows.Add();
+                dgv_Keywords.Rows[index].Cells[0].Value = scaList[i].ProductTypeId;
+                dgv_Keywords.Rows[index].Cells[1].Value = scaList[i].CategoryId;
+                dgv_Keywords.Rows[index].Cells[2].Value = scaList[i].SemCoreId;
+                dgv_Keywords.Rows[index].Cells[3].Value = scaList[i].CategoryName;
+                dgv_Keywords.Rows[index].Cells[4].Value = scaList[i].TypeName;
+                dgv_Keywords.Rows[index].Cells[5].Value = scaList[i].Keyword;
+
+                for (int j = 6; j < dgv_Keywords.ColumnCount; j++)      //идем по каждому столбцу
+                {
+                    for (int k = 0; k < scaList[i].UpdateDate.Count; k++)       //идем по каждой дате ключа
+                    {
+                        if (dgv_Keywords.Columns[j].HeaderText.Equals(scaList[i].UpdateDate[k].ToShortDateString()))        //если дата и имя столбца совпадают, пишем сюда
+                        {
+                            dgv_Keywords.Rows[index].Cells[j].Value = scaList[i].Value[k];
+                        }
+                    }
+                }
+            }
+
+            //считаем количество ключей
+            int cnt = dgv_Keywords.RowCount;
+            if (cnt == 1)
+                this.Text = "История ключей  - " + cnt + " ключ - Bona Fides";
+            else if (cnt == 2 || cnt == 3 || cnt == 4)
+                this.Text = "История ключей  - " + cnt + " ключа - Bona Fides";
+            else if (cnt >= 5 && cnt <= 19)
+                this.Text = "История ключей  - " + cnt + " ключей - Bona Fides";
+            else
+            {
+                if (cnt % 10 == 1)
+                    this.Text = "История ключей  - " + cnt + " ключ - Bona Fides";
+                else if (cnt % 10 == 2 || cnt % 10 == 3 || cnt % 10 == 4)
+                    this.Text = "История ключей  - " + cnt + " ключа - Bona Fides";
+                else if (cnt % 10 >= 5 || cnt % 10 <= 9 || cnt % 10 == 0)
+                    this.Text = "История ключей  - " + cnt + " ключей - Bona Fides";
+            }
+        }
+
+        /* Создаем столбцы в dgv_Keywords по уникальным датам */
+        private void DrawColumns()
+        {
+            dgv_Keywords.Rows.Clear();
+            dgv_Keywords.Columns.Clear();
+
+            dgv_Keywords.Columns.Add("tpid", "tpid");
+            dgv_Keywords.Columns[dgv_Keywords.ColumnCount - 1].Visible = false;
+
+            dgv_Keywords.Columns.Add("ctid", "ctid");
+            dgv_Keywords.Columns[dgv_Keywords.ColumnCount - 1].Visible = false;
+
+            dgv_Keywords.Columns.Add("scid", "scid");
+            dgv_Keywords.Columns[dgv_Keywords.ColumnCount - 1].Visible = false;
+
+            dgv_Keywords.Columns.Add("ctname", "Категория ключей");
+            dgv_Keywords.Columns[dgv_Keywords.ColumnCount - 1].Width = 200;
+            dgv_Keywords.Columns[dgv_Keywords.ColumnCount - 1].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+            dgv_Keywords.Columns.Add("tpname", "Вид товара");
+            dgv_Keywords.Columns[dgv_Keywords.ColumnCount - 1].Width = 200;
+            dgv_Keywords.Columns[dgv_Keywords.ColumnCount - 1].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+            dgv_Keywords.Columns.Add("keeey", "Ключ");
+            dgv_Keywords.Columns[dgv_Keywords.ColumnCount - 1].Width = 250;
+            dgv_Keywords.Columns[dgv_Keywords.ColumnCount - 1].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+
+            //создаем колонки по уникальным датам
+            for (int i = 0; i < uniqueDTKeyList.Count; i++)
+            {
+                dgv_Keywords.Columns.Add(uniqueDTKeyList[i].ToShortDateString(), uniqueDTKeyList[i].ToShortDateString());
+                dgv_Keywords.Columns[dgv_Keywords.ColumnCount - 1].Width = 75;
+                dgv_Keywords.Columns[dgv_Keywords.ColumnCount - 1].SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+
+            dgv_Keywords.Visible = true;
+        }
+
+        /* Получаем список уникальных дат */
         private void GetUniqueDates()
         {
             for (int i = 0; i < scaList.Count; i++)
             {
-
-            }
-        }
-
-        /* Перерисовываем таблицу новыми данными после изменения категории или вида продукта */
-        private void ReDrawKeywords()
-        {
-            dgv_Keywords.Rows.Clear();
-            FillKeywordsInDGV();
-        }
-
-        /* Перерисовываем таблицу новыми данными SemCore */
-        private void FillKeywordsInDGV()
-        {
-            dgv_Keywords.Rows.Clear();
-
-            for (int i = 0; i < scaList.Count; i++)
-            {
-                var index = dgv_Keywords.Rows.Add();
-
-                for (int j = 0; j < scaList[0].ColumnCount; j++)
+                scaController.TransformStringToValuesAndDates(scaList[i].ValuesAndDates);
+                
+                for (int j = 0; j < dtKeyList.Count; j++)
                 {
-                    dgv_Keywords.Rows[index].Cells[j].Value = scaList[i].ReadData(j);
+                    allDTKeyList.Add(new DateTime(dtKeyList[j].Year, dtKeyList[j].Month, dtKeyList[j].Day));
+                    scaList[i].Value.Add(valKeyList[j]);
+                    scaList[i].UpdateDate.Add(dtKeyList[j]);
                 }
             }
 
-            int cnt = dgv_Keywords.RowCount;
-            if (cnt == 1)
-                this.Text = "Семантическая база - " + cnt + " ключ - Bona Fides";
-            else if (cnt == 2 || cnt == 3 || cnt == 4)
-                this.Text = "Семантическая база - " + cnt + " ключа - Bona Fides";
-            else if (cnt >= 5 && cnt <= 19)
-                this.Text = "Семантическая база - " + cnt + " ключей - Bona Fides";
-            else
-            {
-                if (cnt % 10 == 1)
-                    this.Text = "Семантическая база - " + cnt + " ключ - Bona Fides";
-                else if (cnt % 10 == 2 || cnt % 10 == 3 || cnt % 10 == 4)
-                    this.Text = "Семантическая база - " + cnt + " ключа - Bona Fides";
-                else if (cnt % 10 >= 5 || cnt % 10 <= 9 || cnt % 10 == 0)
-                    this.Text = "Семантическая база - " + cnt + " ключей - Bona Fides";
-            }
+            uniqueDTKeyList = allDTKeyList.Distinct().ToList();
+            uniqueDTKeyList.Sort((x, y) => y.CompareTo(x));     //сортируем в обратном порядке
         }
+
+        /* Получаем список дат для ключа */
+        public void GetDatesForKey(List<DateTime> _dtL)
+        {
+            dtKeyList = _dtL;
+        }
+
+        /* Получаем список частот для ключа */
+        public void GetValuesForKey(List<int> _valL)
+        {
+            valKeyList = _valL;
+        }
+
+
+
+
+
+
 
         /* Поиск ключа в таблице при наборе текста в tb_FindKeyword */
         private void rtb_FindKeyword_TextChanged(object sender, EventArgs e)
@@ -281,9 +347,39 @@ namespace Excel_Parse
             StartKeySearch();
         }
 
+        /* Метод для поиска ключа в таблице */
+        private void StartKeySearch()
+        {
+            int cnt = 0;
+            //5 колонка - ключ
+            for (int i = 0; i < dgv_Keywords.RowCount; i++)
+            {
+                if (dgv_Keywords.Rows[i].Cells[5].Value.ToString().ToLower().Contains(rtb_FindKeyword.Text.ToLower()) && !rtb_FindKeyword.Text.Equals(""))
+                {
+                    dgv_Keywords.Rows[i].Cells[5].Style.BackColor = foundedKeywordColor;
+                    cnt++;
+                }
+                else
+                    dgv_Keywords.Rows[i].Cells[5].Style.BackColor = Color.White;
+            }
+            if (rtb_FindKeyword.TextLength > 0 && dgv_Keywords.RowCount > 0)
+            {
+                label2.Text = "Найдено: " + cnt.ToString();
+                label2.Visible = true;
+            }
+            else
+            {
+                label2.Visible = false;
+            }
+        }
+
+
         /* Экспорт в *.xlsx */
         private void btn_Export_Click(object sender, EventArgs e)
         {
+            this.Enabled = false;
+            label3.Visible = true;
+
             Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
             Workbook ExcelWorkBook;
             Worksheet ExcelWorkSheet;
@@ -292,32 +388,34 @@ namespace Excel_Parse
 
             //Таблица.
             ExcelWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)ExcelWorkBook.Worksheets.get_Item(1);
+            
+            for (int i = 3; i < dgv_Keywords.ColumnCount; i++)
+            {
+                ExcelApp.Cells[i - 2] = dgv_Keywords.Columns[i].HeaderText;
+                ExcelWorkSheet.Columns[i + 1].ColumnWidth = 12;
+                ExcelWorkSheet.Columns[i + 1].Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+            }
 
-            ExcelApp.Cells[1] = dgv_Keywords.Columns[2].HeaderText;
-            ExcelApp.Cells[2] = dgv_Keywords.Columns[3].HeaderText;
-            ExcelApp.Cells[3] = dgv_Keywords.Columns[4].HeaderText;
-            ExcelApp.Cells[4] = dgv_Keywords.Columns[7].HeaderText;
-            ExcelApp.Cells[5] = dgv_Keywords.Columns[10].HeaderText;
 
             for (int i = 0; i < dgv_Keywords.Rows.Count; i++)
             {
-                ExcelApp.Cells[i + 2, 1] = dgv_Keywords.Rows[i].Cells[2].Value;
-                ExcelApp.Cells[i + 2, 2] = dgv_Keywords.Rows[i].Cells[3].Value;
-                ExcelApp.Cells[i + 2, 3] = dgv_Keywords.Rows[i].Cells[4].Value;
-                ExcelApp.Cells[i + 2, 4] = dgv_Keywords.Rows[i].Cells[7].Value;
-                ExcelApp.Cells[i + 2, 5] = dgv_Keywords.Rows[i].Cells[10].Value;
+                for (int j = 3; j < dgv_Keywords.ColumnCount; j++)
+                {
+                    ExcelApp.Cells[i + 2, j - 2] = dgv_Keywords.Rows[i].Cells[j].Value;
+                }
             }
 
-            ExcelWorkSheet.get_Range("B1", "B10000").Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
-            ExcelWorkSheet.get_Range("C1", "C10000").Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
-            ExcelWorkSheet.get_Range("A1", "N1").Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
-            ExcelWorkSheet.Columns[1].ColumnWidth = 42.14;
-            ExcelWorkSheet.Columns[2].ColumnWidth = 18;
-            ExcelWorkSheet.Columns[3].ColumnWidth = 23.57;
-            ExcelWorkSheet.Columns[4].ColumnWidth = 35;
-            ExcelWorkSheet.Columns[5].ColumnWidth = 42.14;
+            ExcelWorkSheet.get_Range("A1", "A1").Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+            ExcelWorkSheet.get_Range("B1", "B1").Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+            ExcelWorkSheet.get_Range("C1", "C1").Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+
+            ExcelWorkSheet.Columns[1].ColumnWidth = 30;
+            ExcelWorkSheet.Columns[2].ColumnWidth = 30;
+            ExcelWorkSheet.Columns[3].ColumnWidth = 50;
 
             saveFileDialog1.Filter = "Excel(*.xlsx)|*.xlsx|All files(*.*)|*.*";
+
+            saveFileDialog1.FileName = "Keyword Book 1";
 
             if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
             {
@@ -331,26 +429,9 @@ namespace Excel_Parse
                 ExcelWorkBook.Close(false);
                 MessageBox.Show("Успешно сохранено!", "Успех");
             }
+
+            label3.Visible = false;
+            this.Enabled = true;
         }
-
-        /* Метод для поиска ключа в таблице */
-        private void StartKeySearch()
-        {
-            int cnt = 0;
-            //2 колонка - ключ
-            for (int i = 0; i < dgv_Keywords.RowCount; i++)
-            {
-                if (dgv_Keywords.Rows[i].Cells[2].Value.ToString().ToLower().Contains(rtb_FindKeyword.Text.ToLower()) && !rtb_FindKeyword.Text.Equals(""))
-                {
-                    dgv_Keywords.Rows[i].Cells[2].Style.BackColor = foundedKeywordColor;
-                    cnt++;
-                }
-                else
-                    dgv_Keywords.Rows[i].Cells[2].Style.BackColor = Color.White;
-            }
-            label2.Text = "Найдено: " + cnt.ToString();
-        }
-
-
     }
 }
