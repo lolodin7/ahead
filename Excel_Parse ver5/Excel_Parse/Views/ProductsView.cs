@@ -145,14 +145,16 @@ namespace Excel_Parse
         {
             if (dgv_Products.RowCount > 0)
             {
-                tb_editing_ProductName.Enabled = true;
-                tb_editing_ASIN.Enabled = true;
-                tb_editing_SKU.Enabled = true;
-                cb_editing_ProductTypes.Enabled = true;
-                cb_editing_Marketplace.Enabled = true;
-                btn_SaveEditing.Enabled = true;
-                btn_CancelEditing.Enabled = true;
-                btn_ActivateProduct.Enabled = true;
+                //tb_editing_ProductName.Enabled = true;
+                //tb_editing_ASIN.Enabled = true;
+                //tb_editing_SKU.Enabled = true;
+                //cb_editing_ProductTypes.Enabled = true;
+                //cb_editing_Marketplace.Enabled = true;
+                //btn_SaveEditing.Enabled = true;
+                //btn_CancelEditing.Enabled = true;
+                //btn_ActivateProduct.Enabled = true;
+
+                
 
                 tb_editing_ProductId.Text = dgv_Products.Rows[e.RowIndex].Cells[0].Value.ToString();
                 tb_editing_ProductName.Text = dgv_Products.Rows[e.RowIndex].Cells[1].Value.ToString();
@@ -177,7 +179,10 @@ namespace Excel_Parse
                     }
                 }
 
-                groupBox2.Enabled = false;
+                //groupBox2.Enabled = false;
+
+                groupBox1.Visible = true;
+                groupBox2.Visible = false;
             }
         }
 
@@ -276,14 +281,14 @@ namespace Excel_Parse
         /* Очищаем поля после отмены редактирования товара */
         private void RefreshFieldsAfterEditing()
         {
-            tb_editing_ProductName.Enabled = false;
-            tb_editing_ASIN.Enabled = false;
-            tb_editing_SKU.Enabled = false;
-            cb_editing_ProductTypes.Enabled = false;
-            cb_editing_Marketplace.Enabled = false;
-            btn_SaveEditing.Enabled = false;
-            btn_CancelEditing.Enabled = false;
-            btn_ActivateProduct.Enabled = false;
+            //tb_editing_ProductName.Enabled = false;
+            //tb_editing_ASIN.Enabled = false;
+            //tb_editing_SKU.Enabled = false;
+            //cb_editing_ProductTypes.Enabled = false;
+            //cb_editing_Marketplace.Enabled = false;
+            //btn_SaveEditing.Enabled = false;
+            //btn_CancelEditing.Enabled = false;
+            //btn_ActivateProduct.Enabled = false;
 
             tb_editing_ProductId.Text = "";
             tb_editing_ProductName.Text = "";
@@ -291,7 +296,9 @@ namespace Excel_Parse
             tb_editing_SKU.Text = "";
             tb_editing_ProductTypeId.Text = "";
 
-            groupBox2.Enabled = true;
+            //groupBox2.Enabled = true;
+            groupBox1.Visible = false;
+            groupBox2.Visible = true;
         }
 
         /* Чтобы при изменении в tb_editing_ProductTypeId появлялся корректный Id */

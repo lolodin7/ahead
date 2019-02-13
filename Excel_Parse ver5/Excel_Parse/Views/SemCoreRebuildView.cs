@@ -90,6 +90,13 @@ namespace Excel_Parse
         /* Выполняем в конструкторе */
         private void GetStarted()
         {
+            btn_Begin.Enabled = false;
+            btn_KeysAreDone.Enabled = false;
+            btn_Begin.Enabled = true;
+            btn_KeysAreDone.Enabled = true;
+            btn_Begin.Enabled = false;
+            btn_KeysAreDone.Enabled = false;
+
             ptController = new ProductTypesController(this);
             kcController = new KeywordCategoryController(this);
             scController = new SemCoreController(this);
@@ -162,6 +169,7 @@ namespace Excel_Parse
                         btn_DeselectAll.Visible = true;
                         lb_UploadedKeys.Visible = true;
                         lb_UpdatedKeys.Visible = true;
+                        btn_ClearAll.Visible = true;
                         btn_Begin.Enabled = true;
                     }
                     catch (Exception ex)
@@ -204,6 +212,7 @@ namespace Excel_Parse
                         btn_DeselectAll.Visible = true;
                         lb_UploadedKeys.Visible = true;
                         lb_UpdatedKeys.Visible = true;
+                        btn_ClearAll.Visible = true;
                     }
                     catch (Exception ex)
                     {
@@ -833,6 +842,7 @@ namespace Excel_Parse
                 btn_DeselectAll.Visible = false;
                 lb_UploadedKeys.Visible = false;
                 lb_UpdatedKeys.Visible = false;
+                btn_ClearAll.Visible = false;
 
                 this.Enabled = true;
             }
@@ -969,6 +979,22 @@ namespace Excel_Parse
             {
                 System.Diagnostics.Process.Start(tb_Link.Text + dgv_Target.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
             }
+        }
+
+        private void btn_ClearAll_Click(object sender, EventArgs e)
+        {
+            label1.Visible = true;
+            dgv_Source.Visible = false;
+            dgv_Target.Visible = false;
+            btn_SelectAll.Visible = false;
+            btn_DeselectAll.Visible = false;
+            lb_UploadedKeys.Visible = false;
+            lb_UpdatedKeys.Visible = false;
+            btn_ClearAll.Visible = false;
+            btn_Begin.Enabled = false;
+
+            dgv_Target.Rows.Clear();
+            dgv_Source.Rows.Clear();
         }
     }
 }

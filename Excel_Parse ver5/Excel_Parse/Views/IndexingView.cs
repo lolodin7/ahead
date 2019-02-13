@@ -27,7 +27,7 @@ namespace Excel_Parse
 
         private DateTime todayDate;         //храним сегодняшнюю дату
 
-        string urlAmazon = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=";
+        string AmazonLink;
 
         private string helpString = "Дважды ЛКМ по сегодняшней дате - запуск проверки индексации.\n\n";
 
@@ -41,6 +41,7 @@ namespace Excel_Parse
             imNEWList = new List<IndexingModel> { };
             todayDate = DateTime.Now;
             smList = new List<SemanticsModel> { };
+            AmazonLink = _mf.AmazonLink;
 
             GetStarted();
         }
@@ -457,19 +458,19 @@ namespace Excel_Parse
                     indst.Show();
                     this.Visible = false;
 
-                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Title.Replace(' ', '+'));
+                    System.Diagnostics.Process.Start(AmazonLink + smList[smList.Count - 1].Title.Replace(' ', '+'));
                     System.Threading.Thread.Sleep(200);
-                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Bullet1.Replace(' ', '+'));
+                    System.Diagnostics.Process.Start(AmazonLink + smList[smList.Count - 1].Bullet1.Replace(' ', '+'));
                     System.Threading.Thread.Sleep(200);
-                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Bullet2.Replace(' ', '+'));
+                    System.Diagnostics.Process.Start(AmazonLink + smList[smList.Count - 1].Bullet2.Replace(' ', '+'));
                     System.Threading.Thread.Sleep(200);
-                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Bullet3.Replace(' ', '+'));
+                    System.Diagnostics.Process.Start(AmazonLink + smList[smList.Count - 1].Bullet3.Replace(' ', '+'));
                     System.Threading.Thread.Sleep(200);
-                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Bullet4.Replace(' ', '+'));
+                    System.Diagnostics.Process.Start(AmazonLink + smList[smList.Count - 1].Bullet4.Replace(' ', '+'));
                     System.Threading.Thread.Sleep(200);
-                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Bullet5.Replace(' ', '+'));
+                    System.Diagnostics.Process.Start(AmazonLink + smList[smList.Count - 1].Bullet5.Replace(' ', '+'));
                     System.Threading.Thread.Sleep(200);
-                    System.Diagnostics.Process.Start(urlAmazon + smList[smList.Count - 1].Backend.Replace(' ', '+'));
+                    System.Diagnostics.Process.Start(AmazonLink + smList[smList.Count - 1].Backend.Replace(' ', '+'));
 
                     smList.RemoveAt(0);
                 }
@@ -502,7 +503,7 @@ namespace Excel_Parse
         /* Тест, проверяем, корректен ли наш адрес на амазоне */
         private void checkAddressToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(urlAmazon + "lavalier+microphone");
+            System.Diagnostics.Process.Start(AmazonLink + "lavalier+microphone");
         }
 
         /* При открытии контекстного меню, включаем/выключаем кликабельность определенных пунктов меню */
@@ -558,7 +559,7 @@ namespace Excel_Parse
         /* Изменить url из контекстного меню */
         private void changeURLToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            tb_URL.Text = urlAmazon;
+            tb_URL.Text = AmazonLink;
             tb_URL.Visible = true;
             btn_SaveUrl.Visible = true;
 
@@ -569,7 +570,7 @@ namespace Excel_Parse
         /* Сохранить новый url */
         private void btn_SaveUrl_Click(object sender, EventArgs e)
         {
-            urlAmazon = tb_URL.Text;
+            AmazonLink = tb_URL.Text;
             tb_URL.Visible = false;
             btn_SaveUrl.Visible = false;
 

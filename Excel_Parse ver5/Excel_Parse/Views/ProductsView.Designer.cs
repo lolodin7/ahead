@@ -31,6 +31,17 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductsView));
             this.dgv_Products = new System.Windows.Forms.DataGridView();
+            this.ProductIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductASIN = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductSKU = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductTypeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mrktplc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.actStat = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductTypeId2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductTypeNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.marketplaceid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.marketplacename = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tb_editing_ProductName = new System.Windows.Forms.TextBox();
             this.tb_editing_ASIN = new System.Windows.Forms.TextBox();
             this.tb_editing_SKU = new System.Windows.Forms.TextBox();
@@ -69,17 +80,6 @@
             this.rtb_FindFieldName = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.ProductIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductASIN = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductSKU = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductTypeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mrktplc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.actStat = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductTypeId2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductTypeNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.marketplaceid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.marketplacename = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Products)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -112,33 +112,118 @@
             this.dgv_Products.ReadOnly = true;
             this.dgv_Products.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dgv_Products.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgv_Products.Size = new System.Drawing.Size(1316, 455);
+            this.dgv_Products.Size = new System.Drawing.Size(1316, 584);
             this.dgv_Products.TabIndex = 0;
             this.dgv_Products.Visible = false;
             this.dgv_Products.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_Products_CellDoubleClick);
             this.dgv_Products.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_Products_CellMouseClick);
             this.dgv_Products.CellMouseMove += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_Products_CellMouseMove);
             // 
+            // ProductIdColumn
+            // 
+            this.ProductIdColumn.HeaderText = "ProductIdColumn";
+            this.ProductIdColumn.Name = "ProductIdColumn";
+            this.ProductIdColumn.ReadOnly = true;
+            this.ProductIdColumn.Visible = false;
+            this.ProductIdColumn.Width = 50;
+            // 
+            // ProductName
+            // 
+            this.ProductName.FillWeight = 369.5432F;
+            this.ProductName.HeaderText = "Название товара";
+            this.ProductName.Name = "ProductName";
+            this.ProductName.ReadOnly = true;
+            this.ProductName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ProductName.Width = 450;
+            // 
+            // ProductASIN
+            // 
+            this.ProductASIN.FillWeight = 10.15228F;
+            this.ProductASIN.HeaderText = "ASIN";
+            this.ProductASIN.Name = "ProductASIN";
+            this.ProductASIN.ReadOnly = true;
+            this.ProductASIN.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ProductASIN.Width = 130;
+            // 
+            // ProductSKU
+            // 
+            this.ProductSKU.FillWeight = 10.15228F;
+            this.ProductSKU.HeaderText = "SKU";
+            this.ProductSKU.Name = "ProductSKU";
+            this.ProductSKU.ReadOnly = true;
+            this.ProductSKU.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ProductSKU.Width = 130;
+            // 
+            // ProductTypeId
+            // 
+            this.ProductTypeId.HeaderText = "ProductTypeId";
+            this.ProductTypeId.Name = "ProductTypeId";
+            this.ProductTypeId.ReadOnly = true;
+            this.ProductTypeId.Visible = false;
+            this.ProductTypeId.Width = 50;
+            // 
+            // mrktplc
+            // 
+            this.mrktplc.HeaderText = "Маркетплейс";
+            this.mrktplc.Name = "mrktplc";
+            this.mrktplc.ReadOnly = true;
+            this.mrktplc.Visible = false;
+            // 
+            // actStat
+            // 
+            this.actStat.HeaderText = "activeStatus";
+            this.actStat.Name = "actStat";
+            this.actStat.ReadOnly = true;
+            this.actStat.Visible = false;
+            // 
+            // ProductTypeId2
+            // 
+            this.ProductTypeId2.HeaderText = "ProductTypeId2";
+            this.ProductTypeId2.Name = "ProductTypeId2";
+            this.ProductTypeId2.ReadOnly = true;
+            this.ProductTypeId2.Visible = false;
+            // 
+            // ProductTypeNameColumn
+            // 
+            this.ProductTypeNameColumn.FillWeight = 10.15228F;
+            this.ProductTypeNameColumn.HeaderText = "Вид товара";
+            this.ProductTypeNameColumn.Name = "ProductTypeNameColumn";
+            this.ProductTypeNameColumn.ReadOnly = true;
+            this.ProductTypeNameColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ProductTypeNameColumn.Width = 280;
+            // 
+            // marketplaceid
+            // 
+            this.marketplaceid.HeaderText = "markeplace id";
+            this.marketplaceid.Name = "marketplaceid";
+            this.marketplaceid.ReadOnly = true;
+            this.marketplaceid.Visible = false;
+            // 
+            // marketplacename
+            // 
+            this.marketplacename.HeaderText = "Маркетплейс";
+            this.marketplacename.Name = "marketplacename";
+            this.marketplacename.ReadOnly = true;
+            this.marketplacename.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.marketplacename.Width = 265;
+            // 
             // tb_editing_ProductName
             // 
-            this.tb_editing_ProductName.Enabled = false;
-            this.tb_editing_ProductName.Location = new System.Drawing.Point(8, 43);
+            this.tb_editing_ProductName.Location = new System.Drawing.Point(8, 53);
             this.tb_editing_ProductName.Name = "tb_editing_ProductName";
             this.tb_editing_ProductName.Size = new System.Drawing.Size(261, 20);
             this.tb_editing_ProductName.TabIndex = 2;
             // 
             // tb_editing_ASIN
             // 
-            this.tb_editing_ASIN.Enabled = false;
-            this.tb_editing_ASIN.Location = new System.Drawing.Point(317, 43);
+            this.tb_editing_ASIN.Location = new System.Drawing.Point(317, 53);
             this.tb_editing_ASIN.Name = "tb_editing_ASIN";
             this.tb_editing_ASIN.Size = new System.Drawing.Size(112, 20);
             this.tb_editing_ASIN.TabIndex = 3;
             // 
             // tb_editing_SKU
             // 
-            this.tb_editing_SKU.Enabled = false;
-            this.tb_editing_SKU.Location = new System.Drawing.Point(483, 43);
+            this.tb_editing_SKU.Location = new System.Drawing.Point(483, 53);
             this.tb_editing_SKU.Name = "tb_editing_SKU";
             this.tb_editing_SKU.Size = new System.Drawing.Size(112, 20);
             this.tb_editing_SKU.TabIndex = 4;
@@ -146,9 +231,8 @@
             // cb_editing_ProductTypes
             // 
             this.cb_editing_ProductTypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_editing_ProductTypes.Enabled = false;
             this.cb_editing_ProductTypes.FormattingEnabled = true;
-            this.cb_editing_ProductTypes.Location = new System.Drawing.Point(638, 42);
+            this.cb_editing_ProductTypes.Location = new System.Drawing.Point(638, 52);
             this.cb_editing_ProductTypes.Name = "cb_editing_ProductTypes";
             this.cb_editing_ProductTypes.Size = new System.Drawing.Size(218, 21);
             this.cb_editing_ProductTypes.TabIndex = 5;
@@ -157,7 +241,7 @@
             // lb_ProductName
             // 
             this.lb_ProductName.AutoSize = true;
-            this.lb_ProductName.Location = new System.Drawing.Point(91, 23);
+            this.lb_ProductName.Location = new System.Drawing.Point(91, 33);
             this.lb_ProductName.Name = "lb_ProductName";
             this.lb_ProductName.Size = new System.Drawing.Size(95, 13);
             this.lb_ProductName.TabIndex = 6;
@@ -166,7 +250,7 @@
             // lb_SKU
             // 
             this.lb_SKU.AutoSize = true;
-            this.lb_SKU.Location = new System.Drawing.Point(526, 23);
+            this.lb_SKU.Location = new System.Drawing.Point(526, 33);
             this.lb_SKU.Name = "lb_SKU";
             this.lb_SKU.Size = new System.Drawing.Size(29, 13);
             this.lb_SKU.TabIndex = 7;
@@ -175,7 +259,7 @@
             // lb_ASIN
             // 
             this.lb_ASIN.AutoSize = true;
-            this.lb_ASIN.Location = new System.Drawing.Point(359, 23);
+            this.lb_ASIN.Location = new System.Drawing.Point(359, 33);
             this.lb_ASIN.Name = "lb_ASIN";
             this.lb_ASIN.Size = new System.Drawing.Size(32, 13);
             this.lb_ASIN.TabIndex = 7;
@@ -184,7 +268,7 @@
             // lb_ProductTypes
             // 
             this.lb_ProductTypes.AutoSize = true;
-            this.lb_ProductTypes.Location = new System.Drawing.Point(709, 23);
+            this.lb_ProductTypes.Location = new System.Drawing.Point(709, 33);
             this.lb_ProductTypes.Name = "lb_ProductTypes";
             this.lb_ProductTypes.Size = new System.Drawing.Size(64, 13);
             this.lb_ProductTypes.TabIndex = 8;
@@ -205,7 +289,7 @@
             // 
             // tb_editing_ProductTypeId
             // 
-            this.tb_editing_ProductTypeId.Location = new System.Drawing.Point(795, 42);
+            this.tb_editing_ProductTypeId.Location = new System.Drawing.Point(795, 52);
             this.tb_editing_ProductTypeId.Name = "tb_editing_ProductTypeId";
             this.tb_editing_ProductTypeId.Size = new System.Drawing.Size(61, 20);
             this.tb_editing_ProductTypeId.TabIndex = 10;
@@ -214,7 +298,7 @@
             // 
             // tb_editing_ProductId
             // 
-            this.tb_editing_ProductId.Location = new System.Drawing.Point(601, 43);
+            this.tb_editing_ProductId.Location = new System.Drawing.Point(601, 53);
             this.tb_editing_ProductId.Name = "tb_editing_ProductId";
             this.tb_editing_ProductId.Size = new System.Drawing.Size(25, 20);
             this.tb_editing_ProductId.TabIndex = 11;
@@ -223,8 +307,7 @@
             // 
             // btn_SaveEditing
             // 
-            this.btn_SaveEditing.Enabled = false;
-            this.btn_SaveEditing.Location = new System.Drawing.Point(208, 72);
+            this.btn_SaveEditing.Location = new System.Drawing.Point(208, 82);
             this.btn_SaveEditing.Name = "btn_SaveEditing";
             this.btn_SaveEditing.Size = new System.Drawing.Size(163, 31);
             this.btn_SaveEditing.TabIndex = 12;
@@ -234,8 +317,7 @@
             // 
             // btn_CancelEditing
             // 
-            this.btn_CancelEditing.Enabled = false;
-            this.btn_CancelEditing.Location = new System.Drawing.Point(463, 72);
+            this.btn_CancelEditing.Location = new System.Drawing.Point(463, 82);
             this.btn_CancelEditing.Name = "btn_CancelEditing";
             this.btn_CancelEditing.Size = new System.Drawing.Size(163, 31);
             this.btn_CancelEditing.TabIndex = 13;
@@ -263,18 +345,19 @@
             this.groupBox1.Controls.Add(this.lb_ProductTypes);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox1.Location = new System.Drawing.Point(235, 473);
+            this.groupBox1.Location = new System.Drawing.Point(235, 609);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.groupBox1.Size = new System.Drawing.Size(1093, 111);
+            this.groupBox1.Size = new System.Drawing.Size(1093, 129);
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Редактирование товара";
+            this.groupBox1.Visible = false;
             // 
             // lb_Marketplace
             // 
             this.lb_Marketplace.AutoSize = true;
-            this.lb_Marketplace.Location = new System.Drawing.Point(936, 23);
+            this.lb_Marketplace.Location = new System.Drawing.Point(936, 33);
             this.lb_Marketplace.Name = "lb_Marketplace";
             this.lb_Marketplace.Size = new System.Drawing.Size(75, 13);
             this.lb_Marketplace.TabIndex = 17;
@@ -282,8 +365,7 @@
             // 
             // btn_ActivateProduct
             // 
-            this.btn_ActivateProduct.Enabled = false;
-            this.btn_ActivateProduct.Location = new System.Drawing.Point(974, 80);
+            this.btn_ActivateProduct.Location = new System.Drawing.Point(974, 89);
             this.btn_ActivateProduct.Name = "btn_ActivateProduct";
             this.btn_ActivateProduct.Size = new System.Drawing.Size(75, 23);
             this.btn_ActivateProduct.TabIndex = 16;
@@ -302,9 +384,8 @@
             // cb_editing_Marketplace
             // 
             this.cb_editing_Marketplace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_editing_Marketplace.Enabled = false;
             this.cb_editing_Marketplace.FormattingEnabled = true;
-            this.cb_editing_Marketplace.Location = new System.Drawing.Point(894, 42);
+            this.cb_editing_Marketplace.Location = new System.Drawing.Point(894, 52);
             this.cb_editing_Marketplace.Name = "cb_editing_Marketplace";
             this.cb_editing_Marketplace.Size = new System.Drawing.Size(155, 21);
             this.cb_editing_Marketplace.TabIndex = 14;
@@ -326,7 +407,7 @@
             this.groupBox2.Controls.Add(this.tb_adding_ProductTypeId);
             this.groupBox2.Controls.Add(this.tb_adding_SKU);
             this.groupBox2.Controls.Add(this.cb_adding_ProductTypes);
-            this.groupBox2.Location = new System.Drawing.Point(235, 613);
+            this.groupBox2.Location = new System.Drawing.Point(235, 609);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(1093, 129);
             this.groupBox2.TabIndex = 16;
@@ -354,7 +435,7 @@
             // 
             this.cb_adding_Marketplace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_adding_Marketplace.FormattingEnabled = true;
-            this.cb_adding_Marketplace.Location = new System.Drawing.Point(894, 51);
+            this.cb_adding_Marketplace.Location = new System.Drawing.Point(894, 52);
             this.cb_adding_Marketplace.Name = "cb_adding_Marketplace";
             this.cb_adding_Marketplace.Size = new System.Drawing.Size(155, 21);
             this.cb_adding_Marketplace.TabIndex = 15;
@@ -463,7 +544,7 @@
             // checkbox_ActiveStatus
             // 
             this.checkbox_ActiveStatus.AutoSize = true;
-            this.checkbox_ActiveStatus.Location = new System.Drawing.Point(12, 600);
+            this.checkbox_ActiveStatus.Location = new System.Drawing.Point(12, 674);
             this.checkbox_ActiveStatus.Name = "checkbox_ActiveStatus";
             this.checkbox_ActiveStatus.Size = new System.Drawing.Size(169, 17);
             this.checkbox_ActiveStatus.TabIndex = 17;
@@ -473,7 +554,7 @@
             // 
             // rtb_FindFieldName
             // 
-            this.rtb_FindFieldName.Location = new System.Drawing.Point(11, 564);
+            this.rtb_FindFieldName.Location = new System.Drawing.Point(11, 638);
             this.rtb_FindFieldName.Name = "rtb_FindFieldName";
             this.rtb_FindFieldName.Size = new System.Drawing.Size(217, 20);
             this.rtb_FindFieldName.TabIndex = 19;
@@ -483,7 +564,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(64, 544);
+            this.label1.Location = new System.Drawing.Point(64, 618);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(100, 13);
             this.label1.TabIndex = 20;
@@ -492,100 +573,12 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(410, 185);
+            this.label2.Location = new System.Drawing.Point(410, 248);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(500, 107);
             this.label2.TabIndex = 21;
             this.label2.Text = "Товары в системе отсутствуют";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // ProductIdColumn
-            // 
-            this.ProductIdColumn.HeaderText = "ProductIdColumn";
-            this.ProductIdColumn.Name = "ProductIdColumn";
-            this.ProductIdColumn.ReadOnly = true;
-            this.ProductIdColumn.Visible = false;
-            this.ProductIdColumn.Width = 50;
-            // 
-            // ProductName
-            // 
-            this.ProductName.FillWeight = 369.5432F;
-            this.ProductName.HeaderText = "Название товара";
-            this.ProductName.Name = "ProductName";
-            this.ProductName.ReadOnly = true;
-            this.ProductName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ProductName.Width = 450;
-            // 
-            // ProductASIN
-            // 
-            this.ProductASIN.FillWeight = 10.15228F;
-            this.ProductASIN.HeaderText = "ASIN";
-            this.ProductASIN.Name = "ProductASIN";
-            this.ProductASIN.ReadOnly = true;
-            this.ProductASIN.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ProductASIN.Width = 130;
-            // 
-            // ProductSKU
-            // 
-            this.ProductSKU.FillWeight = 10.15228F;
-            this.ProductSKU.HeaderText = "SKU";
-            this.ProductSKU.Name = "ProductSKU";
-            this.ProductSKU.ReadOnly = true;
-            this.ProductSKU.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ProductSKU.Width = 130;
-            // 
-            // ProductTypeId
-            // 
-            this.ProductTypeId.HeaderText = "ProductTypeId";
-            this.ProductTypeId.Name = "ProductTypeId";
-            this.ProductTypeId.ReadOnly = true;
-            this.ProductTypeId.Visible = false;
-            this.ProductTypeId.Width = 50;
-            // 
-            // mrktplc
-            // 
-            this.mrktplc.HeaderText = "Маркетплейс";
-            this.mrktplc.Name = "mrktplc";
-            this.mrktplc.ReadOnly = true;
-            this.mrktplc.Visible = false;
-            // 
-            // actStat
-            // 
-            this.actStat.HeaderText = "activeStatus";
-            this.actStat.Name = "actStat";
-            this.actStat.ReadOnly = true;
-            this.actStat.Visible = false;
-            // 
-            // ProductTypeId2
-            // 
-            this.ProductTypeId2.HeaderText = "ProductTypeId2";
-            this.ProductTypeId2.Name = "ProductTypeId2";
-            this.ProductTypeId2.ReadOnly = true;
-            this.ProductTypeId2.Visible = false;
-            // 
-            // ProductTypeNameColumn
-            // 
-            this.ProductTypeNameColumn.FillWeight = 10.15228F;
-            this.ProductTypeNameColumn.HeaderText = "Вид товара";
-            this.ProductTypeNameColumn.Name = "ProductTypeNameColumn";
-            this.ProductTypeNameColumn.ReadOnly = true;
-            this.ProductTypeNameColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ProductTypeNameColumn.Width = 280;
-            // 
-            // marketplaceid
-            // 
-            this.marketplaceid.HeaderText = "markeplace id";
-            this.marketplaceid.Name = "marketplaceid";
-            this.marketplaceid.ReadOnly = true;
-            this.marketplaceid.Visible = false;
-            // 
-            // marketplacename
-            // 
-            this.marketplacename.HeaderText = "Маркетплейс";
-            this.marketplacename.Name = "marketplacename";
-            this.marketplacename.ReadOnly = true;
-            this.marketplacename.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.marketplacename.Width = 265;
             // 
             // ProductsView
             // 

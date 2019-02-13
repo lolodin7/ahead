@@ -58,6 +58,7 @@
             this.btn_SelectAll = new System.Windows.Forms.Button();
             this.btn_DeselectAll = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.btn_ClearAll = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Source)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Target)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -139,7 +140,7 @@
             this.btn_Begin.Size = new System.Drawing.Size(260, 76);
             this.btn_Begin.TabIndex = 14;
             this.btn_Begin.Text = "Запуск";
-            this.btn_Begin.UseVisualStyleBackColor = false;
+            this.btn_Begin.UseVisualStyleBackColor = true;
             this.btn_Begin.EnabledChanged += new System.EventHandler(this.btn_Begin_EnabledChanged);
             this.btn_Begin.Click += new System.EventHandler(this.btn_Begin_Click);
             // 
@@ -407,7 +408,7 @@
             this.btn_DeselectAll.Name = "btn_DeselectAll";
             this.btn_DeselectAll.Size = new System.Drawing.Size(79, 56);
             this.btn_DeselectAll.TabIndex = 22;
-            this.btn_DeselectAll.Text = "Очистить";
+            this.btn_DeselectAll.Text = "Снять выделение";
             this.btn_DeselectAll.UseVisualStyleBackColor = true;
             this.btn_DeselectAll.Visible = false;
             this.btn_DeselectAll.Click += new System.EventHandler(this.btn_UnChekAll_Click);
@@ -415,18 +416,30 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(71, 268);
+            this.label1.Location = new System.Drawing.Point(71, 366);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(759, 163);
+            this.label1.Size = new System.Drawing.Size(759, 65);
             this.label1.TabIndex = 23;
             this.label1.Text = "Чтобы начать, нажмите \"Загрузить файл\"";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btn_ClearAll
+            // 
+            this.btn_ClearAll.Location = new System.Drawing.Point(414, 296);
+            this.btn_ClearAll.Name = "btn_ClearAll";
+            this.btn_ClearAll.Size = new System.Drawing.Size(79, 56);
+            this.btn_ClearAll.TabIndex = 25;
+            this.btn_ClearAll.Text = "Очистить всё";
+            this.btn_ClearAll.UseVisualStyleBackColor = true;
+            this.btn_ClearAll.Visible = false;
+            this.btn_ClearAll.Click += new System.EventHandler(this.btn_ClearAll_Click);
             // 
             // SemCoreRebuildView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 839);
+            this.Controls.Add(this.btn_ClearAll);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btn_SelectAll);
             this.Controls.Add(this.btn_DeselectAll);
@@ -483,5 +496,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.Button btn_ClearAll;
     }
 }

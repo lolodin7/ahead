@@ -129,6 +129,7 @@ namespace Excel_Parse
                         dgv_Target.Visible = true;
                         btn_SelectAll.Visible = true;
                         btn_DeselectAll.Visible = true;
+                        btn_ClearAll.Visible = true;
                     }
                     catch (Exception ex)
                     {
@@ -167,6 +168,7 @@ namespace Excel_Parse
                         dgv_Target.Visible = true;
                         btn_SelectAll.Visible = true;
                         btn_DeselectAll.Visible = true;
+                        btn_ClearAll.Visible = true;
                         dgv_Source.Focus();
                     }
                     catch (Exception ex)
@@ -523,11 +525,20 @@ namespace Excel_Parse
 
                     dgv_Target.Rows[index].Cells[0].Value = tb_CustomKey.Text;
                     dgv_Target.Rows[index].Cells[1].Value = tb_CustomValue.Text;
+
+                    label3.Visible = false;
+                    dgv_Source.Visible = true;
+                    dgv_Target.Visible = true;
+                    btn_SelectAll.Visible = true;
+                    btn_DeselectAll.Visible = true;
+                    btn_ClearAll.Visible = true;
                 }
 
                 tb_CustomKey.Text = "";
                 tb_CustomValue.Text = "";
             }
+            else
+                MessageBox.Show("Заполните, пожалуйста, оба поля.", "Ошибка");
         }
 
         /* Проверяем символ на цифру при вводе в поле tb_CustomValue */
@@ -584,6 +595,19 @@ namespace Excel_Parse
             }
             else
                 radioButton1.Checked = true;
+        }
+
+        private void btn_ClearAll_Click(object sender, EventArgs e)
+        {
+            label3.Visible = true;
+            dgv_Source.Visible = false;
+            dgv_Target.Visible = false;
+            btn_SelectAll.Visible = false;
+            btn_DeselectAll.Visible = false;
+            btn_ClearAll.Visible = false;
+
+            dgv_Target.Rows.Clear();
+            dgv_Source.Rows.Clear();
         }
     }
 }

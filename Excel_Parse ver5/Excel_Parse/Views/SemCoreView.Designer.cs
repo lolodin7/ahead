@@ -62,6 +62,7 @@
             this.btn_DeselectAll = new System.Windows.Forms.Button();
             this.btn_SelectAll = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.btn_ClearAll = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Source)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Target)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -407,7 +408,7 @@
             this.btn_DeselectAll.Name = "btn_DeselectAll";
             this.btn_DeselectAll.Size = new System.Drawing.Size(79, 56);
             this.btn_DeselectAll.TabIndex = 20;
-            this.btn_DeselectAll.Text = "Очистить";
+            this.btn_DeselectAll.Text = "Снять выделение";
             this.btn_DeselectAll.UseVisualStyleBackColor = true;
             this.btn_DeselectAll.Visible = false;
             this.btn_DeselectAll.Click += new System.EventHandler(this.btn_DeselectAll_Click);
@@ -426,18 +427,30 @@
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(152, 268);
+            this.label3.Location = new System.Drawing.Point(152, 273);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(623, 150);
+            this.label3.Size = new System.Drawing.Size(623, 145);
             this.label3.TabIndex = 23;
             this.label3.Text = "Чтобы начать, нажмите \"Загрузить файл\"";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btn_ClearAll
+            // 
+            this.btn_ClearAll.Location = new System.Drawing.Point(413, 296);
+            this.btn_ClearAll.Name = "btn_ClearAll";
+            this.btn_ClearAll.Size = new System.Drawing.Size(79, 56);
+            this.btn_ClearAll.TabIndex = 24;
+            this.btn_ClearAll.Text = "Очистить всё";
+            this.btn_ClearAll.UseVisualStyleBackColor = true;
+            this.btn_ClearAll.Visible = false;
+            this.btn_ClearAll.Click += new System.EventHandler(this.btn_ClearAll_Click);
             // 
             // SemCoreView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 839);
+            this.Controls.Add(this.btn_ClearAll);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btn_SelectAll);
@@ -498,6 +511,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.Button btn_ClearAll;
     }
 }
 

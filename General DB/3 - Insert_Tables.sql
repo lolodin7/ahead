@@ -223,7 +223,9 @@ VALUES ('Lightning Cable(3 ft)', 'B01MDV1TO4', '32-FM61-Q39H', 6, 1, 'true')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
 VALUES ('PDW Microphone Clip', 'B01LZ6T9XO', '1N-NPIV-XHND', 8, 1, 'true')
 
-
+/*         -- [SemCore] --             */
+INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastUpdated])
+VALUES (1, 1, 'lavalier microphone', 652053, CURRENT_TIMESTAMP)
 
 
 

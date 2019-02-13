@@ -81,7 +81,9 @@ SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = Produc
 
 SELECT * FROM Indexing
 
-SELECT [Date] FROM Indexing WHERE ProductId = 1
+UPDATE Indexing set [Date] = '2019-02-10 00:00:00.000' WHERE [ASIN] = 'B01LZBEH3W'
+UPDATE Indexing set [Date] = '2019-02-08 00:00:00.000' WHERE [ASIN] = 'B01BNGAHCA'
+UPDATE Indexing set [Date] = '2019-02-09 00:00:00.000' WHERE [ASIN] = 'B01DIU9FP4'
 
 SELECT [Notes] FROM [Indexing] WHERE ProductId = 1 AND [Date] = '2018-12-27'
 
@@ -149,3 +151,7 @@ SELECT * FROM SemCoreArchive
 SELECT * FROM SemCoreArchive LEFT JOIN KeywordCategory ON SemCoreArchive.CategoryId = KeywordCategory.CategoryId LEFT JOIN ProductTypes ON SemCoreArchive.ProductTypeId = ProductTypes.ProductTypeId WHERE KeywordCategory.CategoryId > 0 AND SemCoreArchive.ProductTypeId > 0
 
 update SemCoreArchive set ValuesAndDates = '1254&02.02.2019 18:42:43@324&02.03.2019 19:42:43@5484&02.03.2019 17:42:43@' where SemCoreId = 0
+
+
+UPDATE [SemCoreArchive] SET [ProductTypeId] = 1, [CategoryId] = 1, [Keyword] = 'lav',  [ValuesAndDates] = '1234&15.02.2019 12:41:52@1&13.02.2019 12:42:09@2222&14.02.2019 12:58:09@3333&17.02.2019 12:58:09@' WHERE [SemCoreId] = 0
+UPDATE [SemCoreArchive] SET [ProductTypeId] = 1, [CategoryId] = 1, [Keyword] = ' lav',  [ValuesAndDates] = '1&16.02.2019 12:59:07@1234&17.02.2019 12:59:23@' WHERE [SemCoreId] = 4
