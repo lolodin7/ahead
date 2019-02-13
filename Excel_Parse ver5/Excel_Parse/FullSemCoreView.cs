@@ -14,7 +14,6 @@ namespace Excel_Parse
 {
     public partial class FullSemCoreView : Form
     {
-        private KeywordsAreExistedView ControlFormKeywordsAreExisted;
         private MainFormView ControlFormMF;
         private FullSemCoreView ControlFullSemCoreView;
         private KeywordCategoryView ControlKeywordCategoryView;
@@ -46,21 +45,6 @@ namespace Excel_Parse
         public bool NoProdType { get; set; }
         public bool NoKeyCat { get; set; }
 
-        
-
-        /* Вызываем из KeywordsAreExisted для редактирования ключей из таблицы */
-        public FullSemCoreView(KeywordsAreExistedView _form, string[,] arr)
-        {
-            InitializeComponent();
-            ControlFormKeywordsAreExisted = _form;
-            scaController = new SemCoreArchiveController(this);
-
-            NoProdType = false;
-            NoKeyCat = false;
-            
-            GetStarted();
-            firstLaunch = false;
-        }
 
         /* Вызываем из главной формы */
         public FullSemCoreView(MainFormView _mf)
@@ -363,12 +347,7 @@ namespace Excel_Parse
         /* Закрытие формы */
         private void FullSemCore_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (ControlFormKeywordsAreExisted != null)
-            {
-                this.DialogResult = DialogResult.OK;
-                ControlFormKeywordsAreExisted.Visible = true;
-            }
-            else if (ControlFormMF != null)
+            if (ControlFormMF != null)
             {
                 ControlFormMF.Visible = true;
             }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -13,8 +14,8 @@ namespace Excel_Parse
 {
     public partial class MainFormView : Form
     {
-        private SqlConnection connection;
         public string AmazonLink { get; set; }
+
         public MainFormView()
         {
             //показывает картинку при запуске программы
@@ -27,8 +28,7 @@ namespace Excel_Parse
             //перестали показывать картинку при запуске программы
 
             InitializeComponent();
-            connection = DBData.GetDBConnection();
-            AmazonLink = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=";
+            AmazonLink = ConfigurationManager.AppSettings.Get("amzLink");
         }
         
 

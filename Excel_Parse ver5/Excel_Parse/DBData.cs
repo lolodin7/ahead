@@ -4,25 +4,18 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
+using System.Collections.Specialized;
 
 namespace Excel_Parse
 {
     class DBData
     {
-        private const string InitialCatalog = "AHEAD";
-        private const string DataSource = "KCRF1NH-AHEAD-M";
-        private const bool IntegratedSecurity = true;
-        //private const string InitialCatalog = "AHEAD";
-        //private const string DataSource = "LOLODIN";
-        //private const bool IntegratedSecurity = true;
-
         public static SqlConnection GetDBConnection()
         {
             SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-
-            builder["Initial Catalog"] = InitialCatalog;
-            builder["Data Source"] = DataSource;
-            builder["integrated Security"] = IntegratedSecurity;
+            
+            builder.ConnectionString = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
 
             string connectionString = builder.ConnectionString;
 

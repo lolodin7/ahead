@@ -13,18 +13,10 @@ namespace Excel_Parse
         private List<FullSemCoreModel> fscList;
         private SqlConnection connection;
         private SqlCommand command;
-
-        private KeywordsAreExistedView ControlFormKeywordsAreExisted;
+        
         private MainFormView ControlFormMF;
         private FullSemCoreView ControlFullSemCoreView;
-
-
-        public FullSemCoreController(KeywordsAreExistedView _form)
-        {
-            connection = DBData.GetDBConnection();
-            ControlFormKeywordsAreExisted = _form;
-        }
-
+        
         public FullSemCoreController(MainFormView _form)
         {
             connection = DBData.GetDBConnection();
