@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SemanticsView));
             this.dgv_Keywords = new System.Windows.Forms.DataGridView();
             this.ProdTypeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -36,6 +37,12 @@
             this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Name1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SemCoreId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deselectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.title_toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bullets_toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.backend_toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.description_toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lb_TitleText = new System.Windows.Forms.Label();
             this.lb_BulletsText = new System.Windows.Forms.Label();
             this.lb_BackendText = new System.Windows.Forms.Label();
@@ -128,7 +135,9 @@
             this.lb_Description = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.rtb_FindKeyword = new System.Windows.Forms.RichTextBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Keywords)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -147,13 +156,15 @@
             this.Value,
             this.Name1,
             this.SemCoreId});
-            this.dgv_Keywords.Location = new System.Drawing.Point(2, 52);
+            this.dgv_Keywords.ContextMenuStrip = this.contextMenuStrip1;
+            this.dgv_Keywords.Location = new System.Drawing.Point(14, 67);
+            this.dgv_Keywords.MultiSelect = false;
             this.dgv_Keywords.Name = "dgv_Keywords";
             this.dgv_Keywords.ReadOnly = true;
-            this.dgv_Keywords.Size = new System.Drawing.Size(360, 786);
+            this.dgv_Keywords.Size = new System.Drawing.Size(360, 749);
             this.dgv_Keywords.TabIndex = 1;
             this.dgv_Keywords.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_Keywords_CellDoubleClick);
-            this.dgv_Keywords.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_Keywords_CellMouseClick);
+            this.dgv_Keywords.CellMouseMove += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_Keywords_CellMouseMove);
             this.dgv_Keywords.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgv_Keywords_RowsAdded);
             this.dgv_Keywords.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgv_Keywords_RowsRemoved);
             // 
@@ -197,6 +208,53 @@
             this.SemCoreId.Name = "SemCoreId";
             this.SemCoreId.ReadOnly = true;
             this.SemCoreId.Visible = false;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deselectToolStripMenuItem,
+            this.title_toolStripMenuItem,
+            this.bullets_toolStripMenuItem,
+            this.backend_toolStripMenuItem,
+            this.description_toolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(170, 114);
+            this.contextMenuStrip1.Text = "Использовать в:";
+            // 
+            // deselectToolStripMenuItem
+            // 
+            this.deselectToolStripMenuItem.Name = "deselectToolStripMenuItem";
+            this.deselectToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.deselectToolStripMenuItem.Text = "Снять выделение";
+            this.deselectToolStripMenuItem.Click += new System.EventHandler(this.deselectToolStripMenuItem_Click);
+            // 
+            // title_toolStripMenuItem
+            // 
+            this.title_toolStripMenuItem.Name = "title_toolStripMenuItem";
+            this.title_toolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.title_toolStripMenuItem.Text = "Title";
+            this.title_toolStripMenuItem.Click += new System.EventHandler(this.title_toolStripMenuItem_Click);
+            // 
+            // bullets_toolStripMenuItem
+            // 
+            this.bullets_toolStripMenuItem.Name = "bullets_toolStripMenuItem";
+            this.bullets_toolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.bullets_toolStripMenuItem.Text = "Bullet";
+            this.bullets_toolStripMenuItem.Click += new System.EventHandler(this.bullets_toolStripMenuItem_Click);
+            // 
+            // backend_toolStripMenuItem
+            // 
+            this.backend_toolStripMenuItem.Name = "backend_toolStripMenuItem";
+            this.backend_toolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.backend_toolStripMenuItem.Text = "Backend";
+            this.backend_toolStripMenuItem.Click += new System.EventHandler(this.backend_toolStripMenuItem_Click);
+            // 
+            // description_toolStripMenuItem
+            // 
+            this.description_toolStripMenuItem.Name = "description_toolStripMenuItem";
+            this.description_toolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.description_toolStripMenuItem.Text = "Description";
+            this.description_toolStripMenuItem.Click += new System.EventHandler(this.description_toolStripMenuItem_Click);
             // 
             // lb_TitleText
             // 
@@ -304,7 +362,7 @@
             this.rtb_Description.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rtb_Description.Location = new System.Drawing.Point(416, 462);
             this.rtb_Description.Name = "rtb_Description";
-            this.rtb_Description.Size = new System.Drawing.Size(556, 301);
+            this.rtb_Description.Size = new System.Drawing.Size(556, 283);
             this.rtb_Description.TabIndex = 18;
             this.rtb_Description.Text = "";
             this.rtb_Description.TextChanged += new System.EventHandler(this.tb_TextChanged);
@@ -313,7 +371,7 @@
             // 
             this.rtb_Description2.Location = new System.Drawing.Point(1016, 462);
             this.rtb_Description2.Name = "rtb_Description2";
-            this.rtb_Description2.Size = new System.Drawing.Size(556, 301);
+            this.rtb_Description2.Size = new System.Drawing.Size(537, 283);
             this.rtb_Description2.TabIndex = 19;
             this.rtb_Description2.Text = "";
             // 
@@ -323,7 +381,7 @@
             this.btn_TransformDescr.FlatAppearance.BorderSize = 0;
             this.btn_TransformDescr.Location = new System.Drawing.Point(979, 569);
             this.btn_TransformDescr.Name = "btn_TransformDescr";
-            this.btn_TransformDescr.Size = new System.Drawing.Size(31, 179);
+            this.btn_TransformDescr.Size = new System.Drawing.Size(31, 159);
             this.btn_TransformDescr.TabIndex = 20;
             this.btn_TransformDescr.Text = "Преобразовать";
             this.btn_TransformDescr.UseVisualStyleBackColor = true;
@@ -365,7 +423,7 @@
             this.btn_SaveToDB.BackColor = System.Drawing.Color.Silver;
             this.btn_SaveToDB.FlatAppearance.BorderSize = 0;
             this.btn_SaveToDB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_SaveToDB.Location = new System.Drawing.Point(1397, 772);
+            this.btn_SaveToDB.Location = new System.Drawing.Point(1378, 762);
             this.btn_SaveToDB.Name = "btn_SaveToDB";
             this.btn_SaveToDB.Size = new System.Drawing.Size(175, 54);
             this.btn_SaveToDB.TabIndex = 24;
@@ -377,7 +435,7 @@
             // 
             this.lb_LastUpdatedText.AutoSize = true;
             this.lb_LastUpdatedText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_LastUpdatedText.Location = new System.Drawing.Point(1270, 4);
+            this.lb_LastUpdatedText.Location = new System.Drawing.Point(1251, 4);
             this.lb_LastUpdatedText.Name = "lb_LastUpdatedText";
             this.lb_LastUpdatedText.Size = new System.Drawing.Size(170, 19);
             this.lb_LastUpdatedText.TabIndex = 25;
@@ -394,6 +452,7 @@
             this.rb_Title.TabIndex = 27;
             this.rb_Title.TabStop = true;
             this.rb_Title.UseVisualStyleBackColor = true;
+            this.rb_Title.Visible = false;
             // 
             // rb_Bullets
             // 
@@ -403,6 +462,7 @@
             this.rb_Bullets.Size = new System.Drawing.Size(14, 13);
             this.rb_Bullets.TabIndex = 28;
             this.rb_Bullets.UseVisualStyleBackColor = true;
+            this.rb_Bullets.Visible = false;
             // 
             // rb_Backend
             // 
@@ -412,6 +472,7 @@
             this.rb_Backend.Size = new System.Drawing.Size(14, 13);
             this.rb_Backend.TabIndex = 29;
             this.rb_Backend.UseVisualStyleBackColor = true;
+            this.rb_Backend.Visible = false;
             // 
             // rb_Description
             // 
@@ -421,6 +482,7 @@
             this.rb_Description.Size = new System.Drawing.Size(14, 13);
             this.rb_Description.TabIndex = 30;
             this.rb_Description.UseVisualStyleBackColor = true;
+            this.rb_Description.Visible = false;
             // 
             // cb_LastUpdated
             // 
@@ -431,7 +493,7 @@
             "29.08.2018 15:44",
             "10.10.2018 18:36",
             "01.11.2018 12:05"});
-            this.cb_LastUpdated.Location = new System.Drawing.Point(1430, 34);
+            this.cb_LastUpdated.Location = new System.Drawing.Point(1411, 34);
             this.cb_LastUpdated.MaxDropDownItems = 25;
             this.cb_LastUpdated.Name = "cb_LastUpdated";
             this.cb_LastUpdated.Size = new System.Drawing.Size(142, 21);
@@ -441,7 +503,7 @@
             // lb_ASINText
             // 
             this.lb_ASINText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_ASINText.Location = new System.Drawing.Point(1426, 8);
+            this.lb_ASINText.Location = new System.Drawing.Point(1407, 8);
             this.lb_ASINText.Name = "lb_ASINText";
             this.lb_ASINText.Size = new System.Drawing.Size(47, 22);
             this.lb_ASINText.TabIndex = 33;
@@ -472,7 +534,7 @@
             // lb_ASIN
             // 
             this.lb_ASIN.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_ASIN.Location = new System.Drawing.Point(1462, 7);
+            this.lb_ASIN.Location = new System.Drawing.Point(1443, 7);
             this.lb_ASIN.Name = "lb_ASIN";
             this.lb_ASIN.Size = new System.Drawing.Size(110, 21);
             this.lb_ASIN.TabIndex = 32;
@@ -492,7 +554,7 @@
             // 
             // btn_ShowMore
             // 
-            this.btn_ShowMore.Location = new System.Drawing.Point(416, 772);
+            this.btn_ShowMore.Location = new System.Drawing.Point(416, 762);
             this.btn_ShowMore.Name = "btn_ShowMore";
             this.btn_ShowMore.Size = new System.Drawing.Size(161, 54);
             this.btn_ShowMore.TabIndex = 38;
@@ -503,7 +565,7 @@
             // lb_SubjectMatter1
             // 
             this.lb_SubjectMatter1.AutoSize = true;
-            this.lb_SubjectMatter1.Location = new System.Drawing.Point(391, 1216);
+            this.lb_SubjectMatter1.Location = new System.Drawing.Point(391, 1329);
             this.lb_SubjectMatter1.Name = "lb_SubjectMatter1";
             this.lb_SubjectMatter1.Size = new System.Drawing.Size(13, 13);
             this.lb_SubjectMatter1.TabIndex = 45;
@@ -514,7 +576,7 @@
             // lb_IntendedUse1
             // 
             this.lb_IntendedUse1.AutoSize = true;
-            this.lb_IntendedUse1.Location = new System.Drawing.Point(391, 1043);
+            this.lb_IntendedUse1.Location = new System.Drawing.Point(391, 1100);
             this.lb_IntendedUse1.Name = "lb_IntendedUse1";
             this.lb_IntendedUse1.Size = new System.Drawing.Size(13, 13);
             this.lb_IntendedUse1.TabIndex = 44;
@@ -547,7 +609,7 @@
             // lb_IntendedUseText
             // 
             this.lb_IntendedUseText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_IntendedUseText.Location = new System.Drawing.Point(917, 1014);
+            this.lb_IntendedUseText.Location = new System.Drawing.Point(917, 1069);
             this.lb_IntendedUseText.Name = "lb_IntendedUseText";
             this.lb_IntendedUseText.Size = new System.Drawing.Size(146, 19);
             this.lb_IntendedUseText.TabIndex = 46;
@@ -558,7 +620,7 @@
             // lb_SubjectMatterText
             // 
             this.lb_SubjectMatterText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_SubjectMatterText.Location = new System.Drawing.Point(917, 1186);
+            this.lb_SubjectMatterText.Location = new System.Drawing.Point(917, 1297);
             this.lb_SubjectMatterText.Name = "lb_SubjectMatterText";
             this.lb_SubjectMatterText.Size = new System.Drawing.Size(146, 18);
             this.lb_SubjectMatterText.TabIndex = 47;
@@ -568,9 +630,9 @@
             // 
             // rtb_Notes
             // 
-            this.rtb_Notes.Location = new System.Drawing.Point(416, 1376);
+            this.rtb_Notes.Location = new System.Drawing.Point(416, 1541);
             this.rtb_Notes.Name = "rtb_Notes";
-            this.rtb_Notes.Size = new System.Drawing.Size(1158, 154);
+            this.rtb_Notes.Size = new System.Drawing.Size(1137, 180);
             this.rtb_Notes.TabIndex = 48;
             this.rtb_Notes.Text = "";
             this.rtb_Notes.Visible = false;
@@ -578,7 +640,7 @@
             // lb_Notes
             // 
             this.lb_Notes.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_Notes.Location = new System.Drawing.Point(917, 1354);
+            this.lb_Notes.Location = new System.Drawing.Point(917, 1519);
             this.lb_Notes.Name = "lb_Notes";
             this.lb_Notes.Size = new System.Drawing.Size(146, 19);
             this.lb_Notes.TabIndex = 49;
@@ -593,7 +655,7 @@
             this.btn_SaveCurrent.FlatAppearance.BorderColor = System.Drawing.Color.DarkSeaGreen;
             this.btn_SaveCurrent.FlatAppearance.BorderSize = 0;
             this.btn_SaveCurrent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_SaveCurrent.Location = new System.Drawing.Point(796, 772);
+            this.btn_SaveCurrent.Location = new System.Drawing.Point(796, 762);
             this.btn_SaveCurrent.Name = "btn_SaveCurrent";
             this.btn_SaveCurrent.Size = new System.Drawing.Size(175, 54);
             this.btn_SaveCurrent.TabIndex = 51;
@@ -605,7 +667,7 @@
             // 
             this.btn_Return.BackColor = System.Drawing.SystemColors.Control;
             this.btn_Return.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btn_Return.Location = new System.Drawing.Point(1016, 772);
+            this.btn_Return.Location = new System.Drawing.Point(1016, 762);
             this.btn_Return.Name = "btn_Return";
             this.btn_Return.Size = new System.Drawing.Size(175, 54);
             this.btn_Return.TabIndex = 52;
@@ -624,7 +686,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStrip1.Size = new System.Drawing.Size(1577, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1553, 24);
             this.menuStrip1.TabIndex = 53;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -652,7 +714,7 @@
             // lb_OtherAttributes2
             // 
             this.lb_OtherAttributes2.AutoSize = true;
-            this.lb_OtherAttributes2.Location = new System.Drawing.Point(391, 898);
+            this.lb_OtherAttributes2.Location = new System.Drawing.Point(391, 910);
             this.lb_OtherAttributes2.Name = "lb_OtherAttributes2";
             this.lb_OtherAttributes2.Size = new System.Drawing.Size(13, 13);
             this.lb_OtherAttributes2.TabIndex = 55;
@@ -663,7 +725,7 @@
             // lb_OtherAttributes3
             // 
             this.lb_OtherAttributes3.AutoSize = true;
-            this.lb_OtherAttributes3.Location = new System.Drawing.Point(391, 926);
+            this.lb_OtherAttributes3.Location = new System.Drawing.Point(391, 950);
             this.lb_OtherAttributes3.Name = "lb_OtherAttributes3";
             this.lb_OtherAttributes3.Size = new System.Drawing.Size(13, 13);
             this.lb_OtherAttributes3.TabIndex = 57;
@@ -674,7 +736,7 @@
             // lb_OtherAttributes4
             // 
             this.lb_OtherAttributes4.AutoSize = true;
-            this.lb_OtherAttributes4.Location = new System.Drawing.Point(391, 954);
+            this.lb_OtherAttributes4.Location = new System.Drawing.Point(391, 990);
             this.lb_OtherAttributes4.Name = "lb_OtherAttributes4";
             this.lb_OtherAttributes4.Size = new System.Drawing.Size(13, 13);
             this.lb_OtherAttributes4.TabIndex = 59;
@@ -685,7 +747,7 @@
             // lb_OtherAttributes5
             // 
             this.lb_OtherAttributes5.AutoSize = true;
-            this.lb_OtherAttributes5.Location = new System.Drawing.Point(391, 982);
+            this.lb_OtherAttributes5.Location = new System.Drawing.Point(391, 1030);
             this.lb_OtherAttributes5.Name = "lb_OtherAttributes5";
             this.lb_OtherAttributes5.Size = new System.Drawing.Size(13, 13);
             this.lb_OtherAttributes5.TabIndex = 61;
@@ -696,7 +758,7 @@
             // lb_IntendedUse2
             // 
             this.lb_IntendedUse2.AutoSize = true;
-            this.lb_IntendedUse2.Location = new System.Drawing.Point(391, 1071);
+            this.lb_IntendedUse2.Location = new System.Drawing.Point(391, 1139);
             this.lb_IntendedUse2.Name = "lb_IntendedUse2";
             this.lb_IntendedUse2.Size = new System.Drawing.Size(13, 13);
             this.lb_IntendedUse2.TabIndex = 63;
@@ -707,7 +769,7 @@
             // lb_IntendedUse3
             // 
             this.lb_IntendedUse3.AutoSize = true;
-            this.lb_IntendedUse3.Location = new System.Drawing.Point(391, 1101);
+            this.lb_IntendedUse3.Location = new System.Drawing.Point(391, 1178);
             this.lb_IntendedUse3.Name = "lb_IntendedUse3";
             this.lb_IntendedUse3.Size = new System.Drawing.Size(13, 13);
             this.lb_IntendedUse3.TabIndex = 65;
@@ -718,7 +780,7 @@
             // lb_IntendedUse4
             // 
             this.lb_IntendedUse4.AutoSize = true;
-            this.lb_IntendedUse4.Location = new System.Drawing.Point(391, 1129);
+            this.lb_IntendedUse4.Location = new System.Drawing.Point(391, 1217);
             this.lb_IntendedUse4.Name = "lb_IntendedUse4";
             this.lb_IntendedUse4.Size = new System.Drawing.Size(13, 13);
             this.lb_IntendedUse4.TabIndex = 67;
@@ -729,7 +791,7 @@
             // lb_IntendedUse5
             // 
             this.lb_IntendedUse5.AutoSize = true;
-            this.lb_IntendedUse5.Location = new System.Drawing.Point(391, 1157);
+            this.lb_IntendedUse5.Location = new System.Drawing.Point(391, 1256);
             this.lb_IntendedUse5.Name = "lb_IntendedUse5";
             this.lb_IntendedUse5.Size = new System.Drawing.Size(13, 13);
             this.lb_IntendedUse5.TabIndex = 69;
@@ -740,7 +802,7 @@
             // lb_SubjectMatter2
             // 
             this.lb_SubjectMatter2.AutoSize = true;
-            this.lb_SubjectMatter2.Location = new System.Drawing.Point(391, 1244);
+            this.lb_SubjectMatter2.Location = new System.Drawing.Point(391, 1368);
             this.lb_SubjectMatter2.Name = "lb_SubjectMatter2";
             this.lb_SubjectMatter2.Size = new System.Drawing.Size(13, 13);
             this.lb_SubjectMatter2.TabIndex = 71;
@@ -751,7 +813,7 @@
             // lb_SubjectMatter3
             // 
             this.lb_SubjectMatter3.AutoSize = true;
-            this.lb_SubjectMatter3.Location = new System.Drawing.Point(391, 1272);
+            this.lb_SubjectMatter3.Location = new System.Drawing.Point(391, 1407);
             this.lb_SubjectMatter3.Name = "lb_SubjectMatter3";
             this.lb_SubjectMatter3.Size = new System.Drawing.Size(13, 13);
             this.lb_SubjectMatter3.TabIndex = 73;
@@ -762,7 +824,7 @@
             // lb_SubjectMatter4
             // 
             this.lb_SubjectMatter4.AutoSize = true;
-            this.lb_SubjectMatter4.Location = new System.Drawing.Point(391, 1300);
+            this.lb_SubjectMatter4.Location = new System.Drawing.Point(391, 1446);
             this.lb_SubjectMatter4.Name = "lb_SubjectMatter4";
             this.lb_SubjectMatter4.Size = new System.Drawing.Size(13, 13);
             this.lb_SubjectMatter4.TabIndex = 75;
@@ -773,7 +835,7 @@
             // lb_SubjectMatter5
             // 
             this.lb_SubjectMatter5.AutoSize = true;
-            this.lb_SubjectMatter5.Location = new System.Drawing.Point(391, 1328);
+            this.lb_SubjectMatter5.Location = new System.Drawing.Point(391, 1485);
             this.lb_SubjectMatter5.Name = "lb_SubjectMatter5";
             this.lb_SubjectMatter5.Size = new System.Drawing.Size(13, 13);
             this.lb_SubjectMatter5.TabIndex = 77;
@@ -789,7 +851,7 @@
             this.rtb_Bul1.Multiline = false;
             this.rtb_Bul1.Name = "rtb_Bul1";
             this.rtb_Bul1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_Bul1.Size = new System.Drawing.Size(1156, 26);
+            this.rtb_Bul1.Size = new System.Drawing.Size(1137, 26);
             this.rtb_Bul1.TabIndex = 79;
             this.rtb_Bul1.Text = "";
             this.rtb_Bul1.TextChanged += new System.EventHandler(this.tb_TextChanged);
@@ -803,7 +865,7 @@
             this.rtb_Bul2.Multiline = false;
             this.rtb_Bul2.Name = "rtb_Bul2";
             this.rtb_Bul2.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_Bul2.Size = new System.Drawing.Size(1156, 26);
+            this.rtb_Bul2.Size = new System.Drawing.Size(1137, 26);
             this.rtb_Bul2.TabIndex = 80;
             this.rtb_Bul2.Text = "";
             this.rtb_Bul2.TextChanged += new System.EventHandler(this.tb_TextChanged);
@@ -817,7 +879,7 @@
             this.rtb_Bul3.Multiline = false;
             this.rtb_Bul3.Name = "rtb_Bul3";
             this.rtb_Bul3.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_Bul3.Size = new System.Drawing.Size(1156, 26);
+            this.rtb_Bul3.Size = new System.Drawing.Size(1137, 26);
             this.rtb_Bul3.TabIndex = 81;
             this.rtb_Bul3.Text = "";
             this.rtb_Bul3.TextChanged += new System.EventHandler(this.tb_TextChanged);
@@ -831,7 +893,7 @@
             this.rtb_Bul4.Multiline = false;
             this.rtb_Bul4.Name = "rtb_Bul4";
             this.rtb_Bul4.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_Bul4.Size = new System.Drawing.Size(1156, 26);
+            this.rtb_Bul4.Size = new System.Drawing.Size(1137, 26);
             this.rtb_Bul4.TabIndex = 82;
             this.rtb_Bul4.Text = "";
             this.rtb_Bul4.TextChanged += new System.EventHandler(this.tb_TextChanged);
@@ -845,7 +907,7 @@
             this.rtb_Bul5.Multiline = false;
             this.rtb_Bul5.Name = "rtb_Bul5";
             this.rtb_Bul5.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_Bul5.Size = new System.Drawing.Size(1156, 26);
+            this.rtb_Bul5.Size = new System.Drawing.Size(1137, 26);
             this.rtb_Bul5.TabIndex = 83;
             this.rtb_Bul5.Text = "";
             this.rtb_Bul5.TextChanged += new System.EventHandler(this.tb_TextChanged);
@@ -859,7 +921,7 @@
             this.rtb_Title.Multiline = false;
             this.rtb_Title.Name = "rtb_Title";
             this.rtb_Title.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_Title.Size = new System.Drawing.Size(1156, 26);
+            this.rtb_Title.Size = new System.Drawing.Size(1137, 26);
             this.rtb_Title.TabIndex = 78;
             this.rtb_Title.Text = "";
             this.rtb_Title.TextChanged += new System.EventHandler(this.tb_TextChanged);
@@ -873,7 +935,7 @@
             this.rtb_Backend.Multiline = false;
             this.rtb_Backend.Name = "rtb_Backend";
             this.rtb_Backend.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_Backend.Size = new System.Drawing.Size(1156, 26);
+            this.rtb_Backend.Size = new System.Drawing.Size(1137, 26);
             this.rtb_Backend.TabIndex = 85;
             this.rtb_Backend.Text = "";
             this.rtb_Backend.TextChanged += new System.EventHandler(this.tb_TextChanged);
@@ -886,7 +948,7 @@
             this.rtb_OtherAttributes1.Multiline = false;
             this.rtb_OtherAttributes1.Name = "rtb_OtherAttributes1";
             this.rtb_OtherAttributes1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_OtherAttributes1.Size = new System.Drawing.Size(1156, 26);
+            this.rtb_OtherAttributes1.Size = new System.Drawing.Size(1137, 26);
             this.rtb_OtherAttributes1.TabIndex = 86;
             this.rtb_OtherAttributes1.Text = "";
             this.rtb_OtherAttributes1.Visible = false;
@@ -896,11 +958,11 @@
             // 
             this.rtb_OtherAttributes2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtb_OtherAttributes2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_OtherAttributes2.Location = new System.Drawing.Point(416, 892);
+            this.rtb_OtherAttributes2.Location = new System.Drawing.Point(416, 904);
             this.rtb_OtherAttributes2.Multiline = false;
             this.rtb_OtherAttributes2.Name = "rtb_OtherAttributes2";
             this.rtb_OtherAttributes2.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_OtherAttributes2.Size = new System.Drawing.Size(1156, 26);
+            this.rtb_OtherAttributes2.Size = new System.Drawing.Size(1137, 26);
             this.rtb_OtherAttributes2.TabIndex = 87;
             this.rtb_OtherAttributes2.Text = "";
             this.rtb_OtherAttributes2.Visible = false;
@@ -910,11 +972,11 @@
             // 
             this.rtb_OtherAttributes3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtb_OtherAttributes3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_OtherAttributes3.Location = new System.Drawing.Point(416, 920);
+            this.rtb_OtherAttributes3.Location = new System.Drawing.Point(416, 944);
             this.rtb_OtherAttributes3.Multiline = false;
             this.rtb_OtherAttributes3.Name = "rtb_OtherAttributes3";
             this.rtb_OtherAttributes3.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_OtherAttributes3.Size = new System.Drawing.Size(1156, 26);
+            this.rtb_OtherAttributes3.Size = new System.Drawing.Size(1137, 26);
             this.rtb_OtherAttributes3.TabIndex = 88;
             this.rtb_OtherAttributes3.Text = "";
             this.rtb_OtherAttributes3.Visible = false;
@@ -924,11 +986,11 @@
             // 
             this.rtb_OtherAttributes4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtb_OtherAttributes4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_OtherAttributes4.Location = new System.Drawing.Point(416, 948);
+            this.rtb_OtherAttributes4.Location = new System.Drawing.Point(416, 984);
             this.rtb_OtherAttributes4.Multiline = false;
             this.rtb_OtherAttributes4.Name = "rtb_OtherAttributes4";
             this.rtb_OtherAttributes4.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_OtherAttributes4.Size = new System.Drawing.Size(1156, 26);
+            this.rtb_OtherAttributes4.Size = new System.Drawing.Size(1137, 26);
             this.rtb_OtherAttributes4.TabIndex = 89;
             this.rtb_OtherAttributes4.Text = "";
             this.rtb_OtherAttributes4.Visible = false;
@@ -938,11 +1000,11 @@
             // 
             this.rtb_OtherAttributes5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtb_OtherAttributes5.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_OtherAttributes5.Location = new System.Drawing.Point(416, 976);
+            this.rtb_OtherAttributes5.Location = new System.Drawing.Point(416, 1024);
             this.rtb_OtherAttributes5.Multiline = false;
             this.rtb_OtherAttributes5.Name = "rtb_OtherAttributes5";
             this.rtb_OtherAttributes5.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_OtherAttributes5.Size = new System.Drawing.Size(1156, 26);
+            this.rtb_OtherAttributes5.Size = new System.Drawing.Size(1137, 26);
             this.rtb_OtherAttributes5.TabIndex = 90;
             this.rtb_OtherAttributes5.Text = "";
             this.rtb_OtherAttributes5.Visible = false;
@@ -952,11 +1014,11 @@
             // 
             this.rtb_IntendedUse1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtb_IntendedUse1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_IntendedUse1.Location = new System.Drawing.Point(416, 1037);
+            this.rtb_IntendedUse1.Location = new System.Drawing.Point(416, 1094);
             this.rtb_IntendedUse1.Multiline = false;
             this.rtb_IntendedUse1.Name = "rtb_IntendedUse1";
             this.rtb_IntendedUse1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_IntendedUse1.Size = new System.Drawing.Size(1156, 26);
+            this.rtb_IntendedUse1.Size = new System.Drawing.Size(1137, 26);
             this.rtb_IntendedUse1.TabIndex = 91;
             this.rtb_IntendedUse1.Text = "";
             this.rtb_IntendedUse1.Visible = false;
@@ -966,11 +1028,11 @@
             // 
             this.rtb_IntendedUse3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtb_IntendedUse3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_IntendedUse3.Location = new System.Drawing.Point(416, 1095);
+            this.rtb_IntendedUse3.Location = new System.Drawing.Point(416, 1172);
             this.rtb_IntendedUse3.Multiline = false;
             this.rtb_IntendedUse3.Name = "rtb_IntendedUse3";
             this.rtb_IntendedUse3.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_IntendedUse3.Size = new System.Drawing.Size(1156, 26);
+            this.rtb_IntendedUse3.Size = new System.Drawing.Size(1137, 26);
             this.rtb_IntendedUse3.TabIndex = 92;
             this.rtb_IntendedUse3.Text = "";
             this.rtb_IntendedUse3.Visible = false;
@@ -980,11 +1042,11 @@
             // 
             this.rtb_IntendedUse2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtb_IntendedUse2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_IntendedUse2.Location = new System.Drawing.Point(416, 1065);
+            this.rtb_IntendedUse2.Location = new System.Drawing.Point(416, 1133);
             this.rtb_IntendedUse2.Multiline = false;
             this.rtb_IntendedUse2.Name = "rtb_IntendedUse2";
             this.rtb_IntendedUse2.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_IntendedUse2.Size = new System.Drawing.Size(1156, 26);
+            this.rtb_IntendedUse2.Size = new System.Drawing.Size(1137, 26);
             this.rtb_IntendedUse2.TabIndex = 92;
             this.rtb_IntendedUse2.Text = "";
             this.rtb_IntendedUse2.Visible = false;
@@ -994,11 +1056,11 @@
             // 
             this.rtb_IntendedUse4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtb_IntendedUse4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_IntendedUse4.Location = new System.Drawing.Point(416, 1123);
+            this.rtb_IntendedUse4.Location = new System.Drawing.Point(416, 1211);
             this.rtb_IntendedUse4.Multiline = false;
             this.rtb_IntendedUse4.Name = "rtb_IntendedUse4";
             this.rtb_IntendedUse4.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_IntendedUse4.Size = new System.Drawing.Size(1156, 26);
+            this.rtb_IntendedUse4.Size = new System.Drawing.Size(1137, 26);
             this.rtb_IntendedUse4.TabIndex = 93;
             this.rtb_IntendedUse4.Text = "";
             this.rtb_IntendedUse4.Visible = false;
@@ -1008,11 +1070,11 @@
             // 
             this.rtb_IntendedUse5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtb_IntendedUse5.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_IntendedUse5.Location = new System.Drawing.Point(416, 1151);
+            this.rtb_IntendedUse5.Location = new System.Drawing.Point(416, 1250);
             this.rtb_IntendedUse5.Multiline = false;
             this.rtb_IntendedUse5.Name = "rtb_IntendedUse5";
             this.rtb_IntendedUse5.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_IntendedUse5.Size = new System.Drawing.Size(1156, 26);
+            this.rtb_IntendedUse5.Size = new System.Drawing.Size(1137, 26);
             this.rtb_IntendedUse5.TabIndex = 94;
             this.rtb_IntendedUse5.Text = "";
             this.rtb_IntendedUse5.Visible = false;
@@ -1022,11 +1084,11 @@
             // 
             this.rtb_SubjectMatter1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtb_SubjectMatter1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_SubjectMatter1.Location = new System.Drawing.Point(416, 1210);
+            this.rtb_SubjectMatter1.Location = new System.Drawing.Point(416, 1323);
             this.rtb_SubjectMatter1.Multiline = false;
             this.rtb_SubjectMatter1.Name = "rtb_SubjectMatter1";
             this.rtb_SubjectMatter1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_SubjectMatter1.Size = new System.Drawing.Size(1156, 26);
+            this.rtb_SubjectMatter1.Size = new System.Drawing.Size(1137, 26);
             this.rtb_SubjectMatter1.TabIndex = 95;
             this.rtb_SubjectMatter1.Text = "";
             this.rtb_SubjectMatter1.Visible = false;
@@ -1036,11 +1098,11 @@
             // 
             this.rtb_SubjectMatter2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtb_SubjectMatter2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_SubjectMatter2.Location = new System.Drawing.Point(416, 1238);
+            this.rtb_SubjectMatter2.Location = new System.Drawing.Point(416, 1362);
             this.rtb_SubjectMatter2.Multiline = false;
             this.rtb_SubjectMatter2.Name = "rtb_SubjectMatter2";
             this.rtb_SubjectMatter2.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_SubjectMatter2.Size = new System.Drawing.Size(1156, 26);
+            this.rtb_SubjectMatter2.Size = new System.Drawing.Size(1137, 26);
             this.rtb_SubjectMatter2.TabIndex = 96;
             this.rtb_SubjectMatter2.Text = "";
             this.rtb_SubjectMatter2.Visible = false;
@@ -1050,11 +1112,11 @@
             // 
             this.rtb_SubjectMatter3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtb_SubjectMatter3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_SubjectMatter3.Location = new System.Drawing.Point(416, 1266);
+            this.rtb_SubjectMatter3.Location = new System.Drawing.Point(416, 1401);
             this.rtb_SubjectMatter3.Multiline = false;
             this.rtb_SubjectMatter3.Name = "rtb_SubjectMatter3";
             this.rtb_SubjectMatter3.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_SubjectMatter3.Size = new System.Drawing.Size(1156, 26);
+            this.rtb_SubjectMatter3.Size = new System.Drawing.Size(1137, 26);
             this.rtb_SubjectMatter3.TabIndex = 97;
             this.rtb_SubjectMatter3.Text = "";
             this.rtb_SubjectMatter3.Visible = false;
@@ -1064,11 +1126,11 @@
             // 
             this.rtb_SubjectMatter4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtb_SubjectMatter4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_SubjectMatter4.Location = new System.Drawing.Point(416, 1294);
+            this.rtb_SubjectMatter4.Location = new System.Drawing.Point(416, 1440);
             this.rtb_SubjectMatter4.Multiline = false;
             this.rtb_SubjectMatter4.Name = "rtb_SubjectMatter4";
             this.rtb_SubjectMatter4.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_SubjectMatter4.Size = new System.Drawing.Size(1156, 26);
+            this.rtb_SubjectMatter4.Size = new System.Drawing.Size(1137, 26);
             this.rtb_SubjectMatter4.TabIndex = 98;
             this.rtb_SubjectMatter4.Text = "";
             this.rtb_SubjectMatter4.Visible = false;
@@ -1078,11 +1140,11 @@
             // 
             this.rtb_SubjectMatter5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtb_SubjectMatter5.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_SubjectMatter5.Location = new System.Drawing.Point(416, 1322);
+            this.rtb_SubjectMatter5.Location = new System.Drawing.Point(416, 1479);
             this.rtb_SubjectMatter5.Multiline = false;
             this.rtb_SubjectMatter5.Name = "rtb_SubjectMatter5";
             this.rtb_SubjectMatter5.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtb_SubjectMatter5.Size = new System.Drawing.Size(1156, 26);
+            this.rtb_SubjectMatter5.Size = new System.Drawing.Size(1137, 26);
             this.rtb_SubjectMatter5.TabIndex = 99;
             this.rtb_SubjectMatter5.Text = "";
             this.rtb_SubjectMatter5.Visible = false;
@@ -1090,7 +1152,7 @@
             // 
             // rtb_UsedKeywords
             // 
-            this.rtb_UsedKeywords.Location = new System.Drawing.Point(227, 852);
+            this.rtb_UsedKeywords.Location = new System.Drawing.Point(608, 751);
             this.rtb_UsedKeywords.Name = "rtb_UsedKeywords";
             this.rtb_UsedKeywords.Size = new System.Drawing.Size(149, 75);
             this.rtb_UsedKeywords.TabIndex = 101;
@@ -1108,7 +1170,7 @@
             this.groupBox1.Controls.Add(this.cb_ProductTypes);
             this.groupBox1.Controls.Add(this.btn_AcceptGroupBox1);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Location = new System.Drawing.Point(0, 49);
+            this.groupBox1.Location = new System.Drawing.Point(15, 67);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(362, 277);
             this.groupBox1.TabIndex = 102;
@@ -1216,6 +1278,7 @@
             this.rb_None.TabIndex = 104;
             this.rb_None.TabStop = true;
             this.rb_None.UseVisualStyleBackColor = true;
+            this.rb_None.Visible = false;
             // 
             // lb_Description
             // 
@@ -1229,14 +1292,15 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(244, 30);
+            this.label1.Location = new System.Drawing.Point(280, 38);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 13);
             this.label1.TabIndex = 8;
             // 
             // rtb_FindKeyword
             // 
-            this.rtb_FindKeyword.Location = new System.Drawing.Point(3, 27);
+            this.rtb_FindKeyword.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtb_FindKeyword.Location = new System.Drawing.Point(56, 36);
             this.rtb_FindKeyword.Multiline = false;
             this.rtb_FindKeyword.Name = "rtb_FindKeyword";
             this.rtb_FindKeyword.Size = new System.Drawing.Size(218, 20);
@@ -1245,13 +1309,23 @@
             this.rtb_FindKeyword.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             this.rtb_FindKeyword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtb_FindKeyword_KeyDown);
             // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(12, 34);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(45, 20);
+            this.label2.TabIndex = 107;
+            this.label2.Text = "Поиск:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // SemanticsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1594, 845);
+            this.ClientSize = new System.Drawing.Size(1574, 872);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.rtb_FindKeyword);
             this.Controls.Add(this.lb_Description);
@@ -1336,11 +1410,13 @@
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "SemanticsView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Семантика - Bona Fides";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Semantics_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Keywords)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -1450,5 +1526,12 @@
         private System.Windows.Forms.Label lb_Description;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RichTextBox rtb_FindKeyword;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem title_toolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bullets_toolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem backend_toolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem description_toolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deselectToolStripMenuItem;
+        private System.Windows.Forms.Label label2;
     }
 }

@@ -44,14 +44,14 @@ namespace Excel_Parse
         private int semanticsId;
         
 
-        private bool CheckForUnsavedChanges;        //чтобы не закрыть прогу без сохранения
+        private bool UnsavedChangesExist;        //чтобы не закрыть прогу без сохранения
 
         private bool isNew;                 //указывает, создаем новую семантику или открываем на редактирование
 
 
         private bool reverseDescriptionTransform;
 
-        private string helpText = "Двойной ЛКМ по ключу в таблице - пометить его цветом + скопировать ключ в буфер. Цвет указывает на то, в каком поле использован ключ (bullets, title и т.д.). Сменить выбор можно посредством переключателей на форме, слева от каждого вида поля.\nЧтобы отменить выделение ключа, выберите самый верхний переключатель.\n\nПКМ по ключу в таблице - скрыть его\n\nДвойной ЛКМ по ASIN - скопировать его в буфер обмена.\n\nДвойной ЛКМ по названию товара - скопировать его в буфер обмена.\n\nCtrl+B - выделить текст в полях жирным.\nCtrl+U - выделить текст в полях курсивом.\n\n";
+        private string helpText = "ПКМ по ключу в таблице - пометить его цветом + скопировать ключ в буфер. Цвет указывает на то, в каком поле использован ключ (bullets, title и т.д.).\n\nДвойной ЛКМ по ключу в таблице - скрыть его.\n\nДвойной ЛКМ по ASIN - скопировать его в буфер обмена.\n\nДвойной ЛКМ по названию товара - скопировать его в буфер обмена.\n\nCtrl+B - выделить текст в полях жирным.\nCtrl+U - выделить текст в полях курсивом.\n\n";
 
         private Color foundedKeywordColor = Color.DeepSkyBlue;
         private Color titleColor = Color.Coral;
@@ -173,7 +173,7 @@ namespace Excel_Parse
             getDBKeywords();
             //getDBFields();
             CountKeys();
-            CheckForUnsavedChanges = false;
+            UnsavedChangesExist = false;
         }
 
         /* Первая загрузка формы */
@@ -187,7 +187,7 @@ namespace Excel_Parse
             getDBKeywords();
             getDBFields();
 
-            CheckForUnsavedChanges = false;
+            UnsavedChangesExist = false;
             CountKeys();
         }
 
@@ -324,35 +324,44 @@ namespace Excel_Parse
                 }
             }
 
-            rtb_Title.Text = smList[index].Title;
-            rtb_Bul1.Text = smList[index].Bullet1;
-            rtb_Bul2.Text = smList[index].Bullet2;
-            rtb_Bul3.Text = smList[index].Bullet3;
-            rtb_Bul4.Text = smList[index].Bullet4;
-            rtb_Bul5.Text = smList[index].Bullet5;
-            rtb_Backend.Text = smList[index].Backend;
-            rtb_Description.Text = smList[index].Description;
-            rtb_OtherAttributes1.Text = smList[index].OtherAttributes1;
-            rtb_OtherAttributes2.Text = smList[index].OtherAttributes2;
-            rtb_OtherAttributes3.Text = smList[index].OtherAttributes3;
-            rtb_OtherAttributes4.Text = smList[index].OtherAttributes4;
-            rtb_OtherAttributes5.Text = smList[index].OtherAttributes5;
-            rtb_IntendedUse1.Text = smList[index].IntendedUse1;
-            rtb_IntendedUse2.Text = smList[index].IntendedUse2;
-            rtb_IntendedUse3.Text = smList[index].IntendedUse3;
-            rtb_IntendedUse4.Text = smList[index].IntendedUse4;
-            rtb_IntendedUse5.Text = smList[index].IntendedUse5;
-            rtb_SubjectMatter1.Text = smList[index].SubjectMatter1;
-            rtb_SubjectMatter2.Text = smList[index].SubjectMatter2;
-            rtb_SubjectMatter3.Text = smList[index].SubjectMatter3;
-            rtb_SubjectMatter4.Text = smList[index].SubjectMatter4;
-            rtb_SubjectMatter5.Text = smList[index].SubjectMatter5;
-            rtb_Notes.Text = smList[index].Notes;
-            rtb_UsedKeywords.Text = smList[index].UsedKeywords;
+            if (index != -1)
+            {
+                rtb_Title.Text = smList[index].Title;
+                rtb_Bul1.Text = smList[index].Bullet1;
+                rtb_Bul2.Text = smList[index].Bullet2;
+                rtb_Bul3.Text = smList[index].Bullet3;
+                rtb_Bul4.Text = smList[index].Bullet4;
+                rtb_Bul5.Text = smList[index].Bullet5;
+                rtb_Backend.Text = smList[index].Backend;
+                rtb_Description.Text = smList[index].Description;
+                rtb_OtherAttributes1.Text = smList[index].OtherAttributes1;
+                rtb_OtherAttributes2.Text = smList[index].OtherAttributes2;
+                rtb_OtherAttributes3.Text = smList[index].OtherAttributes3;
+                rtb_OtherAttributes4.Text = smList[index].OtherAttributes4;
+                rtb_OtherAttributes5.Text = smList[index].OtherAttributes5;
+                rtb_IntendedUse1.Text = smList[index].IntendedUse1;
+                rtb_IntendedUse2.Text = smList[index].IntendedUse2;
+                rtb_IntendedUse3.Text = smList[index].IntendedUse3;
+                rtb_IntendedUse4.Text = smList[index].IntendedUse4;
+                rtb_IntendedUse5.Text = smList[index].IntendedUse5;
+                rtb_SubjectMatter1.Text = smList[index].SubjectMatter1;
+                rtb_SubjectMatter2.Text = smList[index].SubjectMatter2;
+                rtb_SubjectMatter3.Text = smList[index].SubjectMatter3;
+                rtb_SubjectMatter4.Text = smList[index].SubjectMatter4;
+                rtb_SubjectMatter5.Text = smList[index].SubjectMatter5;
+                rtb_Notes.Text = smList[index].Notes;
+                rtb_UsedKeywords.Text = smList[index].UsedKeywords;
 
-            ForcedTextBoxChanging();                    //Принудительно пересчитываем и перезаписываем фактическое значение длины поля
-            
-            UsedKeywordsAnalyser();
+                ForcedTextBoxChanging();                    //Принудительно пересчитываем и перезаписываем фактическое значение длины поля
+
+                UsedKeywordsAnalyser();
+            }
+            else
+            {
+                MessageBox.Show("Произошел какой-то сбой, попытайтесь еще раз.", "Ошибка");
+                UnsavedChangesExist = false;
+                this.Close();
+            }
         }
 
         /* Обработчик изменения версии (даты) листинга */
@@ -626,7 +635,7 @@ namespace Excel_Parse
                     lb_SubjectMatter5.Text = textBox.TextLength.ToString();
                     break;
             }
-            CheckForUnsavedChanges = true;
+            UnsavedChangesExist = false;
         }
 
         /* Выделяем использованные ключи в полях rtb */
@@ -1284,80 +1293,111 @@ namespace Excel_Parse
 
         #region выделяем/снимание выделение ключей пользователем 
 
-        /* Скрываем ключ из таблицы dgv_Keywords, попутно удаляя его из usedK */
-        private void dgv_Keywords_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+
+        /* Выделяем ячейку под указателем мыши */
+        private void dgv_Keywords_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+                dgv_Keywords.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
+        }
+
+        /* Помечаем ключа в таблице в соответствии с выбором пользователя */
+        private void title_toolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int rowIndex = dgv_Keywords.CurrentCell.RowIndex;
+
+            if (rowIndex >= 0)
             {
-                if (e.RowIndex >= 0)
-                {
-                    if (dgv_Keywords.Rows[e.RowIndex].Cells[2].Style.BackColor != Color.White)
-                    {
-                        GetMarkedKeywords(sender, e);
-                        dgv_Keywords.Rows.RemoveAt(e.RowIndex);
-                    }
-                    else
-                        dgv_Keywords.Rows.RemoveAt(e.RowIndex);
-                }
+                rb_Title.Checked = true;
+
+                var str = dgv_Keywords.Rows[rowIndex].Cells[2].Value.ToString();
+
+                Clipboard.SetText(str);
+
+                dgv_Keywords.Rows[rowIndex].Cells[2].Style.BackColor = titleColor;  //title
+                dgv_Keywords.Rows[rowIndex].Cells[3].Style.BackColor = titleColor;
+                GetMarkedKeywords(0, rowIndex);
             }
         }
 
-
-        /* Копируем ключ из таблицы и сразу помечаем цветом, где мы его используем */
-        private void dgv_Keywords_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        /* Помечаем ключа в таблице в соответствии с выбором пользователя */
+        private void bullets_toolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (e.RowIndex >= 0)
+            int rowIndex = dgv_Keywords.CurrentCell.RowIndex;
+
+            if (rowIndex >= 0)
             {
-                try
-                {
-                    var str = dgv_Keywords.Rows[e.RowIndex].Cells[2].Value.ToString();
+                rb_Bullets.Checked = true;
 
-                    Clipboard.SetText(str);
+                var str = dgv_Keywords.Rows[rowIndex].Cells[2].Value.ToString();
 
-                    if (rb_None.Checked)
-                    {
-                        dgv_Keywords.Rows[e.RowIndex].Cells[2].Style.BackColor = Color.White;  //нигде не используем, т.е. снимаем выделение
-                        dgv_Keywords.Rows[e.RowIndex].Cells[3].Style.BackColor = Color.White;
-                        GetMarkedKeywords(-1, sender, e);
-                    }
-                    else if (rb_Title.Checked)
-                    {
-                        dgv_Keywords.Rows[e.RowIndex].Cells[2].Style.BackColor = titleColor;  //title
-                        dgv_Keywords.Rows[e.RowIndex].Cells[3].Style.BackColor = titleColor;
-                        GetMarkedKeywords(0, sender, e);
-                    }
-                    else if (rb_Bullets.Checked)
-                    {
-                        dgv_Keywords.Rows[e.RowIndex].Cells[2].Style.BackColor = bulletsColor;  //bullets
-                        dgv_Keywords.Rows[e.RowIndex].Cells[3].Style.BackColor = bulletsColor;
-                        GetMarkedKeywords(1, sender, e);
-                    }
-                    else if (rb_Backend.Checked)
-                    {
-                        dgv_Keywords.Rows[e.RowIndex].Cells[2].Style.BackColor = backendColor;  //backend
-                        dgv_Keywords.Rows[e.RowIndex].Cells[3].Style.BackColor = backendColor;
-                        GetMarkedKeywords(2, sender, e);
-                    }
-                    else if (rb_Description.Checked)
-                    {
-                        dgv_Keywords.Rows[e.RowIndex].Cells[2].Style.BackColor = descriptionColor;  //description
-                        dgv_Keywords.Rows[e.RowIndex].Cells[3].Style.BackColor = descriptionColor;
-                        GetMarkedKeywords(3, sender, e);
-                    }
-                }
-                catch (Exception exc)
-                {
-                    MessageBox.Show("Упс! Произошел какой-то сбой, попробуйте ещё раз", "Ошибка");
-                }
+                Clipboard.SetText(str);
+
+                dgv_Keywords.Rows[rowIndex].Cells[2].Style.BackColor = bulletsColor;  //bullets
+                dgv_Keywords.Rows[rowIndex].Cells[3].Style.BackColor = bulletsColor;
+                GetMarkedKeywords(1, rowIndex);
+
             }
         }
+
+        /* Помечаем ключа в таблице в соответствии с выбором пользователя */
+        private void backend_toolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int rowIndex = dgv_Keywords.CurrentCell.RowIndex;
+
+            if (rowIndex >= 0)
+            {
+                rb_Backend.Checked = true;
+
+                var str = dgv_Keywords.Rows[rowIndex].Cells[2].Value.ToString();
+
+                Clipboard.SetText(str);
+
+                dgv_Keywords.Rows[rowIndex].Cells[2].Style.BackColor = backendColor;  //backend
+                dgv_Keywords.Rows[rowIndex].Cells[3].Style.BackColor = backendColor;
+                GetMarkedKeywords(2, rowIndex);
+            }
+        }
+
+        /* Помечаем ключа в таблице в соответствии с выбором пользователя */
+        private void description_toolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int rowIndex = dgv_Keywords.CurrentCell.RowIndex;
+
+            if (rowIndex >= 0)
+            {
+                rb_Description.Checked = true;
+
+                var str = dgv_Keywords.Rows[rowIndex].Cells[2].Value.ToString();
+
+                Clipboard.SetText(str);
+
+                dgv_Keywords.Rows[rowIndex].Cells[2].Style.BackColor = descriptionColor;  //description
+                dgv_Keywords.Rows[rowIndex].Cells[3].Style.BackColor = descriptionColor;
+                GetMarkedKeywords(3, rowIndex);
+            }
+        }
+
+        /* Помечаем ключа в таблице в соответствии с выбором пользователя */
+        private void deselectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int rowIndex = dgv_Keywords.CurrentCell.RowIndex;
+
+            if (rowIndex >= 0)
+            {
+                rb_None.Checked = true;
+
+                dgv_Keywords.Rows[rowIndex].Cells[2].Style.BackColor = Color.White;  //нигде не используем, т.е. снимаем выделение
+                dgv_Keywords.Rows[rowIndex].Cells[3].Style.BackColor = Color.White;
+                GetMarkedKeywords(-1, rowIndex);
+            }
+        }
+
 
         /* Изменяем used keywords в dgv_Keywords после изменения пользователем */
-        private void GetMarkedKeywords(int val, object sender, DataGridViewCellEventArgs e)         // 0 - title, 1 - bullets, 2 - description
+        private void GetMarkedKeywords(int val, int rowIndex)         // 0 - title, 1 - bullets, 2 - description
         {
-            DataGridView dgv = (DataGridView)sender;
-
-            string tmp = dgv.Rows[e.RowIndex].Cells[2].Value.ToString();
+            string tmp = dgv_Keywords.Rows[rowIndex].Cells[2].Value.ToString();
             if (val != -1)
             {
                 bool flag = false;
@@ -1387,23 +1427,34 @@ namespace Excel_Parse
                     }
                 }
             }
+
+            UnsavedChangesExist = true;
         }
-
-        /* Изменяем used keywords в dgv_Keywords после изменения пользователем */
-        private void GetMarkedKeywords(object sender, DataGridViewCellMouseEventArgs e)         // 0 - title, 1 - bullets, 2 - description
+        
+        /* Скрываем ключ из таблицы dgv_Keywords, попутно удаляя его из usedK */
+        private void dgv_Keywords_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridView dgv = (DataGridView)sender;
-
-            string tmp = dgv.Rows[e.RowIndex].Cells[2].Value.ToString();
-
-            for (int i = 0; i < usedK.Count; i++)
+            if (e.RowIndex >= 0)
             {
-                if (usedK[i].ElementAt(0).Equals(tmp))
+                if (dgv_Keywords.Rows[e.RowIndex].Cells[2].Style.BackColor != Color.White)
                 {
-                    usedK.RemoveAt(i);
-                }
-            }
+                    DataGridView dgv = (DataGridView)sender;
 
+                    string tmp = dgv.Rows[e.RowIndex].Cells[2].Value.ToString();
+
+                    for (int i = 0; i < usedK.Count; i++)
+                    {
+                        if (usedK[i].ElementAt(0).Equals(tmp))
+                        {
+                            usedK.RemoveAt(i);
+                        }
+                    }
+
+                    dgv_Keywords.Rows.RemoveAt(e.RowIndex);
+                }
+                else
+                    dgv_Keywords.Rows.RemoveAt(e.RowIndex);
+            }
         }
 
         #endregion
@@ -1439,13 +1490,13 @@ namespace Excel_Parse
                 btn_ShowMore.Text = "Показать меньше...";
                 ShowMore(true);
                 rtb_Notes.Focus();
-                dgv_Keywords.Height = 1488;
+                dgv_Keywords.Height = 1649;
             }
             else
             {
                 btn_ShowMore.Text = "Показать больше...";
                 ShowMore(false);
-                dgv_Keywords.Height = 775;
+                dgv_Keywords.Height = 749;
             }
         }
 
@@ -1555,7 +1606,7 @@ namespace Excel_Parse
             {
                 setUsedKeywordsTo_rtbUsedKeywords();
                 setSemanticsByFields();
-                CheckForUnsavedChanges = true;
+                UnsavedChangesExist = false;
             }
             catch (Exception exc) { MessageBox.Show("Упс! Что-то не так, проверьте корректность введенных данных", "Ошибка"); }
         }
@@ -1564,7 +1615,7 @@ namespace Excel_Parse
         /* Cохранение новой версии семантики в БД */
         private void btn_UpdateSemantics_Click(object sender, EventArgs e)
         {
-            if (CheckForUnsavedChanges)
+            if (UnsavedChangesExist)
             {
                 if (MessageBox.Show("Сохранить обновленную семантику в БД?", "Сохранение", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
@@ -1572,7 +1623,7 @@ namespace Excel_Parse
                     {
                         setUsedKeywordsTo_rtbUsedKeywords();
                         setSemanticsByFields();
-                        CheckForUnsavedChanges = true;
+                        UnsavedChangesExist = false;
                         setDBFields();
                     }
                 }
@@ -1584,7 +1635,6 @@ namespace Excel_Parse
                     try
                     {
                         setDBFields();
-                        MessageBox.Show("Данные были сохранены успешно!", "Успешно");
                     }
                     catch (Exception exc)
                     {
@@ -1599,7 +1649,7 @@ namespace Excel_Parse
         {
             int index = smList.Count - 1;
             string sqlStatements;
-            smList[index].UpdateDate = DateTime.Now;
+            smList[index].UpdateDate = CurrentDay;
 
             bool success = false; 
 
@@ -1616,7 +1666,7 @@ namespace Excel_Parse
                         command.ExecuteScalar();
                         connection.Close();
 
-                        CheckForUnsavedChanges = false;
+                        UnsavedChangesExist = false;
                         setDBFieldsLength();
 
                         semanticsId = getSavedSemanticsId();
@@ -1642,7 +1692,7 @@ namespace Excel_Parse
                         command.ExecuteScalar();
                         connection.Close();
 
-                        CheckForUnsavedChanges = false;
+                        UnsavedChangesExist = false;
                         setDBFieldsLength();
 
                         //MessageBox.Show("Данные были сохранены успешно!", "Успешно");
@@ -1732,7 +1782,7 @@ namespace Excel_Parse
         {
             if (controlMainFormView != null)
             {
-                if (CheckForUnsavedChanges)
+                if (UnsavedChangesExist)
                 {
                     if (MessageBox.Show("Имеются несохраненные изменения. Сохранить?", "Сохранение", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
@@ -1749,13 +1799,13 @@ namespace Excel_Parse
                         }
                     }
                 }
-                CheckForUnsavedChanges = false;
+                UnsavedChangesExist = false;
                 connection.Close();     //закрываем соединение с БД
                 controlMainFormView.Show();
             }
             else
             {
-                if (CheckForUnsavedChanges)
+                if (UnsavedChangesExist)
                 {
                     if (MessageBox.Show("Имеются несохраненные изменения. Сохранить?", "Сохранение", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
@@ -1772,7 +1822,7 @@ namespace Excel_Parse
                         }
                     }
                 }
-                CheckForUnsavedChanges = false;
+                UnsavedChangesExist = false;
                 connection.Close();     //закрываем соединение с БД
                 controlIndexingView.Show();
             }

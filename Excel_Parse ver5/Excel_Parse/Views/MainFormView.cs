@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -29,6 +30,21 @@ namespace Excel_Parse
 
             InitializeComponent();
             AmazonLink = ConfigurationManager.AppSettings.Get("amzLink");
+
+
+            //   ниже хреновина для получение МАС, чтобы сохранить в БД для юзера для "запомнить меня" верификации
+
+            //NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+            //String sMacAddress = string.Empty;
+            //foreach (NetworkInterface adapter in nics)
+            //{
+            //    if (sMacAddress == String.Empty)// only return MAC Address from first card  
+            //    {
+            //        IPInterfaceProperties properties = adapter.GetIPProperties();
+            //        sMacAddress = adapter.GetPhysicalAddress().ToString();
+            //    }
+            //}
+            //Console.WriteLine(sMacAddress);
         }
         
 
