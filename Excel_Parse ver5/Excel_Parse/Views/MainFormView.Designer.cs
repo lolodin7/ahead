@@ -44,6 +44,23 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_DoMarketplaces = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.семантическиеЯдраToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.семантикаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.товарыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DoProductsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DoProductTypesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DoMarketpalcesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CreateSemanticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.EditSemanticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ShowIndexingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DoSemCoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DoRewriteSemCoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ShowAllKeywordsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ShowSemCoreArchiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DoKeywordCategoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сотрудникToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ShowPersonalInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.LogOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -170,13 +187,17 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(195, 81);
             this.button1.TabIndex = 11;
-            this.button1.Text = "Создать семантику для нового продукта";
+            this.button1.Text = "Создать семантику для нового товара";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.семантическиеЯдраToolStripMenuItem,
+            this.семантикаToolStripMenuItem,
+            this.товарыToolStripMenuItem,
+            this.сотрудникToolStripMenuItem,
             this.serviceToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -195,7 +216,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "Справка";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -225,6 +246,136 @@
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // семантическиеЯдраToolStripMenuItem
+            // 
+            this.семантическиеЯдраToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DoSemCoreToolStripMenuItem,
+            this.DoRewriteSemCoreToolStripMenuItem,
+            this.DoKeywordCategoryToolStripMenuItem,
+            this.ShowAllKeywordsToolStripMenuItem,
+            this.ShowSemCoreArchiveToolStripMenuItem});
+            this.семантическиеЯдраToolStripMenuItem.Name = "семантическиеЯдраToolStripMenuItem";
+            this.семантическиеЯдраToolStripMenuItem.Size = new System.Drawing.Size(134, 20);
+            this.семантическиеЯдраToolStripMenuItem.Text = "Семантическое ядро";
+            // 
+            // семантикаToolStripMenuItem
+            // 
+            this.семантикаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.CreateSemanticsToolStripMenuItem,
+            this.EditSemanticsToolStripMenuItem,
+            this.ShowIndexingToolStripMenuItem});
+            this.семантикаToolStripMenuItem.Name = "семантикаToolStripMenuItem";
+            this.семантикаToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
+            this.семантикаToolStripMenuItem.Text = "Семантика";
+            // 
+            // товарыToolStripMenuItem
+            // 
+            this.товарыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DoProductsToolStripMenuItem,
+            this.DoProductTypesToolStripMenuItem,
+            this.DoMarketpalcesToolStripMenuItem});
+            this.товарыToolStripMenuItem.Name = "товарыToolStripMenuItem";
+            this.товарыToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.товарыToolStripMenuItem.Text = "Товары";
+            // 
+            // DoProductsToolStripMenuItem
+            // 
+            this.DoProductsToolStripMenuItem.Name = "DoProductsToolStripMenuItem";
+            this.DoProductsToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.DoProductsToolStripMenuItem.Text = "Управление товарами";
+            this.DoProductsToolStripMenuItem.Click += new System.EventHandler(this.btn_DoProducts_Click);
+            // 
+            // DoProductTypesToolStripMenuItem
+            // 
+            this.DoProductTypesToolStripMenuItem.Name = "DoProductTypesToolStripMenuItem";
+            this.DoProductTypesToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.DoProductTypesToolStripMenuItem.Text = "Управление видами товаров";
+            this.DoProductTypesToolStripMenuItem.Click += new System.EventHandler(this.btn_DoProductType_Click);
+            // 
+            // DoMarketpalcesToolStripMenuItem
+            // 
+            this.DoMarketpalcesToolStripMenuItem.Name = "DoMarketpalcesToolStripMenuItem";
+            this.DoMarketpalcesToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.DoMarketpalcesToolStripMenuItem.Text = "Управление маркетплейсами";
+            this.DoMarketpalcesToolStripMenuItem.Click += new System.EventHandler(this.btn_DoMarketplaces_Click);
+            // 
+            // CreateSemanticsToolStripMenuItem
+            // 
+            this.CreateSemanticsToolStripMenuItem.Name = "CreateSemanticsToolStripMenuItem";
+            this.CreateSemanticsToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
+            this.CreateSemanticsToolStripMenuItem.Text = "Создать семантику для нового товара";
+            this.CreateSemanticsToolStripMenuItem.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // EditSemanticsToolStripMenuItem
+            // 
+            this.EditSemanticsToolStripMenuItem.Name = "EditSemanticsToolStripMenuItem";
+            this.EditSemanticsToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
+            this.EditSemanticsToolStripMenuItem.Text = "Редактирование семантики";
+            this.EditSemanticsToolStripMenuItem.Click += new System.EventHandler(this.btn_DoSemantics_Click);
+            // 
+            // ShowIndexingToolStripMenuItem
+            // 
+            this.ShowIndexingToolStripMenuItem.Name = "ShowIndexingToolStripMenuItem";
+            this.ShowIndexingToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
+            this.ShowIndexingToolStripMenuItem.Text = "Индексация";
+            this.ShowIndexingToolStripMenuItem.Click += new System.EventHandler(this.btn_ShowIndexing_Click);
+            // 
+            // DoSemCoreToolStripMenuItem
+            // 
+            this.DoSemCoreToolStripMenuItem.Name = "DoSemCoreToolStripMenuItem";
+            this.DoSemCoreToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
+            this.DoSemCoreToolStripMenuItem.Text = "Собрать сем. ядро";
+            this.DoSemCoreToolStripMenuItem.Click += new System.EventHandler(this.btn_DoSemCore_Click);
+            // 
+            // DoRewriteSemCoreToolStripMenuItem
+            // 
+            this.DoRewriteSemCoreToolStripMenuItem.Name = "DoRewriteSemCoreToolStripMenuItem";
+            this.DoRewriteSemCoreToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
+            this.DoRewriteSemCoreToolStripMenuItem.Text = "Пересобрать сем. ядро";
+            this.DoRewriteSemCoreToolStripMenuItem.Click += new System.EventHandler(this.btn_DoRewriteSemCore_Click);
+            // 
+            // ShowAllKeywordsToolStripMenuItem
+            // 
+            this.ShowAllKeywordsToolStripMenuItem.Name = "ShowAllKeywordsToolStripMenuItem";
+            this.ShowAllKeywordsToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
+            this.ShowAllKeywordsToolStripMenuItem.Text = "Просмотреть существующие ключи";
+            this.ShowAllKeywordsToolStripMenuItem.Click += new System.EventHandler(this.btn_ShowAllKeywords_Click);
+            // 
+            // ShowSemCoreArchiveToolStripMenuItem
+            // 
+            this.ShowSemCoreArchiveToolStripMenuItem.Name = "ShowSemCoreArchiveToolStripMenuItem";
+            this.ShowSemCoreArchiveToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
+            this.ShowSemCoreArchiveToolStripMenuItem.Text = "Просмотреть историю ключей";
+            this.ShowSemCoreArchiveToolStripMenuItem.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // DoKeywordCategoryToolStripMenuItem
+            // 
+            this.DoKeywordCategoryToolStripMenuItem.Name = "DoKeywordCategoryToolStripMenuItem";
+            this.DoKeywordCategoryToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
+            this.DoKeywordCategoryToolStripMenuItem.Text = "Управление категориями ключей";
+            this.DoKeywordCategoryToolStripMenuItem.Click += new System.EventHandler(this.btn_DoKeywordCategory_Click);
+            // 
+            // сотрудникToolStripMenuItem
+            // 
+            this.сотрудникToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ShowPersonalInfoToolStripMenuItem,
+            this.LogOutToolStripMenuItem});
+            this.сотрудникToolStripMenuItem.Name = "сотрудникToolStripMenuItem";
+            this.сотрудникToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
+            this.сотрудникToolStripMenuItem.Text = "Сотрудник";
+            // 
+            // ShowPersonalInfoToolStripMenuItem
+            // 
+            this.ShowPersonalInfoToolStripMenuItem.Name = "ShowPersonalInfoToolStripMenuItem";
+            this.ShowPersonalInfoToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.ShowPersonalInfoToolStripMenuItem.Text = "Карточка сотрудника";
+            // 
+            // LogOutToolStripMenuItem
+            // 
+            this.LogOutToolStripMenuItem.Name = "LogOutToolStripMenuItem";
+            this.LogOutToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.LogOutToolStripMenuItem.Text = "Завершить сеанс";
+            // 
             // MainFormView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -249,7 +400,7 @@
             this.MaximizeBox = false;
             this.Name = "MainFormView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Bona Fides";
+            this.Text = "Главная - Bona Fides";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -274,5 +425,22 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.Button btn_DoMarketplaces;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ToolStripMenuItem семантическиеЯдраToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem DoSemCoreToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem DoRewriteSemCoreToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ShowAllKeywordsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ShowSemCoreArchiveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem DoKeywordCategoryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem семантикаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem CreateSemanticsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem EditSemanticsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ShowIndexingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem товарыToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem DoProductsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem DoProductTypesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem DoMarketpalcesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem сотрудникToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ShowPersonalInfoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem LogOutToolStripMenuItem;
     }
 }

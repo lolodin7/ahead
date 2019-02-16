@@ -116,7 +116,7 @@
       <DependentUpon>MarketplaceView.cs</DependentUpon>
     </Compile>
     <Compile Include="SemCoreArchiveController.cs" />
-    <Compile Include="SemCoreArchiveModel.cs" />
+    <Compile Include="Models\SemCoreArchiveModel.cs" />
     <Compile Include="Views\SemCoreArchiveView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,7 +149,7 @@
       <DependentUpon>FullSemCoreView.cs</DependentUpon>
     </Compile>
     <Compile Include="FullSemCoreController.cs" />
-    <Compile Include="FullSemCoreModel.cs" />
+    <Compile Include="Models\FullSemCoreModel.cs" />
     <Compile Include="IndexingController.cs" />
     <Compile Include="Views\IndexingDetails.cs">
       <SubType>Form</SubType>
@@ -157,7 +157,7 @@
     <Compile Include="Views\IndexingDetails.Designer.cs">
       <DependentUpon>IndexingDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="IndexingModel.cs" />
+    <Compile Include="Models\IndexingModel.cs" />
     <Compile Include="Views\IndexingStatus.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -171,7 +171,7 @@
       <DependentUpon>IndexingView.cs</DependentUpon>
     </Compile>
     <Compile Include="KeywordCategoryController.cs" />
-    <Compile Include="KeywordCategoryModel.cs" />
+    <Compile Include="Models\KeywordCategoryModel.cs" />
     <Compile Include="Views\KeywordCategoryView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -185,7 +185,7 @@
       <DependentUpon>MainFormView.cs</DependentUpon>
     </Compile>
     <Compile Include="MarketplaceController.cs" />
-    <Compile Include="MarketplaceModel.cs" />
+    <Compile Include="Models\MarketplaceModel.cs" />
     <Compile Include="Views\ProductsView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -193,18 +193,18 @@
       <DependentUpon>ProductsView.cs</DependentUpon>
     </Compile>
     <Compile Include="ProductsController.cs" />
-    <Compile Include="ProductsModel.cs" />
+    <Compile Include="Models\ProductsModel.cs" />
     <Compile Include="ProductTypesController.cs" />
-    <Compile Include="ProductTypesModel.cs" />
+    <Compile Include="Models\ProductTypesModel.cs" />
     <Compile Include="Views\ProductTypesView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\ProductTypesView.Designer.cs">
       <DependentUpon>ProductTypesView.cs</DependentUpon>
     </Compile>
-    <Compile Include="SemanticsModel.cs" />
-    <Compile Include="SemCoreModel.cs" />
-    <Compile Include="SemCoreRebuildModel.cs" />
+    <Compile Include="Models\SemanticsModel.cs" />
+    <Compile Include="Models\SemCoreModel.cs" />
+    <Compile Include="Models\SemCoreRebuildModel.cs" />
     <Compile Include="Views\SemCoreView.cs">
       <SubType>Form</SubType>
     </Compile>
