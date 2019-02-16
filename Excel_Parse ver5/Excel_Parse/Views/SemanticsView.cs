@@ -51,7 +51,7 @@ namespace Excel_Parse
 
         private bool reverseDescriptionTransform;
 
-        private string helpText = "Двойной ЛКМ по ключу в таблице - пометить его цветом + скопировать ключ в буфер. Цвет указывает на то, в каком поле использован ключ (bullets, title и т.д.). Сменить выбор можно посредством переключателей на форме, слева от каждого вида поля.\nЧтобы отменить выделение ключа, выберите самый верхний переключатель.\n\nПКМ по ключу в таблице - скрыть его\n\nДвойной ЛКМ по ASIN - скопировать его в буфер обмена\n\nДвойной ЛКМ по названию товара - скопировать его в буфер обмена\n\n";
+        private string helpText = "Двойной ЛКМ по ключу в таблице - пометить его цветом + скопировать ключ в буфер. Цвет указывает на то, в каком поле использован ключ (bullets, title и т.д.). Сменить выбор можно посредством переключателей на форме, слева от каждого вида поля.\nЧтобы отменить выделение ключа, выберите самый верхний переключатель.\n\nПКМ по ключу в таблице - скрыть его\n\nДвойной ЛКМ по ASIN - скопировать его в буфер обмена.\n\nДвойной ЛКМ по названию товара - скопировать его в буфер обмена.\n\nCtrl+B - выделить текст в полях жирным.\nCtrl+U - выделить текст в полях курсивом.\n\n";
 
         private Color foundedKeywordColor = Color.DeepSkyBlue;
         private Color titleColor = Color.Coral;
@@ -821,7 +821,7 @@ namespace Excel_Parse
         /* Метод подсчета ключей в таблице */
         private void CountKeys()
         {
-            label1.Text = "Всего: " + dgv_Keywords.RowCount + " ключей";
+            label1.Text = "Всего ключей: " + dgv_Keywords.RowCount;
         }
 
         /* Ищем ключ в таблице по изменению текста в richTextBox1 */
@@ -859,7 +859,7 @@ namespace Excel_Parse
                 label1.Text = "Найдено: " + cnt.ToString();
             }
             else
-                label1.Text = "Всего: " + dgv_Keywords.RowCount + " ключей";
+                label1.Text = "Всего ключей: " + dgv_Keywords.RowCount;
         }
 
         /* Ходим по результатам поиска в таблице по нажатию Enter */
@@ -1518,15 +1518,22 @@ namespace Excel_Parse
         /* Событие при нажатии Ctrl+B или Ctrl+U */
         private void rtb_KeyDown(object sender, KeyEventArgs e)
         {
+            RichTextBox rtb = (RichTextBox)sender;
+
             if (e.KeyCode == Keys.B && e.Control)
             {
-                rtb_FontChanging((RichTextBox)sender, "bold");
+                rtb_FontChanging(rtb, "bold");
                 e.Handled = true;
             }
             else if (e.KeyCode == Keys.U && e.Control)
             {
-                rtb_FontChanging((RichTextBox)sender, "italic");
+                rtb_FontChanging(rtb, "italic");
                 e.Handled = false;
+            }
+            else if (e.KeyCode == Keys.Enter ||(e.KeyCode == Keys.Back && rtb.TextLength == 0))
+            {
+                e.SuppressKeyPress = true;          //отключили системный звук, который возникал при нажатии Enter
+                
             }
         }
 
@@ -1696,7 +1703,6 @@ namespace Excel_Parse
 
             return semIds[semIds.Count - 1];
         }
-
 
         /* Сохраняем новые значения длинн полей в БД */
         private void setDBFieldsLength()

@@ -201,7 +201,7 @@
             // lb_TitleText
             // 
             this.lb_TitleText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_TitleText.Location = new System.Drawing.Point(919, 34);
+            this.lb_TitleText.Location = new System.Drawing.Point(919, 44);
             this.lb_TitleText.Name = "lb_TitleText";
             this.lb_TitleText.Size = new System.Drawing.Size(146, 27);
             this.lb_TitleText.TabIndex = 2;
@@ -211,7 +211,7 @@
             // lb_BulletsText
             // 
             this.lb_BulletsText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_BulletsText.Location = new System.Drawing.Point(919, 103);
+            this.lb_BulletsText.Location = new System.Drawing.Point(919, 113);
             this.lb_BulletsText.Name = "lb_BulletsText";
             this.lb_BulletsText.Size = new System.Drawing.Size(146, 19);
             this.lb_BulletsText.TabIndex = 4;
@@ -221,7 +221,7 @@
             // lb_BackendText
             // 
             this.lb_BackendText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_BackendText.Location = new System.Drawing.Point(919, 277);
+            this.lb_BackendText.Location = new System.Drawing.Point(923, 347);
             this.lb_BackendText.Name = "lb_BackendText";
             this.lb_BackendText.Size = new System.Drawing.Size(146, 21);
             this.lb_BackendText.TabIndex = 10;
@@ -232,7 +232,7 @@
             // 
             this.lb_Title.AutoSize = true;
             this.lb_Title.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lb_Title.Location = new System.Drawing.Point(391, 61);
+            this.lb_Title.Location = new System.Drawing.Point(391, 73);
             this.lb_Title.Name = "lb_Title";
             this.lb_Title.Size = new System.Drawing.Size(13, 13);
             this.lb_Title.TabIndex = 11;
@@ -242,7 +242,7 @@
             // lb_Bullet1
             // 
             this.lb_Bullet1.AutoSize = true;
-            this.lb_Bullet1.Location = new System.Drawing.Point(391, 131);
+            this.lb_Bullet1.Location = new System.Drawing.Point(391, 143);
             this.lb_Bullet1.Name = "lb_Bullet1";
             this.lb_Bullet1.Size = new System.Drawing.Size(13, 13);
             this.lb_Bullet1.TabIndex = 12;
@@ -252,7 +252,7 @@
             // lb_Bullet2
             // 
             this.lb_Bullet2.AutoSize = true;
-            this.lb_Bullet2.Location = new System.Drawing.Point(391, 159);
+            this.lb_Bullet2.Location = new System.Drawing.Point(391, 181);
             this.lb_Bullet2.Name = "lb_Bullet2";
             this.lb_Bullet2.Size = new System.Drawing.Size(13, 13);
             this.lb_Bullet2.TabIndex = 13;
@@ -262,7 +262,7 @@
             // lb_Bullet3
             // 
             this.lb_Bullet3.AutoSize = true;
-            this.lb_Bullet3.Location = new System.Drawing.Point(391, 188);
+            this.lb_Bullet3.Location = new System.Drawing.Point(391, 220);
             this.lb_Bullet3.Name = "lb_Bullet3";
             this.lb_Bullet3.Size = new System.Drawing.Size(13, 13);
             this.lb_Bullet3.TabIndex = 14;
@@ -272,7 +272,7 @@
             // lb_Bullet4
             // 
             this.lb_Bullet4.AutoSize = true;
-            this.lb_Bullet4.Location = new System.Drawing.Point(391, 216);
+            this.lb_Bullet4.Location = new System.Drawing.Point(391, 258);
             this.lb_Bullet4.Name = "lb_Bullet4";
             this.lb_Bullet4.Size = new System.Drawing.Size(13, 13);
             this.lb_Bullet4.TabIndex = 15;
@@ -282,7 +282,7 @@
             // lb_Bullet5
             // 
             this.lb_Bullet5.AutoSize = true;
-            this.lb_Bullet5.Location = new System.Drawing.Point(391, 244);
+            this.lb_Bullet5.Location = new System.Drawing.Point(391, 296);
             this.lb_Bullet5.Name = "lb_Bullet5";
             this.lb_Bullet5.Size = new System.Drawing.Size(13, 13);
             this.lb_Bullet5.TabIndex = 16;
@@ -292,7 +292,7 @@
             // lb_Backend
             // 
             this.lb_Backend.AutoSize = true;
-            this.lb_Backend.Location = new System.Drawing.Point(391, 307);
+            this.lb_Backend.Location = new System.Drawing.Point(391, 379);
             this.lb_Backend.Name = "lb_Backend";
             this.lb_Backend.Size = new System.Drawing.Size(13, 13);
             this.lb_Backend.TabIndex = 17;
@@ -302,18 +302,18 @@
             // rtb_Description
             // 
             this.rtb_Description.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_Description.Location = new System.Drawing.Point(416, 383);
+            this.rtb_Description.Location = new System.Drawing.Point(416, 462);
             this.rtb_Description.Name = "rtb_Description";
-            this.rtb_Description.Size = new System.Drawing.Size(556, 380);
+            this.rtb_Description.Size = new System.Drawing.Size(556, 301);
             this.rtb_Description.TabIndex = 18;
             this.rtb_Description.Text = "";
             this.rtb_Description.TextChanged += new System.EventHandler(this.tb_TextChanged);
             // 
             // rtb_Description2
             // 
-            this.rtb_Description2.Location = new System.Drawing.Point(1016, 383);
+            this.rtb_Description2.Location = new System.Drawing.Point(1016, 462);
             this.rtb_Description2.Name = "rtb_Description2";
-            this.rtb_Description2.Size = new System.Drawing.Size(556, 380);
+            this.rtb_Description2.Size = new System.Drawing.Size(556, 301);
             this.rtb_Description2.TabIndex = 19;
             this.rtb_Description2.Text = "";
             // 
@@ -321,9 +321,9 @@
             // 
             this.btn_TransformDescr.Enabled = false;
             this.btn_TransformDescr.FlatAppearance.BorderSize = 0;
-            this.btn_TransformDescr.Location = new System.Drawing.Point(979, 495);
+            this.btn_TransformDescr.Location = new System.Drawing.Point(979, 569);
             this.btn_TransformDescr.Name = "btn_TransformDescr";
-            this.btn_TransformDescr.Size = new System.Drawing.Size(31, 216);
+            this.btn_TransformDescr.Size = new System.Drawing.Size(31, 179);
             this.btn_TransformDescr.TabIndex = 20;
             this.btn_TransformDescr.Text = "Преобразовать";
             this.btn_TransformDescr.UseVisualStyleBackColor = true;
@@ -332,7 +332,7 @@
             // lb_DescriptionText
             // 
             this.lb_DescriptionText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_DescriptionText.Location = new System.Drawing.Point(920, 333);
+            this.lb_DescriptionText.Location = new System.Drawing.Point(923, 408);
             this.lb_DescriptionText.Name = "lb_DescriptionText";
             this.lb_DescriptionText.Size = new System.Drawing.Size(146, 21);
             this.lb_DescriptionText.TabIndex = 21;
@@ -341,7 +341,7 @@
             // 
             // btn_ReverseDescTransform
             // 
-            this.btn_ReverseDescTransform.Location = new System.Drawing.Point(949, 355);
+            this.btn_ReverseDescTransform.Location = new System.Drawing.Point(952, 430);
             this.btn_ReverseDescTransform.Name = "btn_ReverseDescTransform";
             this.btn_ReverseDescTransform.Size = new System.Drawing.Size(90, 26);
             this.btn_ReverseDescTransform.TabIndex = 22;
@@ -352,9 +352,9 @@
             // btn_ReplaceTexts
             // 
             this.btn_ReplaceTexts.FlatAppearance.BorderSize = 0;
-            this.btn_ReplaceTexts.Location = new System.Drawing.Point(979, 384);
+            this.btn_ReplaceTexts.Location = new System.Drawing.Point(979, 462);
             this.btn_ReplaceTexts.Name = "btn_ReplaceTexts";
-            this.btn_ReplaceTexts.Size = new System.Drawing.Size(28, 86);
+            this.btn_ReplaceTexts.Size = new System.Drawing.Size(31, 86);
             this.btn_ReplaceTexts.TabIndex = 23;
             this.btn_ReplaceTexts.Text = "Swap";
             this.btn_ReplaceTexts.UseVisualStyleBackColor = true;
@@ -388,7 +388,7 @@
             // 
             this.rb_Title.AutoSize = true;
             this.rb_Title.Checked = true;
-            this.rb_Title.Location = new System.Drawing.Point(368, 61);
+            this.rb_Title.Location = new System.Drawing.Point(368, 73);
             this.rb_Title.Name = "rb_Title";
             this.rb_Title.Size = new System.Drawing.Size(14, 13);
             this.rb_Title.TabIndex = 27;
@@ -398,7 +398,7 @@
             // rb_Bullets
             // 
             this.rb_Bullets.AutoSize = true;
-            this.rb_Bullets.Location = new System.Drawing.Point(368, 131);
+            this.rb_Bullets.Location = new System.Drawing.Point(368, 143);
             this.rb_Bullets.Name = "rb_Bullets";
             this.rb_Bullets.Size = new System.Drawing.Size(14, 13);
             this.rb_Bullets.TabIndex = 28;
@@ -407,7 +407,7 @@
             // rb_Backend
             // 
             this.rb_Backend.AutoSize = true;
-            this.rb_Backend.Location = new System.Drawing.Point(368, 305);
+            this.rb_Backend.Location = new System.Drawing.Point(368, 379);
             this.rb_Backend.Name = "rb_Backend";
             this.rb_Backend.Size = new System.Drawing.Size(14, 13);
             this.rb_Backend.TabIndex = 29;
@@ -416,7 +416,7 @@
             // rb_Description
             // 
             this.rb_Description.AutoSize = true;
-            this.rb_Description.Location = new System.Drawing.Point(368, 386);
+            this.rb_Description.Location = new System.Drawing.Point(368, 462);
             this.rb_Description.Name = "rb_Description";
             this.rb_Description.Size = new System.Drawing.Size(14, 13);
             this.rb_Description.TabIndex = 30;
@@ -431,7 +431,7 @@
             "29.08.2018 15:44",
             "10.10.2018 18:36",
             "01.11.2018 12:05"});
-            this.cb_LastUpdated.Location = new System.Drawing.Point(1430, 26);
+            this.cb_LastUpdated.Location = new System.Drawing.Point(1430, 34);
             this.cb_LastUpdated.MaxDropDownItems = 25;
             this.cb_LastUpdated.Name = "cb_LastUpdated";
             this.cb_LastUpdated.Size = new System.Drawing.Size(142, 21);
@@ -441,7 +441,7 @@
             // lb_ASINText
             // 
             this.lb_ASINText.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_ASINText.Location = new System.Drawing.Point(1426, 4);
+            this.lb_ASINText.Location = new System.Drawing.Point(1426, 8);
             this.lb_ASINText.Name = "lb_ASINText";
             this.lb_ASINText.Size = new System.Drawing.Size(47, 22);
             this.lb_ASINText.TabIndex = 33;
@@ -472,7 +472,7 @@
             // lb_ASIN
             // 
             this.lb_ASIN.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_ASIN.Location = new System.Drawing.Point(1464, 3);
+            this.lb_ASIN.Location = new System.Drawing.Point(1462, 7);
             this.lb_ASIN.Name = "lb_ASIN";
             this.lb_ASIN.Size = new System.Drawing.Size(110, 21);
             this.lb_ASIN.TabIndex = 32;
@@ -492,7 +492,7 @@
             // 
             // btn_ShowMore
             // 
-            this.btn_ShowMore.Location = new System.Drawing.Point(417, 772);
+            this.btn_ShowMore.Location = new System.Drawing.Point(416, 772);
             this.btn_ShowMore.Name = "btn_ShowMore";
             this.btn_ShowMore.Size = new System.Drawing.Size(161, 54);
             this.btn_ShowMore.TabIndex = 38;
@@ -785,7 +785,7 @@
             // 
             this.rtb_Bul1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtb_Bul1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_Bul1.Location = new System.Drawing.Point(416, 125);
+            this.rtb_Bul1.Location = new System.Drawing.Point(416, 137);
             this.rtb_Bul1.Multiline = false;
             this.rtb_Bul1.Name = "rtb_Bul1";
             this.rtb_Bul1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -799,7 +799,7 @@
             // 
             this.rtb_Bul2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtb_Bul2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_Bul2.Location = new System.Drawing.Point(416, 153);
+            this.rtb_Bul2.Location = new System.Drawing.Point(416, 175);
             this.rtb_Bul2.Multiline = false;
             this.rtb_Bul2.Name = "rtb_Bul2";
             this.rtb_Bul2.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -813,7 +813,7 @@
             // 
             this.rtb_Bul3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtb_Bul3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_Bul3.Location = new System.Drawing.Point(416, 182);
+            this.rtb_Bul3.Location = new System.Drawing.Point(416, 214);
             this.rtb_Bul3.Multiline = false;
             this.rtb_Bul3.Name = "rtb_Bul3";
             this.rtb_Bul3.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -827,7 +827,7 @@
             // 
             this.rtb_Bul4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtb_Bul4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_Bul4.Location = new System.Drawing.Point(416, 210);
+            this.rtb_Bul4.Location = new System.Drawing.Point(416, 252);
             this.rtb_Bul4.Multiline = false;
             this.rtb_Bul4.Name = "rtb_Bul4";
             this.rtb_Bul4.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -841,7 +841,7 @@
             // 
             this.rtb_Bul5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtb_Bul5.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_Bul5.Location = new System.Drawing.Point(416, 238);
+            this.rtb_Bul5.Location = new System.Drawing.Point(416, 290);
             this.rtb_Bul5.Multiline = false;
             this.rtb_Bul5.Name = "rtb_Bul5";
             this.rtb_Bul5.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -855,7 +855,7 @@
             // 
             this.rtb_Title.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtb_Title.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_Title.Location = new System.Drawing.Point(416, 55);
+            this.rtb_Title.Location = new System.Drawing.Point(416, 67);
             this.rtb_Title.Multiline = false;
             this.rtb_Title.Name = "rtb_Title";
             this.rtb_Title.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -863,12 +863,13 @@
             this.rtb_Title.TabIndex = 78;
             this.rtb_Title.Text = "";
             this.rtb_Title.TextChanged += new System.EventHandler(this.tb_TextChanged);
+            this.rtb_Title.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtb_KeyDown);
             // 
             // rtb_Backend
             // 
             this.rtb_Backend.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtb_Backend.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_Backend.Location = new System.Drawing.Point(416, 301);
+            this.rtb_Backend.Location = new System.Drawing.Point(416, 373);
             this.rtb_Backend.Multiline = false;
             this.rtb_Backend.Name = "rtb_Backend";
             this.rtb_Backend.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -1107,7 +1108,7 @@
             this.groupBox1.Controls.Add(this.cb_ProductTypes);
             this.groupBox1.Controls.Add(this.btn_AcceptGroupBox1);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Location = new System.Drawing.Point(0, 43);
+            this.groupBox1.Location = new System.Drawing.Point(0, 49);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(362, 277);
             this.groupBox1.TabIndex = 102;
@@ -1198,7 +1199,7 @@
             this.btn_Help.BackColor = System.Drawing.Color.Gainsboro;
             this.btn_Help.FlatAppearance.BorderSize = 0;
             this.btn_Help.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Help.Location = new System.Drawing.Point(314, 2);
+            this.btn_Help.Location = new System.Drawing.Point(364, 2);
             this.btn_Help.Name = "btn_Help";
             this.btn_Help.Size = new System.Drawing.Size(21, 21);
             this.btn_Help.TabIndex = 103;
@@ -1219,7 +1220,7 @@
             // lb_Description
             // 
             this.lb_Description.AutoSize = true;
-            this.lb_Description.Location = new System.Drawing.Point(391, 386);
+            this.lb_Description.Location = new System.Drawing.Point(391, 462);
             this.lb_Description.Name = "lb_Description";
             this.lb_Description.Size = new System.Drawing.Size(13, 13);
             this.lb_Description.TabIndex = 105;
@@ -1228,14 +1229,14 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(244, 26);
+            this.label1.Location = new System.Drawing.Point(244, 30);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 13);
             this.label1.TabIndex = 8;
             // 
             // rtb_FindKeyword
             // 
-            this.rtb_FindKeyword.Location = new System.Drawing.Point(2, 23);
+            this.rtb_FindKeyword.Location = new System.Drawing.Point(3, 27);
             this.rtb_FindKeyword.Multiline = false;
             this.rtb_FindKeyword.Name = "rtb_FindKeyword";
             this.rtb_FindKeyword.Size = new System.Drawing.Size(218, 20);
