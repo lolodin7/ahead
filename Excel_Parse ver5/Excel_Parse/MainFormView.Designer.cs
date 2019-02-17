@@ -325,6 +325,7 @@
             this.сотрудникToolStripMenuItem.Name = "сотрудникToolStripMenuItem";
             this.сотрудникToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
             this.сотрудникToolStripMenuItem.Text = "Сотрудник";
+            this.сотрудникToolStripMenuItem.Visible = false;
             // 
             // ShowPersonalInfoToolStripMenuItem
             // 
@@ -337,6 +338,7 @@
             this.LogOutToolStripMenuItem.Name = "LogOutToolStripMenuItem";
             this.LogOutToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.LogOutToolStripMenuItem.Text = "Завершить сеанс";
+            this.LogOutToolStripMenuItem.Click += new System.EventHandler(this.LogOutToolStripMenuItem_Click);
             // 
             // serviceToolStripMenuItem
             // 
@@ -349,7 +351,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.aboutToolStripMenuItem.Text = "Справка";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -390,6 +392,7 @@
             this.label1.TabIndex = 15;
             this.label1.Text = "Привет, Дмитрий";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label1.Visible = false;
             // 
             // MainFormView
             // 
@@ -417,6 +420,7 @@
             this.Name = "MainFormView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Главная - Bona Fides";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormView_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

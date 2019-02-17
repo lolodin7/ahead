@@ -155,3 +155,6 @@ update SemCoreArchive set ValuesAndDates = '1254&02.02.2019 18:42:43@324&02.03.2
 
 UPDATE [SemCoreArchive] SET [ProductTypeId] = 1, [CategoryId] = 1, [Keyword] = 'lav',  [ValuesAndDates] = '1234&15.02.2019 12:41:52@1&13.02.2019 12:42:09@2222&14.02.2019 12:58:09@3333&17.02.2019 12:58:09@' WHERE [SemCoreId] = 0
 UPDATE [SemCoreArchive] SET [ProductTypeId] = 1, [CategoryId] = 1, [Keyword] = ' lav',  [ValuesAndDates] = '1&16.02.2019 12:59:07@1234&17.02.2019 12:59:23@' WHERE [SemCoreId] = 4
+
+
+SELECT * FROM [User]

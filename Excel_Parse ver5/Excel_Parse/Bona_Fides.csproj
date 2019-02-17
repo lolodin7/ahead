@@ -51,7 +51,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Views\favicon.ico</ApplicationIcon>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -103,172 +103,183 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Views\About.cs">
+    <Compile Include="LoginFormController.cs" />
+    <Compile Include="UserModel.cs" />
+    <Compile Include="About.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\About.Designer.cs">
+    <Compile Include="About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\MarketplaceView.cs">
+    <Compile Include="LoginFormView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\MarketplaceView.Designer.cs">
+    <Compile Include="LoginFormView.Designer.cs">
+      <DependentUpon>LoginFormView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MarketplaceView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MarketplaceView.Designer.cs">
       <DependentUpon>MarketplaceView.cs</DependentUpon>
     </Compile>
     <Compile Include="SemCoreArchiveController.cs" />
-    <Compile Include="Models\SemCoreArchiveModel.cs" />
-    <Compile Include="Views\SemCoreArchiveView.cs">
+    <Compile Include="SemCoreArchiveModel.cs" />
+    <Compile Include="SemCoreArchiveView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\SemCoreArchiveView.Designer.cs">
+    <Compile Include="SemCoreArchiveView.Designer.cs">
       <DependentUpon>SemCoreArchiveView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\StartImage.cs">
+    <Compile Include="StartImage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\StartImage.Designer.cs">
+    <Compile Include="StartImage.Designer.cs">
       <DependentUpon>StartImage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\ChooseProduct.cs">
+    <Compile Include="ChooseProduct.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\ChooseProduct.Designer.cs">
+    <Compile Include="ChooseProduct.Designer.cs">
       <DependentUpon>ChooseProduct.cs</DependentUpon>
     </Compile>
     <Compile Include="DBData.cs" />
-    <Compile Include="Views\FieldsLength.cs">
+    <Compile Include="FieldsLength.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\FieldsLength.Designer.cs">
+    <Compile Include="FieldsLength.Designer.cs">
       <DependentUpon>FieldsLength.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\FullSemCoreView.cs">
+    <Compile Include="FullSemCoreView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\FullSemCoreView.Designer.cs">
+    <Compile Include="FullSemCoreView.Designer.cs">
       <DependentUpon>FullSemCoreView.cs</DependentUpon>
     </Compile>
     <Compile Include="FullSemCoreController.cs" />
-    <Compile Include="Models\FullSemCoreModel.cs" />
+    <Compile Include="FullSemCoreModel.cs" />
     <Compile Include="IndexingController.cs" />
-    <Compile Include="Views\IndexingDetails.cs">
+    <Compile Include="IndexingDetails.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\IndexingDetails.Designer.cs">
+    <Compile Include="IndexingDetails.Designer.cs">
       <DependentUpon>IndexingDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\IndexingModel.cs" />
-    <Compile Include="Views\IndexingStatus.cs">
+    <Compile Include="IndexingModel.cs" />
+    <Compile Include="IndexingStatus.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\IndexingStatus.Designer.cs">
+    <Compile Include="IndexingStatus.Designer.cs">
       <DependentUpon>IndexingStatus.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\IndexingView.cs">
+    <Compile Include="IndexingView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\IndexingView.Designer.cs">
+    <Compile Include="IndexingView.Designer.cs">
       <DependentUpon>IndexingView.cs</DependentUpon>
     </Compile>
     <Compile Include="KeywordCategoryController.cs" />
-    <Compile Include="Models\KeywordCategoryModel.cs" />
-    <Compile Include="Views\KeywordCategoryView.cs">
+    <Compile Include="KeywordCategoryModel.cs" />
+    <Compile Include="KeywordCategoryView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\KeywordCategoryView.Designer.cs">
+    <Compile Include="KeywordCategoryView.Designer.cs">
       <DependentUpon>KeywordCategoryView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainFormView.cs">
+    <Compile Include="MainFormView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\MainFormView.Designer.cs">
+    <Compile Include="MainFormView.Designer.cs">
       <DependentUpon>MainFormView.cs</DependentUpon>
     </Compile>
     <Compile Include="MarketplaceController.cs" />
-    <Compile Include="Models\MarketplaceModel.cs" />
-    <Compile Include="Views\ProductsView.cs">
+    <Compile Include="MarketplaceModel.cs" />
+    <Compile Include="ProductsView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\ProductsView.Designer.cs">
+    <Compile Include="ProductsView.Designer.cs">
       <DependentUpon>ProductsView.cs</DependentUpon>
     </Compile>
     <Compile Include="ProductsController.cs" />
-    <Compile Include="Models\ProductsModel.cs" />
+    <Compile Include="ProductsModel.cs" />
     <Compile Include="ProductTypesController.cs" />
-    <Compile Include="Models\ProductTypesModel.cs" />
-    <Compile Include="Views\ProductTypesView.cs">
+    <Compile Include="ProductTypesModel.cs" />
+    <Compile Include="ProductTypesView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\ProductTypesView.Designer.cs">
+    <Compile Include="ProductTypesView.Designer.cs">
       <DependentUpon>ProductTypesView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\SemanticsModel.cs" />
-    <Compile Include="Models\SemCoreModel.cs" />
-    <Compile Include="Models\SemCoreRebuildModel.cs" />
-    <Compile Include="Views\SemCoreView.cs">
+    <Compile Include="SemanticsModel.cs" />
+    <Compile Include="SemCoreModel.cs" />
+    <Compile Include="SemCoreRebuildModel.cs" />
+    <Compile Include="SemCoreView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\SemCoreView.Designer.cs">
+    <Compile Include="SemCoreView.Designer.cs">
       <DependentUpon>SemCoreView.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\SemanticsView.cs">
+    <Compile Include="SemanticsView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\SemanticsView.Designer.cs">
+    <Compile Include="SemanticsView.Designer.cs">
       <DependentUpon>SemanticsView.cs</DependentUpon>
     </Compile>
     <Compile Include="SemCoreController.cs" />
-    <Compile Include="Views\SemCoreRebuildView.cs">
+    <Compile Include="SemCoreRebuildView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\SemCoreRebuildView.Designer.cs">
+    <Compile Include="SemCoreRebuildView.Designer.cs">
       <DependentUpon>SemCoreRebuildView.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Views\About.resx">
+    <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\MarketplaceView.resx">
+    <EmbeddedResource Include="LoginFormView.resx">
+      <DependentUpon>LoginFormView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MarketplaceView.resx">
       <DependentUpon>MarketplaceView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\SemCoreArchiveView.resx">
+    <EmbeddedResource Include="SemCoreArchiveView.resx">
       <DependentUpon>SemCoreArchiveView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\StartImage.resx">
+    <EmbeddedResource Include="StartImage.resx">
       <DependentUpon>StartImage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ChooseProduct.resx">
+    <EmbeddedResource Include="ChooseProduct.resx">
       <DependentUpon>ChooseProduct.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\FieldsLength.resx">
+    <EmbeddedResource Include="FieldsLength.resx">
       <DependentUpon>FieldsLength.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\FullSemCoreView.resx">
+    <EmbeddedResource Include="FullSemCoreView.resx">
       <DependentUpon>FullSemCoreView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\IndexingDetails.resx">
+    <EmbeddedResource Include="IndexingDetails.resx">
       <DependentUpon>IndexingDetails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\IndexingStatus.resx">
+    <EmbeddedResource Include="IndexingStatus.resx">
       <DependentUpon>IndexingStatus.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\IndexingView.resx">
+    <EmbeddedResource Include="IndexingView.resx">
       <DependentUpon>IndexingView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\KeywordCategoryView.resx">
+    <EmbeddedResource Include="KeywordCategoryView.resx">
       <DependentUpon>KeywordCategoryView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\MainFormView.resx">
+    <EmbeddedResource Include="MainFormView.resx">
       <DependentUpon>MainFormView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ProductsView.resx">
+    <EmbeddedResource Include="ProductsView.resx">
       <DependentUpon>ProductsView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ProductTypesView.resx">
+    <EmbeddedResource Include="ProductTypesView.resx">
       <DependentUpon>ProductTypesView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\SemCoreView.resx">
+    <EmbeddedResource Include="SemCoreView.resx">
       <DependentUpon>SemCoreView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -281,10 +292,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Views\SemanticsView.resx">
+    <EmbeddedResource Include="SemanticsView.resx">
       <DependentUpon>SemanticsView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\SemCoreRebuildView.resx">
+    <EmbeddedResource Include="SemCoreRebuildView.resx">
       <DependentUpon>SemCoreRebuildView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -303,7 +314,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\favicon.ico" />
+    <Content Include="favicon.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

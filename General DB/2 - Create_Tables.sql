@@ -29,6 +29,13 @@ GO
 IF NOT OBJECT_ID('Marketplace') IS NULL DROP TABLE [Marketplace]
 GO
 
+IF NOT OBJECT_ID('User') IS NULL DROP TABLE [User]
+GO
+
+IF NOT OBJECT_ID('UserRole') IS NULL DROP TABLE [UserRole]
+GO
+
+
 /*
     "БД компании AHEAD"
 */
@@ -155,6 +162,26 @@ CREATE TABLE [Indexing](
 	CONSTRAINT FK_Indexing_ProductId FOREIGN KEY ([ProductId]) REFERENCES Products ([ProductId])
 )
 GO
+
+CREATE TABLE [UserRole](
+	[UserRoleId]		INT IDENTITY(0,1),
+	[Name]				VARCHAR(100),
+	CONSTRAINT UQ_UserRole_UserRoleId UNIQUE ([UserRoleId])
+)
+
+CREATE TABLE [User](
+	[UserId]			INT IDENTITY(0,1),
+	[Login]				VARCHAR(20),
+	[Pass]				VARCHAR(50),
+	[Name]				VARCHAR(50),
+	[Token1]			INT,
+	[Token2]			INT,
+	[UserRoleId]		INT,
+	[SecretQuestion]	VARCHAR(100),
+	[Answer]			VARCHAR(100),
+	[MAC]				TEXT,
+	CONSTRAINT FK_User_UserRoleId FOREIGN KEY ([UserRoleId]) REFERENCES UserRole ([UserRoleId])
+)
 
 
 

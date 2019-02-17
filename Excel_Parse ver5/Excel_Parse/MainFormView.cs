@@ -1,22 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Bona_Fides;
 
 namespace Excel_Parse
 {
     public partial class MainFormView : Form
     {
         public string AmazonLink { get; set; }
+        private UserModel um;
+        private LoginFormView lf;
 
+        //public MainFormView(UserModel _um, LoginFormView _lf)
         public MainFormView()
         {
             //показывает картинку при запуске программы
@@ -29,22 +24,10 @@ namespace Excel_Parse
             //перестали показывать картинку при запуске программы
 
             InitializeComponent();
+            //um = _um; - окно логина
+            //lf = _lf; - окно логина
+
             AmazonLink = ConfigurationManager.AppSettings.Get("amzLink");
-
-
-            //   ниже хреновина для получение МАС, чтобы сохранить в БД для юзера для "запомнить меня" верификации
-
-            //NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
-            //String sMacAddress = string.Empty;
-            //foreach (NetworkInterface adapter in nics)
-            //{
-            //    if (sMacAddress == String.Empty)// only return MAC Address from first card  
-            //    {
-            //        IPInterfaceProperties properties = adapter.GetIPProperties();
-            //        sMacAddress = adapter.GetPhysicalAddress().ToString();
-            //    }
-            //}
-            //Console.WriteLine(sMacAddress);
         }
         
 
@@ -111,6 +94,7 @@ namespace Excel_Parse
 
         private void btn_Exit_Click(object sender, EventArgs e)
         {
+            //lf.ReSignIn = false;  - окно логина
             this.Close();
         }
 
@@ -147,6 +131,18 @@ namespace Excel_Parse
             SemCoreArchiveView sca = new SemCoreArchiveView(this);
             sca.Show();
             this.Visible = false;
+        }
+
+        private void MainFormView_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //lf.Visible = true;  - окно логина
+        }
+
+        private void LogOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            lf.ReSignIn = true;
+            lf.UpdateConfig("false");
+            this.Close();
         }
     }
 }

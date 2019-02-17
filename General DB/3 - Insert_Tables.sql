@@ -228,6 +228,31 @@ INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastU
 VALUES (1, 1, 'lavalier microphone', 652053, CURRENT_TIMESTAMP)
 
 
+/*         -- [UserRole] --             */
+INSERT INTO [UserRole] ([Name])
+VALUES ('Администратор')
+
+INSERT INTO [UserRole] ([Name])
+VALUES ('Руководитель')
+
+INSERT INTO [UserRole] ([Name])
+VALUES ('Пользователь')
+
+
+
+
+/*         -- [User] --             */
+INSERT INTO [User] ([Login], [Pass], [Name], [Token1], [Token2], [UserRoleId], [SecretQuestion], [Answer], [MAC])
+VALUES ('raizz', '123', 'Дмитрий', 123, 321, 0, 'Номер офиса', '6', 'some_mac_address')
+
+
+
+
+
+
+
+
+
 
 
 /*         -- [Semantics] --             */
