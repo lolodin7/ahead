@@ -172,14 +172,15 @@ CREATE TABLE [UserRole](
 CREATE TABLE [User](
 	[UserId]			INT IDENTITY(0,1),
 	[Login]				VARCHAR(20),
-	[Pass]				VARCHAR(50),
+	[PassHash]				TEXT,
 	[Name]				VARCHAR(50),
 	[Token1]			INT,
 	[Token2]			INT,
 	[UserRoleId]		INT,
 	[SecretQuestion]	VARCHAR(100),
 	[Answer]			VARCHAR(100),
-	[MAC]				TEXT,
+	[Mac]				TEXT,
+	CONSTRAINT UQ_User_Login UNIQUE ([Login]),
 	CONSTRAINT FK_User_UserRoleId FOREIGN KEY ([UserRoleId]) REFERENCES UserRole ([UserRoleId])
 )
 

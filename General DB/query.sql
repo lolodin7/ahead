@@ -158,3 +158,5 @@ UPDATE [SemCoreArchive] SET [ProductTypeId] = 1, [CategoryId] = 1, [Keyword] = '
 
 
 SELECT * FROM [User]
+
+UPDATE [User] Set [Hash] = , [Salt] = 

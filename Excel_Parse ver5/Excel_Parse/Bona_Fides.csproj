@@ -104,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LoginFormController.cs" />
+    <Compile Include="SecuredPassword.cs" />
     <Compile Include="UserModel.cs" />
     <Compile Include="About.cs">
       <SubType>Form</SubType>

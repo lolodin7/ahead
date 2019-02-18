@@ -242,8 +242,8 @@ VALUES ('Пользователь')
 
 
 /*         -- [User] --             */
-INSERT INTO [User] ([Login], [Pass], [Name], [Token1], [Token2], [UserRoleId], [SecretQuestion], [Answer], [MAC])
-VALUES ('raizz', '123', 'Дмитрий', 123, 321, 0, 'Номер офиса', '6', 'some_mac_address')
+INSERT INTO [User] ([Login], [PassHash], [Name], [Token1], [Token2], [UserRoleId], [SecretQuestion], [Answer], [MAC])
+VALUES ('raizz', 'AN/EVOLpjpoV1rfmfBvZoykOYXvGhRTSDuyl5/6Wx0K08OHkiwxlUQg2k9AREoNp6Q==', 'Дмитрий', 123, 321, 0, 'Номер офиса', '6', 'some_mac_address')
 
 
 

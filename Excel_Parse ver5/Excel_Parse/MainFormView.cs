@@ -11,8 +11,8 @@ namespace Excel_Parse
         private UserModel um;
         private LoginFormView lf;
 
-        //public MainFormView(UserModel _um, LoginFormView _lf)
-        public MainFormView()
+        //public MainFormView()
+        public MainFormView(UserModel _um, LoginFormView _lf)
         {
             //показывает картинку при запуске программы
             //StartImage startImg = new StartImage();
@@ -24,8 +24,8 @@ namespace Excel_Parse
             //перестали показывать картинку при запуске программы
 
             InitializeComponent();
-            //um = _um; - окно логина
-            //lf = _lf; - окно логина
+            um = _um;
+            lf = _lf;
 
             AmazonLink = ConfigurationManager.AppSettings.Get("amzLink");
         }

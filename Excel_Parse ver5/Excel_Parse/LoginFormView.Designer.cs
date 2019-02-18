@@ -37,6 +37,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.tb_Password = new System.Windows.Forms.TextBox();
             this.tb_Login = new System.Windows.Forms.TextBox();
+            this.lb_WrongPassword = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -71,7 +72,7 @@
             // 
             // btn_SignIn
             // 
-            this.btn_SignIn.Location = new System.Drawing.Point(103, 296);
+            this.btn_SignIn.Location = new System.Drawing.Point(103, 302);
             this.btn_SignIn.Name = "btn_SignIn";
             this.btn_SignIn.Size = new System.Drawing.Size(243, 52);
             this.btn_SignIn.TabIndex = 3;
@@ -116,11 +117,24 @@
             this.tb_Login.Size = new System.Drawing.Size(367, 26);
             this.tb_Login.TabIndex = 1;
             // 
+            // lb_WrongPassword
+            // 
+            this.lb_WrongPassword.AutoSize = true;
+            this.lb_WrongPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_WrongPassword.ForeColor = System.Drawing.Color.Red;
+            this.lb_WrongPassword.Location = new System.Drawing.Point(137, 276);
+            this.lb_WrongPassword.Name = "lb_WrongPassword";
+            this.lb_WrongPassword.Size = new System.Drawing.Size(179, 17);
+            this.lb_WrongPassword.TabIndex = 8;
+            this.lb_WrongPassword.Text = "Введен неверный пароль!";
+            this.lb_WrongPassword.Visible = false;
+            // 
             // LoginFormView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(441, 407);
+            this.Controls.Add(this.lb_WrongPassword);
             this.Controls.Add(this.tb_Login);
             this.Controls.Add(this.tb_Password);
             this.Controls.Add(this.label4);
@@ -135,6 +149,7 @@
             this.Name = "LoginFormView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Вход";
+            this.Load += new System.EventHandler(this.LoginFormView_Load);
             this.VisibleChanged += new System.EventHandler(this.LoginFormView_VisibleChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -151,5 +166,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tb_Password;
         private System.Windows.Forms.TextBox tb_Login;
+        private System.Windows.Forms.Label lb_WrongPassword;
     }
 }

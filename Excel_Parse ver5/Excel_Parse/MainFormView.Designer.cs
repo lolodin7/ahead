@@ -62,6 +62,7 @@
             this.btn_DoMarketplaces = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.registerNewEmployeeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -321,7 +322,8 @@
             // 
             this.сотрудникToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ShowPersonalInfoToolStripMenuItem,
-            this.LogOutToolStripMenuItem});
+            this.LogOutToolStripMenuItem,
+            this.registerNewEmployeeToolStripMenuItem});
             this.сотрудникToolStripMenuItem.Name = "сотрудникToolStripMenuItem";
             this.сотрудникToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
             this.сотрудникToolStripMenuItem.Text = "Сотрудник";
@@ -330,13 +332,13 @@
             // ShowPersonalInfoToolStripMenuItem
             // 
             this.ShowPersonalInfoToolStripMenuItem.Name = "ShowPersonalInfoToolStripMenuItem";
-            this.ShowPersonalInfoToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.ShowPersonalInfoToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.ShowPersonalInfoToolStripMenuItem.Text = "Личный кабинет";
             // 
             // LogOutToolStripMenuItem
             // 
             this.LogOutToolStripMenuItem.Name = "LogOutToolStripMenuItem";
-            this.LogOutToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.LogOutToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.LogOutToolStripMenuItem.Text = "Завершить сеанс";
             this.LogOutToolStripMenuItem.Click += new System.EventHandler(this.LogOutToolStripMenuItem_Click);
             // 
@@ -393,6 +395,12 @@
             this.label1.Text = "Привет, Дмитрий";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label1.Visible = false;
+            // 
+            // registerNewEmployeeToolStripMenuItem
+            // 
+            this.registerNewEmployeeToolStripMenuItem.Name = "registerNewEmployeeToolStripMenuItem";
+            this.registerNewEmployeeToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.registerNewEmployeeToolStripMenuItem.Text = "Регистрация сотрудника";
             // 
             // MainFormView
             // 
@@ -463,5 +471,6 @@
         private System.Windows.Forms.ToolStripMenuItem ShowPersonalInfoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem LogOutToolStripMenuItem;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem registerNewEmployeeToolStripMenuItem;
     }
 }
