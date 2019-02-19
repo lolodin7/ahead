@@ -103,7 +103,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChangeQuestionView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangeQuestionView.Designer.cs">
+      <DependentUpon>ChangeQuestionView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ControlPanelView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ControlPanelView.Designer.cs">
+      <DependentUpon>ControlPanelView.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginFormController.cs" />
+    <Compile Include="RestorePasswordView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RestorePasswordView.Designer.cs">
+      <DependentUpon>RestorePasswordView.cs</DependentUpon>
+    </Compile>
     <Compile Include="SecuredPassword.cs" />
     <Compile Include="UserModel.cs" />
     <Compile Include="About.cs">
@@ -238,11 +256,20 @@
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ChangeQuestionView.resx">
+      <DependentUpon>ChangeQuestionView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlPanelView.resx">
+      <DependentUpon>ControlPanelView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginFormView.resx">
       <DependentUpon>LoginFormView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MarketplaceView.resx">
       <DependentUpon>MarketplaceView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RestorePasswordView.resx">
+      <DependentUpon>RestorePasswordView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SemCoreArchiveView.resx">
       <DependentUpon>SemCoreArchiveView.cs</DependentUpon>

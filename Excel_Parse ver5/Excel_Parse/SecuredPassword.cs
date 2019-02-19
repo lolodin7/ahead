@@ -6,13 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-public class SecuredPassword
+public class SecuredPasswordController
 {
     private const int SaltByteSize = 24;
     private const int HashByteSize = 24;
     private const int HasingIterationsCount = 10101;
 
-    public SecuredPassword()
+    public SecuredPasswordController()
     {
 
     }

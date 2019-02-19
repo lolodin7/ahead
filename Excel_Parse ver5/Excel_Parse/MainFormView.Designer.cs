@@ -57,12 +57,12 @@
             this.сотрудникToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ShowPersonalInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LogOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registerNewEmployeeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_DoMarketplaces = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.registerNewEmployeeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -327,13 +327,13 @@
             this.сотрудникToolStripMenuItem.Name = "сотрудникToolStripMenuItem";
             this.сотрудникToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
             this.сотрудникToolStripMenuItem.Text = "Сотрудник";
-            this.сотрудникToolStripMenuItem.Visible = false;
             // 
             // ShowPersonalInfoToolStripMenuItem
             // 
             this.ShowPersonalInfoToolStripMenuItem.Name = "ShowPersonalInfoToolStripMenuItem";
             this.ShowPersonalInfoToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.ShowPersonalInfoToolStripMenuItem.Text = "Личный кабинет";
+            this.ShowPersonalInfoToolStripMenuItem.Click += new System.EventHandler(this.ShowPersonalInfoToolStripMenuItem_Click);
             // 
             // LogOutToolStripMenuItem
             // 
@@ -341,6 +341,13 @@
             this.LogOutToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.LogOutToolStripMenuItem.Text = "Завершить сеанс";
             this.LogOutToolStripMenuItem.Click += new System.EventHandler(this.LogOutToolStripMenuItem_Click);
+            // 
+            // registerNewEmployeeToolStripMenuItem
+            // 
+            this.registerNewEmployeeToolStripMenuItem.Name = "registerNewEmployeeToolStripMenuItem";
+            this.registerNewEmployeeToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.registerNewEmployeeToolStripMenuItem.Text = "Регистрация сотрудника";
+            this.registerNewEmployeeToolStripMenuItem.Visible = false;
             // 
             // serviceToolStripMenuItem
             // 
@@ -387,20 +394,13 @@
             // 
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label1.Location = new System.Drawing.Point(640, 2);
+            this.label1.Location = new System.Drawing.Point(558, 2);
             this.label1.Name = "label1";
             this.label1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label1.Size = new System.Drawing.Size(175, 23);
+            this.label1.Size = new System.Drawing.Size(257, 23);
             this.label1.TabIndex = 15;
-            this.label1.Text = "Привет, Дмитрий";
+            this.label1.Text = "Привет, Бандит";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label1.Visible = false;
-            // 
-            // registerNewEmployeeToolStripMenuItem
-            // 
-            this.registerNewEmployeeToolStripMenuItem.Name = "registerNewEmployeeToolStripMenuItem";
-            this.registerNewEmployeeToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.registerNewEmployeeToolStripMenuItem.Text = "Регистрация сотрудника";
             // 
             // MainFormView
             // 
@@ -429,6 +429,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Главная - Bona Fides";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormView_FormClosing);
+            this.VisibleChanged += new System.EventHandler(this.MainFormView_VisibleChanged);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

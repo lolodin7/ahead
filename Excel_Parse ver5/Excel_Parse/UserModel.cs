@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bona_Fides
+namespace Excel_Parse
 {
     public class UserModel
     {

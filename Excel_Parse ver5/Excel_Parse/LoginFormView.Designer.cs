@@ -1,4 +1,4 @@
-﻿namespace Bona_Fides
+﻿namespace Excel_Parse
 {
     partial class LoginFormView
     {
@@ -44,7 +44,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(187, 116);
+            this.label1.Location = new System.Drawing.Point(205, 180);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 24);
             this.label1.TabIndex = 0;
@@ -54,7 +54,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(182, 191);
+            this.label2.Location = new System.Drawing.Point(200, 255);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(76, 24);
             this.label2.TabIndex = 2;
@@ -63,7 +63,7 @@
             // cb_RememberMe
             // 
             this.cb_RememberMe.AutoSize = true;
-            this.cb_RememberMe.Location = new System.Drawing.Point(167, 254);
+            this.cb_RememberMe.Location = new System.Drawing.Point(185, 318);
             this.cb_RememberMe.Name = "cb_RememberMe";
             this.cb_RememberMe.Size = new System.Drawing.Size(111, 17);
             this.cb_RememberMe.TabIndex = 4;
@@ -72,7 +72,7 @@
             // 
             // btn_SignIn
             // 
-            this.btn_SignIn.Location = new System.Drawing.Point(103, 302);
+            this.btn_SignIn.Location = new System.Drawing.Point(118, 376);
             this.btn_SignIn.Name = "btn_SignIn";
             this.btn_SignIn.Size = new System.Drawing.Size(243, 52);
             this.btn_SignIn.TabIndex = 3;
@@ -84,16 +84,17 @@
             // 
             this.lb_ResetPassword.AutoSize = true;
             this.lb_ResetPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_ResetPassword.Location = new System.Drawing.Point(164, 380);
+            this.lb_ResetPassword.Location = new System.Drawing.Point(184, 450);
             this.lb_ResetPassword.Name = "lb_ResetPassword";
             this.lb_ResetPassword.Size = new System.Drawing.Size(117, 13);
             this.lb_ResetPassword.TabIndex = 5;
             this.lb_ResetPassword.Text = "Восстановить пароль";
+            this.lb_ResetPassword.Click += new System.EventHandler(this.lb_ResetPassword_Click);
             // 
             // label4
             // 
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 58F);
-            this.label4.Location = new System.Drawing.Point(-1, -2);
+            this.label4.Location = new System.Drawing.Point(23, 40);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(434, 118);
             this.label4.TabIndex = 7;
@@ -103,7 +104,7 @@
             // tb_Password
             // 
             this.tb_Password.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tb_Password.Location = new System.Drawing.Point(38, 218);
+            this.tb_Password.Location = new System.Drawing.Point(56, 282);
             this.tb_Password.Name = "tb_Password";
             this.tb_Password.PasswordChar = '*';
             this.tb_Password.Size = new System.Drawing.Size(367, 26);
@@ -112,7 +113,7 @@
             // tb_Login
             // 
             this.tb_Login.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tb_Login.Location = new System.Drawing.Point(38, 143);
+            this.tb_Login.Location = new System.Drawing.Point(56, 207);
             this.tb_Login.Name = "tb_Login";
             this.tb_Login.Size = new System.Drawing.Size(367, 26);
             this.tb_Login.TabIndex = 1;
@@ -122,7 +123,7 @@
             this.lb_WrongPassword.AutoSize = true;
             this.lb_WrongPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lb_WrongPassword.ForeColor = System.Drawing.Color.Red;
-            this.lb_WrongPassword.Location = new System.Drawing.Point(137, 276);
+            this.lb_WrongPassword.Location = new System.Drawing.Point(153, 350);
             this.lb_WrongPassword.Name = "lb_WrongPassword";
             this.lb_WrongPassword.Size = new System.Drawing.Size(179, 17);
             this.lb_WrongPassword.TabIndex = 8;
@@ -133,7 +134,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(441, 407);
+            this.ClientSize = new System.Drawing.Size(469, 477);
             this.Controls.Add(this.lb_WrongPassword);
             this.Controls.Add(this.tb_Login);
             this.Controls.Add(this.tb_Password);
@@ -149,7 +150,7 @@
             this.Name = "LoginFormView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Вход";
-            this.Load += new System.EventHandler(this.LoginFormView_Load);
+            this.Shown += new System.EventHandler(this.LoginFormView_Shown);
             this.VisibleChanged += new System.EventHandler(this.LoginFormView_VisibleChanged);
             this.ResumeLayout(false);
             this.PerformLayout();

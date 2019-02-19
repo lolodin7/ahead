@@ -8,8 +8,9 @@ using System.Security.Cryptography;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Collections.Generic;
 
-namespace Bona_Fides
+namespace Excel_Parse
 {
     public partial class LoginFormView : Form
     {
@@ -17,9 +18,12 @@ namespace Bona_Fides
         private bool firstLoad;                 //первый запуск системы
         private bool LoadWithSaveMe;
         private UserModel um;
+        private List<string> fileTxt;
 
-        private SecuredPassword sp;
+        private SecuredPasswordController sp;
         private LoginFormController lfController;
+
+        public bool SignInWithSaveMe { get; set; }
 
 
         string path = @"C:\Bona Fides\test.txt";
@@ -28,25 +32,56 @@ namespace Bona_Fides
         /* Конструктор */
         public LoginFormView()
         {
+            //показывает картинку при запуске программы
+            //StartImage startImg = new StartImage();
+            //startImg.Show();
+            //this.Refresh();
+            //startImg.Refresh();
+            //System.Threading.Thread.Sleep(2000);
+            //startImg.Close();
+            //перестали показывать картинку при запуске программы
+
+
             InitializeComponent();
+            
+            string UserName = Environment.UserName;
+            path = @"C:\Users\" + Environment.UserName + @"\AppData\Local\secure.txt";
+
             ReSignIn = false;       //если хотим не закрыть программу, а перезайти с главной формы  
             firstLoad = true;
+            SignInWithSaveMe = false;
             lfController = new LoginFormController(this);
+            LoadLogin();
         }
+        
+        /* Проверка на галочку "SaveMe" */
+        private void LoadLogin()
+        {
+            //тут проверяем в конфиге, есть ли пометка, что "запомнить меня"
+            string saveMe = ConfigurationManager.AppSettings.Get("saveMe");
+            Console.WriteLine(saveMe);
+            if (saveMe.Equals("true"))
+                LoadWithSaveMe = true;
+            else
+                LoadWithSaveMe = false;
 
+            if (LoadWithSaveMe)
+            {
+                //здесь запуск проги без окна входа
+                ReadFromFile();
 
+                lfController.GetUserDataFromDB(fileTxt[0]);
 
-
-
-
-
-
-
-
-
-
-
-
+                if (VerifyToken(int.Parse(fileTxt[1])) && VerifyMac(fileTxt[2]))
+                {
+                    SignInWithSaveMe = true;
+                    MainFormView mf = new MainFormView(um, this);
+                    mf.Show();
+                    firstLoad = false;
+                }
+            }
+        }
+        
         /* Генерируем хранимый токен */
         private int GenerateToken(int _token1, int _token2)
         {
@@ -62,20 +97,14 @@ namespace Bona_Fides
         /* Записываем данные в файл */
         private void WriteToFile(int _storageToken, string _login, string _mac)
         {
-            if (!File.Exists(path))
-            {
-                using (var myFile = File.Create(path))
-                {
-                    // interact with myFile here, it will be disposed automatically
-                }
-            }
+            if (!File.Exists(path)) { using (var myFile = File.Create(path)) { } }      //делаем такое, чтобы после создания файл закрывался и потом можно было с ним работать
             
             try
             {
                 using (StreamWriter sw = new StreamWriter(path, false, Encoding.Default))
                 {
-                    sw.WriteLine(_storageToken);
                     sw.WriteLine(_login);
+                    sw.WriteLine(_storageToken);
                     sw.WriteLine(_mac);
                 }
             }
@@ -88,35 +117,19 @@ namespace Bona_Fides
         /* Читаем данные из файла */
         private void ReadFromFile()
         {
+            fileTxt = new List<string>() { };
             try
-            {
-                Console.WriteLine("******считываем весь файл********");
-                using (StreamReader sr = new StreamReader(path))
-                {
-                    Console.WriteLine(sr.ReadToEnd());
-                }
-
-                Console.WriteLine();
-                Console.WriteLine("******считываем построчно********");
+            {                
+                //считываем построчно
                 using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
                 {
                     string line;
                     while ((line = sr.ReadLine()) != null)
                     {
+                        fileTxt.Add(line);
                         Console.WriteLine(line);
                     }
-                }
-
-                Console.WriteLine();
-                Console.WriteLine("******считываем блоками********");
-                using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
-                {
-                    char[] array = new char[4];
-                    // считываем 4 символа
-                    sr.Read(array, 0, 4);
-
-                    Console.WriteLine(array);
-                }
+                }                
             }
             catch (Exception e)
             {
@@ -141,10 +154,9 @@ namespace Bona_Fides
                         return;
                     }
 
-                    sp = new SecuredPassword();
+                    sp = new SecuredPasswordController();
                     isLoginAndPassOk = sp.VerifyHashedPassword(um.PassHash, tb_Password.Text);  //проверяем пароль на корректность
-
-
+                    
                     if (isLoginAndPassOk)
                     {
                         //если всё хорошо, то смотрим на галочку
@@ -184,50 +196,31 @@ namespace Bona_Fides
         {
             um = _um;
         }
-
-        /* Проверка на галочку "SaveMe" */
-        private void LoginFormView_Load(object sender, EventArgs e)
-        {            
-            //тут проверяем в конфиге, есть ли пометка, что "запомнить меня"
-            string saveMe = ConfigurationManager.AppSettings.Get("saveMe");
-
-            if (saveMe.Equals("true"))
-                LoadWithSaveMe = true;
-            else
-                LoadWithSaveMe = false;
-
-            if (LoadWithSaveMe)
-            {
-                //здесь запуск проги без окна
-                
-                //ищем юзера в БД с таким логином (логин берем из файла на компе)
-                //сверяемся (по формелу считаем токена и сверяем с значением в файле), если всё хорошо - логин
-
-            }
-        }
-
-
-
-
-
-
-
-
-
-
+        
         /* Закрываем приложение или перелогиниваемся в зависимости от действий в MainFormView */
         private void LoginFormView_VisibleChanged(object sender, EventArgs e)
         {
-            if (this.Visible == true && firstLoad == false && ReSignIn == true)
+            if (!SignInWithSaveMe)
             {
-                tb_Login.Text = "";
-                tb_Password.Text = "";
-                cb_RememberMe.Checked = false;
+                if (this.Visible == true && firstLoad == false && ReSignIn == true)
+                {
+                    tb_Login.Text = "";
+                    tb_Password.Text = "";
+                    cb_RememberMe.Checked = false;
+                    SignInWithSaveMe = false;
+                }
+                else if (this.Visible == true && firstLoad == false && ReSignIn == false)
+                {
+                    this.Close();
+                }
             }
-            else if (this.Visible == true && firstLoad == false && ReSignIn == false)
-            {
-                this.Close();
-            }
+        }
+
+        /* Если вход был по "запомнить меня", автоматически прячем форму входа */
+        private void LoginFormView_Shown(object sender, EventArgs e)
+        {
+            if (LoadWithSaveMe)
+                this.Visible = false;
         }
 
         /* Обновляем значение в конфиге */
@@ -269,5 +262,29 @@ namespace Bona_Fides
             return sMacAddress;
         }
 
+        /* Метод для сверки Mac */
+        private bool VerifyMac(string _storedMac)
+        {
+            NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+            String sMacAddress = string.Empty;
+            foreach (NetworkInterface adapter in nics)
+            {
+                if (sMacAddress == String.Empty)// only return MAC Address from first card  
+                {
+                    IPInterfaceProperties properties = adapter.GetIPProperties();
+                    sMacAddress = adapter.GetPhysicalAddress().ToString();
+                }
+            }
+
+            return (_storedMac == sMacAddress);
+        }
+
+        /* Вызываем форму восстановления пароля */
+        private void lb_ResetPassword_Click(object sender, EventArgs e)
+        {
+            RestorePasswordView rp = new RestorePasswordView(this);
+            rp.Show();
+            this.Visible = false;
+        }
     }
 }

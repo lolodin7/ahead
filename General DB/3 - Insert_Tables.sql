@@ -243,7 +243,7 @@ VALUES ('Пользователь')
 
 /*         -- [User] --             */
 INSERT INTO [User] ([Login], [PassHash], [Name], [Token1], [Token2], [UserRoleId], [SecretQuestion], [Answer], [MAC])
-VALUES ('raizz', 'AN/EVOLpjpoV1rfmfBvZoykOYXvGhRTSDuyl5/6Wx0K08OHkiwxlUQg2k9AREoNp6Q==', 'Дмитрий', 123, 321, 0, 'Номер офиса', '6', 'some_mac_address')
+VALUES ('raizz', 'ADAH/ZuvEVdABXe4AuzqwknkxSZzRbhdj21avq9UvFa5E2HiQwcJ2WfdI868yw9A9g==', 'Дмитрий', 123, 321, 0, 'Номер офиса', 'AEBZF6htjJp6bJmhb7Of6vmRm2wu4vthhjEUZMivrOi6GHC+oIeiJXSlTqTTUlWgnA==', '00FF60C1B9B4')
 
 
 
