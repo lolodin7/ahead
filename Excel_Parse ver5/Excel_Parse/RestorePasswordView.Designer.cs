@@ -100,7 +100,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RestorePasswordView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Восстановление пароля";
+            this.Text = "Восстановление пароля - Bona Fides";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RestorePasswordView_FormClosing);
             this.Shown += new System.EventHandler(this.RestorePasswordView_Shown);
             this.ResumeLayout(false);

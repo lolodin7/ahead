@@ -31,12 +31,12 @@ namespace Excel_Parse
             if (_value.Equals("question"))
             {
                 panel2.Visible = true;
-                this.Text = "Изменение секретного вопроса";
+                this.Text = "Изменение секретного вопроса - Bona Fides";
             }
             else
             {
                 panel1.Visible = true;
-                this.Text = "Изменение ответа";
+                this.Text = "Изменение ответа - Bona Fides";
             }
 
             phaseChangingAnswer = 1;
@@ -44,6 +44,10 @@ namespace Excel_Parse
 
             controlControlPanelView = _cp;
             um = _um;
+
+            label3.Text = "Вопрос: " + um.SecretQuestion;
+            label4.Text = "Вопрос: " + um.SecretQuestion;
+
             controlSecuredPasswordController = new SecuredPasswordController();
             controlLoginFormController = new LoginFormController(this);            
         }
@@ -68,6 +72,8 @@ namespace Excel_Parse
                             lb_AnswerTxt.Text = message1;
                             phaseChangingAnswer = 2;
                             tb_Answer.Text = "";
+                            label4.Visible = false;
+                            lb_AnswerTxt.Location = label4.Location;
                         }
                         else { MessageBox.Show("Вы ввели неверный ответ!", "Ошибка"); }
                     }
@@ -105,6 +111,8 @@ namespace Excel_Parse
                             tb_NewQuestion.Visible = true;
                             label1.Visible = true;
                             label2.Visible = true;
+                            label3.Visible = false;
+                            lb_Panel2.Location = label3.Location;
                         }
                         else { MessageBox.Show("Вы ввели неверный ответ!", "Ошибка"); }
                     }

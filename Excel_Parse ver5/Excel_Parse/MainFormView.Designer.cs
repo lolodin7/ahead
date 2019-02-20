@@ -58,6 +58,7 @@
             this.ShowPersonalInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LogOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registerNewEmployeeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.employeesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_DoMarketplaces = new System.Windows.Forms.Button();
@@ -77,6 +78,7 @@
             this.btn_DoSemCore.TabIndex = 0;
             this.btn_DoSemCore.Text = "Собрать семантическое ядро";
             this.btn_DoSemCore.UseVisualStyleBackColor = false;
+            this.btn_DoSemCore.Visible = false;
             this.btn_DoSemCore.Click += new System.EventHandler(this.btn_DoSemCore_Click);
             // 
             // btn_DoSemantics
@@ -90,6 +92,7 @@
             this.btn_DoSemantics.TabIndex = 1;
             this.btn_DoSemantics.Text = "Редактирование семантики";
             this.btn_DoSemantics.UseVisualStyleBackColor = false;
+            this.btn_DoSemantics.Visible = false;
             this.btn_DoSemantics.Click += new System.EventHandler(this.btn_DoSemantics_Click);
             // 
             // btn_DoRewriteSemCore
@@ -103,6 +106,7 @@
             this.btn_DoRewriteSemCore.TabIndex = 2;
             this.btn_DoRewriteSemCore.Text = "Пересобрать семантическое ядро";
             this.btn_DoRewriteSemCore.UseVisualStyleBackColor = false;
+            this.btn_DoRewriteSemCore.Visible = false;
             this.btn_DoRewriteSemCore.Click += new System.EventHandler(this.btn_DoRewriteSemCore_Click);
             // 
             // btn_DoProductType
@@ -116,6 +120,7 @@
             this.btn_DoProductType.TabIndex = 3;
             this.btn_DoProductType.Text = "Управление видами товаров";
             this.btn_DoProductType.UseVisualStyleBackColor = false;
+            this.btn_DoProductType.Visible = false;
             this.btn_DoProductType.Click += new System.EventHandler(this.btn_DoProductType_Click);
             // 
             // btn_DoKeywordCategory
@@ -129,6 +134,7 @@
             this.btn_DoKeywordCategory.TabIndex = 4;
             this.btn_DoKeywordCategory.Text = "Управление категориями ключей";
             this.btn_DoKeywordCategory.UseVisualStyleBackColor = false;
+            this.btn_DoKeywordCategory.Visible = false;
             this.btn_DoKeywordCategory.Click += new System.EventHandler(this.btn_DoKeywordCategory_Click);
             // 
             // btn_DoProducts
@@ -142,6 +148,7 @@
             this.btn_DoProducts.TabIndex = 5;
             this.btn_DoProducts.Text = "Управление товарами";
             this.btn_DoProducts.UseVisualStyleBackColor = false;
+            this.btn_DoProducts.Visible = false;
             this.btn_DoProducts.Click += new System.EventHandler(this.btn_DoProducts_Click);
             // 
             // btn_ShowAllKeywords
@@ -155,6 +162,7 @@
             this.btn_ShowAllKeywords.TabIndex = 6;
             this.btn_ShowAllKeywords.Text = "Просмотреть существующие ключи";
             this.btn_ShowAllKeywords.UseVisualStyleBackColor = false;
+            this.btn_ShowAllKeywords.Visible = false;
             this.btn_ShowAllKeywords.Click += new System.EventHandler(this.btn_ShowAllKeywords_Click);
             // 
             // btn_Exit
@@ -178,6 +186,7 @@
             this.btn_ShowIndexing.TabIndex = 9;
             this.btn_ShowIndexing.Text = "Индексация";
             this.btn_ShowIndexing.UseVisualStyleBackColor = false;
+            this.btn_ShowIndexing.Visible = false;
             this.btn_ShowIndexing.Click += new System.EventHandler(this.btn_ShowIndexing_Click);
             // 
             // button1
@@ -191,7 +200,8 @@
             this.button1.TabIndex = 11;
             this.button1.Text = "Создать семантику для нового товара";
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.ChooseProduct_Click);
             // 
             // menuStrip1
             // 
@@ -254,7 +264,7 @@
             this.ShowSemCoreArchiveToolStripMenuItem.Name = "ShowSemCoreArchiveToolStripMenuItem";
             this.ShowSemCoreArchiveToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
             this.ShowSemCoreArchiveToolStripMenuItem.Text = "История ключей";
-            this.ShowSemCoreArchiveToolStripMenuItem.Click += new System.EventHandler(this.button2_Click);
+            this.ShowSemCoreArchiveToolStripMenuItem.Click += new System.EventHandler(this.SemCoreArchive_Click);
             // 
             // семантикаToolStripMenuItem
             // 
@@ -271,7 +281,7 @@
             this.CreateSemanticsToolStripMenuItem.Name = "CreateSemanticsToolStripMenuItem";
             this.CreateSemanticsToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
             this.CreateSemanticsToolStripMenuItem.Text = "Создать семантику для нового товара";
-            this.CreateSemanticsToolStripMenuItem.Click += new System.EventHandler(this.button1_Click);
+            this.CreateSemanticsToolStripMenuItem.Click += new System.EventHandler(this.ChooseProduct_Click);
             // 
             // EditSemanticsToolStripMenuItem
             // 
@@ -301,7 +311,7 @@
             // 
             this.DoProductsToolStripMenuItem.Name = "DoProductsToolStripMenuItem";
             this.DoProductsToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.DoProductsToolStripMenuItem.Text = "Товарами";
+            this.DoProductsToolStripMenuItem.Text = "Товары";
             this.DoProductsToolStripMenuItem.Click += new System.EventHandler(this.btn_DoProducts_Click);
             // 
             // DoProductTypesToolStripMenuItem
@@ -323,7 +333,8 @@
             this.сотрудникToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ShowPersonalInfoToolStripMenuItem,
             this.LogOutToolStripMenuItem,
-            this.registerNewEmployeeToolStripMenuItem});
+            this.registerNewEmployeeToolStripMenuItem,
+            this.employeesToolStripMenuItem});
             this.сотрудникToolStripMenuItem.Name = "сотрудникToolStripMenuItem";
             this.сотрудникToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
             this.сотрудникToolStripMenuItem.Text = "Сотрудник";
@@ -347,7 +358,14 @@
             this.registerNewEmployeeToolStripMenuItem.Name = "registerNewEmployeeToolStripMenuItem";
             this.registerNewEmployeeToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.registerNewEmployeeToolStripMenuItem.Text = "Регистрация сотрудника";
-            this.registerNewEmployeeToolStripMenuItem.Visible = false;
+            this.registerNewEmployeeToolStripMenuItem.Click += new System.EventHandler(this.registerNewEmployeeToolStripMenuItem_Click);
+            // 
+            // employeesToolStripMenuItem
+            // 
+            this.employeesToolStripMenuItem.Name = "employeesToolStripMenuItem";
+            this.employeesToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.employeesToolStripMenuItem.Text = "Сотрудники";
+            this.employeesToolStripMenuItem.Click += new System.EventHandler(this.employeesToolStripMenuItem_Click);
             // 
             // serviceToolStripMenuItem
             // 
@@ -360,7 +378,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "Справка";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -375,6 +393,7 @@
             this.btn_DoMarketplaces.TabIndex = 13;
             this.btn_DoMarketplaces.Text = "Управление маркетплейсами";
             this.btn_DoMarketplaces.UseVisualStyleBackColor = false;
+            this.btn_DoMarketplaces.Visible = false;
             this.btn_DoMarketplaces.Click += new System.EventHandler(this.btn_DoMarketplaces_Click);
             // 
             // button2
@@ -388,7 +407,8 @@
             this.button2.TabIndex = 14;
             this.button2.Text = "Просмотреть историю ключей";
             this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Visible = false;
+            this.button2.Click += new System.EventHandler(this.SemCoreArchive_Click);
             // 
             // label1
             // 
@@ -429,6 +449,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Главная - Bona Fides";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormView_FormClosing);
+            this.Load += new System.EventHandler(this.MainFormView_Load);
             this.VisibleChanged += new System.EventHandler(this.MainFormView_VisibleChanged);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -473,5 +494,6 @@
         private System.Windows.Forms.ToolStripMenuItem LogOutToolStripMenuItem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem registerNewEmployeeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem employeesToolStripMenuItem;
     }
 }

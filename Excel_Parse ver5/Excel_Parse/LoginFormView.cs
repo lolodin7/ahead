@@ -51,6 +51,7 @@ namespace Excel_Parse
             firstLoad = true;
             SignInWithSaveMe = false;
             lfController = new LoginFormController(this);
+            sp = new SecuredPasswordController();
             LoadLogin();
         }
         
@@ -72,7 +73,7 @@ namespace Excel_Parse
 
                 lfController.GetUserDataFromDB(fileTxt[0]);
 
-                if (VerifyToken(int.Parse(fileTxt[1])) && VerifyMac(fileTxt[2]))
+                if (sp.VerifyToken(int.Parse(fileTxt[1]), um.Token1, um.Token2, um.Login.Length) && sp.VerifyMac(fileTxt[2]))
                 {
                     SignInWithSaveMe = true;
                     MainFormView mf = new MainFormView(um, this);
@@ -82,18 +83,6 @@ namespace Excel_Parse
             }
         }
         
-        /* Генерируем хранимый токен */
-        private int GenerateToken(int _token1, int _token2)
-        {
-            return _token1 + _token2 + um.Login.Length;
-        }
-
-        /* Проверяем хранимый токен на соответсвие */
-        private bool VerifyToken(int _storedToken)
-        {
-            return _storedToken == um.Token1 + um.Token2 + um.Login.Length;
-        }
-
         /* Записываем данные в файл */
         private void WriteToFile(int _storageToken, string _login, string _mac)
         {
@@ -154,7 +143,6 @@ namespace Excel_Parse
                         return;
                     }
 
-                    sp = new SecuredPasswordController();
                     isLoginAndPassOk = sp.VerifyHashedPassword(um.PassHash, tb_Password.Text);  //проверяем пароль на корректность
                     
                     if (isLoginAndPassOk)
@@ -163,8 +151,8 @@ namespace Excel_Parse
                         if (cb_RememberMe.Checked)
                         {
                             UpdateConfig("true");
-                            string MacAddress = GetMac();   //используем для идентификации пользователя на этом компьютере, чтобы низзя было скопировать файл на другой комп и залогиниться
-                            int generatedToken = GenerateToken(um.Token1, um.Token2);
+                            string MacAddress = sp.GetMac();   //используем для идентификации пользователя на этом компьютере, чтобы низзя было скопировать файл на другой комп и залогиниться
+                            int generatedToken = sp.GenerateToken(um.Token1, um.Token2, um.Login.Length);
 
                             //тут значения с токенов пишем в файл
                             WriteToFile(generatedToken, um.Login, um.Mac);
@@ -244,40 +232,7 @@ namespace Excel_Parse
             }
             xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
             ConfigurationManager.RefreshSection("appSettings");
-        }
-
-        /* Хреновина для получение МАС, чтобы сохранить в БД для юзера для "запомнить меня" верификации */
-        private string GetMac()
-        {
-            NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
-            String sMacAddress = string.Empty;
-            foreach (NetworkInterface adapter in nics)
-            {
-                if (sMacAddress == String.Empty)// only return MAC Address from first card  
-                {
-                    IPInterfaceProperties properties = adapter.GetIPProperties();
-                    sMacAddress = adapter.GetPhysicalAddress().ToString();
-                }
-            }
-            return sMacAddress;
-        }
-
-        /* Метод для сверки Mac */
-        private bool VerifyMac(string _storedMac)
-        {
-            NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
-            String sMacAddress = string.Empty;
-            foreach (NetworkInterface adapter in nics)
-            {
-                if (sMacAddress == String.Empty)// only return MAC Address from first card  
-                {
-                    IPInterfaceProperties properties = adapter.GetIPProperties();
-                    sMacAddress = adapter.GetPhysicalAddress().ToString();
-                }
-            }
-
-            return (_storedMac == sMacAddress);
-        }
+        }        
 
         /* Вызываем форму восстановления пароля */
         private void lb_ResetPassword_Click(object sender, EventArgs e)

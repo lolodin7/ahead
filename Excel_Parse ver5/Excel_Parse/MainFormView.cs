@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Configuration;
 using System.Windows.Forms;
-using Bona_Fides;
 
 namespace Excel_Parse
 {
@@ -11,7 +10,7 @@ namespace Excel_Parse
         public UserModel um;
         private LoginFormView lf;
 
-        private bool JustExit;
+        private bool JustExit;      //для выхода из приложения при нажатии "Х" в правом верхнем углу
 
 
         public MainFormView(UserModel _um, LoginFormView _lf)
@@ -92,7 +91,7 @@ namespace Excel_Parse
             this.Visible = false;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void ChooseProduct_Click(object sender, EventArgs e)
         {
             ChooseProduct cp = new ChooseProduct(this, true);
             cp.Show();
@@ -113,10 +112,17 @@ namespace Excel_Parse
             this.Visible = false;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void SemCoreArchive_Click(object sender, EventArgs e)
         {
             SemCoreArchiveView sca = new SemCoreArchiveView(this);
             sca.Show();
+            this.Visible = false;
+        }
+
+        private void ShowPersonalInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ControlPanelView cp = new ControlPanelView(um, this);
+            cp.Show();
             this.Visible = false;
         }
 
@@ -154,17 +160,44 @@ namespace Excel_Parse
             this.Close();
         }
 
-        private void ShowPersonalInfoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ControlPanelView cp = new ControlPanelView(um, this);
-            cp.Show();
-            this.Visible = false;
-        }
-
         /* Если вдруг имя было изменено, переписываем его на фомре при каждом появлении формы */
         private void MainFormView_VisibleChanged(object sender, EventArgs e)
         {
             label1.Text = "Привет, " + um.Name;
+        }
+
+        private void MainFormView_Load(object sender, EventArgs e)
+        {
+            switch (um.UserRoleId)
+            {
+                case 0:     //admin
+                    
+                    break;
+                case 1:     //boss
+
+                    break;
+                case 2:     //user
+                    registerNewEmployeeToolStripMenuItem.Visible = false;
+                    DoMarketpalcesToolStripMenuItem.Visible = false;
+                    DoKeywordCategoryToolStripMenuItem.Visible = false;
+                    DoProductTypesToolStripMenuItem.Visible = false;
+                    employeesToolStripMenuItem.Visible = false;
+                    break;
+            }
+        }
+
+        private void registerNewEmployeeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RegisterAnEmployeeView re = new RegisterAnEmployeeView(this);
+            re.Show();
+            this.Visible = false;
+        }
+
+        private void employeesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowUsersView su = new ShowUsersView(this);
+            su.Show();
+            this.Visible = false;
         }
     }
 }

@@ -157,6 +157,24 @@ UPDATE [SemCoreArchive] SET [ProductTypeId] = 1, [CategoryId] = 1, [Keyword] = '
 UPDATE [SemCoreArchive] SET [ProductTypeId] = 1, [CategoryId] = 1, [Keyword] = ' lav',  [ValuesAndDates] = '1&16.02.2019 12:59:07@1234&17.02.2019 12:59:23@' WHERE [SemCoreId] = 4
 
 
-SELECT * FROM [User]
+SELECT * FROM [User] LEFT JOIN [UserRole] on [User].UserId = [UserRole].UserRoleId
 
 UPDATE [User] Set [SecretQuestion] = 'AEBZF6htjJp6bJmhb7Of6vmRm2wu4vthhjEUZMivrOi6GHC+oIeiJXSlTqTTUlWgnA==' where userid = 0
+
+
+INSERT INTO [User] ([Login], [PassHash], [Name], [Token1], [Token2], [UserRoleId], [SecretQuestion], [Answer], [MAC])
+VALUES ('test1', 'ADAH/ZuvEVdABXe4AuzqwknkxSZzRbhdj21avq9UvFa5E2HiQwcJ2WfdI868yw9A9g==', 'boss', 123, 321, 1, 'Номер офиса', 'AEBZF6htjJp6bJmhb7Of6vmRm2wu4vthhjEUZMivrOi6GHC+oIeiJXSlTqTTUlWgnA==', '00FF60C1B9B4')
+
+INSERT INTO [User] ([Login], [PassHash], [Name], [Token1], [Token2], [UserRoleId], [SecretQuestion], [Answer], [MAC])
+VALUES ('test2', 'ADAH/ZuvEVdABXe4AuzqwknkxSZzRbhdj21avq9UvFa5E2HiQwcJ2WfdI868yw9A9g==', 'user', 123, 321, 2, 'Номер офиса', 'AEBZF6htjJp6bJmhb7Of6vmRm2wu4vthhjEUZMivrOi6GHC+oIeiJXSlTqTTUlWgnA==', '00FF60C1B9B4')
+
+INSERT INTO [User] ([Login], [PassHash], [Name], [Token1], [Token2], [UserRoleId], [SecretQuestion], [Answer], [MAC]) 
+VALUES ('test3', 'AFLAdwGbmfGWFRdnR4Otf4CHLzZi85JHOPQkqFeAyT2YLPxsMVhPetT/6YCA989LFQ==', 'test3', 123, 321, 0, 'Этаж', 'APhruLNVwFONc7ExCaSThxgFHoDnHvHvMw5dUES3XSoup3gGvxoJu9QQib5CXEOWlw==', '00FF60C1B9B4')
+
+INSERT INTO [User] ([Login], [PassHash], [Name], [Token1], [Token2], [UserRoleId], [SecretQuestion], [Answer], [MAC]) 
+VALUES ('test1', 'AEAY9JlF2oGygR5+ixwtiIEVCSY4EOh9TSNI2rF2erHKMQAq/PHYCJWEzJyx71xzoQ==', 'user', 945736, 790147, 2, 'office', 'AAFmJ4q3g9CKue5TNQdQpfq4jtfe2qIeGEkwhBf+3nd/oLFc/6A/pxx53e1azSmsRw==', '00FF60C1B9B4')
+
+select * from userrole
+
+INSERT INTO [User] ([Login], [PassHash], [Name], [Token1], [Token2], [UserRoleId], [SecretQuestion], [Answer], [MAC]) 
+VALUES ('test2', 'APm015BH7in1Xxck+wm9LlBoGTzduSdMEP0Jr7moQTnCLenTi5bcfG0iKvBgug2PNA==', 'user', 398630, 867689, 2, 'office', 'AN9XrPJrM84APqSiqmKEUGxXJhK4oLOZb5kq78RufY0evRoYxP6IHEhFZkdM+K7fmw==', '00FF60C1B9B4')

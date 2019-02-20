@@ -116,6 +116,12 @@
       <DependentUpon>ControlPanelView.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginFormController.cs" />
+    <Compile Include="RegisterAnEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegisterAnEmployee.Designer.cs">
+      <DependentUpon>RegisterAnEmployee.cs</DependentUpon>
+    </Compile>
     <Compile Include="RestorePasswordView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,6 +129,12 @@
       <DependentUpon>RestorePasswordView.cs</DependentUpon>
     </Compile>
     <Compile Include="SecuredPassword.cs" />
+    <Compile Include="ShowUsersView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowUsersView.Designer.cs">
+      <DependentUpon>ShowUsersView.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserModel.cs" />
     <Compile Include="About.cs">
       <SubType>Form</SubType>
@@ -268,11 +280,17 @@
     <EmbeddedResource Include="MarketplaceView.resx">
       <DependentUpon>MarketplaceView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RegisterAnEmployee.resx">
+      <DependentUpon>RegisterAnEmployee.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RestorePasswordView.resx">
       <DependentUpon>RestorePasswordView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SemCoreArchiveView.resx">
       <DependentUpon>SemCoreArchiveView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShowUsersView.resx">
+      <DependentUpon>ShowUsersView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StartImage.resx">
       <DependentUpon>StartImage.cs</DependentUpon>

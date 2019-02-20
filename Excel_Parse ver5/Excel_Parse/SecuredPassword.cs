@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -82,4 +83,51 @@ public class SecuredPasswordController
             xor |= firstHash[i] ^ secondHash[i];
         return 0 == xor;
     }
+
+    /* Хреновина для получение МАС, чтобы сохранить в БД для юзера для "запомнить меня" верификации */
+    public string GetMac()
+    {
+        NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+        String sMacAddress = string.Empty;
+        foreach (NetworkInterface adapter in nics)
+        {
+            if (sMacAddress == String.Empty)// only return MAC Address from first card  
+            {
+                IPInterfaceProperties properties = adapter.GetIPProperties();
+                sMacAddress = adapter.GetPhysicalAddress().ToString();
+            }
+        }
+        return sMacAddress;
+    }
+
+    /* Метод для сверки Mac */
+    public bool VerifyMac(string _storedMac)
+    {
+        NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+        String sMacAddress = string.Empty;
+        foreach (NetworkInterface adapter in nics)
+        {
+            if (sMacAddress == String.Empty)// only return MAC Address from first card  
+            {
+                IPInterfaceProperties properties = adapter.GetIPProperties();
+                sMacAddress = adapter.GetPhysicalAddress().ToString();
+            }
+        }
+
+        return (_storedMac == sMacAddress);
+    }
+
+
+    /* Генерируем хранимый токен */
+    public int GenerateToken(int _token1, int _token2, int _salt)
+    {
+        return _token1 + _token2 + _salt;
+    }
+
+    /* Проверяем хранимый токен на соответсвие */
+    public bool VerifyToken(int _storedToken, int _token1, int _token2, int _salt)
+    {
+        return _storedToken == _token1 + _token2 + _salt;
+    }
+
 }

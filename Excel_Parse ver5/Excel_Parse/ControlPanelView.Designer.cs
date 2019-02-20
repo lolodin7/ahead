@@ -48,7 +48,7 @@
             // 
             // lb_Name
             // 
-            this.lb_Name.Location = new System.Drawing.Point(69, 9);
+            this.lb_Name.Location = new System.Drawing.Point(69, 26);
             this.lb_Name.Name = "lb_Name";
             this.lb_Name.Size = new System.Drawing.Size(174, 23);
             this.lb_Name.TabIndex = 0;
@@ -57,7 +57,7 @@
             // 
             // lb_Login
             // 
-            this.lb_Login.Location = new System.Drawing.Point(69, 62);
+            this.lb_Login.Location = new System.Drawing.Point(69, 79);
             this.lb_Login.Name = "lb_Login";
             this.lb_Login.Size = new System.Drawing.Size(50, 23);
             this.lb_Login.TabIndex = 1;
@@ -66,7 +66,7 @@
             // 
             // lb_Password
             // 
-            this.lb_Password.Location = new System.Drawing.Point(69, 115);
+            this.lb_Password.Location = new System.Drawing.Point(69, 132);
             this.lb_Password.Name = "lb_Password";
             this.lb_Password.Size = new System.Drawing.Size(50, 23);
             this.lb_Password.TabIndex = 2;
@@ -75,7 +75,7 @@
             // 
             // lb_Question
             // 
-            this.lb_Question.Location = new System.Drawing.Point(69, 168);
+            this.lb_Question.Location = new System.Drawing.Point(69, 185);
             this.lb_Question.Name = "lb_Question";
             this.lb_Question.Size = new System.Drawing.Size(213, 23);
             this.lb_Question.TabIndex = 3;
@@ -84,7 +84,7 @@
             // 
             // lb_Answer
             // 
-            this.lb_Answer.Location = new System.Drawing.Point(69, 221);
+            this.lb_Answer.Location = new System.Drawing.Point(69, 238);
             this.lb_Answer.Name = "lb_Answer";
             this.lb_Answer.Size = new System.Drawing.Size(50, 23);
             this.lb_Answer.TabIndex = 4;
@@ -93,7 +93,7 @@
             // 
             // lb_AnswerTxt
             // 
-            this.lb_AnswerTxt.Location = new System.Drawing.Point(12, 221);
+            this.lb_AnswerTxt.Location = new System.Drawing.Point(12, 238);
             this.lb_AnswerTxt.Name = "lb_AnswerTxt";
             this.lb_AnswerTxt.Size = new System.Drawing.Size(50, 23);
             this.lb_AnswerTxt.TabIndex = 9;
@@ -102,7 +102,7 @@
             // 
             // lb_QuestionTxt
             // 
-            this.lb_QuestionTxt.Location = new System.Drawing.Point(12, 168);
+            this.lb_QuestionTxt.Location = new System.Drawing.Point(12, 185);
             this.lb_QuestionTxt.Name = "lb_QuestionTxt";
             this.lb_QuestionTxt.Size = new System.Drawing.Size(50, 23);
             this.lb_QuestionTxt.TabIndex = 8;
@@ -111,7 +111,7 @@
             // 
             // lb_Passwordtxt
             // 
-            this.lb_Passwordtxt.Location = new System.Drawing.Point(12, 115);
+            this.lb_Passwordtxt.Location = new System.Drawing.Point(12, 132);
             this.lb_Passwordtxt.Name = "lb_Passwordtxt";
             this.lb_Passwordtxt.Size = new System.Drawing.Size(50, 23);
             this.lb_Passwordtxt.TabIndex = 7;
@@ -120,7 +120,7 @@
             // 
             // lb_LoginTxt
             // 
-            this.lb_LoginTxt.Location = new System.Drawing.Point(12, 62);
+            this.lb_LoginTxt.Location = new System.Drawing.Point(12, 79);
             this.lb_LoginTxt.Name = "lb_LoginTxt";
             this.lb_LoginTxt.Size = new System.Drawing.Size(50, 23);
             this.lb_LoginTxt.TabIndex = 6;
@@ -129,7 +129,7 @@
             // 
             // lb_NameTxt
             // 
-            this.lb_NameTxt.Location = new System.Drawing.Point(12, 9);
+            this.lb_NameTxt.Location = new System.Drawing.Point(12, 26);
             this.lb_NameTxt.Name = "lb_NameTxt";
             this.lb_NameTxt.Size = new System.Drawing.Size(50, 23);
             this.lb_NameTxt.TabIndex = 5;
@@ -138,7 +138,7 @@
             // 
             // btn_ChangePassword
             // 
-            this.btn_ChangePassword.Location = new System.Drawing.Point(288, 115);
+            this.btn_ChangePassword.Location = new System.Drawing.Point(288, 132);
             this.btn_ChangePassword.Name = "btn_ChangePassword";
             this.btn_ChangePassword.Size = new System.Drawing.Size(75, 23);
             this.btn_ChangePassword.TabIndex = 10;
@@ -148,7 +148,7 @@
             // 
             // btn_ChangeName
             // 
-            this.btn_ChangeName.Location = new System.Drawing.Point(288, 9);
+            this.btn_ChangeName.Location = new System.Drawing.Point(288, 26);
             this.btn_ChangeName.Name = "btn_ChangeName";
             this.btn_ChangeName.Size = new System.Drawing.Size(75, 23);
             this.btn_ChangeName.TabIndex = 11;
@@ -158,7 +158,7 @@
             // 
             // tb_ChangeName
             // 
-            this.tb_ChangeName.Location = new System.Drawing.Point(72, 11);
+            this.tb_ChangeName.Location = new System.Drawing.Point(72, 28);
             this.tb_ChangeName.Name = "tb_ChangeName";
             this.tb_ChangeName.Size = new System.Drawing.Size(179, 20);
             this.tb_ChangeName.TabIndex = 12;
@@ -166,7 +166,7 @@
             // 
             // btn_ChangeQuestion
             // 
-            this.btn_ChangeQuestion.Location = new System.Drawing.Point(288, 168);
+            this.btn_ChangeQuestion.Location = new System.Drawing.Point(288, 185);
             this.btn_ChangeQuestion.Name = "btn_ChangeQuestion";
             this.btn_ChangeQuestion.Size = new System.Drawing.Size(75, 23);
             this.btn_ChangeQuestion.TabIndex = 13;
@@ -176,7 +176,7 @@
             // 
             // btn_ChangeAnswer
             // 
-            this.btn_ChangeAnswer.Location = new System.Drawing.Point(288, 221);
+            this.btn_ChangeAnswer.Location = new System.Drawing.Point(288, 238);
             this.btn_ChangeAnswer.Name = "btn_ChangeAnswer";
             this.btn_ChangeAnswer.Size = new System.Drawing.Size(75, 23);
             this.btn_ChangeAnswer.TabIndex = 14;
@@ -208,7 +208,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ControlPanelView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Личный кабинет";
+            this.Text = "Личный кабинет - Bona Fides";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ControlPanelView_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -149,7 +149,7 @@
             this.MaximizeBox = false;
             this.Name = "LoginFormView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Вход";
+            this.Text = "Вход - Bona Fides";
             this.Shown += new System.EventHandler(this.LoginFormView_Shown);
             this.VisibleChanged += new System.EventHandler(this.LoginFormView_VisibleChanged);
             this.ResumeLayout(false);
