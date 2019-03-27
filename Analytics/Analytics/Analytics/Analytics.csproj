@@ -84,6 +84,8 @@
     <Compile Include="MainFormView.Designer.cs">
       <DependentUpon>MainFormView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Matching.cs" />
+    <Compile Include="MatchOrderRefund.cs" />
     <Compile Include="Month.cs" />
     <Compile Include="OrdersController.cs" />
     <Compile Include="OrdersModel.cs" />

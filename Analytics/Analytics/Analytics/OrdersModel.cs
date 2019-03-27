@@ -14,6 +14,7 @@ namespace Analytics
         public string MerchantOrderId { get; set; }
         public DateTime PurchaseDate { get; set; }
         public DateTime LastUpdatedDate { get; set; }
+        public DateTime ReturnDate { get; set; }
         public string OrderStatus { get; set; }
         public string FullfilmentChannel { get; set; }
         public string SalesChannel { get; set; }
@@ -149,6 +150,9 @@ namespace Analytics
                 case 31:
                     return PriceDesignation;
                     break;
+                case 32:
+                    return ReturnDate;
+                    break;
                 default:
                     return null;
                     break;
@@ -170,15 +174,15 @@ namespace Analytics
                     break;
                 case 2:
                     string str = _value.ToString();
-                    int year = int.Parse(str.Substring(0, 4));
-                    int month = int.Parse(str.Substring(5, 2));
-                    int day = int.Parse(str.Substring(8, 2));
+                    int day = int.Parse(str.Substring(0, 2));
+                    int month = int.Parse(str.Substring(3, 2));
+                    int year = int.Parse(str.Substring(6, 4));
                     PurchaseDate = new DateTime(year, month, day);
                     break;
                 case 3:
-                    int year2 = int.Parse(_value.ToString().Substring(0, 4));
-                    int month2 = int.Parse(_value.ToString().Substring(5, 2));
-                    int day2 = int.Parse(_value.ToString().Substring(8, 2));
+                    int day2 = int.Parse(_value.ToString().Substring(0, 2));
+                    int month2 = int.Parse(_value.ToString().Substring(3, 2));
+                    int year2 = int.Parse(_value.ToString().Substring(6, 4));
                     LastUpdatedDate = new DateTime(year2, month2, day2);
                     break;
                 case 4:
@@ -267,6 +271,12 @@ namespace Analytics
                     break;
                 case 31:
                     PriceDesignation = _value.ToString();
+                    break;
+                case 32:
+                    int day3 = int.Parse(_value.ToString().Substring(0, 2));
+                    int month3 = int.Parse(_value.ToString().Substring(3, 2));
+                    int year3 = int.Parse(_value.ToString().Substring(6, 4));
+                    ReturnDate = new DateTime(year3, month3, day3);
                     break;
             }
         }

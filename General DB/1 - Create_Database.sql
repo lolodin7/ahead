@@ -36,14 +36,14 @@ GO
 
 IF EXISTS (SELECT *
            FROM   master..sysdatabases
-           WHERE  name = 'AHEAD-test')
+           WHERE  name = 'Analytics')
 BEGIN
-  DROP DATABASE [AHEAD-test]
-  PRINT 'Database [AHEAD-test] dropped'
+  DROP DATABASE [Analytics]
+  PRINT 'Database [Analytics] dropped'
 END
 GO
 
-CREATE DATABASE [AHEAD-test] ON (
+CREATE DATABASE [Analytics] ON (
   NAME = N'tc_data',
   FILENAME = N'C:\MSSQL2\Data\tc_data.mdf',
   SIZE = 10,
@@ -58,5 +58,5 @@ LOG ON (
 COLLATE Cyrillic_General_CI_AS
 GO
 
-PRINT 'Database [AHEAD-test] created'
+PRINT 'Database [Analytics] created'
 GO

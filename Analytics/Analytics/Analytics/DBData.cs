@@ -11,12 +11,12 @@ namespace Analytics
     {
         //Data Source = LOLODIN; Initial Catalog = AHEAD; Integrated Security = True
 
-        //private const string InitialCatalog = "AHEAD";
-        //private const string DataSource = "KCRF1NH-AHEAD-M";
-        //private const bool IntegratedSecurity = true;
-        private const string InitialCatalog = "AHEAD";
-        private const string DataSource = "LOLODIN";
+        private const string InitialCatalog = "Analytics";
+        private const string DataSource = "KCRF1NH-AHEAD-M";
         private const bool IntegratedSecurity = true;
+        //private const string InitialCatalog = "AHEAD";
+        //private const string DataSource = "LOLODIN";
+        //private const bool IntegratedSecurity = true;
 
         public static SqlConnection GetDBConnection()
         {

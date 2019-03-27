@@ -24,6 +24,9 @@ namespace Analytics
         private AnalyticsForm form1;
         private string[] dgvColumnsHeadersText;
 
+        private MatchOrderRefund form2;
+        private SqlCommand command;
+
         public CustomerReturnsController(AnalyticsForm _form1)
         {
             connection = DBData.GetDBConnection();
@@ -33,6 +36,17 @@ namespace Analytics
             updatedLines = 0;
 
             form1 = _form1;
+        }
+
+        public CustomerReturnsController(MatchOrderRefund _form2)
+        {
+            connection = DBData.GetDBConnection();
+            customerReturnsList = new List<CustomerReturnsModel> { };
+            allLines = 0;
+            addedLines = 0;
+            updatedLines = 0;
+
+            form2 = _form2;
         }
 
         /* Вытаскиваем строки из Excel */
@@ -228,6 +242,7 @@ namespace Analytics
         /* Выполняем SELECT и заливаем в dataGridView */
         private int Execute_SELECT_Command(SqlCommand _command)
         {
+            customerReturnsList = new List<CustomerReturnsModel> { };
             try
             {
                 connection.Open();
@@ -236,7 +251,7 @@ namespace Analytics
 
                 if (reader.HasRows)
                 {
-                    fillDGVHeaders();
+                    //fillDGVHeaders();
                     while (reader.Read())
                     {
                         SetProductsToList((IDataRecord)reader);
@@ -248,7 +263,7 @@ namespace Analytics
                 }
                 reader.Close();
                 connection.Close();
-                
+                form2.GetReturnsFromDB(customerReturnsList);
                 return 1;
             }
             catch (Exception ex)
@@ -257,6 +272,16 @@ namespace Analytics
                 return ex.HResult;
             }
         }
+
+        public int GetOrders()
+        {
+            string sqlStatement = "SELECT * FROM [CustomerReturns]";
+            command = new SqlCommand(sqlStatement, connection);
+            return Execute_SELECT_Command(command);
+        }
+        
+
+
 
         private void fillDGVHeaders()
         {
@@ -282,6 +307,13 @@ namespace Analytics
             //}
 
             //form1.dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
+            CustomerReturnsModel fscModel = new CustomerReturnsModel();
+            customerReturnsList.Add(fscModel);
+            for (int i = 0; i < record.FieldCount; i++)
+            {
+                customerReturnsList[customerReturnsList.Count - 1].SetCustomerReturns(i, record[i]);
+            }
         }
     }
 }

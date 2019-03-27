@@ -89,9 +89,9 @@ namespace Analytics
             {
                 case 0:
                     string str = _value.ToString();
-                    int year = int.Parse(str.Substring(0, 4));
-                    int month = int.Parse(str.Substring(5, 2));
-                    int day = int.Parse(str.Substring(8, 2));
+                    int day = int.Parse(str.Substring(0, 2));
+                    int month = int.Parse(str.Substring(3, 2));
+                    int year = int.Parse(str.Substring(6, 4));
                     ReturnDate = new DateTime(year, month, day);
                     break;
                 case 1:

@@ -192,6 +192,7 @@ CREATE TABLE [User](
 
 
 ----------------------Analytics---------------------------------
+use [Analytics]
 
 IF NOT OBJECT_ID('CustomerReturns') IS NULL DROP TABLE [CustomerReturns]
 GO
@@ -236,7 +237,7 @@ CREATE TABLE [Orders](
 	[IsBusinessOrder]			VARCHAR(6),
 	[PurchaseOrderNumber]		VARCHAR(50),
 	[PriceDesignation]			VARCHAR(50),
-
+	[ReturnDate]				Date,
 	CONSTRAINT Orders_AmazonOrderId_PK PRIMARY KEY ([AmazonOrderId])
 )
 GO
@@ -340,7 +341,6 @@ CREATE TABLE [CustomerReturns](
 	--CONSTRAINT FK_CustomerReturns_Orders FOREIGN KEY ([OrderId]) REFERENCES Orders ([AmazonOrderId])
 )
 GO
-
 
 /*
 

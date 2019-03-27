@@ -59,6 +59,9 @@
             this.monthCalendarEnd = new System.Windows.Forms.MonthCalendar();
             this.monthCalendarStart = new System.Windows.Forms.MonthCalendar();
             this.lb_StatusText = new System.Windows.Forms.Label();
+            this.btn_GetDates = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -312,11 +315,33 @@
             this.lb_StatusText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lb_StatusText.Visible = false;
             // 
+            // btn_GetDates
+            // 
+            this.btn_GetDates.Location = new System.Drawing.Point(653, 88);
+            this.btn_GetDates.Name = "btn_GetDates";
+            this.btn_GetDates.Size = new System.Drawing.Size(225, 89);
+            this.btn_GetDates.TabIndex = 11;
+            this.btn_GetDates.Text = "Сверить даты ордеров и возвратов";
+            this.btn_GetDates.UseVisualStyleBackColor = true;
+            this.btn_GetDates.Click += new System.EventHandler(this.btn_GetDates_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(653, 226);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(225, 63);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "Сопоставить ордера с остальной инфой";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // AnalyticsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(958, 352);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_GetDates);
             this.Controls.Add(this.lb_StatusText);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btn_ChooseDate);
@@ -367,6 +392,9 @@
         private System.Windows.Forms.ToolStripMenuItem byASINToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem byMarketplaceToolStripMenuItem;
         public System.Windows.Forms.Label lb_StatusText;
+        private System.Windows.Forms.Button btn_GetDates;
+        public System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Button button1;
     }
 }
 

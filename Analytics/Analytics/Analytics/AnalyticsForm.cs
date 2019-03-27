@@ -218,5 +218,15 @@ namespace Analytics
             cp.Show();
             this.Visible = false;
         }
+
+        private void btn_GetDates_Click(object sender, EventArgs e)
+        {
+            MatchOrderRefund mor = new MatchOrderRefund(this);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Matching ma = new Matching(this);
+        }
     }
 }

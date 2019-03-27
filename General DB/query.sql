@@ -178,3 +178,14 @@ select * from userrole
 
 INSERT INTO [User] ([Login], [PassHash], [Name], [Token1], [Token2], [UserRoleId], [SecretQuestion], [Answer], [MAC]) 
 VALUES ('test2', 'APm015BH7in1Xxck+wm9LlBoGTzduSdMEP0Jr7moQTnCLenTi5bcfG0iKvBgug2PNA==', 'user', 398630, 867689, 2, 'office', 'AN9XrPJrM84APqSiqmKEUGxXJhK4oLOZb5kq78RufY0evRoYxP6IHEhFZkdM+K7fmw==', '00FF60C1B9B4')
+
+
+
+
+use analytics
+
+select COUNT(OrderId) from [CustomerReturns]
+select COUNT(AmazonOrderId) from [Orders]
+
+select * from [CustomerReturns] where OrderId = '111-2838377-0212262'
+select * from [Orders] where AmazonOrderId = '111-2838377-0212262'
