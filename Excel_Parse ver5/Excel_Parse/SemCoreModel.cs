@@ -15,12 +15,14 @@ namespace Excel_Parse
         public int Value { get; set; }
         public DateTime LastUpdated { get; set; }
         public int SemCoreId { get; set; }
+        public int MarketPlaceID { get; set; }
+
 
         public int ColumnCount { get; }
 
         public SemCoreModel()
         {
-            ColumnCount = 6;
+            ColumnCount = 7;
         }
 
         public void WriteData(int index, object record)
@@ -44,6 +46,9 @@ namespace Excel_Parse
                     break;
                 case 5:
                     SemCoreId = int.Parse(record.ToString());
+                    break;
+                case 6:
+                    MarketPlaceID = int.Parse(record.ToString());
                     break;
             }
         }
@@ -69,6 +74,9 @@ namespace Excel_Parse
                     break;
                 case 5:
                     return SemCoreId;
+                    break;
+                case 6:
+                    return MarketPlaceID;
                     break;
                 default:
                     return -1;

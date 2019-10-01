@@ -3,6 +3,7 @@ using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -44,9 +45,11 @@ namespace Excel_Parse
 
         private string helpString = "Для начала откройте файл с ключевыми словами при помощи кнопки \"Загрузить файл\".\n\nИспользуйте клавишу \"C\" для выделения ключевого слова.\nИспользуйте клавишу \"X\" для снятия выделения ключевого слова.\n\nДважды клацните ЛКМ по ключевому слову, чтобы просмотреть его на Amazon.";
         
-        private bool firstLaunch = true;       
+        private bool firstLaunch = true;
 
-        string urlAmazon = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=";
+        private int currentMarketPlaceId = -1;
+
+        string urlAmazon;
 
         public bool NoProdType { get; set; }
         public bool NoKeyCat { get; set; }
@@ -68,6 +71,9 @@ namespace Excel_Parse
 
             GetStarted();
             firstLaunch = false;
+
+            urlAmazon = ConfigurationManager.AppSettings.Get("amzLink").ToString();
+            tb_Link.Text = urlAmazon;
         }
 
         /* Конструктор, вызываем в форме KeywordsAreExisted*/
@@ -84,6 +90,9 @@ namespace Excel_Parse
 
             GetStarted();
             firstLaunch = false;
+
+            urlAmazon = ConfigurationManager.AppSettings.Get("amzLink").ToString();
+            tb_Link.Text = urlAmazon;
         }     
         
 
@@ -801,7 +810,7 @@ namespace Excel_Parse
                     try { val = int.Parse(dgv_Source.Rows[i].Cells[1].Value.ToString()); } catch (Exception exx) { val = 0; }           //это если вдруг ячейка с частотой будет пустая
                     scNewList[scNewList.Count - 1].Value = val;
 
-                    if (scController.InsertNewKeyword(GetSelectedProductTypeId(), GetSelectedCategoryId(), scNewList[scNewList.Count - 1].Keyword, scNewList[scNewList.Count - 1].Value, DateTime.Now) != 1)
+                    if (scController.InsertNewKeyword(GetSelectedProductTypeId(), GetSelectedCategoryId(), scNewList[scNewList.Count - 1].Keyword, scNewList[scNewList.Count - 1].Value, DateTime.Now, 1) != 1)
                     {
                         scUpdateList.Add(new SemCoreModel());
                         scUpdateList[scUpdateList.Count - 1].ProductTypeId = GetSelectedProductTypeId();
@@ -820,7 +829,7 @@ namespace Excel_Parse
                         scAddedList[scAddedList.Count - 1].Value = scNewList[scNewList.Count - 1].Value;
 
                         //сюда для АРХИВА - новые
-                        scaController.InsertNewKeywordToSemCoreArchive(GetSelectedProductTypeId(), GetSelectedCategoryId(), scNewList[scNewList.Count - 1].Keyword, scNewList[scNewList.Count - 1].Value, DateTime.Now, scaController.GetSemCoreIdForKey(scNewList[scNewList.Count - 1].Keyword));
+                        scaController.InsertNewKeywordToSemCoreArchive(GetSelectedProductTypeId(), GetSelectedCategoryId(), scNewList[scNewList.Count - 1].Keyword, scNewList[scNewList.Count - 1].Value, DateTime.Now, scaController.GetSemCoreIdForKey(scNewList[scNewList.Count - 1].Keyword), 1);
                     }
                 }
 

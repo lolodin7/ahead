@@ -1,6 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace Excel_Parse
 {
@@ -9,19 +17,14 @@ namespace Excel_Parse
         public string AmazonLink { get; set; }
         public UserModel um;
         private LoginFormView lf;
+        private DateTime currencyLastUpdate;
 
         private bool JustExit;      //для выхода из приложения при нажатии "Х" в правом верхнем углу
 
+        private int LogsCount;
+        private LoggerController logController;
+        private List<LoggerModel> logList;
 
-        public MainFormView(UserModel _um, LoginFormView _lf)
-        {
-            InitializeComponent();
-            um = _um;
-            lf = _lf;
-            AmazonLink = ConfigurationManager.AppSettings.Get("amzLink");
-            JustExit = true;
-        }
-        
 
         private void btn_DoSemCore_Click(object sender, EventArgs e)
         {
@@ -29,37 +32,6 @@ namespace Excel_Parse
             if (!semcore.NoProdType && !semcore.NoKeyCat)
             {
                 semcore.Show();
-                this.Visible = false;
-            }
-        }
-
-        private void btn_DoSemantics_Click(object sender, EventArgs e)
-        {
-            ChooseProduct cp = new ChooseProduct(this);
-            cp.Show();
-            this.Visible = false;
-        }
-
-        private void btn_DoProducts_Click(object sender, EventArgs e)
-        {
-            ProductsView products = new ProductsView(this);
-            products.Show();
-            this.Visible = false;
-        }
-
-        private void btn_DoProductType_Click(object sender, EventArgs e)
-        {
-            ProductTypesView productTypes = new ProductTypesView(this);
-            productTypes.Show();
-            this.Visible = false;
-        }
-
-        private void btn_DoKeywordCategory_Click(object sender, EventArgs e)
-        {
-            KeywordCategoryView keycat = new KeywordCategoryView(this);
-            if (!keycat.HardClose)
-            {
-                keycat.Show();
                 this.Visible = false;
             }
         }
@@ -74,34 +46,21 @@ namespace Excel_Parse
             }
         }
 
-        private void btn_ShowAllKeywords_Click(object sender, EventArgs e)
+
+        private void btn_DoKeywordCategory_Click(object sender, EventArgs e)
         {
-            FullSemCoreView fsc = new FullSemCoreView(this);
-            if (!fsc.NoProdType && !fsc.NoKeyCat)
+            KeywordCategoryView keycat = new KeywordCategoryView(this);
+            if (!keycat.HardClose)
             {
-                fsc.Show();
+                keycat.Show();
                 this.Visible = false;
             }
         }
 
-        private void btn_ShowIndexing_Click(object sender, EventArgs e)
+        private void btn_DoProductType_Click(object sender, EventArgs e)
         {
-            IndexingView iv = new IndexingView(this);
-            iv.Show();
-            this.Visible = false;
-        }
-
-        private void ChooseProduct_Click(object sender, EventArgs e)
-        {
-            ChooseProduct cp = new ChooseProduct(this, true);
-            cp.Show();
-            this.Visible = false;
-        }
-
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            About ab = new About(this);
-            ab.Show();
+            ProductTypesView productTypes = new ProductTypesView(this);
+            productTypes.Show();
             this.Visible = false;
         }
 
@@ -112,19 +71,77 @@ namespace Excel_Parse
             this.Visible = false;
         }
 
-        private void SemCoreArchive_Click(object sender, EventArgs e)
+
+
+
+
+
+        private static readonly ImageConverter _imageConverter = new ImageConverter();
+        private SqlConnection connection;
+
+
+        /* Главный конструктор, после формы логина */
+        public MainFormView(UserModel _um, LoginFormView _lf)
         {
-            SemCoreArchiveView sca = new SemCoreArchiveView(this);
-            sca.Show();
-            this.Visible = false;
+            InitializeComponent();
+            um = _um;
+            lf = _lf;
+            AmazonLink = ConfigurationManager.AppSettings.Get("amzLink");
+            JustExit = true;
+            logController = new LoggerController(this);
+            logList = new List<LoggerModel> { };
+
+            //блок, где проверяем, нужно ли обновить данные курса валют. обновляем раз в сутки
+            string tmp = ConfigurationManager.AppSettings.Get("currencyCheck");
+            currencyLastUpdate = new DateTime(int.Parse(tmp.Substring(6, 4)), int.Parse(tmp.Substring(3, 2)), int.Parse(tmp.Substring(0, 2)));
+            if (currencyLastUpdate != DateTime.Today)
+            {
+                int result = 0;
+
+                CurrencyController curController = new CurrencyController();
+
+                result = curController.UpdateCurrencies();
+                if (result == 1)
+                    UpdateConfig(DateTime.Today.ToString().Substring(0, 10));
+            }
+
+            GetStartLogsCount();
+            timer1.Start();
         }
 
-        private void ShowPersonalInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        /* Получаем из контроллера данные, полученные с БД */
+        public void GetRecordsFromDB(object _logList)
         {
-            ControlPanelView cp = new ControlPanelView(um, this);
-            cp.Show();
-            this.Visible = false;
+            logList = (List<LoggerModel>)_logList;
         }
+
+
+        /* Обновляем значение касательно КУРСА ВАЛЮТ в конфиге */
+        public void UpdateConfig(string val)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+
+            foreach (XmlElement element in xmlDoc.DocumentElement)
+            {
+                if (element.Name.Equals("appSettings"))
+                {
+                    foreach (XmlNode node in element.ChildNodes)
+                    {
+                        if (node.Attributes[0].Value.Equals("currencyCheck"))
+                        {
+                            node.Attributes[1].Value = val;
+                        }
+                    }
+                }
+            }
+            xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+            ConfigurationManager.RefreshSection("appSettings");
+        }
+
+
+
+
 
         /* Закрытие формы */
         private void MainFormView_FormClosing(object sender, FormClosingEventArgs e)
@@ -171,7 +188,7 @@ namespace Excel_Parse
             switch (um.UserRoleId)
             {
                 case 0:     //admin
-                    
+
                     break;
                 case 1:     //boss
 
@@ -184,6 +201,95 @@ namespace Excel_Parse
                     employeesToolStripMenuItem.Visible = false;
                     break;
             }
+        }
+        //----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        private void btn_DoSemantics_Click(object sender, EventArgs e)
+        {
+            ChooseProduct cp = new ChooseProduct(this);
+            cp.Show();
+            this.Visible = false;
+        }
+
+        private void btn_DoProducts_Click(object sender, EventArgs e)
+        {
+            ProductsView products = new ProductsView(this);
+            products.Show();
+            this.Visible = false;
+        }
+
+        private void btn_ShowAllKeywords_Click(object sender, EventArgs e)
+        {
+            FullSemCoreView fsc = new FullSemCoreView(this);
+            if (!fsc.NoProdType && !fsc.NoKeyCat)
+            {
+                fsc.Show();
+                this.Visible = false;
+            }
+        }
+
+        private void btn_ShowIndexing_Click(object sender, EventArgs e)
+        {
+            IndexingView iv = new IndexingView(this);
+            iv.Show();
+            this.Visible = false;
+        }
+
+        private void ChooseProduct_Click(object sender, EventArgs e)
+        {
+            ChooseProduct cp = new ChooseProduct(this, true);
+            cp.Show();
+            this.Visible = false;
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            About ab = new About(this);
+            ab.Show();
+            this.Visible = false;
+        }
+
+
+        private void SemCoreArchive_Click(object sender, EventArgs e)
+        {
+            SemCoreArchiveView sca = new SemCoreArchiveView(this);
+            sca.Show();
+            this.Visible = false;
+        }
+
+        private void ShowPersonalInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ControlPanelView cp = new ControlPanelView(um, this);
+            cp.Show();
+            this.Visible = false;
         }
 
         private void registerNewEmployeeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -199,5 +305,180 @@ namespace Excel_Parse
             su.Show();
             this.Visible = false;
         }
+
+        private void LoggerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoggerView lv = new LoggerView(this, um);
+            lv.Show();
+            this.Visible = false;
+        }
+
+
+
+        private void GetStartLogsCount()
+        {
+            logController.GetAllRecords();
+            LogsCount = logList.Count;
+        }
+
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            logController.GetAllRecords();
+            if (LogsCount != logList.Count)
+            {
+
+                string prodName = "ПРодуктище";// GetProductNameById(logList[logList.Count - 1].ProductId);
+                string userName = "Васяныч";// GetUserNameByUserId(logList[logList.Count - 1].CreationUserId);
+                string text = logList[logList.Count - 1].Text;
+                LoggerModel lm = new LoggerModel();
+                lm = logList[logList.Count - 1];
+
+                LoggerNotification logNotific = new LoggerNotification(this, lm, userName, prodName, text);
+
+                logNotific.Show();
+
+
+                LogsCount = logList.Count;
+            }
+        }
+
+        private void AddReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AdvertisingUploadReportView advUpRep = new AdvertisingUploadReportView(this, "upload");
+            advUpRep.Show();
+            this.Visible = false;
+        }
+
+        private void UpdateReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AdvertisingUploadReportView advUpRep = new AdvertisingUploadReportView(this, "update");
+            advUpRep.Show();
+            this.Visible = false;
+        }
+
+        private void showAdvDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AdvertisingReportView advRep = new AdvertisingReportView(this);
+            advRep.Show();
+            this.Visible = false;
+        }
+
+        /* 
+         
+          
+        private string GetProductNameById(int _productId)
+        {
+            for (int i = 0; i < pList.Count; i++)
+            {
+                if (pList[i].ProductId == _productId)
+                    return pList[i].Name;
+            }
+            return "";
+        }
+        
+        private string GetUserNameByUserId(int _creationUserId)
+        {
+            for (int i = 0; i < uList.Count; i++)
+            {
+                if (uList[i].UserId == _creationUserId)
+                    return uList[i].Name;
+            }
+            return "";
+        }
+         
+         
+         */
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+        public void SetImages(int _ID)
+        {
+            Bitmap newBitmap = GetImageFromByteArray(File.ReadAllBytes("C:\\wow.jpg"));
+            ImageConverter converter = new ImageConverter();
+            byte[] imageData = (byte[])converter.ConvertTo(newBitmap, typeof(byte[]));
+
+            connection = DBData.GetDBConnection();
+
+            SqlCommand command = new SqlCommand();
+            command.Connection = connection;
+            command.CommandText = @"INSERT INTO Images VALUES (@ImageId, @FileName, @Title, @ImageData)";
+            command.Parameters.Add("@ImageId", SqlDbType.Int);
+            command.Parameters.Add("@FileName", SqlDbType.NVarChar, 50);
+            command.Parameters.Add("@Title", SqlDbType.NVarChar, 50);
+            command.Parameters.Add("@ImageData", SqlDbType.Image, 1000000);
+
+            // путь к файлу для загрузки
+            string filename = @"C:\wow.jpg";
+            // заголовок файла
+            string title = "WoW";
+            // получаем короткое имя файла для сохранения в бд
+            string shortFileName = filename.Substring(filename.LastIndexOf('\\') + 1); // cats.jpg
+                                                                                       // массив для хранения бинарных данных файла
+
+            // передаем данные в команду через параметры
+            command.Parameters["@ImageId"].Value = _ID;
+            command.Parameters["@FileName"].Value = shortFileName;
+            command.Parameters["@Title"].Value = title;
+            command.Parameters["@ImageData"].Value = imageData;
+            connection.Open();
+            command.ExecuteNonQuery();
+
+            connection.Close();
+        }
+
+        public static Bitmap GetImageFromByteArray(byte[] byteArray)
+        {
+            Bitmap bm = (Bitmap)_imageConverter.ConvertFrom(byteArray);
+
+            if (bm != null && (bm.HorizontalResolution != (int)bm.HorizontalResolution ||
+                               bm.VerticalResolution != (int)bm.VerticalResolution))
+            {
+                // Correct a strange glitch that has been observed in the test program when converting 
+                //  from a PNG file image created by CopyImageToByteArray() - the dpi value "drifts" 
+                //  slightly away from the nominal integer value
+                bm.SetResolution((int)(bm.HorizontalResolution + 0.5f),
+                                 (int)(bm.VerticalResolution + 0.5f));
+            }
+
+            return bm;
+        }
+ 
+     
+     
+     */

@@ -59,6 +59,8 @@
             this.btn_DeselectAll = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_ClearAll = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cb_Marketplace = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Source)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Target)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -69,14 +71,14 @@
             // 
             this.cb_KeywordCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_KeywordCategory.FormattingEnabled = true;
-            this.cb_KeywordCategory.Location = new System.Drawing.Point(6, 449);
+            this.cb_KeywordCategory.Location = new System.Drawing.Point(30, 471);
             this.cb_KeywordCategory.Name = "cb_KeywordCategory";
             this.cb_KeywordCategory.Size = new System.Drawing.Size(216, 21);
             this.cb_KeywordCategory.TabIndex = 10;
             // 
             // lb_KeywordCategory
             // 
-            this.lb_KeywordCategory.Location = new System.Drawing.Point(52, 423);
+            this.lb_KeywordCategory.Location = new System.Drawing.Point(88, 445);
             this.lb_KeywordCategory.Name = "lb_KeywordCategory";
             this.lb_KeywordCategory.Size = new System.Drawing.Size(109, 23);
             this.lb_KeywordCategory.TabIndex = 9;
@@ -87,7 +89,7 @@
             // 
             this.cb_ProductType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_ProductType.FormattingEnabled = true;
-            this.cb_ProductType.Location = new System.Drawing.Point(6, 389);
+            this.cb_ProductType.Location = new System.Drawing.Point(30, 402);
             this.cb_ProductType.Name = "cb_ProductType";
             this.cb_ProductType.Size = new System.Drawing.Size(216, 21);
             this.cb_ProductType.TabIndex = 8;
@@ -95,7 +97,7 @@
             // 
             // lb_ProductType
             // 
-            this.lb_ProductType.Location = new System.Drawing.Point(61, 363);
+            this.lb_ProductType.Location = new System.Drawing.Point(94, 376);
             this.lb_ProductType.Name = "lb_ProductType";
             this.lb_ProductType.Size = new System.Drawing.Size(87, 23);
             this.lb_ProductType.TabIndex = 7;
@@ -135,7 +137,7 @@
             this.btn_Begin.Enabled = false;
             this.btn_Begin.FlatAppearance.BorderSize = 0;
             this.btn_Begin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Begin.Location = new System.Drawing.Point(6, 543);
+            this.btn_Begin.Location = new System.Drawing.Point(6, 654);
             this.btn_Begin.Name = "btn_Begin";
             this.btn_Begin.Size = new System.Drawing.Size(260, 76);
             this.btn_Begin.TabIndex = 14;
@@ -267,6 +269,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.cb_Marketplace);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.btn_Help);
             this.groupBox1.Controls.Add(this.checkBox1);
@@ -327,7 +331,7 @@
             // 
             this.tb_OwnDelimiter.Location = new System.Drawing.Point(6, 41);
             this.tb_OwnDelimiter.Name = "tb_OwnDelimiter";
-            this.tb_OwnDelimiter.Size = new System.Drawing.Size(79, 20);
+            this.tb_OwnDelimiter.Size = new System.Drawing.Size(79, 22);
             this.tb_OwnDelimiter.TabIndex = 19;
             this.tb_OwnDelimiter.TextChanged += new System.EventHandler(this.tb_OwnDelimiter_TextChanged);
             // 
@@ -360,17 +364,14 @@
             this.tb_Link.Enabled = false;
             this.tb_Link.Location = new System.Drawing.Point(23, 804);
             this.tb_Link.Name = "tb_Link";
-            this.tb_Link.Size = new System.Drawing.Size(243, 20);
+            this.tb_Link.Size = new System.Drawing.Size(243, 22);
             this.tb_Link.TabIndex = 26;
-            this.tb_Link.Text = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=";
             // 
             // btn_AddCategory
             // 
-            this.btn_AddCategory.FlatAppearance.BorderSize = 0;
-            this.btn_AddCategory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_AddCategory.Location = new System.Drawing.Point(228, 448);
+            this.btn_AddCategory.Location = new System.Drawing.Point(252, 471);
             this.btn_AddCategory.Name = "btn_AddCategory";
-            this.btn_AddCategory.Size = new System.Drawing.Size(21, 21);
+            this.btn_AddCategory.Size = new System.Drawing.Size(23, 22);
             this.btn_AddCategory.TabIndex = 16;
             this.btn_AddCategory.Text = "+";
             this.btn_AddCategory.UseVisualStyleBackColor = true;
@@ -433,6 +434,24 @@
             this.btn_ClearAll.UseVisualStyleBackColor = true;
             this.btn_ClearAll.Visible = false;
             this.btn_ClearAll.Click += new System.EventHandler(this.btn_ClearAll_Click);
+            // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(88, 522);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(107, 23);
+            this.label4.TabIndex = 30;
+            this.label4.Text = "Маркетплейс";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cb_Marketplace
+            // 
+            this.cb_Marketplace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_Marketplace.FormattingEnabled = true;
+            this.cb_Marketplace.Location = new System.Drawing.Point(30, 548);
+            this.cb_Marketplace.Name = "cb_Marketplace";
+            this.cb_Marketplace.Size = new System.Drawing.Size(216, 21);
+            this.cb_Marketplace.TabIndex = 31;
             // 
             // SemCoreRebuildView
             // 
@@ -497,5 +516,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.Button btn_ClearAll;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cb_Marketplace;
     }
 }

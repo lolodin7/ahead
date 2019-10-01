@@ -554,7 +554,7 @@ namespace Excel_Parse
                     res = fscController.SetNewKeywordToSemCore(ProductTypeId, KeyCategoryId, rtb_KeyName.Text, int.Parse(rtb_KeyValue.Text), DateTime.Now);
                     //сюда для АРХИВА - обновляем
                     if (res != -2146232060)
-                        scaController.InsertNewKeywordToSemCoreArchive(ProductTypeId, KeyCategoryId, rtb_KeyName.Text, int.Parse(rtb_KeyValue.Text), DateTime.Now, scaController.GetSemCoreIdForKey(rtb_KeyName.Text));
+                        scaController.InsertNewKeywordToSemCoreArchive(ProductTypeId, KeyCategoryId, rtb_KeyName.Text, int.Parse(rtb_KeyValue.Text), DateTime.Now, scaController.GetSemCoreIdForKey(rtb_KeyName.Text), 1);
                 }
                 else
                 {

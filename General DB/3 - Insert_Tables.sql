@@ -1,49 +1,19 @@
-USE AHEAD
-GO
-
-SET NOCOUNT ON
-
-DELETE FROM [FieldsLength]
-GO
-DELETE FROM [SemCore]
-GO
-DELETE FROM [KeywordCategory]
-GO
-DELETE FROM [Semantics]
-GO
-DELETE FROM [Products]
-GO
-DELETE FROM [ProductTypes]
-GO
-
-
-USE AHEAD
+п»їUSE AHEAD
 GO
 
 /*         -- [MarketPlaceName] --             */
 INSERT INTO [Marketplace] ([MarketPlaceName])
-VALUES ('Без маркетплейса')
+VALUES ('Р‘РµР· РјР°СЂРєРµС‚РїР»РµР№СЃР°')
 
 
 /*         -- [ProductTypes] --             */
 INSERT INTO [ProductTypes] ([TypeName])
-VALUES ('Отсутствующие товары')
-
-
-/*         -- [Products] --             */
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('Товар отсутствует', '-', '-', 0, 0, 'false')
+VALUES ('РћС‚СЃСѓС‚СЃС‚РІСѓСЋС‰РёРµ С‚РѕРІР°СЂС‹')
 
 
 /*         -- [KeywordCategory] --             */
 INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
-VALUES ('Пустая категория', 0)
-
-
-
-
-
-
+VALUES ('РџСѓСЃС‚Р°СЏ РєР°С‚РµРіРѕСЂРёСЏ', 0)
 
 USE AHEAD
 GO
@@ -52,53 +22,43 @@ GO
 /*         -- [MarketPlaceName] --             */
 
 INSERT INTO [Marketplace] ([MarketPlaceName])
-VALUES ('PowerDeWise - USA')
+VALUES ('PowerDeWise (USA)')
 
 INSERT INTO [Marketplace] ([MarketPlaceName])
-VALUES ('PowerDeWise - CA')
+VALUES ('PowerDeWise (CA)')
 
 INSERT INTO [Marketplace] ([MarketPlaceName])
-VALUES ('LETIT.BEER - USA')
+VALUES ('PowerDeWise (AU)')
 
 INSERT INTO [Marketplace] ([MarketPlaceName])
-VALUES ('LETIT.BEER - CA')
+VALUES ('PowerDeWise (MX)')
 
 INSERT INTO [Marketplace] ([MarketPlaceName])
-VALUES ('LaFit - USA')
+VALUES ('LetIt.Beer (USA)')
 
 INSERT INTO [Marketplace] ([MarketPlaceName])
-VALUES ('PowerDeWise - AU')
+VALUES ('LetIt.Beer (CA)')
 
 
 /*         -- [ProductTypes] --             */
 
 INSERT INTO [ProductTypes] ([TypeName])
-VALUES ('Микрофоны')
+VALUES ('РњРёРєСЂРѕС„РѕРЅС‹')
 
 INSERT INTO [ProductTypes] ([TypeName])
-VALUES ('Холдеры')
+VALUES ('РЈРґР»РёРЅРёС‚РµР»Рё')
 
 INSERT INTO [ProductTypes] ([TypeName])
-VALUES ('Ножи')
+VALUES ('РўСЂРёРїРѕРґС‹')
 
 INSERT INTO [ProductTypes] ([TypeName])
-VALUES ('Адаптеры для микрофонов')
+VALUES ('РљР»РёРїСЃС‹ РґР»СЏ РјРёРєСЂРѕС„РѕРЅРѕРІ')
 
 INSERT INTO [ProductTypes] ([TypeName])
-VALUES ('Точилки для ножей')
+VALUES ('Р’РµС‚СЂРѕР·Р°С‰РёС‚Р° РґР»СЏ РјРёРєСЂРѕС„РѕРЅРѕРІ')
 
 INSERT INTO [ProductTypes] ([TypeName])
-VALUES ('Удлинители')
-
-INSERT INTO [ProductTypes] ([TypeName])
-VALUES ('Триподы')
-
-INSERT INTO [ProductTypes] ([TypeName])
-VALUES ('Клипсы для микрофонов')
-
-INSERT INTO [ProductTypes] ([TypeName])
-VALUES ('Ветрозащита для микрофонов')
-
+VALUES ('Beer Chiller')
 
 /*         -- [KeywordCategory] --             */
 
@@ -109,147 +69,149 @@ INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
 VALUES ('Lapel Mic', 1)
 
 INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
-VALUES ('Magnetic Strip', 2)
+VALUES ('Extension Cord', 2)
 
 INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
-VALUES ('5 Knife Set', 3)
+VALUES ('Windshield', 5)
 
 INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
 VALUES ('iPhone Mic', 1)
 
+/*         -- [CampaignType] --             */
+INSERT INTO [CampaignType] ([CampaignName])
+VALUES ('Sponsored Products')
+
+INSERT INTO [CampaignType] ([CampaignName])
+VALUES ('Sponsored Brands')
 
 
-/*         -- [Products] --             */
+/*         -- [Currency] --             */
+INSERT INTO [Currency] ([UpdateDate], [NumCode], [CharCode], [Nominal], [Name], [Value])
+VALUES ('10.09.2019', 124, 'CAD', 1, 'РљР°РЅР°РґСЃРєРёР№ РґРѕР»Р»Р°СЂ', 1.3197)
 
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('YouMic Main Microphone', 'B01E3L1ESS', '8R-MO3B-ZV8H', 1, 1, 'false')
+INSERT INTO [Currency] ([UpdateDate], [NumCode], [CharCode], [Nominal], [Name], [Value])
+VALUES ('10.09.2019', 036, 'AUD', 1, 'РђРІСЃС‚СЂР°Р»РёР№СЃРєРёР№ РґРѕР»Р»Р°СЂ', 1.4559)
 
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('Microphone Adapter 3.5mm (Old)', 'B01N5RG8EC', 'ZW-WW1I-PT7A', 1, 1, 'true')
+INSERT INTO [Currency] ([UpdateDate], [NumCode], [CharCode], [Nominal], [Name], [Value])
+VALUES ('10.09.2019', 484, 'MXN', 1, 'РњРµРєСЃРёРєР°РЅСЃРєРёР№ РїРµСЃРѕ', 19.4413)
 
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('Micro USB Cable(3ft)', 'B01MDV1NSW', 'ZD-DES3-1YXC', 6, 1, 'false')
+INSERT INTO [Currency] ([UpdateDate], [NumCode], [CharCode], [Nominal], [Name], [Value])
+VALUES ('10.09.2019', 840, 'USD', 1, 'Р”РѕР»Р»Р°СЂ РЎРЁРђ', 1)
 
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('Extension Cable 3.5 mm(6 ft)', 'B01LZBEH3W', 'XZ-8LJT-BPX3', 6, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('YouMic Dual Lavalier Microphone', 'B07G2C8D7H', 'XW-I4VB-F8W5', 1, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('Extension Cable 3.5 mm(3 ft)', 'B07CHC94XT', 'PI-HW8D-6TTD', 6, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('PDW Podcast Microphone(Child)', 'B07FCN1K2N', 'pdwmcslvr6', 1, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('PDW iPhone Microphone(Child)', 'B07GYB43P2', 'pdwmcslvr4', 1, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('PDW Mini Microphone(Child)', 'B07FCSQGPY', 'pdwmcslvr3', 1, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('PDW Android Microphone(Child)', 'B07FCJCDDM', 'pdwmcslvr2', 1, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('Flexible Mini Tripod(Old)', 'B01MG2BEVZ', 'P9-8LPU-DGDW', 7, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('Furry Wind Muff', 'B075FS5Y7Z', 'O9-U3F0-WROB', 9, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('YouMic Microphone Clip', 'B07BFWVJH1', 'N5-YBHW-NM5X', 8, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('PDW Main Microphone', 'B01AG56HYQ', 'LR-44G2-7Y1Y', 1, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('PDW Y Splitter(Mic + Mic)', 'B01BNGAHCA', 'KS-ZYQB-G549', 4, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('PDW Main Microphone', 'B01AG56HYQ', 'IG-5UO9-SCW1', 1, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('PDW Dual Microphone', 'B07CHCSLVC', 'HR-9KQ2-IPD9', 1, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('Kitchen Knife Sharpener(Child)', 'B01FS5VJMY', 'GK-RHNH-11NI', 5, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('PDW Y Splitter New(Headphone + Mic)', 'B07G4DS728', 'GH-7TR8-5HPZ', 4, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('Kitchen Knife Sharpener(Main)', 'B079YP5L6J', 'FF-TB8V-VKY4', 5, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('PDW Main Microphone', 'B01AG56HYQ', 'E3-2RHF-EO7C', 1, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('Phone Tripod New', 'B07CJRB8YB', 'E3-1WM4-S3MY', 7, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('PDW Microphone Wind Muff', 'B01LL5U0NO', 'DL-LJ4D-RKZH', 9, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('Extension Cable 3.5 mm(10 ft)', 'B07CHFG1FN', 'BQ-CK10-HCVV', 6, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('YouMic Microphone Wind Muff', 'B07BFXR55J', 'AV-ALS4-5BSO', 9, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('Knife Holder(Old)', 'B01DIU9FP4', 'ArtDeHomeLightWalnut12', 2, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('Walnut Knife Set', 'B07FLYJTLB', 'adhknfstwlnt', 3, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('Acacia Knife Set', 'B07DWWMW8H', 'adhknfstlt', 3, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('Walnut Knife Holder', 'B07DW5X3LY', 'adhhldrwlnt', 2, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('Acacia Knife Holder', 'B07FCNH5SL', 'adhhldacca', 2, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('USB Audio Adapter', 'B0713SJ2ZD', 'AB-KG1N-IPYL', 4, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('Extension Cable 3.5 mm(15 ft)', 'B07CHBGV5X', '3J-03VY-3VT0', 6, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('Lightning Cable(3 ft)', 'B01MDV1TO4', '32-FM61-Q39H', 6, 1, 'true')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('PDW Microphone Clip', 'B01LZ6T9XO', '1N-NPIV-XHND', 8, 1, 'true')
 
 /*         -- [SemCore] --             */
-INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastUpdated])
-VALUES (1, 1, 'lavalier microphone', 652053, CURRENT_TIMESTAMP)
+INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastUpdated], [MarketPlaceId])
+VALUES (1, 1, 'lavalier microphone', 200000, CURRENT_TIMESTAMP, 1)
+
+INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastUpdated], [MarketPlaceId])
+VALUES (1, 1, 'lavalier microphone', 100000, CURRENT_TIMESTAMP, 2)
 
 
 /*         -- [UserRole] --             */
 INSERT INTO [UserRole] ([Name])
-VALUES ('Администратор')
+VALUES ('РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ')
 
 INSERT INTO [UserRole] ([Name])
-VALUES ('Руководитель')
+VALUES ('Р СѓРєРѕРІРѕРґРёС‚РµР»СЊ')
 
 INSERT INTO [UserRole] ([Name])
-VALUES ('Пользователь')
-
-
+VALUES ('РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ')
 
 
 /*         -- [User] --             */
 INSERT INTO [User] ([Login], [PassHash], [Name], [Token1], [Token2], [UserRoleId], [SecretQuestion], [Answer], [MAC])
-VALUES ('raizz', 'ADAH/ZuvEVdABXe4AuzqwknkxSZzRbhdj21avq9UvFa5E2HiQwcJ2WfdI868yw9A9g==', 'Дмитрий', 123, 321, 0, 'Номер офиса', 'AEBZF6htjJp6bJmhb7Of6vmRm2wu4vthhjEUZMivrOi6GHC+oIeiJXSlTqTTUlWgnA==', '00FF60C1B9B4')
+VALUES ('raizz', 'ADAH/ZuvEVdABXe4AuzqwknkxSZzRbhdj21avq9UvFa5E2HiQwcJ2WfdI868yw9A9g==', 'Р”РёРјР°', 123, 321, 0, 'ГЌГ®Г¬ГҐГ° Г®ГґГЁГ±Г ', 'AEBZF6htjJp6bJmhb7Of6vmRm2wu4vthhjEUZMivrOi6GHC+oIeiJXSlTqTTUlWgnA==', '00FFCD3F0DEB')
 
 INSERT INTO [User] ([Login], [PassHash], [Name], [Token1], [Token2], [UserRoleId], [SecretQuestion], [Answer], [MAC])
-VALUES ('test1', 'ADAH/ZuvEVdABXe4AuzqwknkxSZzRbhdj21avq9UvFa5E2HiQwcJ2WfdI868yw9A9g==', 'boss', 123, 321, 1, 'Номер офиса', 'AEBZF6htjJp6bJmhb7Of6vmRm2wu4vthhjEUZMivrOi6GHC+oIeiJXSlTqTTUlWgnA==', '00FF60C1B9B4')
+VALUES ('test1', 'ADAH/ZuvEVdABXe4AuzqwknkxSZzRbhdj21avq9UvFa5E2HiQwcJ2WfdI868yw9A9g==', 'boss', 123, 321, 1, 'ГЌГ®Г¬ГҐГ° Г®ГґГЁГ±Г ', 'AEBZF6htjJp6bJmhb7Of6vmRm2wu4vthhjEUZMivrOi6GHC+oIeiJXSlTqTTUlWgnA==', '00FF60C1B9B4')
 
 INSERT INTO [User] ([Login], [PassHash], [Name], [Token1], [Token2], [UserRoleId], [SecretQuestion], [Answer], [MAC])
-VALUES ('test2', 'ADAH/ZuvEVdABXe4AuzqwknkxSZzRbhdj21avq9UvFa5E2HiQwcJ2WfdI868yw9A9g==', 'user', 123, 321, 2, 'Номер офиса', 'AEBZF6htjJp6bJmhb7Of6vmRm2wu4vthhjEUZMivrOi6GHC+oIeiJXSlTqTTUlWgnA==', '00FF60C1B9B4')
+VALUES ('test2', 'ADAH/ZuvEVdABXe4AuzqwknkxSZzRbhdj21avq9UvFa5E2HiQwcJ2WfdI868yw9A9g==', 'user', 123, 321, 2, 'ГЌГ®Г¬ГҐГ° Г®ГґГЁГ±Г ', 'AEBZF6htjJp6bJmhb7Of6vmRm2wu4vthhjEUZMivrOi6GHC+oIeiJXSlTqTTUlWgnA==', '00FF60C1B9B4')
+
+
+/*         -- [Products] --             */
+INSERT INTO [Products] ([Name])
+VALUES ('РўРѕРІР°СЂС‹ РѕС‚СЃСѓС‚СЃС‚РІСѓСЋС‚')
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
+VALUES ('PDW - РіР»Р°РІРЅС‹Р№ РјРёРєСЂРѕС„РѕРЅ', 'B01AG56HYQ', 'E3-2RHF-EO7C', 1, 1, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
+VALUES ('PDW - РіР»Р°РІРЅС‹Р№ РјРёРєСЂРѕС„РѕРЅ', 'B01AG56HYQ', 'LR-44G2-7Y1Y', 1, 1, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
+VALUES ('PDW - РіР»Р°РІРЅС‹Р№ РјРёРєСЂРѕС„РѕРЅ', 'B01AG56HYQ', 'IG-5UO9-SCW1', 1, 1, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
+VALUES ('PDW - РіР»Р°РІРЅС‹Р№ РјРёРєСЂРѕС„РѕРЅ', 'B01AG56HYQ', '6A-ICQP-MBHC', 1, 5, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
+VALUES ('Dual PDW - РґРІРѕР№РЅРѕР№', 'B07CHCSLVC', 'HR-9KQ2-IPD9', 1, 1, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
+VALUES ('PDW Lightning Adapter', 'B07SCYJH64', 'NT-HV0T-VR4C', 1, 1, 1)
+
+/*-----------------------*/
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
+VALUES ('Video Microphone', 'B07RG4J7WY', '2V-8VSV-C0AE', 1, 1, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
+VALUES ('PDW - vlogger kit', 'B07Y1XBKC7', 'O5-HZWD-YO8M', 1, 1, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
+VALUES ('YouMic - РіР»Р°РІРЅС‹Р№ РјРёРєСЂРѕС„РѕРЅ', 'B01E3L1ESS', '8R-MO3B-ZV8H', 1, 1, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
+VALUES ('YouMic - Lightning adapter', 'B07WS5DGCS', 'AM-X9B2-T6B1', 1, 1, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
+VALUES ('YouMic Dual - РґРІРѕР№РЅРѕР№', 'B07G2C8D7H', 'XW-I4VB-F8W5 ', 1, 1, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
+VALUES ('YouMic - РіР»Р°РІРЅС‹Р№ РјРёРєСЂРѕС„РѕРЅ', 'B01E3L1ESS', '8R-MO3B-ZV8H', 1, 2, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
+VALUES ('YouMic Dual - РґРІРѕР№РЅРѕР№', 'B07G2C8D7H', 'XW-I4VB-F8W5 ', 1, 2, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
+VALUES ('PDW - РіР»Р°РІРЅС‹Р№ РјРёРєСЂРѕС„РѕРЅ', 'B01AG56HYQ', 'E3-2RHF-EO7C', 1, 2, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
+VALUES ('Dual PDW - РґРІРѕР№РЅРѕР№', 'B07CHCSLVC', 'HR-9KQ2-IPD9', 1, 2, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
+VALUES ('Beer Chiller', 'B01AI03U4Y', 'BC-GHGX-5M0O', 6, 5, 1)
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
+VALUES ('YelloWay-2', 'B06ZZ6NPRP', 'LD-YUMV-LDZV', 1, 5, 1)
+
+/*-----------------------*/
+
+
+
+INSERT INTO [Logger] ([CreationDate], [CreationUserId], [ProductId], [Text], [EditDate], [EditUserId], [ImageId], [SKU])
+VALUES (CURRENT_TIMESTAMP, 1, 2, 'log record #2', CURRENT_TIMESTAMP, 1, '', '6A-ICQP-MBHC')
+
+
+
+/*         -- [Logger] --             */
+INSERT INTO [Logger] ([CreationDate], [CreationUserId], [ProductId], [Text], [EditDate], [EditUserId], [ImageId], [SKU])
+VALUES (CURRENT_TIMESTAMP, 0, 1, 'log record #1', CURRENT_TIMESTAMP, 1, '1|2|3|4|5|6|7|8|9|10|', 'IG-5UO9-SCW1')
+
+INSERT INTO [Logger] ([CreationDate], [CreationUserId], [ProductId], [Text], [EditDate], [EditUserId], [ImageId], [SKU])
+VALUES (CURRENT_TIMESTAMP, 1, 1, 'log record #1', CURRENT_TIMESTAMP, 1, '1|2|', '6A-ICQP-MBHC')
+
+INSERT INTO [Logger] ([CreationDate], [CreationUserId], [ProductId], [Text], [EditDate], [EditUserId], [ImageId], [SKU])
+VALUES (CURRENT_TIMESTAMP, 1, 2, 'log record #2', CURRENT_TIMESTAMP, 1, '', '6A-ICQP-MBHC')
+
+INSERT INTO [Logger] ([CreationDate], [CreationUserId], [ProductId], [Text], [EditDate], [EditUserId], [ImageId], [SKU])
+VALUES ('08.05.2019', 2, 2, 'log record #3', '05.05.2019', 1, 0, 'LR-44G2-7Y1Y')
+
+INSERT INTO [Logger] ([CreationDate], [CreationUserId], [ProductId], [Text], [EditDate], [EditUserId], [ImageId])
+VALUES ('08.03.2019', 1, 3, 'log record #4', '05.05.2019', 1, 0)
+
+INSERT INTO [Logger] ([CreationDate], [CreationUserId], [ProductId], [Text], [EditDate], [EditUserId], [ImageId], [SKU])
+VALUES ('08.03.2019', 2, 5, 'log record #5', '05.05.2019', 1, 0, 'HR-9KQ2-IPD9')
 
 
 
@@ -263,21 +225,60 @@ VALUES ('test2', 'ADAH/ZuvEVdABXe4AuzqwknkxSZzRbhdj21avq9UvFa5E2HiQwcJ2WfdI868yw
 
 
 
-/*         -- [Semantics] --             */
-INSERT INTO [Semantics] ([ProductId], [Title], [Bullet1], [Bullet2], [Bullet3], [Bullet4], [Bullet5], [Backend], [Description], [UpdateDate], [Notes], [UsedKeywords])
-VALUES (3, 'Title1 Big title', 'Bul1', 'Bul1', 'Bul1', 'Bul1', 'Bul1', 'Backend1', 'Descr11111111', '2018-02-02 11:11:00.000', 'Notes1', 'UsedKeywords1')
 
-INSERT INTO [Semantics] ([ProductId], [Title], [Bullet1], [Bullet2], [Bullet3], [Bullet4], [Bullet5], [Backend], [Description], [UpdateDate], [Notes], [UsedKeywords])
-VALUES (2, 'Title2 Small title', 'Bul2', 'Bul2', 'Bu2', 'Bul2', 'Bul2', 'Backend2', 'Descr22222222', '2018-03-03 12:12:00.000', 'Notes2', 'UsedKeywords2')
 
-INSERT INTO [Semantics] ([ProductId], [Title], [Bullet1], [Bullet2], [Bullet3], [Bullet4], [Bullet5], [Backend], [Description], [UpdateDate], [Notes], [UsedKeywords])
-VALUES (2, 'Title3 Not big title', 'Bul3', 'Bul3', 'Bul3', 'Bul3', 'Bul3', 'Backend3', 'Descr3333333', '2018-04-04 13:13:00.000', 'Notes3', 'UsedKeywords3')
 
-INSERT INTO [Semantics] ([ProductId], [Title], [Bullet1], [Bullet2], [Bullet3], [Bullet4], [Bullet5], [Backend], [Description], [UpdateDate], [Notes], [UsedKeywords])
-VALUES (2, 'Title4 not smaLL title', 'Bul4', 'Bul4', 'Bul4', 'Bul4', 'Bul4', 'Backend4', 'Descr444444', '2018-05-05 14:14:00.000', 'Notes4', 'UsedKeywords4')
 
-INSERT INTO [Semantics] ([ProductId], [Title], [Bullet1], [Bullet2], [Bullet3], [Bullet4], [Bullet5], [Backend], [Description], [UpdateDate], [Notes], [UsedKeywords])
-VALUES (1, 'Title4 not smaLL title', 'Bul4', 'Bul4', 'Bul4', 'Bul4', 'Bul4', 'Backend4', 'Descr444444', '2018-05-05 14:14:00.000', 'Notes4', 'lapel microphone|2|lavalier microphone|0|')
+
+
+
+
+/*         -- [Currency] --             */
+INSERT INTO [Currency] ([UpdateDate], [NumCode], [CharCode], [Nominal], [Name], [Value])
+VALUES ('10.09.2019', 124, 'CAD', 1, 'РљР°РЅР°РґСЃРєРёР№ РґРѕР»Р»Р°СЂ', 1.3197)
+
+INSERT INTO [Currency] ([UpdateDate], [NumCode], [CharCode], [Nominal], [Name], [Value])
+VALUES ('10.09.2019', 036, 'AUD', 1, 'РђРІСЃС‚СЂР°Р»РёР№СЃРєРёР№ РґРѕР»Р»Р°СЂ', 1.4559)
+
+INSERT INTO [Currency] ([UpdateDate], [NumCode], [CharCode], [Nominal], [Name], [Value])
+VALUES ('10.09.2019', 484, 'MXN', 1, 'РњРµРєСЃРёРєР°РЅСЃРєРёР№ РїРµСЃРѕ', 19.4413)
+
+INSERT INTO [Currency] ([UpdateDate], [NumCode], [CharCode], [Nominal], [Name], [Value])
+VALUES ('10.09.2019', 840, 'USD', 1, 'Р”РѕР»Р»Р°СЂ РЎРЁРђ', 1)
+
+
+/*         -- [CampaignType] --             */
+INSERT INTO [CampaignType] ([CampaignName])
+VALUES ('Sponsored Products')
+
+INSERT INTO [CampaignType] ([CampaignName])
+VALUES ('Sponsored Brands')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*         -- [SemCore] --             */
@@ -298,52 +299,13 @@ VALUES (1, 5, 'iphone 8 microphone', 652053, CURRENT_TIMESTAMP)
 
 INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastUpdated])
 VALUES (1, 2, 'iphone 18 microphone', 456, CURRENT_TIMESTAMP)
+
 INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastUpdated])
 VALUES (1, 2, 'iphone 288 microphone', 123, CURRENT_TIMESTAMP)
 
 INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastUpdated])
 VALUES (1, 2, 'iphone 388 microphone', 123, '2018-10-15 12:50:00')
 
-
-/*         -- [FieldsLength] --             */
-INSERT INTO [FieldsLength] ([TitleLength], [BulletsLength], [BackendLength], [SubjectMatterLength], [OtherAttributesLength], [IntendedUseLength], [DescriptionLength], [ProductId])
-VALUES (200, 100, 250, 50, 100, 100, 2000, 1)
-
-INSERT INTO [FieldsLength] ([TitleLength], [BulletsLength], [BackendLength], [SubjectMatterLength], [OtherAttributesLength], [IntendedUseLength], [DescriptionLength], [ProductId])
-VALUES (200, 100, 250, 150, 150, 150, 2000, 2)
-
-
-/*         -- [Indexing] --             */
-
-INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status] ,[Notes]) 
-VALUES (1, 'B01E3L1ESS', '2018-12-27', 'Not Ok', 'не в индексе@проблема с 1м буллетом@@@проблема с 4м буллетом@@@')
-
-INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status] ,[Notes]) 
-VALUES (1, 'B01E3L1ESS', '2018-12-20', 'Ok', '')
-
-INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status] ,[Notes]) 
-VALUES (1, 'B01E3L1ESS', '2018-12-22', 'Ok', '')
-
-INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status] ,[Notes]) 
-VALUES (1, 'B01E3L1ESS', '2018-11-02', 'Ok', '')
-
-INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status] ,[Notes]) 
-VALUES (1, 'B01E3L1ESS', '2018-12-20', 'Ok', '')
-
-INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status] ,[Notes]) 
-VALUES (2, 'B01N5RG8EC', '2018-11-23', 'Ok', '')
-
-INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status] ,[Notes]) 
-VALUES (2, 'B01N5RG8EC', '2018-10-23', 'Ok', '')
-
-INSERT INTO [Indexing] ([ProductId], [ASIN], [Date], [Status], [Notes]) 
-VALUES (7, 'B07FCN1K2N', '2018-53-28', 'Closed', '')
-
-
-
-
-
-select * from products
 
 
 
@@ -365,68 +327,68 @@ select * from products
 -- [Course] inserts
 
 INSERT INTO [Course] ([CourseId], [Code], [Title], [Description], [Amount], [Status])
-VALUES (100, 'SQ100', 'Основы SQL', 'Введение в базы данных и SQL. Курс для начинающих', 3045.50, 'A')
+VALUES (100, 'SQ100', 'РћСЃРЅРѕРІС‹ SQL', 'Р’РІРµРґРµРЅРёРµ РІ Р±Р°Р·С‹ РґР°РЅРЅС‹С… Рё SQL. РљСѓСЂСЃ РґР»СЏ РЅР°С‡РёРЅР°СЋС‰РёС…', 3045.50, 'A')
 
 INSERT INTO [Course] ([CourseId], [Code], [Title], [Description], [Amount],[Status])
-VALUES (200, 'NT200', 'Основы компьютерных сетей (Networks)', 'Базовые принципы построения компьютерных сетей. Курс расширен изучением тестирования компьютерных сетей', 3999.89, 'A')
+VALUES (200, 'NT200', 'РћСЃРЅРѕРІС‹ РєРѕРјРїСЊСЋС‚РµСЂРЅС‹С… СЃРµС‚РµР№ (Networks)', 'Р‘Р°Р·РѕРІС‹Рµ РїСЂРёРЅС†РёРїС‹ РїРѕСЃС‚СЂРѕРµРЅРёСЏ РєРѕРјРїСЊСЋС‚РµСЂРЅС‹С… СЃРµС‚РµР№. РљСѓСЂСЃ СЂР°СЃС€РёСЂРµРЅ РёР·СѓС‡РµРЅРёРµРј С‚РµСЃС‚РёСЂРѕРІР°РЅРёСЏ РєРѕРјРїСЊСЋС‚РµСЂРЅС‹С… СЃРµС‚РµР№', 3999.89, 'A')
 
 INSERT INTO [Course] ([CourseId], [Code], [Title], [Description], [Amount],[Status])
-VALUES (300, 'UX300', 'Основы Unix', 'Основы работы с операционными системами Unix', 2500.79, 'D')
+VALUES (300, 'UX300', 'РћСЃРЅРѕРІС‹ Unix', 'РћСЃРЅРѕРІС‹ СЂР°Р±РѕС‚С‹ СЃ РѕРїРµСЂР°С†РёРѕРЅРЅС‹РјРё СЃРёСЃС‚РµРјР°РјРё Unix', 2500.79, 'D')
 
 INSERT INTO [Course] ([CourseId], [Code], [Title], [Description], [Amount],[Status])
-VALUES (400, 'TS400', 'Тестирование программного обеспечения (QA Testing)', 'Изучение процесса тестирования программного обеспечения по программе, максимально приближенной к условиям работы в реальных проектах', 5501.99, 'D')
+VALUES (400, 'TS400', 'РўРµСЃС‚РёСЂРѕРІР°РЅРёРµ РїСЂРѕРіСЂР°РјРјРЅРѕРіРѕ РѕР±РµСЃРїРµС‡РµРЅРёСЏ (QA Testing)', 'РР·СѓС‡РµРЅРёРµ РїСЂРѕС†РµСЃСЃР° С‚РµСЃС‚РёСЂРѕРІР°РЅРёСЏ РїСЂРѕРіСЂР°РјРјРЅРѕРіРѕ РѕР±РµСЃРїРµС‡РµРЅРёСЏ РїРѕ РїСЂРѕРіСЂР°РјРјРµ, РјР°РєСЃРёРјР°Р»СЊРЅРѕ РїСЂРёР±Р»РёР¶РµРЅРЅРѕР№ Рє СѓСЃР»РѕРІРёСЏРј СЂР°Р±РѕС‚С‹ РІ СЂРµР°Р»СЊРЅС‹С… РїСЂРѕРµРєС‚Р°С…', 5501.99, 'D')
 
 INSERT INTO [Course] ([CourseId], [Code], [Title], [Description], [Amount],[Status])
-VALUES (401, 'TS401', 'Автоматизированное тестирование (Selenium + Python)', 'Автоматизация процесса тестирования. Принципы и современные инструменты', 5000, 'D')
+VALUES (401, 'TS401', 'РђРІС‚РѕРјР°С‚РёР·РёСЂРѕРІР°РЅРЅРѕРµ С‚РµСЃС‚РёСЂРѕРІР°РЅРёРµ (Selenium + Python)', 'РђРІС‚РѕРјР°С‚РёР·Р°С†РёСЏ РїСЂРѕС†РµСЃСЃР° С‚РµСЃС‚РёСЂРѕРІР°РЅРёСЏ. РџСЂРёРЅС†РёРїС‹ Рё СЃРѕРІСЂРµРјРµРЅРЅС‹Рµ РёРЅСЃС‚СЂСѓРјРµРЅС‚С‹', 5000, 'D')
 
 GO
 
 -- [CourseContent] inserts
 
 INSERT INTO [CourseContent] ([CourseId], [CourseContentId], [ParentId], [Code], [ContentType], [Title], [Description])
-VALUES (100, 1, 1, '1', 'UN', 'Введение в программу курса', '')
+VALUES (100, 1, 1, '1', 'UN', 'Р’РІРµРґРµРЅРёРµ РІ РїСЂРѕРіСЂР°РјРјСѓ РєСѓСЂСЃР°', '')
 
 INSERT INTO [CourseContent] ([CourseId], [CourseContentId], [ParentId], [Code], [ContentType], [Title], [Description])
-VALUES (100, 2, 1, 'A', 'CH', 'Введение в информационные системы и роль БД в них', '')
+VALUES (100, 2, 1, 'A', 'CH', 'Р’РІРµРґРµРЅРёРµ РІ РёРЅС„РѕСЂРјР°С†РёРѕРЅРЅС‹Рµ СЃРёСЃС‚РµРјС‹ Рё СЂРѕР»СЊ Р‘Р” РІ РЅРёС…', '')
 
 INSERT INTO [CourseContent] ([CourseId], [CourseContentId], [ParentId], [Code], [ContentType], [Title], [Description])
-VALUES (100, 3, 1, 'B', 'CH', 'Введение в теорию БД. Виды БД', '')
+VALUES (100, 3, 1, 'B', 'CH', 'Р’РІРµРґРµРЅРёРµ РІ С‚РµРѕСЂРёСЋ Р‘Р”. Р’РёРґС‹ Р‘Р”', '')
 
 INSERT INTO [CourseContent] ([CourseId], [CourseContentId], [ParentId], [Code], [ContentType], [Title], [Description])
-VALUES (100, 4, 1, 'C', 'CH', 'Основные понятия и термины. Объекты БД. Определение отношения', '')
+VALUES (100, 4, 1, 'C', 'CH', 'РћСЃРЅРѕРІРЅС‹Рµ РїРѕРЅСЏС‚РёСЏ Рё С‚РµСЂРјРёРЅС‹. РћР±СЉРµРєС‚С‹ Р‘Р”. РћРїСЂРµРґРµР»РµРЅРёРµ РѕС‚РЅРѕС€РµРЅРёСЏ', '')
 
 INSERT INTO [CourseContent] ([CourseId], [CourseContentId], [ParentId], [Code], [ContentType], [Title], [Description])
-VALUES (100, 5, 1, 'D', 'CH', 'Structured Query Language – стандарт языков программирования баз данных', '')
+VALUES (100, 5, 1, 'D', 'CH', 'Structured Query Language вЂ“ СЃС‚Р°РЅРґР°СЂС‚ СЏР·С‹РєРѕРІ РїСЂРѕРіСЂР°РјРјРёСЂРѕРІР°РЅРёСЏ Р±Р°Р· РґР°РЅРЅС‹С…', '')
 
 INSERT INTO [CourseContent] ([CourseId], [CourseContentId], [ParentId], [Code], [ContentType], [Title], [Description])
-VALUES (100, 6, 1, 'E', 'CH', 'Введение в T-SQL. Типы данных', '')
+VALUES (100, 6, 1, 'E', 'CH', 'Р’РІРµРґРµРЅРёРµ РІ T-SQL. РўРёРїС‹ РґР°РЅРЅС‹С…', '')
 
 INSERT INTO [CourseContent] ([CourseId], [CourseContentId], [ParentId], [Code], [ContentType], [Title], [Description])
-VALUES (100, 7, 1, 'F', 'CH', 'Знакомство со средой SQL Server Management Studio (SSMS)', '')
+VALUES (100, 7, 1, 'F', 'CH', 'Р—РЅР°РєРѕРјСЃС‚РІРѕ СЃРѕ СЃСЂРµРґРѕР№ SQL Server Management Studio (SSMS)', '')
 
 INSERT INTO [CourseContent] ([CourseId], [CourseContentId], [ParentId], [Code], [ContentType], [Title], [Description])
-VALUES (100, 8, 1, 'G', 'CH', 'Знакомство с учебной базой данных курса', '')
+VALUES (100, 8, 1, 'G', 'CH', 'Р—РЅР°РєРѕРјСЃС‚РІРѕ СЃ СѓС‡РµР±РЅРѕР№ Р±Р°Р·РѕР№ РґР°РЅРЅС‹С… РєСѓСЂСЃР°', '')
 
 INSERT INTO [CourseContent] ([CourseId], [CourseContentId], [ParentId], [Code], [ContentType], [Title], [Description])
-VALUES (100, 9, 9, '2', 'UN', 'Выборка и модификация данных', '')
+VALUES (100, 9, 9, '2', 'UN', 'Р’С‹Р±РѕСЂРєР° Рё РјРѕРґРёС„РёРєР°С†РёСЏ РґР°РЅРЅС‹С…', '')
 
 INSERT INTO [CourseContent] ([CourseId], [CourseContentId], [ParentId], [Code], [ContentType], [Title], [Description])
-VALUES (100, 10, 9, 'A', 'CH', 'Data Modification Language (DML) как часть T-SQL', '')
+VALUES (100, 10, 9, 'A', 'CH', 'Data Modification Language (DML) РєР°Рє С‡Р°СЃС‚СЊ T-SQL', '')
 
 INSERT INTO [CourseContent] ([CourseId], [CourseContentId], [ParentId], [Code], [ContentType], [Title], [Description])
-VALUES (100, 11, 9, 'B', 'CH', 'Основные команды DML', '')
+VALUES (100, 11, 9, 'B', 'CH', 'РћСЃРЅРѕРІРЅС‹Рµ РєРѕРјР°РЅРґС‹ DML', '')
 
 INSERT INTO [CourseContent] ([CourseId], [CourseContentId], [ParentId], [Code], [ContentType], [Title], [Description])
-VALUES (100, 12, 11, 'I', 'CH', 'Общая структура оператора выборки SELECT', '')
+VALUES (100, 12, 11, 'I', 'CH', 'РћР±С‰Р°СЏ СЃС‚СЂСѓРєС‚СѓСЂР° РѕРїРµСЂР°С‚РѕСЂР° РІС‹Р±РѕСЂРєРё SELECT', '')
 
 INSERT INTO [CourseContent] ([CourseId], [CourseContentId], [ParentId], [Code], [ContentType], [Title], [Description])
-VALUES (100, 13, 11, 'II', 'CH', 'Создание запроса на выборку данных', '')
+VALUES (100, 13, 11, 'II', 'CH', 'РЎРѕР·РґР°РЅРёРµ Р·Р°РїСЂРѕСЃР° РЅР° РІС‹Р±РѕСЂРєСѓ РґР°РЅРЅС‹С…', '')
 
 INSERT INTO [CourseContent] ([CourseId], [CourseContentId], [ParentId], [Code], [ContentType], [Title], [Description])
-VALUES (100, 14, 11, 'III', 'CH', 'Модификация данных с помощью оператора UPDATE', '')
+VALUES (100, 14, 11, 'III', 'CH', 'РњРѕРґРёС„РёРєР°С†РёСЏ РґР°РЅРЅС‹С… СЃ РїРѕРјРѕС‰СЊСЋ РѕРїРµСЂР°С‚РѕСЂР° UPDATE', '')
 
 INSERT INTO [CourseContent] ([CourseId], [CourseContentId], [ParentId], [Code], [ContentType], [Title], [Description])
-VALUES (100, 15, 11, 'IV', 'CH', 'Удаление и добавление новых данных с помощью операторов DELETE и INSERT', '')
+VALUES (100, 15, 11, 'IV', 'CH', 'РЈРґР°Р»РµРЅРёРµ Рё РґРѕР±Р°РІР»РµРЅРёРµ РЅРѕРІС‹С… РґР°РЅРЅС‹С… СЃ РїРѕРјРѕС‰СЊСЋ РѕРїРµСЂР°С‚РѕСЂРѕРІ DELETE Рё INSERT', '')
 
 GO
 
@@ -436,13 +398,13 @@ INSERT INTO [UserRole] ([UserRoleId], [Code], [Name], [Description])
 VALUES (1, 'RES', 'Reserved', '')
 
 INSERT INTO [UserRole] ([UserRoleId], [Code], [Name], [Description])
-VALUES (2, 'ADM', 'Администратор', '')
+VALUES (2, 'ADM', 'РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ', '')
 
 INSERT INTO [UserRole] ([UserRoleId], [Code], [Name], [Description])
-VALUES (3, 'INS', 'Преподаватель', 'Преподаватель/инструктор курсов')
+VALUES (3, 'INS', 'РџСЂРµРїРѕРґР°РІР°С‚РµР»СЊ', 'РџСЂРµРїРѕРґР°РІР°С‚РµР»СЊ/РёРЅСЃС‚СЂСѓРєС‚РѕСЂ РєСѓСЂСЃРѕРІ')
 
 INSERT INTO [UserRole] ([UserRoleId], [Code], [Name], [Description])
-VALUES (4, 'STD', 'Студент', 'Учащийся курсов')
+VALUES (4, 'STD', 'РЎС‚СѓРґРµРЅС‚', 'РЈС‡Р°С‰РёР№СЃСЏ РєСѓСЂСЃРѕРІ')
 
 GO
 
@@ -452,45 +414,45 @@ DECLARE @CurrentDate DATETIME
 SELECT @CurrentDate = CURRENT_TIMESTAMP
 
 INSERT INTO [UserData] ([UserName], [Password], [FirstName], [MiddleName], [LastName], [CreateDate], [UpdateDate], [Status])
-SELECT  'admin', '9fbf0de4', 'Николай', 'Григорьевич', 'Админин', '20131001 17:44', '20140102 14:05', 'A'
+SELECT  'admin', '9fbf0de4', 'РќРёРєРѕР»Р°Р№', 'Р“СЂРёРіРѕСЂСЊРµРІРёС‡', 'РђРґРјРёРЅРёРЅ', '20131001 17:44', '20140102 14:05', 'A'
 UNION ALL
-SELECT  'smart', 'cb055ed7', 'Сергей', 'Владимирович', 'Мартыненко', '20140101 17:44', '20140102 14:05', 'A'
+SELECT  'smart', 'cb055ed7', 'РЎРµСЂРіРµР№', 'Р’Р»Р°РґРёРјРёСЂРѕРІРёС‡', 'РњР°СЂС‚С‹РЅРµРЅРєРѕ', '20140101 17:44', '20140102 14:05', 'A'
 UNION ALL
-SELECT  'shaman', '4df20a20', 'Александр', 'Анатольевич', 'Шаменко', '20141212 12:12', '20141212 15:01', 'A'
+SELECT  'shaman', '4df20a20', 'РђР»РµРєСЃР°РЅРґСЂ', 'РђРЅР°С‚РѕР»СЊРµРІРёС‡', 'РЁР°РјРµРЅРєРѕ', '20141212 12:12', '20141212 15:01', 'A'
 UNION ALL
-SELECT  'test', '', 'Тест', NULL, 'Тестовый', @CurrentDate, @CurrentDate, 'A'
+SELECT  'test', '', 'РўРµСЃС‚', NULL, 'РўРµСЃС‚РѕРІС‹Р№', @CurrentDate, @CurrentDate, 'A'
 UNION ALL
-SELECT  'isidor', 'c7a63824', 'Иван', 'Петрович', 'Сидорчук', @CurrentDate, @CurrentDate, 'A'
+SELECT  'isidor', 'c7a63824', 'РРІР°РЅ', 'РџРµС‚СЂРѕРІРёС‡', 'РЎРёРґРѕСЂС‡СѓРє', @CurrentDate, @CurrentDate, 'A'
 UNION ALL
-SELECT  'elza', '417e314d', 'Елена', 'Павловна', 'Захарчук', @CurrentDate, @CurrentDate, 'A'
+SELECT  'elza', '417e314d', 'Р•Р»РµРЅР°', 'РџР°РІР»РѕРІРЅР°', 'Р—Р°С…Р°СЂС‡СѓРє', @CurrentDate, @CurrentDate, 'A'
 UNION ALL
-SELECT  'vpupkin', '48ffb373', 'Василий', 'Васильевич', 'Пупкин', @CurrentDate, @CurrentDate, 'A'
+SELECT  'vpupkin', '48ffb373', 'Р’Р°СЃРёР»РёР№', 'Р’Р°СЃРёР»СЊРµРІРёС‡', 'РџСѓРїРєРёРЅ', @CurrentDate, @CurrentDate, 'A'
 UNION ALL
-SELECT  'akrasov', 'b151c83c', 'Анна', 'Леонидовна', 'Красовская', @CurrentDate, @CurrentDate, 'A'
+SELECT  'akrasov', 'b151c83c', 'РђРЅРЅР°', 'Р›РµРѕРЅРёРґРѕРІРЅР°', 'РљСЂР°СЃРѕРІСЃРєР°СЏ', @CurrentDate, @CurrentDate, 'A'
 GO
 
 -- [UserRoleLink] inserts
 
 INSERT INTO [UserRoleLink] ([UserDataId], [UserRoleId])
-SELECT (SELECT * FROM [getUserId] ('admin')), (select * from [getRoleId] ('ADM')) -- Вариант вставки с помощью 2 функций (getUserId и getRoleId).
+SELECT (SELECT * FROM [getUserId] ('admin')), (select * from [getRoleId] ('ADM')) -- Р’Р°СЂРёР°РЅС‚ РІСЃС‚Р°РІРєРё СЃ РїРѕРјРѕС‰СЊСЋ 2 С„СѓРЅРєС†РёР№ (getUserId Рё getRoleId).
 UNION ALL
-SELECT (SELECT * FROM [getUserId] ('shaman')), 2 -- Вариант вставки с помощью 1 функции (getUserId и идентификатор роли).
+SELECT (SELECT * FROM [getUserId] ('shaman')), 2 -- Р’Р°СЂРёР°РЅС‚ РІСЃС‚Р°РІРєРё СЃ РїРѕРјРѕС‰СЊСЋ 1 С„СѓРЅРєС†РёРё (getUserId Рё РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ СЂРѕР»Рё).
 UNION ALL
-SELECT (SELECT * FROM [getUserId] ('test')), 2 -- Вариант вставки с помощью 1 функции (getUserId и идентификатор роли).
+SELECT (SELECT * FROM [getUserId] ('test')), 2 -- Р’Р°СЂРёР°РЅС‚ РІСЃС‚Р°РІРєРё СЃ РїРѕРјРѕС‰СЊСЋ 1 С„СѓРЅРєС†РёРё (getUserId Рё РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ СЂРѕР»Рё).
 UNION ALL
-SELECT [UserDataId], 3  FROM [UserData] WHERE [UserDataId] IN (2, 3) -- Вариант вставки без функций (идентификаторы пользователей + роли).
+SELECT [UserDataId], 3  FROM [UserData] WHERE [UserDataId] IN (2, 3) -- Р’Р°СЂРёР°РЅС‚ РІСЃС‚Р°РІРєРё Р±РµР· С„СѓРЅРєС†РёР№ (РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂС‹ РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№ + СЂРѕР»Рё).
 UNION ALL
-SELECT [UserDataId], 4  FROM [UserData] WHERE [UserDataId] IN (2, 4, 5, 6, 7, 8) -- Вариант вставки без функций (идентификаторы пользователей + роли).
+SELECT [UserDataId], 4  FROM [UserData] WHERE [UserDataId] IN (2, 4, 5, 6, 7, 8) -- Р’Р°СЂРёР°РЅС‚ РІСЃС‚Р°РІРєРё Р±РµР· С„СѓРЅРєС†РёР№ (РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂС‹ РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№ + СЂРѕР»Рё).
 GO
 
 -- [UserGroup] inserts
 
 INSERT INTO [UserGroup] ([CourseId], [Name], [CreateDate], [UpdateDate], [Status])
-SELECT 100, 'Группа №1 (SQL)', '20141209 12:05:34', '20141210 16:40:12', 'A'
+SELECT 100, 'Р“СЂСѓРїРїР° в„–1 (SQL)', '20141209 12:05:34', '20141210 16:40:12', 'A'
 UNION ALL
-SELECT 200, 'Группа №2 (Networks)', '20141210 09:00:00', '20141210 09:00:00', 'D'
+SELECT 200, 'Р“СЂСѓРїРїР° в„–2 (Networks)', '20141210 09:00:00', '20141210 09:00:00', 'D'
 UNION ALL
-SELECT 300, 'Группа №3 (Unix)', '20141211 09:30:44', '20141211 09:35:00', 'D'
+SELECT 300, 'Р“СЂСѓРїРїР° в„–3 (Unix)', '20141211 09:30:44', '20141211 09:35:00', 'D'
 GO
 
 -- [UserGroupLink] inserts

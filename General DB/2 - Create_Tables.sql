@@ -2,22 +2,26 @@ USE AHEAD
 GO
 --тут обратный порядок от порядка создания
 
-IF NOT OBJECT_ID('Indexing') IS NULL DROP TABLE [Indexing]
+
+IF NOT OBJECT_ID('AdvertisingProducts') IS NULL DROP TABLE [AdvertisingProducts]
+GO
+
+IF NOT OBJECT_ID('AdvertisingBrands') IS NULL DROP TABLE [AdvertisingBrands]
+GO
+
+IF NOT OBJECT_ID('Logger') IS NULL DROP TABLE [Logger]
+GO
+
+IF NOT OBJECT_ID('Images') IS NULL DROP TABLE [Images]
 GO
 
 IF NOT OBJECT_ID('SemCoreArchive') IS NULL DROP TABLE [SemCoreArchive]
-GO
-
-IF NOT OBJECT_ID('FieldsLength') IS NULL DROP TABLE [FieldsLength]
 GO
 
 IF NOT OBJECT_ID('SemCore') IS NULL DROP TABLE [SemCore]
 GO
 
 IF NOT OBJECT_ID('KeywordCategory') IS NULL DROP TABLE [KeywordCategory]
-GO
-
-IF NOT OBJECT_ID('Semantics') IS NULL DROP TABLE [Semantics]
 GO
 
 IF NOT OBJECT_ID('Products') IS NULL DROP TABLE [Products]
@@ -35,6 +39,11 @@ GO
 IF NOT OBJECT_ID('UserRole') IS NULL DROP TABLE [UserRole]
 GO
 
+IF NOT OBJECT_ID('Currency') IS NULL DROP TABLE [Currency]
+GO
+
+IF NOT OBJECT_ID('CampaignType') IS NULL DROP TABLE [CampaignType]
+GO
 
 /*
     "БД компании AHEAD"
@@ -54,56 +63,6 @@ CREATE TABLE [ProductTypes](
 )
 GO
 
-
-CREATE TABLE [Products](
-	[ProductId]			INT IDENTITY(0,1)	NOT NULL,
-	[Name]				NVARCHAR(500),
-	[ASIN]				VARCHAR(20),
-	[SKU]				VARCHAR(30),
-	[ProductTypeId]		INT					NOT NULL,
-	[MarketPlaceId]		INT					NOT NULL,
-	[ActiveStatus]		BIT,
-	CONSTRAINT PK_Products PRIMARY KEY ([ProductId]),
-	CONSTRAINT UQ_Products_SKU UNIQUE ([SKU]),
-	CONSTRAINT FK_Products_ProductTypes FOREIGN KEY ([ProductTypeId]) REFERENCES ProductTypes ([ProductTypeId]),
-	CONSTRAINT FK_Products_Marketplace FOREIGN KEY ([MarketPlaceId]) REFERENCES Marketplace ([MarketPlaceId])
-)
-GO
-
-
-CREATE TABLE [Semantics](
-	[SemanticsId]		INT IDENTITY(0,1)	NOT NULL,
-	[ProductId]			INT					NOT NULL,
-	[Title]				NVARCHAR(400),
-	[Bullet1]			NVARCHAR(550),
-	[Bullet2]			NVARCHAR(550),
-	[Bullet3]			NVARCHAR(550),
-	[Bullet4]			NVARCHAR(550),
-	[Bullet5]			NVARCHAR(550),
-	[Backend]			NVARCHAR(500),
-	[Description]		NVARCHAR(4000),
-	[OtherAttributes1]	NVARCHAR(200),
-	[OtherAttributes2]	NVARCHAR(200),
-	[OtherAttributes3]	NVARCHAR(200),
-	[OtherAttributes4]	NVARCHAR(200),
-	[OtherAttributes5]	NVARCHAR(200),
-	[IntendedUse1]		NVARCHAR(200),
-	[IntendedUse2]		NVARCHAR(200),
-	[IntendedUse3]		NVARCHAR(200),
-	[IntendedUse4]		NVARCHAR(200),
-	[IntendedUse5]		NVARCHAR(200),
-	[SubjectMatter1]	NVARCHAR(100),
-	[SubjectMatter2]	NVARCHAR(100),
-	[SubjectMatter3]	NVARCHAR(100),
-	[SubjectMatter4]	NVARCHAR(100),
-	[SubjectMatter5]	NVARCHAR(100),
-	[UpdateDate]		DATETIME			NOT NULL,
-	[Notes]				NVARCHAR(4000),
-	[UsedKeywords]		TEXT,
-	CONSTRAINT FK_Semantics_Products FOREIGN KEY ([ProductId]) REFERENCES Products ([ProductId])
-)
-GO
-
 CREATE TABLE [KeywordCategory](
 	[CategoryId]		INT IDENTITY(0,1),
 	[CategoryName]		VARCHAR(100),
@@ -114,33 +73,19 @@ CREATE TABLE [KeywordCategory](
 )
 GO
 
-
 CREATE TABLE [SemCore](
 	[ProductTypeId]		INT					NOT NULL,
 	[CategoryId]		INT					NOT NULL,
 	[Keyword]			VARCHAR(100),
 	[Value]				INT,
 	[LastUpdated]		DATETIME,
+	[MarketPlaceId]		INT					NOT NULL,
 	[SemCoreId]			INT IDENTITY(0,1)	NOT NULL,
 	CONSTRAINT PK_SemCoreId PRIMARY KEY ([SemCoreId]),
-	CONSTRAINT UQ_SemCore_Keyword UNIQUE ([Keyword]),
+	CONSTRAINT UQ_SemCore_Keyword UNIQUE ([Keyword], [MarketPlaceId]),
 	CONSTRAINT FK_SemCore_ProductTypes FOREIGN KEY ([ProductTypeId]) REFERENCES ProductTypes ([ProductTypeId]),
-	CONSTRAINT FK_SemCore_CategoryId FOREIGN KEY ([CategoryId]) REFERENCES KeywordCategory ([CategoryId])
-)
-GO
-
-
-CREATE TABLE [FieldsLength](
-	[TitleLength]			INT,
-	[BulletsLength]			INT,
-	[BackendLength]			INT,
-	[SubjectMatterLength]	INT,
-	[OtherAttributesLength]	INT,
-	[IntendedUseLength]		INT,
-	[DescriptionLength]		INT,
-	[ProductId]				INT,
-	[CountBulSpaces]		BIT,
-	CONSTRAINT FK_FieldsLength_Products FOREIGN KEY ([ProductId]) REFERENCES Products ([ProductId])
+	CONSTRAINT FK_SemCore_CategoryId FOREIGN KEY ([CategoryId]) REFERENCES KeywordCategory ([CategoryId]),
+	CONSTRAINT FK_SemCore_MarketPlaceId FOREIGN KEY ([MarketPlaceId]) REFERENCES MarketPlace ([MarketPlaceId])
 )
 GO
 
@@ -149,17 +94,23 @@ CREATE TABLE [SemCoreArchive](
 	[CategoryId]		INT					NOT NULL,
 	[Keyword]			VARCHAR(100)		NOT NULL,
 	[SemCoreId]			INT					NOT NULL,
-	[ValuesAndDates]	TEXT
+	[ValuesAndDates]	TEXT,	
+	[MarketPlaceId]		INT					NOT NULL,
 )
 GO
 
-CREATE TABLE [Indexing](
-	[ProductId]			INT							NOT NULL,
-	[ASIN]				VARCHAR(20)					NOT NULL,
-	[Date]				DATETIME					NOT NULL,
-	[Status]			VARCHAR(100)				NOT NULL,
-	[Notes]				VARCHAR(500),
-	CONSTRAINT FK_Indexing_ProductId FOREIGN KEY ([ProductId]) REFERENCES Products ([ProductId])
+CREATE TABLE [Products](
+	[ProductId]			INT IDENTITY(0,1)	NOT NULL,
+	[Name]				NVARCHAR(500),
+	[ASIN]				VARCHAR(20),
+	[SKU]				VARCHAR(30),
+	[ProductTypeId]		INT,
+	[MarketPlaceId]		INT,
+	[ActiveStatus]		BIT,
+	CONSTRAINT PK_Products PRIMARY KEY ([ProductId]),
+	CONSTRAINT UQ_Products_SKU UNIQUE ([SKU], [MarketPlaceId]),
+	CONSTRAINT FK_Products_ProductTypes FOREIGN KEY ([ProductTypeId]) REFERENCES ProductTypes ([ProductTypeId]),
+	CONSTRAINT FK_Products_Marketplace FOREIGN KEY ([MarketPlaceId]) REFERENCES Marketplace ([MarketPlaceId])
 )
 GO
 
@@ -172,7 +123,7 @@ CREATE TABLE [UserRole](
 CREATE TABLE [User](
 	[UserId]			INT IDENTITY(0,1),
 	[Login]				VARCHAR(20),
-	[PassHash]				TEXT,
+	[PassHash]			TEXT,
 	[Name]				VARCHAR(50),
 	[Token1]			INT,
 	[Token2]			INT,
@@ -180,339 +131,144 @@ CREATE TABLE [User](
 	[SecretQuestion]	VARCHAR(100),
 	[Answer]			VARCHAR(100),
 	[Mac]				TEXT,
+	CONSTRAINT PK_User PRIMARY KEY ([UserId]),
 	CONSTRAINT UQ_User_Login UNIQUE ([Login]),
 	CONSTRAINT FK_User_UserRoleId FOREIGN KEY ([UserRoleId]) REFERENCES UserRole ([UserRoleId])
 )
 
+CREATE TABLE [Images](
+	[ImageId]			INT IDENTITY(0,1),
+	[FileName]			NVARCHAR(100),
+	[Title]				NVARCHAR(100),
+	[ImageData]			VARBINARY(MAX),
+	CONSTRAINT PK_Images PRIMARY KEY ([ImageId])
+)
+
+CREATE TABLE [Logger](
+	[RecordId]			INT IDENTITY(0,1),
+	[CreationDate]		DATETIME,
+	[CreationUserId]	INT,
+	[ProductId]			INT,
+	[Text]				TEXT,
+	[EditDate]			DATETIME,
+	[EditUserId]		INT,
+	[ImageId]			VARCHAR(1000),
+	[SKU]				VARCHAR(30),
+	CONSTRAINT PK_Logger PRIMARY KEY ([RecordId]),
+	CONSTRAINT FK_Logger_ProductId FOREIGN KEY ([ProductId]) REFERENCES Products ([ProductId]),
+	CONSTRAINT FK_Logger_CreationUserId FOREIGN KEY ([CreationUserId]) REFERENCES [User] ([UserId]),
+	CONSTRAINT FK_Logger_EditUserId FOREIGN KEY ([EditUserId]) REFERENCES [User] ([UserId])
+)
 
 
 
 
---------------------------------------------Analytics--------------------------------------------
 
 
-----------------------Analytics---------------------------------
-use [Analytics]
-
-IF NOT OBJECT_ID('CustomerReturns') IS NULL DROP TABLE [CustomerReturns]
+IF NOT OBJECT_ID('AdvertisingProducts') IS NULL DROP TABLE [AdvertisingProducts]
 GO
-IF NOT OBJECT_ID('Payments') IS NULL DROP TABLE [Payments]
+
+IF NOT OBJECT_ID('AdvertisingBrands') IS NULL DROP TABLE [AdvertisingBrands]
 GO
-IF NOT OBJECT_ID('Shipments') IS NULL DROP TABLE [Shipments]
+
+IF NOT OBJECT_ID('Currency') IS NULL DROP TABLE [Currency]
 GO
-IF NOT OBJECT_ID('Orders') IS NULL DROP TABLE [Orders]
+
+IF NOT OBJECT_ID('CampaignType') IS NULL DROP TABLE [CampaignType]
+GO
+
+IF NOT OBJECT_ID('AB_CampaignIds') IS NULL DROP TABLE [AB_CampaignIds]
+GO
+
+IF NOT OBJECT_ID('AP_CampaignIds') IS NULL DROP TABLE [AP_CampaignIds]
 GO
 
 
-CREATE TABLE [Orders](
-	[AmazonOrderId]				VARCHAR(50),
-	[MerchantOrderId]			VARCHAR(50),
-	[PurchaseDate]				Date,
-	[LastUpdatedDate]			Date,
-	[OrderStatus]				VARCHAR(20),
-	[FullfilmentChannel]		VARCHAR(20),
-	[SalesChannel]				VARCHAR(50),
-	[OrderChannel]				VARCHAR(50),
-	[Url]						VARCHAR(50),
-	[ShipServiceLevel]			VARCHAR(30),
-	[ProductName]				VARCHAR(500),
-	[Sku]						VARCHAR(50),
-	[Asin]						VARCHAR(50),
-	[ItemStatus]				VARCHAR(50),
-	[Quantity]					INT,
-	[Currency]					VARCHAR(20),
-	[ItemPrice]					FLOAT,
-	[ItemTax]					FLOAT,
-	[ShippingPrice]				FLOAT,
-	[ShippingTax]				FLOAT,
-	[GiftWrapPrice]				FLOAT,
-	[GiftWrapTax]				FLOAT,
-	[ItemPromotionDiscount]		FLOAT,
-	[ShipPromotionDiscount]		FLOAT,
-	[ShipCity]					VARCHAR(200),
-	[ShipState]					VARCHAR(150),
-	[ShipPostalCode]			VARCHAR(25),
-	[ShipCountry]				VARCHAR(50),
-	[PromotionIds]				VARCHAR(100),
-	[IsBusinessOrder]			VARCHAR(6),
-	[PurchaseOrderNumber]		VARCHAR(50),
-	[PriceDesignation]			VARCHAR(50),
-	[ReturnDate]				Date,
-	CONSTRAINT Orders_AmazonOrderId_PK PRIMARY KEY ([AmazonOrderId])
+CREATE TABLE [Currency](
+	[UpdateDate]		DATETIME,
+	[NumCode]			INT,
+	[CharCode]			VARCHAR(10),
+	[Nominal]			INT,
+	[Name]				VARCHAR(100),
+	[Value]				FLOAT
 )
 GO
 
-CREATE TABLE [Payments](
-	[Date]						DATE,
-	[SettlementId]				VARCHAR(20),
-	[Type]						VARCHAR(30),
-	[OrderId]					VARCHAR(50),
-	[Sku]						VARCHAR(50),
-	[Description]				VARCHAR(500),
-	[Quantity]					INT,
-	[Marketplace]				VARCHAR(100),
-	[Fullfilment]				VARCHAR(30),
-	[OrderCity]					VARCHAR(100),
-	[OrderState]				VARCHAR(70),
-	[OrderPostal]				VARCHAR(50),
-	[ProductSales]				FLOAT,
-	[ShippingCredits]			FLOAT,
-	[GiftWrapCredits]			FLOAT,
-	[PromotionalRebates]		FLOAT,
-	[SaleTaxCollected]			FLOAT,
-	[MarketplaceFacilitatorTax]	FLOAT,
-	[SellingFees]				FLOAT,
-	[FBAFees]					FLOAT,
-	[OtherTransactionFees]		FLOAT,
-	[Other]						FLOAT,
-	[Total]						FLOAT,
-	--CONSTRAINT PK_Payments_OrderIdandSku PRIMARY KEY ([OrderId], [Sku])
+CREATE TABLE [CampaignType](
+	[CampaignId]			INT IDENTITY(0,1),
+	[CampaignName]			VARCHAR(255),
+	CONSTRAINT PK_CampaignType PRIMARY KEY ([CampaignId])
 )
-GO
 
-CREATE TABLE [Shipments](
-	[AmazonOrderId]				VARCHAR(50),
-	[MerchantOrderId]			VARCHAR(50),
-	[ShipmentId]				VARCHAR(30),
-	[ShipmentItemId]			VARCHAR(30),
-	[AmazonOrderItemId]			VARCHAR(50),
-	[MerchantOrderItemId]		VARCHAR(50),
-	[PurchaseDate]				DATE,
-	[PaymentsDate]				DATE,
-	[ShipmentDate]				DATE,
-	[ReportingDate]				DATE,
-	[BuyerEmail]				VARCHAR(100),
-	[BuyerName]					VARCHAR(200),
-	[BuyerPhoneNumber]			VARCHAR(50),
-	[Sku]						VARCHAR(50),
-	[ProductName]				VARCHAR(500),
-	[QuantityShipped]			INT,
-	[Currency]					VARCHAR(20),
-	[ItemPrice]					FLOAT,
-	[ItemTax]					FLOAT,
-	[ShippingPrice]				FLOAT,
-	[ShippingTax]				FLOAT,	
-	[GiftWrapPrice]				FLOAT,
-	[GiftWrapTax]				FLOAT,
-	[ShipServiceLevel]			VARCHAR(50),
-	[RecipientName]				VARCHAR(200),
-	[ShipAddress1]				VARCHAR(200),
-	[ShipAddress2]				VARCHAR(200),
-	[ShipAddress3]				VARCHAR(200),
-	[ShipCity]					VARCHAR(200),
-	[ShipState]					VARCHAR(150),
-	[ShipPostalCode]			VARCHAR(25),
-	[ShipCountry]				VARCHAR(100),
-	[ShipPhoneNumber]			VARCHAR(50),
-	[BillAddress1]				VARCHAR(200),
-	[BillAddress2]				VARCHAR(200),
-	[BillAddress3]				VARCHAR(200),
-	[BillCity]					VARCHAR(200),
-	[BillState]					VARCHAR(150),
-	[BillPostalCode]			VARCHAR(25),
-	[BillCountry]				VARCHAR(100),
-	[ItemPromotionDiscount]		FLOAT,
-	[ShipPromotionDiscount]		FLOAT,
-	[Carrier]					VARCHAR(50),
-	[TrackingNumber]			VARCHAR(100),
-	[EstimatedArrivalDate]		DATE,
-	[FullfilmentCenterId]		VARCHAR(100),
-	[FullfilmentChannel]		VARCHAR(100),
-	[SalesChannel]				VARCHAR(100),
-	CONSTRAINT Shipments_AmazonOrderId_PK PRIMARY KEY ([AmazonOrderId])
+CREATE TABLE [AP_CampaignIds](
+	[CampaignId]		BIGINT,
+	[CampaignName]		VARCHAR(255),
+	CONSTRAINT PK_AP_CampaignIds PRIMARY KEY ([CampaignId])
 )
-GO
 
-CREATE TABLE [CustomerReturns](
-	[ReturnDate]				DATE,
-	[OrderId]					VARCHAR(50),
-	[SKU]						VARCHAR(50),
-	[ASIN]						VARCHAR(50),
-	[FNSKU]						VARCHAR(50),
-	[ProductName]				VARCHAR(500),
-	[Quantity]					INT,
-	[FullfilmentCenterId]		VARCHAR(100),
-	[DetailedDisposition]		VARCHAR(50),
-	[Reason]					VARCHAR(100),
-	[Status]					VARCHAR(50),
-	[LicensePlateNumber]		VARCHAR(50),
-	[CustomerComments]			VARCHAR(1000),
-	CONSTRAINT PK_CustomerReturns_LicensePlateNumber PRIMARY KEY ([LicensePlateNumber])
-	--CONSTRAINT FK_CustomerReturns_Orders FOREIGN KEY ([OrderId]) REFERENCES Orders ([AmazonOrderId])
+CREATE TABLE [AB_CampaignIds](
+	[CampaignId]		BIGINT,
+	[CampaignName]		VARCHAR(255),
+	CONSTRAINT PK_AB_CampaignIds PRIMARY KEY ([CampaignId])
 )
-GO
 
-/*
-
-/*
-Функция возвращает ProductIdтовара по передаваемом в функцию значению @ASIN
-*/
-CREATE FUNCTION getProductIdByASIN (@ASIN SYSNAME)
-RETURNS TABLE
-	AS RETURN (SELECT p.ProductId
-				FROM Products p
-				WHERE p.ASIN = @ASIN)
-GO
-
---ENDDDDDDDDDDDDDDDDD
-
-CREATE TABLE [Course] (
-    [CourseId]      INT             NOT NULL,
-    [Code]          VARCHAR(8)      NOT NULL,
-    [Title]         NVARCHAR(100)   NOT NULL,
-    [Description]   NVARCHAR(4000),
-    [Amount]        MONEY,
-    [Status]        CHAR(1)         NOT NULL
-    CONSTRAINT PK_Course PRIMARY KEY ([CourseId]),
-    CONSTRAINT UQ_Course_Code UNIQUE ([Code]),
-    CONSTRAINT UQ_Course_Title UNIQUE ([Title]),
-    CONSTRAINT CK_Course_Status CHECK ([Status] IN ('A', 'D', 'S')) -- A = Active, D = Disabled, S = Suspended
+CREATE TABLE [AdvertisingProducts](
+	[UpdateDate]		DATETIME,
+	[CurrencyCharCode]	VARCHAR(10),
+	[CampaignName]		VARCHAR(255),
+	[AdGroupName]		VARCHAR(255),
+	[Targeting]			VARCHAR(100),
+	[MatchType]			VARCHAR(32),
+	[Impressions]		BIGINT,
+	[Clicks]			BIGINT,
+	[CTR]				FLOAT,
+	[CPC]				FLOAT,
+	[Spend]				FLOAT,
+	[Sales]				FLOAT,
+	[ACoS]				FLOAT,
+	[RoAS]				FLOAT,
+	[Orders]			BIGINT,
+	[Units]				BIGINT,
+	[ConversionRate]	FLOAT,
+	[AdvSKUUnits]		BIGINT,
+	[OtherSKUUnits]		BIGINT,
+	[AdvSKUSales]		FLOAT,
+	[OtherSKUSales]		FLOAT,
+	[CampaignTypeId]	INT,
+	[MarketPlaceId]		INT,
+	[CampaignId]		BIGINT,
+	[ProductId]			INT,
+	CONSTRAINT FK_AdvertisingProducts_CampaignId FOREIGN KEY ([CampaignTypeId]) REFERENCES [CampaignType] ([CampaignId]),
+	CONSTRAINT FK_AdvertisingProducts_MarketPlaceId FOREIGN KEY ([MarketPlaceId]) REFERENCES [MarketPlace] ([MarketPlaceId]),
+	CONSTRAINT FK_AdvertisingProducts_ProductId FOREIGN KEY ([ProductId]) REFERENCES [Products] ([ProductId])
 )
-GO
 
-/*
-    "Программа курса" (содержание)
-*/
-
-CREATE TABLE [CourseContent] (
-    [CourseId]          INT             NOT NULL,
-    [CourseContentId]   INT             NOT NULL, -- IDENTITY(1, 1)
-    [ParentId]          INT             NOT NULL,
-    [Code]              VARCHAR(10),
-    [ContentType]       CHAR(2),
-    [Title]             NVARCHAR(100)   NOT NULL,
-    [Description]       NVARCHAR(2000),
-    CONSTRAINT PK_CourseContent PRIMARY KEY ([CourseId], [CourseContentId]),
-    CONSTRAINT FK_CourseContent_Course FOREIGN KEY ([CourseId]) REFERENCES Course ([CourseId]),
-    CONSTRAINT FK_CourseContent_CourseContent FOREIGN KEY ([CourseId], [ParentId]) REFERENCES CourseContent ([CourseId], [CourseContentId]),
-    CONSTRAINT CK_CourseContent_ContentType CHECK ([ContentType] IN ('UN', 'CH', 'EX', 'HW')) -- UN = Unit, CH = Chapter, EX = Exercise, HW = Homework
+CREATE TABLE [AdvertisingBrands](
+	[UpdateDate]			DATETIME,
+	[CurrencyCharCode]		VARCHAR(10),
+	[CampaignName]			VARCHAR(255),
+	[Targeting]				VARCHAR(100),
+	[MatchType]				VARCHAR(32),
+	[Impressions]			BIGINT,
+	[Clicks]				BIGINT,
+	[CTR]					FLOAT,
+	[CPC]					FLOAT,
+	[Spend]					FLOAT,
+	[ACoS]					FLOAT,
+	[RoAS]					FLOAT,
+	[Sales]					FLOAT,
+	[Orders]				BIGINT,
+	[Units]					BIGINT,
+	[ConversionRate]		FLOAT,
+	[NewToBrandOrders]		BIGINT,
+	[NewToBrandSales]		FLOAT,
+	[NewToBrandUnits]		BIGINT,
+	[NewToBrandOrderRate]	FLOAT,
+	[CampaignTypeId]		INT,
+	[MarketPlaceId]			INT,
+	[CampaignId]			BIGINT,	
+	[ProductId]				INT,
+	CONSTRAINT FK_AdvertisingBrands_CampaignId FOREIGN KEY ([CampaignTypeId]) REFERENCES [CampaignType] ([CampaignId]),
+	CONSTRAINT FK_AdvertisingBrands_MarketPlaceId FOREIGN KEY ([MarketPlaceId]) REFERENCES [MarketPlace] ([MarketPlaceId]),
+	CONSTRAINT FK_AdvertisingBrands_ProductId FOREIGN KEY ([ProductId]) REFERENCES [Products] ([ProductId])
 )
-GO
-
-
-/*
-    "Пользователи" (участники учебного центра)
-*/
-
-CREATE TABLE [UserData] (
-    [UserDataId]        INT IDENTITY(1, 1)  NOT NULL,
-    [UserName]          SYSNAME             NOT NULL, --тип данных, ограниченный 128 символами Unicode и не может быть NULL = nvarchar(128) NOT NULL. Используется для хранения имен объектов.
-    [Password]          NVARCHAR(255),
-    [FirstName]         NVARCHAR(20)        NOT NULL,
-    [MiddleName]        NVARCHAR(20),
-    [LastName]          NVARCHAR(20)        NOT NULL,
-    [CreateDate]        DATETIME            NOT NULL,
-    [UpdateDate]        DATETIME            NOT NULL,
-    [Status]            CHAR(1)             NOT NULL
-    CONSTRAINT PK_UserData PRIMARY KEY ([UserDataId]),
-    CONSTRAINT UQ_UserData_UserName UNIQUE ([UserName]),
-    CONSTRAINT CK_UserData_Status CHECK ([Status] IN ('A', 'D')), -- A = Active, D = Disabled
-    CONSTRAINT CK_UserData_LastName CHECK (LEN([LastName]) > 1)
-)
-GO
-
-/*
-    "Роли пользователей"
-*/
-
-CREATE TABLE [UserRole] (
-    [UserRoleId]      INT             NOT NULL,
-    [Code]            VARCHAR(3)      NOT NULL,
-    [Name]            NVARCHAR(20),
-    [Description]     NVARCHAR(50)
-    CONSTRAINT PK_UserRole PRIMARY KEY ([UserRoleId]),
-	CONSTRAINT UQ_UserRole_Code UNIQUE (Code)
-)
-GO
-
-/*
-    Сопоставление "Пользователи - Роли" (развязочная таблица)
-*/
-
-CREATE TABLE [UserRoleLink] (
-    [UserDataId]        INT NOT NULL,
-    [UserRoleId]        INT NOT NULL
-    CONSTRAINT PK_UserRoleLink PRIMARY KEY ([UserDataId], [UserRoleId]),
-    CONSTRAINT FK_UserRoleLink_UserData FOREIGN KEY ([UserDataId]) REFERENCES [UserData] ([UserDataId]),
-    CONSTRAINT FK_UserRoleLink_UserRole FOREIGN KEY ([UserRoleId]) REFERENCES [UserRole] ([UserRoleId])
-)
-GO
-
-/*
-    "Группы пользователей"
-*/
-
-CREATE TABLE [UserGroup] (
-    [UserGroupId]       INT IDENTITY(1, 1)  NOT NULL,
-    [CourseId]          INT                 NOT NULL,
-    [Name]              NVARCHAR(50)        NOT NULL,
-    [CreateDate]        DATETIME            NOT NULL,
-    [UpdateDate]        DATETIME            NOT NULL,
-    [Status]            CHAR(1)             NOT NULL
-    CONSTRAINT PK_UserGroup PRIMARY KEY ([UserGroupId]),
-    CONSTRAINT FK_UserGroup_Course FOREIGN KEY ([CourseId]) REFERENCES [Course] ([CourseId]),
-    CONSTRAINT CK_UserGroup_Status CHECK ([Status] IN ('A', 'D', 'C')), -- A = Active, D = Disabled, C = Closed
-	CONSTRAINT UQ_UserGroup_Name UNIQUE (Name)
-)
-GO
-
-/*
-    Сопоставление "Пользователи - Группы пользователей" (развязочная таблица)
-*/
-
-CREATE TABLE [UserGroupLink] (
-    [UserGroupId]       INT NOT NULL,
-    [UserDataId]        INT NOT NULL
-    CONSTRAINT PK_UserGroupLink PRIMARY KEY ([UserGroupId], [UserDataId]),
-    CONSTRAINT FK_UserGroupLink_UserGroup FOREIGN KEY ([UserGroupId]) REFERENCES [UserGroup] ([UserGroupId]),
-    CONSTRAINT FK_UserGroupLink_UserData FOREIGN KEY ([UserDataId]) REFERENCES [UserData] ([UserDataId])
-)
-GO
-
-
-
-----------------------------------Функции и процедуры----------------------------------------
-
-/*
-Функция возвращает идентификатор пользователя по передаваемом в функцию значению @UserName
-*/
-
-CREATE FUNCTION getUserId (@UserName SYSNAME)
-RETURNS TABLE
-	AS RETURN (SELECT u.UserDataId
-				FROM UserData u
-				WHERE u.UserName = @UserName)
-GO
-
-
-CREATE FUNCTION getProductASIN (@ProductId SYSNAME)
-RETURNS TABLE
-	AS RETURN (SELECT p.ASIN
-				FROM Products p
-				WHERE p.ProductId = @ProductId)
-GO
-
-
-/*
-Функция возвращает идентификатор роли по передаваемом в функцию значению @Code
-*/
-
-CREATE FUNCTION [dbo].[getRoleId] (@Code VARCHAR(3))
-RETURNS TABLE
-	AS RETURN (SELECT r.UserRoleId
-				FROM UserRole r
-				WHERE r.Code = @Code )
-GO
-
-
-/*
-Процедура выполняет обновление суммы по коду курса
-*/
-
-CREATE PROCEDURE UpdSumCourse (@Code VARCHAR(8), @Amount money)
-	AS UPDATE Course
-	SET Amount = @Amount
-	WHERE Code = @Code;
-GO
-
-*/

@@ -103,19 +103,74 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvertisingBrandsModel.cs" />
+    <Compile Include="AdvertisingController.cs" />
+    <Compile Include="AdvertisingProductsModel.cs" />
+    <Compile Include="AdvertisingReportFilterView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdvertisingReportFilterView.Designer.cs">
+      <DependentUpon>AdvertisingReportFilterView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdvertisingReportView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdvertisingReportView.Designer.cs">
+      <DependentUpon>AdvertisingReportView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdvertisingUploadReportView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdvertisingUploadReportView.Designer.cs">
+      <DependentUpon>AdvertisingUploadReportView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CampaignTypesController.cs" />
+    <Compile Include="CampaignTypesModel.cs" />
     <Compile Include="ChangeQuestionView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ChangeQuestionView.Designer.cs">
       <DependentUpon>ChangeQuestionView.cs</DependentUpon>
     </Compile>
+    <Compile Include="CmapaignAndIdStruct.cs" />
     <Compile Include="ControlPanelView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ControlPanelView.Designer.cs">
       <DependentUpon>ControlPanelView.cs</DependentUpon>
     </Compile>
+    <Compile Include="CurrencyController.cs" />
+    <Compile Include="CurrencyModel.cs" />
+    <Compile Include="ImageModel.cs" />
+    <Compile Include="LoggerAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoggerAdd.Designer.cs">
+      <DependentUpon>LoggerAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoggerAddAsinSkuPairs.cs" />
+    <Compile Include="LoggerController.cs" />
+    <Compile Include="LoggerModel.cs" />
+    <Compile Include="LoggerNotification.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoggerNotification.Designer.cs">
+      <DependentUpon>LoggerNotification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoggerShow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoggerShow.Designer.cs">
+      <DependentUpon>LoggerShow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoggerView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoggerView.Designer.cs">
+      <DependentUpon>LoggerView.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginFormController.cs" />
+    <Compile Include="MapNameId.cs" />
     <Compile Include="RegisterAnEmployee.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -268,11 +323,32 @@
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AdvertisingReportFilterView.resx">
+      <DependentUpon>AdvertisingReportFilterView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdvertisingReportView.resx">
+      <DependentUpon>AdvertisingReportView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdvertisingUploadReportView.resx">
+      <DependentUpon>AdvertisingUploadReportView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ChangeQuestionView.resx">
       <DependentUpon>ChangeQuestionView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlPanelView.resx">
       <DependentUpon>ControlPanelView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoggerAdd.resx">
+      <DependentUpon>LoggerAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoggerNotification.resx">
+      <DependentUpon>LoggerNotification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoggerShow.resx">
+      <DependentUpon>LoggerShow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoggerView.resx">
+      <DependentUpon>LoggerView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginFormView.resx">
       <DependentUpon>LoginFormView.cs</DependentUpon>
@@ -361,6 +437,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
+    <None Include="Resources\sistemnyy-zvuk-windows-10-logon %28online-audio-converter.com%29.wav" />
+    <None Include="Resources\notification1.wav" />
+    <None Include="Resources\notification2.wav" />
+    <Content Include="sistemnyy-zvuk-windows-10-logon.wav" />
+    <None Include="sistemnyy-zvuk-windows-10-unlock.wav" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

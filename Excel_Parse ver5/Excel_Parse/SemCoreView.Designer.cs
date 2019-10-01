@@ -47,6 +47,9 @@
             this.tb_Link = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tb_MarketPlaceId = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cb_Marketplace = new System.Windows.Forms.ComboBox();
             this.gp_Delimiters = new System.Windows.Forms.GroupBox();
             this.tb_OwnDelimiter = new System.Windows.Forms.TextBox();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
@@ -152,9 +155,9 @@
             // 
             // lb_ProductType
             // 
-            this.lb_ProductType.Location = new System.Drawing.Point(79, 233);
+            this.lb_ProductType.Location = new System.Drawing.Point(67, 163);
             this.lb_ProductType.Name = "lb_ProductType";
-            this.lb_ProductType.Size = new System.Drawing.Size(80, 23);
+            this.lb_ProductType.Size = new System.Drawing.Size(107, 23);
             this.lb_ProductType.TabIndex = 3;
             this.lb_ProductType.Text = "Тип продукта: ";
             this.lb_ProductType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -163,7 +166,7 @@
             // 
             this.cb_ProductType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_ProductType.FormattingEnabled = true;
-            this.cb_ProductType.Location = new System.Drawing.Point(9, 259);
+            this.cb_ProductType.Location = new System.Drawing.Point(9, 189);
             this.cb_ProductType.Name = "cb_ProductType";
             this.cb_ProductType.Size = new System.Drawing.Size(216, 21);
             this.cb_ProductType.TabIndex = 4;
@@ -173,18 +176,18 @@
             // 
             this.cb_KeywordCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_KeywordCategory.FormattingEnabled = true;
-            this.cb_KeywordCategory.Location = new System.Drawing.Point(9, 314);
+            this.cb_KeywordCategory.Location = new System.Drawing.Point(9, 267);
             this.cb_KeywordCategory.Name = "cb_KeywordCategory";
             this.cb_KeywordCategory.Size = new System.Drawing.Size(216, 21);
             this.cb_KeywordCategory.TabIndex = 6;
             // 
             // lb_KeywordCategory
             // 
-            this.lb_KeywordCategory.Location = new System.Drawing.Point(67, 288);
+            this.lb_KeywordCategory.Location = new System.Drawing.Point(53, 241);
             this.lb_KeywordCategory.Name = "lb_KeywordCategory";
-            this.lb_KeywordCategory.Size = new System.Drawing.Size(107, 23);
+            this.lb_KeywordCategory.Size = new System.Drawing.Size(133, 23);
             this.lb_KeywordCategory.TabIndex = 5;
-            this.lb_KeywordCategory.Text = "Категория ключей: ";
+            this.lb_KeywordCategory.Text = "Категория ключей:";
             this.lb_KeywordCategory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btn_Save
@@ -192,7 +195,7 @@
             this.btn_Save.BackColor = System.Drawing.Color.LightGray;
             this.btn_Save.FlatAppearance.BorderSize = 0;
             this.btn_Save.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Save.Location = new System.Drawing.Point(6, 376);
+            this.btn_Save.Location = new System.Drawing.Point(9, 433);
             this.btn_Save.Name = "btn_Save";
             this.btn_Save.Size = new System.Drawing.Size(248, 65);
             this.btn_Save.TabIndex = 9;
@@ -220,9 +223,9 @@
             this.btn_UploadAnotherFile.BackColor = System.Drawing.Color.LightGray;
             this.btn_UploadAnotherFile.FlatAppearance.BorderSize = 0;
             this.btn_UploadAnotherFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_UploadAnotherFile.Location = new System.Drawing.Point(6, 45);
+            this.btn_UploadAnotherFile.Location = new System.Drawing.Point(6, 64);
             this.btn_UploadAnotherFile.Name = "btn_UploadAnotherFile";
-            this.btn_UploadAnotherFile.Size = new System.Drawing.Size(248, 64);
+            this.btn_UploadAnotherFile.Size = new System.Drawing.Size(137, 71);
             this.btn_UploadAnotherFile.TabIndex = 18;
             this.btn_UploadAnotherFile.Text = "Загрузить файл";
             this.btn_UploadAnotherFile.UseVisualStyleBackColor = false;
@@ -247,9 +250,8 @@
             this.tb_Link.Enabled = false;
             this.tb_Link.Location = new System.Drawing.Point(35, 804);
             this.tb_Link.Name = "tb_Link";
-            this.tb_Link.Size = new System.Drawing.Size(219, 20);
+            this.tb_Link.Size = new System.Drawing.Size(219, 22);
             this.tb_Link.TabIndex = 20;
-            this.tb_Link.Text = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=";
             // 
             // checkBox1
             // 
@@ -263,6 +265,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.tb_MarketPlaceId);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.cb_Marketplace);
             this.groupBox1.Controls.Add(this.gp_Delimiters);
             this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Controls.Add(this.groupBox2);
@@ -283,12 +288,38 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Управление";
             // 
+            // tb_MarketPlaceId
+            // 
+            this.tb_MarketPlaceId.Location = new System.Drawing.Point(327, 216);
+            this.tb_MarketPlaceId.Name = "tb_MarketPlaceId";
+            this.tb_MarketPlaceId.Size = new System.Drawing.Size(100, 22);
+            this.tb_MarketPlaceId.TabIndex = 29;
+            // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(67, 315);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(107, 23);
+            this.label4.TabIndex = 27;
+            this.label4.Text = "Маркетплейс";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cb_Marketplace
+            // 
+            this.cb_Marketplace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_Marketplace.FormattingEnabled = true;
+            this.cb_Marketplace.Location = new System.Drawing.Point(9, 341);
+            this.cb_Marketplace.Name = "cb_Marketplace";
+            this.cb_Marketplace.Size = new System.Drawing.Size(216, 21);
+            this.cb_Marketplace.TabIndex = 28;
+            this.cb_Marketplace.SelectedIndexChanged += new System.EventHandler(this.Cb_Marketplace_SelectedIndexChanged);
+            // 
             // gp_Delimiters
             // 
             this.gp_Delimiters.Controls.Add(this.tb_OwnDelimiter);
             this.gp_Delimiters.Controls.Add(this.radioButton2);
             this.gp_Delimiters.Controls.Add(this.radioButton1);
-            this.gp_Delimiters.Location = new System.Drawing.Point(87, 133);
+            this.gp_Delimiters.Location = new System.Drawing.Point(149, 64);
             this.gp_Delimiters.Name = "gp_Delimiters";
             this.gp_Delimiters.Size = new System.Drawing.Size(93, 71);
             this.gp_Delimiters.TabIndex = 26;
@@ -299,7 +330,7 @@
             // 
             this.tb_OwnDelimiter.Location = new System.Drawing.Point(6, 46);
             this.tb_OwnDelimiter.Name = "tb_OwnDelimiter";
-            this.tb_OwnDelimiter.Size = new System.Drawing.Size(81, 20);
+            this.tb_OwnDelimiter.Size = new System.Drawing.Size(81, 22);
             this.tb_OwnDelimiter.TabIndex = 2;
             this.tb_OwnDelimiter.TextChanged += new System.EventHandler(this.tb_OwnDelimiter_TextChanged);
             // 
@@ -318,10 +349,10 @@
             // 
             this.radioButton1.AutoSize = true;
             this.radioButton1.Checked = true;
-            this.radioButton1.Font = new System.Drawing.Font("Caslon", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.radioButton1.Location = new System.Drawing.Point(6, 19);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(29, 20);
+            this.radioButton1.Size = new System.Drawing.Size(31, 24);
             this.radioButton1.TabIndex = 0;
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = ",";
@@ -334,7 +365,7 @@
             this.groupBox2.Controls.Add(this.btn_AddCustomKeyword);
             this.groupBox2.Controls.Add(this.tb_CustomValue);
             this.groupBox2.Controls.Add(this.tb_CustomKey);
-            this.groupBox2.Location = new System.Drawing.Point(9, 510);
+            this.groupBox2.Location = new System.Drawing.Point(9, 565);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(245, 188);
             this.groupBox2.TabIndex = 25;
@@ -355,7 +386,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(77, 31);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(91, 13);
+            this.label1.Size = new System.Drawing.Size(94, 13);
             this.label1.TabIndex = 26;
             this.label1.Text = "Название ключа";
             // 
@@ -373,7 +404,7 @@
             // 
             this.tb_CustomValue.Location = new System.Drawing.Point(87, 94);
             this.tb_CustomValue.Name = "tb_CustomValue";
-            this.tb_CustomValue.Size = new System.Drawing.Size(73, 20);
+            this.tb_CustomValue.Size = new System.Drawing.Size(73, 22);
             this.tb_CustomValue.TabIndex = 24;
             this.tb_CustomValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_CustomValue_KeyPress);
             // 
@@ -381,12 +412,12 @@
             // 
             this.tb_CustomKey.Location = new System.Drawing.Point(15, 50);
             this.tb_CustomKey.Name = "tb_CustomKey";
-            this.tb_CustomKey.Size = new System.Drawing.Size(213, 20);
+            this.tb_CustomKey.Size = new System.Drawing.Size(213, 22);
             this.tb_CustomKey.TabIndex = 23;
             // 
             // btn_addKeywordCategory
             // 
-            this.btn_addKeywordCategory.Location = new System.Drawing.Point(231, 314);
+            this.btn_addKeywordCategory.Location = new System.Drawing.Point(231, 267);
             this.btn_addKeywordCategory.Name = "btn_addKeywordCategory";
             this.btn_addKeywordCategory.Size = new System.Drawing.Size(23, 22);
             this.btn_addKeywordCategory.TabIndex = 22;
@@ -398,7 +429,7 @@
             // 
             this.tb_ProductTypeId.Location = new System.Drawing.Point(380, 164);
             this.tb_ProductTypeId.Name = "tb_ProductTypeId";
-            this.tb_ProductTypeId.Size = new System.Drawing.Size(74, 20);
+            this.tb_ProductTypeId.Size = new System.Drawing.Size(74, 22);
             this.tb_ProductTypeId.TabIndex = 21;
             this.tb_ProductTypeId.Visible = false;
             // 
@@ -512,6 +543,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.Button btn_ClearAll;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cb_Marketplace;
+        private System.Windows.Forms.TextBox tb_MarketPlaceId;
     }
 }
 

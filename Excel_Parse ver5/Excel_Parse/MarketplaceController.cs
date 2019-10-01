@@ -17,6 +17,11 @@ namespace Excel_Parse
 
         private ProductsView controlProductsView;
         private MarketplaceView controlMarketPlaceView;
+        private SemCoreView controlSemCoreView;
+        private LoggerView controlLoggerView;
+        private LoggerAdd controlLoggerAdd;
+        private AdvertisingUploadReportView controlAdvertisingUploadReport;
+        private AdvertisingReportFilterView controlAdvertisingReportFilterView;
         //private MarketplaceView
 
         public MarketplaceController(ProductsView _mf)
@@ -31,8 +36,35 @@ namespace Excel_Parse
             controlMarketPlaceView = _mf;
         }
 
+        public MarketplaceController(SemCoreView _mf)
+        {
+            connection = DBData.GetDBConnection();
+            controlSemCoreView = _mf;
+        }
 
+        public MarketplaceController(LoggerView _mf)
+        {
+            connection = DBData.GetDBConnection();
+            controlLoggerView = _mf;
+        }
 
+        public MarketplaceController(LoggerAdd _mf)
+        {
+            connection = DBData.GetDBConnection();
+            controlLoggerAdd = _mf;
+        }
+
+        public MarketplaceController(AdvertisingUploadReportView _mf)
+        {
+            connection = DBData.GetDBConnection();
+            controlAdvertisingUploadReport = _mf;
+        }
+
+        public MarketplaceController(AdvertisingReportFilterView _mf)
+        {
+            connection = DBData.GetDBConnection();
+            controlAdvertisingReportFilterView = _mf;
+        }
 
 
         public int GetMarketplaces()
@@ -107,6 +139,16 @@ namespace Excel_Parse
                     controlProductsView.GetMarketPlacesFromDB(mpList);
                 else if (controlMarketPlaceView != null)
                     controlMarketPlaceView.GetMarketPlacesFromDB(mpList);
+                else if (controlSemCoreView != null)
+                    controlSemCoreView.GetMarketPlacesFromDB(mpList);
+                else if (controlLoggerView != null)
+                    controlLoggerView.GetMarketPlacesFromDB(mpList);
+                else if (controlLoggerAdd != null)
+                    controlLoggerAdd.GetMarketPlacesFromDB(mpList);
+                else if (controlAdvertisingUploadReport != null)
+                    controlAdvertisingUploadReport.GetMarketPlacesFromDB(mpList);
+                else if (controlAdvertisingReportFilterView != null)
+                    controlAdvertisingReportFilterView.GetMarketPlacesFromDB(mpList);
 
                 return 1;
             }

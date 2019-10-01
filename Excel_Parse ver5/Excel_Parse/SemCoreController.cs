@@ -111,9 +111,9 @@ namespace Excel_Parse
         //--------------------INSERT STATEMENTS-----------------
 
 
-        public int InsertNewKeyword(int _prodTypeId, int _categoryId, string _keyword, int _value, DateTime _lastUpdated)
+        public int InsertNewKeyword(int _prodTypeId, int _categoryId, string _keyword, int _value, DateTime _lastUpdated, int _marketPlaceId)
         {
-            string sqlStatement = "INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastUpdated]) VALUES (" + _prodTypeId + ", " + _categoryId + ", '" + _keyword + "', " + _value + ", '" + _lastUpdated.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+            string sqlStatement = "INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastUpdated], [MarketPlaceId]) VALUES (" + _prodTypeId + ", " + _categoryId + ", '" + _keyword + "', " + _value + ", '" + _lastUpdated.ToString("yyyy-MM-dd HH:mm:ss") + "', " + _marketPlaceId + ")";
             command = new SqlCommand(sqlStatement, connection);
             return Execute_INSERT_UPDATE_DELETE_Command(command);
         }

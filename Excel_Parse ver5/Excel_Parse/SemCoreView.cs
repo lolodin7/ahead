@@ -11,6 +11,7 @@ using Microsoft.VisualBasic.FileIO;
 using System.Data.SqlClient;
 using System.IO;
 using OfficeOpenXml;
+using System.Configuration;
 
 namespace Excel_Parse
 {
@@ -25,6 +26,9 @@ namespace Excel_Parse
         private ProductTypesController ptController;
         private List<ProductTypesModel> ptList;
 
+        private MarketplaceController mpController;
+        private List<MarketplaceModel> mpList;
+
         private SemCoreArchiveController scaController;
         
         private string helpString = "Для начала откройте файл с ключевыми словами при помощи кнопки \"Загрузить другой файл\".\n\nИспользуйте клавишу \"C\" для выделения ключевого слова.\nИспользуйте клавишу \"X\" для снятия выделения ключевого слова.\n\nДважды клацните ЛКМ по ключевому слову, чтобы просмотреть его на Amazon.";
@@ -33,7 +37,10 @@ namespace Excel_Parse
         private MainFormView mf;
         private string path = "";
 
+        string urlAmazon;
+
         private int currentProductTypeId = -1;
+        private int currentMarketPlaceId = -1;
 
         public bool NoProdType { get; set; }
         public bool NoKeyCat { get; set; }
@@ -50,18 +57,48 @@ namespace Excel_Parse
             kcController = new KeywordCategoryController(this);
             ptController = new ProductTypesController(this);
             scaController = new SemCoreArchiveController(this);
+            mpController = new MarketplaceController(this);
+
 
             NoProdType = false;
             NoKeyCat = false;
-
+            
+            mpController.GetMarketplaces();
+            Fill_CB_ByMarketplaces();
             ptController.GetProductTypesAll();
             Fill_CB_ByProductTypes();
             kcController.GetKeywordCategoriesByProductId(currentProductTypeId);
             Fill_CB_ByKeywordCategories();
 
-            tb_Link.Text = mf.AmazonLink;
+            urlAmazon = ConfigurationManager.AppSettings.Get("amzLink").ToString();
+            tb_Link.Text = urlAmazon;
         }
 
+
+        /* Получаем из контроллера Marketplaces, полученные с БД */
+        public void GetMarketPlacesFromDB(object _mpList)
+        {
+            mpList = (List<MarketplaceModel>)_mpList;
+        }
+
+        /* Заполняем cb_Marketplace данными с mpList */
+        private void Fill_CB_ByMarketplaces()
+        {
+            if (mpList.Count > 0)
+            {
+                cb_Marketplace.Items.Clear();
+                for (int i = 0; i < mpList.Count; i++)
+                {
+                    cb_Marketplace.Items.Add(mpList[i].MarketPlaceName);
+                }
+                cb_Marketplace.SelectedItem = cb_Marketplace.Items[0];
+            }
+            else
+            {
+                MessageBox.Show("Видимо, в системе нет ни одного маркетплейса. Для работы в этом разделе, пожалуйста, сначала добавьте хотя бы один маркетплейс.", "Ошибка");
+                NoProdType = true;
+            }
+        }
 
         public void RefreshKeywordCategories()
         {
@@ -405,6 +442,7 @@ namespace Excel_Parse
         private void setDataToDB()
         {
             int productType = -1;
+            int marketPlaceId = -1;
             string errors = "";
             string errorsToCopy = "";
             int categoryId = -1;
@@ -412,7 +450,7 @@ namespace Excel_Parse
 
             //находим productTypeId по выбранному в cb_ProductType 
             productType = currentProductTypeId;
-
+            marketPlaceId = currentMarketPlaceId;
 
             for (int i = 0; i < kcList.Count; i++)     //находим keywordCategoryId по выбранному в cb_CategoryId
             {
@@ -422,9 +460,9 @@ namespace Excel_Parse
                 }
             }
 
-            if (productType == -1 || categoryId == -1)
+            if (productType == -1 || categoryId == -1 || marketPlaceId == -1)
             {
-                MessageBox.Show("Выберите вид продукта и категорию ключей.", "Ошибка");
+                MessageBox.Show("Выберите вид продукта, категорию ключей и маркетплейс.", "Ошибка");
                 return;
             }
             int index = -1;
@@ -437,7 +475,7 @@ namespace Excel_Parse
                 dtNow = DateTime.Now;
 
                 //если ключ уже есть в БД, БД выдаст ошибку -2146232060. Сверяем и записываем ключи в массив недобавленных ключей
-                if (scController.InsertNewKeyword(productType, categoryId, dgv_Target.Rows[i].Cells[0].Value.ToString(), val, dtNow) == -2146232060)
+                if (scController.InsertNewKeyword(productType, categoryId, dgv_Target.Rows[i].Cells[0].Value.ToString(), val, dtNow, marketPlaceId) == -2146232060)
                 {
                     errors += dgv_Target.Rows[index].Cells[0].Value.ToString() + "\n";
                     errorsToCopy += dgv_Target.Rows[index].Cells[0].Value.ToString() + "\t" + val + "\n";
@@ -445,7 +483,7 @@ namespace Excel_Parse
                 else
                 {
                     //сюда для АРХИВА
-                    scaController.InsertNewKeywordToSemCoreArchive(productType, categoryId, dgv_Target.Rows[i].Cells[0].Value.ToString(), val, dtNow,  scaController.GetSemCoreIdForKey(dgv_Target.Rows[i].Cells[0].Value.ToString()));
+                    scaController.InsertNewKeywordToSemCoreArchive(productType, categoryId, dgv_Target.Rows[i].Cells[0].Value.ToString(), val, dtNow,  scaController.GetSemCoreIdForKey(dgv_Target.Rows[i].Cells[0].Value.ToString()), marketPlaceId);
                 }
             }
 
@@ -608,6 +646,18 @@ namespace Excel_Parse
 
             dgv_Target.Rows.Clear();
             dgv_Source.Rows.Clear();
+        }
+
+        private void Cb_Marketplace_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < mpList.Count; i++)
+            {
+                if (cb_Marketplace.SelectedItem.ToString().Equals(mpList[i].MarketPlaceName))
+                {
+                    tb_MarketPlaceId.Text = mpList[i].MarketPlaceId.ToString();
+                    currentMarketPlaceId = int.Parse(mpList[i].MarketPlaceId.ToString());
+                }
+            }
         }
     }
 }

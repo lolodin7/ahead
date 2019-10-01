@@ -17,7 +17,10 @@ namespace Excel_Parse
         private SqlConnection connection;
         private SqlCommand command;
         private ProductsView controlFormProductsView;
-
+        private LoggerView controlFormLoggerView;
+        private LoggerAdd controlFormLoggerAdd;
+        private AdvertisingUploadReportView controlFormAdvertisingUploadReportView;
+        private AdvertisingReportFilterView controlAdvertisingReportFilterView;
 
         /* Конструктор */
         public ProductsController(ProductsView _controlForm)
@@ -26,9 +29,34 @@ namespace Excel_Parse
             controlFormProductsView = _controlForm;
         }
 
+        /* Конструктор */
+        public ProductsController(LoggerView _controlForm)
+        {
+            connection = DBData.GetDBConnection();
+            controlFormLoggerView = _controlForm;
+        }
+
+        /* Конструктор */
+        public ProductsController(AdvertisingReportFilterView _controlForm)
+        {
+            connection = DBData.GetDBConnection();
+            controlAdvertisingReportFilterView = _controlForm;
+        }
+
+        /* Конструктор */
+        public ProductsController(LoggerAdd _controlForm)
+        {
+            connection = DBData.GetDBConnection();
+            controlFormLoggerAdd = _controlForm;
+        }
 
 
-
+        /* Конструктор */
+        public ProductsController(AdvertisingUploadReportView _controlForm)
+        {
+            connection = DBData.GetDBConnection();
+            controlFormAdvertisingUploadReportView = _controlForm;
+        }
         /* -------------------------SELECT Statements--------------------- */
 
         public int GetProductsAllJOIN()
@@ -45,6 +73,34 @@ namespace Excel_Parse
             return Execute_SELECTJOIN_Command(command);
         }
 
+        public int GetProductsByMarketplaceId(int _id)
+        {
+            string sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0 and Products.ActiveStatus = 'true' and Products.MarketPlaceId = " + _id;
+            command = new SqlCommand(sqlStatement, connection);
+            return Execute_SELECTJOIN_Command(command);
+        }
+
+        public int GetProductsByFewMarketplaceId(List<int> _id)
+        {
+            string sqlStatement = "";
+            if (_id.Count == 0)
+                sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0";
+            else if (_id.Count == 1)
+                sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0 and Products.ActiveStatus = 'true' and Products.MarketPlaceId = " + _id[0];
+            else if (_id.Count >= 2)
+            {
+                sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0 and Products.ActiveStatus = 'true' and (Products.MarketPlaceId = " + _id[0];
+
+                for (int i = 1; i < _id.Count; i++)
+                {
+                    sqlStatement = sqlStatement + " or Products.MarketPlaceId = " + _id[i];
+                }
+
+                sqlStatement = sqlStatement + ")";
+            }
+            command = new SqlCommand(sqlStatement, connection);
+            return Execute_SELECTJOIN_Command(command);
+        }
 
 
         /* -------------------------UPDATE Statements--------------------- */
@@ -151,8 +207,14 @@ namespace Excel_Parse
 
                 if (controlFormProductsView != null)                       //вызывает нужный метод в зависимости, из какой формы нас вызывают
                     controlFormProductsView.GetProductsFromDB(pList);
-                //else if (controlForm2 != null)
-                //    controlForm2.GetCategoriesFromDB(kcList);
+                else if (controlFormLoggerView != null)
+                    controlFormLoggerView.GetProductsFromDB(pList);
+                else if (controlFormLoggerAdd != null)
+                    controlFormLoggerAdd.GetProductsFromDB(pList);
+                else if (controlFormAdvertisingUploadReportView != null)
+                    controlFormAdvertisingUploadReportView.GetProductsFromDB(pList);
+                else if (controlAdvertisingReportFilterView != null)
+                    controlAdvertisingReportFilterView.GetProductsFromDB(pList);
                 return 1;
             }
             catch (Exception ex)
@@ -223,6 +285,14 @@ namespace Excel_Parse
                     controlFormProductsView.GetProductTypesFromDB(ptList);
                     controlFormProductsView.GetMarketPlacesFromDB(mpList);
                 }
+                else if (controlFormLoggerView != null)
+                    controlFormLoggerView.GetProductsFromDB(pList);
+                else if (controlFormLoggerAdd != null)
+                    controlFormLoggerAdd.GetProductsFromDB(pList);
+                else if (controlFormAdvertisingUploadReportView != null)
+                    controlFormAdvertisingUploadReportView.GetProductsFromDB(pList);
+                else if (controlAdvertisingReportFilterView != null)
+                    controlAdvertisingReportFilterView.GetProductsFromDB(pList);
                 return 1;
             }
             catch (Exception ex)

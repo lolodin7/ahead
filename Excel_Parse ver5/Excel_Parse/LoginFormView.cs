@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Excel_Parse
 {
@@ -41,6 +42,14 @@ namespace Excel_Parse
             //startImg.Close();
             //перестали показывать картинку при запуске программы
 
+            int prC = 0;
+            foreach (Process pr in Process.GetProcesses())
+                if (pr.ProcessName == "Bona Fides") prC++;
+            if (prC > 1)
+            {
+                MessageBox.Show("Приложение уже запущено!", "Ошибка");
+                Process.GetCurrentProcess().Kill();
+            }
 
             InitializeComponent();
             
@@ -69,16 +78,34 @@ namespace Excel_Parse
             if (LoadWithSaveMe)
             {
                 //здесь запуск проги без окна входа
-                ReadFromFile();
-
-                lfController.GetUserDataFromDB(fileTxt[0]);
-
-                if (sp.VerifyToken(int.Parse(fileTxt[1]), um.Token1, um.Token2, um.Login.Length) && sp.VerifyMac(fileTxt[2]))
+                if (ReadFromFile())
                 {
-                    SignInWithSaveMe = true;
-                    MainFormView mf = new MainFormView(um, this);
-                    mf.Show();
-                    firstLoad = false;
+
+                    lfController.GetUserDataFromDB(fileTxt[0]);
+
+                    if (sp.VerifyToken(int.Parse(fileTxt[1]), um.Token1, um.Token2, um.Login.Length) && sp.VerifyMac(fileTxt[2]))
+                    {
+                        SignInWithSaveMe = true;
+                        MainFormView mf = new MainFormView(um, this);
+                        mf.Show();
+                        firstLoad = false;
+                    }
+                    else
+                    {
+                        UpdateConfig("false");
+
+                        File.Delete(path);      //удаляем файл
+                        LoadWithSaveMe = false;
+                        this.Visible = true;
+                    }
+                }
+                else
+                {
+                    UpdateConfig("false");
+
+                    File.Delete(path);      //удаляем файл
+                    LoadWithSaveMe = false;
+                    this.Visible = true;
                 }
             }
         }
@@ -104,7 +131,7 @@ namespace Excel_Parse
         }
 
         /* Читаем данные из файла */
-        private void ReadFromFile()
+        private bool ReadFromFile()
         {
             fileTxt = new List<string>() { };
             try
@@ -118,11 +145,13 @@ namespace Excel_Parse
                         fileTxt.Add(line);
                         Console.WriteLine(line);
                     }
-                }                
+                }
+                return true;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                return false;
             }
         }
 
@@ -200,6 +229,14 @@ namespace Excel_Parse
                 else if (this.Visible == true && firstLoad == false && ReSignIn == false)
                 {
                     this.Close();
+                }
+                else if (this.Visible == true && firstLoad == true && ReSignIn == false)
+                {
+                    tb_Login.Text = "";
+                    tb_Password.Text = "";
+                    cb_RememberMe.Checked = false;
+                    SignInWithSaveMe = false;
+                    this.Visible = true;
                 }
             }
         }

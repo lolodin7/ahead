@@ -27,7 +27,8 @@ namespace Excel_Parse
         private ChangeQuestionView controlChangeQuestionView;
         private RegisterAnEmployeeView controlRegisterAnEmployeeView;
         private ShowUsersView controlShowUsersView;
-        
+        private LoggerView controlLoggerView;
+
         public LoginFormController(LoginFormView _lf)
         {
             connection = DBData.GetDBConnection();
@@ -63,6 +64,13 @@ namespace Excel_Parse
             connection = DBData.GetDBConnection();
             controlRegisterAnEmployeeView = _cp;
         }
+
+        public LoginFormController(LoggerView _cp)
+        {
+            connection = DBData.GetDBConnection();
+            controlLoggerView = _cp;
+        }
+
 
 
 
@@ -249,6 +257,8 @@ namespace Excel_Parse
                     controlRegisterAnEmployeeView.GetUserDataFromDB(umList);
                 else if (controlShowUsersView != null)
                     controlShowUsersView.GetUserDataFromDB(umList);
+                else if (controlLoggerView != null)
+                    controlLoggerView.GetUserDataFromDB(umList);
                 return true;
             }
             catch (Exception ex)

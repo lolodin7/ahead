@@ -48,9 +48,9 @@ namespace Excel_Parse
 
 
         /* Добавляем новый ключ в БД */
-        public int InsertNewKeywordToSemCoreArchive(int _productTypeId, int _keyCategoryId, string _keyName, int _keyValue, DateTime dt, int _semcoreId)
+        public int InsertNewKeywordToSemCoreArchive(int _productTypeId, int _keyCategoryId, string _keyName, int _keyValue, DateTime dt, int _semcoreId, int _marketPlaceId)
         {
-            string sqlStatement = "INSERT INTO [SemCoreArchive] ([ProductTypeId], [CategoryId], [Keyword], [SemCoreId], [ValuesAndDates]) VALUES (" + _productTypeId + ", " + _keyCategoryId + ", '" + _keyName + "', " + _semcoreId + ", '" + TransformValuesAndDatesToString(_keyValue, dt) + "')";
+            string sqlStatement = "INSERT INTO [SemCoreArchive] ([ProductTypeId], [CategoryId], [Keyword], [SemCoreId], [ValuesAndDates], [MarketPlaceId]) VALUES (" + _productTypeId + ", " + _keyCategoryId + ", '" + _keyName + "', " + _semcoreId + ", '" + TransformValuesAndDatesToString(_keyValue, dt) + "', " + _marketPlaceId + ")";
             command = new SqlCommand(sqlStatement, connection);
             return Execute_UPDATE_DELETE_INSERT_Command(command);
         }
