@@ -133,57 +133,57 @@ VALUES ('test2', 'ADAH/ZuvEVdABXe4AuzqwknkxSZzRbhdj21avq9UvFa5E2HiQwcJ2WfdI868yw
 INSERT INTO [Products] ([Name])
 VALUES ('Товары отсутствуют')
 
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('PDW - главный микрофон', 'B01AG56HYQ', 'E3-2RHF-EO7C', 1, 1, 1)
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW - главный микрофон', 'B01AG56HYQ', 'E3-2RHF-EO7C', 1, 1, 1, 'PDW1')
 
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('PDW - главный микрофон', 'B01AG56HYQ', 'LR-44G2-7Y1Y', 1, 1, 1)
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW - главный микрофон', 'B01AG56HYQ', 'LR-44G2-7Y1Y', 1, 1, 1, 'PDW1')
 
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('PDW - главный микрофон', 'B01AG56HYQ', 'IG-5UO9-SCW1', 1, 1, 1)
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW - главный микрофон', 'B01AG56HYQ', 'IG-5UO9-SCW1', 1, 1, 1, 'PDW1')
 
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('PDW - главный микрофон', 'B01AG56HYQ', '6A-ICQP-MBHC', 1, 5, 1)
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW - главный микрофон', 'B01AG56HYQ', '6A-ICQP-MBHC', 1, 5, 1, 'PDW1')
 
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('Dual PDW - двойной', 'B07CHCSLVC', 'HR-9KQ2-IPD9', 1, 1, 1)
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Dual PDW - двойной', 'B07CHCSLVC', 'HR-9KQ2-IPD9', 1, 1, 1, 'PDW-Ch Dual')
 
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('PDW Lightning Adapter', 'B07SCYJH64', 'NT-HV0T-VR4C', 1, 1, 1)
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW Lightning Adapter', 'B07SCYJH64', 'NT-HV0T-VR4C', 1, 1, 1, 'PDW-Ch Lightning Adapter')
 
 /*-----------------------*/
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('Video Microphone', 'B07RG4J7WY', '2V-8VSV-C0AE', 1, 1, 1)
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Video Microphone', 'B07RG4J7WY', '2V-8VSV-C0AE', 1, 1, 1, 'Video Microphone')
 
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('PDW - vlogger kit', 'B07Y1XBKC7', 'O5-HZWD-YO8M', 1, 1, 1)
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW - vlogger kit', 'B07Y1XBKC7', 'O5-HZWD-YO8M', 1, 1, 1, 'PDW-Ch Vlogger Kit')
 
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('YouMic - главный микрофон', 'B01E3L1ESS', '8R-MO3B-ZV8H', 1, 1, 1)
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('YouMic - главный микрофон', 'B01E3L1ESS', '8R-MO3B-ZV8H', 1, 1, 1, 'YM1')
 
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('YouMic - Lightning adapter', 'B07WS5DGCS', 'AM-X9B2-T6B1', 1, 1, 1)
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('YouMic - Lightning adapter', 'B07WS5DGCS', 'AM-X9B2-T6B1', 1, 1, 1, 'YM-Ch Lightning Adapter')
 
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('YouMic Dual - двойной', 'B07G2C8D7H', 'XW-I4VB-F8W5 ', 1, 1, 1)
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('YouMic Dual - двойной', 'B07G2C8D7H', 'XW-I4VB-F8W5 ', 1, 1, 1, 'YM-Ch Dual')
 
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('YouMic - главный микрофон', 'B01E3L1ESS', '8R-MO3B-ZV8H', 1, 2, 1)
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('YouMic - главный микрофон', 'B01E3L1ESS', '8R-MO3B-ZV8H', 1, 2, 1, 'YM1')
 
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('YouMic Dual - двойной', 'B07G2C8D7H', 'XW-I4VB-F8W5 ', 1, 2, 1)
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('YouMic Dual - двойной', 'B07G2C8D7H', 'XW-I4VB-F8W5 ', 1, 2, 1, 'YM-Ch Dual')
 
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('PDW - главный микрофон', 'B01AG56HYQ', 'E3-2RHF-EO7C', 1, 2, 1)
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW - главный микрофон', 'B01AG56HYQ', 'E3-2RHF-EO7C', 1, 2, 1, 'PDW1')
 
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('Dual PDW - двойной', 'B07CHCSLVC', 'HR-9KQ2-IPD9', 1, 2, 1)
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Dual PDW - двойной', 'B07CHCSLVC', 'HR-9KQ2-IPD9', 1, 2, 1, 'PDW-Ch Dual')
 
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('Beer Chiller', 'B01AI03U4Y', 'BC-GHGX-5M0O', 6, 5, 1)
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Beer Chiller', 'B01AI03U4Y', 'BC-GHGX-5M0O', 6, 5, 1, 'Beer Chiller')
 
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus])
-VALUES ('YelloWay-2', 'B06ZZ6NPRP', 'LD-YUMV-LDZV', 1, 5, 1)
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('YelloWay-2', 'B06ZZ6NPRP', 'LD-YUMV-LDZV', 1, 5, 1, 'YW2')
 
 /*-----------------------*/
 
@@ -212,10 +212,6 @@ VALUES ('08.03.2019', 1, 3, 'log record #4', '05.05.2019', 1, 0)
 
 INSERT INTO [Logger] ([CreationDate], [CreationUserId], [ProductId], [Text], [EditDate], [EditUserId], [ImageId], [SKU])
 VALUES ('08.03.2019', 2, 5, 'log record #5', '05.05.2019', 1, 0, 'HR-9KQ2-IPD9')
-
-
-
-
 
 
 

@@ -183,7 +183,7 @@ namespace Excel_Parse
             double RoAS = 0;
             double ConversionRate = 0;
 
-            for (int i = 0; i < advBrandsList.Count - 1; i++)
+            for (int i = 0; i < advBrandsList.Count; i++)
             {
                 if (!alreadyUsed.Contains(i))
                 {
@@ -197,21 +197,37 @@ namespace Excel_Parse
                     NewToBrandSales = advBrandsList[i].NewToBrandSales;
                     NewToBrandUnits = advBrandsList[i].NewToBrandUnits;
 
-                    for (int j = i + 1; j < advBrandsList.Count; j++)
+                    if (i < (advBrandsList.Count - 1))
                     {
-                        if (advBrandsList[i].CampaignName.Equals(advBrandsList[j].CampaignName) && advBrandsList[i].Targeting.Equals(advBrandsList[j].Targeting) && advBrandsList[i].MatchType.Equals(advBrandsList[j].MatchType))
+                        for (int j = i + 1; j < advBrandsList.Count; j++)
                         {
-                            Impressions += advBrandsList[j].Impressions;
-                            Clicks += advBrandsList[j].Clicks;
-                            Spend += advBrandsList[j].Spend;
-                            Sales += advBrandsList[j].Sales;
-                            Orders += advBrandsList[j].Orders;
-                            Units += advBrandsList[j].Units;
-                            NewToBrandOrders += advBrandsList[j].NewToBrandOrders;
-                            NewToBrandSales += advBrandsList[j].NewToBrandSales;
-                            NewToBrandUnits += advBrandsList[j].NewToBrandUnits;
-                            alreadyUsed.Add(j);
+                            if (advBrandsList[i].CampaignName.Equals(advBrandsList[j].CampaignName) && advBrandsList[i].Targeting.Equals(advBrandsList[j].Targeting) && advBrandsList[i].MatchType.Equals(advBrandsList[j].MatchType))
+                            {
+                                Impressions += advBrandsList[j].Impressions;
+                                Clicks += advBrandsList[j].Clicks;
+                                Spend += advBrandsList[j].Spend;
+                                Sales += advBrandsList[j].Sales;
+                                Orders += advBrandsList[j].Orders;
+                                Units += advBrandsList[j].Units;
+                                NewToBrandOrders += advBrandsList[j].NewToBrandOrders;
+                                NewToBrandSales += advBrandsList[j].NewToBrandSales;
+                                NewToBrandUnits += advBrandsList[j].NewToBrandUnits;
+                                alreadyUsed.Add(j);
+                            }
                         }
+                    }
+                    else
+                    {
+                        Impressions += advBrandsList[i].Impressions;
+                        Clicks += advBrandsList[i].Clicks;
+                        Spend += advBrandsList[i].Spend;
+                        Sales += advBrandsList[i].Sales;
+                        Orders += advBrandsList[i].Orders;
+                        Units += advBrandsList[i].Units;
+                        NewToBrandOrders += advBrandsList[i].NewToBrandOrders;
+                        NewToBrandSales += advBrandsList[i].NewToBrandSales;
+                        NewToBrandUnits += advBrandsList[i].NewToBrandUnits;
+                        alreadyUsed.Add(i);
                     }
                     //summaryAdvBrandsList.Add(ТО, ШО ПОЛУЧИЛОСЬ ОТ СУММИРОВАНИЯ + ДОПОЛНИТЕЛЬНО СЧИТАЕМ ТО, ЧТО НАДО ПОСЧИТАТЬ);
 
@@ -265,7 +281,9 @@ namespace Excel_Parse
                     summaryAdvBrandsList[summaryAdvBrandsList.Count - 1].CampaignTypeId = advBrandsList[i].CampaignTypeId;
                     summaryAdvBrandsList[summaryAdvBrandsList.Count - 1].MarketPlaceId = advBrandsList[i].MarketPlaceId;
                     summaryAdvBrandsList[summaryAdvBrandsList.Count - 1].CampaignId = advBrandsList[i].CampaignId;
-                    summaryAdvBrandsList[summaryAdvBrandsList.Count - 1].ProductId = advBrandsList[i].ProductId;
+                    summaryAdvBrandsList[summaryAdvBrandsList.Count - 1].ProductId1 = advBrandsList[i].ProductId1;
+                    summaryAdvBrandsList[summaryAdvBrandsList.Count - 1].ProductId2 = advBrandsList[i].ProductId2;
+                    summaryAdvBrandsList[summaryAdvBrandsList.Count - 1].ProductId3 = advBrandsList[i].ProductId3;
                 }
             }
             advBrandsList.Clear();
@@ -295,7 +313,7 @@ namespace Excel_Parse
             double RoAS = 0;
             double ConversionRate = 0;
 
-            for (int i = 0; i < advProductsList.Count - 1; i++)
+            for (int i = 0; i < advProductsList.Count; i++)
             {
                 if (!alreadyUsed.Contains(i))
                 {
@@ -310,22 +328,39 @@ namespace Excel_Parse
                     AdvSKUSales = advProductsList[i].AdvSKUSales;
                     OtherSKUSales = advProductsList[i].OtherSKUSales;
 
-                    for (int j = i + 1; j < advProductsList.Count; j++)
+                    if (i < (advProductsList.Count - 1))
                     {
-                        if (advProductsList[i].CampaignName.Equals(advProductsList[j].CampaignName) && advProductsList[i].AdGroupName.Equals(advProductsList[j].AdGroupName) && advProductsList[i].Targeting.Equals(advProductsList[j].Targeting) && advProductsList[i].MatchType.Equals(advProductsList[j].MatchType))
+                        for (int j = i + 1; j < advProductsList.Count; j++)
                         {
-                            Impressions += advProductsList[j].Impressions;
-                            Clicks += advProductsList[j].Clicks;
-                            Spend += advProductsList[j].Spend;
-                            Sales += advProductsList[j].Sales;
-                            Orders += advProductsList[j].Orders;
-                            Units += advProductsList[j].Units;
-                            AdvSKUUnits += advProductsList[j].AdvSKUUnits;
-                            OtherSKUUnits += advProductsList[j].OtherSKUUnits;
-                            AdvSKUSales += advProductsList[j].AdvSKUSales;
-                            OtherSKUSales += advProductsList[j].OtherSKUSales;
-                            alreadyUsed.Add(j);
+                            if (advProductsList[i].CampaignName.Equals(advProductsList[j].CampaignName) && advProductsList[i].AdGroupName.Equals(advProductsList[j].AdGroupName) && advProductsList[i].Targeting.Equals(advProductsList[j].Targeting) && advProductsList[i].MatchType.Equals(advProductsList[j].MatchType))
+                            {
+                                Impressions += advProductsList[j].Impressions;
+                                Clicks += advProductsList[j].Clicks;
+                                Spend += advProductsList[j].Spend;
+                                Sales += advProductsList[j].Sales;
+                                Orders += advProductsList[j].Orders;
+                                Units += advProductsList[j].Units;
+                                AdvSKUUnits += advProductsList[j].AdvSKUUnits;
+                                OtherSKUUnits += advProductsList[j].OtherSKUUnits;
+                                AdvSKUSales += advProductsList[j].AdvSKUSales;
+                                OtherSKUSales += advProductsList[j].OtherSKUSales;
+                                alreadyUsed.Add(j);
+                            }
                         }
+                    }
+                    else
+                    {
+                        Impressions += advProductsList[i].Impressions;
+                        Clicks += advProductsList[i].Clicks;
+                        Spend += advProductsList[i].Spend;
+                        Sales += advProductsList[i].Sales;
+                        Orders += advProductsList[i].Orders;
+                        Units += advProductsList[i].Units;
+                        AdvSKUUnits += advProductsList[i].AdvSKUUnits;
+                        OtherSKUUnits += advProductsList[i].OtherSKUUnits;
+                        AdvSKUSales += advProductsList[i].AdvSKUSales;
+                        OtherSKUSales += advProductsList[i].OtherSKUSales;
+                        alreadyUsed.Add(i);
                     }
                     //summaryAdvProductsList.Add(ТО, ШО ПОЛУЧИЛОСЬ ОТ СУММИРОВАНИЯ + ДОПОЛНИТЕЛЬНО СЧИТАЕМ ТО, ЧТО НАДО ПОСЧИТАТЬ);
 

@@ -260,7 +260,7 @@ INSERT INTO [Currency] ([UpdateDate], [NumCode], [CharCode], [Nominal], [Name], 
 SELECT * FROM [Currency] WHERE [UpdateDate] = (SELECT min([UpdateDate]) FROM [Currency])
 
 select * from [Currency]
-select * from [CampaignType]
+select * from [Products]
 select * from [AdvertisingProducts] where [UpdateDate] = '2019-09-10 00:00:00' AND [Impressions] = 9999999
 select * from [AdvertisingBrands]
 select COUNT(CurrencyCharCode) from [AdvertisingProducts]
@@ -319,3 +319,13 @@ SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2019-09-26 00:00
 
 
 
+select * from [MapAdvert_Prod]
+
+SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0 and Products.ActiveStatus = 'true'
+
+INSERT INTO [AdvertisingBrands] ([UpdateDate], [CurrencyCharCode], [CampaignName], [Targeting], [MatchType], [Impressions], [Clicks], [CTR], [CPC], [Spend], [ACoS], [RoAS], [Sales], [Orders], [Units], [ConversionRate], [NewToBrandOrders], [NewToBrandSales], [NewToBrandUnits], [NewToBrandOrderRate], [CampaignTypeId], [MarketPlaceId], [CampaignId], [ProductId1], [ProductId2], [ProductId3]) VALUES ('2019-10-01 00:00:00', 'USD', 'Sponsored Brand - PDW-Ch Lightning Adapter + PDW-Ch Dual + Video Microphone', 'iphone microphone', 'PHRASE', 303, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 13788966, 5, 6, 7)
+
+
+SELECT CampaignName, CampaignId FROM [AdvertisingBrands] WHERE ([ProductId1] = 3 or [ProductId2] = 3 or [ProductId3] = 3) or ([ProductId1] = 5 or [ProductId2] = 5 or [ProductId3] = 5)
+
+INSERT INTO [AdvertisingProducts] ([UpdateDate], [CurrencyCharCode], [CampaignName], [AdGroupName], [Targeting], [MatchType], [Impressions], [Clicks], [CTR], [CPC], [Spend], [ACoS], [RoAS], [Sales], [Orders], [Units], [ConversionRate], [AdvSKUUnits], [OtherSKUUnits], [AdvSKUSales], [OtherSKUSales], [CampaignTypeId], [MarketPlaceId], [CampaignId], [ProductId]) VALUES ('2019-10-01 00:00:00', 'USD', 'PDW1 - AUTO', 'MIC: Auto', '*', 'BROAD', 2335, 9, 0.00385438972162741, 0.394444444444444, 3.55, 0.15976597659766, 6.25915492957746, 22.22, 1, 1, 0.111111111111111, 1, 0, 22.22, 0, 0, 1, 50250665, 1)

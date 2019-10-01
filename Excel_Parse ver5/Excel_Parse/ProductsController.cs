@@ -119,9 +119,9 @@ namespace Excel_Parse
             return Execute_UPDATE_DELETE_INSERT_Command(command);
         }
 
-        public int UpdateExistingProduct(string _name, string _asin, string _sku, int _prodTypeId, int _productId, int _marketPlaceId, bool _activeStatus)
+        public int UpdateExistingProduct(string _name, string _asin, string _sku, int _prodTypeId, int _productId, int _marketPlaceId, bool _activeStatus, string _shortName)
         {
-            string sqlStatement = "UPDATE [Products] SET [Name] = '" + _name + "', [ASIN] = '" + _asin + "', [SKU] = '" + _sku + "', [ProductTypeId] = " + _prodTypeId + ", [MarketPlaceId] = " + _marketPlaceId + ", [ActiveStatus] = '" + _activeStatus + "' WHERE [ProductId] = " + _productId;
+            string sqlStatement = "UPDATE [Products] SET [Name] = '" + _name + "', [ASIN] = '" + _asin + "', [SKU] = '" + _sku + "', [ProductTypeId] = " + _prodTypeId + ", [MarketPlaceId] = " + _marketPlaceId + ", [ActiveStatus] = '" + _activeStatus + "', [ProdShortName] = '" + _shortName + "' WHERE [ProductId] = " + _productId;
             command = new SqlCommand(sqlStatement, connection);
             return Execute_UPDATE_DELETE_INSERT_Command(command);
         }
@@ -150,9 +150,9 @@ namespace Excel_Parse
 
         /* -------------------------INSERT Statements--------------------- */
 
-        public int InsertNewProduct(string _name, string _asin, string _sku, int _prodTypeId, int _marketPlaceId, bool _activeStatus)
+        public int InsertNewProduct(string _name, string _asin, string _sku, int _prodTypeId, int _marketPlaceId, bool _activeStatus, string _shortName)
         {
-            string sqlStatement = "INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus]) VALUES ('" + _name + "', '" + _asin + "', '" + _sku + "', " + _prodTypeId + ", " + _marketPlaceId + ", '" + _activeStatus + "')";
+            string sqlStatement = "INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName]) VALUES ('" + _name + "', '" + _asin + "', '" + _sku + "', " + _prodTypeId + ", " + _marketPlaceId + ", '" + _activeStatus + "', '" + _shortName + "')";
             command = new SqlCommand(sqlStatement, connection);
             return Execute_UPDATE_DELETE_INSERT_Command(command);
         }
@@ -308,8 +308,8 @@ namespace Excel_Parse
             ProductTypesModel ptModel = new ProductTypesModel();
             ptList.Add(ptModel);
 
-            ptList[ptList.Count - 1].WriteData(0, record[7]);
-            ptList[ptList.Count - 1].WriteData(1, record[8]);
+            ptList[ptList.Count - 1].WriteData(0, record[8]);
+            ptList[ptList.Count - 1].WriteData(1, record[9]);
 
         }
 
@@ -319,8 +319,8 @@ namespace Excel_Parse
             MarketplaceModel mpModel = new MarketplaceModel();
             mpList.Add(mpModel);
 
-            mpList[mpList.Count - 1].WriteData(0, record[9]);
-            mpList[mpList.Count - 1].WriteData(1, record[10]);
+            mpList[mpList.Count - 1].WriteData(0, record[10]);
+            mpList[mpList.Count - 1].WriteData(1, record[11]);
         }
     }
 }

@@ -292,7 +292,9 @@ namespace Excel_Parse
             dgv_AdvBrands.Columns.Add("CampaignTypeId", "text");
             dgv_AdvBrands.Columns.Add("MarketPlaceId", "text");
             dgv_AdvBrands.Columns.Add("CampaignId", "text");
-            dgv_AdvBrands.Columns.Add("ProductId", "text");
+            dgv_AdvBrands.Columns.Add("ProductId1", "text");
+            dgv_AdvBrands.Columns.Add("ProductId2", "text");
+            dgv_AdvBrands.Columns.Add("ProductId3", "text");
 
 
             dgv_AdvBrands.Columns[0].Visible = false;
@@ -300,6 +302,8 @@ namespace Excel_Parse
             dgv_AdvBrands.Columns[21].Visible = false;
             dgv_AdvBrands.Columns[22].Visible = false;
             dgv_AdvBrands.Columns[23].Visible = false;
+            dgv_AdvBrands.Columns[24].Visible = false;
+            dgv_AdvBrands.Columns[25].Visible = false;
 
             dgv_AdvBrands.Columns[0].Width = 70;
             dgv_AdvBrands.Columns[1].Width = 60;

@@ -15,11 +15,13 @@ namespace Excel_Parse
         public int ProductTypeId { get; set; }
         public int MarketPlaceId { get; set; }
         public bool ActiveStatus { get; set; }
+        public string ProdShortName { get; set; }
+
         public int ColumnCount { get; }
 
         public ProductsModel()
         {
-            ColumnCount = 7;
+            ColumnCount = 8;
         }
 
         public void WriteData(int index, object record)
@@ -46,6 +48,9 @@ namespace Excel_Parse
                     break;
                 case 6:
                     ActiveStatus = (bool)record;
+                    break;
+                case 7:
+                    ProdShortName = record.ToString();
                     break;
             }
         }
@@ -74,6 +79,9 @@ namespace Excel_Parse
                     break;
                 case 6:
                     return ActiveStatus;
+                    break;
+                case 7:
+                    return ProdShortName;
                     break;
                 default:
                     return -1;

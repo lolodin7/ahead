@@ -69,6 +69,7 @@ namespace Excel_Parse
         {
             //тут проверяем в конфиге, есть ли пометка, что "запомнить меня"
             string saveMe = ConfigurationManager.AppSettings.Get("saveMe");
+            
             Console.WriteLine(saveMe);
             if (saveMe.Equals("true"))
                 LoadWithSaveMe = true;
@@ -251,7 +252,8 @@ namespace Excel_Parse
         /* Обновляем значение в конфиге */
         public void UpdateConfig(string val)
         {
-            XmlDocument xmlDoc = new XmlDocument();
+            //string saveMe = ConfigurationManager.AppSettings.Get("saveMe");
+            /*XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
 
             foreach (XmlElement element in xmlDoc.DocumentElement)
@@ -268,7 +270,17 @@ namespace Excel_Parse
                 }
             }
             xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
-            ConfigurationManager.RefreshSection("appSettings");
+            ConfigurationManager.RefreshSection("appSettings");*/
+
+
+            var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            var settings = configFile.AppSettings.Settings;
+            
+            settings["saveMe"].Value = val;
+            
+            configFile.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
+
         }        
 
         /* Вызываем форму восстановления пароля */

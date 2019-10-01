@@ -107,6 +107,7 @@ CREATE TABLE [Products](
 	[ProductTypeId]		INT,
 	[MarketPlaceId]		INT,
 	[ActiveStatus]		BIT,
+	[ProdShortName]		NVARCHAR(500),
 	CONSTRAINT PK_Products PRIMARY KEY ([ProductId]),
 	CONSTRAINT UQ_Products_SKU UNIQUE ([SKU], [MarketPlaceId]),
 	CONSTRAINT FK_Products_ProductTypes FOREIGN KEY ([ProductTypeId]) REFERENCES ProductTypes ([ProductTypeId]),
@@ -159,7 +160,6 @@ CREATE TABLE [Logger](
 	CONSTRAINT FK_Logger_CreationUserId FOREIGN KEY ([CreationUserId]) REFERENCES [User] ([UserId]),
 	CONSTRAINT FK_Logger_EditUserId FOREIGN KEY ([EditUserId]) REFERENCES [User] ([UserId])
 )
-
 
 
 
@@ -267,8 +267,12 @@ CREATE TABLE [AdvertisingBrands](
 	[CampaignTypeId]		INT,
 	[MarketPlaceId]			INT,
 	[CampaignId]			BIGINT,	
-	[ProductId]				INT,
+	[ProductId1]			INT,
+	[ProductId2]			INT,
+	[ProductId3]			INT,
 	CONSTRAINT FK_AdvertisingBrands_CampaignId FOREIGN KEY ([CampaignTypeId]) REFERENCES [CampaignType] ([CampaignId]),
 	CONSTRAINT FK_AdvertisingBrands_MarketPlaceId FOREIGN KEY ([MarketPlaceId]) REFERENCES [MarketPlace] ([MarketPlaceId]),
-	CONSTRAINT FK_AdvertisingBrands_ProductId FOREIGN KEY ([ProductId]) REFERENCES [Products] ([ProductId])
+	CONSTRAINT FK_AdvertisingBrands_ProductId1 FOREIGN KEY ([ProductId1]) REFERENCES [Products] ([ProductId]),
+	CONSTRAINT FK_AdvertisingBrands_ProductId2 FOREIGN KEY ([ProductId2]) REFERENCES [Products] ([ProductId]),
+	CONSTRAINT FK_AdvertisingBrands_ProductId3 FOREIGN KEY ([ProductId3]) REFERENCES [Products] ([ProductId])
 )

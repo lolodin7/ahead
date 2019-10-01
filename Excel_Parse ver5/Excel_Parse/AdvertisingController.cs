@@ -159,16 +159,16 @@ namespace Excel_Parse
             if (_prodList.Count == 1)
             {
                 sqlStatement = sqlStatement + " and ";
-                sqlStatement = sqlStatement + "([ProductId] = " + _prodList[0] + ")";
+                sqlStatement = sqlStatement + "([ProductId1] = " + _prodList[0] + " or [ProductId2] = " + _prodList[0] + " or [ProductId3] = " + _prodList[0] + ")";
             }
             else if (_prodList.Count >= 2)
             {
                 sqlStatement = sqlStatement + " and ";
-                sqlStatement = sqlStatement + "([ProductId] = " + _prodList[0];
+                sqlStatement = sqlStatement + "(([ProductId1] = " + _prodList[0] + " or [ProductId2] = " + _prodList[0] + " or [ProductId3] = " + _prodList[0] + ")";
 
                 for (int i = 1; i < _prodList.Count; i++)
                 {
-                    sqlStatement = sqlStatement + " or [ProductId] = " + _prodList[i];
+                    sqlStatement = sqlStatement + " or ([ProductId1] = " + _prodList[i] + " or [ProductId2] = " + _prodList[i] + " or [ProductId3] = " + _prodList[i] + ")";
                 }
 
                 sqlStatement = sqlStatement + ")";
@@ -278,14 +278,14 @@ namespace Excel_Parse
             if (_id.Count == 0)
                 return 0;
             else if (_id.Count == 1)
-                sqlStatement = "SELECT CampaignName, CampaignId FROM [AdvertisingBrands] WHERE [ProductId] = " + _id[0];
+                sqlStatement = "SELECT CampaignName, CampaignId FROM [AdvertisingBrands] WHERE [ProductId1] = " + _id[0] + "or [ProductId2] = " + _id[0] + "or [ProductId3] = " + _id[0];
             else if (_id.Count >= 2)
             {
-                sqlStatement = "SELECT CampaignName, CampaignId FROM [AdvertisingBrands] WHERE ([ProductId] = " + _id[0];
+                sqlStatement = "SELECT CampaignName, CampaignId FROM [AdvertisingBrands] WHERE (([ProductId1] = " + _id[0] + "or [ProductId2] = " + _id[0] + "or [ProductId3] = " + _id[0] + ")";
 
                 for (int i = 1; i < _id.Count; i++)
                 {
-                    sqlStatement = sqlStatement + " or [ProductId] = " + _id[i];
+                    sqlStatement = sqlStatement + " or ([ProductId1] = " + _id[i] + "or [ProductId2] = " + _id[i] + "or [ProductId3] = " + _id[i] + ")";
                 }
 
                 sqlStatement = sqlStatement + ")";
@@ -474,7 +474,7 @@ namespace Excel_Parse
 
             for (int i = 0; i < abm.Count; i++)
             {
-                string sqlStatement = "INSERT INTO [AdvertisingBrands] ([UpdateDate], [CurrencyCharCode], [CampaignName], [Targeting], [MatchType], [Impressions], [Clicks], [CTR], [CPC], [Spend], [ACoS], [RoAS], [Sales], [Orders], [Units], [ConversionRate], [NewToBrandOrders], [NewToBrandSales], [NewToBrandUnits], [NewToBrandOrderRate], [CampaignTypeId], [MarketPlaceId], [CampaignId], [ProductId]) VALUES ('" + abm[i].UpdateDate.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + abm[i].CurrencyCharCode + "', '" + abm[i].CampaignName + "', '" + abm[i].Targeting + "', '" + abm[i].MatchType + "', " + abm[i].Impressions + ", " + abm[i].Clicks + ", " + abm[i].CTR.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].CPC.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].Spend.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].ACoS.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].RoAS.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].Sales.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].Orders + ", " + abm[i].Units + ", " + abm[i].ConversionRate.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].NewToBrandOrders + ", " + abm[i].NewToBrandSales.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].NewToBrandUnits + ", " + abm[i].NewToBrandOrderRate.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].CampaignTypeId + ", " + abm[i].MarketPlaceId + ", " + abm[i].CampaignId + ", " + abm[i].ProductId + ")";
+                string sqlStatement = "INSERT INTO [AdvertisingBrands] ([UpdateDate], [CurrencyCharCode], [CampaignName], [Targeting], [MatchType], [Impressions], [Clicks], [CTR], [CPC], [Spend], [ACoS], [RoAS], [Sales], [Orders], [Units], [ConversionRate], [NewToBrandOrders], [NewToBrandSales], [NewToBrandUnits], [NewToBrandOrderRate], [CampaignTypeId], [MarketPlaceId], [CampaignId], [ProductId1], [ProductId2], [ProductId3]) VALUES ('" + abm[i].UpdateDate.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + abm[i].CurrencyCharCode + "', '" + abm[i].CampaignName + "', '" + abm[i].Targeting + "', '" + abm[i].MatchType + "', " + abm[i].Impressions + ", " + abm[i].Clicks + ", " + abm[i].CTR.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].CPC.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].Spend.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].ACoS.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].RoAS.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].Sales.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].Orders + ", " + abm[i].Units + ", " + abm[i].ConversionRate.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].NewToBrandOrders + ", " + abm[i].NewToBrandSales.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].NewToBrandUnits + ", " + abm[i].NewToBrandOrderRate.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].CampaignTypeId + ", " + abm[i].MarketPlaceId + ", " + abm[i].CampaignId + ", " + abm[i].ProductId1 + ", " + abm[i].ProductId2 + ", " + abm[i].ProductId3 + ")";
                 command = new SqlCommand(sqlStatement, connection);
                 if (Execute_UPDATE_DELETE_INSERT_Command(command) != 1)
                     return 0;

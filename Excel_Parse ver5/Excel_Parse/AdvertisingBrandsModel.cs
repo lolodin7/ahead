@@ -33,14 +33,15 @@ namespace Excel_Parse
         public int CampaignTypeId { get; set; }
         public int MarketPlaceId { get; set; }
         public int CampaignId { get; set; }
-        public int AdGroupId { get; set; }
-        public int ProductId { get; set; }
+        public int ProductId1 { get; set; }
+        public int ProductId2 { get; set; }
+        public int ProductId3 { get; set; }
 
         public int ColumnCount { get; }
         
         public AdvertisingBrandsModel()
         {
-            ColumnCount = 24;
+            ColumnCount = 26;
         }
 
         public void WriteData(int index, object record)
@@ -117,7 +118,13 @@ namespace Excel_Parse
                     CampaignId = int.Parse(record.ToString());
                     break;
                 case 23:
-                    ProductId = int.Parse(record.ToString());
+                    ProductId1 = int.Parse(record.ToString());
+                    break;
+                case 24:
+                    ProductId2 = int.Parse(record.ToString());
+                    break;
+                case 25:
+                    ProductId3 = int.Parse(record.ToString());
                     break;
             }
         }
@@ -197,7 +204,13 @@ namespace Excel_Parse
                     return CampaignId;
                     break;
                 case 23:
-                    return ProductId;
+                    return ProductId1;
+                    break;
+                case 24:
+                    return ProductId2;
+                    break;
+                case 25:
+                    return ProductId3;
                     break;
                 default:
                     return -1;

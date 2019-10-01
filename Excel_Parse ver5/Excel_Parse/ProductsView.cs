@@ -90,7 +90,10 @@ namespace Excel_Parse
 
                 for (int j = 0; j < pList[0].ColumnCount; j++)
                 {
-                    dgv_Products.Rows[index].Cells[j].Value = pList[i].ReadData(j);
+                    if (j != pList[0].ColumnCount - 1)
+                        dgv_Products.Rows[index].Cells[j].Value = pList[i].ReadData(j);
+                    else
+                        dgv_Products.Rows[index].Cells[11].Value = pList[i].ReadData(j);
                 }
             }
         }
@@ -175,6 +178,7 @@ namespace Excel_Parse
                     tb_editing_ASIN.Text = dgv_Products.Rows[e.RowIndex].Cells[2].Value.ToString();
                     tb_editing_SKU.Text = dgv_Products.Rows[e.RowIndex].Cells[3].Value.ToString();
                     tb_editing_ProductTypeId.Text = dgv_Products.Rows[e.RowIndex].Cells[4].Value.ToString();
+                    tb_editingShortName.Text = dgv_Products.Rows[e.RowIndex].Cells[11].Value.ToString();
                     ActiveStatus = (bool)dgv_Products.Rows[e.RowIndex].Cells[6].Value;
 
                     for (int i = 0; i < cb_editing_ProductTypes.Items.Count; i++)
@@ -313,6 +317,7 @@ namespace Excel_Parse
             tb_editing_ASIN.Text = "";
             tb_editing_SKU.Text = "";
             tb_editing_ProductTypeId.Text = "";
+            tb_editingShortName.Text = "";
 
             //groupBox2.Enabled = true;
             groupBox1.Visible = false;
@@ -349,6 +354,7 @@ namespace Excel_Parse
             tb_adding_ASIN.Text = "";
             tb_adding_ProductName.Text = "";
             tb_adding_SKU.Text = "";
+            tb_AddingShortName.Text = "";
         }
 
         /* Чтобы при изменении в tb_adding_ProductTypeId появлялся корректный Id */
@@ -378,9 +384,9 @@ namespace Excel_Parse
         /* Сохраняем изменения */
         private void btn_Save_Click(object sender, EventArgs e)
         {
-            if (!tb_editing_ProductName.Text.Equals("") && !tb_editing_ASIN.Text.Equals("") && !tb_editing_SKU.Text.Equals(""))
+            if (!tb_editing_ProductName.Text.Equals("") && !tb_editing_ASIN.Text.Equals("") && !tb_editing_SKU.Text.Equals("") && !tb_editingShortName.Text.Equals(""))
             {
-                pController.UpdateExistingProduct(tb_editing_ProductName.Text, tb_editing_ASIN.Text, tb_editing_SKU.Text, int.Parse(tb_editing_ProductTypeId.Text), int.Parse(tb_editing_ProductId.Text), int.Parse(tb_editing_MarketPlaceId.Text), ActiveStatus);
+                pController.UpdateExistingProduct(tb_editing_ProductName.Text, tb_editing_ASIN.Text, tb_editing_SKU.Text, int.Parse(tb_editing_ProductTypeId.Text), int.Parse(tb_editing_ProductId.Text), int.Parse(tb_editing_MarketPlaceId.Text), ActiveStatus, tb_editingShortName.Text);
 
                 RefreshFieldsAfterEditing();
                 //FillAllFields();
@@ -407,13 +413,14 @@ namespace Excel_Parse
                 if (!errorMade)
                 {
                     int result = -1;
-                    result = pController.InsertNewProduct(tb_adding_ProductName.Text, tb_adding_ASIN.Text, tb_adding_SKU.Text, int.Parse(tb_adding_ProductTypeId.Text), int.Parse(tb_adding_MarketPlaceId.Text), true);
+                    result = pController.InsertNewProduct(tb_adding_ProductName.Text, tb_adding_ASIN.Text, tb_adding_SKU.Text, int.Parse(tb_adding_ProductTypeId.Text), int.Parse(tb_adding_MarketPlaceId.Text), true, tb_AddingShortName.Text);
 
                     if (result == 1)
                     {
                         tb_adding_ASIN.Text = "";
                         tb_adding_ProductName.Text = "";
                         tb_adding_SKU.Text = "";
+                        tb_AddingShortName.Text = "";
 
                         //FillAllFields();
                         checkbox_ActiveStatus.Checked = !checkbox_ActiveStatus.Checked;
