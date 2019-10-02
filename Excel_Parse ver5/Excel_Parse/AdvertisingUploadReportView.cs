@@ -218,6 +218,7 @@ namespace Excel_Parse
                             //        tmp = "0";
                             //    else
                             //        tmp = worksheet.Cells[row, col].Value.ToString().Trim();
+                            string s = worksheet.Cells[row, 1].Value.ToString().Trim();
                             advProductsList[advProductsList.Count - 1].WriteData(1, ChechForNull(worksheet, row, 4));              //[CurrencyCharCode] 
                             advProductsList[advProductsList.Count - 1].WriteData(2, ChechForNull(worksheet, row, 5));              //[CampaignName] 
                             advProductsList[advProductsList.Count - 1].WriteData(3, ChechForNull(worksheet, row, 6));              //[AdGroupName]
@@ -634,10 +635,10 @@ namespace Excel_Parse
 
         private void Cb_MarketPlace_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!FirstLoad)
-            {
+            //if (!FirstLoad)
+            //{
                 prodController.GetProductsByMarketplaceId(GetMarketPlaceIdByName(cb_MarketPlace.SelectedItem.ToString()));
-            }
+            //}
         }
 
         private void Cb_CampaignType_SelectedIndexChanged(object sender, EventArgs e)

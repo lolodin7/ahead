@@ -60,6 +60,9 @@ VALUES ('Ветрозащита для микрофонов')
 INSERT INTO [ProductTypes] ([TypeName])
 VALUES ('Beer Chiller')
 
+INSERT INTO [ProductTypes] ([TypeName])
+VALUES ('Аксессуары')
+
 /*         -- [KeywordCategory] --             */
 
 INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
@@ -184,6 +187,15 @@ VALUES ('Beer Chiller', 'B01AI03U4Y', 'BC-GHGX-5M0O', 6, 5, 1, 'Beer Chiller')
 
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
 VALUES ('YelloWay-2', 'B06ZZ6NPRP', 'LD-YUMV-LDZV', 1, 5, 1, 'YW2')
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Y-Connector', 'B01BNGAHCA', 'KS-ZYQB-G549', 7, 1, 1, 'Y-Connector')
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW Type-C Adapter', 'B07RMXR4FB', 'HH-4FJF-QK02', 7, 1, 1, 'PDW-Ch Type-C')
+
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW Android', 'B07FCSQGPY', 'pdwmcslvr3', 7, 1, 1, 'PDW-Ch Android')
 
 /*-----------------------*/
 

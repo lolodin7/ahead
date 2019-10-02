@@ -124,6 +124,7 @@
     <Compile Include="AdvertisingUploadReportView.Designer.cs">
       <DependentUpon>AdvertisingUploadReportView.cs</DependentUpon>
     </Compile>
+    <Compile Include="BusinessReportModel.cs" />
     <Compile Include="CampaignTypesController.cs" />
     <Compile Include="CampaignTypesModel.cs" />
     <Compile Include="ChangeQuestionView.cs">

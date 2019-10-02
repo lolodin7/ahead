@@ -329,3 +329,7 @@ INSERT INTO [AdvertisingBrands] ([UpdateDate], [CurrencyCharCode], [CampaignName
 SELECT CampaignName, CampaignId FROM [AdvertisingBrands] WHERE ([ProductId1] = 3 or [ProductId2] = 3 or [ProductId3] = 3) or ([ProductId1] = 5 or [ProductId2] = 5 or [ProductId3] = 5)
 
 INSERT INTO [AdvertisingProducts] ([UpdateDate], [CurrencyCharCode], [CampaignName], [AdGroupName], [Targeting], [MatchType], [Impressions], [Clicks], [CTR], [CPC], [Spend], [ACoS], [RoAS], [Sales], [Orders], [Units], [ConversionRate], [AdvSKUUnits], [OtherSKUUnits], [AdvSKUSales], [OtherSKUSales], [CampaignTypeId], [MarketPlaceId], [CampaignId], [ProductId]) VALUES ('2019-10-01 00:00:00', 'USD', 'PDW1 - AUTO', 'MIC: Auto', '*', 'BROAD', 2335, 9, 0.00385438972162741, 0.394444444444444, 3.55, 0.15976597659766, 6.25915492957746, 22.22, 1, 1, 0.111111111111111, 1, 0, 22.22, 0, 0, 1, 50250665, 1)
+
+
+
+select * from [BusinessReport]

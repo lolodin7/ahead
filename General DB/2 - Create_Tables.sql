@@ -2,6 +2,8 @@ USE AHEAD
 GO
 --тут обратный порядок от порядка создания
 
+IF NOT OBJECT_ID('BusinessReport') IS NULL DROP TABLE [BusinessReport]
+GO
 
 IF NOT OBJECT_ID('AdvertisingProducts') IS NULL DROP TABLE [AdvertisingProducts]
 GO
@@ -276,3 +278,30 @@ CREATE TABLE [AdvertisingBrands](
 	CONSTRAINT FK_AdvertisingBrands_ProductId2 FOREIGN KEY ([ProductId2]) REFERENCES [Products] ([ProductId]),
 	CONSTRAINT FK_AdvertisingBrands_ProductId3 FOREIGN KEY ([ProductId3]) REFERENCES [Products] ([ProductId])
 )
+
+
+
+
+CREATE TABLE [BusinessReport](
+	[MarketPlaceId]				INT,
+	[SKU]						VARCHAR(30),
+	[Sessions]					INT,
+	[SessionPercentage]			FLOAT,
+	[PageViews]					INT,
+	[PageViewsPercentage]		FLOAT,
+	[UnitsOrdered]				INT,
+	[UnitsOrdered-B2B]			INT,
+	[UnitSessionPercentage]		FLOAT,
+	[UnitSessionPercentage-B2B]	FLOAT,
+	[OrderedProductSales]		FLOAT,
+	[OrderedProductSales-B2B]	FLOAT,
+	[TotalOrderItems]			INT,
+	[TotalOrderItems-B2B]		INT,
+	CONSTRAINT FK_BusinessReport_SKU_MP FOREIGN KEY ([SKU], [MarketPlaceId]) REFERENCES [Products] ([SKU], [MarketPlaceId])
+)
+/*  
+Session Percentage = sessions/SUM(sessions)
+Page Views Percentage = Page Views/SUM(Page Views)
+Unit Session Percentage= Units Ordered/Sessions
+Unit Session Percentage - B2B = Units Ordered - B2B/Sessions
+*/
