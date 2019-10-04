@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace Excel_Parse
 {
-    public partial class AdvertisingUploadReportView : Form
+    public partial class ReportAdvertisingUploadView : Form
     {
         private MainFormView mf;
 
@@ -29,7 +29,7 @@ namespace Excel_Parse
 
         private bool SponsoredProducts, SponsoredBrands;
 
-        private int daysDiff;
+        //private int daysDiff;
         private int updatedRowsCount;
 
         private List<AdvertisingProductsModel> advProductsList;
@@ -50,7 +50,7 @@ namespace Excel_Parse
         private List<MapNameId> AB_campaignIdsList;
 
         /* Главный конструктор */
-        public AdvertisingUploadReportView(MainFormView _mf, string _mode)
+        public ReportAdvertisingUploadView(MainFormView _mf, string _mode)
         {
             InitializeComponent();
             mf = _mf;
@@ -60,7 +60,7 @@ namespace Excel_Parse
             StartDate = DateTime.Today;
             EndDate = DateTime.Today.AddHours(23).AddMinutes(59);
 
-            daysDiff = 1;
+            //daysDiff = 1;
             updatedRowsCount = 0;
 
             advProductsList = new List<AdvertisingProductsModel> { };
@@ -218,7 +218,7 @@ namespace Excel_Parse
                             //        tmp = "0";
                             //    else
                             //        tmp = worksheet.Cells[row, col].Value.ToString().Trim();
-                            string s = worksheet.Cells[row, 1].Value.ToString().Trim();
+                            
                             advProductsList[advProductsList.Count - 1].WriteData(1, ChechForNull(worksheet, row, 4));              //[CurrencyCharCode] 
                             advProductsList[advProductsList.Count - 1].WriteData(2, ChechForNull(worksheet, row, 5));              //[CampaignName] 
                             advProductsList[advProductsList.Count - 1].WriteData(3, ChechForNull(worksheet, row, 6));              //[AdGroupName]
@@ -541,7 +541,7 @@ namespace Excel_Parse
 
             foreach (var t in advProductsList)
             {
-                t.WriteData(0, UpdateDate);
+                //t.WriteData(0, UpdateDate);
                 t.WriteData(21, campaignTypeId);
                 t.WriteData(22, marketplaceId);
                 t.WriteData(23, Check_CampaignForExisting_AP(t.CampaignName));
@@ -593,7 +593,7 @@ namespace Excel_Parse
 
             foreach (var t in advBrandsList)
             {
-                t.WriteData(0, UpdateDate);
+                //t.WriteData(0, UpdateDate);
                 t.WriteData(20, campaignTypeId);
                 t.WriteData(21, marketplaceId);
                 t.WriteData(22, Check_CampaignForExisting_AB(t.CampaignName));
@@ -702,6 +702,8 @@ namespace Excel_Parse
             openFileDialog2.Filter = "Excel файлы (*.xlsx)|*.xlsx";
             openFileDialog2.Title = "Выбор файла для открытия";
             openFileDialog2.FileName = "";
+            richTextBox1.Text = "";
+            int index = -1;
 
             if (openFileDialog2.ShowDialog() == DialogResult.OK)
             {
@@ -709,8 +711,11 @@ namespace Excel_Parse
                 foreach (var t in openFileDialog2.FileNames)
                 {
                     FileNames.Add(t);
+
+                    index = FileNames[FileNames.Count - 1].LastIndexOf('\\');
+                    richTextBox1.Text += FileNames[FileNames.Count - 1].Substring(index, FileNames[FileNames.Count - 1].Length - index) + "\n";
                 }
-                label11.Text = "Выбрано файлов - " + FileNames.Count;
+                label21.Text = "Выбрано файлов - " + FileNames.Count;
             }
         }
 
@@ -719,11 +724,12 @@ namespace Excel_Parse
         {
             if (cb_CampaignType2.SelectedIndex >= 0)
             {
+                label21.Text = "";
                 // btn_UploadFromFile.Enabled = true;
                 panel2.Visible = true;
                 label8.Visible = false;
 
-                label11.Text = "";
+                richTextBox1.Text = "";
                 path = "";
                 advProductsList.Clear();
                 advBrandsList.Clear();
@@ -744,21 +750,34 @@ namespace Excel_Parse
             }
         }
 
-        private void monthCalendar2_DateChanged(object sender, DateRangeEventArgs e)
-        {
-            StartDate = monthCalendar2.SelectionStart;
-            TimeSpan span = EndDate - StartDate;
-            daysDiff = span.Days + 1;
-            label15.Text = "Дней - " + (span.Days + 1).ToString();
-        }
+        //private void monthCalendar2_DateChanged(object sender, DateRangeEventArgs e)
+        //{
+        //    StartDate = monthCalendar2.SelectionStart;
+        //    TimeSpan span = EndDate - StartDate;
+        //    daysDiff = span.Days + 1;
+        //    label15.Text = "Дней - " + (span.Days + 1).ToString();
 
-        private void monthCalendar3_DateChanged(object sender, DateRangeEventArgs e)
-        {
-            EndDate = monthCalendar3.SelectionEnd;
-            TimeSpan span = EndDate - StartDate;
-            daysDiff = span.Days + 1;
-            label15.Text = "Дней - " + (span.Days + 1).ToString();
-        }
+        //    DateTime dd = StartDate;
+        //    string s = "";
+        //    string tmp = "";
+        //    int index = -1;
+        //    richTextBox1.Text = "Выбрано файлов - " + FileNames.Count;
+        //    for (int i = 0; i < FileNames.Count; i++)
+        //    {
+        //        index = FileNames[i].LastIndexOf('\\');
+        //        s = s + FileNames[i].Substring(index, FileNames[i].Length - index) + " - " + dd.ToString().Substring(0, 10) + "\n";
+        //        dd = dd.AddDays(1);
+        //    }
+        //    richTextBox1.Text = s;
+        //}
+
+        //private void monthCalendar3_DateChanged(object sender, DateRangeEventArgs e)
+        //{
+        //    EndDate = monthCalendar3.SelectionEnd;
+        //    TimeSpan span = EndDate - StartDate;
+        //    daysDiff = span.Days + 1;
+        //    label15.Text = "Дней - " + (span.Days + 1).ToString();
+        //}
 
         private void btn_Save2_Click(object sender, EventArgs e)
         {
@@ -770,8 +789,8 @@ namespace Excel_Parse
             {
                 if (SponsoredProducts)      //отчет Sponsored Products
                 {
-                    if (daysDiff == FileNames.Count)
-                    {
+                    //if (daysDiff == FileNames.Count)
+                    //{
                         if (FileNames.Count > 0)
                         {
                             if (MessageBox.Show("Кампания: " + cb_CampaignType2.SelectedItem.ToString() + "\n\nМаркетплейс: " + cb_marketplace2.SelectedItem.ToString() + "\n\nЗагрузить отчеты с этими параметрами?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -811,14 +830,14 @@ namespace Excel_Parse
                         }
                         else
                             MessageBox.Show("Выберите файлы для загрузки", "Ошибка");
-                    }
-                    else
-                        MessageBox.Show("Количество загруженных файлов не совпадает с количеством дней", "Ошибка");
+                    //}
+                    //else
+                    //    MessageBox.Show("Количество загруженных файлов не совпадает с количеством дней", "Ошибка");
                 }
                 else if (SponsoredBrands)   //отчет Sponsored Brands
                 {
-                    if (daysDiff == FileNames.Count)
-                    {
+                    //if (daysDiff == FileNames.Count)
+                    //{
                         if (FileNames.Count > 0)
                         {
                             if (MessageBox.Show("Кампания: " + cb_CampaignType2.SelectedItem.ToString() + "\n\nМаркетплейс: " + cb_marketplace2.SelectedItem.ToString() + "\n\nЗагрузить отчеты с этими параметрами?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -858,17 +877,17 @@ namespace Excel_Parse
                         }
                         else
                             MessageBox.Show("Выберите файлы для загрузки", "Ошибка");
-                    }
-                    else
-                        MessageBox.Show("Количество загруженных файлов не совпадает с количеством дней", "Ошибка");
+                    //}
+                    //else
+                    //    MessageBox.Show("Количество загруженных файлов не совпадает с количеством дней", "Ошибка");
                 }
             }
             else if (UpdateMode)        //обновляем старые данные
             {
                 if (SponsoredProducts)      //отчет Sponsored Products
                 {
-                    if (daysDiff == FileNames.Count)
-                    {
+                    //if (daysDiff == FileNames.Count)
+                    //{
                         if (FileNames.Count > 0)
                         {
                             if (MessageBox.Show("Кампания: " + cb_CampaignType2.SelectedItem.ToString() + "\n\nМаркетплейс: " + cb_marketplace2.SelectedItem.ToString() + "\n\nЗагрузить отчеты с этими параметрами?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -908,14 +927,14 @@ namespace Excel_Parse
                         }
                         else
                             MessageBox.Show("Выберите файлы для загрузки", "Ошибка");
-                    }
-                    else
-                        MessageBox.Show("Количество загруженных файлов не совпадает с количеством дней", "Ошибка");
+                    //}
+                    //else
+                    //    MessageBox.Show("Количество загруженных файлов не совпадает с количеством дней", "Ошибка");
                 }
                 else if (SponsoredBrands)   //отчет Sponsored Brands
                 {
-                    if (daysDiff == FileNames.Count)
-                    {
+                    //if (daysDiff == FileNames.Count)
+                    //{
                         if (FileNames.Count > 0)
                         {
                             if (MessageBox.Show("Кампания: " + cb_CampaignType2.SelectedItem.ToString() + "\n\nМаркетплейс: " + cb_marketplace2.SelectedItem.ToString() + "\n\nЗагрузить отчеты с этими параметрами?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -955,9 +974,9 @@ namespace Excel_Parse
                         }
                         else
                             MessageBox.Show("Выберите файлы для загрузки", "Ошибка");
-                    }
-                    else
-                        MessageBox.Show("Количество загруженных файлов не совпадает с количеством дней", "Ошибка");
+                    //}
+                    //else
+                    //    MessageBox.Show("Количество загруженных файлов не совпадает с количеством дней", "Ошибка");
                 }
             }
         }
@@ -980,8 +999,8 @@ namespace Excel_Parse
                     {
                         AdvertisingProductsModel prModel = new AdvertisingProductsModel();
                         advProductsList.Add(prModel);
-
-                        advProductsList[advProductsList.Count - 1].WriteData(0, UpdateDate);
+                        //dateFROMFILE = worksheet.Cells[row, 1].GetValue<DateTime>();
+                        advProductsList[advProductsList.Count - 1].WriteData(0, worksheet.Cells[row, 1].GetValue<DateTime>());
                         
                         advProductsList[advProductsList.Count - 1].WriteData(1, ChechForNull(worksheet, row, 4));              //[CurrencyCharCode] 
                         advProductsList[advProductsList.Count - 1].WriteData(2, ChechForNull(worksheet, row, 5));              //[CampaignName] 
@@ -1030,7 +1049,7 @@ namespace Excel_Parse
                         AdvertisingBrandsModel brModel = new AdvertisingBrandsModel();
                         advBrandsList.Add(brModel);
 
-                        advBrandsList[advBrandsList.Count - 1].WriteData(0, UpdateDate);
+                        advBrandsList[advBrandsList.Count - 1].WriteData(0, worksheet.Cells[row, 1].GetValue<DateTime>());
 
                         advBrandsList[advBrandsList.Count - 1].WriteData(1, ChechForNull(worksheet, row, 4));             //[CurrencyCharCode]
                         advBrandsList[advBrandsList.Count - 1].WriteData(2, ChechForNull(worksheet, row, 5));             //[CampaignName]

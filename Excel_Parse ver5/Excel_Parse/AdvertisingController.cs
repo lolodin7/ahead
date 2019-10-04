@@ -18,8 +18,8 @@ namespace Excel_Parse
         private List<AdvertisingProductsModel> advprodList;
         private List<AdvertisingBrandsModel> advbrandList;
 
-        private AdvertisingUploadReportView controlAdvertisingUploadReportView;
-        private AdvertisingReportFilterView controlAdvertisingReportFilterView;
+        private ReportAdvertisingUploadView controlAdvertisingUploadReportView;
+        private ReportAdvertisingFilterView controlAdvertisingReportFilterView;
 
         private struct listElement
         {
@@ -29,13 +29,13 @@ namespace Excel_Parse
 
 
 
-        public AdvertisingController(AdvertisingUploadReportView _mf)
+        public AdvertisingController(ReportAdvertisingUploadView _mf)
         {
             connection = DBData.GetDBConnection();
             controlAdvertisingUploadReportView = _mf;
         }
 
-        public AdvertisingController(AdvertisingReportFilterView _mf)
+        public AdvertisingController(ReportAdvertisingFilterView _mf)
         {
             connection = DBData.GetDBConnection();
             controlAdvertisingReportFilterView = _mf;

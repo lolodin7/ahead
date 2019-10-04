@@ -106,25 +106,26 @@
     <Compile Include="AdvertisingBrandsModel.cs" />
     <Compile Include="AdvertisingController.cs" />
     <Compile Include="AdvertisingProductsModel.cs" />
-    <Compile Include="AdvertisingReportFilterView.cs">
+    <Compile Include="ReportAdvertisingFilterView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AdvertisingReportFilterView.Designer.cs">
-      <DependentUpon>AdvertisingReportFilterView.cs</DependentUpon>
+    <Compile Include="ReportAdvertisingFilterView.Designer.cs">
+      <DependentUpon>ReportAdvertisingFilterView.cs</DependentUpon>
     </Compile>
-    <Compile Include="AdvertisingReportView.cs">
+    <Compile Include="ReportAdvertisingView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AdvertisingReportView.Designer.cs">
-      <DependentUpon>AdvertisingReportView.cs</DependentUpon>
+    <Compile Include="ReportAdvertisingView.Designer.cs">
+      <DependentUpon>ReportAdvertisingView.cs</DependentUpon>
     </Compile>
-    <Compile Include="AdvertisingUploadReportView.cs">
+    <Compile Include="ReportAdvertisingUploadView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AdvertisingUploadReportView.Designer.cs">
-      <DependentUpon>AdvertisingUploadReportView.cs</DependentUpon>
+    <Compile Include="ReportAdvertisingUploadView.Designer.cs">
+      <DependentUpon>ReportAdvertisingUploadView.cs</DependentUpon>
     </Compile>
-    <Compile Include="BusinessReportModel.cs" />
+    <Compile Include="DetailedDisposition.cs" />
+    <Compile Include="ReportBusinessModel.cs" />
     <Compile Include="CampaignTypesController.cs" />
     <Compile Include="CampaignTypesModel.cs" />
     <Compile Include="ChangeQuestionView.cs">
@@ -178,12 +179,26 @@
     <Compile Include="RegisterAnEmployee.Designer.cs">
       <DependentUpon>RegisterAnEmployee.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReportBusinessUploadView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportBusinessUploadView.Designer.cs">
+      <DependentUpon>ReportBusinessUploadView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportBusinessView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportBusinessView.Designer.cs">
+      <DependentUpon>ReportBusinessView.cs</DependentUpon>
+    </Compile>
     <Compile Include="RestorePasswordView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="RestorePasswordView.Designer.cs">
       <DependentUpon>RestorePasswordView.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReportReturnsModel.cs" />
+    <Compile Include="ReturnReason.cs" />
     <Compile Include="SecuredPassword.cs" />
     <Compile Include="ShowUsersView.cs">
       <SubType>Form</SubType>
@@ -324,14 +339,14 @@
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AdvertisingReportFilterView.resx">
-      <DependentUpon>AdvertisingReportFilterView.cs</DependentUpon>
+    <EmbeddedResource Include="ReportAdvertisingFilterView.resx">
+      <DependentUpon>ReportAdvertisingFilterView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AdvertisingReportView.resx">
-      <DependentUpon>AdvertisingReportView.cs</DependentUpon>
+    <EmbeddedResource Include="ReportAdvertisingView.resx">
+      <DependentUpon>ReportAdvertisingView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AdvertisingUploadReportView.resx">
-      <DependentUpon>AdvertisingUploadReportView.cs</DependentUpon>
+    <EmbeddedResource Include="ReportAdvertisingUploadView.resx">
+      <DependentUpon>ReportAdvertisingUploadView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChangeQuestionView.resx">
       <DependentUpon>ChangeQuestionView.cs</DependentUpon>

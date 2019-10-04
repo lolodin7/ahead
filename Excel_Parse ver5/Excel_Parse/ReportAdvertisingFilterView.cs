@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Excel_Parse
 {
-    public partial class AdvertisingReportFilterView : Form
+    public partial class ReportAdvertisingFilterView : Form
     {
-        private AdvertisingReportView mf;
+        private ReportAdvertisingView mf;
         private DateTime StartDate, EndDate;
         private bool MonthlyMode, WeeklyMode;
 
@@ -51,7 +51,7 @@ namespace Excel_Parse
         private bool NoErrors;          //ошибка ввода в textBox пользователем при фильтре по таблице
 
         /* Главный конструктор */
-        public AdvertisingReportFilterView(AdvertisingReportView _mf)
+        public ReportAdvertisingFilterView(ReportAdvertisingView _mf)
         {
             InitializeComponent();
 
@@ -895,6 +895,30 @@ namespace Excel_Parse
             //}
 
             this.Cursor = Cursors.Default;
+        }
+
+        private void btn_LastMonth_Click(object sender, EventArgs e)
+        {
+            DateTime dd = DateTime.Today;
+            dd = dd.Subtract(new TimeSpan(30, 0, 0, 0, 0));
+            mc_StartDate.SelectionStart = dd;
+            mc_EndDate.SelectionEnd = DateTime.Today.AddHours(23).AddMinutes(59);
+        }
+
+        private void btn_LastHalfYear_Click(object sender, EventArgs e)
+        {
+            DateTime dd = DateTime.Today;
+            dd = dd.Subtract(new TimeSpan(183, 0, 0, 0, 0));
+            mc_StartDate.SelectionStart = dd;
+            mc_EndDate.SelectionEnd = DateTime.Today.AddHours(23).AddMinutes(59);
+        }
+
+        private void btn_lastYear_Click(object sender, EventArgs e)
+        {
+            DateTime dd = DateTime.Today;
+            dd = dd.Subtract(new TimeSpan(365, 0, 0, 0, 0));
+            mc_StartDate.SelectionStart = dd;
+            mc_EndDate.SelectionEnd = DateTime.Today.AddHours(23).AddMinutes(59);
         }
 
         /* Применить числовой фильтр по таблице */

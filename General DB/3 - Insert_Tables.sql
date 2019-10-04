@@ -49,19 +49,16 @@ INSERT INTO [ProductTypes] ([TypeName])
 VALUES ('Удлинители')
 
 INSERT INTO [ProductTypes] ([TypeName])
+VALUES ('Адаптеры')
+
+INSERT INTO [ProductTypes] ([TypeName])
 VALUES ('Триподы')
 
 INSERT INTO [ProductTypes] ([TypeName])
-VALUES ('Клипсы для микрофонов')
+VALUES ('Комплектующие')
 
 INSERT INTO [ProductTypes] ([TypeName])
-VALUES ('Ветрозащита для микрофонов')
-
-INSERT INTO [ProductTypes] ([TypeName])
-VALUES ('Beer Chiller')
-
-INSERT INTO [ProductTypes] ([TypeName])
-VALUES ('Аксессуары')
+VALUES ('Подарки')
 
 /*         -- [KeywordCategory] --             */
 
@@ -102,6 +99,68 @@ INSERT INTO [Currency] ([UpdateDate], [NumCode], [CharCode], [Nominal], [Name], 
 VALUES ('10.09.2019', 840, 'USD', 1, 'Доллар США', 1)
 
 
+/*         -- [ReturnReason] --             */
+INSERT INTO [ReturnReason] ([ReasonCode], [ReasonDescription])
+VALUES ('UNWANTED_ITEM', '')
+INSERT INTO [ReturnReason] ([ReasonCode], [ReasonDescription])
+VALUES ('UNDELIVERABLE_UNKNOWN', '')
+INSERT INTO [ReturnReason] ([ReasonCode], [ReasonDescription])
+VALUES ('NOT_AS_DESCRIBED', '')
+INSERT INTO [ReturnReason] ([ReasonCode], [ReasonDescription])
+VALUES ('ORDERED_WRONG_ITEM', '')
+INSERT INTO [ReturnReason] ([ReasonCode], [ReasonDescription])
+VALUES ('DEFECTIVE', '')
+INSERT INTO [ReturnReason] ([ReasonCode], [ReasonDescription])
+VALUES ('UNAUTHORIZED_PURCHASE', '')
+INSERT INTO [ReturnReason] ([ReasonCode], [ReasonDescription])
+VALUES ('MISSING_PARTS', '')
+INSERT INTO [ReturnReason] ([ReasonCode], [ReasonDescription])
+VALUES ('QUALITY_UNACCEPTABLE', '')
+INSERT INTO [ReturnReason] ([ReasonCode], [ReasonDescription])
+VALUES ('FOUND_BETTER_PRICE', '')
+INSERT INTO [ReturnReason] ([ReasonCode], [ReasonDescription])
+VALUES ('SWITCHEROO', '')
+INSERT INTO [ReturnReason] ([ReasonCode], [ReasonDescription])
+VALUES ('DAMAGED_BY_CARRIER', '')
+INSERT INTO [ReturnReason] ([ReasonCode], [ReasonDescription])
+VALUES ('NOT_COMPATIBLE', '')
+INSERT INTO [ReturnReason] ([ReasonCode], [ReasonDescription])
+VALUES ('MISSED_ESTIMATED_DELIVERY', '')
+INSERT INTO [ReturnReason] ([ReasonCode], [ReasonDescription])
+VALUES ('UNDELIVERABLE_INSUFFICIENT_ADDRESS', '')
+INSERT INTO [ReturnReason] ([ReasonCode], [ReasonDescription])
+VALUES ('NO_REASON_GIVEN', '')
+INSERT INTO [ReturnReason] ([ReasonCode], [ReasonDescription])
+VALUES ('UNDELIVERABLE_REFUSED', '')
+INSERT INTO [ReturnReason] ([ReasonCode], [ReasonDescription])
+VALUES ('DAMAGED_BY_FC', '')
+INSERT INTO [ReturnReason] ([ReasonCode], [ReasonDescription])
+VALUES ('EXTRA_ITEM', '')
+INSERT INTO [ReturnReason] ([ReasonCode], [ReasonDescription])
+VALUES ('MISORDERED', '')
+INSERT INTO [ReturnReason] ([ReasonCode], [ReasonDescription])
+VALUES ('NEVER_ARRIVED', '')
+INSERT INTO [ReturnReason] ([ReasonCode], [ReasonDescription])
+VALUES ('UNDELIVERABLE_UNCLAIMED', '')
+INSERT INTO [ReturnReason] ([ReasonCode], [ReasonDescription])
+VALUES ('UNDELIVERABLE_FAILED_DELIVERY_ATTEMPTS', '')
+INSERT INTO [ReturnReason] ([ReasonCode], [ReasonDescription])
+VALUES ('UNDELIVERABLE_CARRIER_MISS_SORTED', '')
+
+
+/*         -- [DetailedDisposition] --             */
+INSERT INTO [DetailedDisposition] ([DispositionCode], [DispositionDescription])
+VALUES ('CUSTOMER_DAMAGED', '')
+INSERT INTO [DetailedDisposition] ([DispositionCode], [DispositionDescription])
+VALUES ('SELLABLE', '')
+INSERT INTO [DetailedDisposition] ([DispositionCode], [DispositionDescription])
+VALUES ('DEFECTIVE', '')
+INSERT INTO [DetailedDisposition] ([DispositionCode], [DispositionDescription])
+VALUES ('CARRIER_DAMAGED', '')
+INSERT INTO [DetailedDisposition] ([DispositionCode], [DispositionDescription])
+VALUES ('DAMAGED', '')
+
+
 /*         -- [SemCore] --             */
 INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastUpdated], [MarketPlaceId])
 VALUES (1, 1, 'lavalier microphone', 200000, CURRENT_TIMESTAMP, 1)
@@ -137,73 +196,111 @@ INSERT INTO [Products] ([Name])
 VALUES ('Товары отсутствуют')
 
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
-VALUES ('PDW - главный микрофон', 'B01AG56HYQ', 'E3-2RHF-EO7C', 1, 1, 1, 'PDW1')
-
+VALUES ('Lightning adapter', 'B07Y1QVPPP', '8Z-BHZ0-0X8Q', 3, 1, 1, 'Adapter Lightning')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
-VALUES ('PDW - главный микрофон', 'B01AG56HYQ', 'LR-44G2-7Y1Y', 1, 1, 1, 'PDW1')
-
+VALUES ('Youmic Lightning adapter Mic', 'B07WS5DGCS', 'AM-X9B2-T6B1', 1, 1, 1, 'YM-Ch Lightning Adapter')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
-VALUES ('PDW - главный микрофон', 'B01AG56HYQ', 'IG-5UO9-SCW1', 1, 1, 1, 'PDW1')
-
+VALUES ('YouMic Dual Mic', 'B07G2C8D7H', 'XW-I4VB-F8W5', 1, 1, 1, 'YM-Ch Dual')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
-VALUES ('PDW - главный микрофон', 'B01AG56HYQ', '6A-ICQP-MBHC', 1, 5, 1, 'PDW1')
-
+VALUES ('YouMic iPhone Mic', 'B07FF15VYZ', 'ymcchld3', 1, 1, 1, 'YM-Ch iPhone')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
-VALUES ('Dual PDW - двойной', 'B07CHCSLVC', 'HR-9KQ2-IPD9', 1, 1, 1, 'PDW-Ch Dual')
-
+VALUES ('YouMic Android Mic', 'B07M9PBN5X', 'ymcchld2', 1, 1, 1, 'YM-Ch Android')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
-VALUES ('PDW Lightning Adapter', 'B07SCYJH64', 'NT-HV0T-VR4C', 1, 1, 1, 'PDW-Ch Lightning Adapter')
-
-/*-----------------------*/
+VALUES ('YouMic Main Mic', 'B01E3L1ESS', '8R-MO3B-ZV8H', 1, 1, 1, 'YM1')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
-VALUES ('Video Microphone', 'B07RG4J7WY', '2V-8VSV-C0AE', 1, 1, 1, 'Video Microphone')
-
+VALUES ('PDW Lightning Connector Mic', 'B07XJNN9B1', 'YA-AFP8-2UT7', 1, 1, 1, 'PDW-Ch Lightning Connector')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
-VALUES ('PDW - vlogger kit', 'B07Y1XBKC7', 'O5-HZWD-YO8M', 1, 1, 1, 'PDW-Ch Vlogger Kit')
-
+VALUES ('PDW Podcast Mic', 'B07FCN1K2N', 'pdwmcslvr6', 1, 1, 1, 'PDW-Ch Podcast')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
-VALUES ('YouMic - главный микрофон', 'B01E3L1ESS', '8R-MO3B-ZV8H', 1, 1, 1, 'YM1')
-
+VALUES ('PDW Android Mic', 'B07FCSQGPY', 'pdwmcslvr3', 1, 1, 1, 'PDW-Ch Android')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
-VALUES ('YouMic - Lightning adapter', 'B07WS5DGCS', 'AM-X9B2-T6B1', 1, 1, 1, 'YM-Ch Lightning Adapter')
-
+VALUES ('PDW Lightning adapter Mic', 'B07Y1XBKC7', 'NT-HV0T-VR4C', 1, 1, 1, 'PDW-Ch Lightning Adapter')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
-VALUES ('YouMic Dual - двойной', 'B07G2C8D7H', 'XW-I4VB-F8W5 ', 1, 1, 1, 'YM-Ch Dual')
-
+VALUES ('PDW Vlogger Kit Mic', 'B07RLJHT5B', 'O5-HZWD-YO8M', 1, 1, 1, 'PDW-Ch Vlogger Kit')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
-VALUES ('YouMic - главный микрофон', 'B01E3L1ESS', '8R-MO3B-ZV8H', 1, 2, 1, 'YM1')
-
+VALUES ('Video Mic', 'B07RG4J7WY', '2V-8VSV-C0AE', 1, 1, 1, 'Video Microphone')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
-VALUES ('YouMic Dual - двойной', 'B07G2C8D7H', 'XW-I4VB-F8W5 ', 1, 2, 1, 'YM-Ch Dual')
-
+VALUES ('TRRS-TRS Mic adapter', 'B07KB11Y5B', 'OD-HA9N-UXNF', 3, 1, 1, 'Adapter 4-3 Mic')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
-VALUES ('PDW - главный микрофон', 'B01AG56HYQ', 'E3-2RHF-EO7C', 1, 2, 1, 'PDW1')
-
+VALUES ('Y-Connector Mic+Headphone', 'B07G4DS728', 'GH-7TR8-5HPZ', 3, 1, 1, 'Y-Connector M-H')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
-VALUES ('Dual PDW - двойной', 'B07CHCSLVC', 'HR-9KQ2-IPD9', 1, 2, 1, 'PDW-Ch Dual')
-
+VALUES ('PDW Main Mic', 'B01AG56HYQ', 'IG-5UO9-SCW1', 1, 1, 1, 'PDW1')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Tripod (silver)', 'B07CJRB8YB', 'E3-1WM4-S3MY', 4, 1, 1, 'Tripod-Silver')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Extension cord 15ft', 'B07CHBGV5X', '3J-03VY-3VT0', 2, 1, 1, 'Ext-cord-15')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Extension cord 10ft', 'B07CHFG1FN', 'BQ-CK10-HCVV', 2, 1, 1, 'Ext-cord-10')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Extension cord 3ft', 'B07CHC94XT', 'PI-HW8D-6TTD', 2, 1, 1, 'Ext-cord-3')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW Dual Mic', 'B07CHCSLVC', 'HR-9KQ2-IPD9', 1, 1, 1, 'PDW-Ch Dual')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('TRRS-TRS Headphone adapter', 'B01N5RG8EC', 'ZW-WW1I-PT7A', 3, 1, 1, 'Adapter 4-3 Headphone')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('YouMic Wind Muff', 'B07BFXR55J', 'AV-ALS4-5BSO', 5, 1, 1, 'YM Wind Muff')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW Main Mic', 'B01AG56HYQ', 'LR-44G2-7Y1Y', 1, 1, 1, 'PDW1')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Furry Wind Muff', 'B075FS5Y7Z', 'O9-U3F0-WROB', 5, 1, 1, 'Furry Wind Muff')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('USD adapter', 'B0713SJ2ZD', 'AB-KG1N-IPYL', 3, 1, 1, 'Adapter USB')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Extension cord 6ft', 'B01LZBEH3W', 'XZ-8LJT-BPX3', 2, 1, 1, 'Ext-cord-6')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW Mic Clip', 'B01LZ6T9XO', '1N-NPIV-XHND', 5, 1, 1, 'PDW Mic Clip')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW Wind Muff', 'B01LL5U0NO', 'DL-LJ4D-RKZH', 5, 1, 1, 'PDW Wind Muff')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Y-Connector 2 mics', 'B01BNGAHCA', 'KS-ZYQB-G549', 3, 1, 1, 'Y-Connector 2-M')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW Main Mic', 'B01AG56HYQ', 'E3-2RHF-EO7C', 1, 1, 1, 'PDW1')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW Type-C', 'B07RMXR4FB', 'HH-4FJF-QK02', 1, 1, 1, 'PDW-Ch Type-C')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('YouMic Dual Mic', 'B07G2C8D7H', 'XW-I4VB-F8W5', 1, 2, 1, 'YM-Ch Dual')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW Main Mic', 'B01AG56HYQ', 'IG-5UO9-SCW1', 1, 2, 1, 'PDW1')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('TRRS-TRS Mic adapter', 'B07KB11Y5B', 'OD-HA9N-UXNF', 3, 2, 1, 'Adapter 4-3 Mic')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Tripod (silver)', 'B07CJRB8YB', 'E3-1WM4-S3MY', 4, 2, 1, 'Tripod-Silver')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW Dual Mic', 'B07CHCSLVC', 'HR-9KQ2-IPD9', 1, 2, 1, 'PDW-Ch Dual')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW Mic Clip', 'B01LZ6T9XO', '1N-NPIV-XHND', 5, 2, 1, 'PDW Mic Clip')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW Wind Muff', 'B01LL5U0NO', 'DL-LJ4D-RKZH', 5, 2, 1, 'PDW Wind Muff')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Y-Connector 2 mics', 'B01BNGAHCA', 'KS-ZYQB-G549', 3, 2, 1, 'Y-Connector 2-M')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('YouMic Main Mic', 'B01E3L1ESS', '8R-MO3B-ZV8H', 1, 2, 1, 'YM1')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW Main Mic', 'B01AG56HYQ', 'E3-2RHF-EO7C', 1, 2, 1, 'PDW1')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('YouMic Dual Mic', 'B07G2C8D7H', 'XW-I4VB-F8W5', 1, 4, 1, 'YM-Ch Dual')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW Dual Mic', 'B07CHCSLVC', 'HR-9KQ2-IPD9', 1, 4, 1, 'PDW-Ch Dual')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('YouMic Main Mic', 'B01E3L1ESS', '8R-MO3B-ZV8H', 1, 4, 1, 'YM1')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW Main Mic', 'B01AG56HYQ', 'E3-2RHF-EO7C', 1, 4, 1, 'PDW1')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('YouMic Main Mic', 'B01E3L1ESS', 'E9-QJZK-NZ3Q', 1, 3, 1, 'YM1')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW Main Mic', 'B01AG56HYQ', 'E6-QVLY-UWD7', 1, 3, 1, 'PDW1')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Extension retractable cord', 'B07N8TNV19', 'FV-6NAJ-A3RR', 2, 5, 1, 'Ext-cord-retractable')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW Main Mic', 'B01AG56HYQ', '6A-ICQP-MBHC', 1, 5, 1, 'PDW1')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Streaming Mic', 'B07NL57WPP', 'RJ-EAFY-N63K', 1, 5, 1, 'Streaming mic')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('YelloWay1 Mic', 'B01C2NDT0K', '54-DS59-U9N0', 1, 5, 1, 'YW1')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
 VALUES ('Beer Chiller', 'B01AI03U4Y', 'BC-GHGX-5M0O', 6, 5, 1, 'Beer Chiller')
-
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
-VALUES ('YelloWay-2', 'B06ZZ6NPRP', 'LD-YUMV-LDZV', 1, 5, 1, 'YW2')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
-VALUES ('Y-Connector', 'B01BNGAHCA', 'KS-ZYQB-G549', 7, 1, 1, 'Y-Connector')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
-VALUES ('PDW Type-C Adapter', 'B07RMXR4FB', 'HH-4FJF-QK02', 7, 1, 1, 'PDW-Ch Type-C')
-
-INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
-VALUES ('PDW Android', 'B07FCSQGPY', 'pdwmcslvr3', 7, 1, 1, 'PDW-Ch Android')
-
-/*-----------------------*/
-
-
-
-INSERT INTO [Logger] ([CreationDate], [CreationUserId], [ProductId], [Text], [EditDate], [EditUserId], [ImageId], [SKU])
-VALUES (CURRENT_TIMESTAMP, 1, 2, 'log record #2', CURRENT_TIMESTAMP, 1, '', '6A-ICQP-MBHC')
-
+VALUES ('YelloWay2 Mic', 'B06ZZ6NPRP', 'LD-YUMV-LDZV', 1, 5, 1, 'YW2')
 
 
 /*         -- [Logger] --             */
@@ -241,26 +338,6 @@ VALUES ('08.03.2019', 2, 5, 'log record #5', '05.05.2019', 1, 0, 'HR-9KQ2-IPD9')
 
 
 
-/*         -- [Currency] --             */
-INSERT INTO [Currency] ([UpdateDate], [NumCode], [CharCode], [Nominal], [Name], [Value])
-VALUES ('10.09.2019', 124, 'CAD', 1, 'Канадский доллар', 1.3197)
-
-INSERT INTO [Currency] ([UpdateDate], [NumCode], [CharCode], [Nominal], [Name], [Value])
-VALUES ('10.09.2019', 036, 'AUD', 1, 'Австралийский доллар', 1.4559)
-
-INSERT INTO [Currency] ([UpdateDate], [NumCode], [CharCode], [Nominal], [Name], [Value])
-VALUES ('10.09.2019', 484, 'MXN', 1, 'Мексиканский песо', 19.4413)
-
-INSERT INTO [Currency] ([UpdateDate], [NumCode], [CharCode], [Nominal], [Name], [Value])
-VALUES ('10.09.2019', 840, 'USD', 1, 'Доллар США', 1)
-
-
-/*         -- [CampaignType] --             */
-INSERT INTO [CampaignType] ([CampaignName])
-VALUES ('Sponsored Products')
-
-INSERT INTO [CampaignType] ([CampaignName])
-VALUES ('Sponsored Brands')
 
 
 
@@ -289,6 +366,7 @@ VALUES ('Sponsored Brands')
 
 
 
+/*
 /*         -- [SemCore] --             */
 INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastUpdated])
 VALUES (1, 1, 'lavalier microphone', 652053, CURRENT_TIMESTAMP)
@@ -314,7 +392,7 @@ VALUES (1, 2, 'iphone 288 microphone', 123, CURRENT_TIMESTAMP)
 INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastUpdated])
 VALUES (1, 2, 'iphone 388 microphone', 123, '2018-10-15 12:50:00')
 
-
+*/
 
 
 -------------------------------------Analytics----------------------------------

@@ -11,10 +11,10 @@ using System.Windows.Forms;
 
 namespace Excel_Parse
 {
-    public partial class AdvertisingReportView : Form
+    public partial class ReportAdvertisingView : Form
     {
         private MainFormView mf;
-        private AdvertisingReportFilterView advFilter;
+        private ReportAdvertisingFilterView advFilter;
 
         private List<AdvertisingProductsModel> advProductsList;
         private List<AdvertisingBrandsModel> advBrandsList;
@@ -30,7 +30,7 @@ namespace Excel_Parse
 
 
         /* Конструктор */
-        public AdvertisingReportView(MainFormView _mf)
+        public ReportAdvertisingView(MainFormView _mf)
         {
             InitializeComponent();
             mf = _mf;
@@ -69,7 +69,7 @@ namespace Excel_Parse
         {
             if (advFilter == null)
             {
-                advFilter = new AdvertisingReportFilterView(this);
+                advFilter = new ReportAdvertisingFilterView(this);
                 advFilter.Show();
             }
             else
@@ -263,7 +263,9 @@ namespace Excel_Parse
             for (int i = 0; i < _advProductsList[0].ColumnCount; i++)
             {
                 dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            }
+                if (i >= 6)
+                    dgv.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }           
         }
 
         /* Рисуем "правильную" таблицу с заголовками и шириной столбцов для Sponsored Brands */
@@ -313,6 +315,8 @@ namespace Excel_Parse
             for (int i = 0; i < _advBrandsList[0].ColumnCount; i++)
             {
                 dgv_AdvBrands.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                if (i >= 6)
+                    dgv_AdvBrands.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
         }
 
@@ -326,10 +330,12 @@ namespace Excel_Parse
 
             dgv_AdvProducts.Rows.Clear();
             dgv_AdvProducts.Columns.Clear();
-
+            
             if (_advProductsList.Count > 0)
             {
                 DrawCorrectColumnsForSponsoredProducts(_advProductsList, dgv_AdvProducts);
+
+                DrawFirstRowForSponsoredProducts(_advProductsList);
 
                 for (int i = 0; i < _advProductsList.Count; i++)
                 {
@@ -342,6 +348,167 @@ namespace Excel_Parse
             }
 
             btn_Export.Text = "Экспорт в файл (" + dgv_AdvProducts.RowCount + ")";
+        }
+
+        /* Рисуем суммирующиую 1ю строку в dgv_AdvProducts */
+        private void DrawFirstRowForSponsoredProducts(List<AdvertisingProductsModel> _advProductsList)
+        {
+            int impr = 0;
+            int clicks = 0;
+            double ctr = 0;
+            double cpc = 0;
+            double spend = 0;
+            double sales = 0;
+            double acos = 0;
+            double roas = 0;
+            int orders = 0;
+            int units = 0;
+            double convers = 0;
+            int advskuunt = 0;
+            int otherskuunt = 0;
+            double advskusales = 0;
+            double otherskusales = 0;
+
+            for (int i = 0; i < _advProductsList.Count; i++)
+            {
+                impr += _advProductsList[i].Impressions;
+                clicks += _advProductsList[i].Clicks;
+                spend += _advProductsList[i].Spend;
+                sales += _advProductsList[i].Sales;
+                orders += _advProductsList[i].Orders;
+                units += _advProductsList[i].Units;
+                advskuunt += _advProductsList[i].AdvSKUUnits;
+                otherskuunt += _advProductsList[i].OtherSKUUnits;
+                advskusales += _advProductsList[i].AdvSKUSales;
+                otherskusales += _advProductsList[i].OtherSKUSales;
+            }
+
+            if(impr != 0)
+                ctr = Math.Round(((double)clicks / impr) * 100, 2);
+            else
+                ctr = 0;
+
+            if (clicks != 0)
+                cpc = Math.Round(spend / clicks, 2);
+            else
+                cpc = 0;
+
+            if (sales != 0)
+                acos = Math.Round((spend / sales) * 100, 2);
+            else
+                acos = 0;
+
+            if (spend != 0)
+                roas = Math.Round(sales / spend, 2);
+            else
+                roas = 0;
+
+            if (clicks != 0)
+                convers = Math.Round(((double)orders / clicks) * 100, 2);
+            else
+                convers = 0;
+
+            var index = dgv_AdvProducts.Rows.Add();
+            
+            dgv_AdvProducts.Rows[index].Cells[6].Value = impr;
+            dgv_AdvProducts.Rows[index].Cells[7].Value = clicks;
+            dgv_AdvProducts.Rows[index].Cells[8].Value = ctr;
+            dgv_AdvProducts.Rows[index].Cells[9].Value = cpc;
+            dgv_AdvProducts.Rows[index].Cells[10].Value = spend;
+            dgv_AdvProducts.Rows[index].Cells[11].Value = sales;
+            dgv_AdvProducts.Rows[index].Cells[12].Value = acos;
+            dgv_AdvProducts.Rows[index].Cells[13].Value = roas;
+            dgv_AdvProducts.Rows[index].Cells[14].Value = orders;
+            dgv_AdvProducts.Rows[index].Cells[15].Value = units;
+            dgv_AdvProducts.Rows[index].Cells[16].Value = convers;
+            dgv_AdvProducts.Rows[index].Cells[17].Value = advskuunt;
+            dgv_AdvProducts.Rows[index].Cells[18].Value = otherskuunt;
+            dgv_AdvProducts.Rows[index].Cells[19].Value = advskusales;
+            dgv_AdvProducts.Rows[index].Cells[20].Value = otherskusales;
+
+        }
+
+
+        private void DrawFirstRowForSponsoredBrands(List<AdvertisingBrandsModel> _advBrandsList)
+        {
+            int impr = 0;
+            int clicks = 0;
+            double ctr = 0;
+            double cpc = 0;
+            double spend = 0;
+            double sales = 0;
+            double acos = 0;
+            double roas = 0;
+            int orders = 0;
+            int units = 0;
+            double convers = 0;
+            int newToBrandOrders = 0;
+            int NewToBrandUnits = 0;
+            double newToBrandSales = 0;
+            double newToBrandOrderRate = 0;
+
+            for (int i = 0; i < _advBrandsList.Count; i++)
+            {
+                impr += _advBrandsList[i].Impressions;
+                clicks += _advBrandsList[i].Clicks;
+                spend += _advBrandsList[i].Spend;
+                sales += _advBrandsList[i].Sales;
+                orders += _advBrandsList[i].Orders;
+                units += _advBrandsList[i].Units;
+                newToBrandOrders += _advBrandsList[i].NewToBrandOrders;
+                newToBrandSales += _advBrandsList[i].NewToBrandSales;
+                NewToBrandUnits += _advBrandsList[i].NewToBrandUnits;
+            }
+
+            if (impr != 0)
+                ctr = Math.Round(((double)clicks / impr) * 100, 2);
+            else
+                ctr = 0;
+
+            if (clicks != 0)
+                cpc = Math.Round(spend / clicks, 2);
+            else
+                cpc = 0;
+
+            if (sales != 0)
+                acos = Math.Round((spend / sales) * 100, 2);
+            else
+                acos = 0;
+
+            if (spend != 0)
+                roas = Math.Round(sales / spend, 2);
+            else
+                roas = 0;
+
+            if (clicks != 0)
+                convers = Math.Round(((double)orders / clicks) * 100, 2);
+            else
+                convers = 0;
+
+            if (clicks != 0)
+                newToBrandOrderRate = Math.Round((double)newToBrandOrders / clicks, 2);
+            else
+                newToBrandOrderRate = 0;
+
+
+            var index = dgv_AdvProducts.Rows.Add();
+
+            dgv_AdvBrands.Rows[index].Cells[5].Value = impr;
+            dgv_AdvBrands.Rows[index].Cells[6].Value = clicks;
+            dgv_AdvBrands.Rows[index].Cells[7].Value = ctr;
+            dgv_AdvBrands.Rows[index].Cells[8].Value = cpc;
+            dgv_AdvBrands.Rows[index].Cells[9].Value = spend;
+            dgv_AdvBrands.Rows[index].Cells[10].Value = sales;
+            dgv_AdvBrands.Rows[index].Cells[11].Value = acos;
+            dgv_AdvBrands.Rows[index].Cells[12].Value = roas;
+            dgv_AdvBrands.Rows[index].Cells[13].Value = orders;
+            dgv_AdvBrands.Rows[index].Cells[14].Value = units;
+            dgv_AdvBrands.Rows[index].Cells[15].Value = convers;
+            dgv_AdvBrands.Rows[index].Cells[16].Value = newToBrandOrders;
+            dgv_AdvBrands.Rows[index].Cells[17].Value = newToBrandSales;
+            dgv_AdvBrands.Rows[index].Cells[18].Value = newToBrandSales;
+            dgv_AdvBrands.Rows[index].Cells[19].Value = newToBrandOrderRate;
+
         }
 
         /* Рисуем таблицу dgv_adGroups и заполняем её данными */
@@ -420,6 +587,8 @@ namespace Excel_Parse
                 //рисуем таблицу для Sponsored Products
 
                 DrawCorrectColumnsForSponsoredBrands(_advBrandsList);
+
+                DrawFirstRowForSponsoredBrands(_advBrandsList);
 
                 for (int i = 0; i < _advBrandsList.Count; i++)
                 {
@@ -516,7 +685,7 @@ namespace Excel_Parse
             campaignId = int.Parse(dgv_AdvProducts.Rows[e.RowIndex].Cells[23].Value.ToString());
             productId = int.Parse(dgv_AdvProducts.Rows[e.RowIndex].Cells[24].Value.ToString());
 
-            AdvertisingReportFilterView af = new AdvertisingReportFilterView(this);
+            ReportAdvertisingFilterView af = new ReportAdvertisingFilterView(this);
 
             af.ShowDetailedByAdGroup(adGroupName, marketpLaceId, campaignId, productId, advProductsList);
         }
@@ -540,7 +709,7 @@ namespace Excel_Parse
             campaignId = int.Parse(dgv_adGroups.Rows[e.RowIndex].Cells[23].Value.ToString());
             productId = int.Parse(dgv_adGroups.Rows[e.RowIndex].Cells[24].Value.ToString());
 
-            AdvertisingReportFilterView af = new AdvertisingReportFilterView(this);
+            ReportAdvertisingFilterView af = new ReportAdvertisingFilterView(this);
 
             af.ShowDetailedByTargeting(targeting, adGroupName, marketpLaceId, campaignId, productId, advProductsList);
         }

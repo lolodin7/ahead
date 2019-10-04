@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Excel_Parse
 {
-    class BusinessReportModel
+    class ReportBusinessModel
     {
+        public int MarketPlaceId { get; set; }
+        public int SKU { get; set; }
         public int Sessions { get; set; }
         public double SessionPercentage { get; set; }
         public int PageViews { get; set; }
@@ -24,9 +26,9 @@ namespace Excel_Parse
         public int ColumnCount { get; }
 
 
-        public BusinessReportModel()
+        public ReportBusinessModel()
         {
-            ColumnCount = 12;
+            ColumnCount = 14;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Excel_Parse
 {
-    partial class AdvertisingReportFilterView
+    partial class ReportAdvertisingFilterView
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdvertisingReportFilterView));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportAdvertisingFilterView));
             this.clb_Marketplace = new System.Windows.Forms.CheckedListBox();
             this.btn_Montly = new System.Windows.Forms.Button();
             this.clb_Campaign = new System.Windows.Forms.CheckedListBox();
@@ -70,16 +70,19 @@
             this.btn_Go = new System.Windows.Forms.Button();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btn_Reset = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.label15 = new System.Windows.Forms.Label();
-            this.tb_SearchByCampaign = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.tb_SearchByAdGroup = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.tb_SearchByTargeting = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btn_SearchBy = new System.Windows.Forms.Button();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.tb_SearchByCampaign = new System.Windows.Forms.TextBox();
+            this.tb_SearchByTargeting = new System.Windows.Forms.TextBox();
+            this.tb_SearchByAdGroup = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.btn_Reset = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btn_LastMonth = new System.Windows.Forms.Button();
+            this.btn_LastHalfYear = new System.Windows.Forms.Button();
+            this.btn_lastYear = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -92,7 +95,7 @@
             this.clb_Marketplace.FormattingEnabled = true;
             this.clb_Marketplace.Location = new System.Drawing.Point(12, 105);
             this.clb_Marketplace.Name = "clb_Marketplace";
-            this.clb_Marketplace.Size = new System.Drawing.Size(194, 94);
+            this.clb_Marketplace.Size = new System.Drawing.Size(194, 112);
             this.clb_Marketplace.TabIndex = 0;
             this.clb_Marketplace.SelectedIndexChanged += new System.EventHandler(this.clb_Marketplace_SelectedIndexChanged);
             // 
@@ -113,7 +116,7 @@
             this.clb_Campaign.CheckOnClick = true;
             this.clb_Campaign.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.clb_Campaign.FormattingEnabled = true;
-            this.clb_Campaign.Location = new System.Drawing.Point(216, 233);
+            this.clb_Campaign.Location = new System.Drawing.Point(216, 284);
             this.clb_Campaign.Name = "clb_Campaign";
             this.clb_Campaign.Size = new System.Drawing.Size(394, 310);
             this.clb_Campaign.TabIndex = 0;
@@ -136,16 +139,16 @@
             this.clb_Product.CheckOnClick = true;
             this.clb_Product.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.clb_Product.FormattingEnabled = true;
-            this.clb_Product.Location = new System.Drawing.Point(12, 233);
+            this.clb_Product.Location = new System.Drawing.Point(12, 251);
             this.clb_Product.Name = "clb_Product";
-            this.clb_Product.Size = new System.Drawing.Size(194, 184);
+            this.clb_Product.Size = new System.Drawing.Size(194, 238);
             this.clb_Product.TabIndex = 0;
             this.clb_Product.SelectedIndexChanged += new System.EventHandler(this.clb_Product_SelectedIndexChanged);
             // 
             // mc_StartDate
             // 
             this.mc_StartDate.BackColor = System.Drawing.SystemColors.Control;
-            this.mc_StartDate.Location = new System.Drawing.Point(217, 36);
+            this.mc_StartDate.Location = new System.Drawing.Point(217, 86);
             this.mc_StartDate.MaxSelectionCount = 1;
             this.mc_StartDate.Name = "mc_StartDate";
             this.mc_StartDate.ShowToday = false;
@@ -156,7 +159,7 @@
             // mc_EndDate
             // 
             this.mc_EndDate.BackColor = System.Drawing.SystemColors.Control;
-            this.mc_EndDate.Location = new System.Drawing.Point(422, 36);
+            this.mc_EndDate.Location = new System.Drawing.Point(422, 86);
             this.mc_EndDate.MaxSelectionCount = 1;
             this.mc_EndDate.Name = "mc_EndDate";
             this.mc_EndDate.ShowToday = false;
@@ -181,7 +184,7 @@
             this.btn_Show.FlatAppearance.BorderSize = 0;
             this.btn_Show.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Show.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.btn_Show.Location = new System.Drawing.Point(12, 451);
+            this.btn_Show.Location = new System.Drawing.Point(12, 502);
             this.btn_Show.Name = "btn_Show";
             this.btn_Show.Size = new System.Drawing.Size(194, 92);
             this.btn_Show.TabIndex = 30;
@@ -192,7 +195,7 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(217, 207);
+            this.label2.Location = new System.Drawing.Point(217, 258);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(393, 23);
             this.label2.TabIndex = 31;
@@ -212,7 +215,7 @@
             // label4
             // 
             this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.label4.Location = new System.Drawing.Point(12, 207);
+            this.label4.Location = new System.Drawing.Point(12, 225);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(194, 23);
             this.label4.TabIndex = 33;
@@ -263,7 +266,7 @@
             // btn_Clear_clb_Campaigns
             // 
             this.btn_Clear_clb_Campaigns.Font = new System.Drawing.Font("Segoe UI Semibold", 7.5F, System.Drawing.FontStyle.Bold);
-            this.btn_Clear_clb_Campaigns.Location = new System.Drawing.Point(583, 210);
+            this.btn_Clear_clb_Campaigns.Location = new System.Drawing.Point(583, 261);
             this.btn_Clear_clb_Campaigns.Name = "btn_Clear_clb_Campaigns";
             this.btn_Clear_clb_Campaigns.Size = new System.Drawing.Size(27, 21);
             this.btn_Clear_clb_Campaigns.TabIndex = 38;
@@ -275,7 +278,7 @@
             // btn_Clear_clb_Products
             // 
             this.btn_Clear_clb_Products.Font = new System.Drawing.Font("Segoe UI Semibold", 7.5F, System.Drawing.FontStyle.Bold);
-            this.btn_Clear_clb_Products.Location = new System.Drawing.Point(179, 210);
+            this.btn_Clear_clb_Products.Location = new System.Drawing.Point(179, 228);
             this.btn_Clear_clb_Products.Name = "btn_Clear_clb_Products";
             this.btn_Clear_clb_Products.Size = new System.Drawing.Size(27, 21);
             this.btn_Clear_clb_Products.TabIndex = 39;
@@ -467,7 +470,7 @@
             // 
             this.splitter1.Location = new System.Drawing.Point(0, 0);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 551);
+            this.splitter1.Size = new System.Drawing.Size(3, 601);
             this.splitter1.TabIndex = 60;
             this.splitter1.TabStop = false;
             // 
@@ -498,81 +501,10 @@
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
             this.groupBox1.Location = new System.Drawing.Point(616, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(666, 539);
+            this.groupBox1.Size = new System.Drawing.Size(666, 590);
             this.groupBox1.TabIndex = 61;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Работа с таблицей";
-            // 
-            // btn_Reset
-            // 
-            this.btn_Reset.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.btn_Reset.FlatAppearance.BorderSize = 0;
-            this.btn_Reset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Reset.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.btn_Reset.Location = new System.Drawing.Point(535, 481);
-            this.btn_Reset.Name = "btn_Reset";
-            this.btn_Reset.Size = new System.Drawing.Size(126, 52);
-            this.btn_Reset.TabIndex = 60;
-            this.btn_Reset.Text = "Сброс";
-            this.btn_Reset.UseVisualStyleBackColor = false;
-            this.btn_Reset.Click += new System.EventHandler(this.btn_Reset_Click);
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 4000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // label15
-            // 
-            this.label15.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.label15.Location = new System.Drawing.Point(6, 21);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(254, 23);
-            this.label15.TabIndex = 61;
-            this.label15.Text = "Campaign";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // tb_SearchByCampaign
-            // 
-            this.tb_SearchByCampaign.Location = new System.Drawing.Point(6, 47);
-            this.tb_SearchByCampaign.Name = "tb_SearchByCampaign";
-            this.tb_SearchByCampaign.Size = new System.Drawing.Size(254, 25);
-            this.tb_SearchByCampaign.TabIndex = 62;
-            // 
-            // label16
-            // 
-            this.label16.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.label16.Location = new System.Drawing.Point(6, 77);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(254, 23);
-            this.label16.TabIndex = 63;
-            this.label16.Text = "AdGroup Name";
-            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // tb_SearchByAdGroup
-            // 
-            this.tb_SearchByAdGroup.Enabled = false;
-            this.tb_SearchByAdGroup.Location = new System.Drawing.Point(6, 103);
-            this.tb_SearchByAdGroup.Name = "tb_SearchByAdGroup";
-            this.tb_SearchByAdGroup.Size = new System.Drawing.Size(254, 25);
-            this.tb_SearchByAdGroup.TabIndex = 64;
-            // 
-            // label18
-            // 
-            this.label18.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.label18.Location = new System.Drawing.Point(6, 133);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(254, 23);
-            this.label18.TabIndex = 65;
-            this.label18.Text = "Targeting";
-            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // tb_SearchByTargeting
-            // 
-            this.tb_SearchByTargeting.Location = new System.Drawing.Point(6, 159);
-            this.tb_SearchByTargeting.Name = "tb_SearchByTargeting";
-            this.tb_SearchByTargeting.Size = new System.Drawing.Size(254, 25);
-            this.tb_SearchByTargeting.TabIndex = 66;
             // 
             // groupBox2
             // 
@@ -604,11 +536,118 @@
             this.btn_SearchBy.UseVisualStyleBackColor = false;
             this.btn_SearchBy.Click += new System.EventHandler(this.btn_SearchBy_Click);
             // 
-            // AdvertisingReportFilterView
+            // label15
+            // 
+            this.label15.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.label15.Location = new System.Drawing.Point(6, 21);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(254, 23);
+            this.label15.TabIndex = 61;
+            this.label15.Text = "Campaign";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label18
+            // 
+            this.label18.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.label18.Location = new System.Drawing.Point(6, 133);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(254, 23);
+            this.label18.TabIndex = 65;
+            this.label18.Text = "Targeting";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tb_SearchByCampaign
+            // 
+            this.tb_SearchByCampaign.Location = new System.Drawing.Point(6, 47);
+            this.tb_SearchByCampaign.Name = "tb_SearchByCampaign";
+            this.tb_SearchByCampaign.Size = new System.Drawing.Size(254, 25);
+            this.tb_SearchByCampaign.TabIndex = 62;
+            // 
+            // tb_SearchByTargeting
+            // 
+            this.tb_SearchByTargeting.Location = new System.Drawing.Point(6, 159);
+            this.tb_SearchByTargeting.Name = "tb_SearchByTargeting";
+            this.tb_SearchByTargeting.Size = new System.Drawing.Size(254, 25);
+            this.tb_SearchByTargeting.TabIndex = 66;
+            // 
+            // tb_SearchByAdGroup
+            // 
+            this.tb_SearchByAdGroup.Enabled = false;
+            this.tb_SearchByAdGroup.Location = new System.Drawing.Point(6, 103);
+            this.tb_SearchByAdGroup.Name = "tb_SearchByAdGroup";
+            this.tb_SearchByAdGroup.Size = new System.Drawing.Size(254, 25);
+            this.tb_SearchByAdGroup.TabIndex = 64;
+            // 
+            // label16
+            // 
+            this.label16.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.label16.Location = new System.Drawing.Point(6, 77);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(254, 23);
+            this.label16.TabIndex = 63;
+            this.label16.Text = "AdGroup Name";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btn_Reset
+            // 
+            this.btn_Reset.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.btn_Reset.FlatAppearance.BorderSize = 0;
+            this.btn_Reset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Reset.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.btn_Reset.Location = new System.Drawing.Point(535, 481);
+            this.btn_Reset.Name = "btn_Reset";
+            this.btn_Reset.Size = new System.Drawing.Size(126, 52);
+            this.btn_Reset.TabIndex = 60;
+            this.btn_Reset.Text = "Сброс";
+            this.btn_Reset.UseVisualStyleBackColor = false;
+            this.btn_Reset.Click += new System.EventHandler(this.btn_Reset_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 4000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // btn_LastMonth
+            // 
+            this.btn_LastMonth.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.btn_LastMonth.Location = new System.Drawing.Point(221, 53);
+            this.btn_LastMonth.Name = "btn_LastMonth";
+            this.btn_LastMonth.Size = new System.Drawing.Size(104, 27);
+            this.btn_LastMonth.TabIndex = 62;
+            this.btn_LastMonth.Text = "Месяц";
+            this.btn_LastMonth.UseVisualStyleBackColor = true;
+            this.btn_LastMonth.Click += new System.EventHandler(this.btn_LastMonth_Click);
+            // 
+            // btn_LastHalfYear
+            // 
+            this.btn_LastHalfYear.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.btn_LastHalfYear.Location = new System.Drawing.Point(366, 51);
+            this.btn_LastHalfYear.Name = "btn_LastHalfYear";
+            this.btn_LastHalfYear.Size = new System.Drawing.Size(104, 27);
+            this.btn_LastHalfYear.TabIndex = 63;
+            this.btn_LastHalfYear.Text = "Полгода";
+            this.btn_LastHalfYear.UseVisualStyleBackColor = true;
+            this.btn_LastHalfYear.Click += new System.EventHandler(this.btn_LastHalfYear_Click);
+            // 
+            // btn_lastYear
+            // 
+            this.btn_lastYear.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.btn_lastYear.Location = new System.Drawing.Point(506, 51);
+            this.btn_lastYear.Name = "btn_lastYear";
+            this.btn_lastYear.Size = new System.Drawing.Size(104, 27);
+            this.btn_lastYear.TabIndex = 64;
+            this.btn_lastYear.Text = "Год";
+            this.btn_lastYear.UseVisualStyleBackColor = true;
+            this.btn_lastYear.Click += new System.EventHandler(this.btn_lastYear_Click);
+            // 
+            // ReportAdvertisingFilterView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1284, 551);
+            this.ClientSize = new System.Drawing.Size(1284, 601);
+            this.Controls.Add(this.btn_lastYear);
+            this.Controls.Add(this.btn_LastHalfYear);
+            this.Controls.Add(this.btn_LastMonth);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.splitter1);
             this.Controls.Add(this.btn_Clear_clb_Marketplace);
@@ -634,7 +673,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "AdvertisingReportFilterView";
+            this.Name = "ReportAdvertisingFilterView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Фильтр - Sponsored Products";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AdvertisingReportFilterView_FormClosing);
@@ -697,5 +736,8 @@
         private System.Windows.Forms.TextBox tb_SearchByTargeting;
         private System.Windows.Forms.TextBox tb_SearchByAdGroup;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Button btn_LastMonth;
+        private System.Windows.Forms.Button btn_LastHalfYear;
+        private System.Windows.Forms.Button btn_lastYear;
     }
 }

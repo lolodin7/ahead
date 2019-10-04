@@ -1,6 +1,6 @@
 ﻿namespace Excel_Parse
 {
-    partial class AdvertisingUploadReportView
+    partial class ReportAdvertisingUploadView
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdvertisingUploadReportView));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportAdvertisingUploadView));
             this.btn_UploadFromFile = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
@@ -45,25 +45,21 @@
             this.label6 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label7 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.btn_Close2 = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
-            this.cb_CampaignType2 = new System.Windows.Forms.ComboBox();
-            this.monthCalendar2 = new System.Windows.Forms.MonthCalendar();
-            this.label10 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.btn_Save2 = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.btn_UploadFromFile2 = new System.Windows.Forms.Button();
-            this.label11 = new System.Windows.Forms.Label();
             this.cb_marketplace2 = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.monthCalendar3 = new System.Windows.Forms.MonthCalendar();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.btn_Save2 = new System.Windows.Forms.Button();
-            this.label14 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.cb_CampaignType2 = new System.Windows.Forms.ComboBox();
+            this.btn_Close2 = new System.Windows.Forms.Button();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
-            this.label15 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -74,7 +70,7 @@
             // btn_UploadFromFile
             // 
             this.btn_UploadFromFile.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_UploadFromFile.Location = new System.Drawing.Point(77, 23);
+            this.btn_UploadFromFile.Location = new System.Drawing.Point(77, 82);
             this.btn_UploadFromFile.Name = "btn_UploadFromFile";
             this.btn_UploadFromFile.Size = new System.Drawing.Size(167, 53);
             this.btn_UploadFromFile.TabIndex = 0;
@@ -84,8 +80,8 @@
             // 
             // label1
             // 
-            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(15, 85);
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(15, 144);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(289, 52);
             this.label1.TabIndex = 1;
@@ -94,9 +90,10 @@
             // 
             // monthCalendar1
             // 
-            this.monthCalendar1.Location = new System.Drawing.Point(387, 74);
+            this.monthCalendar1.Location = new System.Drawing.Point(396, 28);
             this.monthCalendar1.MaxSelectionCount = 1;
             this.monthCalendar1.Name = "monthCalendar1";
+            this.monthCalendar1.ShowToday = false;
             this.monthCalendar1.TabIndex = 2;
             this.monthCalendar1.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.MonthCalendar1_DateChanged);
             // 
@@ -105,7 +102,7 @@
             this.cb_MarketPlace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_MarketPlace.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cb_MarketPlace.FormattingEnabled = true;
-            this.cb_MarketPlace.Location = new System.Drawing.Point(33, 174);
+            this.cb_MarketPlace.Location = new System.Drawing.Point(34, 28);
             this.cb_MarketPlace.Name = "cb_MarketPlace";
             this.cb_MarketPlace.Size = new System.Drawing.Size(251, 25);
             this.cb_MarketPlace.TabIndex = 3;
@@ -116,7 +113,7 @@
             this.cb_CampaignType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_CampaignType.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cb_CampaignType.FormattingEnabled = true;
-            this.cb_CampaignType.Location = new System.Drawing.Point(81, 76);
+            this.cb_CampaignType.Location = new System.Drawing.Point(80, 47);
             this.cb_CampaignType.Name = "cb_CampaignType";
             this.cb_CampaignType.Size = new System.Drawing.Size(251, 25);
             this.cb_CampaignType.TabIndex = 4;
@@ -125,9 +122,9 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(110, 148);
+            this.label2.Location = new System.Drawing.Point(34, 2);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(100, 23);
+            this.label2.Size = new System.Drawing.Size(251, 23);
             this.label2.TabIndex = 5;
             this.label2.Text = "Маркетплейс";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -135,9 +132,9 @@
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(145, 48);
+            this.label3.Location = new System.Drawing.Point(80, 19);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(126, 25);
+            this.label3.Size = new System.Drawing.Size(251, 25);
             this.label3.TabIndex = 6;
             this.label3.Text = "Campaign Type";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -167,7 +164,7 @@
             // label4
             // 
             this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(387, 51);
+            this.label4.Location = new System.Drawing.Point(396, 7);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(171, 19);
             this.label4.TabIndex = 9;
@@ -190,12 +187,11 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.btn_UploadFromFile);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.cb_MarketPlace);
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Location = new System.Drawing.Point(50, 111);
+            this.panel1.Location = new System.Drawing.Point(46, 82);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(315, 277);
             this.panel1.TabIndex = 11;
@@ -204,9 +200,9 @@
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(7, 79);
+            this.label6.Location = new System.Drawing.Point(49, 136);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(300, 134);
+            this.label6.Size = new System.Drawing.Size(309, 134);
             this.label6.TabIndex = 12;
             this.label6.Text = "Для начала выберите Campaign Type из списка выше ";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -224,6 +220,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.label7);
             this.tabPage1.Controls.Add(this.monthCalendar1);
@@ -241,17 +238,22 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Один";
             // 
+            // label7
+            // 
+            this.label7.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(387, 256);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(171, 23);
+            this.label7.TabIndex = 12;
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage2.Controls.Add(this.label15);
+            this.tabPage2.Controls.Add(this.label8);
             this.tabPage2.Controls.Add(this.label14);
             this.tabPage2.Controls.Add(this.btn_Save2);
-            this.tabPage2.Controls.Add(this.monthCalendar3);
-            this.tabPage2.Controls.Add(this.label13);
             this.tabPage2.Controls.Add(this.panel2);
-            this.tabPage2.Controls.Add(this.monthCalendar2);
-            this.tabPage2.Controls.Add(this.label10);
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.cb_CampaignType2);
             this.tabPage2.Controls.Add(this.btn_Close2);
@@ -262,149 +264,25 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Несколько";
             // 
-            // btn_Close2
-            // 
-            this.btn_Close2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_Close2.Location = new System.Drawing.Point(400, 429);
-            this.btn_Close2.Name = "btn_Close2";
-            this.btn_Close2.Size = new System.Drawing.Size(167, 53);
-            this.btn_Close2.TabIndex = 9;
-            this.btn_Close2.Text = "Закрыть";
-            this.btn_Close2.UseVisualStyleBackColor = true;
-            this.btn_Close2.Click += new System.EventHandler(this.Btn_Close_Click);
-            // 
-            // label9
-            // 
-            this.label9.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label9.Location = new System.Drawing.Point(134, 9);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(126, 25);
-            this.label9.TabIndex = 11;
-            this.label9.Text = "Campaign Type";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // cb_CampaignType2
-            // 
-            this.cb_CampaignType2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_CampaignType2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.cb_CampaignType2.FormattingEnabled = true;
-            this.cb_CampaignType2.Location = new System.Drawing.Point(70, 37);
-            this.cb_CampaignType2.Name = "cb_CampaignType2";
-            this.cb_CampaignType2.Size = new System.Drawing.Size(251, 25);
-            this.cb_CampaignType2.TabIndex = 10;
-            this.cb_CampaignType2.SelectedIndexChanged += new System.EventHandler(this.cb_CampaignType2_SelectedIndexChanged);
-            // 
-            // monthCalendar2
-            // 
-            this.monthCalendar2.Location = new System.Drawing.Point(396, 28);
-            this.monthCalendar2.MaxSelectionCount = 1;
-            this.monthCalendar2.Name = "monthCalendar2";
-            this.monthCalendar2.ShowToday = false;
-            this.monthCalendar2.TabIndex = 12;
-            this.monthCalendar2.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar2_DateChanged);
-            // 
-            // label10
-            // 
-            this.label10.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label10.Location = new System.Drawing.Point(396, 7);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(171, 19);
-            this.label10.TabIndex = 13;
-            this.label10.Text = "С";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.label8);
-            this.panel2.Controls.Add(this.btn_UploadFromFile2);
-            this.panel2.Controls.Add(this.label11);
-            this.panel2.Controls.Add(this.cb_marketplace2);
-            this.panel2.Controls.Add(this.label12);
-            this.panel2.Location = new System.Drawing.Point(41, 80);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(315, 277);
-            this.panel2.TabIndex = 14;
-            this.panel2.Visible = false;
-            // 
             // label8
             // 
             this.label8.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.Location = new System.Drawing.Point(134, 186);
+            this.label8.Location = new System.Drawing.Point(49, 136);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(300, 134);
+            this.label8.Size = new System.Drawing.Size(309, 134);
             this.label8.TabIndex = 12;
             this.label8.Text = "Для начала выберите Campaign Type из списка выше ";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btn_UploadFromFile2
+            // label14
             // 
-            this.btn_UploadFromFile2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_UploadFromFile2.Location = new System.Drawing.Point(77, 23);
-            this.btn_UploadFromFile2.Name = "btn_UploadFromFile2";
-            this.btn_UploadFromFile2.Size = new System.Drawing.Size(167, 53);
-            this.btn_UploadFromFile2.TabIndex = 0;
-            this.btn_UploadFromFile2.Text = "Выбрать файл";
-            this.btn_UploadFromFile2.UseVisualStyleBackColor = true;
-            this.btn_UploadFromFile2.Click += new System.EventHandler(this.btn_UploadFromFile2_Click);
-            // 
-            // label11
-            // 
-            this.label11.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.label11.Location = new System.Drawing.Point(15, 85);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(289, 52);
-            this.label11.TabIndex = 1;
-            this.label11.Text = "Путь к файлу...";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // cb_marketplace2
-            // 
-            this.cb_marketplace2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_marketplace2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.cb_marketplace2.FormattingEnabled = true;
-            this.cb_marketplace2.Location = new System.Drawing.Point(33, 174);
-            this.cb_marketplace2.Name = "cb_marketplace2";
-            this.cb_marketplace2.Size = new System.Drawing.Size(251, 25);
-            this.cb_marketplace2.TabIndex = 3;
-            this.cb_marketplace2.SelectedIndexChanged += new System.EventHandler(this.cb_marketplace2_SelectedIndexChanged);
-            // 
-            // label12
-            // 
-            this.label12.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label12.Location = new System.Drawing.Point(110, 148);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(100, 23);
-            this.label12.TabIndex = 5;
-            this.label12.Text = "Маркетплейс";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // monthCalendar3
-            // 
-            this.monthCalendar3.Location = new System.Drawing.Point(396, 214);
-            this.monthCalendar3.MaxSelectionCount = 1;
-            this.monthCalendar3.Name = "monthCalendar3";
-            this.monthCalendar3.ShowToday = false;
-            this.monthCalendar3.TabIndex = 15;
-            this.monthCalendar3.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar3_DateChanged);
-            // 
-            // label13
-            // 
-            this.label13.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label13.Location = new System.Drawing.Point(396, 193);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(171, 19);
-            this.label13.TabIndex = 16;
-            this.label13.Text = "По";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label7
-            // 
-            this.label7.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(387, 256);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(171, 23);
-            this.label7.TabIndex = 12;
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label14.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label14.Location = new System.Drawing.Point(114, 387);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(171, 23);
+            this.label14.TabIndex = 18;
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label14.Visible = false;
             // 
             // btn_Save2
             // 
@@ -417,32 +295,108 @@
             this.btn_Save2.UseVisualStyleBackColor = true;
             this.btn_Save2.Click += new System.EventHandler(this.btn_Save2_Click);
             // 
-            // label14
+            // panel2
             // 
-            this.label14.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label14.Location = new System.Drawing.Point(114, 387);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(171, 23);
-            this.label14.TabIndex = 18;
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label14.Visible = false;
+            this.panel2.Controls.Add(this.label21);
+            this.panel2.Controls.Add(this.richTextBox1);
+            this.panel2.Controls.Add(this.btn_UploadFromFile2);
+            this.panel2.Controls.Add(this.cb_marketplace2);
+            this.panel2.Controls.Add(this.label12);
+            this.panel2.Location = new System.Drawing.Point(46, 82);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(315, 341);
+            this.panel2.TabIndex = 14;
+            this.panel2.Visible = false;
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(11, 173);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ReadOnly = true;
+            this.richTextBox1.Size = new System.Drawing.Size(296, 155);
+            this.richTextBox1.TabIndex = 6;
+            this.richTextBox1.TabStop = false;
+            this.richTextBox1.Text = "";
+            // 
+            // btn_UploadFromFile2
+            // 
+            this.btn_UploadFromFile2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_UploadFromFile2.Location = new System.Drawing.Point(77, 82);
+            this.btn_UploadFromFile2.Name = "btn_UploadFromFile2";
+            this.btn_UploadFromFile2.Size = new System.Drawing.Size(167, 53);
+            this.btn_UploadFromFile2.TabIndex = 0;
+            this.btn_UploadFromFile2.Text = "Выбрать файл";
+            this.btn_UploadFromFile2.UseVisualStyleBackColor = true;
+            this.btn_UploadFromFile2.Click += new System.EventHandler(this.btn_UploadFromFile2_Click);
+            // 
+            // cb_marketplace2
+            // 
+            this.cb_marketplace2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_marketplace2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cb_marketplace2.FormattingEnabled = true;
+            this.cb_marketplace2.Location = new System.Drawing.Point(34, 28);
+            this.cb_marketplace2.Name = "cb_marketplace2";
+            this.cb_marketplace2.Size = new System.Drawing.Size(251, 25);
+            this.cb_marketplace2.TabIndex = 3;
+            this.cb_marketplace2.SelectedIndexChanged += new System.EventHandler(this.cb_marketplace2_SelectedIndexChanged);
+            // 
+            // label12
+            // 
+            this.label12.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label12.Location = new System.Drawing.Point(34, 2);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(251, 23);
+            this.label12.TabIndex = 5;
+            this.label12.Text = "Маркетплейс";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label9
+            // 
+            this.label9.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.Location = new System.Drawing.Point(80, 19);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(251, 25);
+            this.label9.TabIndex = 11;
+            this.label9.Text = "Campaign Type";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cb_CampaignType2
+            // 
+            this.cb_CampaignType2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_CampaignType2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cb_CampaignType2.FormattingEnabled = true;
+            this.cb_CampaignType2.Location = new System.Drawing.Point(80, 47);
+            this.cb_CampaignType2.Name = "cb_CampaignType2";
+            this.cb_CampaignType2.Size = new System.Drawing.Size(251, 25);
+            this.cb_CampaignType2.TabIndex = 10;
+            this.cb_CampaignType2.SelectedIndexChanged += new System.EventHandler(this.cb_CampaignType2_SelectedIndexChanged);
+            // 
+            // btn_Close2
+            // 
+            this.btn_Close2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_Close2.Location = new System.Drawing.Point(400, 429);
+            this.btn_Close2.Name = "btn_Close2";
+            this.btn_Close2.Size = new System.Drawing.Size(167, 53);
+            this.btn_Close2.TabIndex = 9;
+            this.btn_Close2.Text = "Закрыть";
+            this.btn_Close2.UseVisualStyleBackColor = true;
+            this.btn_Close2.Click += new System.EventHandler(this.Btn_Close_Click);
             // 
             // openFileDialog2
             // 
             this.openFileDialog2.FileName = "openFileDialog2";
             this.openFileDialog2.Multiselect = true;
             // 
-            // label15
+            // label21
             // 
-            this.label15.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.label15.Location = new System.Drawing.Point(396, 385);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(171, 23);
-            this.label15.TabIndex = 13;
-            this.label15.Text = "Дней - 1";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label21.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.label21.Location = new System.Drawing.Point(73, 144);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(171, 23);
+            this.label21.TabIndex = 19;
+            this.label21.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // AdvertisingUploadReportView
+            // ReportAdvertisingUploadView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -450,7 +404,7 @@
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "AdvertisingUploadReportView";
+            this.Name = "ReportAdvertisingUploadView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Загрузить отчет";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AdvertisingUploadReport_FormClosing);
@@ -482,23 +436,19 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.MonthCalendar monthCalendar2;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox cb_CampaignType2;
         private System.Windows.Forms.Button btn_Close2;
-        private System.Windows.Forms.MonthCalendar monthCalendar3;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button btn_UploadFromFile2;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox cb_marketplace2;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btn_Save2;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
-        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Label label21;
     }
 }

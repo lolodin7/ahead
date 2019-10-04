@@ -15,16 +15,16 @@ namespace Excel_Parse
 
         private List<CampaignTypesModel> campTList;
 
-        private AdvertisingUploadReportView controlAdvertisingUploadReportView;
-        private AdvertisingReportFilterView controlAdvertisingReportFilterView;
+        private ReportAdvertisingUploadView controlAdvertisingUploadReportView;
+        private ReportAdvertisingFilterView controlAdvertisingReportFilterView;
 
-        public CampaignTypesController(AdvertisingUploadReportView _mf)
+        public CampaignTypesController(ReportAdvertisingUploadView _mf)
         {
             connection = DBData.GetDBConnection();
             controlAdvertisingUploadReportView = _mf;
         }
 
-        public CampaignTypesController(AdvertisingReportFilterView _mf)
+        public CampaignTypesController(ReportAdvertisingFilterView _mf)
         {
             connection = DBData.GetDBConnection();
             controlAdvertisingReportFilterView = _mf;

@@ -1,6 +1,6 @@
 ﻿namespace Excel_Parse
 {
-    partial class AdvertisingReportView
+    partial class ReportAdvertisingView
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdvertisingReportView));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportAdvertisingView));
             this.dgv_AdvProducts = new System.Windows.Forms.DataGridView();
             this.btn_Export = new System.Windows.Forms.Button();
             this.btn_Filter = new System.Windows.Forms.Button();
@@ -58,8 +58,6 @@
             this.dgv_AdvProducts.RowTemplate.Height = 24;
             this.dgv_AdvProducts.Size = new System.Drawing.Size(1247, 622);
             this.dgv_AdvProducts.TabIndex = 17;
-            this.dgv_AdvProducts.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_AdvProducts_CellMouseDoubleClick);
-            this.dgv_AdvProducts.CellMouseMove += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_AdvProducts_CellMouseMove);
             // 
             // btn_Export
             // 
@@ -101,8 +99,6 @@
             this.dgv_adGroups.Size = new System.Drawing.Size(1247, 622);
             this.dgv_adGroups.TabIndex = 20;
             this.dgv_adGroups.Visible = false;
-            this.dgv_adGroups.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_adGroups_CellMouseDoubleClick);
-            this.dgv_adGroups.CellMouseMove += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_adGroups_CellMouseMove);
             // 
             // dgv_Targeting
             // 
@@ -118,7 +114,6 @@
             this.dgv_Targeting.Size = new System.Drawing.Size(1247, 622);
             this.dgv_Targeting.TabIndex = 21;
             this.dgv_Targeting.Visible = false;
-            this.dgv_Targeting.CellMouseMove += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_Targeting_CellMouseMove);
             // 
             // lb_StartDate
             // 
@@ -165,7 +160,7 @@
             this.dgv_AdvBrands.TabIndex = 25;
             this.dgv_AdvBrands.Visible = false;
             // 
-            // AdvertisingReportView
+            // ReportAdvertisingView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -181,7 +176,7 @@
             this.Controls.Add(this.dgv_AdvProducts);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(700, 200);
-            this.Name = "AdvertisingReportView";
+            this.Name = "ReportAdvertisingView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Данные рекламы";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AdvertisingReportView_FormClosing);

@@ -19,8 +19,8 @@ namespace Excel_Parse
         private ProductsView controlFormProductsView;
         private LoggerView controlFormLoggerView;
         private LoggerAdd controlFormLoggerAdd;
-        private AdvertisingUploadReportView controlFormAdvertisingUploadReportView;
-        private AdvertisingReportFilterView controlAdvertisingReportFilterView;
+        private ReportAdvertisingUploadView controlFormAdvertisingUploadReportView;
+        private ReportAdvertisingFilterView controlAdvertisingReportFilterView;
 
         /* Конструктор */
         public ProductsController(ProductsView _controlForm)
@@ -37,7 +37,7 @@ namespace Excel_Parse
         }
 
         /* Конструктор */
-        public ProductsController(AdvertisingReportFilterView _controlForm)
+        public ProductsController(ReportAdvertisingFilterView _controlForm)
         {
             connection = DBData.GetDBConnection();
             controlAdvertisingReportFilterView = _controlForm;
@@ -52,7 +52,7 @@ namespace Excel_Parse
 
 
         /* Конструктор */
-        public ProductsController(AdvertisingUploadReportView _controlForm)
+        public ProductsController(ReportAdvertisingUploadView _controlForm)
         {
             connection = DBData.GetDBConnection();
             controlFormAdvertisingUploadReportView = _controlForm;

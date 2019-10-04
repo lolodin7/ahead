@@ -315,7 +315,7 @@ SELECT CampaignName, CampaignId FROM [AdvertisingBrands] WHERE [ProductId] = 1
 
 SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2019-09-26 00:00:00' and '2019-09-26 23:59:00'
 
-
+SELECT * FROM [AdvertisingProducts] WHERE [productId] = 1
 
 
 

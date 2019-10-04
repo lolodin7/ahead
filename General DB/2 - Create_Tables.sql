@@ -2,6 +2,9 @@ USE AHEAD
 GO
 --тут обратный порядок от порядка создания
 
+IF NOT OBJECT_ID('ReturnsReport') IS NULL DROP TABLE [ReturnsReport]
+GO
+
 IF NOT OBJECT_ID('BusinessReport') IS NULL DROP TABLE [BusinessReport]
 GO
 
@@ -9,6 +12,24 @@ IF NOT OBJECT_ID('AdvertisingProducts') IS NULL DROP TABLE [AdvertisingProducts]
 GO
 
 IF NOT OBJECT_ID('AdvertisingBrands') IS NULL DROP TABLE [AdvertisingBrands]
+GO
+
+IF NOT OBJECT_ID('Currency') IS NULL DROP TABLE [Currency]
+GO
+
+IF NOT OBJECT_ID('CampaignType') IS NULL DROP TABLE [CampaignType]
+GO
+
+IF NOT OBJECT_ID('AB_CampaignIds') IS NULL DROP TABLE [AB_CampaignIds]
+GO
+
+IF NOT OBJECT_ID('AP_CampaignIds') IS NULL DROP TABLE [AP_CampaignIds]
+GO
+
+IF NOT OBJECT_ID('DetailedDisposition') IS NULL DROP TABLE [DetailedDisposition]
+GO
+
+IF NOT OBJECT_ID('ReturnReason') IS NULL DROP TABLE [ReturnReason]
 GO
 
 IF NOT OBJECT_ID('Logger') IS NULL DROP TABLE [Logger]
@@ -103,7 +124,7 @@ GO
 
 CREATE TABLE [Products](
 	[ProductId]			INT IDENTITY(0,1)	NOT NULL,
-	[Name]				NVARCHAR(500),
+	[Name]				NVARCHAR(1000),
 	[ASIN]				VARCHAR(20),
 	[SKU]				VARCHAR(30),
 	[ProductTypeId]		INT,
@@ -167,24 +188,22 @@ CREATE TABLE [Logger](
 
 
 
-IF NOT OBJECT_ID('AdvertisingProducts') IS NULL DROP TABLE [AdvertisingProducts]
-GO
 
-IF NOT OBJECT_ID('AdvertisingBrands') IS NULL DROP TABLE [AdvertisingBrands]
-GO
 
-IF NOT OBJECT_ID('Currency') IS NULL DROP TABLE [Currency]
-GO
 
-IF NOT OBJECT_ID('CampaignType') IS NULL DROP TABLE [CampaignType]
-GO
+CREATE TABLE [ReturnReason](
+	[ReasonId]						INT IDENTITY(0, 1),
+	[ReasonCode]					VARCHAR(512),
+	[ReasonDescription]				VARCHAR(512),
+	CONSTRAINT PK_ReturnReason PRIMARY KEY ([ReasonId])	
+)
 
-IF NOT OBJECT_ID('AB_CampaignIds') IS NULL DROP TABLE [AB_CampaignIds]
-GO
-
-IF NOT OBJECT_ID('AP_CampaignIds') IS NULL DROP TABLE [AP_CampaignIds]
-GO
-
+CREATE TABLE [DetailedDisposition](
+	[DispositionId]					INT IDENTITY(0, 1),
+	[DispositionCode]				VARCHAR(512),
+	[DispositionDescription]		VARCHAR(512),
+	CONSTRAINT PK_DetailedDisposition PRIMARY KEY ([DispositionId])	
+)
 
 CREATE TABLE [Currency](
 	[UpdateDate]		DATETIME,
@@ -242,7 +261,8 @@ CREATE TABLE [AdvertisingProducts](
 	[ProductId]			INT,
 	CONSTRAINT FK_AdvertisingProducts_CampaignId FOREIGN KEY ([CampaignTypeId]) REFERENCES [CampaignType] ([CampaignId]),
 	CONSTRAINT FK_AdvertisingProducts_MarketPlaceId FOREIGN KEY ([MarketPlaceId]) REFERENCES [MarketPlace] ([MarketPlaceId]),
-	CONSTRAINT FK_AdvertisingProducts_ProductId FOREIGN KEY ([ProductId]) REFERENCES [Products] ([ProductId])
+	CONSTRAINT FK_AdvertisingProducts_ProductId FOREIGN KEY ([ProductId]) REFERENCES [Products] ([ProductId]),
+	CONSTRAINT FK_AdvertisingProducts_AP_CampaignIds FOREIGN KEY ([CampaignId]) REFERENCES [AP_CampaignIds] ([CampaignId])
 )
 
 CREATE TABLE [AdvertisingBrands](
@@ -276,11 +296,9 @@ CREATE TABLE [AdvertisingBrands](
 	CONSTRAINT FK_AdvertisingBrands_MarketPlaceId FOREIGN KEY ([MarketPlaceId]) REFERENCES [MarketPlace] ([MarketPlaceId]),
 	CONSTRAINT FK_AdvertisingBrands_ProductId1 FOREIGN KEY ([ProductId1]) REFERENCES [Products] ([ProductId]),
 	CONSTRAINT FK_AdvertisingBrands_ProductId2 FOREIGN KEY ([ProductId2]) REFERENCES [Products] ([ProductId]),
-	CONSTRAINT FK_AdvertisingBrands_ProductId3 FOREIGN KEY ([ProductId3]) REFERENCES [Products] ([ProductId])
+	CONSTRAINT FK_AdvertisingBrands_ProductId3 FOREIGN KEY ([ProductId3]) REFERENCES [Products] ([ProductId]),
+	CONSTRAINT FK_AdvertisingBrands_AB_CampaignIds FOREIGN KEY ([CampaignId]) REFERENCES [AB_CampaignIds] ([CampaignId])
 )
-
-
-
 
 CREATE TABLE [BusinessReport](
 	[MarketPlaceId]				INT,
@@ -305,3 +323,26 @@ Page Views Percentage = Page Views/SUM(Page Views)
 Unit Session Percentage= Units Ordered/Sessions
 Unit Session Percentage - B2B = Units Ordered - B2B/Sessions
 */
+
+CREATE TABLE [ReturnsReport](
+	[RecordId]					INT IDENTITY(0,1),
+	[MarketplaceId]				INT,
+	[ReturnDate]				DATETIME,
+	[OrderId]					VARCHAR(100),
+	[SKU]						VARCHAR(30),
+	[ASIN]						VARCHAR(20),
+	[FNSKU]						VARCHAR(30),
+	[ProductName]				NVARCHAR(1000),
+	[Quantity]					INT,
+	[FulfillmentCenterId]		VARCHAR(20),
+	[DetailedDisposition]		INT,
+	[Reason]					INT,
+	[Status]					VARCHAR(512),
+	[LicensePlateNumber]		VARCHAR(30),
+	[CustomerComments]			NVARCHAR(1000),
+	CONSTRAINT PK_ReturnsReport PRIMARY KEY ([RecordId]),
+	CONSTRAINT FK_ReturnsReport_MarketPlace FOREIGN KEY ([SKU], [MarketPlaceId]) REFERENCES [Products] ([SKU], [MarketPlaceId]),
+	CONSTRAINT FK_ReturnsReport_Reason FOREIGN KEY ([Reason]) REFERENCES [ReturnReason] ([ReasonId]),
+	CONSTRAINT FK_ReturnsReport_Dispositon FOREIGN KEY ([DetailedDisposition]) REFERENCES [DetailedDisposition] ([DispositionId])
+)
+

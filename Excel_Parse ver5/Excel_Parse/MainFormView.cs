@@ -341,25 +341,26 @@ namespace Excel_Parse
                 LogsCount = logList.Count;
             }
         }
-
-        private void AddReportToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AdvertisingUploadReportView advUpRep = new AdvertisingUploadReportView(this, "upload");
-            advUpRep.Show();
-            this.Visible = false;
-        }
-
-        private void UpdateReportToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AdvertisingUploadReportView advUpRep = new AdvertisingUploadReportView(this, "update");
-            advUpRep.Show();
-            this.Visible = false;
-        }
+        
 
         private void showAdvDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AdvertisingReportView advRep = new AdvertisingReportView(this);
+            ReportAdvertisingView advRep = new ReportAdvertisingView(this);
             advRep.Show();
+            this.Visible = false;
+        }
+
+        private void addAdvReportReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ReportAdvertisingUploadView advUpRep = new ReportAdvertisingUploadView(this, "upload");
+            advUpRep.Show();
+            this.Visible = false;
+        }
+
+        private void updateAdvertisingReportToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ReportAdvertisingUploadView advUpRep = new ReportAdvertisingUploadView(this, "update");
+            advUpRep.Show();
             this.Visible = false;
         }
 
