@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Bona_Fides
+namespace Excel_Parse
 {
     public partial class ReportBusinessView : Form
     {
-        public ReportBusinessView()
+        public ReportBusinessView(MainFormView _mf)
         {
             InitializeComponent();
         }

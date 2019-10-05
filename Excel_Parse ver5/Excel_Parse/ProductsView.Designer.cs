@@ -451,7 +451,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(91, 78);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(104, 13);
+            this.label3.Size = new System.Drawing.Size(100, 13);
             this.label3.TabIndex = 27;
             this.label3.Text = "Краткое название";
             // 
@@ -459,7 +459,7 @@
             // 
             this.tb_AddingShortName.Location = new System.Drawing.Point(8, 98);
             this.tb_AddingShortName.Name = "tb_AddingShortName";
-            this.tb_AddingShortName.Size = new System.Drawing.Size(261, 22);
+            this.tb_AddingShortName.Size = new System.Drawing.Size(261, 20);
             this.tb_AddingShortName.TabIndex = 26;
             // 
             // lb_Marketplace2
@@ -467,7 +467,7 @@
             this.lb_Marketplace2.AutoSize = true;
             this.lb_Marketplace2.Location = new System.Drawing.Point(936, 26);
             this.lb_Marketplace2.Name = "lb_Marketplace2";
-            this.lb_Marketplace2.Size = new System.Drawing.Size(78, 13);
+            this.lb_Marketplace2.Size = new System.Drawing.Size(75, 13);
             this.lb_Marketplace2.TabIndex = 18;
             this.lb_Marketplace2.Text = "Маркетплейс";
             // 
@@ -475,7 +475,7 @@
             // 
             this.tb_adding_MarketPlaceId.Location = new System.Drawing.Point(1024, 44);
             this.tb_adding_MarketPlaceId.Name = "tb_adding_MarketPlaceId";
-            this.tb_adding_MarketPlaceId.Size = new System.Drawing.Size(47, 22);
+            this.tb_adding_MarketPlaceId.Size = new System.Drawing.Size(47, 20);
             this.tb_adding_MarketPlaceId.TabIndex = 16;
             this.tb_adding_MarketPlaceId.Visible = false;
             // 
@@ -494,7 +494,7 @@
             this.lb_ProductName2.AutoSize = true;
             this.lb_ProductName2.Location = new System.Drawing.Point(91, 26);
             this.lb_ProductName2.Name = "lb_ProductName2";
-            this.lb_ProductName2.Size = new System.Drawing.Size(98, 13);
+            this.lb_ProductName2.Size = new System.Drawing.Size(95, 13);
             this.lb_ProductName2.TabIndex = 18;
             this.lb_ProductName2.Text = "Название товара";
             // 
@@ -512,7 +512,7 @@
             // 
             this.tb_adding_ProductName.Location = new System.Drawing.Point(8, 46);
             this.tb_adding_ProductName.Name = "tb_adding_ProductName";
-            this.tb_adding_ProductName.Size = new System.Drawing.Size(261, 22);
+            this.tb_adding_ProductName.Size = new System.Drawing.Size(261, 20);
             this.tb_adding_ProductName.TabIndex = 14;
             // 
             // lb_ProductTypes2
@@ -520,7 +520,7 @@
             this.lb_ProductTypes2.AutoSize = true;
             this.lb_ProductTypes2.Location = new System.Drawing.Point(709, 26);
             this.lb_ProductTypes2.Name = "lb_ProductTypes2";
-            this.lb_ProductTypes2.Size = new System.Drawing.Size(67, 13);
+            this.lb_ProductTypes2.Size = new System.Drawing.Size(64, 13);
             this.lb_ProductTypes2.TabIndex = 21;
             this.lb_ProductTypes2.Text = "Вид товара";
             // 
@@ -539,7 +539,7 @@
             this.lb_ASIN2.AutoSize = true;
             this.lb_ASIN2.Location = new System.Drawing.Point(359, 26);
             this.lb_ASIN2.Name = "lb_ASIN2";
-            this.lb_ASIN2.Size = new System.Drawing.Size(31, 13);
+            this.lb_ASIN2.Size = new System.Drawing.Size(32, 13);
             this.lb_ASIN2.TabIndex = 20;
             this.lb_ASIN2.Text = "ASIN";
             // 
@@ -547,7 +547,7 @@
             // 
             this.tb_adding_ASIN.Location = new System.Drawing.Point(317, 46);
             this.tb_adding_ASIN.Name = "tb_adding_ASIN";
-            this.tb_adding_ASIN.Size = new System.Drawing.Size(112, 22);
+            this.tb_adding_ASIN.Size = new System.Drawing.Size(112, 20);
             this.tb_adding_ASIN.TabIndex = 15;
             // 
             // lb_SKU2
@@ -555,7 +555,7 @@
             this.lb_SKU2.AutoSize = true;
             this.lb_SKU2.Location = new System.Drawing.Point(526, 26);
             this.lb_SKU2.Name = "lb_SKU2";
-            this.lb_SKU2.Size = new System.Drawing.Size(28, 13);
+            this.lb_SKU2.Size = new System.Drawing.Size(29, 13);
             this.lb_SKU2.TabIndex = 19;
             this.lb_SKU2.Text = "SKU";
             // 
@@ -563,7 +563,7 @@
             // 
             this.tb_adding_ProductTypeId.Location = new System.Drawing.Point(795, 45);
             this.tb_adding_ProductTypeId.Name = "tb_adding_ProductTypeId";
-            this.tb_adding_ProductTypeId.Size = new System.Drawing.Size(61, 22);
+            this.tb_adding_ProductTypeId.Size = new System.Drawing.Size(61, 20);
             this.tb_adding_ProductTypeId.TabIndex = 22;
             this.tb_adding_ProductTypeId.Text = "typeId";
             this.tb_adding_ProductTypeId.Visible = false;
@@ -572,7 +572,7 @@
             // 
             this.tb_adding_SKU.Location = new System.Drawing.Point(483, 46);
             this.tb_adding_SKU.Name = "tb_adding_SKU";
-            this.tb_adding_SKU.Size = new System.Drawing.Size(112, 22);
+            this.tb_adding_SKU.Size = new System.Drawing.Size(112, 20);
             this.tb_adding_SKU.TabIndex = 16;
             // 
             // cb_adding_ProductTypes
@@ -594,7 +594,7 @@
             this.checkbox_ActiveStatus.AutoSize = true;
             this.checkbox_ActiveStatus.Location = new System.Drawing.Point(12, 674);
             this.checkbox_ActiveStatus.Name = "checkbox_ActiveStatus";
-            this.checkbox_ActiveStatus.Size = new System.Drawing.Size(171, 17);
+            this.checkbox_ActiveStatus.Size = new System.Drawing.Size(169, 17);
             this.checkbox_ActiveStatus.TabIndex = 17;
             this.checkbox_ActiveStatus.Text = "Показать закрытые товары";
             this.checkbox_ActiveStatus.UseVisualStyleBackColor = true;
@@ -614,7 +614,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(64, 618);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(105, 13);
+            this.label1.Size = new System.Drawing.Size(100, 13);
             this.label1.TabIndex = 20;
             this.label1.Text = "Поиск по товарам";
             // 
@@ -643,6 +643,7 @@
             this.Controls.Add(this.dgv_Products);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "ProductsView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Управление товарами - Bona Fides";

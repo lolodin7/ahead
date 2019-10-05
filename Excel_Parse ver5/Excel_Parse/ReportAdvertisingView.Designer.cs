@@ -175,6 +175,7 @@
             this.Controls.Add(this.btn_Export);
             this.Controls.Add(this.dgv_AdvProducts);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(700, 200);
             this.Name = "ReportAdvertisingView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

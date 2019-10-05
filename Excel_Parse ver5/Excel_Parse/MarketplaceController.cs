@@ -20,6 +20,7 @@ namespace Excel_Parse
         private SemCoreView controlSemCoreView;
         private LoggerView controlLoggerView;
         private LoggerAdd controlLoggerAdd;
+        private ReportBusinessUploadView controlReportBusinessUploadView;
         private ReportAdvertisingUploadView controlAdvertisingUploadReport;
         private ReportAdvertisingFilterView controlAdvertisingReportFilterView;
         //private MarketplaceView
@@ -28,6 +29,12 @@ namespace Excel_Parse
         {
             connection = DBData.GetDBConnection();
             controlProductsView = _mf;
+        }
+
+        public MarketplaceController(ReportBusinessUploadView _mf)
+        {
+            connection = DBData.GetDBConnection();
+            controlReportBusinessUploadView = _mf;
         }
 
         public MarketplaceController(MarketplaceView _mf)
@@ -149,6 +156,8 @@ namespace Excel_Parse
                     controlAdvertisingUploadReport.GetMarketPlacesFromDB(mpList);
                 else if (controlAdvertisingReportFilterView != null)
                     controlAdvertisingReportFilterView.GetMarketPlacesFromDB(mpList);
+                else if (controlReportBusinessUploadView != null)
+                    controlReportBusinessUploadView.GetMarketPlacesFromDB(mpList);
 
                 return 1;
             }

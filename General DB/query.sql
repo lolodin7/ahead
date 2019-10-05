@@ -333,3 +333,5 @@ INSERT INTO [AdvertisingProducts] ([UpdateDate], [CurrencyCharCode], [CampaignNa
 
 
 select * from [BusinessReport]
+
+UPDATE [BusinessReport] SET [Sessions] = 990, [SessionPercentage] = 17.98, [PageViews] = 1520, [PageViewsPercentage] = 79.54, [UnitsOrdered] = 178, [UnitsOrdered-B2B] = 11, [UnitSessionPercentage] = 17.98, [UnitSessionPercentage-B2B] = 1.11, [OrderedProductSales] = 4035.35, [OrderedProductSales-B2B] = 246.2, [TotalOrderItems] = 163, [TotalOrderItems-B2B] = 4 WHERE [UpdateDate] = '2019-10-03 23:59:59' AND [SKU] = 'IG-5UO9-SCW1' AND [MarketPlaceId] = 1

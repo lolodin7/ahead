@@ -364,6 +364,27 @@ namespace Excel_Parse
             this.Visible = false;
         }
 
+        private void addBusinessReportReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ReportBusinessUploadView busUpRep = new ReportBusinessUploadView(this, "upload");
+            busUpRep.Show();
+            this.Visible = false;
+        }
+
+        private void updateBusinessReportToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ReportBusinessUploadView busUpRep = new ReportBusinessUploadView(this, "update");
+            busUpRep.Show();
+            this.Visible = false;
+        }
+
+        private void showSalesDataToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ReportBusinessView repBus = new ReportBusinessView(this);
+            repBus.Show();
+            this.Visible = false;
+        }
+
         /* 
          
           

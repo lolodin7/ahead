@@ -19,6 +19,7 @@ namespace Excel_Parse
         private ProductsView controlFormProductsView;
         private LoggerView controlFormLoggerView;
         private LoggerAdd controlFormLoggerAdd;
+        private ReportBusinessUploadView controlReportBusinessUploadView;
         private ReportAdvertisingUploadView controlFormAdvertisingUploadReportView;
         private ReportAdvertisingFilterView controlAdvertisingReportFilterView;
 
@@ -27,6 +28,13 @@ namespace Excel_Parse
         {
             connection = DBData.GetDBConnection();
             controlFormProductsView = _controlForm;
+        }
+
+        /* Конструктор */
+        public ProductsController(ReportBusinessUploadView _controlForm)
+        {
+            connection = DBData.GetDBConnection();
+            controlReportBusinessUploadView = _controlForm;
         }
 
         /* Конструктор */
@@ -293,6 +301,8 @@ namespace Excel_Parse
                     controlFormAdvertisingUploadReportView.GetProductsFromDB(pList);
                 else if (controlAdvertisingReportFilterView != null)
                     controlAdvertisingReportFilterView.GetProductsFromDB(pList);
+                else if (controlReportBusinessUploadView != null)
+                    controlReportBusinessUploadView.GetProductsFromDB(pList);
                 return 1;
             }
             catch (Exception ex)

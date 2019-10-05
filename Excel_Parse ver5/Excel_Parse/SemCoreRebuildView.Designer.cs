@@ -46,6 +46,8 @@
             this.lb_UpdatedKeys = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cb_Marketplace = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
@@ -59,8 +61,6 @@
             this.btn_DeselectAll = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_ClearAll = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cb_Marketplace = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Source)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Target)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -291,6 +291,24 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Управление";
             // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(88, 522);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(107, 23);
+            this.label4.TabIndex = 30;
+            this.label4.Text = "Маркетплейс";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cb_Marketplace
+            // 
+            this.cb_Marketplace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_Marketplace.FormattingEnabled = true;
+            this.cb_Marketplace.Location = new System.Drawing.Point(30, 548);
+            this.cb_Marketplace.Name = "cb_Marketplace";
+            this.cb_Marketplace.Size = new System.Drawing.Size(216, 21);
+            this.cb_Marketplace.TabIndex = 31;
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.radioButton1);
@@ -331,7 +349,7 @@
             // 
             this.tb_OwnDelimiter.Location = new System.Drawing.Point(6, 41);
             this.tb_OwnDelimiter.Name = "tb_OwnDelimiter";
-            this.tb_OwnDelimiter.Size = new System.Drawing.Size(79, 22);
+            this.tb_OwnDelimiter.Size = new System.Drawing.Size(79, 20);
             this.tb_OwnDelimiter.TabIndex = 19;
             this.tb_OwnDelimiter.TextChanged += new System.EventHandler(this.tb_OwnDelimiter_TextChanged);
             // 
@@ -364,7 +382,7 @@
             this.tb_Link.Enabled = false;
             this.tb_Link.Location = new System.Drawing.Point(23, 804);
             this.tb_Link.Name = "tb_Link";
-            this.tb_Link.Size = new System.Drawing.Size(243, 22);
+            this.tb_Link.Size = new System.Drawing.Size(243, 20);
             this.tb_Link.TabIndex = 26;
             // 
             // btn_AddCategory
@@ -435,24 +453,6 @@
             this.btn_ClearAll.Visible = false;
             this.btn_ClearAll.Click += new System.EventHandler(this.btn_ClearAll_Click);
             // 
-            // label4
-            // 
-            this.label4.Location = new System.Drawing.Point(88, 522);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(107, 23);
-            this.label4.TabIndex = 30;
-            this.label4.Text = "Маркетплейс";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // cb_Marketplace
-            // 
-            this.cb_Marketplace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_Marketplace.FormattingEnabled = true;
-            this.cb_Marketplace.Location = new System.Drawing.Point(30, 548);
-            this.cb_Marketplace.Name = "cb_Marketplace";
-            this.cb_Marketplace.Size = new System.Drawing.Size(216, 21);
-            this.cb_Marketplace.TabIndex = 31;
-            // 
             // SemCoreRebuildView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -469,6 +469,7 @@
             this.Controls.Add(this.dgv_Source);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "SemCoreRebuildView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Изменение семантического ядра - Bona Fides";

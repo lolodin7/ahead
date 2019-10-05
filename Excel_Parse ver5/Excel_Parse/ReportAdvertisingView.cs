@@ -415,7 +415,7 @@ namespace Excel_Parse
             dgv_AdvProducts.Rows[index].Cells[8].Value = ctr;
             dgv_AdvProducts.Rows[index].Cells[9].Value = cpc;
             dgv_AdvProducts.Rows[index].Cells[10].Value = spend;
-            dgv_AdvProducts.Rows[index].Cells[11].Value = sales;
+            dgv_AdvProducts.Rows[index].Cells[11].Value = Math.Round(sales, 2);
             dgv_AdvProducts.Rows[index].Cells[12].Value = acos;
             dgv_AdvProducts.Rows[index].Cells[13].Value = roas;
             dgv_AdvProducts.Rows[index].Cells[14].Value = orders;
@@ -423,8 +423,8 @@ namespace Excel_Parse
             dgv_AdvProducts.Rows[index].Cells[16].Value = convers;
             dgv_AdvProducts.Rows[index].Cells[17].Value = advskuunt;
             dgv_AdvProducts.Rows[index].Cells[18].Value = otherskuunt;
-            dgv_AdvProducts.Rows[index].Cells[19].Value = advskusales;
-            dgv_AdvProducts.Rows[index].Cells[20].Value = otherskusales;
+            dgv_AdvProducts.Rows[index].Cells[19].Value = Math.Round(advskusales, 2);
+            dgv_AdvProducts.Rows[index].Cells[20].Value = Math.Round(otherskusales, 2);
 
         }
 
@@ -498,15 +498,15 @@ namespace Excel_Parse
             dgv_AdvBrands.Rows[index].Cells[7].Value = ctr;
             dgv_AdvBrands.Rows[index].Cells[8].Value = cpc;
             dgv_AdvBrands.Rows[index].Cells[9].Value = spend;
-            dgv_AdvBrands.Rows[index].Cells[10].Value = sales;
+            dgv_AdvBrands.Rows[index].Cells[10].Value = Math.Round(sales, 2);
             dgv_AdvBrands.Rows[index].Cells[11].Value = acos;
             dgv_AdvBrands.Rows[index].Cells[12].Value = roas;
             dgv_AdvBrands.Rows[index].Cells[13].Value = orders;
             dgv_AdvBrands.Rows[index].Cells[14].Value = units;
             dgv_AdvBrands.Rows[index].Cells[15].Value = convers;
             dgv_AdvBrands.Rows[index].Cells[16].Value = newToBrandOrders;
-            dgv_AdvBrands.Rows[index].Cells[17].Value = newToBrandSales;
-            dgv_AdvBrands.Rows[index].Cells[18].Value = newToBrandSales;
+            dgv_AdvBrands.Rows[index].Cells[17].Value = Math.Round(newToBrandSales, 2);
+            dgv_AdvBrands.Rows[index].Cells[18].Value = Math.Round(newToBrandSales, 2);
             dgv_AdvBrands.Rows[index].Cells[19].Value = newToBrandOrderRate;
 
         }

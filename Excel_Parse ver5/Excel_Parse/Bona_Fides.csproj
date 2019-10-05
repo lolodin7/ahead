@@ -106,6 +106,7 @@
     <Compile Include="AdvertisingBrandsModel.cs" />
     <Compile Include="AdvertisingController.cs" />
     <Compile Include="AdvertisingProductsModel.cs" />
+    <Compile Include="BusinessController.cs" />
     <Compile Include="ReportAdvertisingFilterView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -374,6 +375,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RegisterAnEmployee.resx">
       <DependentUpon>RegisterAnEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportBusinessUploadView.resx">
+      <DependentUpon>ReportBusinessUploadView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportBusinessView.resx">
+      <DependentUpon>ReportBusinessView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RestorePasswordView.resx">
       <DependentUpon>RestorePasswordView.cs</DependentUpon>

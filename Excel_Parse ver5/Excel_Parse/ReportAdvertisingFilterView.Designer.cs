@@ -101,6 +101,7 @@
             // 
             // btn_Montly
             // 
+            this.btn_Montly.Enabled = false;
             this.btn_Montly.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
             this.btn_Montly.Location = new System.Drawing.Point(583, 4);
             this.btn_Montly.Name = "btn_Montly";
@@ -124,6 +125,7 @@
             // 
             // btn_Weekly
             // 
+            this.btn_Weekly.Enabled = false;
             this.btn_Weekly.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
             this.btn_Weekly.Location = new System.Drawing.Point(550, 4);
             this.btn_Weekly.Name = "btn_Weekly";

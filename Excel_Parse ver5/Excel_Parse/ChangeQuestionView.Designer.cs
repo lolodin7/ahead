@@ -30,18 +30,18 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChangeQuestionView));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
             this.btn_NextAnswer = new System.Windows.Forms.Button();
             this.lb_AnswerTxt = new System.Windows.Forms.Label();
             this.tb_Answer = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tb_NewAnswer = new System.Windows.Forms.TextBox();
             this.btn_ChangeQuestion = new System.Windows.Forms.Button();
             this.lb_Panel2 = new System.Windows.Forms.Label();
             this.tb_NewQuestion = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -57,6 +57,16 @@
             this.panel1.Size = new System.Drawing.Size(559, 341);
             this.panel1.TabIndex = 1;
             this.panel1.Visible = false;
+            // 
+            // label4
+            // 
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(108, 89);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(334, 62);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "Для изменения секретного вопроса, введите текущий ответ.";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btn_NextAnswer
             // 
@@ -100,6 +110,16 @@
             this.panel2.Size = new System.Drawing.Size(559, 339);
             this.panel2.TabIndex = 2;
             this.panel2.Visible = false;
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(114, 59);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(334, 62);
+            this.label3.TabIndex = 19;
+            this.label3.Text = "Для изменения секретного вопроса, введите текущий ответ.";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
@@ -158,26 +178,6 @@
             this.tb_NewQuestion.TabIndex = 13;
             this.tb_NewQuestion.Visible = false;
             // 
-            // label3
-            // 
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(114, 59);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(334, 62);
-            this.label3.TabIndex = 19;
-            this.label3.Text = "Для изменения секретного вопроса, введите текущий ответ.";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label4
-            // 
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(108, 89);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(334, 62);
-            this.label4.TabIndex = 20;
-            this.label4.Text = "Для изменения секретного вопроса, введите текущий ответ.";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // ChangeQuestionView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -187,6 +187,7 @@
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "ChangeQuestionView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ChangeQuestionView";

@@ -250,7 +250,7 @@
             this.tb_Link.Enabled = false;
             this.tb_Link.Location = new System.Drawing.Point(35, 804);
             this.tb_Link.Name = "tb_Link";
-            this.tb_Link.Size = new System.Drawing.Size(219, 22);
+            this.tb_Link.Size = new System.Drawing.Size(219, 20);
             this.tb_Link.TabIndex = 20;
             // 
             // checkBox1
@@ -292,7 +292,7 @@
             // 
             this.tb_MarketPlaceId.Location = new System.Drawing.Point(327, 216);
             this.tb_MarketPlaceId.Name = "tb_MarketPlaceId";
-            this.tb_MarketPlaceId.Size = new System.Drawing.Size(100, 22);
+            this.tb_MarketPlaceId.Size = new System.Drawing.Size(100, 20);
             this.tb_MarketPlaceId.TabIndex = 29;
             // 
             // label4
@@ -330,7 +330,7 @@
             // 
             this.tb_OwnDelimiter.Location = new System.Drawing.Point(6, 46);
             this.tb_OwnDelimiter.Name = "tb_OwnDelimiter";
-            this.tb_OwnDelimiter.Size = new System.Drawing.Size(81, 22);
+            this.tb_OwnDelimiter.Size = new System.Drawing.Size(81, 20);
             this.tb_OwnDelimiter.TabIndex = 2;
             this.tb_OwnDelimiter.TextChanged += new System.EventHandler(this.tb_OwnDelimiter_TextChanged);
             // 
@@ -386,7 +386,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(77, 31);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(94, 13);
+            this.label1.Size = new System.Drawing.Size(91, 13);
             this.label1.TabIndex = 26;
             this.label1.Text = "Название ключа";
             // 
@@ -404,7 +404,7 @@
             // 
             this.tb_CustomValue.Location = new System.Drawing.Point(87, 94);
             this.tb_CustomValue.Name = "tb_CustomValue";
-            this.tb_CustomValue.Size = new System.Drawing.Size(73, 22);
+            this.tb_CustomValue.Size = new System.Drawing.Size(73, 20);
             this.tb_CustomValue.TabIndex = 24;
             this.tb_CustomValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_CustomValue_KeyPress);
             // 
@@ -412,7 +412,7 @@
             // 
             this.tb_CustomKey.Location = new System.Drawing.Point(15, 50);
             this.tb_CustomKey.Name = "tb_CustomKey";
-            this.tb_CustomKey.Size = new System.Drawing.Size(213, 22);
+            this.tb_CustomKey.Size = new System.Drawing.Size(213, 20);
             this.tb_CustomKey.TabIndex = 23;
             // 
             // btn_addKeywordCategory
@@ -429,7 +429,7 @@
             // 
             this.tb_ProductTypeId.Location = new System.Drawing.Point(380, 164);
             this.tb_ProductTypeId.Name = "tb_ProductTypeId";
-            this.tb_ProductTypeId.Size = new System.Drawing.Size(74, 22);
+            this.tb_ProductTypeId.Size = new System.Drawing.Size(74, 20);
             this.tb_ProductTypeId.TabIndex = 21;
             this.tb_ProductTypeId.Visible = false;
             // 
@@ -491,6 +491,7 @@
             this.Controls.Add(this.btn_Cancel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "SemCoreView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Сбор семантического ядра - Bona Fides";

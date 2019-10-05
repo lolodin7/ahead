@@ -499,6 +499,9 @@ namespace Excel_Parse
         /* Применяем фильтры и перерисовываем данные в форме AdvertisingReportView */
         private void btn_Show_Click(object sender, EventArgs e)
         {
+            this.Cursor = Cursors.WaitCursor;
+            this.Enabled = false;
+
             if (StartDate > EndDate)
                 MessageBox.Show("Ошибка! Дата начала больше даты окончания!", "Ошибка");
 
@@ -552,7 +555,8 @@ namespace Excel_Parse
                 else
                     groupBox1.Enabled = false;
             }
-            
+            this.Cursor = Cursors.Default;
+            this.Enabled = true;
         }
 
 
@@ -877,6 +881,7 @@ namespace Excel_Parse
         private void btn_SearchBy_Click(object sender, EventArgs e)
         {
             this.Cursor = Cursors.WaitCursor;
+            this.Enabled = false;
             NoErrors = true;
 
             //if (mf.SponsoredProductMode)                //если имеем дело с Sponsored Products
@@ -895,6 +900,7 @@ namespace Excel_Parse
             //}
 
             this.Cursor = Cursors.Default;
+            this.Enabled = true;
         }
 
         private void btn_LastMonth_Click(object sender, EventArgs e)
@@ -925,6 +931,7 @@ namespace Excel_Parse
         private void btn_Go_Click(object sender, EventArgs e)
         {
             this.Cursor = Cursors.WaitCursor;
+            this.Enabled = false;
             NoErrors = true;
 
             if (mf.SponsoredProductMode)                //если имеем дело с Sponsored Products
@@ -969,6 +976,7 @@ namespace Excel_Parse
             }
 
             this.Cursor = Cursors.Default;
+            this.Enabled = true;
         }
 
         /* В зависимости от вычлененного знака равенства сравниваем значения в фильтре и в таблице */

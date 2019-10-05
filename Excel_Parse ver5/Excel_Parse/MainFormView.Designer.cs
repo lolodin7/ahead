@@ -48,6 +48,19 @@
             this.DoMarketpalcesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loggerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.рекламаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showSectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showAdvDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showSalesDataToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.showReturnsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.showGeneralSalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addSectionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.addAdvReportReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addBusinessReportReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addReturnsReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateSectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateAdvertisingReportToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateBusinessReportToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateReturnsReportToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.сотрудникToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ShowPersonalInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registerNewEmployeeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,17 +70,6 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.addSectionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.updateSectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addAdvReportReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addBusinessReportReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.updateAdvertisingReportToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.updateBusinessReportToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.showSectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showAdvDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showSalesDataToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.showReturnsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.showGeneralSalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -109,41 +111,41 @@
             this.ShowAllKeywordsToolStripMenuItem,
             this.ShowSemCoreArchiveToolStripMenuItem});
             this.семантическиеЯдраToolStripMenuItem.Name = "семантическиеЯдраToolStripMenuItem";
-            this.семантическиеЯдраToolStripMenuItem.Size = new System.Drawing.Size(140, 20);
+            this.семантическиеЯдраToolStripMenuItem.Size = new System.Drawing.Size(134, 20);
             this.семантическиеЯдраToolStripMenuItem.Text = "Семантическое ядро";
             // 
             // DoSemCoreToolStripMenuItem
             // 
             this.DoSemCoreToolStripMenuItem.Name = "DoSemCoreToolStripMenuItem";
-            this.DoSemCoreToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.DoSemCoreToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
             this.DoSemCoreToolStripMenuItem.Text = "Собрать сем. ядро";
             this.DoSemCoreToolStripMenuItem.Click += new System.EventHandler(this.btn_DoSemCore_Click);
             // 
             // DoRewriteSemCoreToolStripMenuItem
             // 
             this.DoRewriteSemCoreToolStripMenuItem.Name = "DoRewriteSemCoreToolStripMenuItem";
-            this.DoRewriteSemCoreToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.DoRewriteSemCoreToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
             this.DoRewriteSemCoreToolStripMenuItem.Text = "Пересобрать сем. ядро";
             this.DoRewriteSemCoreToolStripMenuItem.Click += new System.EventHandler(this.btn_DoRewriteSemCore_Click);
             // 
             // DoKeywordCategoryToolStripMenuItem
             // 
             this.DoKeywordCategoryToolStripMenuItem.Name = "DoKeywordCategoryToolStripMenuItem";
-            this.DoKeywordCategoryToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.DoKeywordCategoryToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
             this.DoKeywordCategoryToolStripMenuItem.Text = "Категории ключей";
             this.DoKeywordCategoryToolStripMenuItem.Click += new System.EventHandler(this.btn_DoKeywordCategory_Click);
             // 
             // ShowAllKeywordsToolStripMenuItem
             // 
             this.ShowAllKeywordsToolStripMenuItem.Name = "ShowAllKeywordsToolStripMenuItem";
-            this.ShowAllKeywordsToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.ShowAllKeywordsToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
             this.ShowAllKeywordsToolStripMenuItem.Text = "Существующие ключи";
             this.ShowAllKeywordsToolStripMenuItem.Click += new System.EventHandler(this.btn_ShowAllKeywords_Click);
             // 
             // ShowSemCoreArchiveToolStripMenuItem
             // 
             this.ShowSemCoreArchiveToolStripMenuItem.Name = "ShowSemCoreArchiveToolStripMenuItem";
-            this.ShowSemCoreArchiveToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.ShowSemCoreArchiveToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
             this.ShowSemCoreArchiveToolStripMenuItem.Text = "История ключей";
             this.ShowSemCoreArchiveToolStripMenuItem.Click += new System.EventHandler(this.SemCoreArchive_Click);
             // 
@@ -155,20 +157,20 @@
             this.ShowIndexingToolStripMenuItem});
             this.семантикаToolStripMenuItem.Enabled = false;
             this.семантикаToolStripMenuItem.Name = "семантикаToolStripMenuItem";
-            this.семантикаToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
+            this.семантикаToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
             this.семантикаToolStripMenuItem.Text = "Семантика";
             // 
             // CreateSemanticsToolStripMenuItem
             // 
             this.CreateSemanticsToolStripMenuItem.Name = "CreateSemanticsToolStripMenuItem";
-            this.CreateSemanticsToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
+            this.CreateSemanticsToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
             this.CreateSemanticsToolStripMenuItem.Text = "Создать семантику для нового товара";
             this.CreateSemanticsToolStripMenuItem.Click += new System.EventHandler(this.ChooseProduct_Click);
             // 
             // EditSemanticsToolStripMenuItem
             // 
             this.EditSemanticsToolStripMenuItem.Name = "EditSemanticsToolStripMenuItem";
-            this.EditSemanticsToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
+            this.EditSemanticsToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
             this.EditSemanticsToolStripMenuItem.Text = "Редактирование семантики";
             this.EditSemanticsToolStripMenuItem.Click += new System.EventHandler(this.btn_DoSemantics_Click);
             // 
@@ -176,7 +178,7 @@
             // 
             this.ShowIndexingToolStripMenuItem.Enabled = false;
             this.ShowIndexingToolStripMenuItem.Name = "ShowIndexingToolStripMenuItem";
-            this.ShowIndexingToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
+            this.ShowIndexingToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
             this.ShowIndexingToolStripMenuItem.Text = "Индексация";
             this.ShowIndexingToolStripMenuItem.Click += new System.EventHandler(this.btn_ShowIndexing_Click);
             // 
@@ -187,46 +189,147 @@
             this.DoProductTypesToolStripMenuItem,
             this.DoMarketpalcesToolStripMenuItem});
             this.товарыToolStripMenuItem.Name = "товарыToolStripMenuItem";
-            this.товарыToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.товарыToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
             this.товарыToolStripMenuItem.Text = "Товары";
             // 
             // DoProductsToolStripMenuItem
             // 
             this.DoProductsToolStripMenuItem.Name = "DoProductsToolStripMenuItem";
-            this.DoProductsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.DoProductsToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.DoProductsToolStripMenuItem.Text = "Товары";
             this.DoProductsToolStripMenuItem.Click += new System.EventHandler(this.btn_DoProducts_Click);
             // 
             // DoProductTypesToolStripMenuItem
             // 
             this.DoProductTypesToolStripMenuItem.Name = "DoProductTypesToolStripMenuItem";
-            this.DoProductTypesToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.DoProductTypesToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.DoProductTypesToolStripMenuItem.Text = "Виды товаров";
             this.DoProductTypesToolStripMenuItem.Click += new System.EventHandler(this.btn_DoProductType_Click);
             // 
             // DoMarketpalcesToolStripMenuItem
             // 
             this.DoMarketpalcesToolStripMenuItem.Name = "DoMarketpalcesToolStripMenuItem";
-            this.DoMarketpalcesToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.DoMarketpalcesToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.DoMarketpalcesToolStripMenuItem.Text = "Маркетплейсы";
             this.DoMarketpalcesToolStripMenuItem.Click += new System.EventHandler(this.btn_DoMarketplaces_Click);
             // 
             // loggerToolStripMenuItem
             // 
             this.loggerToolStripMenuItem.Name = "loggerToolStripMenuItem";
-            this.loggerToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.loggerToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
             this.loggerToolStripMenuItem.Text = "Logger";
             this.loggerToolStripMenuItem.Click += new System.EventHandler(this.LoggerToolStripMenuItem_Click);
             // 
             // рекламаToolStripMenuItem
             // 
             this.рекламаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showSectionToolStripMenuItem,
             this.addSectionToolStripMenuItem1,
-            this.updateSectionToolStripMenuItem,
-            this.showSectionToolStripMenuItem});
+            this.updateSectionToolStripMenuItem});
             this.рекламаToolStripMenuItem.Name = "рекламаToolStripMenuItem";
-            this.рекламаToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
+            this.рекламаToolStripMenuItem.Size = new System.Drawing.Size(82, 20);
             this.рекламаToolStripMenuItem.Text = "Отчетность";
+            // 
+            // showSectionToolStripMenuItem
+            // 
+            this.showSectionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showAdvDataToolStripMenuItem,
+            this.showSalesDataToolStripMenuItem1,
+            this.showReturnsToolStripMenuItem1,
+            this.showGeneralSalesToolStripMenuItem});
+            this.showSectionToolStripMenuItem.Name = "showSectionToolStripMenuItem";
+            this.showSectionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.showSectionToolStripMenuItem.Text = "Посмотреть";
+            // 
+            // showAdvDataToolStripMenuItem
+            // 
+            this.showAdvDataToolStripMenuItem.Name = "showAdvDataToolStripMenuItem";
+            this.showAdvDataToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.showAdvDataToolStripMenuItem.Text = "Реклама";
+            this.showAdvDataToolStripMenuItem.Click += new System.EventHandler(this.showAdvDataToolStripMenuItem_Click);
+            // 
+            // showSalesDataToolStripMenuItem1
+            // 
+            this.showSalesDataToolStripMenuItem1.Name = "showSalesDataToolStripMenuItem1";
+            this.showSalesDataToolStripMenuItem1.Size = new System.Drawing.Size(158, 22);
+            this.showSalesDataToolStripMenuItem1.Text = "Продажи";
+            this.showSalesDataToolStripMenuItem1.Click += new System.EventHandler(this.showSalesDataToolStripMenuItem1_Click);
+            // 
+            // showReturnsToolStripMenuItem1
+            // 
+            this.showReturnsToolStripMenuItem1.Enabled = false;
+            this.showReturnsToolStripMenuItem1.Name = "showReturnsToolStripMenuItem1";
+            this.showReturnsToolStripMenuItem1.Size = new System.Drawing.Size(158, 22);
+            this.showReturnsToolStripMenuItem1.Text = "Возвраты";
+            // 
+            // showGeneralSalesToolStripMenuItem
+            // 
+            this.showGeneralSalesToolStripMenuItem.Enabled = false;
+            this.showGeneralSalesToolStripMenuItem.Name = "showGeneralSalesToolStripMenuItem";
+            this.showGeneralSalesToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.showGeneralSalesToolStripMenuItem.Text = "Общий оборот";
+            // 
+            // addSectionToolStripMenuItem1
+            // 
+            this.addSectionToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addAdvReportReportToolStripMenuItem,
+            this.addBusinessReportReportToolStripMenuItem,
+            this.addReturnsReportToolStripMenuItem});
+            this.addSectionToolStripMenuItem1.Name = "addSectionToolStripMenuItem1";
+            this.addSectionToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.addSectionToolStripMenuItem1.Text = "Добавить";
+            // 
+            // addAdvReportReportToolStripMenuItem
+            // 
+            this.addAdvReportReportToolStripMenuItem.Name = "addAdvReportReportToolStripMenuItem";
+            this.addAdvReportReportToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.addAdvReportReportToolStripMenuItem.Text = "Advertising report";
+            this.addAdvReportReportToolStripMenuItem.Click += new System.EventHandler(this.addAdvReportReportToolStripMenuItem_Click);
+            // 
+            // addBusinessReportReportToolStripMenuItem
+            // 
+            this.addBusinessReportReportToolStripMenuItem.Name = "addBusinessReportReportToolStripMenuItem";
+            this.addBusinessReportReportToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.addBusinessReportReportToolStripMenuItem.Text = "Business report";
+            this.addBusinessReportReportToolStripMenuItem.Click += new System.EventHandler(this.addBusinessReportReportToolStripMenuItem_Click);
+            // 
+            // addReturnsReportToolStripMenuItem
+            // 
+            this.addReturnsReportToolStripMenuItem.Enabled = false;
+            this.addReturnsReportToolStripMenuItem.Name = "addReturnsReportToolStripMenuItem";
+            this.addReturnsReportToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.addReturnsReportToolStripMenuItem.Text = "Returns report";
+            // 
+            // updateSectionToolStripMenuItem
+            // 
+            this.updateSectionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.updateAdvertisingReportToolStripMenuItem1,
+            this.updateBusinessReportToolStripMenuItem1,
+            this.updateReturnsReportToolStripMenuItem1});
+            this.updateSectionToolStripMenuItem.Name = "updateSectionToolStripMenuItem";
+            this.updateSectionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.updateSectionToolStripMenuItem.Text = "Обновить";
+            // 
+            // updateAdvertisingReportToolStripMenuItem1
+            // 
+            this.updateAdvertisingReportToolStripMenuItem1.Name = "updateAdvertisingReportToolStripMenuItem1";
+            this.updateAdvertisingReportToolStripMenuItem1.Size = new System.Drawing.Size(169, 22);
+            this.updateAdvertisingReportToolStripMenuItem1.Text = "Advertising report";
+            this.updateAdvertisingReportToolStripMenuItem1.Click += new System.EventHandler(this.updateAdvertisingReportToolStripMenuItem1_Click);
+            // 
+            // updateBusinessReportToolStripMenuItem1
+            // 
+            this.updateBusinessReportToolStripMenuItem1.Name = "updateBusinessReportToolStripMenuItem1";
+            this.updateBusinessReportToolStripMenuItem1.Size = new System.Drawing.Size(169, 22);
+            this.updateBusinessReportToolStripMenuItem1.Text = "Business report";
+            this.updateBusinessReportToolStripMenuItem1.Click += new System.EventHandler(this.updateBusinessReportToolStripMenuItem1_Click);
+            // 
+            // updateReturnsReportToolStripMenuItem1
+            // 
+            this.updateReturnsReportToolStripMenuItem1.Enabled = false;
+            this.updateReturnsReportToolStripMenuItem1.Name = "updateReturnsReportToolStripMenuItem1";
+            this.updateReturnsReportToolStripMenuItem1.Size = new System.Drawing.Size(169, 22);
+            this.updateReturnsReportToolStripMenuItem1.Text = "Returns report";
             // 
             // сотрудникToolStripMenuItem
             // 
@@ -236,34 +339,34 @@
             this.employeesToolStripMenuItem,
             this.LogOutToolStripMenuItem});
             this.сотрудникToolStripMenuItem.Name = "сотрудникToolStripMenuItem";
-            this.сотрудникToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
+            this.сотрудникToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
             this.сотрудникToolStripMenuItem.Text = "Сотрудник";
             // 
             // ShowPersonalInfoToolStripMenuItem
             // 
             this.ShowPersonalInfoToolStripMenuItem.Name = "ShowPersonalInfoToolStripMenuItem";
-            this.ShowPersonalInfoToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.ShowPersonalInfoToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.ShowPersonalInfoToolStripMenuItem.Text = "Личный кабинет";
             this.ShowPersonalInfoToolStripMenuItem.Click += new System.EventHandler(this.ShowPersonalInfoToolStripMenuItem_Click);
             // 
             // registerNewEmployeeToolStripMenuItem
             // 
             this.registerNewEmployeeToolStripMenuItem.Name = "registerNewEmployeeToolStripMenuItem";
-            this.registerNewEmployeeToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.registerNewEmployeeToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.registerNewEmployeeToolStripMenuItem.Text = "Регистрация сотрудника";
             this.registerNewEmployeeToolStripMenuItem.Click += new System.EventHandler(this.registerNewEmployeeToolStripMenuItem_Click);
             // 
             // employeesToolStripMenuItem
             // 
             this.employeesToolStripMenuItem.Name = "employeesToolStripMenuItem";
-            this.employeesToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.employeesToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.employeesToolStripMenuItem.Text = "Сотрудники";
             this.employeesToolStripMenuItem.Click += new System.EventHandler(this.employeesToolStripMenuItem_Click);
             // 
             // LogOutToolStripMenuItem
             // 
             this.LogOutToolStripMenuItem.Name = "LogOutToolStripMenuItem";
-            this.LogOutToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.LogOutToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.LogOutToolStripMenuItem.Text = "Завершить сеанс";
             this.LogOutToolStripMenuItem.Click += new System.EventHandler(this.LogOutToolStripMenuItem_Click);
             // 
@@ -272,13 +375,13 @@
             this.serviceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.serviceToolStripMenuItem.Name = "serviceToolStripMenuItem";
-            this.serviceToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.serviceToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.serviceToolStripMenuItem.Text = "Сервис";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.aboutToolStripMenuItem.Text = "Справка";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -298,91 +401,6 @@
             // 
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
-            // 
-            // addSectionToolStripMenuItem1
-            // 
-            this.addSectionToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addAdvReportReportToolStripMenuItem,
-            this.addBusinessReportReportToolStripMenuItem});
-            this.addSectionToolStripMenuItem1.Name = "addSectionToolStripMenuItem1";
-            this.addSectionToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.addSectionToolStripMenuItem1.Text = "Добавить";
-            // 
-            // updateSectionToolStripMenuItem
-            // 
-            this.updateSectionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.updateAdvertisingReportToolStripMenuItem1,
-            this.updateBusinessReportToolStripMenuItem1});
-            this.updateSectionToolStripMenuItem.Name = "updateSectionToolStripMenuItem";
-            this.updateSectionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.updateSectionToolStripMenuItem.Text = "Обновить";
-            // 
-            // addAdvReportReportToolStripMenuItem
-            // 
-            this.addAdvReportReportToolStripMenuItem.Name = "addAdvReportReportToolStripMenuItem";
-            this.addAdvReportReportToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.addAdvReportReportToolStripMenuItem.Text = "Advertising report";
-            this.addAdvReportReportToolStripMenuItem.Click += new System.EventHandler(this.addAdvReportReportToolStripMenuItem_Click);
-            // 
-            // addBusinessReportReportToolStripMenuItem
-            // 
-            this.addBusinessReportReportToolStripMenuItem.Enabled = false;
-            this.addBusinessReportReportToolStripMenuItem.Name = "addBusinessReportReportToolStripMenuItem";
-            this.addBusinessReportReportToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.addBusinessReportReportToolStripMenuItem.Text = "Business report";
-            // 
-            // updateAdvertisingReportToolStripMenuItem1
-            // 
-            this.updateAdvertisingReportToolStripMenuItem1.Name = "updateAdvertisingReportToolStripMenuItem1";
-            this.updateAdvertisingReportToolStripMenuItem1.Size = new System.Drawing.Size(177, 22);
-            this.updateAdvertisingReportToolStripMenuItem1.Text = "Advertising report";
-            this.updateAdvertisingReportToolStripMenuItem1.Click += new System.EventHandler(this.updateAdvertisingReportToolStripMenuItem1_Click);
-            // 
-            // updateBusinessReportToolStripMenuItem1
-            // 
-            this.updateBusinessReportToolStripMenuItem1.Enabled = false;
-            this.updateBusinessReportToolStripMenuItem1.Name = "updateBusinessReportToolStripMenuItem1";
-            this.updateBusinessReportToolStripMenuItem1.Size = new System.Drawing.Size(177, 22);
-            this.updateBusinessReportToolStripMenuItem1.Text = "Business report";
-            // 
-            // showSectionToolStripMenuItem
-            // 
-            this.showSectionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showAdvDataToolStripMenuItem,
-            this.showSalesDataToolStripMenuItem1,
-            this.showGeneralSalesToolStripMenuItem,
-            this.showReturnsToolStripMenuItem1});
-            this.showSectionToolStripMenuItem.Name = "showSectionToolStripMenuItem";
-            this.showSectionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.showSectionToolStripMenuItem.Text = "Посмотреть";
-            // 
-            // showAdvDataToolStripMenuItem
-            // 
-            this.showAdvDataToolStripMenuItem.Name = "showAdvDataToolStripMenuItem";
-            this.showAdvDataToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.showAdvDataToolStripMenuItem.Text = "Реклама";
-            this.showAdvDataToolStripMenuItem.Click += new System.EventHandler(this.showAdvDataToolStripMenuItem_Click);
-            // 
-            // showSalesDataToolStripMenuItem1
-            // 
-            this.showSalesDataToolStripMenuItem1.Enabled = false;
-            this.showSalesDataToolStripMenuItem1.Name = "showSalesDataToolStripMenuItem1";
-            this.showSalesDataToolStripMenuItem1.Size = new System.Drawing.Size(160, 22);
-            this.showSalesDataToolStripMenuItem1.Text = "Продажи";
-            // 
-            // showReturnsToolStripMenuItem1
-            // 
-            this.showReturnsToolStripMenuItem1.Enabled = false;
-            this.showReturnsToolStripMenuItem1.Name = "showReturnsToolStripMenuItem1";
-            this.showReturnsToolStripMenuItem1.Size = new System.Drawing.Size(160, 22);
-            this.showReturnsToolStripMenuItem1.Text = "Возвраты";
-            // 
-            // showGeneralSalesToolStripMenuItem
-            // 
-            this.showGeneralSalesToolStripMenuItem.Enabled = false;
-            this.showGeneralSalesToolStripMenuItem.Name = "showGeneralSalesToolStripMenuItem";
-            this.showGeneralSalesToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.showGeneralSalesToolStripMenuItem.Text = "Общий оборот";
             // 
             // MainFormView
             // 
@@ -448,5 +466,7 @@
         private System.Windows.Forms.ToolStripMenuItem showSalesDataToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem showGeneralSalesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showReturnsToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem addReturnsReportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem updateReturnsReportToolStripMenuItem1;
     }
 }

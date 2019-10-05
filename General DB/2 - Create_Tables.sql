@@ -301,6 +301,7 @@ CREATE TABLE [AdvertisingBrands](
 )
 
 CREATE TABLE [BusinessReport](
+	[UpdateDate]				DATETIME,
 	[MarketPlaceId]				INT,
 	[SKU]						VARCHAR(30),
 	[Sessions]					INT,

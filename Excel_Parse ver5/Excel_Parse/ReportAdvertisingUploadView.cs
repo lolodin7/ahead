@@ -35,6 +35,9 @@ namespace Excel_Parse
         private List<AdvertisingProductsModel> advProductsList;
         private List<AdvertisingBrandsModel> advBrandsList;
 
+        private List<AdvertisingProductsModel> advProductsListOfErrors;
+        private List<AdvertisingBrandsModel> advBrandsListOfErrors;
+
         private MarketplaceController mpController;
         private List<MarketplaceModel> mpList;
 
@@ -56,7 +59,7 @@ namespace Excel_Parse
             mf = _mf;
             FirstLoad = true;
 
-            UpdateDate = DateTime.Today;            
+            UpdateDate = DateTime.Today;
             StartDate = DateTime.Today;
             EndDate = DateTime.Today.AddHours(23).AddMinutes(59);
 
@@ -78,6 +81,8 @@ namespace Excel_Parse
             AP_campaignIdsList = new List<MapNameId> { };
             AB_campaignIdsList = new List<MapNameId> { };
 
+            advProductsListOfErrors = new List<AdvertisingProductsModel> { };
+            advBrandsListOfErrors = new List<AdvertisingBrandsModel> { };
 
             SponsoredProducts = false;
             SponsoredBrands = false;
@@ -105,9 +110,6 @@ namespace Excel_Parse
 
             advertController.GetAP_CampaignIds();
             advertController.GetAB_CampaignIds();
-
-
-            label7.Text = "Дата - " + UpdateDate.ToString().Substring(0, 10);
 
             FirstLoad = false;
         }
@@ -210,15 +212,9 @@ namespace Excel_Parse
                             AdvertisingProductsModel prModel = new AdvertisingProductsModel();
                             advProductsList.Add(prModel);
 
+                            UpdateDate = worksheet.Cells[row, 1].GetValue<DateTime>();
                             advProductsList[advProductsList.Count - 1].WriteData(0, UpdateDate);
 
-                            //for (int col = 4; col <= colCount; col++)
-                            //{
-                            //    if (worksheet.Cells[row, col].Value == null)
-                            //        tmp = "0";
-                            //    else
-                            //        tmp = worksheet.Cells[row, col].Value.ToString().Trim();
-                            
                             advProductsList[advProductsList.Count - 1].WriteData(1, ChechForNull(worksheet, row, 4));              //[CurrencyCharCode] 
                             advProductsList[advProductsList.Count - 1].WriteData(2, ChechForNull(worksheet, row, 5));              //[CampaignName] 
                             advProductsList[advProductsList.Count - 1].WriteData(3, ChechForNull(worksheet, row, 6));              //[AdGroupName]
@@ -239,19 +235,15 @@ namespace Excel_Parse
                             advProductsList[advProductsList.Count - 1].WriteData(18, ChechForNull(worksheet, row, 21));            //[OtherSKUUnits]
                             advProductsList[advProductsList.Count - 1].WriteData(19, ChechForNull(worksheet, row, 22));            //[AdvSKUSales]
                             advProductsList[advProductsList.Count - 1].WriteData(20, ChechForNull(worksheet, row, 23));            //[OtherSKUSales] 
-                            //}
                         }
                     }
+                    label7.Text = "Дата - " + UpdateDate.ToString().Substring(0, 10);
                     label1.Text = path;
-                    label5.Text = "Строк - " + advProductsList.Count;
-                    label5.Visible = true;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Проблема при открытии файла. Убедитесь, что Вы выбрали файл с нужны расширением. Возможно, разметка файла не поддерживается программой.", "Ошибка при открытии");
                     advProductsList.Clear();
-                    label5.Text = "";
-                    label5.Visible = false;
                 }
             }
         }
@@ -291,6 +283,7 @@ namespace Excel_Parse
                             AdvertisingBrandsModel brModel = new AdvertisingBrandsModel();
                             advBrandsList.Add(brModel);
 
+                            UpdateDate = worksheet.Cells[row, 1].GetValue<DateTime>();
                             advBrandsList[advBrandsList.Count - 1].WriteData(0, UpdateDate);
 
                             advBrandsList[advBrandsList.Count - 1].WriteData(1, ChechForNull(worksheet, row, 4));             //[CurrencyCharCode]
@@ -314,16 +307,13 @@ namespace Excel_Parse
                             advBrandsList[advBrandsList.Count - 1].WriteData(19, ChechForNull(worksheet, row, 25));           //[NewToBrandOrderRate]
                         }
                     }
+                    label7.Text = "Дата - " + UpdateDate.ToString().Substring(0, 10);
                     label1.Text = path;
-                    label5.Text = "Строк - " + advBrandsList.Count;
-                    label5.Visible = true;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Проблема при открытии файла. Убедитесь, что Вы выбрали файл с нужны расширением. Возможно, разметка файла не поддерживается программой.", "Ошибка при открытии");
                     advBrandsList.Clear();
-                    label5.Text = "";
-                    label5.Visible = false;
                 }
             }
         }
@@ -338,7 +328,7 @@ namespace Excel_Parse
             }
             return -1;
         }
-        
+
 
         /* Получаем id кампании по выбранному имени в combobox */
         private int GetCampaignTypeIdByName_Many(string _name)
@@ -381,7 +371,7 @@ namespace Excel_Parse
                 if (_name.Contains(pList[i].ProdShortName))
                     return pList[i].ProductId;
             }
-            return 1;
+            return -1;
         }
 
         /* Получаем id товара по выбранному имени в combobox */
@@ -401,7 +391,7 @@ namespace Excel_Parse
             this.Close();
         }
 
-        /* Иниицируем сохранение отчета в БД */
+        /* Иницируем сохранение отчета в БД */
         private void Btn_Save_Click(object sender, EventArgs e)
         {
             if (UploadMode)     //загружаем новые данные
@@ -415,6 +405,17 @@ namespace Excel_Parse
                             SetCampaignAndMarketplaceToAllRows_AP();
                             UploadReportToDB_AP();
                         }
+                        if (advProductsListOfErrors.Count > 0)
+                        {
+                            string errorsMsg = "Данные по следующим кампаниям не были добавлены. Вороятно, имя товара в названии кампании задано не согласно шаблону.\n";
+                            string errors = "";
+                            foreach (var t in advProductsListOfErrors)
+                            {
+                                errors += "Date: " + UpdateDate.ToString() + " Campaign: " + t.CampaignName + " AdGroup " + t.AdGroupName + " Targeting " + t.Targeting + "\n";
+                            }
+                            MessageBox.Show(errorsMsg, "Ошибка");
+                            richTextBox2.Text = errors;
+                        }
                     }
                     else
                         MessageBox.Show("Файл отчета не был загружен. Нет данных для сохранения.", "Ошибка");
@@ -427,6 +428,17 @@ namespace Excel_Parse
                         {
                             SetCampaignAndMarketplaceToAllRows_AB();
                             UploadReportToDB_AB();
+                        }
+                        if (advBrandsListOfErrors.Count > 0)
+                        {
+                            string errorsMsg = "Данные по следующим кампаниям не были добавлены. Вороятно, имя товара в названии кампании задано не согласно шаблону.\n";
+                            string errors = "";
+                            foreach (var t in advBrandsListOfErrors)
+                            {
+                                errors += "Date: " + UpdateDate.ToString() + " Campaign: " + t.CampaignName + " Targeting " + t.Targeting + "\n";
+                            }
+                            MessageBox.Show(errorsMsg, "Ошибка");
+                            richTextBox2.Text = errors;
                         }
                     }
                     else
@@ -444,6 +456,17 @@ namespace Excel_Parse
                             SetCampaignAndMarketplaceToAllRows_AP();
                             UpdateDataInDB_AP();
                         }
+                        if (advProductsListOfErrors.Count > 0)
+                        {
+                            string errorsMsg = "Данные по следующим кампаниям не были обновлены. Вороятно, имя товара в названии кампании задано не согласно шаблону.\n";
+                            string errors = "";
+                            foreach (var t in advProductsListOfErrors)
+                            {
+                                errors += "Date: " + UpdateDate.ToString() + " Campaign: " + t.CampaignName + " AdGroup " + t.AdGroupName + " Targeting " + t.Targeting + "\n";
+                            }
+                            MessageBox.Show(errorsMsg, "Ошибка");
+                            richTextBox2.Text = errors;
+                        }
                     }
                     else
                         MessageBox.Show("Файл отчета не был загружен. Нет данных для сохранения.", "Ошибка");
@@ -456,6 +479,17 @@ namespace Excel_Parse
                         {
                             SetCampaignAndMarketplaceToAllRows_AB();
                             UpdateDataInDB_AB();
+                        }
+                        if (advBrandsListOfErrors.Count > 0)
+                        {
+                            string errorsMsg = "Данные по следующим кампаниям не были обновлены. Вороятно, имя товара в названии кампании задано не согласно шаблону.\n";
+                            string errors = "";
+                            foreach (var t in advBrandsListOfErrors)
+                            {
+                                errors += "Date: " + UpdateDate.ToString() + " Campaign: " + t.CampaignName + " Targeting " + t.Targeting + "\n";
+                            }
+                            MessageBox.Show(errorsMsg, "Ошибка");
+                            richTextBox2.Text = errors;
                         }
                     }
                     else
@@ -505,7 +539,7 @@ namespace Excel_Parse
                 MessageBox.Show("Сохранение успешно. Всего сохранено строк - " + advProductsList.Count, "Успех");
             this.Enabled = true;
         }
-        
+
         /* Метод загрузки отчета в БД для Spondored Brands */
         private void UploadReportToDB_AB()
         {
@@ -525,11 +559,23 @@ namespace Excel_Parse
 
             foreach (var t in advProductsList)
             {
-                t.WriteData(0, UpdateDate);
+                //t.WriteData(0, UpdateDate);
                 t.WriteData(21, campaignTypeId);
                 t.WriteData(22, marketplaceId);
                 t.WriteData(23, Check_CampaignForExisting_AP(t.CampaignName));
                 t.WriteData(24, GetProductIdByName(t.CampaignName));
+            }
+
+            advProductsListOfErrors = new List<AdvertisingProductsModel> { };
+
+            for (int i = 0; i < advProductsList.Count; i++)
+            {
+                if (advProductsList[i].ProductId == -1)
+                {
+                    advProductsListOfErrors.Add(advProductsList[i]);
+                    advProductsList.RemoveAt(i);
+                    i--;
+                }
             }
         }
 
@@ -546,6 +592,18 @@ namespace Excel_Parse
                 t.WriteData(22, marketplaceId);
                 t.WriteData(23, Check_CampaignForExisting_AP(t.CampaignName));
                 t.WriteData(24, GetProductIdByName(t.CampaignName));
+            }
+
+            advProductsListOfErrors = new List<AdvertisingProductsModel> { };
+
+            for (int i = 0; i < advProductsList.Count; i++)
+            {
+                if (advProductsList[i].ProductId == -1)
+                {
+                    advProductsListOfErrors.Add(advProductsList[i]);
+                    advProductsList.RemoveAt(i);
+                    i--;
+                }
             }
         }
 
@@ -575,13 +633,25 @@ namespace Excel_Parse
 
             foreach (var t in advBrandsList)
             {
-                t.WriteData(0, UpdateDate);
+                //t.WriteData(0, UpdateDate);
                 t.WriteData(20, campaignTypeId);
                 t.WriteData(21, marketplaceId);
                 t.WriteData(22, Check_CampaignForExisting_AB(t.CampaignName));
                 t.WriteData(23, GetProductIdByName(t));
                 t.WriteData(24, GetProductIdByName(t));
                 t.WriteData(25, GetProductIdByName(t));
+            }
+
+            advBrandsListOfErrors = new List<AdvertisingBrandsModel> { };
+
+            for (int i = 0; i < advBrandsList.Count; i++)
+            {
+                if (advBrandsList[i].ProductId1 == -1 || advBrandsList[i].ProductId2 == -1 || advBrandsList[i].ProductId3 == -1)
+                {
+                    advBrandsListOfErrors.Add(advBrandsList[i]);
+                    advBrandsList.RemoveAt(i);
+                    i--;
+                }
             }
         }
 
@@ -600,6 +670,18 @@ namespace Excel_Parse
                 t.WriteData(23, GetProductIdByName(t));
                 t.WriteData(24, GetProductIdByName(t));
                 t.WriteData(25, GetProductIdByName(t));
+            }
+
+            advBrandsListOfErrors = new List<AdvertisingBrandsModel> { };
+
+            for (int i = 0; i < advBrandsList.Count; i++)
+            {
+                if (advBrandsList[i].ProductId1 == -1 || advBrandsList[i].ProductId2 == -1 || advBrandsList[i].ProductId3 == -1)
+                {
+                    advBrandsListOfErrors.Add(advBrandsList[i]);
+                    advBrandsList.RemoveAt(i);
+                    i--;
+                }
             }
         }
 
@@ -621,13 +703,6 @@ namespace Excel_Parse
             return camp_id;
         }
 
-        /* Обновляем дату в программе, при изменении пользователем */
-        private void MonthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
-        {
-            UpdateDate = monthCalendar1.SelectionStart;
-            label7.Text = "Дата - " + UpdateDate.ToString().Substring(0, 10);
-        }
-
         private void AdvertisingUploadReport_FormClosing(object sender, FormClosingEventArgs e)
         {
             mf.Show();
@@ -635,17 +710,13 @@ namespace Excel_Parse
 
         private void Cb_MarketPlace_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if (!FirstLoad)
-            //{
-                prodController.GetProductsByMarketplaceId(GetMarketPlaceIdByName(cb_MarketPlace.SelectedItem.ToString()));
-            //}
+            prodController.GetProductsByMarketplaceId(GetMarketPlaceIdByName(cb_MarketPlace.SelectedItem.ToString()));
         }
 
         private void Cb_CampaignType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cb_CampaignType.SelectedIndex >= 0)
             {
-                // btn_UploadFromFile.Enabled = true;
                 panel1.Visible = true;
                 label6.Visible = false;
 
@@ -653,9 +724,6 @@ namespace Excel_Parse
                 path = "";
                 advProductsList.Clear();
                 advBrandsList.Clear();
-
-                label5.Text = "";
-                label5.Visible = false;
 
                 if (cb_CampaignType.SelectedItem.ToString().Equals("Sponsored Products"))
                 {
@@ -725,7 +793,6 @@ namespace Excel_Parse
             if (cb_CampaignType2.SelectedIndex >= 0)
             {
                 label21.Text = "";
-                // btn_UploadFromFile.Enabled = true;
                 panel2.Visible = true;
                 label8.Visible = false;
 
@@ -733,9 +800,6 @@ namespace Excel_Parse
                 path = "";
                 advProductsList.Clear();
                 advBrandsList.Clear();
-
-                //label5.Text = "";
-                //label5.Visible = false;
 
                 if (cb_CampaignType2.SelectedItem.ToString().Equals("Sponsored Products"))
                 {
@@ -750,34 +814,6 @@ namespace Excel_Parse
             }
         }
 
-        //private void monthCalendar2_DateChanged(object sender, DateRangeEventArgs e)
-        //{
-        //    StartDate = monthCalendar2.SelectionStart;
-        //    TimeSpan span = EndDate - StartDate;
-        //    daysDiff = span.Days + 1;
-        //    label15.Text = "Дней - " + (span.Days + 1).ToString();
-
-        //    DateTime dd = StartDate;
-        //    string s = "";
-        //    string tmp = "";
-        //    int index = -1;
-        //    richTextBox1.Text = "Выбрано файлов - " + FileNames.Count;
-        //    for (int i = 0; i < FileNames.Count; i++)
-        //    {
-        //        index = FileNames[i].LastIndexOf('\\');
-        //        s = s + FileNames[i].Substring(index, FileNames[i].Length - index) + " - " + dd.ToString().Substring(0, 10) + "\n";
-        //        dd = dd.AddDays(1);
-        //    }
-        //    richTextBox1.Text = s;
-        //}
-
-        //private void monthCalendar3_DateChanged(object sender, DateRangeEventArgs e)
-        //{
-        //    EndDate = monthCalendar3.SelectionEnd;
-        //    TimeSpan span = EndDate - StartDate;
-        //    daysDiff = span.Days + 1;
-        //    label15.Text = "Дней - " + (span.Days + 1).ToString();
-        //}
 
         private void btn_Save2_Click(object sender, EventArgs e)
         {
@@ -789,199 +825,203 @@ namespace Excel_Parse
             {
                 if (SponsoredProducts)      //отчет Sponsored Products
                 {
-                    //if (daysDiff == FileNames.Count)
-                    //{
-                        if (FileNames.Count > 0)
+                    if (FileNames.Count > 0)
+                    {
+                        if (MessageBox.Show("Кампания: " + cb_CampaignType2.SelectedItem.ToString() + "\n\nМаркетплейс: " + cb_marketplace2.SelectedItem.ToString() + "\n\nЗагрузить отчеты с этими параметрами?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
-                            if (MessageBox.Show("Кампания: " + cb_CampaignType2.SelectedItem.ToString() + "\n\nМаркетплейс: " + cb_marketplace2.SelectedItem.ToString() + "\n\nЗагрузить отчеты с этими параметрами?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                            this.Enabled = false;
+                            this.Cursor = Cursors.WaitCursor;
+
+                            foreach (var t in FileNames)
                             {
-                                this.Enabled = false;
-                                this.Cursor = Cursors.WaitCursor;
+                                LoadManyFilesStepByStep_AP(t);
 
-                                foreach (var t in FileNames)
+                                if (advProductsList.Count > 0)
                                 {
-                                    MakeSomeNoise_AP_Many(t);
+                                    SetCampaignAndMarketplaceToAllRows_Many_AP();
 
-                                    if (advProductsList.Count > 0)
-                                    {
-                                        SetCampaignAndMarketplaceToAllRows_Many_AP();
-
-                                        if (advertController.InsertAdvertising_Product_Report(advProductsList) == 0)
-                                            errors = true;
-                                        else
-                                            updatedRowsCount += advProductsList.Count;
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Файл отчета \"" + t + "\" не был загружен. Нет данных для сохранения.", "Ошибка");
+                                    if (advertController.InsertAdvertising_Product_Report(advProductsList) == 0)
                                         errors = true;
+                                    else
+                                        updatedRowsCount += advProductsList.Count;
+
+                                    if (advProductsListOfErrors.Count > 0)
+                                    {
+                                        string errorsMsg = "Данные по следующим кампаниям не были добавлены. Вороятно, имя товара в названии кампании задано не согласно шаблону.\n";
+                                        string errorsstr = "";
+                                        foreach (var k in advProductsListOfErrors)
+                                        {
+                                            errorsstr += "Date: " + UpdateDate.ToString() + " Campaign: " + k.CampaignName + " AdGroup " + k.AdGroupName + " Targeting " + k.Targeting + "\n";
+                                        }
+                                        MessageBox.Show(errorsMsg, "Ошибка");
+                                        richTextBox1.Text = errorsstr;
                                     }
-
-                                    UpdateDate = UpdateDate.AddDays(1);
                                 }
-                                if (!errors)
-                                    MessageBox.Show("Сохранение успешно. Всего сохранено строк - " + updatedRowsCount, "Успех");
                                 else
-                                    MessageBox.Show("Сохранение прошло с ошибками. Всего сохранено строк - " + updatedRowsCount, "Сомнительный успех");
+                                {
+                                    MessageBox.Show("Файл отчета \"" + t + "\" не был загружен. Нет данных для сохранения.", "Ошибка");
+                                    errors = true;
+                                }
 
-                                this.Cursor = Cursors.Default;
-                                this.Enabled = true;
+                                UpdateDate = UpdateDate.AddDays(1);
                             }
+                            if (!errors)
+                                MessageBox.Show("Сохранение успешно. Всего сохранено строк - " + updatedRowsCount, "Успех");
+                            else
+                                MessageBox.Show("Сохранение прошло с ошибками. Всего сохранено строк - " + updatedRowsCount, "Сомнительный успех");
+
+                            this.Cursor = Cursors.Default;
+                            this.Enabled = true;
                         }
-                        else
-                            MessageBox.Show("Выберите файлы для загрузки", "Ошибка");
-                    //}
-                    //else
-                    //    MessageBox.Show("Количество загруженных файлов не совпадает с количеством дней", "Ошибка");
+                    }
+                    else
+                        MessageBox.Show("Выберите файлы для загрузки", "Ошибка");
                 }
                 else if (SponsoredBrands)   //отчет Sponsored Brands
                 {
-                    //if (daysDiff == FileNames.Count)
-                    //{
-                        if (FileNames.Count > 0)
+                    if (FileNames.Count > 0)
+                    {
+                        if (MessageBox.Show("Кампания: " + cb_CampaignType2.SelectedItem.ToString() + "\n\nМаркетплейс: " + cb_marketplace2.SelectedItem.ToString() + "\n\nЗагрузить отчеты с этими параметрами?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
-                            if (MessageBox.Show("Кампания: " + cb_CampaignType2.SelectedItem.ToString() + "\n\nМаркетплейс: " + cb_marketplace2.SelectedItem.ToString() + "\n\nЗагрузить отчеты с этими параметрами?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                            this.Enabled = false;
+                            this.Cursor = Cursors.WaitCursor;
+
+                            foreach (var t in FileNames)
                             {
-                                this.Enabled = false;
-                                this.Cursor = Cursors.WaitCursor;
+                                LoadManyFilesStepByStep_AB(t);
 
-                                foreach (var t in FileNames)
+                                if (advBrandsList.Count > 0)
                                 {
-                                    MakeSomeNoise_AB_Many(t);
+                                    SetCampaignAndMarketplaceToAllRows_Many_AB();
 
-                                    if (advBrandsList.Count > 0)
-                                    {
-                                        SetCampaignAndMarketplaceToAllRows_Many_AB();
-
-                                        if (advertController.InsertAdvertising_Brand_Report(advBrandsList) == 0)
-                                            errors = true;
-                                        else
-                                            updatedRowsCount += advBrandsList.Count;
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Файл отчета \"" + t + "\" не был загружен. Нет данных для сохранения.", "Ошибка");
+                                    if (advertController.InsertAdvertising_Brand_Report(advBrandsList) == 0)
                                         errors = true;
+                                    else
+                                        updatedRowsCount += advBrandsList.Count;
+
+                                    if (advBrandsListOfErrors.Count > 0)
+                                    {
+                                        string errorsMsg = "Данные по следующим кампаниям не были добавлены. Вороятно, имя товара в названии кампании задано не согласно шаблону.\n";
+                                        string errorsstr = "";
+                                        foreach (var k in advBrandsListOfErrors)
+                                        {
+                                            errorsstr += "Date: " + UpdateDate.ToString() + " Campaign: " + k.CampaignName + " Targeting " + k.Targeting + "\n";
+                                        }
+                                        MessageBox.Show(errorsMsg, "Ошибка");
+                                        richTextBox1.Text = errorsstr;
                                     }
-
-                                    UpdateDate = UpdateDate.AddDays(1);
                                 }
-                                if (!errors)
-                                    MessageBox.Show("Сохранение успешно. Всего сохранено строк - " + updatedRowsCount, "Успех");
                                 else
-                                    MessageBox.Show("Сохранение прошло с ошибками. Всего сохранено строк - " + updatedRowsCount, "Сомнительный успех");
+                                {
+                                    MessageBox.Show("Файл отчета \"" + t + "\" не был загружен. Нет данных для сохранения.", "Ошибка");
+                                    errors = true;
+                                }
 
-                                this.Cursor = Cursors.Default;
-                                this.Enabled = true;
+                                UpdateDate = UpdateDate.AddDays(1);
                             }
+                            if (!errors)
+                                MessageBox.Show("Сохранение успешно. Всего сохранено строк - " + updatedRowsCount, "Успех");
+                            else
+                                MessageBox.Show("Сохранение прошло с ошибками. Всего сохранено строк - " + updatedRowsCount, "Сомнительный успех");
+
+                            this.Cursor = Cursors.Default;
+                            this.Enabled = true;
                         }
-                        else
-                            MessageBox.Show("Выберите файлы для загрузки", "Ошибка");
-                    //}
-                    //else
-                    //    MessageBox.Show("Количество загруженных файлов не совпадает с количеством дней", "Ошибка");
+                    }
+                    else
+                        MessageBox.Show("Выберите файлы для загрузки", "Ошибка");
                 }
             }
             else if (UpdateMode)        //обновляем старые данные
             {
                 if (SponsoredProducts)      //отчет Sponsored Products
                 {
-                    //if (daysDiff == FileNames.Count)
-                    //{
-                        if (FileNames.Count > 0)
+                    if (FileNames.Count > 0)
+                    {
+                        if (MessageBox.Show("Кампания: " + cb_CampaignType2.SelectedItem.ToString() + "\n\nМаркетплейс: " + cb_marketplace2.SelectedItem.ToString() + "\n\nЗагрузить отчеты с этими параметрами?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
-                            if (MessageBox.Show("Кампания: " + cb_CampaignType2.SelectedItem.ToString() + "\n\nМаркетплейс: " + cb_marketplace2.SelectedItem.ToString() + "\n\nЗагрузить отчеты с этими параметрами?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                            this.Enabled = false;
+                            this.Cursor = Cursors.WaitCursor;
+
+                            foreach (var t in FileNames)
                             {
-                                this.Enabled = false;
-                                this.Cursor = Cursors.WaitCursor;
+                                LoadManyFilesStepByStep_AP(t);
 
-                                foreach (var t in FileNames)
+                                if (advProductsList.Count > 0)
                                 {
-                                    MakeSomeNoise_AP_Many(t);
+                                    SetCampaignAndMarketplaceToAllRows_Many_AP();
 
-                                    if (advProductsList.Count > 0)
-                                    {
-                                        SetCampaignAndMarketplaceToAllRows_Many_AP();
-
-                                        if (advertController.UpdateAdvertising_Product_Report(advProductsList) == -1)
-                                            errors = true;
-                                        else
-                                            updatedRowsCount += advProductsList.Count;
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Файл отчета \"" + t + "\" не был загружен. Нет данных для сохранения.", "Ошибка");
+                                    if (advertController.UpdateAdvertising_Product_Report(advProductsList) == -1)
                                         errors = true;
-                                    }
-
-                                    UpdateDate = UpdateDate.AddDays(1);
+                                    else
+                                        updatedRowsCount += advProductsList.Count;
                                 }
-                                if (!errors)
-                                    MessageBox.Show("Успешно обновлено. Всего обновлено строк - " + updatedRowsCount, "Успех");
                                 else
-                                    MessageBox.Show("Обновление прошло с ошибками. Всего обновлено строк - " + updatedRowsCount, "Сомнительный успех");
+                                {
+                                    MessageBox.Show("Файл отчета \"" + t + "\" не был загружен. Нет данных для сохранения.", "Ошибка");
+                                    errors = true;
+                                }
 
-                                this.Cursor = Cursors.Default;
-                                this.Enabled = true;
+                                UpdateDate = UpdateDate.AddDays(1);
                             }
+                            if (!errors)
+                                MessageBox.Show("Успешно обновлено. Всего обновлено строк - " + updatedRowsCount, "Успех");
+                            else
+                                MessageBox.Show("Обновление прошло с ошибками. Всего обновлено строк - " + updatedRowsCount, "Сомнительный успех");
+
+                            this.Cursor = Cursors.Default;
+                            this.Enabled = true;
                         }
-                        else
-                            MessageBox.Show("Выберите файлы для загрузки", "Ошибка");
-                    //}
-                    //else
-                    //    MessageBox.Show("Количество загруженных файлов не совпадает с количеством дней", "Ошибка");
+                    }
+                    else
+                        MessageBox.Show("Выберите файлы для загрузки", "Ошибка");
                 }
                 else if (SponsoredBrands)   //отчет Sponsored Brands
                 {
-                    //if (daysDiff == FileNames.Count)
-                    //{
-                        if (FileNames.Count > 0)
+                    if (FileNames.Count > 0)
+                    {
+                        if (MessageBox.Show("Кампания: " + cb_CampaignType2.SelectedItem.ToString() + "\n\nМаркетплейс: " + cb_marketplace2.SelectedItem.ToString() + "\n\nЗагрузить отчеты с этими параметрами?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
-                            if (MessageBox.Show("Кампания: " + cb_CampaignType2.SelectedItem.ToString() + "\n\nМаркетплейс: " + cb_marketplace2.SelectedItem.ToString() + "\n\nЗагрузить отчеты с этими параметрами?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                            this.Enabled = false;
+                            this.Cursor = Cursors.WaitCursor;
+
+                            foreach (var t in FileNames)
                             {
-                                this.Enabled = false;
-                                this.Cursor = Cursors.WaitCursor;
+                                LoadManyFilesStepByStep_AB(t);
 
-                                foreach (var t in FileNames)
+                                if (advBrandsList.Count > 0)
                                 {
-                                    MakeSomeNoise_AB_Many(t);
+                                    SetCampaignAndMarketplaceToAllRows_Many_AB();
 
-                                    if (advBrandsList.Count > 0)
-                                    {
-                                        SetCampaignAndMarketplaceToAllRows_Many_AB();
-
-                                        if (advertController.UpdateAdvertising_Brands_Report(advBrandsList) == -1)
-                                            errors = true;
-                                        else
-                                            updatedRowsCount += advBrandsList.Count;
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Файл отчета \"" + t + "\" не был загружен. Нет данных для сохранения.", "Ошибка");
+                                    if (advertController.UpdateAdvertising_Brands_Report(advBrandsList) == -1)
                                         errors = true;
-                                    }
-
-                                    UpdateDate = UpdateDate.AddDays(1);
+                                    else
+                                        updatedRowsCount += advBrandsList.Count;
                                 }
-                                if (!errors)
-                                    MessageBox.Show("Успешно обновлено. Всего обновлено строк - " + updatedRowsCount, "Успех");
                                 else
-                                    MessageBox.Show("Обновление прошло с ошибками. Всего обновлено строк - " + updatedRowsCount, "Сомнительный успех");
+                                {
+                                    MessageBox.Show("Файл отчета \"" + t + "\" не был загружен. Нет данных для сохранения.", "Ошибка");
+                                    errors = true;
+                                }
 
-                                this.Cursor = Cursors.Default;
-                                this.Enabled = true;
+                                UpdateDate = UpdateDate.AddDays(1);
                             }
+                            if (!errors)
+                                MessageBox.Show("Успешно обновлено. Всего обновлено строк - " + updatedRowsCount, "Успех");
+                            else
+                                MessageBox.Show("Обновление прошло с ошибками. Всего обновлено строк - " + updatedRowsCount, "Сомнительный успех");
+
+                            this.Cursor = Cursors.Default;
+                            this.Enabled = true;
                         }
-                        else
-                            MessageBox.Show("Выберите файлы для загрузки", "Ошибка");
-                    //}
-                    //else
-                    //    MessageBox.Show("Количество загруженных файлов не совпадает с количеством дней", "Ошибка");
+                    }
+                    else
+                        MessageBox.Show("Выберите файлы для загрузки", "Ошибка");
                 }
             }
         }
 
-        private void MakeSomeNoise_AP_Many(string _filename)
+        private void LoadManyFilesStepByStep_AP(string _filename)
         {
             advProductsList.Clear();
 
@@ -999,9 +1039,9 @@ namespace Excel_Parse
                     {
                         AdvertisingProductsModel prModel = new AdvertisingProductsModel();
                         advProductsList.Add(prModel);
-                        //dateFROMFILE = worksheet.Cells[row, 1].GetValue<DateTime>();
+
                         advProductsList[advProductsList.Count - 1].WriteData(0, worksheet.Cells[row, 1].GetValue<DateTime>());
-                        
+
                         advProductsList[advProductsList.Count - 1].WriteData(1, ChechForNull(worksheet, row, 4));              //[CurrencyCharCode] 
                         advProductsList[advProductsList.Count - 1].WriteData(2, ChechForNull(worksheet, row, 5));              //[CampaignName] 
                         advProductsList[advProductsList.Count - 1].WriteData(3, ChechForNull(worksheet, row, 6));              //[AdGroupName]
@@ -1030,7 +1070,7 @@ namespace Excel_Parse
         }
 
         /* Загружаем новые ключи из файла для Sponsored Brands */
-        public void MakeSomeNoise_AB_Many(string _filename)
+        public void LoadManyFilesStepByStep_AB(string _filename)
         {
             advBrandsList.Clear();
 

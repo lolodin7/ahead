@@ -57,15 +57,15 @@
             this.pictureBox9 = new System.Windows.Forms.PictureBox();
             this.pictureBox10 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.lb_skus = new System.Windows.Forms.Label();
+            this.lb_asins = new System.Windows.Forms.Label();
             this.btn_AddAsinSkuPair = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.lb_asins = new System.Windows.Forms.Label();
-            this.lb_skus = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -406,6 +406,48 @@
             this.panel1.Size = new System.Drawing.Size(578, 528);
             this.panel1.TabIndex = 50;
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label13.Location = new System.Drawing.Point(474, 75);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(42, 19);
+            this.label13.TabIndex = 58;
+            this.label13.Text = "SKUs";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label12.Location = new System.Drawing.Point(324, 75);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(47, 19);
+            this.label12.TabIndex = 57;
+            this.label12.Text = "ASINs";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lb_skus
+            // 
+            this.lb_skus.AutoEllipsis = true;
+            this.lb_skus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lb_skus.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_skus.Location = new System.Drawing.Point(433, 97);
+            this.lb_skus.Name = "lb_skus";
+            this.lb_skus.Size = new System.Drawing.Size(123, 139);
+            this.lb_skus.TabIndex = 56;
+            // 
+            // lb_asins
+            // 
+            this.lb_asins.AutoEllipsis = true;
+            this.lb_asins.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lb_asins.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_asins.Location = new System.Drawing.Point(293, 97);
+            this.lb_asins.Name = "lb_asins";
+            this.lb_asins.Size = new System.Drawing.Size(110, 139);
+            this.lb_asins.TabIndex = 55;
+            // 
             // btn_AddAsinSkuPair
             // 
             this.btn_AddAsinSkuPair.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -449,48 +491,6 @@
             this.label4.TabIndex = 50;
             this.label4.Visible = false;
             // 
-            // lb_asins
-            // 
-            this.lb_asins.AutoEllipsis = true;
-            this.lb_asins.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lb_asins.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_asins.Location = new System.Drawing.Point(293, 97);
-            this.lb_asins.Name = "lb_asins";
-            this.lb_asins.Size = new System.Drawing.Size(110, 139);
-            this.lb_asins.TabIndex = 55;
-            // 
-            // lb_skus
-            // 
-            this.lb_skus.AutoEllipsis = true;
-            this.lb_skus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lb_skus.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_skus.Location = new System.Drawing.Point(433, 97);
-            this.lb_skus.Name = "lb_skus";
-            this.lb_skus.Size = new System.Drawing.Size(123, 139);
-            this.lb_skus.TabIndex = 56;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label12.Location = new System.Drawing.Point(324, 75);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(47, 19);
-            this.label12.TabIndex = 57;
-            this.label12.Text = "ASINs";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label13.Location = new System.Drawing.Point(474, 75);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(42, 19);
-            this.label13.TabIndex = 58;
-            this.label13.Text = "SKUs";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // LoggerAdd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -501,6 +501,7 @@
             this.Controls.Add(this.btn_Save);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "LoggerAdd";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Добавить запись";

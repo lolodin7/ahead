@@ -55,10 +55,13 @@ INSERT INTO [ProductTypes] ([TypeName])
 VALUES ('Триподы')
 
 INSERT INTO [ProductTypes] ([TypeName])
-VALUES ('Комплектующие')
+VALUES ('Комплектующие к микрофонам')
 
 INSERT INTO [ProductTypes] ([TypeName])
 VALUES ('Подарки')
+
+INSERT INTO [ProductTypes] ([TypeName])
+VALUES ('Точилки')
 
 /*         -- [KeywordCategory] --             */
 
@@ -220,6 +223,8 @@ VALUES ('PDW Vlogger Kit Mic', 'B07RLJHT5B', 'O5-HZWD-YO8M', 1, 1, 1, 'PDW-Ch Vl
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
 VALUES ('Video Mic', 'B07RG4J7WY', '2V-8VSV-C0AE', 1, 1, 1, 'Video Microphone')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Video Mic - Fake', 'B07RG4J7WY', '9S-4JMY-MS8X', 1, 1, 1, 'Video Microphone')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
 VALUES ('TRRS-TRS Mic adapter', 'B07KB11Y5B', 'OD-HA9N-UXNF', 3, 1, 1, 'Adapter 4-3 Mic')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
 VALUES ('Y-Connector Mic+Headphone', 'B07G4DS728', 'GH-7TR8-5HPZ', 3, 1, 1, 'Y-Connector M-H')
@@ -301,7 +306,10 @@ INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId],
 VALUES ('Beer Chiller', 'B01AI03U4Y', 'BC-GHGX-5M0O', 6, 5, 1, 'Beer Chiller')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
 VALUES ('YelloWay2 Mic', 'B06ZZ6NPRP', 'LD-YUMV-LDZV', 1, 5, 1, 'YW2')
-
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Knife Sharpener', 'B01FS5VJMY', 'GK-RHNH-11NI', 7, 1, 1, 'Knife Sharpener')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Knife Sharpener', 'B079YP5L6J', 'FF-TB8V-VKY4', 7, 1, 1, 'Knife Sharpener')
 
 /*         -- [Logger] --             */
 INSERT INTO [Logger] ([CreationDate], [CreationUserId], [ProductId], [Text], [EditDate], [EditUserId], [ImageId], [SKU])
