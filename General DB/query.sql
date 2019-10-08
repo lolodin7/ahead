@@ -313,7 +313,7 @@ SELECT * FROM [AdvertisingBrands] WHERE [UpdateDate] between '2019-09-18 00:00:0
 
 SELECT CampaignName, CampaignId FROM [AdvertisingBrands] WHERE [ProductId] = 1
 
-SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2019-09-26 00:00:00' and '2019-09-26 23:59:00'
+SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2019-07-06 00:00:00' and '2019-07-06 23:59:00' AND [ProductId] = 16
 
 SELECT * FROM [AdvertisingProducts] WHERE [productId] = 1
 
@@ -345,9 +345,11 @@ SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-09-18 00:00:00' 
 INSERT INTO [BusinessReport] ([UpdateDate], [MarketPlaceId], [SKU], [Sessions], [SessionPercentage], [PageViews], [PageViewsPercentage], [UnitsOrdered], [UnitsOrdered-B2B], [UnitSessionPercentage], [UnitSessionPercentage-B2B], [OrderedProductSales], [OrderedProductSales-B2B], [TotalOrderItems], [TotalOrderItems-B2B], [ProductId]) VALUES ('2019-07-05 00:00:00', 1, 'ymcchld4', 11, 23, 0.84, 1.24, 5, 0, 45.45, 0, 25.6, 0, 4, 0, -1)
 
 
-SELECT SUM([Sessions]) FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-07 00:00:00' and '2019-07-07 23:59:59' AND [SKU] = 'IG-5UO9-SCW1'
+SELECT SUM([Sessions]) FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-06 00:00:00' and '2019-07-06 23:59:59' AND [SKU] = 'IG-5UO9-SCW1'
 SELECT SUM([Clicks]) FROM [AdvertisingProducts] WHERE [UpdateDate] between '2019-07-05 00:00:00' and '2019-07-07 23:59:59'
 
 SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-07 00:00:00' and '2019-07-07 23:59:59' and ([MarketPlaceId] = 1)
 
 SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-07 00:00:00' and '2019-07-07 23:59:59' and ([MarketPlaceId] = 1) and [ProductId] = 16
+
+SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2019-07-06 00:00:00' and '2019-07-06 23:59:59' and ([MarketPlaceId] = 1) and ([ProductId] = 16)

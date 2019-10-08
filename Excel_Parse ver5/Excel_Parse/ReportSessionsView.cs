@@ -124,32 +124,32 @@ namespace Excel_Parse
         {
             List<int> alreadyUsed = new List<int> { };
 
-            int Sessions;
+            int Sessions = 0;
             double SessionPercentage = 0;
-            int PageViews;
+            int PageViews = 0;
             double PageViewPercentage = 0;
-            int UnitsOrdered;
-            int UnitsOrderedB2B;
+            int UnitsOrdered = 0;
+            int UnitsOrderedB2B = 0;
             double UnitSessionPercentage = 0;
             double UnitSessionPercentageB2B = 0;
-            double OrderedProductSales;
-            double OrderedProductSalesB2B;
-            int TotalOrderItems;
-            int TotalOrderItemsB2B;
+            double OrderedProductSales = 0;
+            double OrderedProductSalesB2B = 0;
+            int TotalOrderItems = 0;
+            int TotalOrderItemsB2B = 0;
 
 
             for (int i = 0; i < businessList.Count; i++)
             {
                 if (!alreadyUsed.Contains(i))
                 {
-                    Sessions = businessList[i].Sessions;
-                    PageViews = businessList[i].PageViews;
-                    UnitsOrdered = businessList[i].UnitsOrdered;
-                    UnitsOrderedB2B = businessList[i].UnitsOrderedB2B;
-                    OrderedProductSales = businessList[i].OrderedProductSales;
-                    OrderedProductSalesB2B = businessList[i].OrderedProductSalesB2B;
-                    TotalOrderItems = businessList[i].TotalOrderItems;
-                    TotalOrderItemsB2B = businessList[i].TotalOrderItemsB2B;
+                //    Sessions = businessList[i].Sessions;
+                //    PageViews = businessList[i].PageViews;
+                //    UnitsOrdered = businessList[i].UnitsOrdered;
+                //    UnitsOrderedB2B = businessList[i].UnitsOrderedB2B;
+                //    OrderedProductSales = businessList[i].OrderedProductSales;
+                //    OrderedProductSalesB2B = businessList[i].OrderedProductSalesB2B;
+                //    TotalOrderItems = businessList[i].TotalOrderItems;
+                //    TotalOrderItemsB2B = businessList[i].TotalOrderItemsB2B;
 
                     if (i < (businessList.Count - 1))
                     {
@@ -219,6 +219,7 @@ namespace Excel_Parse
                     summaryBusinessList[summaryBusinessList.Count - 1].UnitSessionPercentageB2B = UnitSessionPercentageB2B;
                     summaryBusinessList[summaryBusinessList.Count - 1].OrderedProductSales = OrderedProductSales;
                     summaryBusinessList[summaryBusinessList.Count - 1].OrderedProductSalesB2B = OrderedProductSalesB2B;
+                    summaryBusinessList[summaryBusinessList.Count - 1].TotalOrderItems = TotalOrderItems;
                     summaryBusinessList[summaryBusinessList.Count - 1].TotalOrderItemsB2B = TotalOrderItemsB2B;
                     summaryBusinessList[summaryBusinessList.Count - 1].ProductId = businessList[i].ProductId;
                 }
