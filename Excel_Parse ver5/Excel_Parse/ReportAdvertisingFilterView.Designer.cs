@@ -83,6 +83,7 @@
             this.btn_LastMonth = new System.Windows.Forms.Button();
             this.btn_LastHalfYear = new System.Windows.Forms.Button();
             this.btn_lastYear = new System.Windows.Forms.Button();
+            this.btn_LastDay = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -612,9 +613,9 @@
             // btn_LastMonth
             // 
             this.btn_LastMonth.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.btn_LastMonth.Location = new System.Drawing.Point(221, 53);
+            this.btn_LastMonth.Location = new System.Drawing.Point(325, 51);
             this.btn_LastMonth.Name = "btn_LastMonth";
-            this.btn_LastMonth.Size = new System.Drawing.Size(104, 27);
+            this.btn_LastMonth.Size = new System.Drawing.Size(78, 27);
             this.btn_LastMonth.TabIndex = 62;
             this.btn_LastMonth.Text = "Месяц";
             this.btn_LastMonth.UseVisualStyleBackColor = true;
@@ -623,9 +624,9 @@
             // btn_LastHalfYear
             // 
             this.btn_LastHalfYear.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.btn_LastHalfYear.Location = new System.Drawing.Point(366, 51);
+            this.btn_LastHalfYear.Location = new System.Drawing.Point(428, 51);
             this.btn_LastHalfYear.Name = "btn_LastHalfYear";
-            this.btn_LastHalfYear.Size = new System.Drawing.Size(104, 27);
+            this.btn_LastHalfYear.Size = new System.Drawing.Size(78, 27);
             this.btn_LastHalfYear.TabIndex = 63;
             this.btn_LastHalfYear.Text = "Полгода";
             this.btn_LastHalfYear.UseVisualStyleBackColor = true;
@@ -634,19 +635,31 @@
             // btn_lastYear
             // 
             this.btn_lastYear.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.btn_lastYear.Location = new System.Drawing.Point(506, 51);
+            this.btn_lastYear.Location = new System.Drawing.Point(532, 51);
             this.btn_lastYear.Name = "btn_lastYear";
-            this.btn_lastYear.Size = new System.Drawing.Size(104, 27);
+            this.btn_lastYear.Size = new System.Drawing.Size(78, 27);
             this.btn_lastYear.TabIndex = 64;
             this.btn_lastYear.Text = "Год";
             this.btn_lastYear.UseVisualStyleBackColor = true;
             this.btn_lastYear.Click += new System.EventHandler(this.btn_lastYear_Click);
+            // 
+            // btn_LastDay
+            // 
+            this.btn_LastDay.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.btn_LastDay.Location = new System.Drawing.Point(217, 51);
+            this.btn_LastDay.Name = "btn_LastDay";
+            this.btn_LastDay.Size = new System.Drawing.Size(78, 27);
+            this.btn_LastDay.TabIndex = 81;
+            this.btn_LastDay.Text = "Вчера";
+            this.btn_LastDay.UseVisualStyleBackColor = true;
+            this.btn_LastDay.Click += new System.EventHandler(this.btn_LastDay_Click);
             // 
             // ReportAdvertisingFilterView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1284, 601);
+            this.Controls.Add(this.btn_LastDay);
             this.Controls.Add(this.btn_lastYear);
             this.Controls.Add(this.btn_LastHalfYear);
             this.Controls.Add(this.btn_LastMonth);
@@ -741,5 +754,6 @@
         private System.Windows.Forms.Button btn_LastMonth;
         private System.Windows.Forms.Button btn_LastHalfYear;
         private System.Windows.Forms.Button btn_lastYear;
+        private System.Windows.Forms.Button btn_LastDay;
     }
 }

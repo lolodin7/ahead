@@ -22,12 +22,28 @@ namespace Excel_Parse
         private ReportBusinessUploadView controlReportBusinessUploadView;
         private ReportAdvertisingUploadView controlFormAdvertisingUploadReportView;
         private ReportAdvertisingFilterView controlAdvertisingReportFilterView;
+        private ReportBusinessFilterView controlReportBusinessFilterView;
+        private ReportSessionsView controlReportSessionsView;
 
         /* Конструктор */
         public ProductsController(ProductsView _controlForm)
         {
             connection = DBData.GetDBConnection();
             controlFormProductsView = _controlForm;
+        }
+
+        /* Конструктор */
+        public ProductsController(ReportSessionsView _controlForm)
+        {
+            connection = DBData.GetDBConnection();
+            controlReportSessionsView = _controlForm;
+        }
+
+        /* Конструктор */
+        public ProductsController(ReportBusinessFilterView _controlForm)
+        {
+            connection = DBData.GetDBConnection();
+            controlReportBusinessFilterView = _controlForm;
         }
 
         /* Конструктор */
@@ -303,6 +319,10 @@ namespace Excel_Parse
                     controlAdvertisingReportFilterView.GetProductsFromDB(pList);
                 else if (controlReportBusinessUploadView != null)
                     controlReportBusinessUploadView.GetProductsFromDB(pList);
+                else if (controlReportBusinessFilterView != null)
+                    controlReportBusinessFilterView.GetProductsFromDB(pList);
+                else if (controlReportSessionsView != null)
+                    controlReportSessionsView.GetProductsFromDB(pList);
                 return 1;
             }
             catch (Exception ex)

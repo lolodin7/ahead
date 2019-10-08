@@ -20,6 +20,7 @@ namespace Excel_Parse
 
         private ReportAdvertisingUploadView controlAdvertisingUploadReportView;
         private ReportAdvertisingFilterView controlAdvertisingReportFilterView;
+        private ReportSessionsView controlReportSessionsView;
 
         private struct listElement
         {
@@ -33,6 +34,12 @@ namespace Excel_Parse
         {
             connection = DBData.GetDBConnection();
             controlAdvertisingUploadReportView = _mf;
+        }
+
+        public AdvertisingController(ReportSessionsView _mf)
+        {
+            connection = DBData.GetDBConnection();
+            controlReportSessionsView = _mf;
         }
 
         public AdvertisingController(ReportAdvertisingFilterView _mf)
@@ -261,6 +268,8 @@ namespace Excel_Parse
 
                 if (controlAdvertisingReportFilterView != null)
                     controlAdvertisingReportFilterView.GetCampaignsAndIds(campList);
+                else if (controlReportSessionsView != null)
+                    controlReportSessionsView.GetCampaignsAndIds(campList);
 
                 return 1;
             }
@@ -320,6 +329,8 @@ namespace Excel_Parse
 
                 if (controlAdvertisingReportFilterView != null)
                     controlAdvertisingReportFilterView.GetCampaignsAndIds(campList);
+                else if (controlReportSessionsView != null)
+                    controlReportSessionsView.GetCampaignsAndIds(campList);
 
                 return 1;
             }
@@ -366,6 +377,8 @@ namespace Excel_Parse
 
                 if (controlAdvertisingUploadReportView != null)
                     controlAdvertisingUploadReportView.GetAP_CampaignIdsFromDB(nameIdList);
+                else if (controlReportSessionsView != null)
+                    controlReportSessionsView.GetAP_CampaignIdsFromDB(nameIdList);
 
                 return 1;
             }
@@ -411,6 +424,8 @@ namespace Excel_Parse
 
                 if (controlAdvertisingUploadReportView != null)
                     controlAdvertisingUploadReportView.GetAB_CampaignIdsFromDB(nameIdList);
+                else if (controlReportSessionsView != null)
+                    controlReportSessionsView.GetAB_CampaignIdsFromDB(nameIdList);
 
                 return 1;
             }
@@ -554,11 +569,15 @@ namespace Excel_Parse
                 {
                     if (controlAdvertisingReportFilterView != null)
                         controlAdvertisingReportFilterView.GetAdvertisingProductsFromDB(advprodList);
+                    else if (controlReportSessionsView != null)
+                        controlReportSessionsView.GetAdvertisingProductsFromDB(advprodList);
                 }
                 else if (s.Equals("b"))
                 {
                     if (controlAdvertisingReportFilterView != null)
                         controlAdvertisingReportFilterView.GetAdvertisingBrandsFromDB(advbrandList);
+                    else if (controlReportSessionsView != null)
+                        controlReportSessionsView.GetAdvertisingBrandsFromDB(advbrandList);
                 }
 
                 return 1;

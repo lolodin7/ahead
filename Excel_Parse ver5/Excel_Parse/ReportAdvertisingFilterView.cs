@@ -903,6 +903,7 @@ namespace Excel_Parse
             this.Enabled = true;
         }
 
+        /* Отобразить данные за последний месяц */
         private void btn_LastMonth_Click(object sender, EventArgs e)
         {
             DateTime dd = DateTime.Today;
@@ -911,6 +912,7 @@ namespace Excel_Parse
             mc_EndDate.SelectionEnd = DateTime.Today.AddHours(23).AddMinutes(59);
         }
 
+        /* Отобразить данные за последние оплгода */
         private void btn_LastHalfYear_Click(object sender, EventArgs e)
         {
             DateTime dd = DateTime.Today;
@@ -919,12 +921,23 @@ namespace Excel_Parse
             mc_EndDate.SelectionEnd = DateTime.Today.AddHours(23).AddMinutes(59);
         }
 
+        /* Отобразить данные за последний год */
         private void btn_lastYear_Click(object sender, EventArgs e)
         {
             DateTime dd = DateTime.Today;
             dd = dd.Subtract(new TimeSpan(365, 0, 0, 0, 0));
             mc_StartDate.SelectionStart = dd;
             mc_EndDate.SelectionEnd = DateTime.Today.AddHours(23).AddMinutes(59);
+        }
+
+        /* Отобразить данные за последний день */
+        private void btn_LastDay_Click(object sender, EventArgs e)
+        {
+
+            DateTime dd = DateTime.Today;
+            dd = dd.Subtract(new TimeSpan(1, 0, 0, 0, 0));
+            mc_StartDate.SelectionStart = dd;
+            mc_EndDate.SelectionEnd = dd.AddHours(23).AddMinutes(59);
         }
 
         /* Применить числовой фильтр по таблице */
@@ -939,15 +952,6 @@ namespace Excel_Parse
                 filterAdvProductsList = new List<AdvertisingProductsModel> { };
                 for (int i = 0; i < advProductsList.Count; i++)
                 {
-                    //bool f1 = CheckDoubleValues(CheckInput(tb_Impressions), advProductsList[i].Impressions);
-                    //bool f2 = CheckDoubleValues(CheckInput(tb_Clicks), advProductsList[i].Clicks);
-                    //bool f3 = CheckDoubleValues(CheckInput(tb_CTR), advProductsList[i].CTR);
-                    //bool f4 = CheckDoubleValues(CheckInput(tb_CPC), advProductsList[i].CPC);
-                    //bool f5 = CheckDoubleValues(CheckInput(tb_Spend), advProductsList[i].Spend);
-                    //bool f6 = CheckDoubleValues(CheckInput(tb_ACoS), advProductsList[i].ACoS);
-                    //bool f7 = CheckDoubleValues(CheckInput(tb_Sales), advProductsList[i].Sales);
-                    //bool f8 = CheckDoubleValues(CheckInput(tb_Orders), advProductsList[i].Orders);
-                    //bool f9 = CheckDoubleValues(CheckInput(tb_Units), advProductsList[i].Units);
                     if (CheckDoubleValues(CheckInput(tb_Impressions), advProductsList[i].Impressions) && CheckDoubleValues(CheckInput(tb_Clicks), advProductsList[i].Clicks) && CheckDoubleValues(CheckInput(tb_CTR), advProductsList[i].CTR) && CheckDoubleValues(CheckInput(tb_CPC), advProductsList[i].CPC) && CheckDoubleValues(CheckInput(tb_Spend), advProductsList[i].Spend) && CheckDoubleValues(CheckInput(tb_ACoS), advProductsList[i].ACoS) && CheckDoubleValues(CheckInput(tb_Sales), advProductsList[i].Sales) && CheckDoubleValues(CheckInput(tb_Orders), advProductsList[i].Orders) && CheckDoubleValues(CheckInput(tb_Units), advProductsList[i].Units))
                     {
                         filterAdvProductsList.Add(advProductsList[i]);

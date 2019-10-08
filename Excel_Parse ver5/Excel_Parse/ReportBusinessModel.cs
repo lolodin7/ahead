@@ -42,46 +42,46 @@ namespace Excel_Parse
                     UpdateDate = (DateTime)record;
                     break;
                 case 1:
-                    SKU = record.ToString();
+                    MarketPlaceId = GetInt(record);
                     break;
                 case 2:
-                    Sessions = GetInt(record);
+                    SKU = record.ToString();
                     break;
                 case 3:
-                    SessionPercentage = GetDouble(record);
+                    Sessions = GetInt(record);
                     break;
                 case 4:
-                    PageViews = GetInt(record);
+                    SessionPercentage = GetDouble(record);
                     break;
                 case 5:
-                    PageViewsPercentage = GetDouble(record);
+                    PageViews = GetInt(record);
                     break;
                 case 6:
-                    UnitsOrdered = GetInt(record);
+                    PageViewsPercentage = GetDouble(record);
                     break;
                 case 7:
-                    UnitsOrderedB2B = GetInt(record);
+                    UnitsOrdered = GetInt(record);
                     break;
                 case 8:
-                    UnitSessionPercentage = GetDouble(record);
+                    UnitsOrderedB2B = GetInt(record);
                     break;
                 case 9:
-                    UnitSessionPercentageB2B = GetDouble(record);
+                    UnitSessionPercentage = GetDouble(record);
                     break;
                 case 10:
-                    OrderedProductSales = GetDouble(record);
+                    UnitSessionPercentageB2B = GetDouble(record);
                     break;
                 case 11:
-                    OrderedProductSalesB2B = GetDouble(record);
+                    OrderedProductSales = GetDouble(record);
                     break;
                 case 12:
-                    TotalOrderItems = GetInt(record);
+                    OrderedProductSalesB2B = GetDouble(record);
                     break;
                 case 13:
-                    TotalOrderItemsB2B = GetInt(record);
+                    TotalOrderItems = GetInt(record);
                     break;
                 case 14:
-                    MarketPlaceId = GetInt(record);
+                    TotalOrderItemsB2B = GetInt(record);
                     break;
                 case 15:
                     ProductId = GetInt(record);
@@ -99,46 +99,46 @@ namespace Excel_Parse
                     return UpdateDate;
                     break;
                 case 1:
-                    return SKU;
+                    return MarketPlaceId;
                     break;
                 case 2:
-                    return Sessions;
+                    return SKU;
                     break;
                 case 3:
-                    return SessionPercentage;
+                    return Sessions;
                     break;
                 case 4:
-                    return PageViews;
+                    return SessionPercentage;
                     break;
                 case 5:
-                    return PageViewsPercentage;
+                    return PageViews;
                     break;
                 case 6:
-                    return UnitsOrdered;
+                    return PageViewsPercentage;
                     break;
                 case 7:
-                    return UnitsOrderedB2B;
+                    return UnitsOrdered;
                     break;
                 case 8:
-                    return UnitSessionPercentage;
+                    return UnitsOrderedB2B;
                     break;
                 case 9:
-                    return UnitSessionPercentageB2B;
+                    return UnitSessionPercentage;
                     break;
                 case 10:
-                    return OrderedProductSales;
+                    return UnitSessionPercentageB2B;
                     break;
                 case 11:
-                    return OrderedProductSalesB2B;
+                    return OrderedProductSales;
                     break;
                 case 12:
-                    return TotalOrderItems;
+                    return OrderedProductSalesB2B;
                     break;
                 case 13:
-                    return TotalOrderItemsB2B;
+                    return TotalOrderItems;
                     break;
                 case 14:
-                    return MarketPlaceId;
+                    return TotalOrderItemsB2B;
                     break;
                 case 15:
                     return ProductId;

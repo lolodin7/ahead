@@ -385,6 +385,13 @@ namespace Excel_Parse
             this.Visible = false;
         }
 
+        private void showSessionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ReportSessionsView repSes = new ReportSessionsView(this);
+            repSes.Show();
+            this.Visible = false;
+        }
+
         /* 
          
           

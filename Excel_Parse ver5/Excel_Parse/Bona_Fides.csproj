@@ -126,6 +126,12 @@
       <DependentUpon>ReportAdvertisingUploadView.cs</DependentUpon>
     </Compile>
     <Compile Include="DetailedDisposition.cs" />
+    <Compile Include="ReportBusinessFilterView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportBusinessFilterView.Designer.cs">
+      <DependentUpon>ReportBusinessFilterView.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReportBusinessModel.cs" />
     <Compile Include="CampaignTypesController.cs" />
     <Compile Include="CampaignTypesModel.cs" />
@@ -191,6 +197,12 @@
     </Compile>
     <Compile Include="ReportBusinessView.Designer.cs">
       <DependentUpon>ReportBusinessView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportSessionsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportSessionsView.Designer.cs">
+      <DependentUpon>ReportSessionsView.cs</DependentUpon>
     </Compile>
     <Compile Include="RestorePasswordView.cs">
       <SubType>Form</SubType>
@@ -376,11 +388,17 @@
     <EmbeddedResource Include="RegisterAnEmployee.resx">
       <DependentUpon>RegisterAnEmployee.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReportBusinessFilterView.resx">
+      <DependentUpon>ReportBusinessFilterView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReportBusinessUploadView.resx">
       <DependentUpon>ReportBusinessUploadView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReportBusinessView.resx">
       <DependentUpon>ReportBusinessView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportSessionsView.resx">
+      <DependentUpon>ReportSessionsView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RestorePasswordView.resx">
       <DependentUpon>RestorePasswordView.cs</DependentUpon>

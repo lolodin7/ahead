@@ -23,12 +23,26 @@ namespace Excel_Parse
         private ReportBusinessUploadView controlReportBusinessUploadView;
         private ReportAdvertisingUploadView controlAdvertisingUploadReport;
         private ReportAdvertisingFilterView controlAdvertisingReportFilterView;
+        private ReportBusinessFilterView controlReportBusinessFilterView;
+        private ReportSessionsView controlReportSessionsView;
         //private MarketplaceView
 
         public MarketplaceController(ProductsView _mf)
         {
             connection = DBData.GetDBConnection();
             controlProductsView = _mf;
+        }
+
+        public MarketplaceController(ReportSessionsView _mf)
+        {
+            connection = DBData.GetDBConnection();
+            controlReportSessionsView = _mf;
+        }
+
+        public MarketplaceController(ReportBusinessFilterView _mf)
+        {
+            connection = DBData.GetDBConnection();
+            controlReportBusinessFilterView = _mf;
         }
 
         public MarketplaceController(ReportBusinessUploadView _mf)
@@ -158,6 +172,10 @@ namespace Excel_Parse
                     controlAdvertisingReportFilterView.GetMarketPlacesFromDB(mpList);
                 else if (controlReportBusinessUploadView != null)
                     controlReportBusinessUploadView.GetMarketPlacesFromDB(mpList);
+                else if (controlReportBusinessFilterView != null)
+                    controlReportBusinessFilterView.GetMarketPlacesFromDB(mpList);
+                else if (controlReportSessionsView != null)
+                    controlReportSessionsView.GetMarketPlacesFromDB(mpList);
 
                 return 1;
             }

@@ -299,7 +299,7 @@ SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2019-08-01 00:00
 
 
 
-SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2019-09-25 00:00:00' and '2019-09-25 23:59:00' and ([MarketPlaceId] = 1 or [MarketPlaceId] = 2 or [MarketPlaceId] = 3 or [MarketPlaceId] = 5) and ([ProductId] = 1 or [ProductId] = 5) and ([CampaignId] = 82370363 or [CampaignId] = 60548370 or [CampaignId] = 43800179 or [CampaignId] = 35705194)
+SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2019-07-05 00:00:00' and '2019-07-05 23:59:00' and ([MarketPlaceId] = 1 or [MarketPlaceId] = 2 or [MarketPlaceId] = 3 or [MarketPlaceId] = 5) and ([ProductId] = 1 or [ProductId] = 5) and ([CampaignId] = 82370363 or [CampaignId] = 60548370 or [CampaignId] = 43800179 or [CampaignId] = 35705194)
 
 SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2019-09-25 00:00:00' and '2019-09-25 23:59:00' and ([MarketPlaceId] = 1 or [MarketPlaceId] = 3 or [MarketPlaceId] = 5) and ([ProductId] = 1 or [ProductId] = 2 or [ProductId] = 3 or [ProductId] = 4 or [ProductId] = 5 or [ProductId] = 6) and ([CampaignId] = 37193975 or [CampaignId] = 66640327 or [CampaignId] = 29875888)
 
@@ -333,5 +333,21 @@ INSERT INTO [AdvertisingProducts] ([UpdateDate], [CurrencyCharCode], [CampaignNa
 
 
 select * from [BusinessReport]
+delete from [BusinessReport]
 
 UPDATE [BusinessReport] SET [Sessions] = 990, [SessionPercentage] = 17.98, [PageViews] = 1520, [PageViewsPercentage] = 79.54, [UnitsOrdered] = 178, [UnitsOrdered-B2B] = 11, [UnitSessionPercentage] = 17.98, [UnitSessionPercentage-B2B] = 1.11, [OrderedProductSales] = 4035.35, [OrderedProductSales-B2B] = 246.2, [TotalOrderItems] = 163, [TotalOrderItems-B2B] = 4 WHERE [UpdateDate] = '2019-10-03 23:59:59' AND [SKU] = 'IG-5UO9-SCW1' AND [MarketPlaceId] = 1
+
+INSERT INTO [BusinessReport] ([UpdateDate], [MarketPlaceId], [SKU], [Sessions], [SessionPercentage], [PageViews], [PageViewsPercentage], [UnitsOrdered], [UnitsOrdered-B2B], [UnitSessionPercentage], [UnitSessionPercentage-B2B], [OrderedProductSales], [OrderedProductSales-B2B], [TotalOrderItems], [TotalOrderItems-B2B], [ProductId]) VALUES ('2019-10-02 23:59:59', 1, 'O9-U3F0-WROB', 0, 0, 0, 0, 2, 0, Infinity, NaN, 22.22, 0, 1, 0, 25)
+
+
+SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-09-18 00:00:00' and '2019-09-26 23:59:59' and
+
+INSERT INTO [BusinessReport] ([UpdateDate], [MarketPlaceId], [SKU], [Sessions], [SessionPercentage], [PageViews], [PageViewsPercentage], [UnitsOrdered], [UnitsOrdered-B2B], [UnitSessionPercentage], [UnitSessionPercentage-B2B], [OrderedProductSales], [OrderedProductSales-B2B], [TotalOrderItems], [TotalOrderItems-B2B], [ProductId]) VALUES ('2019-07-05 00:00:00', 1, 'ymcchld4', 11, 23, 0.84, 1.24, 5, 0, 45.45, 0, 25.6, 0, 4, 0, -1)
+
+
+SELECT SUM([Sessions]) FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-07 00:00:00' and '2019-07-07 23:59:59' AND [SKU] = 'IG-5UO9-SCW1'
+SELECT SUM([Clicks]) FROM [AdvertisingProducts] WHERE [UpdateDate] between '2019-07-05 00:00:00' and '2019-07-07 23:59:59'
+
+SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-07 00:00:00' and '2019-07-07 23:59:59' and ([MarketPlaceId] = 1)
+
+SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-07 00:00:00' and '2019-07-07 23:59:59' and ([MarketPlaceId] = 1) and [ProductId] = 16

@@ -316,7 +316,8 @@ CREATE TABLE [BusinessReport](
 	[OrderedProductSales-B2B]	FLOAT,
 	[TotalOrderItems]			INT,
 	[TotalOrderItems-B2B]		INT,
-	CONSTRAINT FK_BusinessReport_SKU_MP FOREIGN KEY ([SKU], [MarketPlaceId]) REFERENCES [Products] ([SKU], [MarketPlaceId])
+	[ProductId]					INT,
+	CONSTRAINT FK_BusinessReport_SKU_MP FOREIGN KEY ([ProductId]) REFERENCES [Products] ([ProductId])
 )
 /*  
 Session Percentage = sessions/SUM(sessions)
@@ -341,9 +342,9 @@ CREATE TABLE [ReturnsReport](
 	[Status]					VARCHAR(512),
 	[LicensePlateNumber]		VARCHAR(30),
 	[CustomerComments]			NVARCHAR(1000),
+	[ProductId]					INT,
 	CONSTRAINT PK_ReturnsReport PRIMARY KEY ([RecordId]),
-	CONSTRAINT FK_ReturnsReport_MarketPlace FOREIGN KEY ([SKU], [MarketPlaceId]) REFERENCES [Products] ([SKU], [MarketPlaceId]),
+	CONSTRAINT FK_ReturnsReport_MarketPlace FOREIGN KEY ([ProductId]) REFERENCES [Products] ([ProductId]),
 	CONSTRAINT FK_ReturnsReport_Reason FOREIGN KEY ([Reason]) REFERENCES [ReturnReason] ([ReasonId]),
 	CONSTRAINT FK_ReturnsReport_Dispositon FOREIGN KEY ([DetailedDisposition]) REFERENCES [DetailedDisposition] ([DispositionId])
 )
-
