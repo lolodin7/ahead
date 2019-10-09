@@ -400,12 +400,14 @@ namespace Excel_Parse
                     {
                         if (MessageBox.Show("Маркетплейс: " + cb_MarketPlace1.SelectedItem.ToString() + "\n\nЗагрузить отчет с этими параметрами?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
+                            UpdateDate = StartDate;
                             this.Enabled = false;
                             this.Cursor = Cursors.WaitCursor;
 
-                            foreach (var t in FileNames)
+                            //foreach (var t in FileNames)
+                            for (int i = 0; i < FileNames.Count; i++)
                             {
-                                LoadManyFilesStepByStep(t);
+                                LoadManyFilesStepByStep(FileNames[i]);
 
                                 if (businessList.Count > 0)
                                 {
@@ -440,9 +442,10 @@ namespace Excel_Parse
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Файл отчета \"" + t + "\" не был загружен. Нет данных для сохранения.", "Ошибка");
+                                    MessageBox.Show("Файл отчета \"" + FileNames[i] + "\" не был загружен. Нет данных для сохранения.", "Ошибка");
                                     errors = true;
                                 }
+                                UpdateDate = UpdateDate.AddDays(1);
                             }
 
                             if (!errors)
@@ -487,15 +490,15 @@ namespace Excel_Parse
                         {
                             businessList.Add(new ReportBusinessModel());
 
-                            businessList[businessList.Count - 1].WriteData(1, fields[3]);
-                            businessList[businessList.Count - 1].WriteData(2, fields[4]);
-                            businessList[businessList.Count - 1].WriteData(4, fields[6]);
-                            businessList[businessList.Count - 1].WriteData(6, fields[9]);
-                            businessList[businessList.Count - 1].WriteData(7, fields[10]);
-                            businessList[businessList.Count - 1].WriteData(10, fields[13]);
-                            businessList[businessList.Count - 1].WriteData(11, fields[14]);
-                            businessList[businessList.Count - 1].WriteData(12, fields[15]);
-                            businessList[businessList.Count - 1].WriteData(13, fields[16]);
+                            businessList[businessList.Count - 1].WriteData(2, fields[3]);
+                            businessList[businessList.Count - 1].WriteData(3, fields[4]);
+                            businessList[businessList.Count - 1].WriteData(5, fields[6]);
+                            businessList[businessList.Count - 1].WriteData(7, fields[9]);
+                            businessList[businessList.Count - 1].WriteData(8, fields[10]);
+                            businessList[businessList.Count - 1].WriteData(11, fields[13]);
+                            businessList[businessList.Count - 1].WriteData(12, fields[14]);
+                            businessList[businessList.Count - 1].WriteData(13, fields[15]);
+                            businessList[businessList.Count - 1].WriteData(14, fields[16]);
                         }
                         else
                             firstRow = false;
@@ -549,10 +552,26 @@ namespace Excel_Parse
 
             for (int i = 0; i < businessList.Count; i++)
             {
-                businessList[i].SessionPercentage = Math.Round((double)businessList[i].Sessions / sumSessions * 100, 2);
-                businessList[i].PageViewsPercentage = Math.Round((double)businessList[i].PageViews / sumPageViews * 100, 2);
-                businessList[i].UnitSessionPercentage = Math.Round((double)businessList[i].UnitsOrdered / businessList[i].Sessions * 100, 2);
-                businessList[i].UnitSessionPercentageB2B = Math.Round((double)businessList[i].UnitsOrderedB2B / businessList[i].Sessions * 100, 2);
+                if (sumSessions != 0)
+                    businessList[i].SessionPercentage = Math.Round((double)businessList[i].Sessions / sumSessions * 100, 2);
+                else
+                    businessList[i].SessionPercentage = 0;
+
+                if (sumPageViews != 0)
+                    businessList[i].PageViewsPercentage = Math.Round((double)businessList[i].PageViews / sumPageViews * 100, 2);
+                else
+                    businessList[i].PageViewsPercentage = 0;
+
+                if (businessList[i].Sessions != 0)
+                    businessList[i].UnitSessionPercentage = Math.Round((double)businessList[i].UnitsOrdered / businessList[i].Sessions * 100, 2);
+                else
+                    businessList[i].UnitSessionPercentage = 0;
+
+                if (businessList[i].Sessions != 0)
+                    businessList[i].UnitSessionPercentageB2B = Math.Round((double)businessList[i].UnitsOrderedB2B / businessList[i].Sessions * 100, 2);
+                else
+                    businessList[i].UnitSessionPercentageB2B = 0;
+
                 businessList[i].MarketPlaceId = marketplaceid;
                 businessList[i].ProductId = GetProductIdBySKU(businessList[i].SKU, businessList[i].MarketPlaceId);
                 businessList[i].UpdateDate = UpdateDate;

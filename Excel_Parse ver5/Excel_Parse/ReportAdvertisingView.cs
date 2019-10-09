@@ -254,6 +254,13 @@ namespace Excel_Parse
             dgv.Columns[23].Visible = false;
             dgv.Columns[24].Visible = false;
 
+            dgv.Columns[0].Frozen = true;
+            dgv.Columns[1].Frozen = true;
+            dgv.Columns[2].Frozen = true;
+            dgv.Columns[3].Frozen = true;
+            dgv.Columns[4].Frozen = true;
+            dgv.Columns[5].Frozen = true;
+
             dgv.Columns[0].Width = 70;
             dgv.Columns[1].Width = 60;
             dgv.Columns[2].Width = 200;
@@ -306,6 +313,12 @@ namespace Excel_Parse
             dgv_AdvBrands.Columns[23].Visible = false;
             dgv_AdvBrands.Columns[24].Visible = false;
             dgv_AdvBrands.Columns[25].Visible = false;
+
+            dgv_AdvBrands.Columns[0].Frozen = true;
+            dgv_AdvBrands.Columns[1].Frozen = true;
+            dgv_AdvBrands.Columns[2].Frozen = true;
+            dgv_AdvBrands.Columns[3].Frozen = true;
+            dgv_AdvBrands.Columns[4].Frozen = true;
 
             dgv_AdvBrands.Columns[0].Width = 70;
             dgv_AdvBrands.Columns[1].Width = 60;
@@ -425,7 +438,6 @@ namespace Excel_Parse
             dgv_AdvProducts.Rows[index].Cells[18].Value = otherskuunt;
             dgv_AdvProducts.Rows[index].Cells[19].Value = Math.Round(advskusales, 2);
             dgv_AdvProducts.Rows[index].Cells[20].Value = Math.Round(otherskusales, 2);
-
         }
 
 

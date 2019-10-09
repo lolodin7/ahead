@@ -1,0 +1,6 @@
+connectionString="Data Source=WIN-976F7N0OD83;Initial Catalog=AHEAD;Integrated Security=True"
+
+connectionString="Server=192.168.31.105,1433;Initial Catalog=AHEAD;User ID=BonaFide;Password=ayXL664N1;Network Library=DBMSSOCN"
+
+connectionString="Server=93.190.46.34,33301;Initial Catalog=uh1181949_db;User ID=uh1181949_user;Password=ks4v37rjNh;Network Library=DBMSSOCN"
+	

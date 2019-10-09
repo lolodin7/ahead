@@ -165,6 +165,10 @@ namespace Excel_Parse
             dataGridView1.Columns[0].Width = 70;
             dataGridView1.Columns[1].Width = 125;
 
+            dataGridView1.Columns[0].Frozen = true;
+            dataGridView1.Columns[1].Frozen = true;
+            dataGridView1.Columns[2].Frozen = true;
+
             dataGridView1.Columns[15].Visible = false;
 
             for (int i = 0; i < businessList[0].ColumnCount; i++)

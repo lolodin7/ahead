@@ -198,6 +198,7 @@
     <Compile Include="ReportBusinessView.Designer.cs">
       <DependentUpon>ReportBusinessView.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReportDataAnalyzer.cs" />
     <Compile Include="ReportSessionsView.cs">
       <SubType>Form</SubType>
     </Compile>

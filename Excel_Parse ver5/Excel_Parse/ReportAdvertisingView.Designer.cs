@@ -52,7 +52,6 @@
             this.dgv_AdvProducts.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgv_AdvProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_AdvProducts.Location = new System.Drawing.Point(3, 34);
-            this.dgv_AdvProducts.MultiSelect = false;
             this.dgv_AdvProducts.Name = "dgv_AdvProducts";
             this.dgv_AdvProducts.ReadOnly = true;
             this.dgv_AdvProducts.RowTemplate.Height = 24;
@@ -152,7 +151,6 @@
             this.dgv_AdvBrands.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgv_AdvBrands.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_AdvBrands.Location = new System.Drawing.Point(3, 34);
-            this.dgv_AdvBrands.MultiSelect = false;
             this.dgv_AdvBrands.Name = "dgv_AdvBrands";
             this.dgv_AdvBrands.ReadOnly = true;
             this.dgv_AdvBrands.RowTemplate.Height = 24;
@@ -175,7 +173,6 @@
             this.Controls.Add(this.btn_Export);
             this.Controls.Add(this.dgv_AdvProducts);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(700, 200);
             this.Name = "ReportAdvertisingView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

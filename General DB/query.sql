@@ -345,7 +345,7 @@ SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-09-18 00:00:00' 
 INSERT INTO [BusinessReport] ([UpdateDate], [MarketPlaceId], [SKU], [Sessions], [SessionPercentage], [PageViews], [PageViewsPercentage], [UnitsOrdered], [UnitsOrdered-B2B], [UnitSessionPercentage], [UnitSessionPercentage-B2B], [OrderedProductSales], [OrderedProductSales-B2B], [TotalOrderItems], [TotalOrderItems-B2B], [ProductId]) VALUES ('2019-07-05 00:00:00', 1, 'ymcchld4', 11, 23, 0.84, 1.24, 5, 0, 45.45, 0, 25.6, 0, 4, 0, -1)
 
 
-SELECT SUM([Sessions]) FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-06 00:00:00' and '2019-07-06 23:59:59' AND [SKU] = 'IG-5UO9-SCW1'
+SELECT SUM([Sessions]) FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-01 00:00:00' and '2019-07-31 23:59:59' AND [SKU] = 'IG-5UO9-SCW1'
 SELECT SUM([Clicks]) FROM [AdvertisingProducts] WHERE [UpdateDate] between '2019-07-05 00:00:00' and '2019-07-07 23:59:59'
 
 SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-07 00:00:00' and '2019-07-07 23:59:59' and ([MarketPlaceId] = 1)
@@ -353,3 +353,27 @@ SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-07 00:00:00' 
 SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-07 00:00:00' and '2019-07-07 23:59:59' and ([MarketPlaceId] = 1) and [ProductId] = 16
 
 SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2019-07-06 00:00:00' and '2019-07-06 23:59:59' and ([MarketPlaceId] = 1) and ([ProductId] = 16)
+
+
+SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0 and Products.ActiveStatus = 'true' and Products.MarketPlaceId = 1
+
+INSERT INTO [BusinessReport] ([UpdateDate], [MarketPlaceId], [SKU], [Sessions], [SessionPercentage], [PageViews], [PageViewsPercentage], [UnitsOrdered], [UnitsOrdered-B2B], [UnitSessionPercentage], [UnitSessionPercentage-B2B], [OrderedProductSales], [OrderedProductSales-B2B], [TotalOrderItems], [TotalOrderItems-B2B], [ProductId]) VALUES ('2019-10-09 23:59:59', 1, 'IG-5UO9-SCW1', 0, 0, 0, 0, 134, 0, Infinity, NaN, 3033.41, 0, 121, 0, 16)
+
+SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-05 00:00:00' and '2019-07-31 23:59:59' and ([MarketPlaceId] = 1) and [ProductId] = 16
+SELECT SUM([TotalOrderItems]) FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-29 00:00:00' and '2019-08-04 23:59:59' and ([MarketPlaceId] = 1) and [ProductId] = 16
+SELECT SUM([TotalOrderItems-B2B]) FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-05 00:00:00' and '2019-07-31 23:59:59' and ([MarketPlaceId] = 1) and [ProductId] = 16
+SELECT SUM([Clicks]) FROM [AdvertisingProducts] WHERE [UpdateDate] between '2019-07-05 00:00:00' and '2019-07-31 23:59:59' and ([MarketPlaceId] = 1) and [ProductId] = 16
+SELECT SUM([Orders]) FROM [AdvertisingProducts] WHERE [UpdateDate] between '2019-07-05 00:00:00' and '2019-07-31 23:59:59' and ([MarketPlaceId] = 1) and [ProductId] = 16
+
+SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-29 00:00:00' and '2019-08-04 23:59:59' and ([MarketPlaceId] = 1) and [ProductId] = 16
+
+SELECT SUM([Impressions]) FROM [AdvertisingProducts] 
+
+SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2019-07-01 00:00:00' and '2019-07-31 23:59:59' and ([MarketPlaceId] = 1) and ([ProductId] = 16 or [ProductId] = 24 or [ProductId] = 31)
+SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-01 00:00:00' and '2019-07-31 23:59:59' and ([MarketPlaceId] = 1) and ([ProductId] = 16 or [ProductId] = 24 or [ProductId] = 31)
+SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-01 00:00:00' and '2019-07-31 23:59:59' and ([MarketPlaceId] = 1) and [ProductId] = 31
+SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-01 00:00:00' and '2019-07-31 23:59:59' and ([MarketPlaceId] = 1) and [ProductId] = 24
+SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-01 00:00:00' and '2019-07-31 23:59:59' and ([MarketPlaceId] = 1) and [ProductId] = 16
+
+
+SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-01 00:00:00' and '2019-07-31 23:59:59' and ([MarketPlaceId] = 1)

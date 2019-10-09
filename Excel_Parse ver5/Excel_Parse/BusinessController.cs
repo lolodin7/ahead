@@ -98,7 +98,7 @@ namespace Excel_Parse
             return Execute_SELECT_Command(command);
         }
 
-        public int GetFinalABusinessReport(DateTime _dt1, DateTime _dt2, List<int> _mpList, int _productId)
+        public int GetFinalABusinessReport(DateTime _dt1, DateTime _dt2, List<int> _mpList, List<int> _prodList)
         {
             string sqlStatement = "";
 
@@ -121,7 +121,25 @@ namespace Excel_Parse
 
                 sqlStatement = sqlStatement + ")";
             }
-            sqlStatement += " and [ProductId] = " + _productId;
+
+            if (_prodList.Count == 1)
+            {
+                sqlStatement = sqlStatement + " and ";
+                sqlStatement = sqlStatement + "([ProductId] = " + _prodList[0] + ")";
+            }
+            else if (_prodList.Count >= 2)
+            {
+                sqlStatement = sqlStatement + " and ";
+                sqlStatement = sqlStatement + "([ProductId] = " + _prodList[0];
+
+                for (int i = 1; i < _prodList.Count; i++)
+                {
+                    sqlStatement = sqlStatement + " or [ProductId] = " + _prodList[i];
+                }
+
+                sqlStatement = sqlStatement + ")";
+            }
+            
             command = new SqlCommand(sqlStatement, connection);
             return Execute_SELECT_Command(command);
         }
