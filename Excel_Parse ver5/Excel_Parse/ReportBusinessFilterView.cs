@@ -99,7 +99,7 @@ namespace Excel_Parse
         private void MakeSummaryBusinessReportList()
         {
             List<int> alreadyUsed = new List<int> { };
-            
+
             int Sessions;
             double SessionPercentage = 0;
             int PageViews;
@@ -112,7 +112,14 @@ namespace Excel_Parse
             double OrderedProductSalesB2B;
             int TotalOrderItems;
             int TotalOrderItemsB2B;
-            
+            int TotalSessions = 0;
+            int TotalPageViews = 0;
+
+            for (int i = 0; i < businessList.Count; i++)
+            {
+                TotalSessions += businessList[i].Sessions;
+                TotalPageViews += businessList[i].PageViews;
+            }
 
             for (int i = 0; i < businessList.Count; i++)
             {
@@ -160,24 +167,24 @@ namespace Excel_Parse
                     //summaryAdvProductsList.Add(ТО, ШО ПОЛУЧИЛОСЬ ОТ СУММИРОВАНИЯ + ДОПОЛНИТЕЛЬНО СЧИТАЕМ ТО, ЧТО НАДО ПОСЧИТАТЬ);
 
                     if (Sessions != 0)
-                        businessList[i].SessionPercentage = Math.Round((double)businessList[i].Sessions / Sessions * 100, 2);
+                        SessionPercentage = Math.Round((double)Sessions / TotalSessions * 100, 2);
                     else
-                        businessList[i].SessionPercentage = 0;
+                        SessionPercentage = 0;
 
                     if (PageViews != 0)
-                        businessList[i].PageViewsPercentage = Math.Round((double)businessList[i].PageViews / PageViews * 100, 2);
+                       PageViewPercentage = Math.Round((double)PageViews / TotalPageViews * 100, 2);
                     else
-                        businessList[i].PageViewsPercentage = 0;
+                        PageViewPercentage = 0;
 
-                    if (businessList[i].Sessions != 0)
-                        businessList[i].UnitSessionPercentage = Math.Round((double)businessList[i].UnitsOrdered / businessList[i].Sessions * 100, 2);
+                    if (Sessions != 0)
+                        UnitSessionPercentage = Math.Round((double)UnitsOrdered / Sessions * 100, 2);
                     else
-                        businessList[i].UnitSessionPercentage = 0;
+                        UnitSessionPercentage = 0;
 
-                    if (businessList[i].Sessions != 0)
-                        businessList[i].UnitSessionPercentageB2B = Math.Round((double)businessList[i].UnitsOrderedB2B / businessList[i].Sessions * 100, 2);
+                    if (Sessions != 0)
+                        UnitSessionPercentageB2B = Math.Round((double)UnitsOrderedB2B / Sessions * 100, 2);
                     else
-                        businessList[i].UnitSessionPercentageB2B = 0;
+                        UnitSessionPercentageB2B = 0;
                     
 
                     summaryBusinessList.Add(new ReportBusinessModel());
@@ -186,7 +193,8 @@ namespace Excel_Parse
                     summaryBusinessList[summaryBusinessList.Count - 1].MarketPlaceId = businessList[i].MarketPlaceId;
                     summaryBusinessList[summaryBusinessList.Count - 1].SKU = businessList[i].SKU;
                     summaryBusinessList[summaryBusinessList.Count - 1].Sessions = Sessions;
-                    summaryBusinessList[summaryBusinessList.Count - 1].UnitSessionPercentage = SessionPercentage;
+                    summaryBusinessList[summaryBusinessList.Count - 1].SessionPercentage = SessionPercentage;
+                    summaryBusinessList[summaryBusinessList.Count - 1].UnitSessionPercentage = UnitSessionPercentage;
                     summaryBusinessList[summaryBusinessList.Count - 1].PageViews = PageViews;
                     summaryBusinessList[summaryBusinessList.Count - 1].PageViewsPercentage = PageViewPercentage;
                     summaryBusinessList[summaryBusinessList.Count - 1].UnitsOrdered = UnitsOrdered;
@@ -195,6 +203,7 @@ namespace Excel_Parse
                     summaryBusinessList[summaryBusinessList.Count - 1].UnitSessionPercentageB2B = UnitSessionPercentageB2B;
                     summaryBusinessList[summaryBusinessList.Count - 1].OrderedProductSales = OrderedProductSales;
                     summaryBusinessList[summaryBusinessList.Count - 1].OrderedProductSalesB2B = OrderedProductSalesB2B;
+                    summaryBusinessList[summaryBusinessList.Count - 1].TotalOrderItems = TotalOrderItems;
                     summaryBusinessList[summaryBusinessList.Count - 1].TotalOrderItemsB2B = TotalOrderItemsB2B;
                     summaryBusinessList[summaryBusinessList.Count - 1].ProductId = businessList[i].ProductId;
                 }

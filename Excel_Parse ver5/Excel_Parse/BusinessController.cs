@@ -41,6 +41,7 @@ namespace Excel_Parse
         public int InsertBusinessReport(List<ReportBusinessModel> _businessList)
         {
             string specifier = "G";
+            int noErrors = 1;
 
             for (int i = 0; i < _businessList.Count; i++)
             {
@@ -51,8 +52,10 @@ namespace Excel_Parse
                     if (Execute_UPDATE_DELETE_INSERT_Command(command) != 1)
                         return 0;
                 }
+                else
+                    noErrors = 0;
             }
-            return 1;
+            return noErrors;
         }
 
         public int UpdateBusinessReport(List<ReportBusinessModel> _businessList)

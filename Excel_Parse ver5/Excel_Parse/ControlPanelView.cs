@@ -12,7 +12,7 @@ namespace Excel_Parse
 {
     public partial class ControlPanelView : Form
     {
-        private const int NameLength = 4;       //минимальная длина имени пользователя
+        private const int NameLength = 3;       //минимальная длина имени пользователя
 
         private UserModel um;
         private MainFormView controlMainFormView;
@@ -30,6 +30,7 @@ namespace Excel_Parse
             lb_Name.Text = um.Name;
             lb_Login.Text = um.Login;
             lb_Question.Text = um.SecretQuestion;
+            lb_Role.Text = loginFormController.GetUserRoleName(um.UserRoleId);
         }
 
         private void ControlPanelView_FormClosing(object sender, FormClosingEventArgs e)
@@ -45,6 +46,7 @@ namespace Excel_Parse
                 btn_ChangeName.Text = "Сохранить";
                 tb_ChangeName.Text = lb_Name.Text;
                 tb_ChangeName.Focus();
+                btn_CancelChangeName.Visible = true;
             }
             else
             {
@@ -62,6 +64,15 @@ namespace Excel_Parse
                 else
                     MessageBox.Show("Длина имени не может быть меньше 5.", "Ошибка");
             }
+        }
+
+        private void btn_CancelChangeName_Click(object sender, EventArgs e)
+        {
+            tb_ChangeName.Visible = false;
+            btn_ChangeName.Text = "Изменить";
+            tb_ChangeName.Text = "";
+            btn_CancelChangeName.Visible = false;
+            tb_ChangeName.Focus();
         }
 
         private void btn_ChangePassword_Click(object sender, EventArgs e)

@@ -34,13 +34,17 @@
             this.btn_UploadFile = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
-            this.btn_Close = new System.Windows.Forms.Button();
-            this.lb_marketplacelbl1 = new System.Windows.Forms.Label();
-            this.lb_Path1 = new System.Windows.Forms.Label();
             this.lb_mcDate = new System.Windows.Forms.Label();
+            this.lb_Path1 = new System.Windows.Forms.Label();
+            this.lb_marketplacelbl1 = new System.Windows.Forms.Label();
+            this.btn_Close = new System.Windows.Forms.Button();
+            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lb_DaysDiff = new System.Windows.Forms.Label();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.lb_startDateText = new System.Windows.Forms.Label();
+            this.lb_endDateText = new System.Windows.Forms.Label();
+            this.mc_EndDate = new System.Windows.Forms.MonthCalendar();
             this.lb_Path2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btn_CloseMany = new System.Windows.Forms.Button();
@@ -48,12 +52,8 @@
             this.btn_SaveMany = new System.Windows.Forms.Button();
             this.cb_MarketPlace2 = new System.Windows.Forms.ComboBox();
             this.btn_UploadFileMany = new System.Windows.Forms.Button();
-            this.mc_EndDate = new System.Windows.Forms.MonthCalendar();
-            this.lb_endDateText = new System.Windows.Forms.Label();
-            this.lb_startDateText = new System.Windows.Forms.Label();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.lb_DaysDiff = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -115,10 +115,57 @@
             this.tabPage1.Controls.Add(this.btn_UploadFile);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(413, 483);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Один";
+            // 
+            // lb_mcDate
+            // 
+            this.lb_mcDate.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_mcDate.Location = new System.Drawing.Point(119, 378);
+            this.lb_mcDate.Name = "lb_mcDate";
+            this.lb_mcDate.Size = new System.Drawing.Size(167, 31);
+            this.lb_mcDate.TabIndex = 7;
+            this.lb_mcDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lb_Path1
+            // 
+            this.lb_Path1.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_Path1.Location = new System.Drawing.Point(22, 164);
+            this.lb_Path1.Name = "lb_Path1";
+            this.lb_Path1.Size = new System.Drawing.Size(372, 44);
+            this.lb_Path1.TabIndex = 6;
+            // 
+            // lb_marketplacelbl1
+            // 
+            this.lb_marketplacelbl1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_marketplacelbl1.Location = new System.Drawing.Point(93, 27);
+            this.lb_marketplacelbl1.Name = "lb_marketplacelbl1";
+            this.lb_marketplacelbl1.Size = new System.Drawing.Size(219, 23);
+            this.lb_marketplacelbl1.TabIndex = 5;
+            this.lb_marketplacelbl1.Text = "Маркетплейс";
+            this.lb_marketplacelbl1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btn_Close
+            // 
+            this.btn_Close.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_Close.Location = new System.Drawing.Point(267, 412);
+            this.btn_Close.Name = "btn_Close";
+            this.btn_Close.Size = new System.Drawing.Size(135, 53);
+            this.btn_Close.TabIndex = 4;
+            this.btn_Close.Text = "Закрыть";
+            this.btn_Close.UseVisualStyleBackColor = true;
+            this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
+            // 
+            // monthCalendar1
+            // 
+            this.monthCalendar1.Location = new System.Drawing.Point(122, 217);
+            this.monthCalendar1.MaxSelectionCount = 1;
+            this.monthCalendar1.Name = "monthCalendar1";
+            this.monthCalendar1.ShowToday = false;
+            this.monthCalendar1.TabIndex = 3;
+            this.monthCalendar1.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateChanged);
             // 
             // tabPage2
             // 
@@ -137,61 +184,56 @@
             this.tabPage2.Controls.Add(this.btn_UploadFileMany);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(413, 483);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Несколько";
             // 
-            // openFileDialog1
+            // lb_DaysDiff
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            this.lb_DaysDiff.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_DaysDiff.Location = new System.Drawing.Point(239, 395);
+            this.lb_DaysDiff.Name = "lb_DaysDiff";
+            this.lb_DaysDiff.Size = new System.Drawing.Size(168, 26);
+            this.lb_DaysDiff.TabIndex = 19;
+            this.lb_DaysDiff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // monthCalendar1
+            // richTextBox1
             // 
-            this.monthCalendar1.Location = new System.Drawing.Point(122, 217);
-            this.monthCalendar1.MaxSelectionCount = 1;
-            this.monthCalendar1.Name = "monthCalendar1";
-            this.monthCalendar1.ShowToday = false;
-            this.monthCalendar1.TabIndex = 3;
-            this.monthCalendar1.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateChanged);
+            this.richTextBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.richTextBox1.Location = new System.Drawing.Point(9, 163);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ReadOnly = true;
+            this.richTextBox1.Size = new System.Drawing.Size(219, 227);
+            this.richTextBox1.TabIndex = 18;
+            this.richTextBox1.Text = "";
             // 
-            // btn_Close
+            // lb_startDateText
             // 
-            this.btn_Close.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_Close.Location = new System.Drawing.Point(267, 412);
-            this.btn_Close.Name = "btn_Close";
-            this.btn_Close.Size = new System.Drawing.Size(135, 53);
-            this.btn_Close.TabIndex = 4;
-            this.btn_Close.Text = "Закрыть";
-            this.btn_Close.UseVisualStyleBackColor = true;
-            this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
+            this.lb_startDateText.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_startDateText.Location = new System.Drawing.Point(236, 9);
+            this.lb_startDateText.Name = "lb_startDateText";
+            this.lb_startDateText.Size = new System.Drawing.Size(168, 26);
+            this.lb_startDateText.TabIndex = 17;
+            this.lb_startDateText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lb_marketplacelbl1
+            // lb_endDateText
             // 
-            this.lb_marketplacelbl1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_marketplacelbl1.Location = new System.Drawing.Point(93, 27);
-            this.lb_marketplacelbl1.Name = "lb_marketplacelbl1";
-            this.lb_marketplacelbl1.Size = new System.Drawing.Size(219, 23);
-            this.lb_marketplacelbl1.TabIndex = 5;
-            this.lb_marketplacelbl1.Text = "Маркетплейс";
-            this.lb_marketplacelbl1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lb_endDateText.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_endDateText.Location = new System.Drawing.Point(236, 204);
+            this.lb_endDateText.Name = "lb_endDateText";
+            this.lb_endDateText.Size = new System.Drawing.Size(168, 26);
+            this.lb_endDateText.TabIndex = 16;
+            this.lb_endDateText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lb_Path1
+            // mc_EndDate
             // 
-            this.lb_Path1.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_Path1.Location = new System.Drawing.Point(96, 164);
-            this.lb_Path1.Name = "lb_Path1";
-            this.lb_Path1.Size = new System.Drawing.Size(219, 44);
-            this.lb_Path1.TabIndex = 6;
-            // 
-            // lb_mcDate
-            // 
-            this.lb_mcDate.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_mcDate.Location = new System.Drawing.Point(119, 378);
-            this.lb_mcDate.Name = "lb_mcDate";
-            this.lb_mcDate.Size = new System.Drawing.Size(167, 31);
-            this.lb_mcDate.TabIndex = 7;
-            this.lb_mcDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.mc_EndDate.Location = new System.Drawing.Point(240, 228);
+            this.mc_EndDate.MaxSelectionCount = 1;
+            this.mc_EndDate.Name = "mc_EndDate";
+            this.mc_EndDate.ShowToday = false;
+            this.mc_EndDate.TabIndex = 15;
+            this.mc_EndDate.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.mc_EndDate_DateChanged);
             // 
             // lb_Path2
             // 
@@ -264,56 +306,14 @@
             this.btn_UploadFileMany.UseVisualStyleBackColor = true;
             this.btn_UploadFileMany.Click += new System.EventHandler(this.btn_UploadFileMany_Click);
             // 
-            // mc_EndDate
+            // openFileDialog1
             // 
-            this.mc_EndDate.Location = new System.Drawing.Point(240, 228);
-            this.mc_EndDate.MaxSelectionCount = 1;
-            this.mc_EndDate.Name = "mc_EndDate";
-            this.mc_EndDate.ShowToday = false;
-            this.mc_EndDate.TabIndex = 15;
-            this.mc_EndDate.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.mc_EndDate_DateChanged);
-            // 
-            // lb_endDateText
-            // 
-            this.lb_endDateText.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_endDateText.Location = new System.Drawing.Point(236, 204);
-            this.lb_endDateText.Name = "lb_endDateText";
-            this.lb_endDateText.Size = new System.Drawing.Size(168, 26);
-            this.lb_endDateText.TabIndex = 16;
-            this.lb_endDateText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lb_startDateText
-            // 
-            this.lb_startDateText.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_startDateText.Location = new System.Drawing.Point(236, 9);
-            this.lb_startDateText.Name = "lb_startDateText";
-            this.lb_startDateText.Size = new System.Drawing.Size(168, 26);
-            this.lb_startDateText.TabIndex = 17;
-            this.lb_startDateText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // openFileDialog2
             // 
             this.openFileDialog2.FileName = "openFileDialog2";
             this.openFileDialog2.Multiselect = true;
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.richTextBox1.Location = new System.Drawing.Point(9, 163);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(219, 227);
-            this.richTextBox1.TabIndex = 18;
-            this.richTextBox1.Text = "";
-            // 
-            // lb_DaysDiff
-            // 
-            this.lb_DaysDiff.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_DaysDiff.Location = new System.Drawing.Point(239, 395);
-            this.lb_DaysDiff.Name = "lb_DaysDiff";
-            this.lb_DaysDiff.Size = new System.Drawing.Size(168, 26);
-            this.lb_DaysDiff.TabIndex = 19;
-            this.lb_DaysDiff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ReportBusinessUploadView
             // 

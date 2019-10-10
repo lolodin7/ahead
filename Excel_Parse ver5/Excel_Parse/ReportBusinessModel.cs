@@ -51,39 +51,42 @@ namespace Excel_Parse
                     Sessions = GetInt(record);
                     break;
                 case 4:
-                    SessionPercentage = GetDouble(record);
+                    SessionPercentage = GetDoubleFromPrecentage(record);
                     break;
                 case 5:
                     PageViews = GetInt(record);
                     break;
                 case 6:
-                    PageViewsPercentage = GetDouble(record);
+                    PageViewsPercentage = GetDoubleFromPrecentage(record);
                     break;
                 case 7:
-                    UnitsOrdered = GetInt(record);
+                    
                     break;
                 case 8:
-                    UnitsOrderedB2B = GetInt(record);
+                    UnitsOrdered = GetInt(record);
                     break;
                 case 9:
-                    UnitSessionPercentage = GetDouble(record);
+                    UnitsOrderedB2B = GetInt(record);
                     break;
                 case 10:
-                    UnitSessionPercentageB2B = GetDouble(record);
+                    UnitSessionPercentage = GetDoubleFromPrecentage(record);
                     break;
                 case 11:
-                    OrderedProductSales = GetDouble(record);
+                    UnitSessionPercentageB2B = GetDoubleFromPrecentage(record);
                     break;
                 case 12:
-                    OrderedProductSalesB2B = GetDouble(record);
+                    OrderedProductSales = GetDouble(record);
                     break;
                 case 13:
-                    TotalOrderItems = GetInt(record);
+                    OrderedProductSalesB2B = GetDouble(record);
                     break;
                 case 14:
-                    TotalOrderItemsB2B = GetInt(record);
+                    TotalOrderItems = GetInt(record);
                     break;
                 case 15:
+                    TotalOrderItemsB2B = GetInt(record);
+                    break;
+                case 16:
                     ProductId = GetInt(record);
                     break;
             }
@@ -183,7 +186,29 @@ namespace Excel_Parse
                 catch (Exception ex)
                 {
                     string s = _value.ToString();
-                    string str = s.Substring(1, s.Length - 1);
+                    int op = s.IndexOf('$');
+                    string str = s.Substring(op + 1, s.Length - op - 1);
+                    _amount = double.Parse(str, CultureInfo.InvariantCulture);
+                }
+            }
+            else
+                _amount = 0;
+            return _amount;
+        }
+
+        private double GetDoubleFromPrecentage(object _value)
+        {
+            double _amount = 0;
+            if (!_value.ToString().Equals(""))
+            {
+                try
+                {
+                    _amount = double.Parse(_value.ToString());
+                }
+                catch (Exception ex)
+                {
+                    string s = _value.ToString();
+                    string str = s.Substring(0, s.Length - 1);
                     _amount = double.Parse(str, CultureInfo.InvariantCulture);
                 }
             }

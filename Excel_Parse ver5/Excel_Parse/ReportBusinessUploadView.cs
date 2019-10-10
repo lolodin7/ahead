@@ -39,6 +39,9 @@ namespace Excel_Parse
         private ProductsController prodController;
         private List<ProductsModel> pList;
 
+        private ReportDataAnalyzer reportDataAnalyzer;
+        private List<int> missedColumns;
+
         public ReportBusinessUploadView(MainFormView _mf, string _mode)
         {
             InitializeComponent();
@@ -62,10 +65,12 @@ namespace Excel_Parse
             mpList = new List<MarketplaceModel> { };
             pList = new List<ProductsModel> { };
             FileNames = new List<string> { };
+            missedColumns = new List<int> { };
 
             businessController = new BusinessController(this);
             mpController = new MarketplaceController(this);
             prodController = new ProductsController(this);
+            reportDataAnalyzer = new ReportDataAnalyzer(this);
 
             if (_mode.Equals("upload"))
             {
@@ -180,6 +185,8 @@ namespace Excel_Parse
             businessList = new List<ReportBusinessModel> { };
 
             bool firstRow = true;
+            bool theSame = false;
+
             openFileDialog1.Filter = "Неразмеченные файлы|*.csv;*.txt";
             openFileDialog1.Title = "Выбор файла для открытия";
             openFileDialog1.FileName = "";
@@ -192,31 +199,71 @@ namespace Excel_Parse
                 {
                     using (TextFieldParser parser = new TextFieldParser(@path))
                     {
+                        missedColumns.Clear();
                         parser.TextFieldType = FieldType.Delimited;
 
                         parser.SetDelimiters(",");
 
+                        string[] fields;
 
                         while (!parser.EndOfData)
                         {
+                            int usedMissedIndexes = 0;
+
                             //Process row
-                            string[] fields = parser.ReadFields();
-                            if (!firstRow)
+                            fields = parser.ReadFields();
+                            
+                            if (!firstRow)      //проверяем, если это первая строка с заголовками  (НЕТ)
                             {
                                 businessList.Add(new ReportBusinessModel());
 
-                                businessList[businessList.Count - 1].WriteData(2, fields[3]);
-                                businessList[businessList.Count - 1].WriteData(3, fields[4]);
-                                businessList[businessList.Count - 1].WriteData(5, fields[6]);
-                                businessList[businessList.Count - 1].WriteData(7, fields[9]);
-                                businessList[businessList.Count - 1].WriteData(8, fields[10]);
-                                businessList[businessList.Count - 1].WriteData(11, fields[13]);
-                                businessList[businessList.Count - 1].WriteData(12, fields[14]);
-                                businessList[businessList.Count - 1].WriteData(13, fields[15]);
-                                businessList[businessList.Count - 1].WriteData(14, fields[16]);
+                                if (theSame)        //если количество стоблцов одинаковое (значит, в фактическом отчете нет пропущеных столбцов)
+                                {
+                                    for (int i = 0; i + 3 < fields.Length; i++)
+                                    {
+                                        if (!missedColumns.Contains(i + 3))         //проверяем, является ли номер колонки пропущенным в факт. отчете
+                                            businessList[businessList.Count - 1].WriteData(i + 2, fields[i + 3 - usedMissedIndexes]);
+                                        else
+                                        {
+                                            businessList[businessList.Count - 1].WriteData(i + 2, 0);
+                                            usedMissedIndexes++;
+                                        }
+                                    }
+                                }
+                                else            //если количество стоблцов разное (значит, в фактическом отчете пропущены столбцы)
+                                {
+                                    for (int i = 0; i < fields.Length; i++)
+                                    {
+                                        if (!missedColumns.Contains(i + 3))         //проверяем, является ли номер колонки пропущенным в факт. отчете
+                                            businessList[businessList.Count - 1].WriteData(i + 2, fields[i + 3 - usedMissedIndexes]);
+                                        else
+                                        {
+                                            businessList[businessList.Count - 1].WriteData(i + 2, 0);
+                                            usedMissedIndexes++;
+                                        }
+                                    }
+                                }
                             }
-                            else
+                            else        //(ДА)
+                            {
+                                List<string> reportColumns = new List<string> { };
+                                foreach (var t in fields)
+                                {
+                                    reportColumns.Add(t);
+                                }
+
+                                string[] reportColumnsFinish = new string[reportColumns.Count];     //не помню почему, но метод получает именно массив, а не список
+
+                                for (int j = 0; j < reportColumns.Count; j++)
+                                {
+                                    reportColumnsFinish[j] = reportColumns[j];
+                                }
+
+                                theSame = reportDataAnalyzer.BusinessReport(reportColumnsFinish);   //сравниваем названия и количество столбцов. theSame показывает, одинаковое ли количество столбцов между фактическим отчетом и заданным. от этого зависит длительность цикла в ветке (НЕТ)
+
                                 firstRow = false;
+
+                            }
                         }
                         lb_Path1.Text = path;
                     }
@@ -226,6 +273,11 @@ namespace Excel_Parse
                     MessageBox.Show("Проблема при открытии файла. Убедитесь, что Вы выбрали файл с нужны расширением. Возможно, разметка файла не поддерживается программой.", "Ошибка при открытии");
                 }
             }
+        }
+
+        public void GetMissedReportColumns(object _missedColumns)
+        {
+            missedColumns = (List<int>)_missedColumns;
         }
 
         private void cb_MarketPlace1_SelectedIndexChanged(object sender, EventArgs e)
@@ -391,6 +443,7 @@ namespace Excel_Parse
         {
             bool errors = false;
             updatedRowsCount = 0;
+            List<string> badFileNames = new List<string> { };
 
             if (EndDate > StartDate)
             {
@@ -400,6 +453,9 @@ namespace Excel_Parse
                     {
                         if (MessageBox.Show("Маркетплейс: " + cb_MarketPlace1.SelectedItem.ToString() + "\n\nЗагрузить отчет с этими параметрами?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
+                            richTextBox1.Text = "";
+
+
                             UpdateDate = StartDate;
                             this.Enabled = false;
                             this.Cursor = Cursors.WaitCursor;
@@ -434,15 +490,16 @@ namespace Excel_Parse
                                         string errorsstr = "";
                                         foreach (var k in businessListOfErrors)
                                         {
-                                            errorsstr += "SKU: " + k.SKU + " Название товара: " + GetProductNameById(k.ProductId) + "\n";
+                                            errorsstr += "Данные товара SKU: " + k.SKU + " Название товара: " + GetProductNameById(k.ProductId) + "\nне были добавлены. Вороятно, этот товар не занесен в программу";
                                         }
-                                        MessageBox.Show(errorsMsg, "Ошибка");
+                                        //MessageBox.Show(errorsMsg, "Ошибка");
                                         richTextBox1.Text = errorsstr;
                                     }
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Файл отчета \"" + FileNames[i] + "\" не был загружен. Нет данных для сохранения.", "Ошибка");
+                                    //MessageBox.Show("Файл отчета \"" + FileNames[i] + "\" не был загружен. Нет данных для сохранения.", "Ошибка");
+                                    badFileNames.Add(FileNames[i]);
                                     errors = true;
                                 }
                                 UpdateDate = UpdateDate.AddDays(1);
@@ -451,8 +508,16 @@ namespace Excel_Parse
                             if (!errors)
                                 MessageBox.Show("Сохранение успешно. Всего сохранено строк - " + updatedRowsCount, "Успех");
                             else
-                                MessageBox.Show("Сохранение прошло с ошибками. Всего сохранено строк - " + updatedRowsCount, "Сомнительный успех");
+                            {
+                                MessageBox.Show("Сохранение прошло с ошибками.", "Сомнительный успех");
+                                richTextBox1.Text += "Ниже представлены названия файлов, которые не получилось загрузить. Данные из них не были загружены на сервер.\n";
+                                foreach(var t in badFileNames)
+                                {
+                                    richTextBox1.Text += t + "\n";
+                                }
+                            }
 
+                            FileNames.Clear();
                             this.Cursor = Cursors.Default;
                             this.Enabled = true;
                         }
@@ -473,42 +538,84 @@ namespace Excel_Parse
             businessList = new List<ReportBusinessModel> { };
 
             bool firstRow = true;
+            bool theSame = false;
 
             try
             {
                 using (TextFieldParser parser = new TextFieldParser(@_filename))
                 {
+                    missedColumns.Clear();
                     parser.TextFieldType = FieldType.Delimited;
 
                     parser.SetDelimiters(",");
 
+                    string[] fields;
+
                     while (!parser.EndOfData)
                     {
+                        int usedMissedIndexes = 0;
+
                         //Process row
-                        string[] fields = parser.ReadFields();
-                        if (!firstRow)
+                        fields = parser.ReadFields();
+                        
+                        if (!firstRow)      //проверяем, если это первая строка с заголовками  (НЕТ)
                         {
                             businessList.Add(new ReportBusinessModel());
 
-                            businessList[businessList.Count - 1].WriteData(2, fields[3]);
-                            businessList[businessList.Count - 1].WriteData(3, fields[4]);
-                            businessList[businessList.Count - 1].WriteData(5, fields[6]);
-                            businessList[businessList.Count - 1].WriteData(7, fields[9]);
-                            businessList[businessList.Count - 1].WriteData(8, fields[10]);
-                            businessList[businessList.Count - 1].WriteData(11, fields[13]);
-                            businessList[businessList.Count - 1].WriteData(12, fields[14]);
-                            businessList[businessList.Count - 1].WriteData(13, fields[15]);
-                            businessList[businessList.Count - 1].WriteData(14, fields[16]);
+                            if (theSame)        //если количество стоблцов одинаковое (значит, в фактическом отчете нет пропущеных столбцов)
+                            {
+                                for (int i = 0; i + 3 < fields.Length; i++)
+                                {
+                                    if (!missedColumns.Contains(i + 3))         //проверяем, является ли номер колонки пропущенным в факт. отчете
+                                        businessList[businessList.Count - 1].WriteData(i + 2, fields[i + 3 - usedMissedIndexes]);
+                                    else
+                                    {
+                                        businessList[businessList.Count - 1].WriteData(i + 2, 0);
+                                        usedMissedIndexes++;
+                                    }
+                                }
+                            }
+                            else            //если количество стоблцов разное (значит, в фактическом отчете пропущены столбцы)
+                            {
+                                for (int i = 0; i < fields.Length; i++)
+                                {
+                                    if (!missedColumns.Contains(i + 3))         //проверяем, является ли номер колонки пропущенным в факт. отчете
+                                        businessList[businessList.Count - 1].WriteData(i + 2, fields[i + 3 - usedMissedIndexes]);
+                                    else
+                                    {
+                                        businessList[businessList.Count - 1].WriteData(i + 2, 0);
+                                        usedMissedIndexes++;
+                                    }
+                                }
+                            }
                         }
-                        else
+                        else        //(ДА)
+                        {
+                            List<string> reportColumns = new List<string> { };
+                            foreach (var t in fields)
+                            {
+                                reportColumns.Add(t);
+                            }
+
+                            string[] reportColumnsFinish = new string[reportColumns.Count];     //не помню почему, но метод получает именно массив, а не список
+
+                            for (int j = 0; j < reportColumns.Count; j++)
+                            {
+                                reportColumnsFinish[j] = reportColumns[j];
+                            }
+
+                            theSame = reportDataAnalyzer.BusinessReport(reportColumnsFinish);   //сравниваем названия и количество столбцов. theSame показывает, одинаковое ли количество столбцов между фактическим отчетом и заданным. от этого зависит длительность цикла в ветке (НЕТ)
+
                             firstRow = false;
+
+                        }
                     }
+                    lb_Path1.Text = path;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Проблема при открытии файла. Убедитесь, что Вы выбрали файл с нужны расширением. Возможно, разметка файла не поддерживается программой.", "Ошибка при открытии");
-                businessList = new List<ReportBusinessModel> { };
             }
         }
 

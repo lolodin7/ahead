@@ -8,10 +8,18 @@ namespace Excel_Parse
 {
     class ReportDataAnalyzer
     {
+        private ReportAdvertisingUploadView controlReportAdvertisingUploadView;
+        private ReportBusinessUploadView controlReportBusinessUploadView;
 
-        public ReportDataAnalyzer()
+
+        public ReportDataAnalyzer(ReportAdvertisingUploadView _mf)
         {
+            controlReportAdvertisingUploadView = _mf;
+        }
 
+        public ReportDataAnalyzer(ReportBusinessUploadView _mf)
+        {
+            controlReportBusinessUploadView = _mf;
         }
 
         /*  */
@@ -83,8 +91,15 @@ namespace Excel_Parse
         }
 
         /* Анализ Business Report */
-        public void BusinessReport(string[] _columnsToAnalyze)
+        public bool BusinessReport(string[] _columnsToAnalyze)
         {
+            bool theSame = false;
+            bool generalIdentity = false;
+            List<int> missedColumns = new List<int> { };
+            List<int> mixedColumnNumbers = new List<int> { };
+            int missedColumnsCount = 0;
+            bool foundColumnAtAnotherPlace = false;
+
             int columnCount = 17;
             string[] reportColumns = new string[columnCount];
 
@@ -106,12 +121,67 @@ namespace Excel_Parse
             reportColumns[15] = "Total Order Items";
             reportColumns[16] = "Total Order Items - B2B";
 
-            AnalyzeColumns(reportColumns, _columnsToAnalyze);
+
+            if (columnCount == _columnsToAnalyze.Length)        //проверяем, одинаковое ли количество столцов у факт и заданного отчетов
+                theSame = true;
+
+            if (theSame)
+            {
+                generalIdentity = AnalyzeColumns(reportColumns, _columnsToAnalyze);     //проверяем, одинаковые ли заголовки у каждой пары столбцов 
+            }
+            else
+            {
+                for (int i = 0; i < columnCount; i++)
+                {
+                    if (i - missedColumnsCount < _columnsToAnalyze.Length)
+                    {
+                        if (!reportColumns[i].Equals(_columnsToAnalyze[i - missedColumnsCount]))
+                        {
+                            foundColumnAtAnotherPlace = false;
+                            for (int j = i + 1; j < _columnsToAnalyze.Length; j++)
+                            {
+                                if (reportColumns[i].Equals(_columnsToAnalyze[j]))
+                                {
+                                    foundColumnAtAnotherPlace = true;
+                                }
+                            }
+
+                            if (!foundColumnAtAnotherPlace)
+                            {
+                                missedColumns.Add(i);
+                                missedColumnsCount++;
+                            }
+                            //else
+                            //    mixedColumnNumbers.Add(i);
+                        }
+                    }
+                    else
+                        missedColumns.Add(i);
+                }
+            }
+
+            if (theSame)
+            {
+                if (generalIdentity) { }
+                else { }
+            }
+            else
+            {
+                controlReportBusinessUploadView.GetMissedReportColumns(missedColumns);
+            }
+
+            return theSame;
         }
 
         /* Анализ FBA customer returns */
         public void ReturnsReport(string[] _columnsToAnalyze)
         {
+            bool theSame = false;
+            bool generalIdentity = false;
+            List<int> missedColumns = new List<int> { };
+            List<int> mixedColumnNumbers = new List<int> { };
+            int missedColumnsCount = 0;
+
             int columnCount = 13;
             string[] reportColumns = new string[columnCount];
 
@@ -129,17 +199,52 @@ namespace Excel_Parse
             reportColumns[11] = "license-plate-number";
             reportColumns[12] = "customer-comments";
 
-            AnalyzeColumns(reportColumns, _columnsToAnalyze);
+            if (columnCount == _columnsToAnalyze.Length)
+                theSame = true;
+
+            if (theSame)
+            {
+                generalIdentity = AnalyzeColumns(reportColumns, _columnsToAnalyze);
+            }
+            else
+            {
+                for (int i = 0; i < columnCount; i++)
+                {
+                    if (!reportColumns[i].Equals(_columnsToAnalyze[i - missedColumnsCount]))
+                    {
+                        for (int j = 0; j < _columnsToAnalyze.Length; j++)
+                        {
+                            if (!reportColumns[i].Equals(_columnsToAnalyze[i - missedColumnsCount]))
+                            {
+                                missedColumns.Add(i);
+                            }
+                            //else
+                            //    mixedColumnNumbers.Add(i);
+                        }
+                    }
+                }
+            }
+
+            if (theSame)
+            {
+                if (generalIdentity) { }
+                else { }
+            }
+            else
+            {
+                controlReportBusinessUploadView.GetMissedReportColumns(missedColumns);
+            }
         }
 
         /* Анализатор */
-        private void AnalyzeColumns(string[] _reportColumns, string[] _columnsToAnalyze)
+        private bool AnalyzeColumns(string[] _reportColumns, string[] _columnsToAnalyze)
         {
-            for (int i = 0; i < _reportColumns.Length; i++)
+            for (int i = 0; i < _columnsToAnalyze.Length; i++)
             {
-
+                if (_reportColumns[i].Equals(_columnsToAnalyze[i]))
+                    return false;
             }
-
+            return true;
         }
     }
 }
