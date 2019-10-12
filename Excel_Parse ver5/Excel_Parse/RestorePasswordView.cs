@@ -74,7 +74,9 @@ namespace Excel_Parse
             {
                 case 1:
                     if (!tb_Input1.Text.Equals(""))     //если поле не пустое
-                        if (lfController.GetUserDataFromDB(tb_Input1.Text))      //получаем данные пользователя по логину
+                    {
+                        string result = lfController.GetUserDataFromDB(tb_Input1.Text);
+                        if (result.Contains("good"))      //получаем данные пользователя по логину
                         {
                             phase = 2;
                             tb_Input1.Visible = false;
@@ -84,8 +86,9 @@ namespace Excel_Parse
                             label2.Text = um.SecretQuestion;
                             tb_Input2.Focus();
                         }
-                        else
-                            MessageBox.Show("Пользователь с таким логином не найден.", "Ошибка");
+                        else if (result.Contains("error: 40 ")) { MessageBox.Show("Не удалось установить соединение с сервером. Попробуйте позже.", "Ошибка"); }
+                        else if (result.Contains("fail")) { MessageBox.Show("Имя пользователя или пароль введены неверно.", "Ошибка"); }
+                    }
                     else
                         MessageBox.Show("Введите логин пользователя.", "Ошибка");
                     break;

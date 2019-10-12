@@ -84,6 +84,9 @@
             this.btn_LastHalfYear = new System.Windows.Forms.Button();
             this.btn_lastYear = new System.Windows.Forms.Button();
             this.btn_LastDay = new System.Windows.Forms.Button();
+            this.label17 = new System.Windows.Forms.Label();
+            this.cb_MatchType = new System.Windows.Forms.ComboBox();
+            this.btn_FilterByMatchType = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -479,6 +482,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btn_FilterByMatchType);
+            this.groupBox1.Controls.Add(this.label17);
+            this.groupBox1.Controls.Add(this.cb_MatchType);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.btn_Reset);
             this.groupBox1.Controls.Add(this.label6);
@@ -518,7 +524,7 @@
             this.groupBox2.Controls.Add(this.tb_SearchByTargeting);
             this.groupBox2.Controls.Add(this.tb_SearchByAdGroup);
             this.groupBox2.Controls.Add(this.label16);
-            this.groupBox2.Location = new System.Drawing.Point(190, 33);
+            this.groupBox2.Location = new System.Drawing.Point(193, 115);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(339, 205);
             this.groupBox2.TabIndex = 67;
@@ -654,6 +660,45 @@
             this.btn_LastDay.UseVisualStyleBackColor = true;
             this.btn_LastDay.Click += new System.EventHandler(this.btn_LastDay_Click);
             // 
+            // label17
+            // 
+            this.label17.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.label17.Location = new System.Drawing.Point(199, 33);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(254, 23);
+            this.label17.TabIndex = 83;
+            this.label17.Text = "Match Type";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cb_MatchType
+            // 
+            this.cb_MatchType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_MatchType.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.cb_MatchType.FormattingEnabled = true;
+            this.cb_MatchType.Items.AddRange(new object[] {
+            "AUTO",
+            "EXACT",
+            "PHRASE",
+            "BROAD"});
+            this.cb_MatchType.Location = new System.Drawing.Point(203, 59);
+            this.cb_MatchType.Name = "cb_MatchType";
+            this.cb_MatchType.Size = new System.Drawing.Size(250, 25);
+            this.cb_MatchType.TabIndex = 82;
+            // 
+            // btn_FilterByMatchType
+            // 
+            this.btn_FilterByMatchType.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.btn_FilterByMatchType.FlatAppearance.BorderSize = 0;
+            this.btn_FilterByMatchType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_FilterByMatchType.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.btn_FilterByMatchType.Location = new System.Drawing.Point(470, 51);
+            this.btn_FilterByMatchType.Name = "btn_FilterByMatchType";
+            this.btn_FilterByMatchType.Size = new System.Drawing.Size(40, 39);
+            this.btn_FilterByMatchType.TabIndex = 69;
+            this.btn_FilterByMatchType.Text = "GO";
+            this.btn_FilterByMatchType.UseVisualStyleBackColor = false;
+            this.btn_FilterByMatchType.Click += new System.EventHandler(this.btn_FilterByMatchType_Click);
+            // 
             // ReportAdvertisingFilterView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -755,5 +800,8 @@
         private System.Windows.Forms.Button btn_LastHalfYear;
         private System.Windows.Forms.Button btn_lastYear;
         private System.Windows.Forms.Button btn_LastDay;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.ComboBox cb_MatchType;
+        private System.Windows.Forms.Button btn_FilterByMatchType;
     }
 }

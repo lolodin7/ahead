@@ -521,7 +521,7 @@ namespace Excel_Parse
             int result = 0;
             businessList = null;
 
-            result = businessController.GetFinalABusinessReport(StartDate, EndDate, GetMPIdsByNames(checkedMarkeplaces));
+            result = businessController.GetFinalABusinessReport(StartDate, EndDate, GetMPIdsByNames(checkedMarkeplaces), GetProductIdsByNames(checkedProducts));
 
             if (result == 1)
             {
@@ -559,7 +559,11 @@ namespace Excel_Parse
         /* Выделяем/снимаем выделение товара в clb_Product */
         private void clb_Product_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            checkedProducts.Clear();
+            for (int i = 0; i < clb_Product.CheckedItems.Count; i++)
+            {
+                checkedProducts.Add(clb_Product.CheckedItems[i].ToString());
+            }            
         }
 
         /* Получаем список ProductId по выделенным ProductName */

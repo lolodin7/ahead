@@ -154,7 +154,7 @@ CREATE TABLE [User](
 	[UserRoleId]		INT,
 	[SecretQuestion]	VARCHAR(100),
 	[Answer]			VARCHAR(100),
-	[Mac]				TEXT,
+	[LastMac]				TEXT,
 	CONSTRAINT PK_User PRIMARY KEY ([UserId]),
 	CONSTRAINT UQ_User_Login UNIQUE ([Login]),
 	CONSTRAINT FK_User_UserRoleId FOREIGN KEY ([UserRoleId]) REFERENCES UserRole ([UserRoleId])

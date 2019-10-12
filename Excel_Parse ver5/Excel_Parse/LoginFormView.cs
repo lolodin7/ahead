@@ -81,24 +81,46 @@ namespace Excel_Parse
                 //здесь запуск проги без окна входа
                 if (ReadFromFile())
                 {
-
-                    lfController.GetUserDataFromDB(fileTxt[0]);
-
-                    if (sp.VerifyToken(int.Parse(fileTxt[1]), um.Token1, um.Token2, um.Login.Length) && sp.VerifyMac(fileTxt[2]))
+                    string result = lfController.GetUserDataFromDB(fileTxt[0]);
+                    
+                    if (result.Contains("good"))
                     {
-                        SignInWithSaveMe = true;
-                        MainFormView mf = new MainFormView(um, this);
-                        mf.Show();
-                        firstLoad = false;
+
+                        if (sp.VerifyToken(int.Parse(fileTxt[1]), um.Token1, um.Token2, um.Login.Length) && sp.VerifyMac(fileTxt[2]) && sp.VerifyMac(um.Mac)) // проверяем МАС этой машины с МАС из файла и сразу МАС этой машини с последним занесенным МАС в БД
+                        {
+                            SignInWithSaveMe = true;
+                            MainFormView mf = new MainFormView(um, this);
+                            mf.Show();
+                            firstLoad = false;
+                        }
+                        else
+                        {
+                            UpdateConfig("false");
+
+                            File.Delete(path);      //удаляем файл
+                            LoadWithSaveMe = false;
+                            this.Visible = true;
+                        }
                     }
-                    else
+                    else if (result.Contains("error: 40"))
                     {
+                        MessageBox.Show("Не удалось установить соединение с сервером. Попробуйте позже.", "Ошибка");
                         UpdateConfig("false");
 
                         File.Delete(path);      //удаляем файл
                         LoadWithSaveMe = false;
                         this.Visible = true;
                     }
+                    else if (result.Contains("fail"))
+                    {
+                        MessageBox.Show("Имя пользователя или пароль введены неверно.", "Ошибка");
+                        UpdateConfig("false");
+
+                        File.Delete(path);      //удаляем файл
+                        LoadWithSaveMe = false;
+                        this.Visible = true;
+                    }
+
                 }
                 else
                 {
@@ -164,12 +186,24 @@ namespace Excel_Parse
             {
                 if (!tb_Password.Text.Equals(""))   //если ввели пароль
                 {
-                    bool isLoginAndPassOk = false;
+                    this.Enabled = false;
+                    this.Cursor = Cursors.WaitCursor;
 
+                    bool isLoginAndPassOk = false;
+                    string result = lfController.GetUserDataFromDB(tb_Login.Text);
                     //ищем юзера с таким логином в базе, берем все данные. на месте тут сверяем пароли, если ок - логин
-                    if (!lfController.GetUserDataFromDB(tb_Login.Text))
+                    if (result.Contains("error: 40 "))
                     {
-                        MessageBox.Show("Пользователь с таким логином не найден.", "Ошибка");
+                        MessageBox.Show("Не удалось установить соединение с сервером. Попробуйте позже.", "Ошибка");
+                        this.Cursor = Cursors.Default;
+                        this.Enabled = true;
+                        return;
+                    }
+                    else if (result.Contains("fail"))
+                    {
+                        MessageBox.Show("Имя пользователя или пароль введены неверно.", "Ошибка");
+                        this.Cursor = Cursors.Default;
+                        this.Enabled = true;
                         return;
                     }
 
@@ -184,8 +218,20 @@ namespace Excel_Parse
                             string MacAddress = sp.GetMac();   //используем для идентификации пользователя на этом компьютере, чтобы низзя было скопировать файл на другой комп и залогиниться
                             int generatedToken = sp.GenerateToken(um.Token1, um.Token2, um.Login.Length);
 
-                            //тут значения с токенов пишем в файл
-                            WriteToFile(generatedToken, um.Login, um.Mac);
+                            //заносим мак этой машини в БД
+                            if (lfController.UpdateLastMac(um.UserId, sp.GetMac()))
+                            {
+                                //тут значения с токенов пишем в файл
+                                //WriteToFile(generatedToken, um.Login, um.Mac);
+                                WriteToFile(generatedToken, um.Login, MacAddress);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Не удалось обратиться к серверу. Попробуйте позже.", "Ошибка");
+
+                                UpdateConfig("false");
+                                File.Delete(path);      //удаляем файл
+                            }
                         }
                         else
                         {
@@ -201,6 +247,9 @@ namespace Excel_Parse
                     }
                     else
                         lb_WrongPassword.Visible = true;
+
+                    this.Cursor = Cursors.Default;
+                    this.Enabled = true;
                 }
                 else
                     MessageBox.Show("Введите пароль!", "Ошибка");

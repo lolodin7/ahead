@@ -99,7 +99,7 @@ namespace Excel_Parse
             checkedProducts = new List<string> { };
             checkedCampaigns = new List <string> { };
 
-            
+            cb_MatchType.SelectedIndex = 0;
         }
 
 
@@ -884,20 +884,34 @@ namespace Excel_Parse
             this.Enabled = false;
             NoErrors = true;
 
-            //if (mf.SponsoredProductMode)                //если имеем дело с Sponsored Products
-            //{
-            //    for (int i = 0; i < advProductsList.Count; i++)
-            //    {
-                    
-            //    }
-            //}
-            //else if (mf.SponsoredBrandMode)             //если имеем дело с Sponsored Brands
-            //{
-            //    for (int i = 0; i < advBrandsList.Count; i++)
-            //    {
-                    
-            //    }
-            //}
+            if (mf.SponsoredProductMode)                //если имеем дело с Sponsored Products
+            {
+                filterAdvProductsList = new List<AdvertisingProductsModel> { };
+                for (int i = 0; i < advProductsList.Count; i++)
+                {
+                    if (advProductsList[i].CampaignName.ToLower().Contains(tb_SearchByCampaign.Text.ToLower()) && advProductsList[i].AdGroupName.ToLower().Contains(tb_SearchByAdGroup.Text.ToLower()) && advProductsList[i].Targeting.ToLower().Contains(tb_SearchByTargeting.Text.ToLower()))
+                    {
+                        filterAdvProductsList.Add(advProductsList[i]);
+                    }
+                }
+
+                if (NoErrors)
+                    mf.GetAdvertisingProductsListToShow(filterAdvProductsList);
+            }
+            else if (mf.SponsoredBrandMode)             //если имеем дело с Sponsored Brands
+            {
+                filterAdvBrandsList = new List<AdvertisingBrandsModel> { };
+                for (int i = 0; i < advBrandsList.Count; i++)
+                {
+                    if (advBrandsList[i].CampaignName.ToLower().Contains(tb_SearchByCampaign.Text.ToLower()) && advBrandsList[i].Targeting.ToLower().Contains(tb_SearchByTargeting.Text.ToLower()))
+                    {
+                        filterAdvBrandsList.Add(advBrandsList[i]);
+                    }
+                }
+
+                if (NoErrors)
+                    mf.GetAdvertisingBrandsListToShow(filterAdvBrandsList);
+            }
 
             this.Cursor = Cursors.Default;
             this.Enabled = true;
@@ -938,6 +952,62 @@ namespace Excel_Parse
             dd = dd.Subtract(new TimeSpan(1, 0, 0, 0, 0));
             mc_StartDate.SelectionStart = dd;
             mc_EndDate.SelectionEnd = dd.AddHours(23).AddMinutes(59);
+        }
+
+        /* Фильтруем данные в таблице по MatchType */
+        private void btn_FilterByMatchType_Click(object sender, EventArgs e)
+        {
+            this.Cursor = Cursors.WaitCursor;
+            this.Enabled = false;
+            NoErrors = true;
+
+            if (mf.SponsoredProductMode)                //если имеем дело с Sponsored Products
+            {
+                filterAdvProductsList = new List<AdvertisingProductsModel> { };
+                for (int i = 0; i < advProductsList.Count; i++)
+                {
+                    if (cb_MatchType.SelectedItem.Equals("EXACT") || cb_MatchType.SelectedItem.Equals("BROAD") || cb_MatchType.SelectedItem.Equals("PHRASE"))
+                    {
+                        if (advProductsList[i].MatchType.Equals(cb_MatchType.SelectedItem))
+                            filterAdvProductsList.Add(advProductsList[i]); 
+
+                    } 
+                    else if (cb_MatchType.SelectedItem.Equals("AUTO"))
+                    {
+                        if (advProductsList[i].CampaignName.ToLower().Contains("auto"))
+                            filterAdvProductsList.Add(advProductsList[i]);
+                    }
+                }
+
+                timer1.Start();
+                if (NoErrors)
+                    mf.GetAdvertisingProductsListToShow(filterAdvProductsList);
+            }
+            else if (mf.SponsoredBrandMode)             //если имеем дело с Sponsored Brands
+            {
+                filterAdvBrandsList = new List<AdvertisingBrandsModel> { };
+
+                for (int i = 0; i < advBrandsList.Count; i++)
+                {
+                    if (cb_MatchType.SelectedItem.Equals("EXACT") || cb_MatchType.SelectedItem.Equals("BROAD") || cb_MatchType.SelectedItem.Equals("PHRASE"))
+                    {
+                        if (advBrandsList[i].MatchType.Equals(cb_MatchType.SelectedItem))
+                            filterAdvBrandsList.Add(advBrandsList[i]);
+
+                    }
+                    else if (cb_MatchType.SelectedItem.Equals("AUTO"))
+                    {
+                        if (advBrandsList[i].CampaignName.ToLower().Contains("auto"))
+                            filterAdvBrandsList.Add(advBrandsList[i]);
+                    }
+                }
+                
+                if (NoErrors)
+                    mf.GetAdvertisingBrandsListToShow(filterAdvBrandsList);
+            }
+
+            this.Cursor = Cursors.Default;
+            this.Enabled = true;
         }
 
         /* Применить числовой фильтр по таблице */

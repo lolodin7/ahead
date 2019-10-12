@@ -451,7 +451,7 @@ namespace Excel_Parse
                 {
                     if (FileNames.Count == DaysDiff)
                     {
-                        if (MessageBox.Show("Маркетплейс: " + cb_MarketPlace1.SelectedItem.ToString() + "\n\nЗагрузить отчет с этими параметрами?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        if (MessageBox.Show("Маркетплейс: " + cb_MarketPlace2.SelectedItem.ToString() + "\n\nЗагрузить отчет с этими параметрами?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             richTextBox1.Text = "";
 
@@ -646,7 +646,7 @@ namespace Excel_Parse
         /* Считаем и заполняем все пустые поля в businessList, которые остались после загрузки файла */
         private void PrepareReportForSaving_Many()
         {
-            int marketplaceid = GetMarketPlaceIdByName(cb_MarketPlace2.SelectedItem.ToString());
+            int marketplaceid = GetMarketPlaceIdByName_Many(cb_MarketPlace2.SelectedItem.ToString());
             int productid; //GetProductIdBySKU()
             int sumSessions = 0;
             int sumPageViews = 0;

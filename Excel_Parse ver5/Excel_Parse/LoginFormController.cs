@@ -74,7 +74,7 @@ namespace Excel_Parse
 
 
 
-        public bool GetUserDataFromDB(string _login)
+        public string GetUserDataFromDB(string _login)
         {
             string sqlStatement = "SELECT * FROM [User] WHERE [Login] = '" + _login + "'";
             command = new SqlCommand(sqlStatement, connection);
@@ -97,6 +97,14 @@ namespace Excel_Parse
 
 
 
+
+
+        public bool UpdateLastMac(int _userId, string _lastMAC)
+        {
+            string sqlStatement = "UPDATE [User] Set [LastMac] = '" + _lastMAC + "' where [UserId] = " + _userId;
+            command = new SqlCommand(sqlStatement, connection);
+            return Execute_INSERT_UPDATE_DELETE_Command(command);
+        }
 
 
         public bool UpdateUserPassword(int _userId, string _password)
@@ -181,9 +189,9 @@ namespace Excel_Parse
 
 
         /* Выполняем запрос к БД и заносим полученные данные в List<SemCoreModel> */
-        private bool Execute_SELECT_Command(SqlCommand _command)
+        private string Execute_SELECT_Command(SqlCommand _command)
         {
-            bool result = false;
+            string result = "fail";
             um = new UserModel();
             try
             {
@@ -196,7 +204,7 @@ namespace Excel_Parse
                     while (reader.Read())
                     {
                         SetData((IDataRecord)reader);
-                        result = true;
+                        result = "good";
                     }
                 }
                 else
@@ -216,7 +224,7 @@ namespace Excel_Parse
             catch (Exception ex)
             {
                 connection.Close();
-                return false;
+                return ex.ToString();
             }
         }
 

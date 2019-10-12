@@ -360,7 +360,7 @@ namespace Excel_Parse
                 }
             }
 
-            btn_Export.Text = "Экспорт в файл (" + dgv_AdvProducts.RowCount + ")";
+            btn_Export.Text = "Экспорт в файл (" + (dgv_AdvProducts.RowCount - 1) + ")";
         }
 
         /* Рисуем суммирующиую 1ю строку в dgv_AdvProducts */
@@ -612,7 +612,7 @@ namespace Excel_Parse
                 }
             }
 
-            btn_Export.Text = "Экспорт в файл (" + dgv_AdvBrands.RowCount + ")";
+            btn_Export.Text = "Экспорт в файл (" + (dgv_AdvBrands.RowCount - 1) + ")";
         }
 
         public void GetAdvertisingBrandsListToShow(object _advBrandsList)

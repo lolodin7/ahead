@@ -370,7 +370,7 @@ SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-29 00:00:00' 
 SELECT SUM([Impressions]) FROM [AdvertisingProducts] 
 
 SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2019-07-01 00:00:00' and '2019-07-31 23:59:59' and ([MarketPlaceId] = 1) and ([ProductId] = 16 or [ProductId] = 24 or [ProductId] = 31)
-SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-01 00:00:00' and '2019-07-31 23:59:59' and ([MarketPlaceId] = 1) and ([ProductId] = 16 or [ProductId] = 24 or [ProductId] = 31)
+SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-01 00:00:00' and '2019-07-31 23:59:59' and ([MarketPlaceId] = 5) and ([ProductId] = 16 or [ProductId] = 24 or [ProductId] = 31)
 SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-01 00:00:00' and '2019-07-31 23:59:59' and ([MarketPlaceId] = 1) and [ProductId] = 31
 SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-01 00:00:00' and '2019-07-31 23:59:59' and ([MarketPlaceId] = 1) and [ProductId] = 24
 SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-01 00:00:00' and '2019-07-31 23:59:59' and ([MarketPlaceId] = 1) and [ProductId] = 16
@@ -379,3 +379,5 @@ SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-07-01 00:00:00' 
 SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-10-20 00:00:00' and '2019-10-20 23:59:59' 
 SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-11-01 00:00:00' and '2019-11-05 23:59:59' 
 SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-12-11 00:00:00' and '2019-12-11 23:59:59' 
+
+select * from [User]
