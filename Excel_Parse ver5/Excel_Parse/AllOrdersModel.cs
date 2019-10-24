@@ -6,9 +6,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Analytics
+namespace Excel_Parse
 {
-    class OrdersModel
+    class AllOrdersModel
     {
         public string AmazonOrderId { get; set; }
         public string MerchantOrderId { get; set; }
@@ -45,123 +45,12 @@ namespace Analytics
 
         public int FieldCount { get; }
 
-        public OrdersModel()
+        public AllOrdersModel()
         {
             FieldCount = 32;
         }
-        
-        public object GetOrders(int i)
-        {
-            switch (i)
-            {
-                case 0:
-                    return AmazonOrderId;
-                    break;
-                case 1:
-                    return MerchantOrderId;
-                    break;
-                case 2:
-                    return PurchaseDate;
-                    break;
-                case 3:
-                    return LastUpdatedDate;
-                    break;
-                case 4:
-                    return OrderStatus;
-                    break;
-                case 5:
-                    return FullfilmentChannel;
-                    break;
-                case 6:
-                    return SalesChannel;
-                    break;
-                case 7:
-                    return OrderChannel;
-                    break;
-                case 8:
-                    return Url;
-                    break;
-                case 9:
-                    return ShipServiceLevel;
-                    break;
-                case 10:
-                    return ProductName;
-                    break;
-                case 11:
-                    return Sku;
-                    break;
-                case 12:
-                    return Asin;
-                    break;
-                case 13:
-                    return ItemStatus;
-                    break;
-                case 14:
-                    return Quantity;
-                    break;
-                case 15:
-                    return Currency;
-                    break;
-                case 16:
-                    return ItemPrice;
-                    break;
-                case 17:
-                    return ItemTax;
-                    break;
-                case 18:
-                    return ShippingPrice;
-                    break;
-                case 19:
-                    return ShippingTax;
-                case 20:
-                    return GiftWrapPrice;
-                    break;
-                case 21:
-                    return GiftWrapTax;
-                    break;
-                case 22:
-                    return ItemPromotionDiscount;
-                    break;
-                case 23:
-                    return ShipPromotionDiscount;
-                    break;
-                case 24:
-                    return ShipCity;
-                    break;
-                case 25:
-                    return ShipState;
-                    break;
-                case 26:
-                    return ShipPostalCode;
-                    break;
-                case 27:
-                    return ShipCountry;
-                    break;
-                case 28:
-                    return PromotionIds;
-                    break;
-                case 29:
-                    return IsBusinessOrder;
-                    break;
-                case 30:
-                    return PurchaseOrderNumber;
-                    break;
-                case 31:
-                    return PriceDesignation;
-                    break;
-                case 32:
-                    return ReturnDate;
-                    break;
-                default:
-                    return null;
-                    break;
 
-            }
-
-            return null;
-        }
-
-        public void SetOrders(int i, object _value)
+        public void WriteData(int i, object _value)
         {
             switch (i)
             {
@@ -280,11 +169,110 @@ namespace Analytics
                 case 31:
                     PriceDesignation = _value.ToString();
                     break;
-                case 32:
-                    int day3 = int.Parse(_value.ToString().Substring(0, 2));
-                    int month3 = int.Parse(_value.ToString().Substring(3, 2));
-                    int year3 = int.Parse(_value.ToString().Substring(6, 4));
-                    ReturnDate = new DateTime(year3, month3, day3);
+            }
+        }
+
+        public object ReadData(int index)
+        {
+            switch (index)
+            {
+                case 0:
+                    return AmazonOrderId;
+                    break;
+                case 1:
+                    return MerchantOrderId;
+                    break;
+                case 2:
+                    return PurchaseDate;
+                    break;
+                case 3:
+                    return LastUpdatedDate;
+                    break;
+                case 4:
+                    return OrderStatus;
+                    break;
+                case 5:
+                    return FullfilmentChannel;
+                    break;
+                case 6:
+                    return SalesChannel;
+                    break;
+                case 7:
+                    return OrderChannel;
+                    break;
+                case 8:
+                    return Url;
+                    break;
+                case 9:
+                    return ShipServiceLevel;
+                    break;
+                case 10:
+                    return ProductName;
+                    break;
+                case 11:
+                    return Sku;
+                    break;
+                case 12:
+                    return Asin;
+                    break;
+                case 13:
+                    return ItemStatus;
+                    break;
+                case 14:
+                    return Quantity;
+                    break;
+                case 15:
+                    return Currency;
+                    break;
+                case 16:
+                    return ItemPrice;
+                    break;
+                case 17:
+                    return ItemTax;
+                    break;
+                case 18:
+                    return ShippingPrice;
+                    break;
+                case 19:
+                    return ShippingTax;
+                case 20:
+                    return GiftWrapPrice;
+                    break;
+                case 21:
+                    return GiftWrapTax;
+                    break;
+                case 22:
+                    return ItemPromotionDiscount;
+                    break;
+                case 23:
+                    return ShipPromotionDiscount;
+                    break;
+                case 24:
+                    return ShipCity;
+                    break;
+                case 25:
+                    return ShipState;
+                    break;
+                case 26:
+                    return ShipPostalCode;
+                    break;
+                case 27:
+                    return ShipCountry;
+                    break;
+                case 28:
+                    return PromotionIds;
+                    break;
+                case 29:
+                    return IsBusinessOrder;
+                    break;
+                case 30:
+                    return PurchaseOrderNumber;
+                    break;
+                case 31:
+                    return PriceDesignation;
+                    break;
+                default:
+                    return null;
                     break;
             }
         }

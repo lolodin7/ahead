@@ -107,6 +107,7 @@
     <Compile Include="AdvertisingController.cs" />
     <Compile Include="AdvertisingProductsModel.cs" />
     <Compile Include="BusinessController.cs" />
+    <Compile Include="AllOrdersModel.cs" />
     <Compile Include="ReportAdvertisingFilterView.cs">
       <SubType>Form</SubType>
     </Compile>

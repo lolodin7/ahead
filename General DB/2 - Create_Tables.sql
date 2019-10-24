@@ -1,5 +1,7 @@
 USE AHEAD
-GO
+
+--use ahead_stand
+
 --тут обратный порядок от порядка создания
 
 IF NOT OBJECT_ID('ReturnsReport') IS NULL DROP TABLE [ReturnsReport]
@@ -66,6 +68,9 @@ IF NOT OBJECT_ID('Currency') IS NULL DROP TABLE [Currency]
 GO
 
 IF NOT OBJECT_ID('CampaignType') IS NULL DROP TABLE [CampaignType]
+GO
+
+IF NOT OBJECT_ID('Orders') IS NULL DROP TABLE [Orders]
 GO
 
 /*
@@ -183,13 +188,6 @@ CREATE TABLE [Logger](
 	CONSTRAINT FK_Logger_CreationUserId FOREIGN KEY ([CreationUserId]) REFERENCES [User] ([UserId]),
 	CONSTRAINT FK_Logger_EditUserId FOREIGN KEY ([EditUserId]) REFERENCES [User] ([UserId])
 )
-
-
-
-
-
-
-
 
 CREATE TABLE [ReturnReason](
 	[ReasonId]						INT IDENTITY(0, 1),
@@ -348,3 +346,214 @@ CREATE TABLE [ReturnsReport](
 	CONSTRAINT FK_ReturnsReport_Reason FOREIGN KEY ([Reason]) REFERENCES [ReturnReason] ([ReasonId]),
 	CONSTRAINT FK_ReturnsReport_Dispositon FOREIGN KEY ([DetailedDisposition]) REFERENCES [DetailedDisposition] ([DispositionId])
 )
+
+
+CREATE TABLE [Orders](
+	[AmazonOrderId]				VARCHAR(50),
+	[MerchantOrderId]			VARCHAR(50),
+	[PurchaseDate]				DATETIME,
+	[LastUpdatedDate]			DATETIME,
+	[OrderStatus]				VARCHAR(20),
+	[FullfilmentChannel]		VARCHAR(20),
+	[SalesChannel]				VARCHAR(50),
+	[OrderChannel]				VARCHAR(50),
+	[Url]						VARCHAR(50),
+	[ShipServiceLevel]			VARCHAR(30),
+	[ProductName]				VARCHAR(500),
+	[Sku]						VARCHAR(50),
+	[Asin]						VARCHAR(50),
+	[ItemStatus]				VARCHAR(50),
+	[Quantity]					INT,
+	[Currency]					VARCHAR(20),
+	[ItemPrice]					FLOAT,
+	[ItemTax]					FLOAT,
+	[ShippingPrice]				FLOAT,
+	[ShippingTax]				FLOAT,
+	[GiftWrapPrice]				FLOAT,
+	[GiftWrapTax]				FLOAT,
+	[ItemPromotionDiscount]		FLOAT,
+	[ShipPromotionDiscount]		FLOAT,
+	[ShipCity]					VARCHAR(200),
+	[ShipState]					VARCHAR(150),
+	[ShipPostalCode]			VARCHAR(25),
+	[ShipCountry]				VARCHAR(50),
+	[PromotionIds]				VARCHAR(100),
+	[IsBusinessOrder]			VARCHAR(6),
+	[PurchaseOrderNumber]		VARCHAR(50),
+	[PriceDesignation]			VARCHAR(50),
+	CONSTRAINT Orders_AmazonOrderId_PK PRIMARY KEY ([AmazonOrderId])
+)
+GO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------ 
+
+
+IF NOT OBJECT_ID('CustomerReturns') IS NULL DROP TABLE [CustomerReturns]
+GO
+IF NOT OBJECT_ID('Payments') IS NULL DROP TABLE [Payments]
+GO
+IF NOT OBJECT_ID('Shipments') IS NULL DROP TABLE [Shipments]
+GO
+IF NOT OBJECT_ID('Orders') IS NULL DROP TABLE [Orders]
+GO
+
+
+CREATE TABLE [Orders](
+	[AmazonOrderId]				VARCHAR(50),
+	[MerchantOrderId]			VARCHAR(50),
+	[PurchaseDate]				Date,
+	[LastUpdatedDate]			Date,
+	[OrderStatus]				VARCHAR(20),
+	[FullfilmentChannel]		VARCHAR(20),
+	[SalesChannel]				VARCHAR(50),
+	[OrderChannel]				VARCHAR(50),
+	[Url]						VARCHAR(50),
+	[ShipServiceLevel]			VARCHAR(30),
+	[ProductName]				VARCHAR(500),
+	[Sku]						VARCHAR(50),
+	[Asin]						VARCHAR(50),
+	[ItemStatus]				VARCHAR(50),
+	[Quantity]					INT,
+	[Currency]					VARCHAR(20),
+	[ItemPrice]					FLOAT,
+	[ItemTax]					FLOAT,
+	[ShippingPrice]				FLOAT,
+	[ShippingTax]				FLOAT,
+	[GiftWrapPrice]				FLOAT,
+	[GiftWrapTax]				FLOAT,
+	[ItemPromotionDiscount]		FLOAT,
+	[ShipPromotionDiscount]		FLOAT,
+	[ShipCity]					VARCHAR(200),
+	[ShipState]					VARCHAR(150),
+	[ShipPostalCode]			VARCHAR(25),
+	[ShipCountry]				VARCHAR(50),
+	[PromotionIds]				VARCHAR(100),
+	[IsBusinessOrder]			VARCHAR(6),
+	[PurchaseOrderNumber]		VARCHAR(50),
+	[PriceDesignation]			VARCHAR(50),
+	[ReturnDate]				Date,
+	CONSTRAINT Orders_AmazonOrderId_PK PRIMARY KEY ([AmazonOrderId])
+)
+GO
+
+CREATE TABLE [Payments](
+	[Date]						DATE,
+	[SettlementId]				VARCHAR(20),
+	[Type]						VARCHAR(30),
+	[OrderId]					VARCHAR(50),
+	[Sku]						VARCHAR(50),
+	[Description]				VARCHAR(500),
+	[Quantity]					INT,
+	[Marketplace]				VARCHAR(100),
+	[Fullfilment]				VARCHAR(30),
+	[OrderCity]					VARCHAR(100),
+	[OrderState]				VARCHAR(70),
+	[OrderPostal]				VARCHAR(50),
+	[ProductSales]				FLOAT,
+	[ShippingCredits]			FLOAT,
+	[GiftWrapCredits]			FLOAT,
+	[PromotionalRebates]		FLOAT,
+	[SaleTaxCollected]			FLOAT,
+	[MarketplaceFacilitatorTax]	FLOAT,
+	[SellingFees]				FLOAT,
+	[FBAFees]					FLOAT,
+	[OtherTransactionFees]		FLOAT,
+	[Other]						FLOAT,
+	[Total]						FLOAT,
+	--CONSTRAINT PK_Payments_OrderIdandSku PRIMARY KEY ([OrderId], [Sku])
+)
+GO
+
+CREATE TABLE [Shipments](
+	[AmazonOrderId]				VARCHAR(50),
+	[MerchantOrderId]			VARCHAR(50),
+	[ShipmentId]				VARCHAR(30),
+	[ShipmentItemId]			VARCHAR(30),
+	[AmazonOrderItemId]			VARCHAR(50),
+	[MerchantOrderItemId]		VARCHAR(50),
+	[PurchaseDate]				DATE,
+	[PaymentsDate]				DATE,
+	[ShipmentDate]				DATE,
+	[ReportingDate]				DATE,
+	[BuyerEmail]				VARCHAR(100),
+	[BuyerName]					VARCHAR(200),
+	[BuyerPhoneNumber]			VARCHAR(50),
+	[Sku]						VARCHAR(50),
+	[ProductName]				VARCHAR(500),
+	[QuantityShipped]			INT,
+	[Currency]					VARCHAR(20),
+	[ItemPrice]					FLOAT,
+	[ItemTax]					FLOAT,
+	[ShippingPrice]				FLOAT,
+	[ShippingTax]				FLOAT,	
+	[GiftWrapPrice]				FLOAT,
+	[GiftWrapTax]				FLOAT,
+	[ShipServiceLevel]			VARCHAR(50),
+	[RecipientName]				VARCHAR(200),
+	[ShipAddress1]				VARCHAR(200),
+	[ShipAddress2]				VARCHAR(200),
+	[ShipAddress3]				VARCHAR(200),
+	[ShipCity]					VARCHAR(200),
+	[ShipState]					VARCHAR(150),
+	[ShipPostalCode]			VARCHAR(25),
+	[ShipCountry]				VARCHAR(100),
+	[ShipPhoneNumber]			VARCHAR(50),
+	[BillAddress1]				VARCHAR(200),
+	[BillAddress2]				VARCHAR(200),
+	[BillAddress3]				VARCHAR(200),
+	[BillCity]					VARCHAR(200),
+	[BillState]					VARCHAR(150),
+	[BillPostalCode]			VARCHAR(25),
+	[BillCountry]				VARCHAR(100),
+	[ItemPromotionDiscount]		FLOAT,
+	[ShipPromotionDiscount]		FLOAT,
+	[Carrier]					VARCHAR(50),
+	[TrackingNumber]			VARCHAR(100),
+	[EstimatedArrivalDate]		DATE,
+	[FullfilmentCenterId]		VARCHAR(100),
+	[FullfilmentChannel]		VARCHAR(100),
+	[SalesChannel]				VARCHAR(100),
+	CONSTRAINT Shipments_AmazonOrderId_PK PRIMARY KEY ([AmazonOrderId])
+)
+GO
+
+CREATE TABLE [CustomerReturns](
+	[ReturnDate]				DATE,
+	[OrderId]					VARCHAR(50),
+	[SKU]						VARCHAR(50),
+	[ASIN]						VARCHAR(50),
+	[FNSKU]						VARCHAR(50),
+	[ProductName]				VARCHAR(500),
+	[Quantity]					INT,
+	[FullfilmentCenterId]		VARCHAR(100),
+	[DetailedDisposition]		VARCHAR(50),
+	[Reason]					VARCHAR(100),
+	[Status]					VARCHAR(50),
+	[LicensePlateNumber]		VARCHAR(50),
+	[CustomerComments]			VARCHAR(1000),
+	CONSTRAINT PK_CustomerReturns_LicensePlateNumber PRIMARY KEY ([LicensePlateNumber])
+	--CONSTRAINT FK_CustomerReturns_Orders FOREIGN KEY ([OrderId]) REFERENCES Orders ([AmazonOrderId])
+)
+GO
+
+
+*/

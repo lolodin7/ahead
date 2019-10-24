@@ -1,5 +1,6 @@
-﻿	USE AHEAD
-GO
+﻿USE AHEAD
+
+--use ahead_stand
 
 /*         -- [MarketPlaceName] --             */
 INSERT INTO [Marketplace] ([MarketPlaceName])
@@ -14,9 +15,6 @@ VALUES ('Отсутствующие товары')
 /*         -- [KeywordCategory] --             */
 INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
 VALUES ('Пустая категория', 0)
-
-USE AHEAD
-GO
 
 
 /*         -- [MarketPlaceName] --             */
