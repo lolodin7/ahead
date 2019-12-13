@@ -309,6 +309,54 @@ VALUES ('Knife Sharpener', 'B01FS5VJMY', 'GK-RHNH-11NI', 7, 1, 1, 'Knife Sharpen
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
 VALUES ('Knife Sharpener', 'B079YP5L6J', 'FF-TB8V-VKY4', 7, 1, 1, 'Knife Sharpener')
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+
 /*         -- [Logger] --             */
 INSERT INTO [Logger] ([CreationDate], [CreationUserId], [ProductId], [Text], [EditDate], [EditUserId], [ImageId], [SKU])
 VALUES (CURRENT_TIMESTAMP, 0, 1, 'log record #1', CURRENT_TIMESTAMP, 1, '1|2|3|4|5|6|7|8|9|10|', 'IG-5UO9-SCW1')
@@ -359,20 +407,6 @@ VALUES ('08.03.2019', 2, 5, 'log record #5', '05.05.2019', 1, 0, 'HR-9KQ2-IPD9')
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
 /*         -- [SemCore] --             */
 INSERT INTO [SemCore] ([ProductTypeId], [CategoryId], [Keyword], [Value], [LastUpdated])
 VALUES (1, 1, 'lavalier microphone', 652053, CURRENT_TIMESTAMP)
@@ -402,14 +436,6 @@ VALUES (1, 2, 'iphone 388 microphone', 123, '2018-10-15 12:50:00')
 
 
 -------------------------------------Analytics----------------------------------
-
-
-
-
-
-
-
-
 
 
 

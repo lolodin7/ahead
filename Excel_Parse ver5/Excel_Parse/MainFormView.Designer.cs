@@ -53,6 +53,7 @@
             this.showSalesDataToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.showReturnsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.showGeneralSalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showSessionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addSectionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.addAdvReportReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addBusinessReportReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,7 +71,6 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.showSessionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -216,6 +216,7 @@
             // 
             // loggerToolStripMenuItem
             // 
+            this.loggerToolStripMenuItem.Enabled = false;
             this.loggerToolStripMenuItem.Name = "loggerToolStripMenuItem";
             this.loggerToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.loggerToolStripMenuItem.Text = "Logger";
@@ -240,7 +241,7 @@
             this.showGeneralSalesToolStripMenuItem,
             this.showSessionsToolStripMenuItem});
             this.showSectionToolStripMenuItem.Name = "showSectionToolStripMenuItem";
-            this.showSectionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.showSectionToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.showSectionToolStripMenuItem.Text = "Посмотреть";
             // 
             // showAdvDataToolStripMenuItem
@@ -271,6 +272,13 @@
             this.showGeneralSalesToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.showGeneralSalesToolStripMenuItem.Text = "Общий оборот";
             // 
+            // showSessionsToolStripMenuItem
+            // 
+            this.showSessionsToolStripMenuItem.Name = "showSessionsToolStripMenuItem";
+            this.showSessionsToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.showSessionsToolStripMenuItem.Text = "Сессии";
+            this.showSessionsToolStripMenuItem.Click += new System.EventHandler(this.showSessionsToolStripMenuItem_Click);
+            // 
             // addSectionToolStripMenuItem1
             // 
             this.addSectionToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -278,7 +286,7 @@
             this.addBusinessReportReportToolStripMenuItem,
             this.addReturnsReportToolStripMenuItem});
             this.addSectionToolStripMenuItem1.Name = "addSectionToolStripMenuItem1";
-            this.addSectionToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.addSectionToolStripMenuItem1.Size = new System.Drawing.Size(143, 22);
             this.addSectionToolStripMenuItem1.Text = "Добавить";
             // 
             // addAdvReportReportToolStripMenuItem
@@ -309,7 +317,7 @@
             this.updateBusinessReportToolStripMenuItem1,
             this.updateReturnsReportToolStripMenuItem1});
             this.updateSectionToolStripMenuItem.Name = "updateSectionToolStripMenuItem";
-            this.updateSectionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.updateSectionToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.updateSectionToolStripMenuItem.Text = "Обновить";
             // 
             // updateAdvertisingReportToolStripMenuItem1
@@ -403,13 +411,6 @@
             // 
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
-            // 
-            // showSessionsToolStripMenuItem
-            // 
-            this.showSessionsToolStripMenuItem.Name = "showSessionsToolStripMenuItem";
-            this.showSessionsToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.showSessionsToolStripMenuItem.Text = "Сессии";
-            this.showSessionsToolStripMenuItem.Click += new System.EventHandler(this.showSessionsToolStripMenuItem_Click);
             // 
             // MainFormView
             // 

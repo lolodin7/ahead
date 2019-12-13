@@ -397,8 +397,8 @@ namespace Excel_Parse
                     summaryAdvProductsList[summaryAdvProductsList.Count - 1].Clicks = Clicks;
                     summaryAdvProductsList[summaryAdvProductsList.Count - 1].CTR = Math.Round(CTR, 2);
                     summaryAdvProductsList[summaryAdvProductsList.Count - 1].CPC = Math.Round(CPC, 2);
-                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].Spend = Spend;
-                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].Sales = Sales;
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].Spend = Math.Round(Spend, 2);
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].Sales = Math.Round(Sales, 2);
                     summaryAdvProductsList[summaryAdvProductsList.Count - 1].ACoS = Math.Round(ACoS, 2);
                     summaryAdvProductsList[summaryAdvProductsList.Count - 1].RoAS = Math.Round(RoAS, 2);
                     summaryAdvProductsList[summaryAdvProductsList.Count - 1].Orders = Orders;

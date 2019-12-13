@@ -60,27 +60,24 @@ namespace Excel_Parse
                     PageViewsPercentage = GetDoubleFromPrecentage(record);
                     break;
                 case 7:
-                    
-                    break;
-                case 8:
                     UnitsOrdered = GetInt(record);
                     break;
-                case 9:
+                case 8:
                     UnitsOrderedB2B = GetInt(record);
                     break;
-                case 10:
+                case 9:
                     UnitSessionPercentage = GetDoubleFromPrecentage(record);
                     break;
-                case 11:
+                case 10:
                     UnitSessionPercentageB2B = GetDoubleFromPrecentage(record);
                     break;
-                case 12:
+                case 11:
                     OrderedProductSales = GetDouble(record);
                     break;
-                case 13:
+                case 12:
                     OrderedProductSalesB2B = GetDouble(record);
                     break;
-                case 14:
+                case 13:
                     TotalOrderItems = GetInt(record);
                     break;
                 case 15:

@@ -29,7 +29,7 @@ namespace Excel_Parse
         {
             InitializeComponent();
             mf = _mf;
-            
+
             lb_StartDate.Text = DateTime.Today.ToString().Substring(0, 10);
             lb_EndDate.Text = DateTime.Today.ToString().Substring(0, 10);
 
@@ -169,6 +169,7 @@ namespace Excel_Parse
             dataGridView1.Columns[1].Frozen = true;
             dataGridView1.Columns[2].Frozen = true;
 
+            dataGridView1.Columns[0].Visible = false;
             dataGridView1.Columns[15].Visible = false;
 
             for (int i = 0; i < businessList[0].ColumnCount; i++)
@@ -195,7 +196,7 @@ namespace Excel_Parse
         {
 
             lb_StartDate.Text = StartDate.ToString().Substring(0, 10);
-            lb_EndDate.Text = EndDate.ToString().Substring(0, 10);            
+            lb_EndDate.Text = EndDate.ToString().Substring(0, 10);
 
             businessList = (List<ReportBusinessModel>)_businessList;
             DrawTableForBusinessReports();
@@ -210,7 +211,7 @@ namespace Excel_Parse
             {
                 DrawTable();
 
-                //DrawFirstRowForSponsoredBrands(_businessList);
+                DrawFirstRow(businessList);
 
                 for (int i = 0; i < businessList.Count; i++)
                 {
@@ -229,6 +230,71 @@ namespace Excel_Parse
             }
 
             btn_Export.Text = "Экспорт в файл (" + dataGridView1.RowCount + ")";
+        }
+
+        private void DrawFirstRow(List<ReportBusinessModel> _businessList)
+        {
+            int Sessions = 0;
+            double SessionPercentage = 0;
+            int PageViews = 0;
+            double PageViewsPercentage = 0;
+            int UnitsOrdered = 0;
+            int UnitsOrderedB2B = 0;
+            double UnitSessionPercentage = 0;
+            double UnitSessionPercentageB2B = 0;
+            double OrderedProductSales = 0;
+            double OrderedProductSalesB2B = 0;
+            int TotalOrderItems = 0;
+            int TotalOrderItemsB2B = 0;
+
+
+            for (int i = 0; i < _businessList.Count; i++)
+            {
+                Sessions += _businessList[i].Sessions;
+                PageViews += _businessList[i].PageViews;
+                UnitsOrdered += _businessList[i].UnitsOrdered;
+                UnitsOrderedB2B += _businessList[i].UnitsOrderedB2B;
+                OrderedProductSales += _businessList[i].OrderedProductSales;
+                OrderedProductSalesB2B += _businessList[i].OrderedProductSalesB2B;
+                TotalOrderItems += _businessList[i].TotalOrderItems;
+                TotalOrderItemsB2B += _businessList[i].TotalOrderItemsB2B;
+            }
+
+            //if (Sessions != 0)
+            //    SessionPercentage = Math.Round(((double)clicks / impr) * 100, 2);
+            //else
+            //    ctr = 0;
+
+            //if (clicks != 0)
+            //    cpc = Math.Round(spend / clicks, 2);
+            //else
+            //    cpc = 0;
+
+            //if (sales != 0)
+            //    acos = Math.Round((spend / sales) * 100, 2);
+            //else
+            //    acos = 0;
+
+            //if (spend != 0)
+            //    roas = Math.Round(sales / spend, 2);
+            //else
+            //    roas = 0;
+
+            //if (clicks != 0)
+            //    convers = Math.Round(((double)orders / clicks) * 100, 2);
+            //else
+            //    convers = 0;
+
+            var index = dataGridView1.Rows.Add();
+
+            dataGridView1.Rows[index].Cells[3].Value = Sessions;
+            dataGridView1.Rows[index].Cells[5].Value = PageViews;
+            dataGridView1.Rows[index].Cells[7].Value = UnitsOrdered;
+            dataGridView1.Rows[index].Cells[8].Value = UnitsOrderedB2B;
+            dataGridView1.Rows[index].Cells[11].Value = OrderedProductSales;
+            dataGridView1.Rows[index].Cells[12].Value = OrderedProductSalesB2B;
+            dataGridView1.Rows[index].Cells[13].Value = TotalOrderItems;
+            dataGridView1.Rows[index].Cells[14].Value = TotalOrderItemsB2B;
         }
     }
 }

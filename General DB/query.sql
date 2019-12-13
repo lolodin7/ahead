@@ -381,3 +381,5 @@ SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-11-01 00:00:00' 
 SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-12-11 00:00:00' and '2019-12-11 23:59:59' 
 
 select * from [User]
+
+SELECT SUM(Sessions) FROM [BusinessReport] WHERE [UpdateDate] between '2019-08-01 00:00:00' and '2019-09-30 23:59:59' and SKU = 'IG-5UO9-SCW1'
