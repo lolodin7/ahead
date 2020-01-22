@@ -241,8 +241,9 @@
             this.showGeneralSalesToolStripMenuItem,
             this.showSessionsToolStripMenuItem});
             this.showSectionToolStripMenuItem.Name = "showSectionToolStripMenuItem";
-            this.showSectionToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.showSectionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.showSectionToolStripMenuItem.Text = "Посмотреть";
+            this.showSectionToolStripMenuItem.Click += new System.EventHandler(this.showSectionToolStripMenuItem_Click);
             // 
             // showAdvDataToolStripMenuItem
             // 
@@ -271,6 +272,7 @@
             this.showGeneralSalesToolStripMenuItem.Name = "showGeneralSalesToolStripMenuItem";
             this.showGeneralSalesToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.showGeneralSalesToolStripMenuItem.Text = "Общий оборот";
+            this.showGeneralSalesToolStripMenuItem.Click += new System.EventHandler(this.showGeneralSalesToolStripMenuItem_Click);
             // 
             // showSessionsToolStripMenuItem
             // 
@@ -286,7 +288,7 @@
             this.addBusinessReportReportToolStripMenuItem,
             this.addReturnsReportToolStripMenuItem});
             this.addSectionToolStripMenuItem1.Name = "addSectionToolStripMenuItem1";
-            this.addSectionToolStripMenuItem1.Size = new System.Drawing.Size(143, 22);
+            this.addSectionToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.addSectionToolStripMenuItem1.Text = "Добавить";
             // 
             // addAdvReportReportToolStripMenuItem
@@ -309,6 +311,7 @@
             this.addReturnsReportToolStripMenuItem.Name = "addReturnsReportToolStripMenuItem";
             this.addReturnsReportToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.addReturnsReportToolStripMenuItem.Text = "Returns report";
+            this.addReturnsReportToolStripMenuItem.Click += new System.EventHandler(this.addReturnsReportToolStripMenuItem_Click);
             // 
             // updateSectionToolStripMenuItem
             // 
@@ -317,7 +320,7 @@
             this.updateBusinessReportToolStripMenuItem1,
             this.updateReturnsReportToolStripMenuItem1});
             this.updateSectionToolStripMenuItem.Name = "updateSectionToolStripMenuItem";
-            this.updateSectionToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.updateSectionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.updateSectionToolStripMenuItem.Text = "Обновить";
             // 
             // updateAdvertisingReportToolStripMenuItem1

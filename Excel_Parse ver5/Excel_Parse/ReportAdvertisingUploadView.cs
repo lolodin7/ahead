@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace Excel_Parse
 {
-    public partial class ReportAdvertisingUploadView : Form
+    public partial class ReportAdvertisingUploadView : Form 
     {
         private MainFormView mf;
 
@@ -391,7 +391,7 @@ namespace Excel_Parse
             this.Close();
         }
 
-        /* Иницируем сохранение отчета в БД */
+        /* Иницируем сохранение отчета в БД для одиночного файла */
         private void Btn_Save_Click(object sender, EventArgs e)
         {
             if (UploadMode)     //загружаем новые данные
@@ -753,10 +753,10 @@ namespace Excel_Parse
 
         private void cb_marketplace2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!FirstLoad)
-            {
+            //if (!FirstLoad)
+            //{
                 prodController.GetProductsByMarketplaceId(GetMarketPlaceIdByName_Many(cb_marketplace2.SelectedItem.ToString()));
-            }
+            //}
         }
 
         private void btn_UploadFromFile2_Click(object sender, EventArgs e)
@@ -814,7 +814,7 @@ namespace Excel_Parse
             }
         }
 
-
+        /* Иницируем сохранение отчета в БД для множества файлов */
         private void btn_Save2_Click(object sender, EventArgs e)
         {
             bool errors = false;

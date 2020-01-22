@@ -59,6 +59,62 @@ namespace Excel_Parse
                 case 6:
                     PageViewsPercentage = GetDoubleFromPrecentage(record);
                     break;
+                case 8:
+                    UnitsOrdered = GetInt(record);
+                    break;
+                case 9:
+                    UnitsOrderedB2B = GetInt(record);
+                    break;
+                case 10:
+                    UnitSessionPercentage = GetDoubleFromPrecentage(record);
+                    break;
+                case 11:
+                    UnitSessionPercentageB2B = GetDoubleFromPrecentage(record);
+                    break;
+                case 12:
+                    OrderedProductSales = GetDouble(record);
+                    break;
+                case 13:
+                    OrderedProductSalesB2B = GetDouble(record);
+                    break;
+                case 14:
+                    TotalOrderItems = GetInt(record);
+                    break;
+                case 15:
+                    TotalOrderItemsB2B = GetInt(record);
+                    break;
+                case 16:
+                    ProductId = GetInt(record);
+                    break;
+            }
+        }
+
+
+        public void WriteDataFromDB(int index, object record)
+        {
+            switch (index)
+            {
+                case 0:
+                    UpdateDate = (DateTime)record;
+                    break;
+                case 1:
+                    MarketPlaceId = GetInt(record);
+                    break;
+                case 2:
+                    SKU = record.ToString();
+                    break;
+                case 3:
+                    Sessions = GetInt(record);
+                    break;
+                case 4:
+                    SessionPercentage = GetDoubleFromPrecentage(record);
+                    break;
+                case 5:
+                    PageViews = GetInt(record);
+                    break;
+                case 6:
+                    PageViewsPercentage = GetDoubleFromPrecentage(record);
+                    break;
                 case 7:
                     UnitsOrdered = GetInt(record);
                     break;
@@ -80,15 +136,14 @@ namespace Excel_Parse
                 case 13:
                     TotalOrderItems = GetInt(record);
                     break;
-                case 15:
+                case 14:
                     TotalOrderItemsB2B = GetInt(record);
                     break;
-                case 16:
+                case 15:
                     ProductId = GetInt(record);
                     break;
             }
         }
-
 
 
         public object ReadData(int index)

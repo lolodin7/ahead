@@ -427,7 +427,7 @@ namespace Excel_Parse
             dgv_AdvProducts.Rows[index].Cells[7].Value = clicks;
             dgv_AdvProducts.Rows[index].Cells[8].Value = ctr;
             dgv_AdvProducts.Rows[index].Cells[9].Value = cpc;
-            dgv_AdvProducts.Rows[index].Cells[10].Value = spend;
+            dgv_AdvProducts.Rows[index].Cells[10].Value = Math.Round(spend, 2);
             dgv_AdvProducts.Rows[index].Cells[11].Value = Math.Round(sales, 2);
             dgv_AdvProducts.Rows[index].Cells[12].Value = acos;
             dgv_AdvProducts.Rows[index].Cells[13].Value = roas;

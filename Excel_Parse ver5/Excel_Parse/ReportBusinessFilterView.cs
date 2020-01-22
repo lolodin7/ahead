@@ -27,7 +27,7 @@ namespace Excel_Parse
 
         private BusinessController businessController;
 
-        List<string> checkedMarkeplaces, checkedProducts;
+        List<string> checkedMarkeplaces, checkedProducts; 
 
         private string equalSign;       //знак равенства из textBox
         private bool NoErrors;          //ошибка ввода в textBox пользователем при фильтре по таблице
@@ -152,18 +152,18 @@ namespace Excel_Parse
                             }
                         }
                     }
-                    else
-                    {
-                        Sessions += businessList[i].Sessions;
-                        PageViews += businessList[i].PageViews;
-                        UnitsOrdered += businessList[i].UnitsOrdered;
-                        UnitsOrderedB2B += businessList[i].UnitsOrderedB2B;
-                        OrderedProductSales += businessList[i].OrderedProductSales;
-                        OrderedProductSalesB2B += businessList[i].OrderedProductSalesB2B;
-                        TotalOrderItems += businessList[i].TotalOrderItems;
-                        TotalOrderItemsB2B += businessList[i].TotalOrderItemsB2B;
-                        alreadyUsed.Add(i);
-                    }
+                    //else
+                    //{
+                    //    Sessions += businessList[i].Sessions;
+                    //    PageViews += businessList[i].PageViews;
+                    //    UnitsOrdered += businessList[i].UnitsOrdered;
+                    //    UnitsOrderedB2B += businessList[i].UnitsOrderedB2B;
+                    //    OrderedProductSales += businessList[i].OrderedProductSales;
+                    //    OrderedProductSalesB2B += businessList[i].OrderedProductSalesB2B;
+                    //    TotalOrderItems += businessList[i].TotalOrderItems;
+                    //    TotalOrderItemsB2B += businessList[i].TotalOrderItemsB2B;
+                    //    alreadyUsed.Add(i);
+                    //}
                     //summaryAdvProductsList.Add(ТО, ШО ПОЛУЧИЛОСЬ ОТ СУММИРОВАНИЯ + ДОПОЛНИТЕЛЬНО СЧИТАЕМ ТО, ЧТО НАДО ПОСЧИТАТЬ);
 
                     if (Sessions != 0)
@@ -280,16 +280,27 @@ namespace Excel_Parse
         private void clb_Marketplace_SelectedIndexChanged(object sender, EventArgs e)
         {
             checkedMarkeplaces.Clear();
+            checkedProducts.Clear();
+
             for (int i = 0; i < clb_Marketplace.CheckedItems.Count; i++)
             {
                 checkedMarkeplaces.Add(clb_Marketplace.CheckedItems[i].ToString());
             }
 
-            int res = 0;
-            res = prodController.GetProductsByFewMarketplaceId(GetMPIdsByNames(checkedMarkeplaces));
-            if (res == 1)
+            if (clb_Marketplace.CheckedItems.Count > 0)
             {
-                Draw_clb_Products();
+                int res = 0;
+                res = prodController.GetProductsByFewMarketplaceId(GetMPIdsByNames(checkedMarkeplaces));
+                if (res == 1)
+                {
+                    Draw_clb_Products();
+                }
+            }
+            else
+            {
+                clb_Product.ClearSelected();
+                clb_Product.Items.Clear();
+                checkedProducts.Clear();
             }
         }
 
@@ -332,11 +343,13 @@ namespace Excel_Parse
         /* Очистить список выбранных маркетплейсов в clb_Marketplace */
         private void btn_Clear_clb_Marketplace_Click(object sender, EventArgs e)
         {
+            clb_Marketplace.ClearSelected();
+
             clb_Product.ClearSelected();
             clb_Product.Items.Clear();
+
             checkedProducts.Clear();
             checkedMarkeplaces.Clear();
-            clb_Marketplace.ClearSelected();
 
             for (int i = 0; i < clb_Marketplace.Items.Count; i++)
             {
@@ -492,7 +505,7 @@ namespace Excel_Parse
             {
                 for (int i = 0; i < businessList.Count; i++)
                 {
-                    if (businessList[i].SKU.Equals(sku))
+                    if (SearchBySKU(businessList[i].SKU.ToLower(), sku.ToLower()))
                     {
                         filterBusinessListt.Add(businessList[i]);
                     }
@@ -504,6 +517,15 @@ namespace Excel_Parse
             timer1.Start();
             this.Cursor = Cursors.Default;
             this.Enabled = true;
+        }
+
+        /* Выбираем, каким образом ищем текст SKU в фильтре: вхождение или строгое соответствие */
+        private bool SearchBySKU(string _skuName, string tb_skuName)
+        {
+            if (cb_Strong_SearchBySKU.Checked)
+                return _skuName.Equals(tb_skuName);
+            else
+                return _skuName.Contains(tb_skuName);
         }
 
         /* Применяем фильтры и перерисовываем данные в форме AdvertisingReportView */

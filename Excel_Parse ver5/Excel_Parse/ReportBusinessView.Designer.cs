@@ -73,7 +73,7 @@
             this.btn_Export.Name = "btn_Export";
             this.btn_Export.Size = new System.Drawing.Size(221, 27);
             this.btn_Export.TabIndex = 2;
-            this.btn_Export.Text = "Экспорт";
+            this.btn_Export.Text = "Экспорт в файл";
             this.btn_Export.UseVisualStyleBackColor = false;
             this.btn_Export.Click += new System.EventHandler(this.btn_Export_Click);
             // 
@@ -120,12 +120,12 @@
             this.Controls.Add(this.dataGridView1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
             this.Name = "ReportBusinessView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Данные продаж";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ReportBusinessView_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ReportBusinessView_FormClosed);
+            this.SizeChanged += new System.EventHandler(this.ReportBusinessView_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 

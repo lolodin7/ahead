@@ -756,18 +756,24 @@ namespace Excel_Parse
 
         private void btn_Show_Click(object sender, EventArgs e)
         {
+            if (checkedMarkeplaces.Count == 0)
+            {
+                MessageBox.Show("Для начала выберите маркетплейс!", "Ошибка");
+                return;
+            }
             this.Cursor = Cursors.WaitCursor;
             this.Enabled = false;
 
             currentProductIds.Clear();
 
-            foreach (var t in pList)
-            {
-                if (t.ASIN.Equals(currentASIN))
+            if (!rb_ByAll.Checked)
+                foreach (var t in pList)
                 {
-                    currentProductIds.Add(t.ProductId);
+                    if (t.ASIN.Equals(currentASIN))
+                    {
+                        currentProductIds.Add(t.ProductId);
+                    }
                 }
-            }
 
             if (StartDate > EndDate)
                 MessageBox.Show("Ошибка! Дата начала больше даты окончания!", "Ошибка");
@@ -834,7 +840,7 @@ namespace Excel_Parse
                         else
                             MessageBox.Show("При обработке запроса произошла ошибка.", "Ошибка");
                     }
-                    else if (rb_ByASIN.Checked)
+                    else if (rb_ByASIN.Checked || rb_ByAll.Checked)
                     {
                         //получаем данные рекламы
                         advProductsList.Clear();
@@ -900,7 +906,7 @@ namespace Excel_Parse
                         else
                             MessageBox.Show("При обработке запроса произошла ошибка.", "Ошибка");
                     }
-                    else if (rb_ByASIN.Checked)
+                    else if (rb_ByASIN.Checked || rb_ByAll.Checked)
                     {
                         //получаем данные рекламы
                         advProductsList.Clear();
@@ -969,7 +975,7 @@ namespace Excel_Parse
                         else
                             MessageBox.Show("При обработке запроса произошла ошибка.", "Ошибка");
                     }
-                    else if (rb_ByASIN.Checked)
+                    else if (rb_ByASIN.Checked || rb_ByAll.Checked)
                     {
                         //получаем данные рекламы
                         advProductsList.Clear();
@@ -1044,7 +1050,7 @@ namespace Excel_Parse
                         else
                             MessageBox.Show("При обработке запроса произошла ошибка.", "Ошибка");
                     }
-                    else if (rb_ByASIN.Checked)
+                    else if (rb_ByASIN.Checked || rb_ByAll.Checked)
                     {
                         //получаем данные продаж
                         businessList.Clear();
@@ -1192,10 +1198,501 @@ namespace Excel_Parse
             dataGridView1.Rows[6].Cells[dataGridView1.ColumnCount - 1].Value = ConversionAdv;
             dataGridView1.Rows[7].Cells[dataGridView1.ColumnCount - 1].Value = ConversionGeneral;
             dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 1].Value = OragnicShare;
+        }    
+        
+        private void GetWeek()
+        {
+            DateTime todayDay = DateTime.Today;
+
+            int dayOfYear = todayDay.DayOfYear;
+            int tmp = (int)Math.Truncate((double)dayOfYear / 7);
+            if (tmp == 0)       //если это 1я неделя
+            {
+                tmp = 1;
+
+                string dayName = todayDay.DayOfWeek.ToString();
+                if (dayName.Equals("Monday"))
+                {
+                    innerEndDate = todayDay.AddDays(7 - 1).AddHours(23).AddMinutes(59).AddSeconds(59);
+                }
+                else if (dayName.Equals("Tuesday"))
+                {
+                    innerEndDate = todayDay.AddDays(7 - 2).AddHours(23).AddMinutes(59).AddSeconds(59);
+                }
+                else if (dayName.Equals("Wednesday"))
+                {
+                    innerEndDate = todayDay.AddDays(7 - 3).AddHours(23).AddMinutes(59).AddSeconds(59);
+                }
+                else if (dayName.Equals("Thursday"))
+                {
+                    innerEndDate = todayDay.AddDays(7 - 4).AddHours(23).AddMinutes(59).AddSeconds(59);
+                }
+                else if (dayName.Equals("Friday"))
+                {
+                    innerEndDate = todayDay.AddDays(7 - 5).AddHours(23).AddMinutes(59).AddSeconds(59);
+                }
+                else if (dayName.Equals("Saturday"))
+                {
+                    innerEndDate = todayDay.AddDays(7 - 6).AddHours(23).AddMinutes(59).AddSeconds(59);
+                }
+                else if (dayName.Equals("Sunday"))
+                {
+                    innerEndDate = todayDay.AddDays(7 - 7).AddHours(23).AddMinutes(59).AddSeconds(59);
+                }
+                weekNumber = 1;
+                innerStartDate = innerEndDate.AddDays(-6);
+            }
+            else
+            {
+                int closest1stDayOfWeek = tmp * 7;
+                int diffFromStartWeek = closest1stDayOfWeek - dayOfYear;
+                innerStartDate = todayDay.AddDays(diffFromStartWeek);
+                innerEndDate = todayDay.AddDays(6 + diffFromStartWeek).AddHours(23).AddMinutes(59).AddSeconds(59);
+                weekNumber = (int)Math.Truncate((double)dayOfYear / 7) + 1;
+                if (weekNumber == 53)
+                    weekNumber = 1;
+
+
+            }
         }
-    
+
+        private void cb_ProductASINs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            currentASIN = cb_ProductASINs.SelectedItem.ToString();
+        }
+
+        private void rb_ByProductName_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rb_ByProductName.Checked)
+            {
+                lb_SKUText.Visible = true;
+                cb_ProductNames.Enabled = true;
+                cb_ProductASINs.Enabled = false;
+            }
+            else if (rb_ByASIN.Checked)
+            {
+                lb_SKUText.Visible = false;
+                cb_ProductNames.Enabled = false;
+                cb_ProductASINs.Enabled = true;
+
+                currentASIN = cb_ProductASINs.SelectedItem.ToString();
+            }
+            else if (rb_ByAll.Checked)
+            {
+                lb_SKUText.Visible = false;
+                cb_ProductNames.Enabled = false;
+                cb_ProductASINs.Enabled = false;
+                currentASIN = "-1";
+            }
+        }
+
+        private void rb_ByASIN_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rb_ByASIN.Checked)
+            {
+                lb_SKUText.Visible = false;
+                cb_ProductNames.Enabled = false;
+                cb_ProductASINs.Enabled = true;
+
+                currentASIN = cb_ProductASINs.SelectedItem.ToString();
+            }
+            else if (rb_ByProductName.Checked)
+            {
+                lb_SKUText.Visible = true;
+                cb_ProductNames.Enabled = true;
+                cb_ProductASINs.Enabled = false;
+            }
+            else if (rb_ByAll.Checked)
+            {
+                lb_SKUText.Visible = false;
+                cb_ProductNames.Enabled = false;
+                cb_ProductASINs.Enabled = false;
+                currentASIN = "-1";
+            }
+        }
+
+        private void rb_ByAll_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rb_ByAll.Checked)
+            {
+                lb_SKUText.Visible = false;
+                cb_ProductNames.Enabled = false;
+                cb_ProductASINs.Enabled = false;
+                currentASIN = "-1";
+                //currentPr
+            }
+            else if (rb_ByASIN.Checked)
+            {
+                lb_SKUText.Visible = false;
+                cb_ProductNames.Enabled = false;
+                cb_ProductASINs.Enabled = true;
+
+                currentASIN = cb_ProductASINs.SelectedItem.ToString();
+            }
+            else if (rb_ByProductName.Checked)
+            {
+                lb_SKUText.Visible = true;
+                cb_ProductNames.Enabled = true;
+                cb_ProductASINs.Enabled = false;
+            }
+        }
 
 
+        
+        //currentProductIds 
+        private void DrawTable(DateTime _dstart, bool _firstRun, bool _asins)
+        {
+            if (_firstRun)
+                DrawTableColumns();
+
+            int sessionsOrganic = 0;
+            int sessionsAdv = 0;
+            int ordersOrganic = 0;
+            int ordersAdv = 0;
+            int oredersGeneral = 0;
+            double conversionOrganic = 0;
+            double conversionAdv = 0;
+            double conversionGeneral = 0;
+            double share = 0;
+
+
+            string productSku = GetProductSkuByID(currentProductId);
+
+            if (!rb_ByAll.Checked)
+            {
+                for (int i = 0; i < businessList.Count; i++)
+                {
+                    foreach (var t in currentProductIds)
+                    {
+                        if (businessList[i].ProductId == t)
+                        {
+                            sessionsOrganic += businessList[i].Sessions;
+                            oredersGeneral += businessList[i].TotalOrderItems + businessList[i].TotalOrderItemsB2B;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < businessList.Count; i++)
+                {
+                    sessionsOrganic += businessList[i].Sessions;
+                    oredersGeneral += businessList[i].TotalOrderItems + businessList[i].TotalOrderItemsB2B;
+                }
+            }
+
+            if (!rb_ByAll.Checked)
+            {
+                for (int i = 0; i < advProductsList.Count; i++)
+                {
+                    foreach (var t in currentProductIds)
+                    {
+                        if (advProductsList[i].ProductId == t)
+                        {
+                            sessionsAdv += advProductsList[i].Clicks;
+                            ordersAdv += advProductsList[i].Orders;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < advProductsList.Count; i++)
+                {
+                    sessionsAdv += advProductsList[i].Clicks;
+                    ordersAdv += advProductsList[i].Orders;
+                }
+            }
+
+            if (!rb_ByAll.Checked)
+            {
+                for (int i = 0; i < advBrandsList.Count; i++)
+                {
+                    foreach (var t in currentProductIds)
+                    {
+                        if (advBrandsList[i].ProductId1 == t || advBrandsList[i].ProductId2 == t || advBrandsList[i].ProductId3 == t)
+                        {
+                            sessionsAdv += advBrandsList[i].Clicks;
+                            ordersAdv += advBrandsList[i].Orders;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < advBrandsList.Count; i++)
+                {
+                    sessionsAdv += advBrandsList[i].Clicks;
+                    ordersAdv += advBrandsList[i].Orders;
+                }
+            }
+
+            ordersOrganic = oredersGeneral - ordersAdv;
+
+            if (sessionsOrganic > 0)
+                conversionOrganic = Math.Round((double)ordersOrganic / sessionsOrganic * 100, 2);
+            else
+                conversionOrganic = 0;
+
+            if (sessionsAdv > 0)
+                conversionAdv = Math.Round((double)ordersAdv / sessionsAdv * 100, 2);
+            else
+                conversionAdv = 0;
+
+            if (sessionsOrganic > 0)
+                conversionGeneral = Math.Round((double)oredersGeneral / sessionsOrganic * 100, 2);
+            else
+                conversionGeneral = 0;
+
+            if (oredersGeneral > 0)
+                share = Math.Round((double)ordersOrganic / oredersGeneral * 100, 2);
+            else
+                share = 0;
+
+            dataGridView1.Columns.Add(_dstart.ToString().Substring(0, 10), _dstart.ToString().Substring(0, 10));
+            dataGridView1.Rows[0].Cells[dataGridView1.ColumnCount - 1].Value = sessionsOrganic;
+            dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 1].Value = sessionsAdv;
+            dataGridView1.Rows[2].Cells[dataGridView1.ColumnCount - 1].Value = ordersOrganic;
+            dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 1].Value = ordersAdv;
+            dataGridView1.Rows[4].Cells[dataGridView1.ColumnCount - 1].Value = oredersGeneral;
+            dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 1].Value = conversionOrganic;
+            dataGridView1.Rows[6].Cells[dataGridView1.ColumnCount - 1].Value = conversionAdv;
+            dataGridView1.Rows[7].Cells[dataGridView1.ColumnCount - 1].Value = conversionGeneral;
+            dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 1].Value = share;
+
+            dataGridView1.Columns[dataGridView1.ColumnCount - 1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            btn_Export.Text = "Экспорт в файл (" + dataGridView1.ColumnCount + ")";
+        }
+
+        //currentProductIds
+        private void DrawTable(DateTime _dstart, DateTime _dend, bool _firstRun, bool _asins)
+        {
+            if (_firstRun)
+                DrawTableColumns();
+
+            int sessionsOrganic = 0;
+            int sessionsAdv = 0;
+            int ordersOrganic = 0;
+            int ordersAdv = 0;
+            int oredersGeneral = 0;
+            double conversionOrganic = 0;
+            double conversionAdv = 0;
+            double conversionGeneral = 0;
+            double share = 0;
+
+            string productSku = GetProductSkuByID(currentProductId);
+
+            //for (int i = 0; i < businessList.Count; i++)
+            //{
+            //    if (!rb_ByAll.Checked)
+            //        foreach (var t in currentProductIds)
+            //        {
+            //            if (businessList[i].ProductId == t)
+            //            {
+            //                sessionsOrganic += businessList[i].Sessions;
+            //                oredersGeneral += businessList[i].TotalOrderItems + businessList[i].TotalOrderItemsB2B;
+            //            }
+            //        }
+            //    else
+            //    {
+            //        sessionsOrganic += businessList[i].Sessions;
+            //        oredersGeneral += businessList[i].TotalOrderItems + businessList[i].TotalOrderItemsB2B;
+            //    }
+            //}
+
+            if (!rb_ByAll.Checked)
+            {
+                for (int i = 0; i < businessList.Count; i++)
+                {
+                    foreach (var t in currentProductIds)
+                    {
+                        if (businessList[i].ProductId == t)
+                        {
+                            sessionsOrganic += businessList[i].Sessions;
+                            oredersGeneral += businessList[i].TotalOrderItems + businessList[i].TotalOrderItemsB2B;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < businessList.Count; i++)
+                {
+                    sessionsOrganic += businessList[i].Sessions;
+                    oredersGeneral += businessList[i].TotalOrderItems + businessList[i].TotalOrderItemsB2B;
+                }
+            }
+
+
+            if (!rb_ByAll.Checked)
+            {
+                for (int i = 0; i < advProductsList.Count; i++)
+                {
+                    foreach (var t in currentProductIds)
+                    {
+                        if (advProductsList[i].ProductId == t)
+                        {
+                            sessionsAdv += advProductsList[i].Clicks;
+                            ordersAdv += advProductsList[i].Orders;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < advProductsList.Count; i++)
+                {
+                    sessionsAdv += advProductsList[i].Clicks;
+                    ordersAdv += advProductsList[i].Orders;
+                }
+            }
+
+            if (!rb_ByAll.Checked)
+            {
+                for (int i = 0; i < advBrandsList.Count; i++)
+                {
+                    foreach (var t in currentProductIds)
+                    {
+                        if (advBrandsList[i].ProductId1 == t || advBrandsList[i].ProductId2 == t || advBrandsList[i].ProductId3 == t)
+                        {
+                            sessionsAdv += advBrandsList[i].Clicks;
+                            ordersAdv += advBrandsList[i].Orders;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < advBrandsList.Count; i++)
+                {
+                    sessionsAdv += advBrandsList[i].Clicks;
+                    ordersAdv += advBrandsList[i].Orders;
+                }
+            }
+
+            ordersOrganic = oredersGeneral - ordersAdv;
+
+            if (sessionsOrganic > 0)
+                conversionOrganic = Math.Round((double)ordersOrganic / sessionsOrganic * 100, 2);
+            else
+                conversionOrganic = 0;
+
+            if (sessionsAdv > 0)
+                conversionAdv = Math.Round((double)ordersAdv / sessionsAdv * 100, 2);
+            else
+                conversionAdv = 0;
+
+            if (sessionsOrganic > 0)
+                conversionGeneral = Math.Round((double)oredersGeneral / sessionsOrganic * 100, 2);
+            else
+                conversionGeneral = 0;
+
+            if (oredersGeneral > 0)
+                share = Math.Round((double)ordersOrganic / oredersGeneral * 100, 2);
+            else
+                share = 0;
+
+            dataGridView1.Columns.Add(_dstart.ToString().Substring(0, 5) + "-" + _dend.ToString().Substring(0, 5), _dstart.ToString().Substring(0, 5) + "-" + _dend.ToString().Substring(0, 5) + "\n" + GetMonth(_dstart.Month));
+            dataGridView1.Rows[0].Cells[dataGridView1.ColumnCount - 1].Value = sessionsOrganic;
+            dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 1].Value = sessionsAdv;
+            dataGridView1.Rows[2].Cells[dataGridView1.ColumnCount - 1].Value = ordersOrganic;
+            dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 1].Value = ordersAdv;
+            dataGridView1.Rows[4].Cells[dataGridView1.ColumnCount - 1].Value = oredersGeneral;
+            dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 1].Value = conversionOrganic;
+            dataGridView1.Rows[6].Cells[dataGridView1.ColumnCount - 1].Value = conversionAdv;
+            dataGridView1.Rows[7].Cells[dataGridView1.ColumnCount - 1].Value = conversionGeneral;
+            dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 1].Value = share;
+
+            dataGridView1.Columns[dataGridView1.ColumnCount - 1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            btn_Export.Text = "Экспорт в файл (" + dataGridView1.ColumnCount + ")";
+        }
+
+        //currentProductId method
+        private void DrawTable(DateTime _dstart, DateTime _dend, bool _firstRun)
+        {
+            if (_firstRun)
+                DrawTableColumns();
+
+            int sessionsOrganic = 0;
+            int sessionsAdv = 0;
+            int ordersOrganic = 0;
+            int ordersAdv = 0;
+            int oredersGeneral = 0;
+            double conversionOrganic = 0;
+            double conversionAdv = 0;
+            double conversionGeneral = 0;
+            double share = 0;
+
+            string productSku = GetProductSkuByID(currentProductId);
+
+            for (int i = 0; i < businessList.Count; i++)
+            {
+                if (businessList[i].ProductId == currentProductId)
+                {
+                    sessionsOrganic += businessList[i].Sessions;
+                    oredersGeneral += businessList[i].TotalOrderItems + businessList[i].TotalOrderItemsB2B;
+                }
+            }
+
+            for (int i = 0; i < advProductsList.Count; i++)
+            {
+                if (advProductsList[i].ProductId == currentProductId)
+                {
+                    sessionsAdv += advProductsList[i].Clicks;
+                    ordersAdv += advProductsList[i].Orders;
+                }
+            }
+
+            for (int i = 0; i < advBrandsList.Count; i++)
+            {
+                if (advBrandsList[i].ProductId1 == currentProductId || advBrandsList[i].ProductId2 == currentProductId || advBrandsList[i].ProductId3 == currentProductId)
+                {
+                    sessionsAdv += advBrandsList[i].Clicks;
+                    ordersAdv += advBrandsList[i].Orders;
+                }
+            }
+
+            ordersOrganic = oredersGeneral - ordersAdv;
+
+            if (sessionsOrganic > 0)
+                conversionOrganic = Math.Round((double)ordersOrganic / sessionsOrganic * 100, 2);
+            else
+                conversionOrganic = 0;
+
+            if (sessionsAdv > 0)
+                conversionAdv = Math.Round((double)ordersAdv / sessionsAdv * 100, 2);
+            else
+                conversionAdv = 0;
+
+            if (sessionsOrganic > 0)
+                conversionGeneral = Math.Round((double)oredersGeneral / sessionsOrganic * 100, 2);
+            else
+                conversionGeneral = 0;
+
+            if (oredersGeneral > 0)
+                share = Math.Round((double)ordersOrganic / oredersGeneral * 100, 2);
+            else
+                share = 0;
+
+            dataGridView1.Columns.Add(_dstart.ToString().Substring(0, 5) + "-" + _dend.ToString().Substring(0, 5), _dstart.ToString().Substring(0, 5) + "-" + _dend.ToString().Substring(0, 5) + "\n" + GetMonth(_dstart.Month));
+            dataGridView1.Rows[0].Cells[dataGridView1.ColumnCount - 1].Value = sessionsOrganic;
+            dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 1].Value = sessionsAdv;
+            dataGridView1.Rows[2].Cells[dataGridView1.ColumnCount - 1].Value = ordersOrganic;
+            dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 1].Value = ordersAdv;
+            dataGridView1.Rows[4].Cells[dataGridView1.ColumnCount - 1].Value = oredersGeneral;
+            dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 1].Value = conversionOrganic;
+            dataGridView1.Rows[6].Cells[dataGridView1.ColumnCount - 1].Value = conversionAdv;
+            dataGridView1.Rows[7].Cells[dataGridView1.ColumnCount - 1].Value = conversionGeneral;
+            dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 1].Value = share;
+
+            dataGridView1.Columns[dataGridView1.ColumnCount - 1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            btn_Export.Text = "Экспорт в файл (" + dataGridView1.ColumnCount + ")";
+        }
+
+        //currentProductId method
         private void DrawTable(DateTime _dstart, bool _firstRun)
         {
             if (_firstRun)
@@ -1279,367 +1776,6 @@ namespace Excel_Parse
             btn_Export.Text = "Экспорт в файл (" + dataGridView1.ColumnCount + ")";
         }
 
-        private void DrawTable(DateTime _dstart, bool _firstRun, bool _asins)
-        {
-            if (_firstRun)
-                DrawTableColumns();
-
-            int sessionsOrganic = 0;
-            int sessionsAdv = 0;
-            int ordersOrganic = 0;
-            int ordersAdv = 0;
-            int oredersGeneral = 0;
-            double conversionOrganic = 0;
-            double conversionAdv = 0;
-            double conversionGeneral = 0;
-            double share = 0;
-
-
-            string productSku = GetProductSkuByID(currentProductId);
-
-            for (int i = 0; i < businessList.Count; i++)
-            {
-                foreach (var t in currentProductIds)
-                {
-                    if (businessList[i].ProductId == t)
-                    {
-                        sessionsOrganic += businessList[i].Sessions;
-                        oredersGeneral += businessList[i].TotalOrderItems + businessList[i].TotalOrderItemsB2B;
-                    }
-                }
-            }
-
-            for (int i = 0; i < advProductsList.Count; i++)
-            {
-                foreach (var t in currentProductIds)
-                {
-                    if (advProductsList[i].ProductId == t)
-                    {
-                        sessionsAdv += advProductsList[i].Clicks;
-                        ordersAdv += advProductsList[i].Orders;
-                    }
-                }
-            }
-
-            for (int i = 0; i < advBrandsList.Count; i++)
-            {
-                foreach (var t in currentProductIds)
-                {
-                    if (advBrandsList[i].ProductId1 == t || advBrandsList[i].ProductId2 == t || advBrandsList[i].ProductId3 == t)
-                    {
-                        sessionsAdv += advBrandsList[i].Clicks;
-                        ordersAdv += advBrandsList[i].Orders;
-                    }
-                }
-            }
-
-            ordersOrganic = oredersGeneral - ordersAdv;
-
-            if (sessionsOrganic > 0)
-                conversionOrganic = Math.Round((double)ordersOrganic / sessionsOrganic * 100, 2);
-            else
-                conversionOrganic = 0;
-
-            if (sessionsAdv > 0)
-                conversionAdv = Math.Round((double)ordersAdv / sessionsAdv * 100, 2);
-            else
-                conversionAdv = 0;
-
-            if (sessionsOrganic > 0)
-                conversionGeneral = Math.Round((double)oredersGeneral / sessionsOrganic * 100, 2);
-            else
-                conversionGeneral = 0;
-
-            if (oredersGeneral > 0)
-                share = Math.Round((double)ordersOrganic / oredersGeneral * 100, 2);
-            else
-                share = 0;
-
-            dataGridView1.Columns.Add(_dstart.ToString().Substring(0, 10), _dstart.ToString().Substring(0, 10));
-            dataGridView1.Rows[0].Cells[dataGridView1.ColumnCount - 1].Value = sessionsOrganic;
-            dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 1].Value = sessionsAdv;
-            dataGridView1.Rows[2].Cells[dataGridView1.ColumnCount - 1].Value = ordersOrganic;
-            dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 1].Value = ordersAdv;
-            dataGridView1.Rows[4].Cells[dataGridView1.ColumnCount - 1].Value = oredersGeneral;
-            dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 1].Value = conversionOrganic;
-            dataGridView1.Rows[6].Cells[dataGridView1.ColumnCount - 1].Value = conversionAdv;
-            dataGridView1.Rows[7].Cells[dataGridView1.ColumnCount - 1].Value = conversionGeneral;
-            dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 1].Value = share;
-
-            dataGridView1.Columns[dataGridView1.ColumnCount - 1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-            btn_Export.Text = "Экспорт в файл (" + dataGridView1.ColumnCount + ")";
-        }
-
-        private void GetWeek()
-        {
-            DateTime todayDay = DateTime.Today;
-
-            int dayOfYear = todayDay.DayOfYear;
-            int tmp = (int)Math.Truncate((double)dayOfYear / 7);
-            if (tmp == 0)       //если это 1я неделя
-            {
-                tmp = 1;
-
-                string dayName = todayDay.DayOfWeek.ToString();
-                if (dayName.Equals("Monday"))
-                {
-                    innerEndDate = todayDay.AddDays(7 - 1).AddHours(23).AddMinutes(59).AddSeconds(59);
-                }
-                else if (dayName.Equals("Tuesday"))
-                {
-                    innerEndDate = todayDay.AddDays(7 - 2).AddHours(23).AddMinutes(59).AddSeconds(59);
-                }
-                else if (dayName.Equals("Wednesday"))
-                {
-                    innerEndDate = todayDay.AddDays(7 - 3).AddHours(23).AddMinutes(59).AddSeconds(59);
-                }
-                else if (dayName.Equals("Thursday"))
-                {
-                    innerEndDate = todayDay.AddDays(7 - 4).AddHours(23).AddMinutes(59).AddSeconds(59);
-                }
-                else if (dayName.Equals("Friday"))
-                {
-                    innerEndDate = todayDay.AddDays(7 - 5).AddHours(23).AddMinutes(59).AddSeconds(59);
-                }
-                else if (dayName.Equals("Saturday"))
-                {
-                    innerEndDate = todayDay.AddDays(7 - 6).AddHours(23).AddMinutes(59).AddSeconds(59);
-                }
-                else if (dayName.Equals("Sunday"))
-                {
-                    innerEndDate = todayDay.AddDays(7 - 7).AddHours(23).AddMinutes(59).AddSeconds(59);
-                }
-                weekNumber = 1;
-                innerStartDate = innerEndDate.AddDays(-6);
-            }
-            else
-            {
-                int closest1stDayOfWeek = tmp * 7;
-                int diffFromStartWeek = closest1stDayOfWeek - dayOfYear;
-                innerStartDate = todayDay.AddDays(diffFromStartWeek);
-                innerEndDate = todayDay.AddDays(6 + diffFromStartWeek).AddHours(23).AddMinutes(59).AddSeconds(59);
-                weekNumber = (int)Math.Truncate((double)dayOfYear / 7) + 1;
-                if (weekNumber == 53)
-                    weekNumber = 1;
-
-
-            }
-        }
-
-        private void cb_ProductASINs_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            currentASIN = cb_ProductASINs.SelectedItem.ToString();
-        }
-
-        private void rb_ByProductName_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rb_ByProductName.Checked)
-            {
-                lb_SKUText.Visible = true;
-                cb_ProductNames.Enabled = true;
-                cb_ProductASINs.Enabled = false;
-            }
-            else if (rb_ByASIN.Checked)
-            {
-                lb_SKUText.Visible = false;
-                cb_ProductNames.Enabled = false;
-                cb_ProductASINs.Enabled = true;
-
-                currentASIN = cb_ProductASINs.SelectedItem.ToString();
-            }
-        }
-
-        private void rb_ByASIN_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rb_ByASIN.Checked)
-            {
-                lb_SKUText.Visible = false;
-                cb_ProductNames.Enabled = false;
-                cb_ProductASINs.Enabled = true;
-
-                currentASIN = cb_ProductASINs.SelectedItem.ToString();
-            }
-            else if (rb_ByProductName.Checked)
-            {
-                lb_SKUText.Visible = true;
-                cb_ProductNames.Enabled = true;
-                cb_ProductASINs.Enabled = false;
-            }
-        }
-
-        private void DrawTable(DateTime _dstart, DateTime _dend, bool _firstRun, bool _asins)
-        {
-            if (_firstRun)
-                DrawTableColumns();
-
-            int sessionsOrganic = 0;
-            int sessionsAdv = 0;
-            int ordersOrganic = 0;
-            int ordersAdv = 0;
-            int oredersGeneral = 0;
-            double conversionOrganic = 0;
-            double conversionAdv = 0;
-            double conversionGeneral = 0;
-            double share = 0;
-
-            string productSku = GetProductSkuByID(currentProductId);
-
-            for (int i = 0; i < businessList.Count; i++)
-            {
-                foreach (var t in currentProductIds)
-                {
-                    if (businessList[i].ProductId == t)
-                    {
-                        sessionsOrganic += businessList[i].Sessions;
-                        oredersGeneral += businessList[i].TotalOrderItems + businessList[i].TotalOrderItemsB2B;
-                    }
-                }
-            }
-
-            for (int i = 0; i < advProductsList.Count; i++)
-            {
-                foreach (var t in currentProductIds)
-                {
-                    if (advProductsList[i].ProductId == t)
-                    {
-                        sessionsAdv += advProductsList[i].Clicks;
-                        ordersAdv += advProductsList[i].Orders;
-                    }
-                }
-            }
-
-            for (int i = 0; i < advBrandsList.Count; i++)
-            {
-                foreach (var t in currentProductIds)
-                {
-                    if (advBrandsList[i].ProductId1 == t || advBrandsList[i].ProductId2 == t || advBrandsList[i].ProductId3 == t)
-                    {
-                        sessionsAdv += advBrandsList[i].Clicks;
-                        ordersAdv += advBrandsList[i].Orders;
-                    }
-                }
-            }
-
-            ordersOrganic = oredersGeneral - ordersAdv;
-
-            if (sessionsOrganic > 0)
-                conversionOrganic = Math.Round((double)ordersOrganic / sessionsOrganic * 100, 2);
-            else
-                conversionOrganic = 0;
-
-            if (sessionsAdv > 0)
-                conversionAdv = Math.Round((double)ordersAdv / sessionsAdv * 100, 2);
-            else
-                conversionAdv = 0;
-
-            if (sessionsOrganic > 0)
-                conversionGeneral = Math.Round((double)oredersGeneral / sessionsOrganic * 100, 2);
-            else
-                conversionGeneral = 0;
-
-            if (oredersGeneral > 0)
-                share = Math.Round((double)ordersOrganic / oredersGeneral * 100, 2);
-            else
-                share = 0;
-
-            dataGridView1.Columns.Add(_dstart.ToString().Substring(0, 5) + "-" + _dend.ToString().Substring(0, 5), _dstart.ToString().Substring(0, 5) + "-" + _dend.ToString().Substring(0, 5) + "\n" + GetMonth(_dstart.Month));
-            dataGridView1.Rows[0].Cells[dataGridView1.ColumnCount - 1].Value = sessionsOrganic;
-            dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 1].Value = sessionsAdv;
-            dataGridView1.Rows[2].Cells[dataGridView1.ColumnCount - 1].Value = ordersOrganic;
-            dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 1].Value = ordersAdv;
-            dataGridView1.Rows[4].Cells[dataGridView1.ColumnCount - 1].Value = oredersGeneral;
-            dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 1].Value = conversionOrganic;
-            dataGridView1.Rows[6].Cells[dataGridView1.ColumnCount - 1].Value = conversionAdv;
-            dataGridView1.Rows[7].Cells[dataGridView1.ColumnCount - 1].Value = conversionGeneral;
-            dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 1].Value = share;
-
-            dataGridView1.Columns[dataGridView1.ColumnCount - 1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-            btn_Export.Text = "Экспорт в файл (" + dataGridView1.ColumnCount + ")";
-        }
-
-        private void DrawTable(DateTime _dstart, DateTime _dend, bool _firstRun)
-        {
-            if (_firstRun)
-                DrawTableColumns();
-
-            int sessionsOrganic = 0;
-            int sessionsAdv = 0;
-            int ordersOrganic = 0;
-            int ordersAdv = 0;
-            int oredersGeneral = 0;
-            double conversionOrganic = 0;
-            double conversionAdv = 0;
-            double conversionGeneral = 0;
-            double share = 0;
-
-            string productSku = GetProductSkuByID(currentProductId);
-
-            for (int i = 0; i < businessList.Count; i++)
-            {
-                if (businessList[i].ProductId == currentProductId)
-                {
-                    sessionsOrganic += businessList[i].Sessions;
-                    oredersGeneral += businessList[i].TotalOrderItems + businessList[i].TotalOrderItemsB2B;
-                }
-            }
-
-            for (int i = 0; i < advProductsList.Count; i++)
-            {
-                if (advProductsList[i].ProductId == currentProductId)
-                {
-                    sessionsAdv += advProductsList[i].Clicks;
-                    ordersAdv += advProductsList[i].Orders;
-                }
-            }
-
-            for (int i = 0; i < advBrandsList.Count; i++)
-            {
-                if (advBrandsList[i].ProductId1 == currentProductId || advBrandsList[i].ProductId2 == currentProductId || advBrandsList[i].ProductId3 == currentProductId)
-                {
-                    sessionsAdv += advBrandsList[i].Clicks;
-                    ordersAdv += advBrandsList[i].Orders;
-                }
-            }
-
-            ordersOrganic = oredersGeneral - ordersAdv;
-
-            if (sessionsOrganic > 0)
-                conversionOrganic = Math.Round((double)ordersOrganic / sessionsOrganic * 100, 2);
-            else
-                conversionOrganic = 0;
-
-            if (sessionsAdv > 0)
-                conversionAdv = Math.Round((double)ordersAdv / sessionsAdv * 100, 2);
-            else
-                conversionAdv = 0;
-
-            if (sessionsOrganic > 0)
-                conversionGeneral = Math.Round((double)oredersGeneral / sessionsOrganic * 100, 2);
-            else
-                conversionGeneral = 0;
-
-            if (oredersGeneral > 0)
-                share = Math.Round((double)ordersOrganic / oredersGeneral * 100, 2);
-            else
-                share = 0;
-
-            dataGridView1.Columns.Add(_dstart.ToString().Substring(0, 5) + "-" + _dend.ToString().Substring(0, 5), _dstart.ToString().Substring(0, 5) + "-" + _dend.ToString().Substring(0, 5) + "\n" + GetMonth(_dstart.Month));
-            dataGridView1.Rows[0].Cells[dataGridView1.ColumnCount - 1].Value = sessionsOrganic;
-            dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 1].Value = sessionsAdv;
-            dataGridView1.Rows[2].Cells[dataGridView1.ColumnCount - 1].Value = ordersOrganic;
-            dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 1].Value = ordersAdv;
-            dataGridView1.Rows[4].Cells[dataGridView1.ColumnCount - 1].Value = oredersGeneral;
-            dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 1].Value = conversionOrganic;
-            dataGridView1.Rows[6].Cells[dataGridView1.ColumnCount - 1].Value = conversionAdv;
-            dataGridView1.Rows[7].Cells[dataGridView1.ColumnCount - 1].Value = conversionGeneral;
-            dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 1].Value = share;
-
-            dataGridView1.Columns[dataGridView1.ColumnCount - 1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-            btn_Export.Text = "Экспорт в файл (" + dataGridView1.ColumnCount + ")";
-        }
 
 
         private string GetMonth(int index)

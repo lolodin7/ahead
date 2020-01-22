@@ -70,6 +70,7 @@
             this.tb_Sales = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.cb_Strong_SearchBySKU = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -285,6 +286,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cb_Strong_SearchBySKU);
             this.groupBox2.Controls.Add(this.btn_SearchBy);
             this.groupBox2.Controls.Add(this.label15);
             this.groupBox2.Controls.Add(this.tb_SearchBySKU);
@@ -301,7 +303,7 @@
             this.btn_SearchBy.FlatAppearance.BorderSize = 0;
             this.btn_SearchBy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_SearchBy.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.btn_SearchBy.Location = new System.Drawing.Point(277, 19);
+            this.btn_SearchBy.Location = new System.Drawing.Point(293, 18);
             this.btn_SearchBy.Name = "btn_SearchBy";
             this.btn_SearchBy.Size = new System.Drawing.Size(40, 165);
             this.btn_SearchBy.TabIndex = 68;
@@ -494,6 +496,15 @@
             this.timer1.Interval = 4000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // cb_Strong_SearchBySKU
+            // 
+            this.cb_Strong_SearchBySKU.AutoSize = true;
+            this.cb_Strong_SearchBySKU.Location = new System.Drawing.Point(266, 53);
+            this.cb_Strong_SearchBySKU.Name = "cb_Strong_SearchBySKU";
+            this.cb_Strong_SearchBySKU.Size = new System.Drawing.Size(15, 14);
+            this.cb_Strong_SearchBySKU.TabIndex = 70;
+            this.cb_Strong_SearchBySKU.UseVisualStyleBackColor = true;
+            // 
             // ReportBusinessFilterView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -573,5 +584,6 @@
         private System.Windows.Forms.TextBox tb_Sales;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.CheckBox cb_Strong_SearchBySKU;
     }
 }

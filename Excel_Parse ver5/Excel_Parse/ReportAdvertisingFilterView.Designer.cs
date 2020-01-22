@@ -70,6 +70,9 @@
             this.btn_Go = new System.Windows.Forms.Button();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btn_FilterByMatchType = new System.Windows.Forms.Button();
+            this.label17 = new System.Windows.Forms.Label();
+            this.cb_MatchType = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btn_SearchBy = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
@@ -84,9 +87,9 @@
             this.btn_LastHalfYear = new System.Windows.Forms.Button();
             this.btn_lastYear = new System.Windows.Forms.Button();
             this.btn_LastDay = new System.Windows.Forms.Button();
-            this.label17 = new System.Windows.Forms.Label();
-            this.cb_MatchType = new System.Windows.Forms.ComboBox();
-            this.btn_FilterByMatchType = new System.Windows.Forms.Button();
+            this.cb_Strong_SearchByCampaign = new System.Windows.Forms.CheckBox();
+            this.cb_Strong_SearchByAdGroup = new System.Windows.Forms.CheckBox();
+            this.cb_Strong_SearchByTargeting = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -515,8 +518,50 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Работа с таблицей";
             // 
+            // btn_FilterByMatchType
+            // 
+            this.btn_FilterByMatchType.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.btn_FilterByMatchType.FlatAppearance.BorderSize = 0;
+            this.btn_FilterByMatchType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_FilterByMatchType.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.btn_FilterByMatchType.Location = new System.Drawing.Point(493, 51);
+            this.btn_FilterByMatchType.Name = "btn_FilterByMatchType";
+            this.btn_FilterByMatchType.Size = new System.Drawing.Size(40, 39);
+            this.btn_FilterByMatchType.TabIndex = 69;
+            this.btn_FilterByMatchType.Text = "GO";
+            this.btn_FilterByMatchType.UseVisualStyleBackColor = false;
+            this.btn_FilterByMatchType.Click += new System.EventHandler(this.btn_FilterByMatchType_Click);
+            // 
+            // label17
+            // 
+            this.label17.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.label17.Location = new System.Drawing.Point(199, 33);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(279, 23);
+            this.label17.TabIndex = 83;
+            this.label17.Text = "Match Type";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cb_MatchType
+            // 
+            this.cb_MatchType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_MatchType.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.cb_MatchType.FormattingEnabled = true;
+            this.cb_MatchType.Items.AddRange(new object[] {
+            "AUTO",
+            "EXACT",
+            "PHRASE",
+            "BROAD"});
+            this.cb_MatchType.Location = new System.Drawing.Point(203, 59);
+            this.cb_MatchType.Name = "cb_MatchType";
+            this.cb_MatchType.Size = new System.Drawing.Size(275, 25);
+            this.cb_MatchType.TabIndex = 82;
+            // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cb_Strong_SearchByTargeting);
+            this.groupBox2.Controls.Add(this.cb_Strong_SearchByAdGroup);
+            this.groupBox2.Controls.Add(this.cb_Strong_SearchByCampaign);
             this.groupBox2.Controls.Add(this.btn_SearchBy);
             this.groupBox2.Controls.Add(this.label15);
             this.groupBox2.Controls.Add(this.label18);
@@ -526,7 +571,7 @@
             this.groupBox2.Controls.Add(this.label16);
             this.groupBox2.Location = new System.Drawing.Point(193, 115);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(339, 205);
+            this.groupBox2.Size = new System.Drawing.Size(364, 205);
             this.groupBox2.TabIndex = 67;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Поиск по";
@@ -537,7 +582,7 @@
             this.btn_SearchBy.FlatAppearance.BorderSize = 0;
             this.btn_SearchBy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_SearchBy.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.btn_SearchBy.Location = new System.Drawing.Point(277, 19);
+            this.btn_SearchBy.Location = new System.Drawing.Point(300, 24);
             this.btn_SearchBy.Name = "btn_SearchBy";
             this.btn_SearchBy.Size = new System.Drawing.Size(40, 165);
             this.btn_SearchBy.TabIndex = 68;
@@ -660,44 +705,32 @@
             this.btn_LastDay.UseVisualStyleBackColor = true;
             this.btn_LastDay.Click += new System.EventHandler(this.btn_LastDay_Click);
             // 
-            // label17
+            // cb_Strong_SearchByCampaign
             // 
-            this.label17.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.label17.Location = new System.Drawing.Point(199, 33);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(254, 23);
-            this.label17.TabIndex = 83;
-            this.label17.Text = "Match Type";
-            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cb_Strong_SearchByCampaign.AutoSize = true;
+            this.cb_Strong_SearchByCampaign.Location = new System.Drawing.Point(270, 54);
+            this.cb_Strong_SearchByCampaign.Name = "cb_Strong_SearchByCampaign";
+            this.cb_Strong_SearchByCampaign.Size = new System.Drawing.Size(15, 14);
+            this.cb_Strong_SearchByCampaign.TabIndex = 69;
+            this.cb_Strong_SearchByCampaign.UseVisualStyleBackColor = true;
             // 
-            // cb_MatchType
+            // cb_Strong_SearchByAdGroup
             // 
-            this.cb_MatchType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_MatchType.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.cb_MatchType.FormattingEnabled = true;
-            this.cb_MatchType.Items.AddRange(new object[] {
-            "AUTO",
-            "EXACT",
-            "PHRASE",
-            "BROAD"});
-            this.cb_MatchType.Location = new System.Drawing.Point(203, 59);
-            this.cb_MatchType.Name = "cb_MatchType";
-            this.cb_MatchType.Size = new System.Drawing.Size(250, 25);
-            this.cb_MatchType.TabIndex = 82;
+            this.cb_Strong_SearchByAdGroup.AutoSize = true;
+            this.cb_Strong_SearchByAdGroup.Location = new System.Drawing.Point(270, 109);
+            this.cb_Strong_SearchByAdGroup.Name = "cb_Strong_SearchByAdGroup";
+            this.cb_Strong_SearchByAdGroup.Size = new System.Drawing.Size(15, 14);
+            this.cb_Strong_SearchByAdGroup.TabIndex = 70;
+            this.cb_Strong_SearchByAdGroup.UseVisualStyleBackColor = true;
             // 
-            // btn_FilterByMatchType
+            // cb_Strong_SearchByTargeting
             // 
-            this.btn_FilterByMatchType.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.btn_FilterByMatchType.FlatAppearance.BorderSize = 0;
-            this.btn_FilterByMatchType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_FilterByMatchType.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.btn_FilterByMatchType.Location = new System.Drawing.Point(470, 51);
-            this.btn_FilterByMatchType.Name = "btn_FilterByMatchType";
-            this.btn_FilterByMatchType.Size = new System.Drawing.Size(40, 39);
-            this.btn_FilterByMatchType.TabIndex = 69;
-            this.btn_FilterByMatchType.Text = "GO";
-            this.btn_FilterByMatchType.UseVisualStyleBackColor = false;
-            this.btn_FilterByMatchType.Click += new System.EventHandler(this.btn_FilterByMatchType_Click);
+            this.cb_Strong_SearchByTargeting.AutoSize = true;
+            this.cb_Strong_SearchByTargeting.Location = new System.Drawing.Point(270, 166);
+            this.cb_Strong_SearchByTargeting.Name = "cb_Strong_SearchByTargeting";
+            this.cb_Strong_SearchByTargeting.Size = new System.Drawing.Size(15, 14);
+            this.cb_Strong_SearchByTargeting.TabIndex = 71;
+            this.cb_Strong_SearchByTargeting.UseVisualStyleBackColor = true;
             // 
             // ReportAdvertisingFilterView
             // 
@@ -803,5 +836,8 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.ComboBox cb_MatchType;
         private System.Windows.Forms.Button btn_FilterByMatchType;
+        private System.Windows.Forms.CheckBox cb_Strong_SearchByTargeting;
+        private System.Windows.Forms.CheckBox cb_Strong_SearchByAdGroup;
+        private System.Windows.Forms.CheckBox cb_Strong_SearchByCampaign;
     }
 }

@@ -296,5 +296,13 @@ namespace Excel_Parse
             dataGridView1.Rows[index].Cells[13].Value = TotalOrderItems;
             dataGridView1.Rows[index].Cells[14].Value = TotalOrderItemsB2B;
         }
+
+        private void ReportBusinessView_SizeChanged(object sender, EventArgs e)
+        {
+            dataGridView1.Width = this.Width - 30;
+            dataGridView1.Height = this.Height - 80;
+
+            btn_ShowFilter.Location = new System.Drawing.Point(this.Width - btn_ShowFilter.Size.Width - 20, btn_ShowFilter.Location.Y);
+        }
     }
 }

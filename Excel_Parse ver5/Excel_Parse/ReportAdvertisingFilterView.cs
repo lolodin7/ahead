@@ -315,6 +315,10 @@ namespace Excel_Parse
 
             for (int i = 0; i < advProductsList.Count; i++)
             {
+                if (i == advProductsList.Count - 1)
+                {
+
+                }
                 if (!alreadyUsed.Contains(i))
                 {
                     Impressions = advProductsList[i].Impressions;
@@ -348,20 +352,20 @@ namespace Excel_Parse
                             }
                         }
                     }
-                    else
-                    {
-                        Impressions += advProductsList[i].Impressions;
-                        Clicks += advProductsList[i].Clicks;
-                        Spend += advProductsList[i].Spend;
-                        Sales += advProductsList[i].Sales;
-                        Orders += advProductsList[i].Orders;
-                        Units += advProductsList[i].Units;
-                        AdvSKUUnits += advProductsList[i].AdvSKUUnits;
-                        OtherSKUUnits += advProductsList[i].OtherSKUUnits;
-                        AdvSKUSales += advProductsList[i].AdvSKUSales;
-                        OtherSKUSales += advProductsList[i].OtherSKUSales;
-                        alreadyUsed.Add(i);
-                    }
+                    //else
+                    //{
+                    //    Impressions += advProductsList[i].Impressions;
+                    //    Clicks += advProductsList[i].Clicks;
+                    //    Spend += advProductsList[i].Spend;
+                    //    Sales += advProductsList[i].Sales;
+                    //    Orders += advProductsList[i].Orders;
+                    //    Units += advProductsList[i].Units;
+                    //    AdvSKUUnits += advProductsList[i].AdvSKUUnits;
+                    //    OtherSKUUnits += advProductsList[i].OtherSKUUnits;
+                    //    AdvSKUSales += advProductsList[i].AdvSKUSales;
+                    //    OtherSKUSales += advProductsList[i].OtherSKUSales;
+                    //    alreadyUsed.Add(i);
+                    //}
                     //summaryAdvProductsList.Add(ТО, ШО ПОЛУЧИЛОСЬ ОТ СУММИРОВАНИЯ + ДОПОЛНИТЕЛЬНО СЧИТАЕМ ТО, ЧТО НАДО ПОСЧИТАТЬ);
 
                     if (Impressions != 0)
@@ -656,16 +660,18 @@ namespace Excel_Parse
         /* Очистить список выбранных маркетплейсов в clb_Marketplace */
         private void btn_Clear_clb_Marketplace_Click(object sender, EventArgs e)
         {
+            clb_Marketplace.ClearSelected();
+            checkedMarkeplaces.Clear();
+
             clb_Campaign.ClearSelected();
             clb_Campaign.Items.Clear();
             checkedCampaigns.Clear();
+
             clb_Product.ClearSelected();
             clb_Product.Items.Clear();
             checkedProducts.Clear();
-            checkedMarkeplaces.Clear();
-            clb_Marketplace.ClearSelected();
 
-
+            
             for (int i = 0; i < clb_Marketplace.Items.Count; i++)
             {
                 clb_Marketplace.SetItemChecked(i, false);
@@ -889,7 +895,7 @@ namespace Excel_Parse
                 filterAdvProductsList = new List<AdvertisingProductsModel> { };
                 for (int i = 0; i < advProductsList.Count; i++)
                 {
-                    if (advProductsList[i].CampaignName.ToLower().Contains(tb_SearchByCampaign.Text.ToLower()) && advProductsList[i].AdGroupName.ToLower().Contains(tb_SearchByAdGroup.Text.ToLower()) && advProductsList[i].Targeting.ToLower().Contains(tb_SearchByTargeting.Text.ToLower()))
+                    if (SearchByCampaign(advProductsList[i].CampaignName.ToLower(), tb_SearchByCampaign.Text.ToLower()) && SearchByAdGroup(advProductsList[i].AdGroupName.ToLower(), tb_SearchByAdGroup.Text.ToLower()) && SearchByTargeting(advProductsList[i].Targeting.ToLower(), tb_SearchByTargeting.Text.ToLower()))
                     {
                         filterAdvProductsList.Add(advProductsList[i]);
                     }
@@ -903,7 +909,7 @@ namespace Excel_Parse
                 filterAdvBrandsList = new List<AdvertisingBrandsModel> { };
                 for (int i = 0; i < advBrandsList.Count; i++)
                 {
-                    if (advBrandsList[i].CampaignName.ToLower().Contains(tb_SearchByCampaign.Text.ToLower()) && advBrandsList[i].Targeting.ToLower().Contains(tb_SearchByTargeting.Text.ToLower()))
+                    if (SearchByCampaign(advBrandsList[i].CampaignName.ToLower(), tb_SearchByCampaign.Text.ToLower()) && SearchByTargeting(advBrandsList[i].Targeting.ToLower(), tb_SearchByTargeting.Text.ToLower()))
                     {
                         filterAdvBrandsList.Add(advBrandsList[i]);
                     }
@@ -916,6 +922,34 @@ namespace Excel_Parse
             this.Cursor = Cursors.Default;
             this.Enabled = true;
         }
+
+        /* Выбираем, каким образом ищем текст CAMPAIGN в фильтре: вхождение или строгое соответствие */
+        private bool SearchByCampaign(string _campaignName, string tb_campaignName)
+        {
+            if (cb_Strong_SearchByCampaign.Checked)
+                return _campaignName.Equals(tb_campaignName);
+            else
+                return _campaignName.Contains(tb_campaignName);
+        }
+
+        /* Выбираем, каким образом ищем текст ADGROUP в фильтре: вхождение или строгое соответствие */
+        private bool SearchByAdGroup(string _adGroupName, string tb_adGroupName)
+        {
+            if (cb_Strong_SearchByAdGroup.Checked)
+                return _adGroupName.Equals(tb_adGroupName);
+            else
+                return _adGroupName.Contains(tb_adGroupName);
+        }
+
+        /* Выбираем, каким образом ищем текст TARGETING в фильтре: вхождение или строгое соответствие */
+        private bool SearchByTargeting(string _targetingName, string tb_targetingName)
+        {
+            if (cb_Strong_SearchByTargeting.Checked)
+                return _targetingName.Equals(tb_targetingName);
+            else
+                return _targetingName.Contains(tb_targetingName);
+        }
+
 
         /* Отобразить данные за последний месяц */
         private void btn_LastMonth_Click(object sender, EventArgs e)

@@ -31,7 +31,6 @@ select sum (total) from payments where [type] = 'Service Fee' and [description] 
 select sum (total) from payments where [type] = 'Service Fee' and [description] = 'SellerPayments_Report_Fee_Subscription' and [date] between '2018-01-01' and '2018-11-27'
 
 select sum (total) from payments where [type] = 'transfer' and [date] between '2018-01-01' and '2018-11-27'
-
 select sum (total) from payments where [type] = 'order retrocharge' and [description] = 'Base Tax' and [date] between '2018-01-01' and '2018-11-27'
 select sum (total) from payments where [type] = 'order retrocharge' and [description] = 'Shipping Tax' and [date] between '2018-01-01' and '2018-11-27'
 
@@ -383,3 +382,25 @@ SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2019-12-11 00:00:00' 
 select * from [User]
 
 SELECT SUM(Sessions) FROM [BusinessReport] WHERE [UpdateDate] between '2019-08-01 00:00:00' and '2019-09-30 23:59:59' and SKU = 'IG-5UO9-SCW1'
+
+
+SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2020-01-20 00:00:00' and '2020-01-20 23:59:00'
+
+
+
+
+SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2019-07-05 00:00:00' and '2019-07-05 23:59:59'
+
+SELECT * FROM [AdvertisingBrands]
+
+select * from [AP_CampaignIds]
+
+
+SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2020-01-16 00:00:00' and '2020-01-27 23:59:59' and ([MarketPlaceId] = 1)
+
+
+
+use AHEAD_stand
+INSERT INTO [User] ([Login], [PassHash], [Name], [Token1], [Token2], [UserRoleId], [SecretQuestion], [Answer], [LastMac])
+VALUES ('marinagurtovenko', 'ADAH/ZuvEVdABXe4AuzqwknkxSZzRbhdj21avq9UvFa5E2HiQwcJ2WfdI868yw9A9g==', 'Марина', 123, 321, 0, 'Номер офиса', 'AEBZF6htjJp6bJmhb7Of6vmRm2wu4vthhjEUZMivrOi6GHC+oIeiJXSlTqTTUlWgnA==', '00FFCD3F0DEB')
+update [User] set [UserRoleId] = 2 where [Login] = 'marinagurtovenko'

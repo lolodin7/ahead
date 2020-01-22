@@ -30,9 +30,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportSessionsView));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lb_SKUText = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.rb_ByASIN = new System.Windows.Forms.RadioButton();
             this.cb_ProductNames = new System.Windows.Forms.ComboBox();
+            this.rb_ByProductName = new System.Windows.Forms.RadioButton();
+            this.lb_SKUText = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cb_ProductASINs = new System.Windows.Forms.ComboBox();
             this.btn_Customly = new System.Windows.Forms.Button();
             this.btn_Export = new System.Windows.Forms.Button();
             this.btn_Daily = new System.Windows.Forms.Button();
@@ -49,14 +54,11 @@
             this.mc_StartDate = new System.Windows.Forms.MonthCalendar();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cb_ProductASINs = new System.Windows.Forms.ComboBox();
-            this.rb_ByProductName = new System.Windows.Forms.RadioButton();
-            this.rb_ByASIN = new System.Windows.Forms.RadioButton();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.rb_ByAll = new System.Windows.Forms.RadioButton();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -85,35 +87,96 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Фильтр";
             // 
-            // lb_SKUText
+            // panel1
             // 
-            this.lb_SKUText.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.lb_SKUText.Location = new System.Drawing.Point(18, 67);
-            this.lb_SKUText.Name = "lb_SKUText";
-            this.lb_SKUText.Size = new System.Drawing.Size(218, 23);
-            this.lb_SKUText.TabIndex = 98;
-            this.lb_SKUText.Text = "SKU: ";
-            this.lb_SKUText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.rb_ByAll);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.rb_ByASIN);
+            this.panel1.Controls.Add(this.cb_ProductNames);
+            this.panel1.Controls.Add(this.rb_ByProductName);
+            this.panel1.Controls.Add(this.lb_SKUText);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.cb_ProductASINs);
+            this.panel1.Enabled = false;
+            this.panel1.Location = new System.Drawing.Point(803, 12);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(272, 196);
+            this.panel1.TabIndex = 103;
             // 
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(18, 15);
+            this.label1.Location = new System.Drawing.Point(18, 53);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(218, 23);
             this.label1.TabIndex = 97;
             this.label1.Text = "Имя товара";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // rb_ByASIN
+            // 
+            this.rb_ByASIN.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rb_ByASIN.Location = new System.Drawing.Point(242, 158);
+            this.rb_ByASIN.Name = "rb_ByASIN";
+            this.rb_ByASIN.Size = new System.Drawing.Size(25, 24);
+            this.rb_ByASIN.TabIndex = 102;
+            this.rb_ByASIN.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rb_ByASIN.UseVisualStyleBackColor = true;
+            this.rb_ByASIN.CheckedChanged += new System.EventHandler(this.rb_ByASIN_CheckedChanged);
+            // 
             // cb_ProductNames
             // 
             this.cb_ProductNames.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_ProductNames.Enabled = false;
             this.cb_ProductNames.FormattingEnabled = true;
-            this.cb_ProductNames.Location = new System.Drawing.Point(18, 39);
+            this.cb_ProductNames.Location = new System.Drawing.Point(18, 77);
             this.cb_ProductNames.Name = "cb_ProductNames";
             this.cb_ProductNames.Size = new System.Drawing.Size(218, 25);
             this.cb_ProductNames.TabIndex = 96;
             this.cb_ProductNames.SelectedIndexChanged += new System.EventHandler(this.cb_Products_SelectedIndexChanged);
+            // 
+            // rb_ByProductName
+            // 
+            this.rb_ByProductName.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rb_ByProductName.Location = new System.Drawing.Point(242, 77);
+            this.rb_ByProductName.Name = "rb_ByProductName";
+            this.rb_ByProductName.Size = new System.Drawing.Size(25, 24);
+            this.rb_ByProductName.TabIndex = 101;
+            this.rb_ByProductName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rb_ByProductName.UseVisualStyleBackColor = true;
+            this.rb_ByProductName.CheckedChanged += new System.EventHandler(this.rb_ByProductName_CheckedChanged);
+            // 
+            // lb_SKUText
+            // 
+            this.lb_SKUText.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.lb_SKUText.Location = new System.Drawing.Point(18, 105);
+            this.lb_SKUText.Name = "lb_SKUText";
+            this.lb_SKUText.Size = new System.Drawing.Size(218, 23);
+            this.lb_SKUText.TabIndex = 98;
+            this.lb_SKUText.Text = "SKU: ";
+            this.lb_SKUText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.label2.Location = new System.Drawing.Point(18, 133);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(218, 23);
+            this.label2.TabIndex = 100;
+            this.label2.Text = "ASIN";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cb_ProductASINs
+            // 
+            this.cb_ProductASINs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_ProductASINs.Enabled = false;
+            this.cb_ProductASINs.FormattingEnabled = true;
+            this.cb_ProductASINs.Location = new System.Drawing.Point(18, 157);
+            this.cb_ProductASINs.Name = "cb_ProductASINs";
+            this.cb_ProductASINs.Size = new System.Drawing.Size(218, 25);
+            this.cb_ProductASINs.TabIndex = 99;
+            this.cb_ProductASINs.SelectedIndexChanged += new System.EventHandler(this.cb_ProductASINs_SelectedIndexChanged);
             // 
             // btn_Customly
             // 
@@ -294,65 +357,28 @@
             this.dataGridView1.Size = new System.Drawing.Size(1306, 422);
             this.dataGridView1.TabIndex = 1;
             // 
-            // label2
+            // rb_ByAll
             // 
-            this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(18, 113);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(218, 23);
-            this.label2.TabIndex = 100;
-            this.label2.Text = "ASIN";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rb_ByAll.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rb_ByAll.Checked = true;
+            this.rb_ByAll.Location = new System.Drawing.Point(242, 18);
+            this.rb_ByAll.Name = "rb_ByAll";
+            this.rb_ByAll.Size = new System.Drawing.Size(25, 24);
+            this.rb_ByAll.TabIndex = 103;
+            this.rb_ByAll.TabStop = true;
+            this.rb_ByAll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rb_ByAll.UseVisualStyleBackColor = true;
+            this.rb_ByAll.CheckedChanged += new System.EventHandler(this.rb_ByAll_CheckedChanged);
             // 
-            // cb_ProductASINs
+            // label4
             // 
-            this.cb_ProductASINs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_ProductASINs.Enabled = false;
-            this.cb_ProductASINs.FormattingEnabled = true;
-            this.cb_ProductASINs.Location = new System.Drawing.Point(18, 137);
-            this.cb_ProductASINs.Name = "cb_ProductASINs";
-            this.cb_ProductASINs.Size = new System.Drawing.Size(218, 25);
-            this.cb_ProductASINs.TabIndex = 99;
-            this.cb_ProductASINs.SelectedIndexChanged += new System.EventHandler(this.cb_ProductASINs_SelectedIndexChanged);
-            // 
-            // rb_ByProductName
-            // 
-            this.rb_ByProductName.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rb_ByProductName.Checked = true;
-            this.rb_ByProductName.Location = new System.Drawing.Point(242, 39);
-            this.rb_ByProductName.Name = "rb_ByProductName";
-            this.rb_ByProductName.Size = new System.Drawing.Size(25, 24);
-            this.rb_ByProductName.TabIndex = 101;
-            this.rb_ByProductName.TabStop = true;
-            this.rb_ByProductName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rb_ByProductName.UseVisualStyleBackColor = true;
-            this.rb_ByProductName.CheckedChanged += new System.EventHandler(this.rb_ByProductName_CheckedChanged);
-            // 
-            // rb_ByASIN
-            // 
-            this.rb_ByASIN.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rb_ByASIN.Location = new System.Drawing.Point(242, 138);
-            this.rb_ByASIN.Name = "rb_ByASIN";
-            this.rb_ByASIN.Size = new System.Drawing.Size(25, 24);
-            this.rb_ByASIN.TabIndex = 102;
-            this.rb_ByASIN.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rb_ByASIN.UseVisualStyleBackColor = true;
-            this.rb_ByASIN.CheckedChanged += new System.EventHandler(this.rb_ByASIN_CheckedChanged);
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.rb_ByASIN);
-            this.panel1.Controls.Add(this.cb_ProductNames);
-            this.panel1.Controls.Add(this.rb_ByProductName);
-            this.panel1.Controls.Add(this.lb_SKUText);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.cb_ProductASINs);
-            this.panel1.Enabled = false;
-            this.panel1.Location = new System.Drawing.Point(803, 12);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(272, 196);
-            this.panel1.TabIndex = 103;
+            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.label4.Location = new System.Drawing.Point(18, 18);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(218, 23);
+            this.label4.TabIndex = 104;
+            this.label4.Text = "Весь маркетплейс";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ReportSessionsView
             // 
@@ -369,8 +395,8 @@
             this.Text = "Данные сессий";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ReportSessionsView_FormClosing);
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -402,5 +428,7 @@
         private System.Windows.Forms.RadioButton rb_ByASIN;
         private System.Windows.Forms.RadioButton rb_ByProductName;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.RadioButton rb_ByAll;
+        private System.Windows.Forms.Label label4;
     }
 }

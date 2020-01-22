@@ -199,6 +199,9 @@ namespace Excel_Parse
                     DoKeywordCategoryToolStripMenuItem.Visible = false;
                     DoProductTypesToolStripMenuItem.Visible = false;
                     employeesToolStripMenuItem.Visible = false;
+                    addSectionToolStripMenuItem1.Enabled = false;
+                    updateSectionToolStripMenuItem.Enabled = false;
+                    семантическиеЯдраToolStripMenuItem.Enabled = false;
                     break;
             }
         }
@@ -390,6 +393,21 @@ namespace Excel_Parse
             ReportSessionsView repSes = new ReportSessionsView(this);
             repSes.Show();
             this.Visible = false;
+        }
+
+        private void showSectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void showGeneralSalesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void addReturnsReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
 
         /* 

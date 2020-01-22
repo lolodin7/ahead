@@ -62,7 +62,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(478, 23);
             this.label3.TabIndex = 2;
-            this.label3.Text = "2018-2019 (c)";
+            this.label3.Text = "2018-2020 (c)";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label4
