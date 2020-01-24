@@ -137,7 +137,7 @@ namespace Excel_Parse
 
         public bool RegisterNewUser(string _login, string _pass, string _name, int _token1, int _token2, int _userRoleId, string _secretQuestion, string _answer, string _mac)
         {
-            string sqlStatement = "INSERT INTO [User] ([Login], [PassHash], [Name], [Token1], [Token2], [UserRoleId], [SecretQuestion], [Answer], [MAC]) VALUES ('" + _login + "', '" + _pass + "', '" +_name + "', " + _token1 + ", " + _token2 + ", " + _userRoleId + ", '" + _secretQuestion + "', '" + _answer + "', '" + _mac + "')";
+            string sqlStatement = "INSERT INTO [User] ([Login], [PassHash], [Name], [Token1], [Token2], [UserRoleId], [SecretQuestion], [Answer], [LastMac]) VALUES ('" + _login + "', '" + _pass + "', '" +_name + "', " + _token1 + ", " + _token2 + ", " + _userRoleId + ", '" + _secretQuestion + "', '" + _answer + "', '" + _mac + "')";
             command = new SqlCommand(sqlStatement, connection);
             return Execute_INSERT_UPDATE_DELETE_Command(command);
         }

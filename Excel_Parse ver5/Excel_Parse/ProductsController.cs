@@ -93,7 +93,7 @@ namespace Excel_Parse
         public int GetActiveProductsJOIN()
         {
             //string sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0 and Products.ActiveStatus = 'true'";
-            string sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0";
+            string sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0 and Products.ActiveStatus = 1";
             command = new SqlCommand(sqlStatement, connection);
             return Execute_SELECTJOIN_Command(command);
         }

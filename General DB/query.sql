@@ -399,8 +399,9 @@ select * from [AP_CampaignIds]
 SELECT * FROM [BusinessReport] WHERE [UpdateDate] between '2020-01-16 00:00:00' and '2020-01-27 23:59:59' and ([MarketPlaceId] = 1)
 
 
+select * from [Products] where [MarketPlaceId] = 2
+delete from AdvertisingProducts where UpdateDate between '2019-12-01 00:00:00' and '2019-12-31 23:59:59' and MarketPlaceId = 2
 
-use AHEAD_stand
-INSERT INTO [User] ([Login], [PassHash], [Name], [Token1], [Token2], [UserRoleId], [SecretQuestion], [Answer], [LastMac])
-VALUES ('marinagurtovenko', 'ADAH/ZuvEVdABXe4AuzqwknkxSZzRbhdj21avq9UvFa5E2HiQwcJ2WfdI868yw9A9g==', 'Марина', 123, 321, 0, 'Номер офиса', 'AEBZF6htjJp6bJmhb7Of6vmRm2wu4vthhjEUZMivrOi6GHC+oIeiJXSlTqTTUlWgnA==', '00FFCD3F0DEB')
-update [User] set [UserRoleId] = 2 where [Login] = 'marinagurtovenko'
+update [Products] set ProdShortName = 'PDW-Ch Type-C' where sku = 'HH-4FJF-QK02' and MarketPlaceId = 2
+
+INSERT INTO [User] ([Login], [PassHash], [Name], [Token1], [Token2], [UserRoleId], [SecretQuestion], [Answer], [MAC]) VALUES ('sfsdfsdfsdf', 'AIScDxvUNPqByPeeTqrH7X8Jg/P04mGxUmymqxdF6yBR3pPImyzeZ/mN3GjMkfhvkQ==', 'sdfsfsfsfsdfs', 190822, 623740, 2, 'dsfsdfsdfsf', 'AK535wWqbXQW3boUgRnaI5ySafqEuu8bJvfw52CSFdVrP55M9fGlACaikBzcwj+hXw==', '00FFCD3F0DEB')

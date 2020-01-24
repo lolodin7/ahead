@@ -368,7 +368,7 @@ namespace Excel_Parse
         {
             for (int i = 0; i < pList.Count; i++)
             {
-                if (_name.Contains(pList[i].ProdShortName))
+                if (_name.ToLower().Contains(pList[i].ProdShortName.ToLower()))
                     return pList[i].ProductId;
             }
             return -1;
@@ -379,7 +379,7 @@ namespace Excel_Parse
         {
             for (int i = 0; i < pList.Count; i++)
             {
-                if (_abm.CampaignName.Contains(pList[i].ProdShortName) && _abm.ProductId1 != pList[i].ProductId && _abm.ProductId2 != pList[i].ProductId && _abm.ProductId3 != pList[i].ProductId)
+                if (_abm.CampaignName.ToLower().Contains(pList[i].ProdShortName.ToLower()) && _abm.ProductId1 != pList[i].ProductId && _abm.ProductId2 != pList[i].ProductId && _abm.ProductId3 != pList[i].ProductId)
                     return pList[i].ProductId;
             }
             return 1;
@@ -853,8 +853,8 @@ namespace Excel_Parse
                                         {
                                             errorsstr += "Date: " + UpdateDate.ToString() + " Campaign: " + k.CampaignName + " AdGroup " + k.AdGroupName + " Targeting " + k.Targeting + "\n";
                                         }
-                                        MessageBox.Show(errorsMsg, "Ошибка");
-                                        richTextBox1.Text = errorsstr;
+                                        //MessageBox.Show(errorsMsg, "Ошибка");
+                                        richTextBox1.Text += errorsstr + "\n";
                                     }
                                 }
                                 else

@@ -29,12 +29,16 @@ namespace Excel_Parse
 
         private MainFormView mf;
 
+        private bool firstStart;
+
         /* Конструктор */
         public ProductsView(MainFormView _mf)
         {
             InitializeComponent();
             connection = DBData.GetDBConnection();
             mf = _mf;
+
+            firstStart = true;
 
             pController = new ProductsController(this);
             ptController = new ProductTypesController(this);
@@ -59,24 +63,33 @@ namespace Excel_Parse
                 label2.Visible = false;
                 dgv_Products.Visible = true;
             }
+
+            firstStart = false;
         }
 
         /* Заполняем (перезаполняем после изменений) все поля на форме данными с БД */
         private void FillAllFields()
         {
-            if (checkbox_ActiveStatus.Checked == true)
-                pController.GetProductsAllJOIN();
+            if (!firstStart)
+                if (checkbox_ActiveStatus.Checked == true)
+                    pController.GetProductsAllJOIN();
+                else
+                    pController.GetActiveProductsJOIN();
             else
                 pController.GetActiveProductsJOIN();
+
             DrawProducts();
             DrawProductTypes();
             DrawMarketPlaces();
 
-            ptController.GetProductTypesAll();
-            Fill_CB_ByProductTypes();
+            if (mf.um.UserRoleId == 0 || mf.um.UserRoleId == 1)
+            {
+                ptController.GetProductTypesAll();
+                Fill_CB_ByProductTypes();
 
-            mpController.GetMarketplaces();
-            Fill_CB_ByMarketplaces();
+                mpController.GetMarketplaces();
+                Fill_CB_ByMarketplaces();
+            }
         }
 
         /* Перерисовываем таблицу новыми данными Products */
@@ -481,8 +494,9 @@ namespace Excel_Parse
                     }
                 }
 
-                if (tmp.Count == 0)
-                    RefreshFieldsAfterEditing();
+                if (mf.um.UserRoleId == 0 || mf.um.UserRoleId == 1)
+                    if (tmp.Count == 0)
+                        RefreshFieldsAfterEditing();
             }
             else
             {
