@@ -73,9 +73,20 @@ GO
 IF NOT OBJECT_ID('Orders') IS NULL DROP TABLE [Orders]
 GO
 
+IF NOT OBJECT_ID('Telegram_Bot_Users') IS NULL DROP TABLE [Telegram_Bot_Users]
+GO
+
+
 /*
     "БД компании AHEAD"
 */
+CREATE TABLE [Telegram_Bot_Users](
+	[UserId]		BIGINT,
+	[Name]			VARCHAR(50)
+	CONSTRAINT PK_Telegram_Bot_Users PRIMARY KEY ([UserId])
+)
+
+
 
 CREATE TABLE [Marketplace](
 	[MarketPlaceId]		INT IDENTITY(0,1),
@@ -307,13 +318,13 @@ CREATE TABLE [BusinessReport](
 	[PageViews]					INT,
 	[PageViewsPercentage]		FLOAT,
 	[UnitsOrdered]				INT,
-	[UnitsOrdered-B2B]			INT,
+	[UnitsOrderedB2B]			INT,
 	[UnitSessionPercentage]		FLOAT,
-	[UnitSessionPercentage-B2B]	FLOAT,
+	[UnitSessionPercentageB2B]	FLOAT,
 	[OrderedProductSales]		FLOAT,
-	[OrderedProductSales-B2B]	FLOAT,
+	[OrderedProductSalesB2B]	FLOAT,
 	[TotalOrderItems]			INT,
-	[TotalOrderItems-B2B]		INT,
+	[TotalOrderItemsB2B]		INT,
 	[ProductId]					INT,
 	CONSTRAINT FK_BusinessReport_SKU_MP FOREIGN KEY ([ProductId]) REFERENCES [Products] ([ProductId])
 )

@@ -405,3 +405,27 @@ delete from AdvertisingProducts where UpdateDate between '2019-12-01 00:00:00' a
 update [Products] set ProdShortName = 'PDW-Ch Type-C' where sku = 'HH-4FJF-QK02' and MarketPlaceId = 2
 
 INSERT INTO [User] ([Login], [PassHash], [Name], [Token1], [Token2], [UserRoleId], [SecretQuestion], [Answer], [MAC]) VALUES ('sfsdfsdfsdf', 'AIScDxvUNPqByPeeTqrH7X8Jg/P04mGxUmymqxdF6yBR3pPImyzeZ/mN3GjMkfhvkQ==', 'sdfsfsfsfsdfs', 190822, 623740, 2, 'dsfsdfsdfsf', 'AK535wWqbXQW3boUgRnaI5ySafqEuu8bJvfw52CSFdVrP55M9fGlACaikBzcwj+hXw==', '00FFCD3F0DEB')
+
+select * from BusinessReport where UpdateDate between '2020-01-25 00:00:00' and '2020-01-25 23:59:59' and MarketPlaceId = 1 and SKU = 'IG-5UO9-SCW1'
+select * from BusinessReport where UpdateDate between '2020-01-25 12:00:00' and '2020-01-25 11:59:59' and MarketPlaceId = 1 and SKU = 'IG-5UO9-SCW1'
+
+
+select * from BusinessReport where UpdateDate between '2020-01-26 00:00:00' and '2020-01-26 23:59:59' and MarketPlaceId = 1 and (SKU = 'IG-5UO9-SCW1' or SKU = 'LR-44G2-7Y1Y' or SKU = 'E3-2RHF-EO7C' or SKU = 'QU-V2H6-3KVF')
+
+
+select * from Products where [ASIN] = 'B01AG56HYQ' and MarketPlaceId = 1
+
+insert into [BusinessReport] ([UpdateDate], MarketPlaceId, SKU, [Sessions], [UnitsOrdered], [OrderedProductSales], TotalOrderItems, ProductId)
+values('2020-01-26 10:58:59', 1, 'IG-5UO9-SCW1', 999, 999, 999, 888, 23)
+
+insert into [BusinessReport] ([UpdateDate], MarketPlaceId, SKU, [Sessions], [UnitsOrdered], [OrderedProductSales], TotalOrderItems, ProductId)
+values('2020-01-26 10:59:59', 1, 'E3-2RHF-EO7C', 555, 555, 555, 555, 25)
+delete from BusinessReport where [Sessions] = 555
+update BusinessReport set [SessionPercentage] = 1, [PageViews] = 1, [PageViewsPercentage] = 1, [UnitSessionPercentageB2B] = 0, [UnitsOrderedB2B] = 0, [UnitSessionPercentage] = 1, [OrderedProductSalesB2B] = 0, [TotalOrderItemsB2B] = 0 where UpdateDate = '2020-01-25 10:58:59' and [Sessions] = 999
+select * from BusinessReport where UpdateDate between '2020-01-26 00:00:00' and '2020-01-26 23:59:59' and MarketPlaceId = 1 and (SKU = 'IG-5UO9-SCW1' or SKU = 'LR-44G2-7Y1Y' or SKU = 'E3-2RHF-EO7C' or SKU = 'QU-V2H6-3KVF')
+select * from BusinessReport where UpdateDate between '2020-01-25 00:00:00' and '2020-01-25 23:59:59' and MarketPlaceId = 1 and (SKU = 'IG-5UO9-SCW1' or SKU = 'LR-44G2-7Y1Y' or SKU = 'E3-2RHF-EO7C' or SKU = 'QU-V2H6-3KVF')
+
+
+select * from BusinessReport where UpdateDate between '2020-01-21 00:00:00' and '2020-01-27 23:59:59' and MarketPlaceId = 1 and SKU = 'IG-5UO9-SCW1'
+
+select * from AdvertisingProducts

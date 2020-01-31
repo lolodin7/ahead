@@ -2,7 +2,14 @@
 
 --use ahead_stand
 
-/*         -- [MarketPlaceName] --             */
+/*         -- [Telegram_Bot_Users] --             */
+INSERT INTO [Telegram_Bot_Users] ([UserId], [Name])
+VALUES (362340016, 'dima seo')
+
+
+
+
+/*         -- [MarketPlace] --             */
 INSERT INTO [Marketplace] ([MarketPlaceName])
 VALUES ('Без маркетплейса')
 
@@ -220,11 +227,11 @@ VALUES ('PDW (tech.)', 'B07FCJCDDM', 'pdwmcslvr2', 1, 1, 0, 'PDW1 (tech)')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
 VALUES ('Magnetic Knife Holder Acacia', 'B07FCNH5SL', 'adhhldacca', 8, 1, 0, 'Knife Holder Acacia')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
-VALUES ('Video Mic with Lightning Adapter', 'B07FDYXBQZ', 'BS-2QKM-S6HA', 1, 1, 1, 'Video Mic Adapter')
+VALUES ('Video Microphone with Lightning Adapter', 'B07FDYXBQZ', 'BS-2QKM-S6HA', 1, 1, 1, 'Video Mic Adapter')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
-VALUES ('Video Mic with Lightning Adapter (fake)', 'B07FDYXBQZ', 'ymcchld4', 1, 1, 1, 'Video Mic Adapter')
+VALUES ('Video Microphone with Lightning Adapter (fake)', 'B07FDYXBQZ', 'ymcchld4', 1, 1, 1, 'Video Mic Adapter')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
-VALUES ('Video Mic with Lightning Adapter (fake)', 'B07FDYXBQZ', 'Z6-F3KH-F1LD', 1, 1, 0, 'Video Mic Adapter')
+VALUES ('Video Microphone with Lightning Adapter (fake)', 'B07FDYXBQZ', 'Z6-F3KH-F1LD', 1, 1, 0, 'Video Mic Adapter')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
 VALUES ('YouMic Lav Mic (old)', 'B07FF1XHHT', 'ymcchld5', 1, 1, 1, 'YM1-Ch Lav Mic')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])

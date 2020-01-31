@@ -153,13 +153,13 @@ namespace Excel_Parse
             dataGridView1.Columns.Add("PageViews", "Page Views");
             dataGridView1.Columns.Add("PageViewsPercentage", "Page Views %");
             dataGridView1.Columns.Add("UnitsOrdered", "Units Ordered");
-            dataGridView1.Columns.Add("UnitsOrdered-B2B", "Units Ordered - B2B");
+            dataGridView1.Columns.Add("UnitsOrderedB2B", "Units Ordered - B2B");
             dataGridView1.Columns.Add("UnitSessionPercentage", "Unit Session %");
-            dataGridView1.Columns.Add("UnitSessionPercentage-B2B", "Unit Session % - B2B");
+            dataGridView1.Columns.Add("UnitSessionPercentageB2B", "Unit Session % - B2B");
             dataGridView1.Columns.Add("OrderedProductSales", "Ordered Product Sales");
-            dataGridView1.Columns.Add("OrderedProductSales-B2B", "Ordered Product Sales - B2B");
+            dataGridView1.Columns.Add("OrderedProductSalesB2B", "Ordered Product Sales - B2B");
             dataGridView1.Columns.Add("TotalOrderItems", "Total Order Items");
-            dataGridView1.Columns.Add("TotalOrderItems-B2B", "Total Order Items - B2B");
+            dataGridView1.Columns.Add("TotalOrderItemsB2B", "Total Order Items - B2B");
             dataGridView1.Columns.Add("ProductId", "ProductId");
 
             dataGridView1.Columns[0].Width = 70;
