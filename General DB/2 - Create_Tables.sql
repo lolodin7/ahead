@@ -76,6 +76,8 @@ GO
 IF NOT OBJECT_ID('Telegram_Bot_Users') IS NULL DROP TABLE [Telegram_Bot_Users]
 GO
 
+IF NOT OBJECT_ID('Stock') IS NULL DROP TABLE [Stock]
+GO
 
 /*
     "БД компании AHEAD"
@@ -85,7 +87,7 @@ CREATE TABLE [Telegram_Bot_Users](
 	[Name]			VARCHAR(50)
 	CONSTRAINT PK_Telegram_Bot_Users PRIMARY KEY ([UserId])
 )
-
+GO
 
 
 CREATE TABLE [Marketplace](
@@ -151,6 +153,15 @@ CREATE TABLE [Products](
 	CONSTRAINT UQ_Products_SKU UNIQUE ([SKU], [MarketPlaceId]),
 	CONSTRAINT FK_Products_ProductTypes FOREIGN KEY ([ProductTypeId]) REFERENCES ProductTypes ([ProductTypeId]),
 	CONSTRAINT FK_Products_Marketplace FOREIGN KEY ([MarketPlaceId]) REFERENCES Marketplace ([MarketPlaceId])
+)
+GO
+
+--IF NOT OBJECT_ID('Stock') IS NULL DROP TABLE [Stock]
+CREATE TABLE [Stock](
+	[UpdateDate]	DateTime,
+	[ProductId]		INT,
+	[Stock]			BIGINT,
+	CONSTRAINT FK_Stock_ProductId FOREIGN KEY ([ProductId]) REFERENCES Products ([ProductId])
 )
 GO
 
