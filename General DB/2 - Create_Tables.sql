@@ -4,6 +4,12 @@ USE AHEAD
 
 --тут обратный порядок от порядка создания
 
+IF NOT OBJECT_ID('Telegram_Bot_Users') IS NULL DROP TABLE [Telegram_Bot_Users]
+GO
+
+IF NOT OBJECT_ID('Stock') IS NULL DROP TABLE [Stock]
+GO
+
 IF NOT OBJECT_ID('ReturnsReport') IS NULL DROP TABLE [ReturnsReport]
 GO
 
@@ -71,12 +77,6 @@ IF NOT OBJECT_ID('CampaignType') IS NULL DROP TABLE [CampaignType]
 GO
 
 IF NOT OBJECT_ID('Orders') IS NULL DROP TABLE [Orders]
-GO
-
-IF NOT OBJECT_ID('Telegram_Bot_Users') IS NULL DROP TABLE [Telegram_Bot_Users]
-GO
-
-IF NOT OBJECT_ID('Stock') IS NULL DROP TABLE [Stock]
 GO
 
 /*

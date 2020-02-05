@@ -426,9 +426,9 @@ select * from BusinessReport where UpdateDate between '2020-01-26 00:00:00' and 
 select * from BusinessReport where UpdateDate between '2020-01-25 00:00:00' and '2020-01-25 23:59:59' and MarketPlaceId = 1 and (SKU = 'IG-5UO9-SCW1' or SKU = 'LR-44G2-7Y1Y' or SKU = 'E3-2RHF-EO7C' or SKU = 'QU-V2H6-3KVF')
 
 
-select * from BusinessReport where UpdateDate between '2020-01-21 00:00:00' and '2020-01-27 23:59:59' and MarketPlaceId = 1 and SKU = 'IG-5UO9-SCW1'
+select * from BusinessReport where UpdateDate between '2019-12-01' and '2019-12-31' and MarketPlaceId = 1 and SKU = 'IG-5UO9-SCW1'
 
-select * from AdvertisingProducts
+select * from AdvertisingProducts where UpdateDate between '2019-12-01' and '2019-12-31' and MarketPlaceId = 4
 
 select * from Stock
 
@@ -572,20 +572,62 @@ VALUES (CURRENT_TIMESTAMP, 95, 1000)
 insert into stock (UpdateDate, ProductId, Stock)
 VALUES (CURRENT_TIMESTAMP, 96, 1000)
 
+
 insert into stock (UpdateDate, ProductId, Stock)
-VALUES ('01.01.2020', 90, 1000)
+VALUES ('02.05.2020 10:00:00', 23, 1503)
 insert into stock (UpdateDate, ProductId, Stock)
-VALUES ('01.01.2020', 91, 1000)
+VALUES ('02.05.2020 10:00:00', 25, 1502)
 insert into stock (UpdateDate, ProductId, Stock)
-VALUES ('01.01.2020', 92, 1000)
+VALUES ('02.05.2020 10:00:00', 45, 101)
+
 insert into stock (UpdateDate, ProductId, Stock)
-VALUES ('01.01.2020', 93, 1000)
+VALUES ('02.05.2020 10:00:00', 70, 101)
 insert into stock (UpdateDate, ProductId, Stock)
-VALUES ('01.01.2020', 94, 1000)
+VALUES ('02.05.2020 10:00:00', 89, 101)
 insert into stock (UpdateDate, ProductId, Stock)
-VALUES ('01.01.2020', 95, 1000)
+VALUES ('02.05.2020 10:00:00', 105, 101)
+
 insert into stock (UpdateDate, ProductId, Stock)
-VALUES ('01.01.2020', 96, 1000)
+VALUES ('02.06.2020 10:00:00', 70, 101)
+insert into stock (UpdateDate, ProductId, Stock)
+VALUES ('02.06.2020 10:00:00', 89, 101)
+insert into stock (UpdateDate, ProductId, Stock)
+VALUES ('02.06.2020 10:00:00', 105, 101)
+
+insert into stock (UpdateDate, ProductId, Stock)
+VALUES ('02.07.2020 10:00:00', 70, 101)
+insert into stock (UpdateDate, ProductId, Stock)
+VALUES ('02.07.2020 10:00:00', 89, 101)
+insert into stock (UpdateDate, ProductId, Stock)
+VALUES ('02.07.2020 10:00:00', 105, 101)
+
+insert into stock (UpdateDate, ProductId, Stock)
+VALUES ('02.08.2020 10:00:00', 70, 101)
+insert into stock (UpdateDate, ProductId, Stock)
+VALUES ('02.08.2020 10:00:00', 89, 101)
+insert into stock (UpdateDate, ProductId, Stock)
+VALUES ('02.08.2020 10:00:00', 105, 101)
+
+insert into stock (UpdateDate, ProductId, Stock)
+VALUES ('02.09.2020 10:00:00', 70, 101)
+insert into stock (UpdateDate, ProductId, Stock)
+VALUES ('02.09.2020 10:00:00', 89, 101)
+insert into stock (UpdateDate, ProductId, Stock)
+VALUES ('02.09.2020 10:00:00', 105, 101)
+
+insert into stock (UpdateDate, ProductId, Stock)
+VALUES ('02.10.2020 10:00:00', 70, 101)
+insert into stock (UpdateDate, ProductId, Stock)
+VALUES ('02.10.2020 10:00:00', 89, 101)
+insert into stock (UpdateDate, ProductId, Stock)
+VALUES ('02.10.2020 10:00:00', 105, 101)
+
+insert into stock (UpdateDate, ProductId, Stock)
+VALUES ('02.11.2020 10:00:00', 70, 101)
+insert into stock (UpdateDate, ProductId, Stock)
+VALUES ('02.11.2020 10:00:00', 89, 101)
+insert into stock (UpdateDate, ProductId, Stock)
+VALUES ('02.11.2020 10:00:00', 105, 101)
 
 
 select * from stock left join products on stock.productid = products.ProductId left join Marketplace on Products.MarketPlaceId = Marketplace.MarketPlaceId
@@ -593,3 +635,32 @@ select * from stock left join products on stock.productid = products.ProductId l
 select * from stock left join products on stock.productid = products.ProductId where stock.updatedate between '2020-01-01' and '2020-02-03' and Products.MarketPlaceId = 1
 
 select * from products where MarketPlaceId = 5
+
+
+
+select * from Telegram_Bot_Users
+delete from Telegram_Bot_Users where UserId = 314564564
+
+delete from BusinessReport where [UpdateDate] between '2018-03-01' and '2018-03-31'
+
+select * from BusinessReport where [UpdateDate] between '2018-03-01' and '2018-03-31'
+
+select SUM([OrderedProductSales]) from BusinessReport where [UpdateDate] between '2019-01-01' and '2019-12-31' and MarketPlaceId = 4
+select SUM([OrderedProductSalesB2B]) from BusinessReport where [UpdateDate] between '2019-01-01' and '2019-12-31' and MarketPlaceId = 4
+
+
+
+select * from currency
+select * from Currency where UpdateDate between '2020-01-22 00:00:00' and '2020-02-04 23:59:59'
+select * from Currency where UpdateDate between '2019-12-07 00:00:00' and '2020-02-04 23:59:59'
+
+
+select * from BusinessReport where UpdateDate between '2019-12-01' and '2019-12-31' and MarketPlaceId = 5
+
+select * from stock left join products on stock.productid = products.ProductId where stock.UpdateDate between '2020-02-05 00:00:00' and '2020-02-05 23:59:59' and products.MarketPlaceId = 1
+
+select * from products where [ASIN] = 'B07G2C8D7H'
+
+select * from stock left join products on stock.productid = products.ProductId where stock.UpdateDate between '2020-02-05 00:00:00' and '2020-02-05 23:59:59' and products.MarketPlaceId = 4
+
+

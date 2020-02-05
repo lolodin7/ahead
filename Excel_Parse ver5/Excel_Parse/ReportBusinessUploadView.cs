@@ -460,60 +460,89 @@ namespace Excel_Parse
                             this.Enabled = false;
                             this.Cursor = Cursors.WaitCursor;
 
-                            //foreach (var t in FileNames)
+                            string error_skus = "";
                             for (int i = 0; i < FileNames.Count; i++)
                             {
+                                int marketplaceid = GetMarketPlaceIdByName_Many(cb_MarketPlace2.SelectedItem.ToString());
+                                int productId;
                                 LoadManyFilesStepByStep(FileNames[i]);
-
                                 if (businessList.Count > 0)
                                 {
-                                    PrepareReportForSaving_Many();
-
-                                    if (UploadMode)                 //если добавляем отчеты
+                                    productId = -2;
+                                    for (int j = 0; j < businessList.Count; j++)
                                     {
-                                        if (businessController.InsertBusinessReport(businessList) == 0)
-                                            errors = true;
-                                        else
-                                            updatedRowsCount += businessList.Count;
-                                    }
-                                    else if (UpdateMode)            //если обновляем отчеты
-                                    {
-                                        if (businessController.UpdateBusinessReport(businessList) == 0)
-                                            errors = true;
-                                        else
-                                            updatedRowsCount += businessList.Count;
-                                    }
-
-                                    if (businessListOfErrors.Count > 0)
-                                    {
-                                        string errorsMsg = "Данные по следующим товарам не были добавлены. Вороятно, этот товар не занесен в программу.\n";
-                                        string errorsstr = "";
-                                        foreach (var k in businessListOfErrors)
-                                        {
-                                            errorsstr += "Данные товара SKU: " + k.SKU + " Название товара: " + GetProductNameById(k.ProductId) + "\nне были добавлены. Вороятно, этот товар не занесен в программу";
-                                        }
-                                        //MessageBox.Show(errorsMsg, "Ошибка");
-                                        richTextBox1.Text = errorsstr;
+                                        productId = GetProductIdBySKU(businessList[j].SKU, marketplaceid);
+                                        if (productId == -1)
+                                            if (!error_skus.Contains(businessList[j].SKU))
+                                                error_skus += businessList[j].SKU + "\n";
                                     }
                                 }
-                                else
-                                {
-                                    //MessageBox.Show("Файл отчета \"" + FileNames[i] + "\" не был загружен. Нет данных для сохранения.", "Ошибка");
-                                    badFileNames.Add(FileNames[i]);
-                                    errors = true;
-                                }
-                                UpdateDate = UpdateDate.AddDays(1);
                             }
-
-                            if (!errors)
-                                MessageBox.Show("Сохранение успешно. Всего сохранено строк - " + updatedRowsCount, "Успех");
+                            if (error_skus.Length > 0)
+                            {
+                                MessageBox.Show("Товаров ниже нет в системе. Для продолжения сначала добавьте эти товары.\n" + error_skus, "Ошибка");
+                                richTextBox1.Text = error_skus;
+                                richTextBox1.Enabled = true;
+                            }
                             else
                             {
-                                MessageBox.Show("Сохранение прошло с ошибками.", "Сомнительный успех");
-                                richTextBox1.Text += "Ниже представлены названия файлов, которые не получилось загрузить. Данные из них не были загружены на сервер.\n";
-                                foreach(var t in badFileNames)
+                                //foreach (var t in FileNames)
+                                for (int i = 0; i < FileNames.Count; i++)
                                 {
-                                    richTextBox1.Text += t + "\n";
+                                    LoadManyFilesStepByStep(FileNames[i]);
+
+                                    if (businessList.Count > 0)
+                                    {
+                                        PrepareReportForSaving_Many();
+
+                                        if (UploadMode)                 //если добавляем отчеты
+                                        {
+                                            if (businessController.InsertBusinessReport(businessList) == 0)
+                                                //businessController.InsertBusinessReport(businessList);
+                                                errors = true;
+                                            else
+                                                updatedRowsCount += businessList.Count;
+                                        }
+                                        else if (UpdateMode)            //если обновляем отчеты
+                                        {
+                                            if (businessController.UpdateBusinessReport(businessList) == 0)
+                                                //businessController.UpdateBusinessReport(businessList);
+                                                errors = true;
+                                            else
+                                                updatedRowsCount += businessList.Count;
+                                        }
+
+                                        if (businessListOfErrors.Count > 0)
+                                        {
+                                            string errorsMsg = "Данные по следующим товарам не были добавлены. Вороятно, этот товар не занесен в программу.\n";
+                                            string errorsstr = "";
+                                            foreach (var k in businessListOfErrors)
+                                            {
+                                                errorsstr += "Данные товара SKU: " + k.SKU + " Название товара: " + GetProductNameById(k.ProductId) + "\nне были добавлены. Вороятно, этот товар не занесен в программу";
+                                            }
+                                            MessageBox.Show(errorsMsg, "Ошибка");
+                                            richTextBox1.Text = errorsstr;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Файл отчета \"" + FileNames[i] + "\" не был загружен. Нет данных для сохранения.", "Ошибка");
+                                        badFileNames.Add(FileNames[i]);
+                                        errors = true;
+                                    }
+                                    UpdateDate = UpdateDate.AddDays(1);
+                                }
+
+                                if (!errors)
+                                    MessageBox.Show("Сохранение успешно. Всего сохранено строк - " + updatedRowsCount, "Успех");
+                                else
+                                {
+                                    MessageBox.Show("Сохранение прошло с ошибками.", "Сомнительный успех");
+                                    richTextBox1.Text += "Ниже представлены названия файлов, которые не получилось загрузить. Данные из них не были загружены на сервер.\n";
+                                    foreach (var t in badFileNames)
+                                    {
+                                        richTextBox1.Text += t + "\n";
+                                    }
                                 }
                             }
 

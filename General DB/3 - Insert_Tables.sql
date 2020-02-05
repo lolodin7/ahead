@@ -4,8 +4,9 @@
 
 /*         -- [Telegram_Bot_Users] --             */
 INSERT INTO [Telegram_Bot_Users] ([UserId], [Name])
-VALUES (362340016, 'dima seo')
-
+VALUES (362340016, 'Dima seo')
+INSERT INTO [Telegram_Bot_Users] ([UserId], [Name])
+VALUES (368357461, 'Marina')
 
 
 
@@ -71,6 +72,9 @@ VALUES ('Точилки')
 INSERT INTO [ProductTypes] ([TypeName])
 VALUES ('Держатели ножей')
 
+INSERT INTO [ProductTypes] ([TypeName])
+VALUES ('Ножи')
+
 /*         -- [KeywordCategory] --             */
 
 INSERT INTO [KeywordCategory] ([CategoryName], [ProductTypeId])
@@ -98,16 +102,16 @@ VALUES ('Sponsored Brands')
 
 /*         -- [Currency] --             */
 INSERT INTO [Currency] ([UpdateDate], [NumCode], [CharCode], [Nominal], [Name], [Value])
-VALUES ('10.09.2019', 124, 'CAD', 1, 'Канадский доллар', 1.3197)
+VALUES ('02.05.2020', 124, 'CAD', 1, 'Канадский доллар', 1.33)
 
 INSERT INTO [Currency] ([UpdateDate], [NumCode], [CharCode], [Nominal], [Name], [Value])
-VALUES ('10.09.2019', 036, 'AUD', 1, 'Австралийский доллар', 1.4559)
+VALUES ('02.05.2020', 036, 'AUD', 1, 'Австралийский доллар', 1.4559)
 
 INSERT INTO [Currency] ([UpdateDate], [NumCode], [CharCode], [Nominal], [Name], [Value])
-VALUES ('10.09.2019', 484, 'MXN', 1, 'Мексиканский песо', 19.4413)
+VALUES ('02.05.2020', 484, 'MXN', 1, 'Мексиканский песо', 18.71)
 
 INSERT INTO [Currency] ([UpdateDate], [NumCode], [CharCode], [Nominal], [Name], [Value])
-VALUES ('10.09.2019', 840, 'USD', 1, 'Доллар США', 1)
+VALUES ('02.05.2020', 840, 'USD', 1, 'Доллар США', 1)
 
 
 /*         -- [ReturnReason] --             */
@@ -307,7 +311,9 @@ VALUES ('TRRS-TRS Mic adapter', 'B07KB11Y5B', 'OD-HA9N-UXNF', 3, 1, 1, 'Adapter 
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
 VALUES ('YouMic Android Mic', 'B07M9PBN5X', 'ymcchld2', 1, 1, 1, 'YM-Ch Android')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
-VALUES ('Video Mic', 'B07RG4J7WY', '2V-8VSV-C0AE', 1, 1, 0, 'Video Microphone')
+VALUES ('Video Mic', 'B07RG4J7WY', 'YW-WUH0-BXZW', 1, 1, 1, 'Video Microphone')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Video Mic (fake)', 'B07RG4J7WY', '2V-8VSV-C0AE', 1, 1, 0, 'Video Microphone')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
 VALUES ('Video Mic (fake)', 'B07RG4J7WY', '9S-4JMY-MS8X', 1, 1, 1, 'Video Microphone')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
@@ -324,8 +330,36 @@ INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId],
 VALUES ('PDW Mic with Lightning Adapter', 'B07Y1XBKC7', 'NT-HV0T-VR4C', 1, 1, 1, 'PDW-Ch Lightning Adapter')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
 VALUES ('PDW Main Mic', 'B01AG56HYQ', 'QU-V2H6-3KVF', 1, 1, 0, 'PDW1')
-
-
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PowerDeWise Parent (Lightning)', 'B07GVMB7V3', 'NE-M9GA-VAR0', 1, 1, 0, 'Trash')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Knife set (Walnut)', 'B07FLYJTLB', 'adhknfstwlnt', 9, 1, 0, 'Trash')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('TEST Lav Mic PDW', 'B07D75NK1M', 'N2-7X7R-GO3P', 1, 1, 0, 'Trash')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Knife set (Acacia)', 'B07DWWMW8H', 'adhknfstlt', 9, 1, 0, 'Trash')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Empty', 'B07CVL3Z81', 'BM-DBA9-LO4L', 1, 1, 0, 'Trash')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Empty', 'B01MDV1TO4', '32-FM61-Q39H', 1, 1, 0, 'Trash')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Cork Yoga block', 'B072VJFQ6X', 'DW-L589-8Q78', 1, 1, 0, 'Trash')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Headphone Adapter 3.5mm', 'B077GX8RV3', 'R6-7GCS-ARC3', 3, 1, 0, 'Trash')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Empty', 'B01MR8635I', 'IE-Y8IQ-ZAXW', 1, 1, 0, 'Trash')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Magnetic Knife Holder Walnut', 'B07DW5X3LY', 'EB-6ZCI-VHDS', 8, 1, 0, 'Knife Holder Walnut')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Empty', 'B079JYP8R2', 'CR-88U3-PFTL', 1, 1, 0, 'Trash')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Knife set (Walnut)', 'B07FLYJTLB', 'P6-17F3-PN6B', 9, 1, 0, 'Trash')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Empty', 'B075712B8L', 'F1-DHWE-DPSL', 1, 1, 0, 'Trash')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Empty', 'B01CLQGBI0', 'ArtDeHomeDarkWalnut12', 1, 1, 0, 'Trash')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Empty', 'B0756WZTFR', 'WF-0PPY-KRDD', 1, 1, 0, 'Trash')
 
 
 /*      ----     PDW - CA     ----        */
@@ -403,6 +437,8 @@ INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId],
 VALUES ('PDW Main Mic', 'B01AG56HYQ', 'E3-2RHF-EO7C', 1, 4, 1, 'PDW1')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
 VALUES ('PDW Dual Mic', 'B07CHCSLVC', 'HR-9KQ2-IPD9', 1, 4, 1, 'PDW-Ch Dual')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW Wind Muff', 'B01LL5U0NO', 'DL-LJ4D-RKZH', 5, 4, 1, 'PDW Wind Muff')
 
 
 
@@ -425,6 +461,8 @@ VALUES ('Beer Chiller - Child', 'B07HJBVKCW', '8F-L6ZK-1C4V', 6, 5, 0, 'Beer Chi
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
 VALUES ('Beer Chiller - Child', 'B07KGCX718', 'MO-IZZJ-C4R9', 6, 5, 0, 'Beer Chiller - Child')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Beer Chiller - Child', 'B07FYMFJ66', 'AB-H4V8-9Y4L', 6, 5, 0, 'Beer Chiller - Child')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
 VALUES ('Retractable Cable', 'B07N8TNV19', 'FV-6NAJ-A3RR', 2, 5, 1, 'Retractable Cable')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
 VALUES ('Metal Bottle Opener', 'B07FDTG3RT', '3L-NQRO-HJSR', 6, 5, 0, 'Metal Bottle Opener')
@@ -440,6 +478,18 @@ INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId],
 VALUES ('YW1 Mic', 'B01C2NDT0K', '54-DS59-U9N0', 1, 5, 1, 'YW1')
 INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
 VALUES ('Beer Chiller', 'B01AI03U4Y', 'BC-GHGX-5M0O', 6, 5, 1, 'Beer Chiller')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('PDW Dual Mic', 'B07CHCSLVC', '6D-EU7F-YIW0', 1, 5, 0, 'PDW-Ch Dual')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Empty', 'B0771NGB9R', '7Z-OBHC-J1CJ', 1, 5, 0, 'Trash')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('Empty', 'B07519NGKN', '0O-Y1S8-VMOO', 1, 5, 0, 'Trash')
+INSERT INTO [Products] ([Name], [ASIN], [SKU], [ProductTypeId], [MarketPlaceId], [ActiveStatus], [ProdShortName])
+VALUES ('YW2 Mic', 'B06ZZ6NPRP', 'MV-Q3XJ-F262', 1, 5, 1, 'YW2')
+
+
+
+
 
 
 
