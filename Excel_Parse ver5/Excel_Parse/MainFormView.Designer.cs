@@ -58,10 +58,13 @@
             this.addAdvReportReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addBusinessReportReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addReturnsReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allOrdersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.updateSectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.updateAdvertisingReportToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.updateBusinessReportToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.updateReturnsReportToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.allOrdersToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.everyDayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сотрудникToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ShowPersonalInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registerNewEmployeeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,6 +74,8 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.create7daysAdvRepToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.daysAdvReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -227,7 +232,9 @@
             this.рекламаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showSectionToolStripMenuItem,
             this.addSectionToolStripMenuItem1,
-            this.updateSectionToolStripMenuItem});
+            this.updateSectionToolStripMenuItem,
+            this.everyDayToolStripMenuItem,
+            this.create7daysAdvRepToolStripMenuItem});
             this.рекламаToolStripMenuItem.Name = "рекламаToolStripMenuItem";
             this.рекламаToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
             this.рекламаToolStripMenuItem.Text = "Отчетность";
@@ -286,7 +293,8 @@
             this.addSectionToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addAdvReportReportToolStripMenuItem,
             this.addBusinessReportReportToolStripMenuItem,
-            this.addReturnsReportToolStripMenuItem});
+            this.addReturnsReportToolStripMenuItem,
+            this.allOrdersToolStripMenuItem});
             this.addSectionToolStripMenuItem1.Name = "addSectionToolStripMenuItem1";
             this.addSectionToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.addSectionToolStripMenuItem1.Text = "Добавить";
@@ -313,12 +321,20 @@
             this.addReturnsReportToolStripMenuItem.Text = "Returns report";
             this.addReturnsReportToolStripMenuItem.Click += new System.EventHandler(this.addReturnsReportToolStripMenuItem_Click);
             // 
+            // allOrdersToolStripMenuItem
+            // 
+            this.allOrdersToolStripMenuItem.Name = "allOrdersToolStripMenuItem";
+            this.allOrdersToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.allOrdersToolStripMenuItem.Text = "All orders";
+            this.allOrdersToolStripMenuItem.Click += new System.EventHandler(this.allOrdersToolStripMenuItem_Click);
+            // 
             // updateSectionToolStripMenuItem
             // 
             this.updateSectionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.updateAdvertisingReportToolStripMenuItem1,
             this.updateBusinessReportToolStripMenuItem1,
-            this.updateReturnsReportToolStripMenuItem1});
+            this.updateReturnsReportToolStripMenuItem1,
+            this.allOrdersToolStripMenuItem1});
             this.updateSectionToolStripMenuItem.Name = "updateSectionToolStripMenuItem";
             this.updateSectionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.updateSectionToolStripMenuItem.Text = "Обновить";
@@ -343,6 +359,19 @@
             this.updateReturnsReportToolStripMenuItem1.Name = "updateReturnsReportToolStripMenuItem1";
             this.updateReturnsReportToolStripMenuItem1.Size = new System.Drawing.Size(177, 22);
             this.updateReturnsReportToolStripMenuItem1.Text = "Returns report";
+            // 
+            // allOrdersToolStripMenuItem1
+            // 
+            this.allOrdersToolStripMenuItem1.Name = "allOrdersToolStripMenuItem1";
+            this.allOrdersToolStripMenuItem1.Size = new System.Drawing.Size(177, 22);
+            this.allOrdersToolStripMenuItem1.Text = "All orders";
+            // 
+            // everyDayToolStripMenuItem
+            // 
+            this.everyDayToolStripMenuItem.Name = "everyDayToolStripMenuItem";
+            this.everyDayToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.everyDayToolStripMenuItem.Text = "EveryDay";
+            this.everyDayToolStripMenuItem.Click += new System.EventHandler(this.everyDayToolStripMenuItem_Click);
             // 
             // сотрудникToolStripMenuItem
             // 
@@ -415,6 +444,21 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
+            // create7daysAdvRepToolStripMenuItem
+            // 
+            this.create7daysAdvRepToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.daysAdvReportToolStripMenuItem});
+            this.create7daysAdvRepToolStripMenuItem.Name = "create7daysAdvRepToolStripMenuItem";
+            this.create7daysAdvRepToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.create7daysAdvRepToolStripMenuItem.Text = "Generate";
+            // 
+            // daysAdvReportToolStripMenuItem
+            // 
+            this.daysAdvReportToolStripMenuItem.Name = "daysAdvReportToolStripMenuItem";
+            this.daysAdvReportToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.daysAdvReportToolStripMenuItem.Text = "7 days adv. report";
+            this.daysAdvReportToolStripMenuItem.Click += new System.EventHandler(this.daysAdvReportToolStripMenuItem_Click);
+            // 
             // MainFormView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -482,5 +526,10 @@
         private System.Windows.Forms.ToolStripMenuItem addReturnsReportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem updateReturnsReportToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem showSessionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem allOrdersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem allOrdersToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem everyDayToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem create7daysAdvRepToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem daysAdvReportToolStripMenuItem;
     }
 }

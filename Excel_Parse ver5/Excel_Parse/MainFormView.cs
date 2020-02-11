@@ -410,6 +410,30 @@ namespace Excel_Parse
 
         }
 
+        private void allOrdersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AllOrdersView allov = new AllOrdersView(this);
+            allov.Show();
+            this.Visible = false;
+        }
+
+        private void everyDayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EveryDayReportsUpdate evr = new EveryDayReportsUpdate(this);
+            evr.Show();
+            this.Visible = false;
+        }
+
+        private void daysAdvReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Advreport7days advrep7 = new Advreport7days();
+            int result = advrep7.Generate();
+            if (result == 1)
+                MessageBox.Show("Отчет успешно сгенерирован и отправлен.", "Успех");
+            else
+                MessageBox.Show("При генерации и отправке отчета проихошла какая-то ошибка. Пожалуйста, попробуйте позже.", "Ошибка");
+        }
+
         /* 
          
           

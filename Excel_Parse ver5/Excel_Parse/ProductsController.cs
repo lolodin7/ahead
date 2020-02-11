@@ -24,6 +24,15 @@ namespace Excel_Parse
         private ReportAdvertisingFilterView controlAdvertisingReportFilterView;
         private ReportBusinessFilterView controlReportBusinessFilterView;
         private ReportSessionsView controlReportSessionsView;
+        private Advreport7days controlAdvreport7days;
+
+
+        /* Конструктор */
+        public ProductsController(Advreport7days _controlForm)
+        {
+            connection = DBData.GetDBConnection();
+            controlAdvreport7days = _controlForm;
+        }
 
         /* Конструктор */
         public ProductsController(ProductsView _controlForm)
@@ -327,6 +336,8 @@ namespace Excel_Parse
                     controlReportBusinessFilterView.GetProductsFromDB(pList);
                 else if (controlReportSessionsView != null)
                     controlReportSessionsView.GetProductsFromDB(pList);
+                else if (controlAdvreport7days != null)
+                    controlAdvreport7days.GetProductsFromDB(pList);
                 return 1;
             }
             catch (Exception ex)

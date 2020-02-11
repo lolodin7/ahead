@@ -106,8 +106,21 @@
     <Compile Include="AdvertisingBrandsModel.cs" />
     <Compile Include="AdvertisingController.cs" />
     <Compile Include="AdvertisingProductsModel.cs" />
+    <Compile Include="Advreport7days.cs" />
+    <Compile Include="AllOrdersView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllOrdersView.Designer.cs">
+      <DependentUpon>AllOrdersView.cs</DependentUpon>
+    </Compile>
     <Compile Include="BusinessController.cs" />
     <Compile Include="AllOrdersModel.cs" />
+    <Compile Include="EveryDayReportsUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EveryDayReportsUpdate.Designer.cs">
+      <DependentUpon>EveryDayReportsUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReportAdvertisingFilterView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -354,6 +367,12 @@
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AllOrdersView.resx">
+      <DependentUpon>AllOrdersView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EveryDayReportsUpdate.resx">
+      <DependentUpon>EveryDayReportsUpdate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReportAdvertisingFilterView.resx">
       <DependentUpon>ReportAdvertisingFilterView.cs</DependentUpon>
     </EmbeddedResource>
@@ -476,7 +495,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

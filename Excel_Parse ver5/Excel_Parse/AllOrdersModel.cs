@@ -42,6 +42,7 @@ namespace Excel_Parse
         public string IsBusinessOrder { get; set; }
         public string PurchaseOrderNumber { get; set; }
         public string PriceDesignation { get; set; }
+        public int MarketPlaceId { get; set; }
 
         public int FieldCount { get; }
 
@@ -74,7 +75,7 @@ namespace Excel_Parse
                 case 3:
                     //2019-10-03T06:19:55+00:00
                     string str2 = _value.ToString();
-                    int year2 = int.Parse(str2.Substring(6, 4));
+                    int year2 = int.Parse(str2.Substring(0, 4));
                     int month2 = int.Parse(str2.Substring(5, 2));
                     int day2 = int.Parse(str2.Substring(8, 2));
                     int hour2 = int.Parse(str2.Substring(11, 2));
@@ -101,7 +102,7 @@ namespace Excel_Parse
                     ShipServiceLevel = _value.ToString();
                     break;
                 case 10:
-                    ProductName = _value.ToString();
+                    ProductName = GetStringWithoutApostrophe(_value.ToString());
                     break;
                 case 11:
                     Sku = _value.ToString();
@@ -149,13 +150,13 @@ namespace Excel_Parse
                     ShipCity = GetStringWithoutApostrophe(_value.ToString());
                     break;
                 case 25:
-                    ShipState = _value.ToString();
+                    ShipState = GetStringWithoutApostrophe(_value.ToString());
                     break;
                 case 26:
                     ShipPostalCode = _value.ToString();
                     break;
                 case 27:
-                    ShipCountry = _value.ToString();
+                    ShipCountry = GetStringWithoutApostrophe(_value.ToString());
                     break;
                 case 28:
                     PromotionIds = _value.ToString();
@@ -271,6 +272,9 @@ namespace Excel_Parse
                 case 31:
                     return PriceDesignation;
                     break;
+                case 32:
+                    return MarketPlaceId;
+                    break;
                 default:
                     return null;
                     break;
@@ -304,112 +308,6 @@ namespace Excel_Parse
             string s = "";
             str = Regex.Replace(str, "\'", s);
             return str;
-        }
-
-        public void SetOrdersForUpdate(int i, object _value)
-        {
-            switch (i)
-            {
-                case 0:
-                    AmazonOrderId = _value.ToString();
-                    break;
-                case 1:
-                    MerchantOrderId = _value.ToString();
-                    break;
-                case 2:
-                    PurchaseDate = (DateTime)_value;
-                    break;
-                case 3:
-                    LastUpdatedDate = (DateTime)_value;
-                    break;
-                case 4:
-                    OrderStatus = _value.ToString();
-                    break;
-                case 5:
-                    FullfilmentChannel = _value.ToString();
-                    break;
-                case 6:
-                    SalesChannel = _value.ToString();
-                    break;
-                case 7:
-                    OrderChannel = _value.ToString();
-                    break;
-                case 8:
-                    Url = _value.ToString();
-                    break;
-                case 9:
-                    ShipServiceLevel = _value.ToString();
-                    break;
-                case 10:
-                    ProductName = _value.ToString();
-                    break;
-                case 11:
-                    Sku = _value.ToString();
-                    break;
-                case 12:
-                    Asin = _value.ToString();
-                    break;
-                case 13:
-                    ItemStatus = _value.ToString();
-                    break;
-                case 14:
-                    if (!_value.ToString().Equals(""))
-                        Quantity = int.Parse(_value.ToString());
-                    else
-                        Quantity = 0;
-                    break;
-                case 15:
-                    Currency = _value.ToString();
-                    break;
-                case 16:
-                    ItemPrice = GetDouble(_value);
-                    break;
-                case 17:
-                    ItemTax = GetDouble(_value);
-                    break;
-                case 18:
-                    ShippingPrice = GetDouble(_value);
-                    break;
-                case 19:
-                    ShippingTax = GetDouble(_value);
-                    break;
-                case 20:
-                    GiftWrapPrice = GetDouble(_value);
-                    break;
-                case 21:
-                    GiftWrapTax = GetDouble(_value);
-                    break;
-                case 22:
-                    ItemPromotionDiscount = GetDouble(_value);
-                    break;
-                case 23:
-                    ShipPromotionDiscount = GetDouble(_value);
-                    break;
-                case 24:
-                    ShipCity = GetStringWithoutApostrophe(_value.ToString());
-                    break;
-                case 25:
-                    ShipState = _value.ToString();
-                    break;
-                case 26:
-                    ShipPostalCode = _value.ToString();
-                    break;
-                case 27:
-                    ShipCountry = _value.ToString();
-                    break;
-                case 28:
-                    PromotionIds = _value.ToString();
-                    break;
-                case 29:
-                    IsBusinessOrder = _value.ToString();
-                    break;
-                case 30:
-                    PurchaseOrderNumber = GetStringWithoutApostrophe(_value.ToString());
-                    break;
-                case 31:
-                    PriceDesignation = _value.ToString();
-                    break;
-            }
         }
     }
 }

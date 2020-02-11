@@ -45,6 +45,12 @@ VALUES ('LetIt.Beer (USA)')
 INSERT INTO [Marketplace] ([MarketPlaceName])
 VALUES ('LetIt.Beer (CA)')
 
+INSERT INTO [Marketplace] ([MarketPlaceName])
+VALUES ('PowerDeWise (JP)')
+
+INSERT INTO [Marketplace] ([MarketPlaceName])
+VALUES ('Others')
+
 
 /*         -- [ProductTypes] --             */
 

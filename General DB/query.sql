@@ -664,3 +664,22 @@ select * from products where [ASIN] = 'B07G2C8D7H'
 select * from stock left join products on stock.productid = products.ProductId where stock.UpdateDate between '2020-02-05 00:00:00' and '2020-02-05 23:59:59' and products.MarketPlaceId = 4
 
 
+select * from Orders where PurchaseDate between '2019-01-01 00:00:00' and '2019-12-31 23:59:59' and [MarketPlaceId] = 1
+delete from orders
+
+
+
+
+select * from Orders left join products on orders.sku = products.sku and Orders.MarketPlaceId = Products.MarketPlaceId where PurchaseDate between '2019-04-02 00:00:00' and '2019-04-02 23:59:59' and Orders.MarketPlaceId = 1 and Orders.SKU = 'IG-5UO9-SCW1'
+select * from Orders left join products on orders.sku = products.sku and Orders.MarketPlaceId = Products.MarketPlaceId where PurchaseDate between '2019-04-02 00:00:00' and '2019-04-02 23:59:59' and Orders.MarketPlaceId = 1 and Orders.SKU = 'E3-2RHF-EO7C'
+
+
+
+select * from AdvertisingProducts
+
+select * from Orders left join products on orders.sku = products.sku and Orders.MarketPlaceId = Products.MarketPlaceId where PurchaseDate between '2019-01-01 00:00:00' and '2019-12-31 23:59:59' and Orders.MarketPlaceId = 8
+
+
+SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-01-01 00:00:00' and '2020-02-10 23:59:59'
+
+

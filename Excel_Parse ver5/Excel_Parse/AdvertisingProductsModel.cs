@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Excel_Parse
@@ -53,13 +54,13 @@ namespace Excel_Parse
                     CurrencyCharCode = record.ToString();
                     break;
                 case 2:
-                    CampaignName = record.ToString();
+                    CampaignName = GetStringWithoutApostrophe(record.ToString());
                     break;
                 case 3:
-                    AdGroupName = record.ToString();
+                    AdGroupName = GetStringWithoutApostrophe(record.ToString());
                     break;
                 case 4:
-                    Targeting = record.ToString();
+                    Targeting = GetStringWithoutApostrophe(record.ToString());
                     break;
                 case 5:
                     MatchType = record.ToString();
@@ -209,6 +210,14 @@ namespace Excel_Parse
             }
         }
 
+
+        private string GetStringWithoutApostrophe(string _value)
+        {
+            string str = _value;
+            string s = "";
+            str = Regex.Replace(str, "\'", s);
+            return str;
+        }
 
         private double GetDouble(object _value)
         {

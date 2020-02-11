@@ -403,9 +403,14 @@ CREATE TABLE [Orders](
 	[IsBusinessOrder]			VARCHAR(6),
 	[PurchaseOrderNumber]		VARCHAR(50),
 	[PriceDesignation]			VARCHAR(50),
-	CONSTRAINT Orders_AmazonOrderId_PK PRIMARY KEY ([AmazonOrderId])
+	[MarketPlaceId]				INT,
+	CONSTRAINT Orders_AmazonOrderId_Sku_PK PRIMARY KEY ([AmazonOrderId], [Sku])
 )
 GO
+
+--IF NOT OBJECT_ID('Orders') IS NULL DROP TABLE [Orders]
+
+
 
 
 
