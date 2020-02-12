@@ -21,6 +21,7 @@ namespace Excel_Parse
         private ReportAdvertisingUploadView controlAdvertisingUploadReportView;
         private ReportAdvertisingFilterView controlAdvertisingReportFilterView;
         private ReportSessionsView controlReportSessionsView;
+        private EveryDayReportsUpdate controlEveryDayReportsUpdate;
 
         private struct listElement
         {
@@ -29,6 +30,11 @@ namespace Excel_Parse
         }
 
 
+        public AdvertisingController(EveryDayReportsUpdate _mf)
+        {
+            connection = DBData.GetDBConnection();
+            controlEveryDayReportsUpdate = _mf;
+        }
 
         public AdvertisingController(ReportAdvertisingUploadView _mf)
         {

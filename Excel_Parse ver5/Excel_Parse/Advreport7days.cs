@@ -33,7 +33,6 @@ namespace Excel_Parse
         private DateTime startNew, endNew, startOld, endOld;
         private List<MarketplaceModel> mpList;
         private List<ProductsModel> pList;
-        SaveFileDialog saveFileDialog1;
 
         private List<AdvertisingProductsModel> advprodList;
 
@@ -62,191 +61,363 @@ namespace Excel_Parse
             resultList = new List<ReportObject> { };
 
             prodControl = new ProductsController(this);
-            prodControl.GetProductsAllJOIN();
 
             marketplaceControl = new MarketplaceController(this);
-            marketplaceControl.GetMarketplaces();
-
-            saveFileDialog1 = new SaveFileDialog();
-
-            PrepareDatesList();
-            GetAdvertisingData();
-            GetDiffValues();
-            GetUniqueValues();
-
-            //for (int i = 0; i < resultList.Count; i++)
-            //{
-            //    Console.Write(resultList[i].prodName+ "," + resultList[i].marketplace + "," + resultList[i].campName + "," + resultList[i].adGroup + "," + resultList[i].targeting + ", " + resultList[i].matchType + "," + resultList[i].valOld + "," + resultList[i].valNew + "," + resultList[i].diff + "," + resultList[i].diffPerc + "\n");
-            //}
-            CreateExcelFile();
-        }
-
-        private void CreateExcelFile()
-        {
-            bool okData = false;
-            string path = "D:\\";
-            string fileName = "";
-
-            Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
-            Workbook ExcelWorkBook;
-            Worksheet ExcelWorkSheet;
-
-            ExcelWorkBook = ExcelApp.Workbooks.Add(System.Reflection.Missing.Value);
-
-            //Таблица.
-            ExcelWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)ExcelWorkBook.Worksheets.get_Item(1);
-
-
-            ExcelApp.Cells[1, 1] = "Товар";
-            ExcelApp.Cells[1, 2] = "Маркетплейс";
-            ExcelApp.Cells[1, 3] = "Campaign";
-            ExcelApp.Cells[1, 4] = "AdGroup";
-            ExcelApp.Cells[1, 5] = "Targeting";
-            ExcelApp.Cells[1, 6] = "Match Type";
-            ExcelApp.Cells[1, 7] = "Позапрошлая неделя";
-            ExcelApp.Cells[1, 8] = "Прошлая неделя";
-            ExcelApp.Cells[1, 9] = "Разница";
-            ExcelApp.Cells[1, 10] = "Разница %";
-
-            if (resultList.Count > 0)
-            {
-                for (int i = 0; i < resultList.Count; i++)
-                {
-                    for (int j = 0; j < resultList[0].ColumnCount; j++)
-                    {
-                        if (j == 0 || j == 1 || j == 2 || j == 3 || j == 4 || j == 5)
-                            ExcelApp.Cells[i + 2, j + 1] = resultList[i].GetVal(j).ToString();
-                        else if (j == 6 || j == 7 || j == 8)
-                            ExcelApp.Cells[i + 2, j + 1] = (int)resultList[i].GetVal(j);
-                        else if (j == 9)
-                            ExcelApp.Cells[i + 2, j + 1] = Math.Round((double)resultList[i].GetVal(j), 2);
-                    }
-                }
-
-                //fileName = startNew + "-" + endNew + " Advertising Alarm Report";
-                fileName = "Advertising Alarm Report - " + startNew.ToString("dd-MM-yyyy") + "-" + endNew.ToString("dd-MM-yyyy") +  " (" + DateTime.Now.ToString("HH-mm-ss") + ")";
-
-                okData = true;
-            }
-
-            if (okData)
-            {
-                //if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
-                //{
-                //    ExcelWorkBook.Close(false);
-                //}
-                //else
-                //{
-                    path = path + fileName;
-                    //получаем выбранный файл
-                    //string filename = saveFileDialog1.FileName;
-                    ExcelWorkBook.SaveAs(@path);
-                    ExcelWorkBook.Close(false);
-                //}
-            }
         }
 
         public int Generate()
         {
-            return 1;
+            int result = 1;
+            result = prodControl.GetProductsAllJOIN();
+            result = marketplaceControl.GetMarketplaces();
+
+
+            PrepareDatesList();
+            result = GetAdvertisingData();
+            result = GetDiffValues();
+            GetUniqueValues();
+
+            SortResultListByImpressions();
+
+            result = CreateExcelFile();
+            return result;
         }
 
-        private void GetAdvertisingData()
+        private int CreateExcelFile()
+        {
+            bool okData = false;
+            string path = "D:\\";
+            string fileName = "";
+            try
+            {
+                Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+                Workbook ExcelWorkBook;
+                Worksheet ExcelWorkSheet1;
+                Worksheet ExcelWorkSheet2;
+                Worksheet ExcelWorkSheet3;
+                Worksheet ExcelWorkSheet4;
+
+                ExcelWorkBook = ExcelApp.Workbooks.Add(System.Reflection.Missing.Value);
+                ExcelWorkBook.Worksheets.Add();
+                ExcelWorkBook.Worksheets.Add();
+                ExcelWorkBook.Worksheets.Add();
+
+                //Таблица.
+                ExcelWorkSheet1 = (Microsoft.Office.Interop.Excel.Worksheet)ExcelWorkBook.Worksheets.get_Item(1);
+                ExcelWorkSheet2 = (Microsoft.Office.Interop.Excel.Worksheet)ExcelWorkBook.Worksheets.get_Item(2);
+                ExcelWorkSheet3 = (Microsoft.Office.Interop.Excel.Worksheet)ExcelWorkBook.Worksheets.get_Item(3);
+                ExcelWorkSheet4 = (Microsoft.Office.Interop.Excel.Worksheet)ExcelWorkBook.Worksheets.get_Item(4);
+
+                int broadcnt = 0;
+                int phrasecnt = 0;
+                int exactcnt = 0;
+                int othercnt = 0;
+
+                if (resultList.Count > 0)
+                {
+                    for (int i = 0; i < resultList.Count; i++)
+                    {
+                        if (resultList[i].matchType.ToLower().Equals("broad"))
+                        {
+                            for (int j = 0; j < resultList[0].ColumnCount; j++)
+                            {
+                                if (j >= 0 && j <= 5)
+                                    ExcelWorkSheet1.Cells[broadcnt + 2, j + 1] = resultList[i].GetVal(j).ToString();
+                                else if (j >= 6 && j <= 8)
+                                    ExcelWorkSheet1.Cells[broadcnt + 2, j + 1] = (int)resultList[i].GetVal(j);
+                                else if (j == 9)
+                                    ExcelWorkSheet1.Cells[broadcnt + 2, j + 1] = Math.Round((double)resultList[i].GetVal(j), 2);
+                            }
+                            broadcnt++;
+                        }
+                        else if (resultList[i].matchType.ToLower().Equals("phrase"))
+                        {
+                            for (int j = 0; j < resultList[0].ColumnCount; j++)
+                            {
+                                if (j >= 0 && j <= 5)
+                                    ExcelWorkSheet2.Cells[phrasecnt + 2, j + 1] = resultList[i].GetVal(j).ToString();
+                                else if (j >= 6 && j <= 8)
+                                    ExcelWorkSheet2.Cells[phrasecnt + 2, j + 1] = (int)resultList[i].GetVal(j);
+                                else if (j == 9)
+                                    ExcelWorkSheet2.Cells[phrasecnt + 2, j + 1] = Math.Round((double)resultList[i].GetVal(j), 2);
+                            }
+                            phrasecnt++;
+                        }
+                        else if (resultList[i].matchType.ToLower().Equals("exact"))
+                        {
+                            for (int j = 0; j < resultList[0].ColumnCount; j++)
+                            {
+                                if (j >= 0 && j <= 5)
+                                    ExcelWorkSheet3.Cells[exactcnt + 2, j + 1] = resultList[i].GetVal(j).ToString();
+                                else if (j >= 6 && j <= 8)
+                                    ExcelWorkSheet3.Cells[exactcnt + 2, j + 1] = (int)resultList[i].GetVal(j);
+                                else if (j == 9)
+                                    ExcelWorkSheet3.Cells[exactcnt + 2, j + 1] = Math.Round((double)resultList[i].GetVal(j), 2);
+                            }
+                            exactcnt++;
+                        }
+                        else
+                        {
+                            for (int j = 0; j < resultList[0].ColumnCount; j++)
+                            {
+                                if (j >= 0 && j <= 5)
+                                    ExcelWorkSheet4.Cells[othercnt + 2, j + 1] = resultList[i].GetVal(j).ToString();
+                                else if (j >= 6 && j <= 8)
+                                    ExcelWorkSheet4.Cells[othercnt + 2, j + 1] = (int)resultList[i].GetVal(j);
+                                else if (j == 9)
+                                    ExcelWorkSheet4.Cells[othercnt + 2, j + 1] = Math.Round((double)resultList[i].GetVal(j), 2);
+                            }
+                            othercnt++;
+                        }
+                    }
+
+                    fileName = "Advertising Alarm Report - " + startNew.ToString("dd-MM-yyyy") + "-" + endNew.ToString("dd-MM-yyyy") + " (" + DateTime.Now.ToString("HH-mm-ss") + ")";
+
+                    okData = true;
+                }
+
+                ExcelWorkSheet1.Cells[1, 1] = "Товар";
+                ExcelWorkSheet1.Cells[1, 2] = "Маркетплейс";
+                ExcelWorkSheet1.Cells[1, 3] = "Campaign";
+                ExcelWorkSheet1.Cells[1, 4] = "AdGroup";
+                ExcelWorkSheet1.Cells[1, 5] = "Targeting";
+                ExcelWorkSheet1.Cells[1, 6] = "Match Type";
+                ExcelWorkSheet1.Cells[1, 7] = "Позапрошлая неделя";
+                ExcelWorkSheet1.Cells[1, 8] = "Прошлая неделя";
+                ExcelWorkSheet1.Cells[1, 9] = "Разница";
+                ExcelWorkSheet1.Cells[1, 10] = "Разница %";
+                ExcelWorkSheet1.Name = "Broad";
+                ExcelWorkSheet1.get_Range("G2", "J5000").Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+                ExcelWorkSheet1.Columns[1].ColumnWidth = 32;
+                ExcelWorkSheet1.Columns[2].ColumnWidth = 22;
+                ExcelWorkSheet1.Columns[3].ColumnWidth = 31;
+                ExcelWorkSheet1.Columns[4].ColumnWidth = 17;
+                ExcelWorkSheet1.Columns[5].ColumnWidth = 23;
+                ExcelWorkSheet1.Columns[6].ColumnWidth = 13;
+                ExcelWorkSheet1.Columns[7].ColumnWidth = 13;
+                ExcelWorkSheet1.Columns[8].ColumnWidth = 13;
+                ExcelWorkSheet1.Columns[9].ColumnWidth = 13;
+                ExcelWorkSheet1.Columns[10].ColumnWidth = 13;
+
+                ExcelWorkSheet2.Cells[1, 1] = "Товар";
+                ExcelWorkSheet2.Cells[1, 2] = "Маркетплейс";
+                ExcelWorkSheet2.Cells[1, 3] = "Campaign";
+                ExcelWorkSheet2.Cells[1, 4] = "AdGroup";
+                ExcelWorkSheet2.Cells[1, 5] = "Targeting";
+                ExcelWorkSheet2.Cells[1, 6] = "Match Type";
+                ExcelWorkSheet2.Cells[1, 7] = "Позапрошлая неделя";
+                ExcelWorkSheet2.Cells[1, 8] = "Прошлая неделя";
+                ExcelWorkSheet2.Cells[1, 9] = "Разница";
+                ExcelWorkSheet2.Cells[1, 10] = "Разница %";
+                ExcelWorkSheet2.Name = "Phrase";
+                ExcelWorkSheet2.get_Range("G2", "J5000").Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+                ExcelWorkSheet2.Columns[1].ColumnWidth = 32;
+                ExcelWorkSheet2.Columns[2].ColumnWidth = 22;
+                ExcelWorkSheet2.Columns[3].ColumnWidth = 31;
+                ExcelWorkSheet2.Columns[4].ColumnWidth = 17;
+                ExcelWorkSheet2.Columns[5].ColumnWidth = 23;
+                ExcelWorkSheet2.Columns[6].ColumnWidth = 13;
+                ExcelWorkSheet2.Columns[7].ColumnWidth = 13;
+                ExcelWorkSheet2.Columns[8].ColumnWidth = 13;
+                ExcelWorkSheet2.Columns[9].ColumnWidth = 13;
+                ExcelWorkSheet2.Columns[10].ColumnWidth = 13;
+
+                ExcelWorkSheet3.Cells[1, 1] = "Товар";
+                ExcelWorkSheet3.Cells[1, 2] = "Маркетплейс";
+                ExcelWorkSheet3.Cells[1, 3] = "Campaign";
+                ExcelWorkSheet3.Cells[1, 4] = "AdGroup";
+                ExcelWorkSheet3.Cells[1, 5] = "Targeting";
+                ExcelWorkSheet3.Cells[1, 6] = "Match Type";
+                ExcelWorkSheet3.Cells[1, 7] = "Позапрошлая неделя";
+                ExcelWorkSheet3.Cells[1, 8] = "Прошлая неделя";
+                ExcelWorkSheet3.Cells[1, 9] = "Разница";
+                ExcelWorkSheet3.Cells[1, 10] = "Разница %";
+                ExcelWorkSheet3.Name = "Exact";
+                ExcelWorkSheet3.get_Range("G2", "J5000").Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+                ExcelWorkSheet3.Columns[1].ColumnWidth = 32;
+                ExcelWorkSheet3.Columns[2].ColumnWidth = 22;
+                ExcelWorkSheet3.Columns[3].ColumnWidth = 31;
+                ExcelWorkSheet3.Columns[4].ColumnWidth = 17;
+                ExcelWorkSheet3.Columns[5].ColumnWidth = 23;
+                ExcelWorkSheet3.Columns[6].ColumnWidth = 13;
+                ExcelWorkSheet3.Columns[7].ColumnWidth = 13;
+                ExcelWorkSheet3.Columns[8].ColumnWidth = 13;
+                ExcelWorkSheet3.Columns[9].ColumnWidth = 13;
+                ExcelWorkSheet3.Columns[10].ColumnWidth = 13;
+
+                ExcelWorkSheet4.Cells[1, 1] = "Товар";
+                ExcelWorkSheet4.Cells[1, 2] = "Маркетплейс";
+                ExcelWorkSheet4.Cells[1, 3] = "Campaign";
+                ExcelWorkSheet4.Cells[1, 4] = "AdGroup";
+                ExcelWorkSheet4.Cells[1, 5] = "Targeting";
+                ExcelWorkSheet4.Cells[1, 6] = "Match Type";
+                ExcelWorkSheet4.Cells[1, 7] = "Позапрошлая неделя";
+                ExcelWorkSheet4.Cells[1, 8] = "Прошлая неделя";
+                ExcelWorkSheet4.Cells[1, 9] = "Разница";
+                ExcelWorkSheet4.Cells[1, 10] = "Разница %";
+                ExcelWorkSheet4.Name = "Other";
+                ExcelWorkSheet4.get_Range("G2", "J5000").Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+                ExcelWorkSheet4.Columns[1].ColumnWidth = 32;
+                ExcelWorkSheet4.Columns[2].ColumnWidth = 22;
+                ExcelWorkSheet4.Columns[3].ColumnWidth = 31;
+                ExcelWorkSheet4.Columns[4].ColumnWidth = 17;
+                ExcelWorkSheet4.Columns[5].ColumnWidth = 23;
+                ExcelWorkSheet4.Columns[6].ColumnWidth = 13;
+                ExcelWorkSheet4.Columns[7].ColumnWidth = 13;
+                ExcelWorkSheet4.Columns[8].ColumnWidth = 13;
+                ExcelWorkSheet4.Columns[9].ColumnWidth = 13;
+                ExcelWorkSheet4.Columns[10].ColumnWidth = 13;
+
+                if (okData)
+                {
+                    try
+                    {
+                        path = path + fileName;
+                        ExcelWorkBook.SaveAs(@path);
+                        ExcelWorkBook.Close(false);
+                        return 1;
+                    }
+                    catch (Exception ex)
+                    {
+                        return 0;
+                    }
+                }
+                else
+                    return 0;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        private void SortResultListByImpressions()
+        {
+            ReportObject tmpObj;
+            for (int i = 1; i < resultList.Count; i++)
+            {
+                for (int j = 0; j < resultList.Count - i; j++)
+                {
+                    if (resultList[j].diff > resultList[j + 1].diff)
+                    {
+                        tmpObj = resultList[j];
+                        resultList[j] = resultList[j + 1];
+                        resultList[j + 1] = tmpObj;
+                    }
+                }
+            }
+
+            foreach (var t in resultList)
+            {
+                Console.WriteLine(t.diff);
+            }
+        }
+
+        private int GetAdvertisingData()
         {
             string sqlStatement = "";
+            int result = 1;
 
             sqlStatement = "SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '" + startNew.ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + endNew.ToString("yyyy-MM-dd HH:mm:ss") + "'";
             command = new SqlCommand(sqlStatement, connection);
-            Execute_SELECT_Command_ProductsBrands(command, "new");
+            result = Execute_SELECT_Command_ProductsBrands(command, "new");
 
             sqlStatement = "SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '" + startOld.ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + endOld.ToString("yyyy-MM-dd HH:mm:ss") + "'";
             command = new SqlCommand(sqlStatement, connection);
-            Execute_SELECT_Command_ProductsBrands(command, "old");
+            result = Execute_SELECT_Command_ProductsBrands(command, "old");
+
+            return result;
         }
 
-        private void GetDiffValues()
+        private int GetDiffValues()
         {
             int imprNew = 0;
             int imprOld = 0;
             int imprDiff = 0;
             double percDiff = 0;
 
-            for (int i = 0; i < advProductsListNew.Count; i++)
+            try
             {
-                for (int j = 0; j < advProductsListOld.Count; j++)
+
+                for (int i = 0; i < advProductsListNew.Count; i++)
                 {
-                    if (advProductsListNew[i].CampaignName.Equals(advProductsListOld[j].CampaignName) && advProductsListNew[i].AdGroupName.Equals(advProductsListOld[j].AdGroupName) && advProductsListNew[i].Targeting.Equals(advProductsListOld[j].Targeting) && advProductsListNew[i].MatchType.Equals(advProductsListOld[j].MatchType))
+                    for (int j = 0; j < advProductsListOld.Count; j++)
                     {
-                        imprNew = advProductsListNew[i].Impressions;
-                        imprOld = advProductsListOld[j].Impressions;
-                        imprDiff = advProductsListNew[i].Impressions - advProductsListOld[j].Impressions;
-                        if (advProductsListOld[j].Impressions != 0)
-                            percDiff = ((double) imprDiff / advProductsListOld[j].Impressions) * 100;
-                        else
-                            percDiff = (double)advProductsListNew[i].Impressions;
-                        if (percDiff >= 20 || percDiff <= -20)
+                        if (advProductsListNew[i].CampaignName.Equals(advProductsListOld[j].CampaignName) && advProductsListNew[i].AdGroupName.Equals(advProductsListOld[j].AdGroupName) && advProductsListNew[i].Targeting.Equals(advProductsListOld[j].Targeting) && advProductsListNew[i].MatchType.Equals(advProductsListOld[j].MatchType))
                         {
-                            ReportObject tmp = new ReportObject();
-                            tmp.prodName = GetProductNameById(advProductsListNew[i].ProductId);
-                            tmp.marketplace = GetMarketplaceNameByMarketplaceId(advProductsListNew[i].MarketPlaceId);
-                            tmp.campName = advProductsListNew[i].CampaignName;
-                            tmp.adGroup = advProductsListNew[i].AdGroupName;
-                            tmp.targeting = advProductsListNew[i].Targeting;
-                            tmp.matchType = advProductsListNew[i].MatchType;
-                            tmp.valOld = advProductsListOld[j].Impressions;
-                            tmp.valNew = advProductsListNew[i].Impressions;
-                            tmp.diff = imprDiff;
-                            tmp.diffPerc = percDiff;
+                            imprNew = advProductsListNew[i].Impressions;
+                            imprOld = advProductsListOld[j].Impressions;
+                            imprDiff = advProductsListNew[i].Impressions - advProductsListOld[j].Impressions;
+                            if (advProductsListOld[j].Impressions != 0)
+                                percDiff = ((double)imprDiff / advProductsListOld[j].Impressions) * 100;
+                            else
+                                percDiff = (double)advProductsListNew[i].Impressions;
+                            if (percDiff >= 20 || percDiff <= -20)
+                            {
+                                ReportObject tmp = new ReportObject();
+                                tmp.prodName = GetProductNameById(advProductsListNew[i].ProductId);
+                                tmp.marketplace = GetMarketplaceNameByMarketplaceId(advProductsListNew[i].MarketPlaceId);
+                                tmp.campName = advProductsListNew[i].CampaignName;
+                                tmp.adGroup = advProductsListNew[i].AdGroupName;
+                                tmp.targeting = advProductsListNew[i].Targeting;
+                                tmp.matchType = advProductsListNew[i].MatchType;
+                                tmp.valOld = advProductsListOld[j].Impressions;
+                                tmp.valNew = advProductsListNew[i].Impressions;
+                                tmp.diff = imprDiff;
+                                tmp.diffPerc = percDiff;
 
-                            resultList.Add(tmp);
-
-
-
-                            //resultString.Add("Товар: " + GetProductNameById(advProductsListNew[i].ProductId) + ", Кампания: " + advProductsListNew[i].CampaignName + ", AdGroup: " + advProductsListNew[i].AdGroupName + ", Targeting: " + advProductsListNew[i].Targeting + ", Match Type: " + advProductsListNew[i].MatchType + ", Разница: " + imprDiff + " (" + percDiff + "%), Маркетплейс: " + GetMarketplaceNameByMarketplaceId(advProductsListNew[i].MarketPlaceId) + "\n");
+                                resultList.Add(tmp);
+                            }
+                            imprNew = 0;
+                            imprOld = 0;
+                            imprDiff = 0;
+                            percDiff = 0;
                         }
-                        imprNew = 0;
-                        imprOld = 0;
-                        imprDiff = 0;
-                        percDiff = 0;
                     }
                 }
+
+                for (int i = 0; i < advProductsListOld.Count; i++)
+                {
+                    for (int j = 0; j < advProductsListNew.Count; j++)
+                    {
+                        if (advProductsListOld[i].CampaignName.Equals(advProductsListNew[j].CampaignName) && advProductsListOld[i].AdGroupName.Equals(advProductsListNew[j].AdGroupName) && advProductsListOld[i].Targeting.Equals(advProductsListNew[j].Targeting) && advProductsListOld[i].MatchType.Equals(advProductsListNew[j].MatchType))
+                        {
+                            imprNew = advProductsListNew[j].Impressions;
+                            imprOld = advProductsListOld[i].Impressions;
+                            imprDiff = advProductsListNew[j].Impressions - advProductsListOld[i].Impressions;
+                            if (advProductsListOld[i].Impressions != 0)
+                                percDiff = ((double)imprDiff / advProductsListOld[i].Impressions) * 100;
+                            else
+                                percDiff = (double)advProductsListNew[j].Impressions;
+                            if (percDiff >= 20 || percDiff <= -20)
+                            {
+                                ReportObject tmp = new ReportObject();
+                                tmp.prodName = GetProductNameById(advProductsListNew[j].ProductId);
+                                tmp.marketplace = GetMarketplaceNameByMarketplaceId(advProductsListNew[j].MarketPlaceId);
+                                tmp.campName = advProductsListNew[j].CampaignName;
+                                tmp.adGroup = advProductsListNew[j].AdGroupName;
+                                tmp.targeting = advProductsListNew[j].Targeting;
+                                tmp.matchType = advProductsListNew[j].MatchType;
+                                tmp.valOld = advProductsListOld[i].Impressions;
+                                tmp.valNew = advProductsListNew[j].Impressions;
+                                tmp.diff = imprDiff;
+                                tmp.diffPerc = percDiff;
+
+                                resultList.Add(tmp);
+                            }
+                            imprNew = 0;
+                            imprOld = 0;
+                            imprDiff = 0;
+                            percDiff = 0;
+                        }
+                    }
+                }
+
+                return 1;
             }
-
-            for (int i = 0; i < advProductsListOld.Count; i++)
+            catch
             {
-                for (int j = 0; j < advProductsListNew.Count; j++)
-                {
-                    if (advProductsListOld[i].CampaignName.Equals(advProductsListNew[j].CampaignName) && advProductsListOld[i].AdGroupName.Equals(advProductsListNew[j].AdGroupName) && advProductsListOld[i].Targeting.Equals(advProductsListNew[j].Targeting) && advProductsListOld[i].MatchType.Equals(advProductsListNew[j].MatchType))
-                    {
-                        imprNew = advProductsListNew[j].Impressions;
-                        imprOld = advProductsListOld[i].Impressions;
-                        imprDiff = advProductsListNew[j].Impressions - advProductsListOld[i].Impressions;
-                        if (advProductsListOld[i].Impressions != 0)
-                            percDiff = ((double) imprDiff / advProductsListOld[i].Impressions) * 100;
-                        else
-                            percDiff = (double)advProductsListNew[j].Impressions;
-                        if (percDiff >= 20 || percDiff <= -20)
-                        {
-                            ReportObject tmp = new ReportObject();
-                            tmp.prodName = GetProductNameById(advProductsListNew[j].ProductId);
-                            tmp.marketplace = GetMarketplaceNameByMarketplaceId(advProductsListNew[j].MarketPlaceId);
-                            tmp.campName = advProductsListNew[j].CampaignName;
-                            tmp.adGroup = advProductsListNew[j].AdGroupName;
-                            tmp.targeting = advProductsListNew[j].Targeting;
-                            tmp.matchType = advProductsListNew[j].MatchType;
-                            tmp.valOld = advProductsListOld[i].Impressions;
-                            tmp.valNew = advProductsListNew[j].Impressions;
-                            tmp.diff = imprDiff;
-                            tmp.diffPerc = percDiff;
-
-                            resultList.Add(tmp);
-                        }
-                        imprNew = 0;
-                        imprOld = 0;
-                        imprDiff = 0;
-                        percDiff = 0;
-                    }
-                }
+                return 0;
             }
         }
 
@@ -392,21 +563,6 @@ namespace Excel_Parse
                             }
                         }
                     }
-                    //else
-                    //{
-                    //    Impressions += advProductsList[i].Impressions;
-                    //    Clicks += advProductsList[i].Clicks;
-                    //    Spend += advProductsList[i].Spend;
-                    //    Sales += advProductsList[i].Sales;
-                    //    Orders += advProductsList[i].Orders;
-                    //    Units += advProductsList[i].Units;
-                    //    AdvSKUUnits += advProductsList[i].AdvSKUUnits;
-                    //    OtherSKUUnits += advProductsList[i].OtherSKUUnits;
-                    //    AdvSKUSales += advProductsList[i].AdvSKUSales;
-                    //    OtherSKUSales += advProductsList[i].OtherSKUSales;
-                    //    alreadyUsed.Add(i);
-                    //}
-                    //summaryAdvProductsList.Add(ТО, ШО ПОЛУЧИЛОСЬ ОТ СУММИРОВАНИЯ + ДОПОЛНИТЕЛЬНО СЧИТАЕМ ТО, ЧТО НАДО ПОСЧИТАТЬ);
 
                     if (Impressions != 0)
                         CTR = (double)Clicks / Impressions * 100;
@@ -617,6 +773,7 @@ namespace Excel_Parse
         }
     }
 
+    /* Объект с информацией, которую потом выводим в отчет */
     class ReportObject
     {
         public string prodName { get; set; }

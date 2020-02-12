@@ -681,5 +681,16 @@ select * from Orders left join products on orders.sku = products.sku and Orders.
 
 
 SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-01-01 00:00:00' and '2020-02-10 23:59:59'
+delete from [AdvertisingProducts]
+
+
+delete from BusinessReport where UpdateDate between '2020-02-01 00:00:00' and '2020-02-12 23:59:59'
+SELECT * FROM BusinessReport where UpdateDate between '2020-01-01 00:00:00' and '2020-01-31 23:59:59'
+
+INSERT INTO [BusinessReport] ([UpdateDate], [MarketPlaceId], [SKU], [Sessions], [SessionPercentage], [PageViews], [PageViewsPercentage], [UnitsOrdered], [UnitsOrderedB2B], [UnitSessionPercentage], [UnitSessionPercentageB2B], [OrderedProductSales], [OrderedProductSalesB2B], [TotalOrderItems], [TotalOrderItemsB2B], [ProductId]) VALUES ('2020-01-12 00:00:00', 1, 'E3-2RHF-EO7C', 99999, 39.33, 925, 39.85, 7, 5, 1.21, 0.86, 165.93, 119.64, 7, 5, 25)
+
+UPDATE [BusinessReport] SET [Sessions] = 579, [SessionPercentage] = 1.21, [PageViews] = 925, [PageViewsPercentage] = 39.85, [UnitsOrdered] = 7, [UnitsOrderedB2B] = 5, [UnitSessionPercentage] = 1.21, [UnitSessionPercentageB2B] = 0.86, [OrderedProductSales] = 165.93, [OrderedProductSalesB2B] = 119.64, [TotalOrderItems] = 7, [TotalOrderItemsB2B] = 5 WHERE [UpdateDate] = '2020-02-11 00:00:00' AND [ProductId] = 25
+                            
+
 
 

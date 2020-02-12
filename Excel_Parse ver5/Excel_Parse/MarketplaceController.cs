@@ -26,7 +26,14 @@ namespace Excel_Parse
         private ReportBusinessFilterView controlReportBusinessFilterView;
         private ReportSessionsView controlReportSessionsView;
         private Advreport7days controlAdvreport7days;
+        private EveryDayReportsUpdate controlEveryDayReportsUpdate;
         //private MarketplaceView
+
+        public MarketplaceController(EveryDayReportsUpdate _mf)
+        {
+            connection = DBData.GetDBConnection();
+            controlEveryDayReportsUpdate = _mf;
+        }
 
         public MarketplaceController(Advreport7days _mf)
         {
