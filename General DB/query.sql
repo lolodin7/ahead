@@ -685,7 +685,9 @@ delete from [AdvertisingProducts]
 
 
 delete from BusinessReport where UpdateDate between '2020-02-01 00:00:00' and '2020-02-12 23:59:59'
-SELECT * FROM BusinessReport where UpdateDate between '2020-01-01 00:00:00' and '2020-01-31 23:59:59'
+SELECT * FROM BusinessReport where UpdateDate between '2020-01-01 00:00:00' and '2020-02-12 23:59:59'
+SELECT * FROM AdvertisingProducts where UpdateDate between '2020-01-13 00:00:00' and '2020-01-13 23:59:59'
+SELECT * FROM Orders where [PurchaseDate] between '2020-02-13 00:00:00' and '2020-02-13 23:59:59' and MarketplaceId = 1
 
 INSERT INTO [BusinessReport] ([UpdateDate], [MarketPlaceId], [SKU], [Sessions], [SessionPercentage], [PageViews], [PageViewsPercentage], [UnitsOrdered], [UnitsOrderedB2B], [UnitSessionPercentage], [UnitSessionPercentageB2B], [OrderedProductSales], [OrderedProductSalesB2B], [TotalOrderItems], [TotalOrderItemsB2B], [ProductId]) VALUES ('2020-01-12 00:00:00', 1, 'E3-2RHF-EO7C', 99999, 39.33, 925, 39.85, 7, 5, 1.21, 0.86, 165.93, 119.64, 7, 5, 25)
 

@@ -232,7 +232,7 @@ namespace Excel_Parse
                     fileName = fileName.Substring(9, fileName.Length - 4 - 9);        //9 - это business! в начале имени файла, сразу отсекаем его
 
                     busObject = GetBusInfoFromFileName(fileName, FileNamesBus[i]);
-                    if (busObject.updateDate == DateTime.Today.AddDays(-1))
+                    if (busObject.updateDate == DateTime.Today.AddDays(-2))
                         busNewerObjectList.Add(busObject);
                     else
                         busOlderObjectList.Add(busObject);
@@ -407,6 +407,8 @@ namespace Excel_Parse
 
 
         #region Inserting And Updating Reports to DB
+
+
 
         private void btn_saveInDB_Click(object sender, EventArgs e)
         {
@@ -642,6 +644,7 @@ namespace Excel_Parse
         }
         #endregion
         //----------------------------------------------------------------------------------
+
         #region Business
         /* Сохранить в БД много файлов */
         private void uploadBusinessReports(string _mode)
@@ -968,139 +971,17 @@ namespace Excel_Parse
         #endregion
         //----------------------------------------------------------------------------------
 
+        #region All Orders
 
+        #endregion
+        //----------------------------------------------------------------------------------
 
+        #region Stock
 
+        #endregion
+        //----------------------------------------------------------------------------------
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
 
         #endregion
         //----------------------------------------------------------------------------------

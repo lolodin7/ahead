@@ -7,6 +7,11 @@ INSERT INTO [Telegram_Bot_Users] ([UserId], [Name])
 VALUES (362340016, 'Dima seo')
 INSERT INTO [Telegram_Bot_Users] ([UserId], [Name])
 VALUES (368357461, 'Marina')
+INSERT INTO [Telegram_Bot_Users] ([UserId], [Name])
+VALUES (383296019, 'Vasiliy')
+INSERT INTO [Telegram_Bot_Users] ([UserId], [Name])
+VALUES (192207201, 'Sergey')
+
 
 
 
