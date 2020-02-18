@@ -426,7 +426,7 @@ namespace Excel_Parse
 
         private void daysAdvReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Advreport7days advrep7 = new Advreport7days();
+            Advreport7days advrep7 = new Advreport7days(monthCalendar1.SelectionStart);
             int result = advrep7.Generate();
             if (result == 1)
                 MessageBox.Show("Отчет успешно сгенерирован и отправлен.", "Успех");

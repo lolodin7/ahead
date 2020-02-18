@@ -683,9 +683,9 @@ select * from Orders left join products on orders.sku = products.sku and Orders.
 SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-01-01 00:00:00' and '2020-02-10 23:59:59'
 delete from [AdvertisingProducts]
 
-
+use ahead
 delete from BusinessReport where UpdateDate between '2020-02-01 00:00:00' and '2020-02-12 23:59:59'
-SELECT * FROM BusinessReport where UpdateDate between '2020-01-01 00:00:00' and '2020-02-12 23:59:59'
+SELECT * FROM BusinessReport where UpdateDate between '2020-02-13 00:00:00' and '2020-02-13 23:59:59'
 SELECT * FROM AdvertisingProducts where UpdateDate between '2020-01-13 00:00:00' and '2020-01-13 23:59:59'
 SELECT * FROM Orders where [PurchaseDate] between '2020-02-13 00:00:00' and '2020-02-13 23:59:59' and MarketplaceId = 1
 
@@ -696,3 +696,5 @@ UPDATE [BusinessReport] SET [Sessions] = 579, [SessionPercentage] = 1.21, [PageV
 
 
 
+use AHEAD_stand
+SELECT * FROM AdvertisingProducts where UpdateDate between '2020-01-16 00:00:00' and '2020-01-16 23:59:59' and MarketplaceId = 1

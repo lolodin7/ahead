@@ -36,13 +36,15 @@ namespace Excel_Parse
 
         private List<AdvertisingProductsModel> advprodList;
 
+        private DateTime selectedStart;
+
         private struct listElement
         {
             public string key { get; set; }
             public double val { get; set; }
         }
 
-        public Advreport7days()
+        public Advreport7days(DateTime _selectedDateTime)
         {
             connection = DBData.GetDBConnection();
 
@@ -63,6 +65,8 @@ namespace Excel_Parse
             prodControl = new ProductsController(this);
 
             marketplaceControl = new MarketplaceController(this);
+
+            selectedStart = _selectedDateTime;
         }
 
         public int Generate()
@@ -437,11 +441,10 @@ namespace Excel_Parse
 
         private void PrepareDatesList()
         {
-            DateTime today = DateTime.Today;
-            DateTime tmp = new DateTime(today.Year, today.Month, today.Day, 0, 0, 0);
+            DateTime tmp = new DateTime(selectedStart.Year, selectedStart.Month, selectedStart.Day, 0, 0, 0);
 
-            startNew = tmp.AddDays(-7);
-            endNew = tmp.AddDays(-1).AddHours(23).AddMinutes(59).AddSeconds(59);
+            startNew = tmp;
+            endNew = tmp.AddDays(6).AddHours(23).AddMinutes(59).AddSeconds(59);
 
             startOld = startNew.AddDays(-7);
             endOld = endNew.AddDays(-7);
