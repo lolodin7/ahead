@@ -11,13 +11,14 @@ using System.Windows.Forms;
 
 namespace Excel_Parse
 {
-    public partial class ReportAdvertisingView : Form
+    public partial class ReportAdvertisingView : Form 
     {
         private MainFormView mf;
         private ReportAdvertisingFilterView advFilter;
 
         private List<AdvertisingProductsModel> advProductsList;
         private List<AdvertisingBrandsModel> advBrandsList;
+        private List<AdvertisingProductsModel>  advProductsListOriginal;
 
         public bool SponsoredProductMode { get; set; }
         public bool SponsoredBrandMode { get; set; }
@@ -48,6 +49,7 @@ namespace Excel_Parse
 
 
             advProductsList = new List<AdvertisingProductsModel> { };
+            advProductsListOriginal = new List<AdvertisingProductsModel> { };
             advBrandsList = new List<AdvertisingBrandsModel> { };
         }
 
@@ -629,7 +631,7 @@ namespace Excel_Parse
         }
 
         /* Получаем список advProductsList и рисуем его в таблице dgv_AdvProducts */
-        public void GetAdvertisingProductsListToShow(object _advProductsList)
+        public void GetAdvertisingProductsListToShow(object _advProductsList, object _advProductsListOriginal)
         {
             lb_StartDate.Text = StartDate.ToString().Substring(0, 10);
             lb_EndDate.Text = EndDate.ToString().Substring(0, 10);
@@ -638,6 +640,7 @@ namespace Excel_Parse
             SponsoredBrandMode = false;
 
             advProductsList = (List<AdvertisingProductsModel>)_advProductsList;
+            advProductsListOriginal = (List<AdvertisingProductsModel>)_advProductsListOriginal;
             DrawTableForSponsoredProducts(advProductsList);
         }
 
@@ -747,6 +750,13 @@ namespace Excel_Parse
             dgv_AdvBrands.Height = this.Height - 80;
             
             btn_Filter.Location = new System.Drawing.Point(this.Width - btn_Filter.Size.Width - 20, btn_Filter.Location.Y);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ReportAdvertisingViewFixed advFix = new ReportAdvertisingViewFixed(StartDate, EndDate, advProductsListOriginal);
+            advFix.UpdateDGV(dgv_AdvProducts);
+            advFix.Show();
         }
     }
 }

@@ -692,7 +692,7 @@ namespace Excel_Parse
             }
 
             int res = 0;
-            res = prodController.GetProductsByFewMarketplaceId(GetMPIdsByNames(checkedMarkeplaces));
+            res = prodController.GetProductsByFewMarketplaceIdInactive(GetMPIdsByNames(checkedMarkeplaces));
 
             if (res == 1 && checkedMarkeplaces.Count > 0)
             {
@@ -821,7 +821,7 @@ namespace Excel_Parse
                     {
                         //получаем данные рекламы
                         advProductsList.Clear();
-                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), new List<int> { currentProductId }, new List<int> { });
+                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), new List<int> { currentProductId }, new List<int> { }, new List<string> { });
 
                         advBrandsList.Clear();
                         advBrandResult = advertController.GetFinalAdvertisingBrandsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), new List<int> { currentProductId }, new List<int> { });
@@ -844,7 +844,7 @@ namespace Excel_Parse
                     {
                         //получаем данные рекламы
                         advProductsList.Clear();
-                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), currentProductIds, new List<int> { });
+                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), currentProductIds, new List<int> { }, new List<string> { });
 
                         advBrandsList.Clear();
                         advBrandResult = advertController.GetFinalAdvertisingBrandsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), currentProductIds, new List<int> { });
@@ -887,7 +887,7 @@ namespace Excel_Parse
                     {
                         //получаем данные рекламы
                         advProductsList.Clear();
-                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), new List<int> { currentProductId }, new List<int> { });
+                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), new List<int> { currentProductId }, new List<int> { }, new List<string> { });
 
                         advBrandsList.Clear();
                         advBrandResult = advertController.GetFinalAdvertisingBrandsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), new List<int> { currentProductId }, new List<int> { });
@@ -910,7 +910,7 @@ namespace Excel_Parse
                     {
                         //получаем данные рекламы
                         advProductsList.Clear();
-                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), currentProductIds, new List<int> { });
+                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), currentProductIds, new List<int> { }, new List<string> { });
 
                         advBrandsList.Clear();
                         advBrandResult = advertController.GetFinalAdvertisingBrandsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), currentProductIds, new List<int> { });
@@ -956,7 +956,7 @@ namespace Excel_Parse
                     {
                         //получаем данные рекламы
                         advProductsList.Clear();
-                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), new List<int> { currentProductId }, new List<int> { });
+                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), new List<int> { currentProductId }, new List<int> { }, new List<string> { });
 
                         advBrandsList.Clear();
                         advBrandResult = advertController.GetFinalAdvertisingBrandsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), new List<int> { currentProductId }, new List<int> { });
@@ -979,7 +979,7 @@ namespace Excel_Parse
                     {
                         //получаем данные рекламы
                         advProductsList.Clear();
-                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), currentProductIds, new List<int> { });
+                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), currentProductIds, new List<int> { }, new List<string> { });
 
                         advBrandsList.Clear();
                         advBrandResult = advertController.GetFinalAdvertisingBrandsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), currentProductIds, new List<int> { });
@@ -1031,7 +1031,7 @@ namespace Excel_Parse
 
                         //получаем данные рекламы
                         advProductsList.Clear();
-                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(dend, dstart, GetMPIdsByNames(checkedMarkeplaces), new List<int> { currentProductId }, new List<int> { });
+                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(dend, dstart, GetMPIdsByNames(checkedMarkeplaces), new List<int> { currentProductId }, new List<int> { }, new List<string> { });
 
                         advBrandsList.Clear();
                         advBrandResult = advertController.GetFinalAdvertisingBrandsReport(dend, dstart, GetMPIdsByNames(checkedMarkeplaces), new List<int> { currentProductId }, new List<int> { });
@@ -1058,7 +1058,7 @@ namespace Excel_Parse
 
                         //получаем данные рекламы
                         advProductsList.Clear();
-                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(dend, dstart, GetMPIdsByNames(checkedMarkeplaces), currentProductIds, new List<int> { });
+                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(dend, dstart, GetMPIdsByNames(checkedMarkeplaces), currentProductIds, new List<int> { }, new List<string> { });
 
                         advBrandsList.Clear();
                         advBrandResult = advertController.GetFinalAdvertisingBrandsReport(dend, dstart, GetMPIdsByNames(checkedMarkeplaces), currentProductIds, new List<int> { });

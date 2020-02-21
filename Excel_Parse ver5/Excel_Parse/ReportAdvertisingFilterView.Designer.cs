@@ -31,9 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportAdvertisingFilterView));
             this.clb_Marketplace = new System.Windows.Forms.CheckedListBox();
-            this.btn_Montly = new System.Windows.Forms.Button();
             this.clb_Campaign = new System.Windows.Forms.CheckedListBox();
-            this.btn_Weekly = new System.Windows.Forms.Button();
             this.clb_Product = new System.Windows.Forms.CheckedListBox();
             this.mc_StartDate = new System.Windows.Forms.MonthCalendar();
             this.mc_EndDate = new System.Windows.Forms.MonthCalendar();
@@ -74,6 +72,9 @@
             this.label17 = new System.Windows.Forms.Label();
             this.cb_MatchType = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cb_Strong_SearchByTargeting = new System.Windows.Forms.CheckBox();
+            this.cb_Strong_SearchByAdGroup = new System.Windows.Forms.CheckBox();
+            this.cb_Strong_SearchByCampaign = new System.Windows.Forms.CheckBox();
             this.btn_SearchBy = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
@@ -87,11 +88,46 @@
             this.btn_LastHalfYear = new System.Windows.Forms.Button();
             this.btn_lastYear = new System.Windows.Forms.Button();
             this.btn_LastDay = new System.Windows.Forms.Button();
-            this.cb_Strong_SearchByCampaign = new System.Windows.Forms.CheckBox();
-            this.cb_Strong_SearchByAdGroup = new System.Windows.Forms.CheckBox();
-            this.cb_Strong_SearchByTargeting = new System.Windows.Forms.CheckBox();
+            this.cb_WithInactive = new System.Windows.Forms.CheckBox();
+            this.cb_WithoutAdvertising = new System.Windows.Forms.CheckBox();
+            this.clb_AdGroup = new System.Windows.Forms.CheckedListBox();
+            this.btn_Clear_clb_AdGroups = new System.Windows.Forms.Button();
+            this.label19 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.режимОтображенияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.byProductsInMarkeplacesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.byCampaignInProductsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.byAdGroupsInCampaignsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.byTargetingInAdGroupsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.временноеОтображениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.by_DaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.by_WeeksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.by_MonthsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.marketplace_DaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.product_DaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaign_DaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroup_DaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.targeting_DaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.marketplace_WeeksToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.product_WeeksToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaign_WeeksToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroup_WeeksToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.targeting_WeeksToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.marketplace_MonthToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.product_MonthToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.compaign_MonthToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroup_MonthToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.targeting_MonthToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.отчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.новыйToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.advertisingAlarmReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.by_CustomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // clb_Marketplace
@@ -100,23 +136,11 @@
             this.clb_Marketplace.CheckOnClick = true;
             this.clb_Marketplace.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.clb_Marketplace.FormattingEnabled = true;
-            this.clb_Marketplace.Location = new System.Drawing.Point(12, 105);
+            this.clb_Marketplace.Location = new System.Drawing.Point(10, 126);
             this.clb_Marketplace.Name = "clb_Marketplace";
             this.clb_Marketplace.Size = new System.Drawing.Size(194, 112);
             this.clb_Marketplace.TabIndex = 0;
             this.clb_Marketplace.SelectedIndexChanged += new System.EventHandler(this.clb_Marketplace_SelectedIndexChanged);
-            // 
-            // btn_Montly
-            // 
-            this.btn_Montly.Enabled = false;
-            this.btn_Montly.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.btn_Montly.Location = new System.Drawing.Point(583, 4);
-            this.btn_Montly.Name = "btn_Montly";
-            this.btn_Montly.Size = new System.Drawing.Size(27, 27);
-            this.btn_Montly.TabIndex = 19;
-            this.btn_Montly.Text = "M";
-            this.btn_Montly.UseVisualStyleBackColor = true;
-            this.btn_Montly.Click += new System.EventHandler(this.btn_Montly_Click);
             // 
             // clb_Campaign
             // 
@@ -124,23 +148,11 @@
             this.clb_Campaign.CheckOnClick = true;
             this.clb_Campaign.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.clb_Campaign.FormattingEnabled = true;
-            this.clb_Campaign.Location = new System.Drawing.Point(216, 284);
+            this.clb_Campaign.Location = new System.Drawing.Point(214, 287);
             this.clb_Campaign.Name = "clb_Campaign";
-            this.clb_Campaign.Size = new System.Drawing.Size(394, 310);
+            this.clb_Campaign.Size = new System.Drawing.Size(394, 148);
             this.clb_Campaign.TabIndex = 0;
             this.clb_Campaign.SelectedIndexChanged += new System.EventHandler(this.clb_Campaign_SelectedIndexChanged);
-            // 
-            // btn_Weekly
-            // 
-            this.btn_Weekly.Enabled = false;
-            this.btn_Weekly.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.btn_Weekly.Location = new System.Drawing.Point(550, 4);
-            this.btn_Weekly.Name = "btn_Weekly";
-            this.btn_Weekly.Size = new System.Drawing.Size(27, 27);
-            this.btn_Weekly.TabIndex = 11;
-            this.btn_Weekly.Text = "W";
-            this.btn_Weekly.UseVisualStyleBackColor = true;
-            this.btn_Weekly.Click += new System.EventHandler(this.btn_Weekly_Click);
             // 
             // clb_Product
             // 
@@ -148,16 +160,16 @@
             this.clb_Product.CheckOnClick = true;
             this.clb_Product.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.clb_Product.FormattingEnabled = true;
-            this.clb_Product.Location = new System.Drawing.Point(12, 251);
+            this.clb_Product.Location = new System.Drawing.Point(10, 272);
             this.clb_Product.Name = "clb_Product";
-            this.clb_Product.Size = new System.Drawing.Size(194, 238);
+            this.clb_Product.Size = new System.Drawing.Size(194, 202);
             this.clb_Product.TabIndex = 0;
             this.clb_Product.SelectedIndexChanged += new System.EventHandler(this.clb_Product_SelectedIndexChanged);
             // 
             // mc_StartDate
             // 
             this.mc_StartDate.BackColor = System.Drawing.SystemColors.Control;
-            this.mc_StartDate.Location = new System.Drawing.Point(217, 86);
+            this.mc_StartDate.Location = new System.Drawing.Point(215, 97);
             this.mc_StartDate.MaxSelectionCount = 1;
             this.mc_StartDate.Name = "mc_StartDate";
             this.mc_StartDate.ShowToday = false;
@@ -168,7 +180,7 @@
             // mc_EndDate
             // 
             this.mc_EndDate.BackColor = System.Drawing.SystemColors.Control;
-            this.mc_EndDate.Location = new System.Drawing.Point(422, 86);
+            this.mc_EndDate.Location = new System.Drawing.Point(420, 97);
             this.mc_EndDate.MaxSelectionCount = 1;
             this.mc_EndDate.Name = "mc_EndDate";
             this.mc_EndDate.ShowToday = false;
@@ -179,9 +191,10 @@
             // cb_CampaignType
             // 
             this.cb_CampaignType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_CampaignType.Enabled = false;
             this.cb_CampaignType.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
             this.cb_CampaignType.FormattingEnabled = true;
-            this.cb_CampaignType.Location = new System.Drawing.Point(12, 35);
+            this.cb_CampaignType.Location = new System.Drawing.Point(10, 56);
             this.cb_CampaignType.Name = "cb_CampaignType";
             this.cb_CampaignType.Size = new System.Drawing.Size(194, 25);
             this.cb_CampaignType.TabIndex = 3;
@@ -193,7 +206,7 @@
             this.btn_Show.FlatAppearance.BorderSize = 0;
             this.btn_Show.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Show.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.btn_Show.Location = new System.Drawing.Point(12, 502);
+            this.btn_Show.Location = new System.Drawing.Point(10, 523);
             this.btn_Show.Name = "btn_Show";
             this.btn_Show.Size = new System.Drawing.Size(194, 92);
             this.btn_Show.TabIndex = 30;
@@ -204,7 +217,7 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(217, 258);
+            this.label2.Location = new System.Drawing.Point(215, 261);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(393, 23);
             this.label2.TabIndex = 31;
@@ -214,7 +227,7 @@
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.label3.Location = new System.Drawing.Point(12, 79);
+            this.label3.Location = new System.Drawing.Point(10, 100);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(194, 23);
             this.label3.TabIndex = 32;
@@ -224,7 +237,7 @@
             // label4
             // 
             this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.label4.Location = new System.Drawing.Point(12, 225);
+            this.label4.Location = new System.Drawing.Point(10, 246);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(194, 23);
             this.label4.TabIndex = 33;
@@ -234,7 +247,7 @@
             // lb_EndDate
             // 
             this.lb_EndDate.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.lb_EndDate.Location = new System.Drawing.Point(422, 2);
+            this.lb_EndDate.Location = new System.Drawing.Point(147, 1);
             this.lb_EndDate.Name = "lb_EndDate";
             this.lb_EndDate.Size = new System.Drawing.Size(119, 29);
             this.lb_EndDate.TabIndex = 34;
@@ -245,7 +258,7 @@
             // 
             this.lb_StartDate.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
             this.lb_StartDate.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lb_StartDate.Location = new System.Drawing.Point(217, 2);
+            this.lb_StartDate.Location = new System.Drawing.Point(-58, 1);
             this.lb_StartDate.Name = "lb_StartDate";
             this.lb_StartDate.Size = new System.Drawing.Size(188, 29);
             this.lb_StartDate.TabIndex = 35;
@@ -255,17 +268,17 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(8, 9);
+            this.label1.Location = new System.Drawing.Point(6, 30);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(198, 23);
             this.label1.TabIndex = 36;
-            this.label1.Text = "Вид рекламы";
+            this.label1.Text = "Тип рекламы";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label5
             // 
             this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.label5.Location = new System.Drawing.Point(407, 2);
+            this.label5.Location = new System.Drawing.Point(132, 1);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(13, 29);
             this.label5.TabIndex = 37;
@@ -275,7 +288,7 @@
             // btn_Clear_clb_Campaigns
             // 
             this.btn_Clear_clb_Campaigns.Font = new System.Drawing.Font("Segoe UI Semibold", 7.5F, System.Drawing.FontStyle.Bold);
-            this.btn_Clear_clb_Campaigns.Location = new System.Drawing.Point(583, 261);
+            this.btn_Clear_clb_Campaigns.Location = new System.Drawing.Point(581, 264);
             this.btn_Clear_clb_Campaigns.Name = "btn_Clear_clb_Campaigns";
             this.btn_Clear_clb_Campaigns.Size = new System.Drawing.Size(27, 21);
             this.btn_Clear_clb_Campaigns.TabIndex = 38;
@@ -287,7 +300,7 @@
             // btn_Clear_clb_Products
             // 
             this.btn_Clear_clb_Products.Font = new System.Drawing.Font("Segoe UI Semibold", 7.5F, System.Drawing.FontStyle.Bold);
-            this.btn_Clear_clb_Products.Location = new System.Drawing.Point(179, 228);
+            this.btn_Clear_clb_Products.Location = new System.Drawing.Point(177, 249);
             this.btn_Clear_clb_Products.Name = "btn_Clear_clb_Products";
             this.btn_Clear_clb_Products.Size = new System.Drawing.Size(27, 21);
             this.btn_Clear_clb_Products.TabIndex = 39;
@@ -299,7 +312,7 @@
             // btn_Clear_clb_Marketplace
             // 
             this.btn_Clear_clb_Marketplace.Font = new System.Drawing.Font("Segoe UI Semibold", 7.5F, System.Drawing.FontStyle.Bold);
-            this.btn_Clear_clb_Marketplace.Location = new System.Drawing.Point(179, 82);
+            this.btn_Clear_clb_Marketplace.Location = new System.Drawing.Point(177, 103);
             this.btn_Clear_clb_Marketplace.Name = "btn_Clear_clb_Marketplace";
             this.btn_Clear_clb_Marketplace.Size = new System.Drawing.Size(27, 21);
             this.btn_Clear_clb_Marketplace.TabIndex = 40;
@@ -477,14 +490,15 @@
             // 
             // splitter1
             // 
-            this.splitter1.Location = new System.Drawing.Point(0, 0);
+            this.splitter1.Location = new System.Drawing.Point(0, 24);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 601);
+            this.splitter1.Size = new System.Drawing.Size(3, 595);
             this.splitter1.TabIndex = 60;
             this.splitter1.TabStop = false;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkedListBox1);
             this.groupBox1.Controls.Add(this.btn_FilterByMatchType);
             this.groupBox1.Controls.Add(this.label17);
             this.groupBox1.Controls.Add(this.cb_MatchType);
@@ -511,7 +525,7 @@
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Enabled = false;
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.groupBox1.Location = new System.Drawing.Point(616, 4);
+            this.groupBox1.Location = new System.Drawing.Point(614, 25);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(666, 590);
             this.groupBox1.TabIndex = 61;
@@ -575,6 +589,33 @@
             this.groupBox2.TabIndex = 67;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Поиск по";
+            // 
+            // cb_Strong_SearchByTargeting
+            // 
+            this.cb_Strong_SearchByTargeting.AutoSize = true;
+            this.cb_Strong_SearchByTargeting.Location = new System.Drawing.Point(270, 166);
+            this.cb_Strong_SearchByTargeting.Name = "cb_Strong_SearchByTargeting";
+            this.cb_Strong_SearchByTargeting.Size = new System.Drawing.Size(15, 14);
+            this.cb_Strong_SearchByTargeting.TabIndex = 71;
+            this.cb_Strong_SearchByTargeting.UseVisualStyleBackColor = true;
+            // 
+            // cb_Strong_SearchByAdGroup
+            // 
+            this.cb_Strong_SearchByAdGroup.AutoSize = true;
+            this.cb_Strong_SearchByAdGroup.Location = new System.Drawing.Point(270, 109);
+            this.cb_Strong_SearchByAdGroup.Name = "cb_Strong_SearchByAdGroup";
+            this.cb_Strong_SearchByAdGroup.Size = new System.Drawing.Size(15, 14);
+            this.cb_Strong_SearchByAdGroup.TabIndex = 70;
+            this.cb_Strong_SearchByAdGroup.UseVisualStyleBackColor = true;
+            // 
+            // cb_Strong_SearchByCampaign
+            // 
+            this.cb_Strong_SearchByCampaign.AutoSize = true;
+            this.cb_Strong_SearchByCampaign.Location = new System.Drawing.Point(270, 54);
+            this.cb_Strong_SearchByCampaign.Name = "cb_Strong_SearchByCampaign";
+            this.cb_Strong_SearchByCampaign.Size = new System.Drawing.Size(15, 14);
+            this.cb_Strong_SearchByCampaign.TabIndex = 69;
+            this.cb_Strong_SearchByCampaign.UseVisualStyleBackColor = true;
             // 
             // btn_SearchBy
             // 
@@ -664,7 +705,7 @@
             // btn_LastMonth
             // 
             this.btn_LastMonth.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.btn_LastMonth.Location = new System.Drawing.Point(325, 51);
+            this.btn_LastMonth.Location = new System.Drawing.Point(323, 62);
             this.btn_LastMonth.Name = "btn_LastMonth";
             this.btn_LastMonth.Size = new System.Drawing.Size(78, 27);
             this.btn_LastMonth.TabIndex = 62;
@@ -675,7 +716,7 @@
             // btn_LastHalfYear
             // 
             this.btn_LastHalfYear.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.btn_LastHalfYear.Location = new System.Drawing.Point(428, 51);
+            this.btn_LastHalfYear.Location = new System.Drawing.Point(426, 62);
             this.btn_LastHalfYear.Name = "btn_LastHalfYear";
             this.btn_LastHalfYear.Size = new System.Drawing.Size(78, 27);
             this.btn_LastHalfYear.TabIndex = 63;
@@ -686,7 +727,7 @@
             // btn_lastYear
             // 
             this.btn_lastYear.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.btn_lastYear.Location = new System.Drawing.Point(532, 51);
+            this.btn_lastYear.Location = new System.Drawing.Point(530, 62);
             this.btn_lastYear.Name = "btn_lastYear";
             this.btn_lastYear.Size = new System.Drawing.Size(78, 27);
             this.btn_lastYear.TabIndex = 64;
@@ -697,7 +738,7 @@
             // btn_LastDay
             // 
             this.btn_LastDay.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.btn_LastDay.Location = new System.Drawing.Point(217, 51);
+            this.btn_LastDay.Location = new System.Drawing.Point(215, 62);
             this.btn_LastDay.Name = "btn_LastDay";
             this.btn_LastDay.Size = new System.Drawing.Size(78, 27);
             this.btn_LastDay.TabIndex = 81;
@@ -705,38 +746,344 @@
             this.btn_LastDay.UseVisualStyleBackColor = true;
             this.btn_LastDay.Click += new System.EventHandler(this.btn_LastDay_Click);
             // 
-            // cb_Strong_SearchByCampaign
+            // cb_WithInactive
             // 
-            this.cb_Strong_SearchByCampaign.AutoSize = true;
-            this.cb_Strong_SearchByCampaign.Location = new System.Drawing.Point(270, 54);
-            this.cb_Strong_SearchByCampaign.Name = "cb_Strong_SearchByCampaign";
-            this.cb_Strong_SearchByCampaign.Size = new System.Drawing.Size(15, 14);
-            this.cb_Strong_SearchByCampaign.TabIndex = 69;
-            this.cb_Strong_SearchByCampaign.UseVisualStyleBackColor = true;
+            this.cb_WithInactive.AutoSize = true;
+            this.cb_WithInactive.Location = new System.Drawing.Point(10, 500);
+            this.cb_WithInactive.Name = "cb_WithInactive";
+            this.cb_WithInactive.Size = new System.Drawing.Size(137, 17);
+            this.cb_WithInactive.TabIndex = 82;
+            this.cb_WithInactive.Text = "Показывать скрытые";
+            this.cb_WithInactive.UseVisualStyleBackColor = true;
+            this.cb_WithInactive.CheckedChanged += new System.EventHandler(this.cb_WithInactive_CheckedChanged);
             // 
-            // cb_Strong_SearchByAdGroup
+            // cb_WithoutAdvertising
             // 
-            this.cb_Strong_SearchByAdGroup.AutoSize = true;
-            this.cb_Strong_SearchByAdGroup.Location = new System.Drawing.Point(270, 109);
-            this.cb_Strong_SearchByAdGroup.Name = "cb_Strong_SearchByAdGroup";
-            this.cb_Strong_SearchByAdGroup.Size = new System.Drawing.Size(15, 14);
-            this.cb_Strong_SearchByAdGroup.TabIndex = 70;
-            this.cb_Strong_SearchByAdGroup.UseVisualStyleBackColor = true;
+            this.cb_WithoutAdvertising.AutoSize = true;
+            this.cb_WithoutAdvertising.Location = new System.Drawing.Point(10, 480);
+            this.cb_WithoutAdvertising.Name = "cb_WithoutAdvertising";
+            this.cb_WithoutAdvertising.Size = new System.Drawing.Size(169, 17);
+            this.cb_WithoutAdvertising.TabIndex = 83;
+            this.cb_WithoutAdvertising.Text = "Активные, но без рекламы";
+            this.cb_WithoutAdvertising.UseVisualStyleBackColor = true;
+            this.cb_WithoutAdvertising.CheckedChanged += new System.EventHandler(this.cb_WithoutAdvertising_CheckedChanged);
             // 
-            // cb_Strong_SearchByTargeting
+            // clb_AdGroup
             // 
-            this.cb_Strong_SearchByTargeting.AutoSize = true;
-            this.cb_Strong_SearchByTargeting.Location = new System.Drawing.Point(270, 166);
-            this.cb_Strong_SearchByTargeting.Name = "cb_Strong_SearchByTargeting";
-            this.cb_Strong_SearchByTargeting.Size = new System.Drawing.Size(15, 14);
-            this.cb_Strong_SearchByTargeting.TabIndex = 71;
-            this.cb_Strong_SearchByTargeting.UseVisualStyleBackColor = true;
+            this.clb_AdGroup.BackColor = System.Drawing.SystemColors.Control;
+            this.clb_AdGroup.CheckOnClick = true;
+            this.clb_AdGroup.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.clb_AdGroup.FormattingEnabled = true;
+            this.clb_AdGroup.Location = new System.Drawing.Point(215, 466);
+            this.clb_AdGroup.Name = "clb_AdGroup";
+            this.clb_AdGroup.Size = new System.Drawing.Size(394, 148);
+            this.clb_AdGroup.TabIndex = 84;
+            this.clb_AdGroup.SelectedIndexChanged += new System.EventHandler(this.clb_AdGroup_SelectedIndexChanged);
+            // 
+            // btn_Clear_clb_AdGroups
+            // 
+            this.btn_Clear_clb_AdGroups.Font = new System.Drawing.Font("Segoe UI Semibold", 7.5F, System.Drawing.FontStyle.Bold);
+            this.btn_Clear_clb_AdGroups.Location = new System.Drawing.Point(582, 443);
+            this.btn_Clear_clb_AdGroups.Name = "btn_Clear_clb_AdGroups";
+            this.btn_Clear_clb_AdGroups.Size = new System.Drawing.Size(27, 21);
+            this.btn_Clear_clb_AdGroups.TabIndex = 86;
+            this.btn_Clear_clb_AdGroups.Text = "-";
+            this.btn_Clear_clb_AdGroups.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btn_Clear_clb_AdGroups.UseVisualStyleBackColor = true;
+            // 
+            // label19
+            // 
+            this.label19.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.label19.Location = new System.Drawing.Point(216, 440);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(393, 23);
+            this.label19.TabIndex = 85;
+            this.label19.Text = "AdGroups";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.lb_EndDate);
+            this.panel1.Controls.Add(this.lb_StartDate);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Location = new System.Drawing.Point(280, 25);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(270, 33);
+            this.panel1.TabIndex = 84;
+            // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Location = new System.Drawing.Point(284, 379);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(194, 102);
+            this.checkedListBox1.TabIndex = 84;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.режимОтображенияToolStripMenuItem,
+            this.временноеОтображениеToolStripMenuItem,
+            this.отчетToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1284, 24);
+            this.menuStrip1.TabIndex = 87;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // режимОтображенияToolStripMenuItem
+            // 
+            this.режимОтображенияToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.byProductsInMarkeplacesToolStripMenuItem,
+            this.byCampaignInProductsToolStripMenuItem,
+            this.byAdGroupsInCampaignsToolStripMenuItem,
+            this.byTargetingInAdGroupsToolStripMenuItem});
+            this.режимОтображенияToolStripMenuItem.Name = "режимОтображенияToolStripMenuItem";
+            this.режимОтображенияToolStripMenuItem.Size = new System.Drawing.Size(141, 20);
+            this.режимОтображенияToolStripMenuItem.Text = "Режим отображения";
+            // 
+            // byProductsInMarkeplacesToolStripMenuItem
+            // 
+            this.byProductsInMarkeplacesToolStripMenuItem.CheckOnClick = true;
+            this.byProductsInMarkeplacesToolStripMenuItem.Name = "byProductsInMarkeplacesToolStripMenuItem";
+            this.byProductsInMarkeplacesToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.byProductsInMarkeplacesToolStripMenuItem.Text = "По товарам на маркетплейсе";
+            this.byProductsInMarkeplacesToolStripMenuItem.Click += new System.EventHandler(this.byProductsInMarkeplacesToolStripMenuItem_Click);
+            // 
+            // byCampaignInProductsToolStripMenuItem
+            // 
+            this.byCampaignInProductsToolStripMenuItem.CheckOnClick = true;
+            this.byCampaignInProductsToolStripMenuItem.Name = "byCampaignInProductsToolStripMenuItem";
+            this.byCampaignInProductsToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.byCampaignInProductsToolStripMenuItem.Text = "По кампаниям в товаре";
+            this.byCampaignInProductsToolStripMenuItem.Click += new System.EventHandler(this.byCampaignInProductsToolStripMenuItem_Click);
+            // 
+            // byAdGroupsInCampaignsToolStripMenuItem
+            // 
+            this.byAdGroupsInCampaignsToolStripMenuItem.CheckOnClick = true;
+            this.byAdGroupsInCampaignsToolStripMenuItem.Name = "byAdGroupsInCampaignsToolStripMenuItem";
+            this.byAdGroupsInCampaignsToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.byAdGroupsInCampaignsToolStripMenuItem.Text = "По AdGroups в кампании";
+            this.byAdGroupsInCampaignsToolStripMenuItem.Click += new System.EventHandler(this.byAdGroupsInCampaignsToolStripMenuItem_Click);
+            // 
+            // byTargetingInAdGroupsToolStripMenuItem
+            // 
+            this.byTargetingInAdGroupsToolStripMenuItem.CheckOnClick = true;
+            this.byTargetingInAdGroupsToolStripMenuItem.Name = "byTargetingInAdGroupsToolStripMenuItem";
+            this.byTargetingInAdGroupsToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.byTargetingInAdGroupsToolStripMenuItem.Text = "По ключам в AdGroup";
+            this.byTargetingInAdGroupsToolStripMenuItem.Click += new System.EventHandler(this.byTargetingInAdGroupsToolStripMenuItem_Click);
+            // 
+            // временноеОтображениеToolStripMenuItem
+            // 
+            this.временноеОтображениеToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.by_DaysToolStripMenuItem,
+            this.by_WeeksToolStripMenuItem,
+            this.by_MonthsToolStripMenuItem,
+            this.by_CustomToolStripMenuItem});
+            this.временноеОтображениеToolStripMenuItem.Name = "временноеОтображениеToolStripMenuItem";
+            this.временноеОтображениеToolStripMenuItem.Size = new System.Drawing.Size(144, 20);
+            this.временноеОтображениеToolStripMenuItem.Text = "Разметка по времени";
+            // 
+            // by_DaysToolStripMenuItem
+            // 
+            this.by_DaysToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.marketplace_DaysToolStripMenuItem,
+            this.product_DaysToolStripMenuItem,
+            this.campaign_DaysToolStripMenuItem,
+            this.adGroup_DaysToolStripMenuItem,
+            this.targeting_DaysToolStripMenuItem});
+            this.by_DaysToolStripMenuItem.Name = "by_DaysToolStripMenuItem";
+            this.by_DaysToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.by_DaysToolStripMenuItem.Text = "По дням";
+            // 
+            // by_WeeksToolStripMenuItem
+            // 
+            this.by_WeeksToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.marketplace_WeeksToolStripMenuItem1,
+            this.product_WeeksToolStripMenuItem1,
+            this.campaign_WeeksToolStripMenuItem1,
+            this.adGroup_WeeksToolStripMenuItem1,
+            this.targeting_WeeksToolStripMenuItem1});
+            this.by_WeeksToolStripMenuItem.Name = "by_WeeksToolStripMenuItem";
+            this.by_WeeksToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.by_WeeksToolStripMenuItem.Text = "По неделям";
+            // 
+            // by_MonthsToolStripMenuItem
+            // 
+            this.by_MonthsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.marketplace_MonthToolStripMenuItem2,
+            this.product_MonthToolStripMenuItem2,
+            this.compaign_MonthToolStripMenuItem2,
+            this.adGroup_MonthToolStripMenuItem2,
+            this.targeting_MonthToolStripMenuItem2});
+            this.by_MonthsToolStripMenuItem.Name = "by_MonthsToolStripMenuItem";
+            this.by_MonthsToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.by_MonthsToolStripMenuItem.Text = "По месяцам";
+            // 
+            // marketplace_DaysToolStripMenuItem
+            // 
+            this.marketplace_DaysToolStripMenuItem.CheckOnClick = true;
+            this.marketplace_DaysToolStripMenuItem.Name = "marketplace_DaysToolStripMenuItem";
+            this.marketplace_DaysToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.marketplace_DaysToolStripMenuItem.Text = "Маркетплейс";
+            this.marketplace_DaysToolStripMenuItem.Click += new System.EventHandler(this.marketplace_DaysToolStripMenuItem_Click);
+            // 
+            // product_DaysToolStripMenuItem
+            // 
+            this.product_DaysToolStripMenuItem.CheckOnClick = true;
+            this.product_DaysToolStripMenuItem.Name = "product_DaysToolStripMenuItem";
+            this.product_DaysToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.product_DaysToolStripMenuItem.Text = "Товар";
+            this.product_DaysToolStripMenuItem.Click += new System.EventHandler(this.product_DaysToolStripMenuItem_Click);
+            // 
+            // campaign_DaysToolStripMenuItem
+            // 
+            this.campaign_DaysToolStripMenuItem.CheckOnClick = true;
+            this.campaign_DaysToolStripMenuItem.Name = "campaign_DaysToolStripMenuItem";
+            this.campaign_DaysToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.campaign_DaysToolStripMenuItem.Text = "Кампания";
+            this.campaign_DaysToolStripMenuItem.Click += new System.EventHandler(this.campaign_DaysToolStripMenuItem_Click);
+            // 
+            // adGroup_DaysToolStripMenuItem
+            // 
+            this.adGroup_DaysToolStripMenuItem.CheckOnClick = true;
+            this.adGroup_DaysToolStripMenuItem.Name = "adGroup_DaysToolStripMenuItem";
+            this.adGroup_DaysToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.adGroup_DaysToolStripMenuItem.Text = "AdGroup";
+            this.adGroup_DaysToolStripMenuItem.Click += new System.EventHandler(this.adGroup_DaysToolStripMenuItem_Click);
+            // 
+            // targeting_DaysToolStripMenuItem
+            // 
+            this.targeting_DaysToolStripMenuItem.CheckOnClick = true;
+            this.targeting_DaysToolStripMenuItem.Name = "targeting_DaysToolStripMenuItem";
+            this.targeting_DaysToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.targeting_DaysToolStripMenuItem.Text = "Ключ";
+            this.targeting_DaysToolStripMenuItem.Click += new System.EventHandler(this.targeting_DaysToolStripMenuItem_Click);
+            // 
+            // marketplace_WeeksToolStripMenuItem1
+            // 
+            this.marketplace_WeeksToolStripMenuItem1.CheckOnClick = true;
+            this.marketplace_WeeksToolStripMenuItem1.Name = "marketplace_WeeksToolStripMenuItem1";
+            this.marketplace_WeeksToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.marketplace_WeeksToolStripMenuItem1.Text = "Маркетплейс";
+            this.marketplace_WeeksToolStripMenuItem1.Click += new System.EventHandler(this.marketplace_WeeksToolStripMenuItem1_Click);
+            // 
+            // product_WeeksToolStripMenuItem1
+            // 
+            this.product_WeeksToolStripMenuItem1.CheckOnClick = true;
+            this.product_WeeksToolStripMenuItem1.Name = "product_WeeksToolStripMenuItem1";
+            this.product_WeeksToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.product_WeeksToolStripMenuItem1.Text = "Товар";
+            this.product_WeeksToolStripMenuItem1.Click += new System.EventHandler(this.product_WeeksToolStripMenuItem1_Click);
+            // 
+            // campaign_WeeksToolStripMenuItem1
+            // 
+            this.campaign_WeeksToolStripMenuItem1.CheckOnClick = true;
+            this.campaign_WeeksToolStripMenuItem1.Name = "campaign_WeeksToolStripMenuItem1";
+            this.campaign_WeeksToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.campaign_WeeksToolStripMenuItem1.Text = "Кампания";
+            this.campaign_WeeksToolStripMenuItem1.Click += new System.EventHandler(this.campaign_WeeksToolStripMenuItem1_Click);
+            // 
+            // adGroup_WeeksToolStripMenuItem1
+            // 
+            this.adGroup_WeeksToolStripMenuItem1.CheckOnClick = true;
+            this.adGroup_WeeksToolStripMenuItem1.Name = "adGroup_WeeksToolStripMenuItem1";
+            this.adGroup_WeeksToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.adGroup_WeeksToolStripMenuItem1.Text = "AdGroup";
+            this.adGroup_WeeksToolStripMenuItem1.Click += new System.EventHandler(this.adGroup_WeeksToolStripMenuItem1_Click);
+            // 
+            // targeting_WeeksToolStripMenuItem1
+            // 
+            this.targeting_WeeksToolStripMenuItem1.CheckOnClick = true;
+            this.targeting_WeeksToolStripMenuItem1.Name = "targeting_WeeksToolStripMenuItem1";
+            this.targeting_WeeksToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.targeting_WeeksToolStripMenuItem1.Text = "Ключ";
+            this.targeting_WeeksToolStripMenuItem1.Click += new System.EventHandler(this.targeting_WeeksToolStripMenuItem1_Click);
+            // 
+            // marketplace_MonthToolStripMenuItem2
+            // 
+            this.marketplace_MonthToolStripMenuItem2.CheckOnClick = true;
+            this.marketplace_MonthToolStripMenuItem2.Name = "marketplace_MonthToolStripMenuItem2";
+            this.marketplace_MonthToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.marketplace_MonthToolStripMenuItem2.Text = "Маркетплейс";
+            this.marketplace_MonthToolStripMenuItem2.Click += new System.EventHandler(this.marketplace_MonthToolStripMenuItem2_Click);
+            // 
+            // product_MonthToolStripMenuItem2
+            // 
+            this.product_MonthToolStripMenuItem2.CheckOnClick = true;
+            this.product_MonthToolStripMenuItem2.Name = "product_MonthToolStripMenuItem2";
+            this.product_MonthToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.product_MonthToolStripMenuItem2.Text = "Товар";
+            this.product_MonthToolStripMenuItem2.Click += new System.EventHandler(this.product_MonthToolStripMenuItem2_Click);
+            // 
+            // compaign_MonthToolStripMenuItem2
+            // 
+            this.compaign_MonthToolStripMenuItem2.CheckOnClick = true;
+            this.compaign_MonthToolStripMenuItem2.Name = "compaign_MonthToolStripMenuItem2";
+            this.compaign_MonthToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.compaign_MonthToolStripMenuItem2.Text = "Кампания";
+            this.compaign_MonthToolStripMenuItem2.Click += new System.EventHandler(this.compaign_MonthToolStripMenuItem2_Click);
+            // 
+            // adGroup_MonthToolStripMenuItem2
+            // 
+            this.adGroup_MonthToolStripMenuItem2.CheckOnClick = true;
+            this.adGroup_MonthToolStripMenuItem2.Name = "adGroup_MonthToolStripMenuItem2";
+            this.adGroup_MonthToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.adGroup_MonthToolStripMenuItem2.Text = "AdGroup";
+            this.adGroup_MonthToolStripMenuItem2.Click += new System.EventHandler(this.adGroup_MonthToolStripMenuItem2_Click);
+            // 
+            // targeting_MonthToolStripMenuItem2
+            // 
+            this.targeting_MonthToolStripMenuItem2.CheckOnClick = true;
+            this.targeting_MonthToolStripMenuItem2.Name = "targeting_MonthToolStripMenuItem2";
+            this.targeting_MonthToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.targeting_MonthToolStripMenuItem2.Text = "Ключ";
+            this.targeting_MonthToolStripMenuItem2.Click += new System.EventHandler(this.targeting_MonthToolStripMenuItem2_Click);
+            // 
+            // отчетToolStripMenuItem
+            // 
+            this.отчетToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.новыйToolStripMenuItem});
+            this.отчетToolStripMenuItem.Name = "отчетToolStripMenuItem";
+            this.отчетToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.отчетToolStripMenuItem.Text = "Отчеты";
+            // 
+            // новыйToolStripMenuItem
+            // 
+            this.новыйToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.advertisingAlarmReportToolStripMenuItem});
+            this.новыйToolStripMenuItem.Name = "новыйToolStripMenuItem";
+            this.новыйToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.новыйToolStripMenuItem.Text = "Новый";
+            // 
+            // advertisingAlarmReportToolStripMenuItem
+            // 
+            this.advertisingAlarmReportToolStripMenuItem.Name = "advertisingAlarmReportToolStripMenuItem";
+            this.advertisingAlarmReportToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.advertisingAlarmReportToolStripMenuItem.Text = "Advertising Alarm Report";
+            this.advertisingAlarmReportToolStripMenuItem.Click += new System.EventHandler(this.advertisingAlarmReportToolStripMenuItem_Click);
+            // 
+            // by_CustomToolStripMenuItem
+            // 
+            this.by_CustomToolStripMenuItem.Name = "by_CustomToolStripMenuItem";
+            this.by_CustomToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.by_CustomToolStripMenuItem.Text = "Пользовательская";
+            this.by_CustomToolStripMenuItem.Click += new System.EventHandler(this.by_CustomToolStripMenuItem_Click);
             // 
             // ReportAdvertisingFilterView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1284, 601);
+            this.ClientSize = new System.Drawing.Size(1284, 619);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.btn_Clear_clb_AdGroups);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.clb_AdGroup);
+            this.Controls.Add(this.cb_WithoutAdvertising);
+            this.Controls.Add(this.cb_WithInactive);
             this.Controls.Add(this.btn_LastDay);
             this.Controls.Add(this.btn_lastYear);
             this.Controls.Add(this.btn_LastHalfYear);
@@ -746,22 +1093,18 @@
             this.Controls.Add(this.btn_Clear_clb_Marketplace);
             this.Controls.Add(this.btn_Clear_clb_Products);
             this.Controls.Add(this.btn_Clear_clb_Campaigns);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.lb_StartDate);
-            this.Controls.Add(this.lb_EndDate);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btn_Show);
             this.Controls.Add(this.clb_Marketplace);
-            this.Controls.Add(this.btn_Montly);
             this.Controls.Add(this.cb_CampaignType);
             this.Controls.Add(this.clb_Campaign);
             this.Controls.Add(this.mc_EndDate);
-            this.Controls.Add(this.btn_Weekly);
             this.Controls.Add(this.mc_StartDate);
             this.Controls.Add(this.clb_Product);
+            this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -774,15 +1117,17 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.CheckedListBox clb_Marketplace;
-        private System.Windows.Forms.Button btn_Montly;
         private System.Windows.Forms.CheckedListBox clb_Campaign;
-        private System.Windows.Forms.Button btn_Weekly;
         private System.Windows.Forms.CheckedListBox clb_Product;
         private System.Windows.Forms.MonthCalendar mc_StartDate;
         private System.Windows.Forms.MonthCalendar mc_EndDate;
@@ -839,5 +1184,41 @@
         private System.Windows.Forms.CheckBox cb_Strong_SearchByTargeting;
         private System.Windows.Forms.CheckBox cb_Strong_SearchByAdGroup;
         private System.Windows.Forms.CheckBox cb_Strong_SearchByCampaign;
+        private System.Windows.Forms.CheckBox cb_WithInactive;
+        private System.Windows.Forms.CheckBox cb_WithoutAdvertising;
+        private System.Windows.Forms.CheckedListBox clb_AdGroup;
+        private System.Windows.Forms.Button btn_Clear_clb_AdGroups;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem режимОтображенияToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem byProductsInMarkeplacesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem byCampaignInProductsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem byAdGroupsInCampaignsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem byTargetingInAdGroupsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem временноеОтображениеToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem by_DaysToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem by_WeeksToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem by_MonthsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem marketplace_DaysToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem campaign_DaysToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem product_DaysToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem adGroup_DaysToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem targeting_DaysToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem marketplace_WeeksToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem product_WeeksToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem campaign_WeeksToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem adGroup_WeeksToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem targeting_WeeksToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem marketplace_MonthToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem product_MonthToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem compaign_MonthToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem adGroup_MonthToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem targeting_MonthToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem отчетToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem новыйToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem advertisingAlarmReportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem by_CustomToolStripMenuItem;
     }
 }

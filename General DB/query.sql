@@ -684,10 +684,10 @@ SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-01-01 00:00
 delete from [AdvertisingProducts]
 
 use ahead
-delete from BusinessReport where UpdateDate between '2020-02-01 00:00:00' and '2020-02-12 23:59:59'
-SELECT * FROM BusinessReport where UpdateDate between '2020-02-13 00:00:00' and '2020-02-13 23:59:59'
+delete from BusinessReport where UpdateDate between '2020-01-07 00:00:00' and '2020-01-21 23:59:59' and (MarketPlaceId = 1 or MarketPlaceId = 2)
+SELECT * FROM BusinessReport where UpdateDate between '2020-01-16 00:00:00' and '2020-01-16 23:59:59' and MarketPlaceId = 1
 SELECT * FROM AdvertisingProducts where UpdateDate between '2020-01-13 00:00:00' and '2020-01-13 23:59:59'
-SELECT * FROM Orders where [PurchaseDate] between '2020-02-13 00:00:00' and '2020-02-13 23:59:59' and MarketplaceId = 1
+SELECT * FROM Orders where [PurchaseDate] between '2020-02-17 00:00:00' and '2020-02-17 23:59:59' 
 
 INSERT INTO [BusinessReport] ([UpdateDate], [MarketPlaceId], [SKU], [Sessions], [SessionPercentage], [PageViews], [PageViewsPercentage], [UnitsOrdered], [UnitsOrderedB2B], [UnitSessionPercentage], [UnitSessionPercentageB2B], [OrderedProductSales], [OrderedProductSalesB2B], [TotalOrderItems], [TotalOrderItemsB2B], [ProductId]) VALUES ('2020-01-12 00:00:00', 1, 'E3-2RHF-EO7C', 99999, 39.33, 925, 39.85, 7, 5, 1.21, 0.86, 165.93, 119.64, 7, 5, 25)
 
@@ -697,4 +697,11 @@ UPDATE [BusinessReport] SET [Sessions] = 579, [SessionPercentage] = 1.21, [PageV
 
 
 use AHEAD_stand
-SELECT * FROM AdvertisingProducts where UpdateDate between '2020-01-16 00:00:00' and '2020-01-16 23:59:59' and MarketplaceId = 1
+SELECT * FROM AdvertisingProducts where UpdateDate between '2020-02-16 00:00:00' and '2020-02-16 23:59:59' 
+
+select * from AdvertisingProducts
+
+update Products set ActiveStatus = 0 where ProductId = 12
+
+
+SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-02-10 00:00:00' and '2020-02-21 23:59:00' and ([MarketPlaceId] = 1) and ([ProductId] = 23) and ([CampaignId] = 56394289) and ([AdGroupName] = 'Recording')

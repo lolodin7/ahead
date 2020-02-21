@@ -123,7 +123,7 @@ namespace Excel_Parse
             return Execute_SELECTJOIN_Command(command);
         }
 
-        public int GetProductsByFewMarketplaceId(List<int> _id)
+        public int GetProductsByFewMarketplaceIdInactive(List<int> _id)
         {
             string sqlStatement = "";
             if (_id.Count == 0)
@@ -135,6 +135,30 @@ namespace Excel_Parse
             {
                 //sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0 and Products.ActiveStatus = 'true' and (Products.MarketPlaceId = " + _id[0];
                 sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0 and (Products.MarketPlaceId = " + _id[0];
+
+                for (int i = 1; i < _id.Count; i++)
+                {
+                    sqlStatement = sqlStatement + " or Products.MarketPlaceId = " + _id[i];
+                }
+
+                sqlStatement = sqlStatement + ")";
+            }
+            command = new SqlCommand(sqlStatement, connection);
+            return Execute_SELECTJOIN_Command(command);
+        }
+
+        public int GetProductsByFewMarketplaceIdActive(List<int> _id)
+        {
+            string sqlStatement = "";
+            if (_id.Count == 0)
+                sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0 and [ActiveStatus] = 1";
+            else if (_id.Count == 1)
+                //sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0 and Products.ActiveStatus = 'true' and Products.MarketPlaceId = " + _id[0];
+                sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0 and [ActiveStatus] = 1 and Products.MarketPlaceId = " + _id[0];
+            else if (_id.Count >= 2)
+            {
+                //sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0 and Products.ActiveStatus = 'true' and (Products.MarketPlaceId = " + _id[0];
+                sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0 and [ActiveStatus] = 1 and (Products.MarketPlaceId = " + _id[0];
 
                 for (int i = 1; i < _id.Count; i++)
                 {

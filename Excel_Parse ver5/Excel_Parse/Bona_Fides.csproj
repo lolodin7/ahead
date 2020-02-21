@@ -92,6 +92,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -140,6 +141,12 @@
       <DependentUpon>ReportAdvertisingUploadView.cs</DependentUpon>
     </Compile>
     <Compile Include="DetailedDisposition.cs" />
+    <Compile Include="ReportAdvertisingViewFixed.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportAdvertisingViewFixed.Designer.cs">
+      <DependentUpon>ReportAdvertisingViewFixed.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReportBusinessFilterView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -408,6 +415,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RegisterAnEmployee.resx">
       <DependentUpon>RegisterAnEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportAdvertisingViewFixed.resx">
+      <DependentUpon>ReportAdvertisingViewFixed.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReportBusinessFilterView.resx">
       <DependentUpon>ReportBusinessFilterView.cs</DependentUpon>

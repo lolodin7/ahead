@@ -290,7 +290,7 @@ namespace Excel_Parse
             if (clb_Marketplace.CheckedItems.Count > 0)
             {
                 int res = 0;
-                res = prodController.GetProductsByFewMarketplaceId(GetMPIdsByNames(checkedMarkeplaces));
+                res = prodController.GetProductsByFewMarketplaceIdInactive(GetMPIdsByNames(checkedMarkeplaces));
                 if (res == 1)
                 {
                     Draw_clb_Products();

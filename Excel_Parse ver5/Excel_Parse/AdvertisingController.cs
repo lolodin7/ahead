@@ -16,6 +16,7 @@ namespace Excel_Parse
 
 
         private List<AdvertisingProductsModel> advprodList;
+        private List<AdvertisingProductsModel> advprodListOriginal;
         private List<AdvertisingBrandsModel> advbrandList;
 
         private ReportAdvertisingUploadView controlAdvertisingUploadReportView;
@@ -80,7 +81,7 @@ namespace Excel_Parse
 
 
 
-        public int GetFinalAdvertisingProductsReport(DateTime _dt1, DateTime _dt2, List<int> _mpList, List<int> _prodList, List<int> _campList)
+        public int GetFinalAdvertisingProductsReport(DateTime _dt1, DateTime _dt2, List<int> _mpList, List<int> _prodList, List<int> _campList, List<string> _adgroupList)
         {
             string sqlStatement = "";
 
@@ -139,7 +140,25 @@ namespace Excel_Parse
 
                 sqlStatement = sqlStatement + ")";
             }
-            
+            //-------
+            if (_adgroupList.Count == 1)
+            {
+                sqlStatement = sqlStatement + " and ";
+                sqlStatement = sqlStatement + "([AdGroupName] = '" + _adgroupList[0] + "')";
+            }
+            else if (_adgroupList.Count >= 2)
+            {
+                sqlStatement = sqlStatement + " and ";
+                sqlStatement = sqlStatement + "([AdGroupName] = '" + _adgroupList[0] + "'";
+
+                for (int i = 1; i < _adgroupList.Count; i++)
+                {
+                    sqlStatement = sqlStatement + " or [AdGroupName] = '" + _adgroupList[i] + "'";
+                }
+
+                sqlStatement = sqlStatement + ")";
+            }
+
             command = new SqlCommand(sqlStatement, connection);
             return Execute_SELECT_Command_ProductsBrands(command, "p");
         }
@@ -287,6 +306,79 @@ namespace Excel_Parse
         }
 
 
+        public int GetAdvertisingProductsAdgroups(List<int> _id, List<string> _checkedCampaigns)
+        {
+            string sqlStatement = "";
+            if (_id.Count == 0)
+                return 0;
+            else if (_id.Count == 1)
+                sqlStatement = "SELECT AdGroupName FROM [AdvertisingProducts] WHERE [ProductId] = " + _id[0];
+            else if (_id.Count >= 2)
+            {
+                sqlStatement = "SELECT AdGroupName FROM [AdvertisingProducts] WHERE ([ProductId] = " + _id[0];
+
+                for (int i = 1; i < _id.Count; i++)
+                {
+                    sqlStatement = sqlStatement + " or [ProductId] = " + _id[i];
+                }
+
+                sqlStatement = sqlStatement + ")";
+            }
+            if (_checkedCampaigns.Count > 0)
+            {
+                if (_checkedCampaigns.Count == 1)
+                    sqlStatement = sqlStatement + " and [CampaignName] = '" + _checkedCampaigns[0] + "'";
+                else
+                {
+                    sqlStatement = sqlStatement + " and ([CampaignName] = '" + _checkedCampaigns[0] + "'";
+
+                    for (int i = 1; i < _checkedCampaigns.Count; i++)
+                    {
+                        sqlStatement = sqlStatement + " or [CampaignName] = '" + _checkedCampaigns[i] + "'";
+                    }
+
+                    sqlStatement = sqlStatement + ")";
+                }
+            }
+            
+
+            List<string> adGroups = new List<string> { };
+            
+            command = new SqlCommand(sqlStatement, connection);
+            
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        IDataRecord record = (IDataRecord)reader;
+                        adGroups.Add(record[0].ToString());
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No rows found.");
+                }
+                reader.Close();
+                connection.Close();
+
+                if (controlAdvertisingReportFilterView != null)
+                    controlAdvertisingReportFilterView.GetAdGroups(adGroups);
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                connection.Close();
+                return ex.HResult;
+            }
+        }
+
         public int GetAdvertisingBrandsCampaignAndCampId(List<int> _id)
         {
             string sqlStatement = "";
@@ -385,6 +477,8 @@ namespace Excel_Parse
                     controlAdvertisingUploadReportView.GetAP_CampaignIdsFromDB(nameIdList);
                 else if (controlReportSessionsView != null)
                     controlReportSessionsView.GetAP_CampaignIdsFromDB(nameIdList);
+                else if (controlAdvertisingReportFilterView != null)
+                    controlAdvertisingReportFilterView.GetAP_CampaignIdsFromDB(nameIdList);
 
                 return 1;
             }
@@ -540,6 +634,7 @@ namespace Excel_Parse
         private int Execute_SELECT_Command_ProductsBrands(SqlCommand _command, string s)
         {
             advprodList = new List<AdvertisingProductsModel> { };
+            advprodListOriginal = new List<AdvertisingProductsModel> { };
             advbrandList = new List<AdvertisingBrandsModel> { };
             try
             {
@@ -574,7 +669,10 @@ namespace Excel_Parse
                 if (s.Equals("p"))
                 {
                     if (controlAdvertisingReportFilterView != null)
-                        controlAdvertisingReportFilterView.GetAdvertisingProductsFromDB(advprodList);
+                    {
+                        controlAdvertisingReportFilterView.GetAdvertisingProductsFromDBOriginalValues(advprodListOriginal);
+                        controlAdvertisingReportFilterView.GetAdvertisingProductsFromDBwithSummary(advprodList);
+                    }
                     else if (controlReportSessionsView != null)
                         controlReportSessionsView.GetAdvertisingProductsFromDB(advprodList);
                 }
@@ -601,9 +699,11 @@ namespace Excel_Parse
         {
             AdvertisingProductsModel adprModel = new AdvertisingProductsModel();
             advprodList.Add(adprModel);
+            advprodListOriginal.Add(adprModel);
             for (int i = 0; i < record.FieldCount; i++)
             {
                 advprodList[advprodList.Count - 1].WriteData(i, record[i]);
+                advprodListOriginal[advprodListOriginal.Count - 1].WriteData(i, record[i]);
             }
         }
 

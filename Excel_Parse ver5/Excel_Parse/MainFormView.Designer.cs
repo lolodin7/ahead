@@ -65,8 +65,6 @@
             this.updateReturnsReportToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.allOrdersToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.everyDayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.create7daysAdvRepToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.daysAdvReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сотрудникToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ShowPersonalInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registerNewEmployeeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,8 +74,6 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -235,8 +231,7 @@
             this.showSectionToolStripMenuItem,
             this.addSectionToolStripMenuItem1,
             this.updateSectionToolStripMenuItem,
-            this.everyDayToolStripMenuItem,
-            this.create7daysAdvRepToolStripMenuItem});
+            this.everyDayToolStripMenuItem});
             this.рекламаToolStripMenuItem.Name = "рекламаToolStripMenuItem";
             this.рекламаToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
             this.рекламаToolStripMenuItem.Text = "Отчетность";
@@ -375,21 +370,6 @@
             this.everyDayToolStripMenuItem.Text = "Everyday update";
             this.everyDayToolStripMenuItem.Click += new System.EventHandler(this.everyDayToolStripMenuItem_Click);
             // 
-            // create7daysAdvRepToolStripMenuItem
-            // 
-            this.create7daysAdvRepToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.daysAdvReportToolStripMenuItem});
-            this.create7daysAdvRepToolStripMenuItem.Name = "create7daysAdvRepToolStripMenuItem";
-            this.create7daysAdvRepToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.create7daysAdvRepToolStripMenuItem.Text = "Generate";
-            // 
-            // daysAdvReportToolStripMenuItem
-            // 
-            this.daysAdvReportToolStripMenuItem.Name = "daysAdvReportToolStripMenuItem";
-            this.daysAdvReportToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.daysAdvReportToolStripMenuItem.Text = "Advertising Alarm Report";
-            this.daysAdvReportToolStripMenuItem.Click += new System.EventHandler(this.daysAdvReportToolStripMenuItem_Click);
-            // 
             // сотрудникToolStripMenuItem
             // 
             this.сотрудникToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -461,28 +441,11 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(779, 10);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 22);
-            this.dateTimePicker1.TabIndex = 16;
-            // 
-            // monthCalendar1
-            // 
-            this.monthCalendar1.Location = new System.Drawing.Point(18, 362);
-            this.monthCalendar1.MaxSelectionCount = 1;
-            this.monthCalendar1.Name = "monthCalendar1";
-            this.monthCalendar1.ShowToday = false;
-            this.monthCalendar1.TabIndex = 17;
-            // 
             // MainFormView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 536);
-            this.Controls.Add(this.monthCalendar1);
-            this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btn_Exit);
             this.Controls.Add(this.menuStrip1);
@@ -548,9 +511,5 @@
         private System.Windows.Forms.ToolStripMenuItem allOrdersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem allOrdersToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem everyDayToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem create7daysAdvRepToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem daysAdvReportToolStripMenuItem;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.MonthCalendar monthCalendar1;
     }
 }

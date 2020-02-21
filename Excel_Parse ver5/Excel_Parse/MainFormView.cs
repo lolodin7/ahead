@@ -106,7 +106,7 @@ namespace Excel_Parse
             }
 
             GetStartLogsCount();
-            timer1.Start();
+            //timer1.Start();
         }
 
         /* Получаем из контроллера данные, полученные с БД */
@@ -422,16 +422,6 @@ namespace Excel_Parse
             EveryDayReportsUpdate evr = new EveryDayReportsUpdate(this);
             evr.Show();
             this.Visible = false;
-        }
-
-        private void daysAdvReportToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Advreport7days advrep7 = new Advreport7days(monthCalendar1.SelectionStart);
-            int result = advrep7.Generate();
-            if (result == 1)
-                MessageBox.Show("Отчет успешно сгенерирован и отправлен.", "Успех");
-            else
-                MessageBox.Show("При генерации и отправке отчета проихошла какая-то ошибка. Пожалуйста, попробуйте позже.", "Ошибка");
         }
 
         /* 
