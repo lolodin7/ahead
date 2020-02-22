@@ -20,6 +20,8 @@ namespace Excel_Parse
         private List<AdvertisingBrandsModel> advBrandsList;
         private List<AdvertisingProductsModel>  advProductsListOriginal;
 
+        private bool targetingInAdgroupsMode, adgroupsInCampaignsMode, campaignInProductsMode, productsInMarketplaces;
+
         public bool SponsoredProductMode { get; set; }
         public bool SponsoredBrandMode { get; set; }
         public bool AdvertisingProductsShowMode { get; set; }
@@ -28,6 +30,8 @@ namespace Excel_Parse
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+
+        private List<ProductsModel> pList;
 
 
         /* Конструктор */
@@ -46,11 +50,19 @@ namespace Excel_Parse
             AdGroupShowMode = false;
             TargetingShowMode = false;
 
-
+            ResetModes();
 
             advProductsList = new List<AdvertisingProductsModel> { };
             advProductsListOriginal = new List<AdvertisingProductsModel> { };
             advBrandsList = new List<AdvertisingBrandsModel> { };
+        }
+
+        private void ResetModes()
+        {
+            targetingInAdgroupsMode = false;
+            adgroupsInCampaignsMode = false;
+            campaignInProductsMode = false;
+            productsInMarketplaces = false;
         }
 
         /* Обрабатываем закрытие формы */
@@ -227,9 +239,12 @@ namespace Excel_Parse
             dgv.Columns.Add("UpdateDate", "Date");
             dgv.Columns.Add("CurrencyCharCode", "Currency");
             dgv.Columns.Add("CampaignName", "Campaign");
-            dgv.Columns.Add("AdGroupName", "AdGroup");
+            dgv.Columns.Add("AdGroupName", "AdGroup");            
             dgv.Columns.Add("Targeting", "Targeting");
-            dgv.Columns.Add("MatchType", "Match Type");
+            if (productsInMarketplaces)
+                dgv.Columns.Add("ProductName", "Product");
+            else
+                dgv.Columns.Add("MatchType", "Match Type");
             dgv.Columns.Add("Impressions", "Impressions");
             dgv.Columns.Add("Clicks", "Clicks");
             dgv.Columns.Add("CTR", "CTR");
@@ -359,6 +374,29 @@ namespace Excel_Parse
                     {
                         dgv_AdvProducts.Rows[index].Cells[j].Value = _advProductsList[i].ReadData(j);
                     }
+                }
+                if (productsInMarketplaces)
+                    for (int i = 0; i < _advProductsList.Count; i++)
+                    {
+                        dgv_AdvProducts.Rows[i + 1].Cells[5].Value = GetProductNameById(_advProductsList[i].ProductId);
+                    }
+
+                if (targetingInAdgroupsMode)
+                { }
+                else if (adgroupsInCampaignsMode)
+                {
+                    dgv_AdvProducts.Columns[4].Visible = false;
+                }
+                else if (campaignInProductsMode)
+                {
+                    dgv_AdvProducts.Columns[4].Visible = false;
+                    dgv_AdvProducts.Columns[3].Visible = false;
+                }
+                else if (productsInMarketplaces)
+                {
+                    dgv_AdvProducts.Columns[4].Visible = false;
+                    dgv_AdvProducts.Columns[3].Visible = false;
+                    dgv_AdvProducts.Columns[2].Visible = false;
                 }
             }
 
@@ -631,7 +669,7 @@ namespace Excel_Parse
         }
 
         /* Получаем список advProductsList и рисуем его в таблице dgv_AdvProducts */
-        public void GetAdvertisingProductsListToShow(object _advProductsList, object _advProductsListOriginal)
+        public void GetAdvertisingProductsListToShow(object _advProductsList, object _advProductsListOriginal, string _mode, object _pList)
         {
             lb_StartDate.Text = StartDate.ToString().Substring(0, 10);
             lb_EndDate.Text = EndDate.ToString().Substring(0, 10);
@@ -641,7 +679,42 @@ namespace Excel_Parse
 
             advProductsList = (List<AdvertisingProductsModel>)_advProductsList;
             advProductsListOriginal = (List<AdvertisingProductsModel>)_advProductsListOriginal;
+
+            if (_mode.Equals("targetinginadgroups"))
+            {
+                ResetModes();
+                targetingInAdgroupsMode = true;
+            }
+            else if (_mode.Equals("adgroupsincampaigns"))
+            {
+                ResetModes();
+                adgroupsInCampaignsMode = true;
+            }
+            else if (_mode.Equals("campaigninproducts"))
+            {
+                ResetModes();
+                campaignInProductsMode = true;
+            }
+            else if (_mode.Equals("productsinmarketplaces"))
+            {
+                ResetModes();
+                productsInMarketplaces = true;
+            }
+
+            pList = (List<ProductsModel>)_pList;
+
             DrawTableForSponsoredProducts(advProductsList);
+        }
+
+        /* Получаем имя товара по заданному productId */
+        private string GetProductNameById(int _productId)
+        {
+            for (int i = 0; i < pList.Count; i++)
+            {
+                if (pList[i].ProductId == _productId)
+                    return pList[i].Name;
+            }
+            return "";
         }
 
         /* Получаем список advProductsList с фильтром по выбранной AdGroup и рисуем его в таблице dgv_adGroups */

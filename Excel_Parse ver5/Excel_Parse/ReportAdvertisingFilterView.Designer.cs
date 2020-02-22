@@ -94,36 +94,35 @@
             this.btn_Clear_clb_AdGroups = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.режимОтображенияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.byProductsInMarkeplacesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.byProductsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.byCampaignInProductsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.byAdGroupsInCampaignsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.byTargetingInAdGroupsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.временноеОтображениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.by_DaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.by_WeeksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.by_MonthsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.marketplace_DaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.product_DaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.campaign_DaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.adGroup_DaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.targeting_DaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.by_WeeksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.marketplace_WeeksToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.product_WeeksToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.campaign_WeeksToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.adGroup_WeeksToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.targeting_WeeksToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.by_MonthsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.marketplace_MonthToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.product_MonthToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.compaign_MonthToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.adGroup_MonthToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.targeting_MonthToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.by_CustomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.новыйToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.advertisingAlarmReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.by_CustomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -498,7 +497,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.checkedListBox1);
             this.groupBox1.Controls.Add(this.btn_FilterByMatchType);
             this.groupBox1.Controls.Add(this.label17);
             this.groupBox1.Controls.Add(this.cb_MatchType);
@@ -812,15 +810,6 @@
             this.panel1.Size = new System.Drawing.Size(270, 33);
             this.panel1.TabIndex = 84;
             // 
-            // checkedListBox1
-            // 
-            this.checkedListBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(284, 379);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(194, 102);
-            this.checkedListBox1.TabIndex = 84;
-            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -836,44 +825,44 @@
             // режимОтображенияToolStripMenuItem
             // 
             this.режимОтображенияToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.byProductsInMarkeplacesToolStripMenuItem,
+            this.byProductsToolStripMenuItem,
             this.byCampaignInProductsToolStripMenuItem,
             this.byAdGroupsInCampaignsToolStripMenuItem,
             this.byTargetingInAdGroupsToolStripMenuItem});
             this.режимОтображенияToolStripMenuItem.Name = "режимОтображенияToolStripMenuItem";
-            this.режимОтображенияToolStripMenuItem.Size = new System.Drawing.Size(141, 20);
-            this.режимОтображенияToolStripMenuItem.Text = "Режим отображения";
+            this.режимОтображенияToolStripMenuItem.Size = new System.Drawing.Size(125, 20);
+            this.режимОтображенияToolStripMenuItem.Text = "Режим сравнения";
             // 
-            // byProductsInMarkeplacesToolStripMenuItem
+            // byProductsToolStripMenuItem
             // 
-            this.byProductsInMarkeplacesToolStripMenuItem.CheckOnClick = true;
-            this.byProductsInMarkeplacesToolStripMenuItem.Name = "byProductsInMarkeplacesToolStripMenuItem";
-            this.byProductsInMarkeplacesToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
-            this.byProductsInMarkeplacesToolStripMenuItem.Text = "По товарам на маркетплейсе";
-            this.byProductsInMarkeplacesToolStripMenuItem.Click += new System.EventHandler(this.byProductsInMarkeplacesToolStripMenuItem_Click);
+            this.byProductsToolStripMenuItem.CheckOnClick = true;
+            this.byProductsToolStripMenuItem.Name = "byProductsToolStripMenuItem";
+            this.byProductsToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.byProductsToolStripMenuItem.Text = "По товарам";
+            this.byProductsToolStripMenuItem.Click += new System.EventHandler(this.byProductsInMarkeplacesToolStripMenuItem_Click);
             // 
             // byCampaignInProductsToolStripMenuItem
             // 
             this.byCampaignInProductsToolStripMenuItem.CheckOnClick = true;
             this.byCampaignInProductsToolStripMenuItem.Name = "byCampaignInProductsToolStripMenuItem";
-            this.byCampaignInProductsToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
-            this.byCampaignInProductsToolStripMenuItem.Text = "По кампаниям в товаре";
+            this.byCampaignInProductsToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.byCampaignInProductsToolStripMenuItem.Text = "По кампаниям";
             this.byCampaignInProductsToolStripMenuItem.Click += new System.EventHandler(this.byCampaignInProductsToolStripMenuItem_Click);
             // 
             // byAdGroupsInCampaignsToolStripMenuItem
             // 
             this.byAdGroupsInCampaignsToolStripMenuItem.CheckOnClick = true;
             this.byAdGroupsInCampaignsToolStripMenuItem.Name = "byAdGroupsInCampaignsToolStripMenuItem";
-            this.byAdGroupsInCampaignsToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
-            this.byAdGroupsInCampaignsToolStripMenuItem.Text = "По AdGroups в кампании";
+            this.byAdGroupsInCampaignsToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.byAdGroupsInCampaignsToolStripMenuItem.Text = "По AdGroups";
             this.byAdGroupsInCampaignsToolStripMenuItem.Click += new System.EventHandler(this.byAdGroupsInCampaignsToolStripMenuItem_Click);
             // 
             // byTargetingInAdGroupsToolStripMenuItem
             // 
             this.byTargetingInAdGroupsToolStripMenuItem.CheckOnClick = true;
             this.byTargetingInAdGroupsToolStripMenuItem.Name = "byTargetingInAdGroupsToolStripMenuItem";
-            this.byTargetingInAdGroupsToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
-            this.byTargetingInAdGroupsToolStripMenuItem.Text = "По ключам в AdGroup";
+            this.byTargetingInAdGroupsToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.byTargetingInAdGroupsToolStripMenuItem.Text = "По ключам";
             this.byTargetingInAdGroupsToolStripMenuItem.Click += new System.EventHandler(this.byTargetingInAdGroupsToolStripMenuItem_Click);
             // 
             // временноеОтображениеToolStripMenuItem
@@ -898,30 +887,6 @@
             this.by_DaysToolStripMenuItem.Name = "by_DaysToolStripMenuItem";
             this.by_DaysToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.by_DaysToolStripMenuItem.Text = "По дням";
-            // 
-            // by_WeeksToolStripMenuItem
-            // 
-            this.by_WeeksToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.marketplace_WeeksToolStripMenuItem1,
-            this.product_WeeksToolStripMenuItem1,
-            this.campaign_WeeksToolStripMenuItem1,
-            this.adGroup_WeeksToolStripMenuItem1,
-            this.targeting_WeeksToolStripMenuItem1});
-            this.by_WeeksToolStripMenuItem.Name = "by_WeeksToolStripMenuItem";
-            this.by_WeeksToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.by_WeeksToolStripMenuItem.Text = "По неделям";
-            // 
-            // by_MonthsToolStripMenuItem
-            // 
-            this.by_MonthsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.marketplace_MonthToolStripMenuItem2,
-            this.product_MonthToolStripMenuItem2,
-            this.compaign_MonthToolStripMenuItem2,
-            this.adGroup_MonthToolStripMenuItem2,
-            this.targeting_MonthToolStripMenuItem2});
-            this.by_MonthsToolStripMenuItem.Name = "by_MonthsToolStripMenuItem";
-            this.by_MonthsToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.by_MonthsToolStripMenuItem.Text = "По месяцам";
             // 
             // marketplace_DaysToolStripMenuItem
             // 
@@ -963,6 +928,18 @@
             this.targeting_DaysToolStripMenuItem.Text = "Ключ";
             this.targeting_DaysToolStripMenuItem.Click += new System.EventHandler(this.targeting_DaysToolStripMenuItem_Click);
             // 
+            // by_WeeksToolStripMenuItem
+            // 
+            this.by_WeeksToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.marketplace_WeeksToolStripMenuItem1,
+            this.product_WeeksToolStripMenuItem1,
+            this.campaign_WeeksToolStripMenuItem1,
+            this.adGroup_WeeksToolStripMenuItem1,
+            this.targeting_WeeksToolStripMenuItem1});
+            this.by_WeeksToolStripMenuItem.Name = "by_WeeksToolStripMenuItem";
+            this.by_WeeksToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.by_WeeksToolStripMenuItem.Text = "По неделям";
+            // 
             // marketplace_WeeksToolStripMenuItem1
             // 
             this.marketplace_WeeksToolStripMenuItem1.CheckOnClick = true;
@@ -1002,6 +979,18 @@
             this.targeting_WeeksToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.targeting_WeeksToolStripMenuItem1.Text = "Ключ";
             this.targeting_WeeksToolStripMenuItem1.Click += new System.EventHandler(this.targeting_WeeksToolStripMenuItem1_Click);
+            // 
+            // by_MonthsToolStripMenuItem
+            // 
+            this.by_MonthsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.marketplace_MonthToolStripMenuItem2,
+            this.product_MonthToolStripMenuItem2,
+            this.compaign_MonthToolStripMenuItem2,
+            this.adGroup_MonthToolStripMenuItem2,
+            this.targeting_MonthToolStripMenuItem2});
+            this.by_MonthsToolStripMenuItem.Name = "by_MonthsToolStripMenuItem";
+            this.by_MonthsToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.by_MonthsToolStripMenuItem.Text = "По месяцам";
             // 
             // marketplace_MonthToolStripMenuItem2
             // 
@@ -1043,6 +1032,13 @@
             this.targeting_MonthToolStripMenuItem2.Text = "Ключ";
             this.targeting_MonthToolStripMenuItem2.Click += new System.EventHandler(this.targeting_MonthToolStripMenuItem2_Click);
             // 
+            // by_CustomToolStripMenuItem
+            // 
+            this.by_CustomToolStripMenuItem.Name = "by_CustomToolStripMenuItem";
+            this.by_CustomToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.by_CustomToolStripMenuItem.Text = "Пользовательская";
+            this.by_CustomToolStripMenuItem.Click += new System.EventHandler(this.by_CustomToolStripMenuItem_Click);
+            // 
             // отчетToolStripMenuItem
             // 
             this.отчетToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1056,7 +1052,7 @@
             this.новыйToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.advertisingAlarmReportToolStripMenuItem});
             this.новыйToolStripMenuItem.Name = "новыйToolStripMenuItem";
-            this.новыйToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.новыйToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.новыйToolStripMenuItem.Text = "Новый";
             // 
             // advertisingAlarmReportToolStripMenuItem
@@ -1065,13 +1061,6 @@
             this.advertisingAlarmReportToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
             this.advertisingAlarmReportToolStripMenuItem.Text = "Advertising Alarm Report";
             this.advertisingAlarmReportToolStripMenuItem.Click += new System.EventHandler(this.advertisingAlarmReportToolStripMenuItem_Click);
-            // 
-            // by_CustomToolStripMenuItem
-            // 
-            this.by_CustomToolStripMenuItem.Name = "by_CustomToolStripMenuItem";
-            this.by_CustomToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.by_CustomToolStripMenuItem.Text = "Пользовательская";
-            this.by_CustomToolStripMenuItem.Click += new System.EventHandler(this.by_CustomToolStripMenuItem_Click);
             // 
             // ReportAdvertisingFilterView
             // 
@@ -1190,10 +1179,9 @@
         private System.Windows.Forms.Button btn_Clear_clb_AdGroups;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem режимОтображенияToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem byProductsInMarkeplacesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem byProductsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem byCampaignInProductsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem byAdGroupsInCampaignsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem byTargetingInAdGroupsToolStripMenuItem;
