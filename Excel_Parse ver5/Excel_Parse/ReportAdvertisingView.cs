@@ -21,6 +21,7 @@ namespace Excel_Parse
         private List<AdvertisingProductsModel>  advProductsListOriginal;
 
         private bool targetingInAdgroupsMode, adgroupsInCampaignsMode, campaignInProductsMode, productsInMarketplaces;
+        private bool byDays, byWeeks, byMonths, byCustom;
 
         public bool SponsoredProductMode { get; set; }
         public bool SponsoredBrandMode { get; set; }
@@ -50,19 +51,27 @@ namespace Excel_Parse
             AdGroupShowMode = false;
             TargetingShowMode = false;
 
-            ResetModes();
+            ResetCompareModes();
 
             advProductsList = new List<AdvertisingProductsModel> { };
             advProductsListOriginal = new List<AdvertisingProductsModel> { };
             advBrandsList = new List<AdvertisingBrandsModel> { };
         }
 
-        private void ResetModes()
+        private void ResetCompareModes()
         {
             targetingInAdgroupsMode = false;
             adgroupsInCampaignsMode = false;
             campaignInProductsMode = false;
             productsInMarketplaces = false;
+        }
+
+        private void ResetDateModes()
+        {
+            byDays = false;
+            byWeeks = false;
+            byMonths = false;
+            byCustom = false;
         }
 
         /* Обрабатываем закрытие формы */
@@ -135,7 +144,7 @@ namespace Excel_Parse
                     else
                         MessageBox.Show("Нет данных для экспорта!", "Ошибка");
                 }
-                else if (AdGroupShowMode)        //если сохраняем из таблицы dgv_adGroupss
+                /*else if (AdGroupShowMode)        //если сохраняем из таблицы dgv_adGroupss
                 {
                     if (dgv_adGroups.RowCount > 0)
                     {
@@ -185,9 +194,9 @@ namespace Excel_Parse
                     }
                     else
                         MessageBox.Show("Нет данных для экспорта!", "Ошибка");
-                }
+                }*/
             }
-            else if (SponsoredBrandMode)       //если смотрим Sponsored Brands
+            /*else if (SponsoredBrandMode)       //если смотрим Sponsored Brands
             {
                 if (dgv_AdvBrands.RowCount > 0)
                 {
@@ -210,7 +219,7 @@ namespace Excel_Parse
                 }
                 else
                     MessageBox.Show("Нет данных для экспорта!", "Ошибка");
-            }
+            }*/
 
             saveFileDialog1.Filter = "Excel(*.xlsx)|*.xlsx|All files(*.*)|*.*";
 
@@ -293,7 +302,7 @@ namespace Excel_Parse
         }
 
         /* Рисуем "правильную" таблицу с заголовками и шириной столбцов для Sponsored Brands */
-        private void DrawCorrectColumnsForSponsoredBrands(List<AdvertisingBrandsModel> _advBrandsList)
+        /*private void DrawCorrectColumnsForSponsoredBrands(List<AdvertisingBrandsModel> _advBrandsList)
         {
             dgv_AdvBrands.Columns.Add("UpdateDate", "Date");
             dgv_AdvBrands.Columns.Add("CurrencyCharCode", "Currency");
@@ -348,15 +357,13 @@ namespace Excel_Parse
                 if (i >= 6)
                     dgv_AdvBrands.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
-        }
+        }*/
 
         /* Рисуем таблицу dgv_AdvProducts и заполняем её данными */
         private void DrawTableForSponsoredProducts(List<AdvertisingProductsModel> _advProductsList)
         {
+            this.Text = "Данные рекламы";
             dgv_AdvProducts.Visible = true;
-            dgv_AdvBrands.Visible = false;
-            dgv_adGroups.Visible = false;
-            dgv_Targeting.Visible = false;
 
             dgv_AdvProducts.Rows.Clear();
             dgv_AdvProducts.Columns.Clear();
@@ -481,7 +488,7 @@ namespace Excel_Parse
         }
 
 
-        private void DrawFirstRowForSponsoredBrands(List<AdvertisingBrandsModel> _advBrandsList)
+        /*private void DrawFirstRowForSponsoredBrands(List<AdvertisingBrandsModel> _advBrandsList)
         {
             int impr = 0;
             int clicks = 0;
@@ -561,10 +568,10 @@ namespace Excel_Parse
             dgv_AdvBrands.Rows[index].Cells[18].Value = Math.Round(newToBrandSales, 2);
             dgv_AdvBrands.Rows[index].Cells[19].Value = newToBrandOrderRate;
 
-        }
+        }*/
 
         /* Рисуем таблицу dgv_adGroups и заполняем её данными */
-        private void DrawTableForAdGroups(List<AdvertisingProductsModel> _advProductsList)
+        /*private void DrawTableForAdGroups(List<AdvertisingProductsModel> _advProductsList)
         {
             dgv_AdvProducts.Visible = false;
             dgv_adGroups.Visible = true;
@@ -590,10 +597,10 @@ namespace Excel_Parse
             }
 
             btn_Export.Text = "Экспорт в файл (" + dgv_adGroups.RowCount + ")";
-        }
-
+        }*/
+        
         /* Рисуем таблицу dgv_Targeting и заполняем её данными */
-        private void DrawTableForTargeting(List<AdvertisingProductsModel> _advProductsList)
+        /*private void DrawTableForTargeting(List<AdvertisingProductsModel> _advProductsList)
         {
             dgv_AdvProducts.Visible = false;
             dgv_adGroups.Visible = false;
@@ -619,10 +626,10 @@ namespace Excel_Parse
             }
 
             btn_Export.Text = "Экспорт в файл (" + dgv_Targeting.RowCount + ")";
-        }
+        }*/
         
         /* Рисуем таблицу dgv_SponsoredBrands и заполняем её данными */
-        private void DrawTableForSponsoredBrands(List<AdvertisingBrandsModel> _advBrandsList)
+        /*private void DrawTableForSponsoredBrands(List<AdvertisingBrandsModel> _advBrandsList)
         {
             //рисуем таблицу для Sponsored Brands
             dgv_AdvProducts.Visible = false;
@@ -653,9 +660,9 @@ namespace Excel_Parse
             }
 
             btn_Export.Text = "Экспорт в файл (" + (dgv_AdvBrands.RowCount - 1) + ")";
-        }
+        }*/
 
-        public void GetAdvertisingBrandsListToShow(object _advBrandsList)
+        /*public void GetAdvertisingBrandsListToShow(object _advBrandsList)
         {
 
             lb_StartDate.Text = StartDate.ToString().Substring(0, 10);
@@ -666,10 +673,10 @@ namespace Excel_Parse
 
             advBrandsList = (List<AdvertisingBrandsModel>)_advBrandsList;
             DrawTableForSponsoredBrands(advBrandsList);
-        }
+        }*/
 
         /* Получаем список advProductsList и рисуем его в таблице dgv_AdvProducts */
-        public void GetAdvertisingProductsListToShow(object _advProductsList, object _advProductsListOriginal, string _mode, object _pList)
+        public void GetAdvertisingProductsListToShow(object _advProductsList, object _advProductsListOriginal, string _compareMode, object _pList, string _dateMode, string _object, int _prodId)
         {
             lb_StartDate.Text = StartDate.ToString().Substring(0, 10);
             lb_EndDate.Text = EndDate.ToString().Substring(0, 10);
@@ -680,30 +687,665 @@ namespace Excel_Parse
             advProductsList = (List<AdvertisingProductsModel>)_advProductsList;
             advProductsListOriginal = (List<AdvertisingProductsModel>)_advProductsListOriginal;
 
-            if (_mode.Equals("targetinginadgroups"))
+            if (_compareMode.Equals("targetinginadgroups"))
             {
-                ResetModes();
+                ResetCompareModes();
                 targetingInAdgroupsMode = true;
             }
-            else if (_mode.Equals("adgroupsincampaigns"))
+            else if (_compareMode.Equals("adgroupsincampaigns"))
             {
-                ResetModes();
+                ResetCompareModes();
                 adgroupsInCampaignsMode = true;
+                this.Text = "По группам";
             }
-            else if (_mode.Equals("campaigninproducts"))
+            else if (_compareMode.Equals("campaigninproducts"))
             {
-                ResetModes();
+                ResetCompareModes();
                 campaignInProductsMode = true;
+                this.Text = "По кампаниям";
             }
-            else if (_mode.Equals("productsinmarketplaces"))
+            else if (_compareMode.Equals("productsinmarketplaces"))
             {
-                ResetModes();
+                ResetCompareModes();
                 productsInMarketplaces = true;
+                this.Text = "По товарам";
+            }
+
+            if (_dateMode.Equals("days"))
+            {
+                ResetDateModes();
+                byDays = true;
+            }
+            else if (_dateMode.Equals("weeks"))
+            {
+                ResetDateModes();
+                byWeeks = true;
+            }
+            else if (_dateMode.Equals("months"))
+            {
+                ResetDateModes();
+                byMonths = true;
+            }
+            else if (_dateMode.Equals("custom"))
+            {
+                ResetDateModes();
+                byCustom = true;
             }
 
             pList = (List<ProductsModel>)_pList;
 
-            DrawTableForSponsoredProducts(advProductsList);
+            if (byCustom)
+                DrawTableForSponsoredProducts(advProductsList);
+            else if (byMonths)
+            {
+                int timeSpan = ((EndDate - StartDate).Days + 1) / 31;
+                if (adgroupsInCampaignsMode)
+                {
+                    DrawTableForAdGroupsInCampaignsMode(_object, timeSpan, "months", _prodId);
+                }
+                else if (campaignInProductsMode)
+                {
+                    DrawTableForCampaignInProductsMode(_object, timeSpan, "months", _prodId);
+                }
+                else if (productsInMarketplaces)
+                {
+                    DrawTableForProductsInMarketplacesMode(_object, timeSpan, "months");
+                }
+
+                DrawLastColumn();
+            }
+            else if (byWeeks)
+            {
+                int timeSpan = ((EndDate - StartDate).Days + 1) / 7;
+                if (adgroupsInCampaignsMode)
+                {
+                    DrawTableForAdGroupsInCampaignsMode(_object, timeSpan, "weeks", _prodId);
+                }
+                else if (campaignInProductsMode)
+                {
+                    DrawTableForCampaignInProductsMode(_object, timeSpan, "weeks", _prodId);
+                }
+                else if (productsInMarketplaces)
+                {
+                    DrawTableForProductsInMarketplacesMode(_object, timeSpan, "weeks");
+                }
+
+                DrawLastColumn();
+            }
+            else if (byDays)
+            {
+                int timeSpan = (EndDate - StartDate).Days + 1;
+                if (adgroupsInCampaignsMode)
+                {
+                    DrawTableForAdGroupsInCampaignsMode(_object, timeSpan, "days", _prodId);
+                }
+                else if (campaignInProductsMode)
+                {
+                    DrawTableForCampaignInProductsMode(_object, timeSpan, "days", _prodId);
+                }
+                else if (productsInMarketplaces)
+                {
+                    DrawTableForProductsInMarketplacesMode(_object, timeSpan, "days");
+                }
+
+                DrawLastColumn();
+            }
+        }
+
+        private void DrawTableForProductsInMarketplacesMode(string asins, int _timeSpan, string _mode)
+        {
+            DrawFirstColumn();
+            this.Text += " - " + advFilter.GetProductNameFromAsins(asins);
+
+            DateTime workingEndDate = EndDate;
+            DateTime workingStartDate = workingEndDate.AddHours(-23).AddMinutes(-59).AddSeconds(-59);
+
+            if (_mode.Equals("months"))
+            {
+                workingStartDate = workingStartDate.AddDays(-30);
+                for (int i = 0; i < _timeSpan; i++)
+                {
+                    DrawColumnProduct(workingStartDate, workingEndDate, asins);
+
+                    workingEndDate = workingEndDate.AddDays(-31);
+                    workingStartDate = workingStartDate.AddDays(-31);
+                }
+            }
+            else if (_mode.Equals("weeks"))
+            {
+                workingStartDate = workingStartDate.AddDays(-6);
+                for (int i = 0; i < _timeSpan; i++)
+                {
+                    DrawColumnProduct(workingStartDate, workingEndDate, asins);
+
+                    workingEndDate = workingEndDate.AddDays(-7);
+                    workingStartDate = workingStartDate.AddDays(-7);
+                }
+            }
+            else if (_mode.Equals("days"))
+            {
+                for (int i = 0; i < _timeSpan; i++)
+                {
+                    DrawColumnProduct(workingStartDate, workingEndDate, asins);
+
+                    workingEndDate = workingEndDate.AddDays(-1);
+                    workingStartDate = workingStartDate.AddDays(-1);
+                }
+            }
+        }
+
+        private void DrawColumnProduct(DateTime _startDate, DateTime _endDate, string _asins)
+        {
+            int Impressions = 0;
+            int Clicks = 0;
+            double CTR = 0;
+            double CPC = 0;
+            double Spend = 0;
+            double Sales = 0;
+            double ACoS = 0;
+            double RoAS = 0;
+            int Orders = 0;
+            int Units = 0;
+            double Conversion = 0;
+            double AdvSKUUnits = 0;
+            double OtherSKUUnits = 0;
+            double AdvSKUSales = 0;
+            double OtherSKUSales = 0;
+
+
+            for (int i = 0; i < advProductsList.Count; i++)
+            {
+                if (advProductsList[i].UpdateDate >= _startDate && advProductsList[i].UpdateDate <= _endDate && _asins.Contains(advProductsList[i].ProductId.ToString()))
+                {
+                    Impressions += advProductsList[i].Impressions;
+                    Clicks += advProductsList[i].Clicks;
+                    Spend += advProductsList[i].Spend;
+                    Sales += advProductsList[i].Sales;
+                    Orders += advProductsList[i].Orders;
+                    Units += advProductsList[i].Units;
+                    AdvSKUUnits += advProductsList[i].AdvSKUUnits;
+                    OtherSKUUnits += advProductsList[i].OtherSKUUnits;
+                    AdvSKUSales += advProductsList[i].AdvSKUSales;
+                    OtherSKUSales += advProductsList[i].OtherSKUSales;
+                }
+            }
+
+            Spend = Math.Round(Spend, 2);
+            Sales = Math.Round(Sales, 2);
+            AdvSKUSales = Math.Round(AdvSKUSales, 2);
+            OtherSKUSales = Math.Round(OtherSKUSales, 2);
+
+            if (Impressions != 0)
+                CTR = Math.Round((double)Clicks / Impressions * 100, 2);
+            else
+                CTR = 0;
+
+            if (Clicks != 0)
+                CPC = Math.Round(Spend / Clicks, 2);
+            else
+                CPC = 0;
+
+            if (Sales != 0)
+                ACoS = Math.Round(Spend / Sales * 100, 2);
+            else
+                ACoS = 0;
+
+            if (Spend != 0)
+                RoAS = Math.Round(Sales / Spend, 2);
+            else
+                RoAS = 0;
+
+            if (Clicks != 0)
+                Conversion = Math.Round((double)Orders / Clicks * 100, 2);
+            else
+                Conversion = 0;
+
+
+            dgv_AdvProducts.Columns.Add(_startDate.ToString().Substring(0, 5) + "-" + _endDate.ToString().Substring(0, 5), _startDate.ToString().Substring(0, 5) + "-" + _endDate.ToString().Substring(0, 5) + "\n" + GetMonth(_startDate.Month));
+            dgv_AdvProducts.Rows[0].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Impressions;
+            dgv_AdvProducts.Rows[1].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Clicks;
+            dgv_AdvProducts.Rows[2].Cells[dgv_AdvProducts.ColumnCount - 1].Value = CTR;
+            dgv_AdvProducts.Rows[3].Cells[dgv_AdvProducts.ColumnCount - 1].Value = CPC;
+            dgv_AdvProducts.Rows[4].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Spend;
+            dgv_AdvProducts.Rows[5].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Sales;
+            dgv_AdvProducts.Rows[6].Cells[dgv_AdvProducts.ColumnCount - 1].Value = ACoS;
+            dgv_AdvProducts.Rows[7].Cells[dgv_AdvProducts.ColumnCount - 1].Value = RoAS;
+            dgv_AdvProducts.Rows[8].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Orders;
+            dgv_AdvProducts.Rows[9].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Units;
+            dgv_AdvProducts.Rows[10].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Conversion;
+            dgv_AdvProducts.Rows[11].Cells[dgv_AdvProducts.ColumnCount - 1].Value = AdvSKUUnits;
+            dgv_AdvProducts.Rows[12].Cells[dgv_AdvProducts.ColumnCount - 1].Value = OtherSKUUnits;
+            dgv_AdvProducts.Rows[13].Cells[dgv_AdvProducts.ColumnCount - 1].Value = AdvSKUSales;
+            dgv_AdvProducts.Rows[14].Cells[dgv_AdvProducts.ColumnCount - 1].Value = OtherSKUSales;
+
+            dgv_AdvProducts.Columns[dgv_AdvProducts.ColumnCount - 1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+        }
+
+        private void DrawTableForCampaignInProductsMode(string _campaign, int _timeSpan, string _mode, int _prodId)
+        {
+            DrawFirstColumn();
+            this.Text += " - " + _campaign;
+
+            DateTime workingEndDate = EndDate;
+            DateTime workingStartDate = workingEndDate.AddHours(-23).AddMinutes(-59).AddSeconds(-59);
+
+            if (_mode.Equals("months"))
+            {
+                workingStartDate = workingStartDate.AddDays(-30);
+                for (int i = 0; i < _timeSpan; i++)
+                {
+                    DrawColumnCampaign(workingStartDate, workingEndDate, _campaign, _prodId);
+
+                    workingEndDate = workingEndDate.AddDays(-31);
+                    workingStartDate = workingStartDate.AddDays(-31);
+                }
+            }
+            else if (_mode.Equals("weeks"))
+            {
+                workingStartDate = workingStartDate.AddDays(-6);
+                for (int i = 0; i < _timeSpan; i++)
+                {
+                    DrawColumnCampaign(workingStartDate, workingEndDate, _campaign, _prodId);
+
+                    workingEndDate = workingEndDate.AddDays(-7);
+                    workingStartDate = workingStartDate.AddDays(-7);
+                }
+            }
+            else if (_mode.Equals("days"))
+            {
+                for (int i = 0; i < _timeSpan; i++)
+                {
+                    DrawColumnCampaign(workingStartDate, workingEndDate, _campaign, _prodId);
+
+                    workingEndDate = workingEndDate.AddDays(-1);
+                    workingStartDate = workingStartDate.AddDays(-1);
+                }
+            }
+        }
+
+        private void DrawColumnCampaign(DateTime _startDate, DateTime _endDate, string _campaign, int _prodId)
+        {
+            int Impressions = 0;
+            int Clicks = 0;
+            double CTR = 0;
+            double CPC = 0;
+            double Spend = 0;
+            double Sales = 0;
+            double ACoS = 0;
+            double RoAS = 0;
+            int Orders = 0;
+            int Units = 0;
+            double Conversion = 0;
+            double AdvSKUUnits = 0;
+            double OtherSKUUnits = 0;
+            double AdvSKUSales = 0;
+            double OtherSKUSales = 0;
+
+            for (int i = 0; i < advProductsList.Count; i++)
+            {
+                if (advProductsList[i].UpdateDate >= _startDate && advProductsList[i].UpdateDate <= _endDate && advProductsList[i].ProductId == _prodId && _campaign.Contains(advProductsList[i].CampaignName))
+                {
+                    Impressions += advProductsList[i].Impressions;
+                    Clicks += advProductsList[i].Clicks;
+                    Spend += advProductsList[i].Spend;
+                    Sales += advProductsList[i].Sales;
+                    Orders += advProductsList[i].Orders;
+                    Units += advProductsList[i].Units;
+                    AdvSKUUnits += advProductsList[i].AdvSKUUnits;
+                    OtherSKUUnits += advProductsList[i].OtherSKUUnits;
+                    AdvSKUSales += advProductsList[i].AdvSKUSales;
+                    OtherSKUSales += advProductsList[i].OtherSKUSales;
+                }
+            }
+
+            Spend = Math.Round(Spend, 2);
+            Sales = Math.Round(Sales, 2);
+            AdvSKUSales = Math.Round(AdvSKUSales, 2);
+            OtherSKUSales = Math.Round(OtherSKUSales, 2);
+
+            if (Impressions != 0)
+                CTR = Math.Round((double)Clicks / Impressions * 100, 2);
+            else
+                CTR = 0;
+
+            if (Clicks != 0)
+                CPC = Math.Round(Spend / Clicks, 2);
+            else
+                CPC = 0;
+
+            if (Sales != 0)
+                ACoS = Math.Round(Spend / Sales * 100, 2);
+            else
+                ACoS = 0;
+
+            if (Spend != 0)
+                RoAS = Math.Round(Sales / Spend, 2);
+            else
+                RoAS = 0;
+
+            if (Clicks != 0)
+                Conversion = Math.Round((double)Orders / Clicks * 100, 2);
+            else
+                Conversion = 0;
+
+
+            dgv_AdvProducts.Columns.Add(_startDate.ToString().Substring(0, 5) + "-" + _endDate.ToString().Substring(0, 5), _startDate.ToString().Substring(0, 5) + "-" + _endDate.ToString().Substring(0, 5) + "\n" + GetMonth(_startDate.Month));
+            dgv_AdvProducts.Rows[0].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Impressions;
+            dgv_AdvProducts.Rows[1].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Clicks;
+            dgv_AdvProducts.Rows[2].Cells[dgv_AdvProducts.ColumnCount - 1].Value = CTR;
+            dgv_AdvProducts.Rows[3].Cells[dgv_AdvProducts.ColumnCount - 1].Value = CPC;
+            dgv_AdvProducts.Rows[4].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Spend;
+            dgv_AdvProducts.Rows[5].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Sales;
+            dgv_AdvProducts.Rows[6].Cells[dgv_AdvProducts.ColumnCount - 1].Value = ACoS;
+            dgv_AdvProducts.Rows[7].Cells[dgv_AdvProducts.ColumnCount - 1].Value = RoAS;
+            dgv_AdvProducts.Rows[8].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Orders;
+            dgv_AdvProducts.Rows[9].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Units;
+            dgv_AdvProducts.Rows[10].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Conversion;
+            dgv_AdvProducts.Rows[11].Cells[dgv_AdvProducts.ColumnCount - 1].Value = AdvSKUUnits;
+            dgv_AdvProducts.Rows[12].Cells[dgv_AdvProducts.ColumnCount - 1].Value = OtherSKUUnits;
+            dgv_AdvProducts.Rows[13].Cells[dgv_AdvProducts.ColumnCount - 1].Value = AdvSKUSales;
+            dgv_AdvProducts.Rows[14].Cells[dgv_AdvProducts.ColumnCount - 1].Value = OtherSKUSales;
+
+            dgv_AdvProducts.Columns[dgv_AdvProducts.ColumnCount - 1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+        }
+
+        private void DrawTableForAdGroupsInCampaignsMode(string _adGroup, int _timeSpan, string _mode, int _prodId)
+        {
+            DrawFirstColumn();
+            this.Text += " - " + _adGroup;
+
+            DateTime workingEndDate = EndDate;
+            DateTime workingStartDate = workingEndDate.AddHours(-23).AddMinutes(-59).AddSeconds(-59);
+
+            if (_mode.Equals("months"))
+            {
+                workingStartDate = workingStartDate.AddDays(-30);
+                for (int i = 0; i < _timeSpan; i++)
+                {
+                    DrawColumnAdGroup(workingStartDate, workingEndDate, _adGroup, _prodId);
+
+                    workingEndDate = workingEndDate.AddDays(-31);
+                    workingStartDate = workingStartDate.AddDays(-31);
+                }
+            }
+            else if (_mode.Equals("weeks"))
+            {
+                workingStartDate = workingStartDate.AddDays(-6);
+                for (int i = 0; i < _timeSpan; i++)
+                {
+                    DrawColumnAdGroup(workingStartDate, workingEndDate, _adGroup, _prodId);
+
+                    workingEndDate = workingEndDate.AddDays(-7);
+                    workingStartDate = workingStartDate.AddDays(-7);
+                }
+            }
+            else if (_mode.Equals("days"))
+            {
+                for (int i = 0; i < _timeSpan; i++)
+                {
+                    DrawColumnAdGroup(workingStartDate, workingEndDate, _adGroup, _prodId);
+                    
+                    workingEndDate = workingEndDate.AddDays(-1);
+                    workingStartDate = workingStartDate.AddDays(-1);
+                }
+            }
+        }
+
+        private void DrawColumnAdGroup(DateTime _startDate, DateTime _endDate, string _adGroup, int _prodId)
+        {
+            int Impressions = 0;
+            int Clicks = 0;
+            double CTR = 0;
+            double CPC = 0;
+            double Spend = 0;
+            double Sales = 0;
+            double ACoS = 0;
+            double RoAS = 0;
+            int Orders = 0;
+            int Units = 0;
+            double Conversion = 0;
+            double AdvSKUUnits = 0;
+            double OtherSKUUnits = 0;
+            double AdvSKUSales = 0;
+            double OtherSKUSales = 0;
+
+            for (int i = 0; i < advProductsList.Count; i++)
+            {
+                if (advProductsList[i].UpdateDate >= _startDate && advProductsList[i].UpdateDate <= _endDate && _adGroup.Contains(advProductsList[i].AdGroupName) && advProductsList[i].ProductId == _prodId)
+                {
+                    Impressions += advProductsList[i].Impressions;
+                    Clicks += advProductsList[i].Clicks;
+                    Spend += advProductsList[i].Spend;
+                    Sales += advProductsList[i].Sales;
+                    Orders += advProductsList[i].Orders;
+                    Units += advProductsList[i].Units;
+                    AdvSKUUnits += advProductsList[i].AdvSKUUnits;
+                    OtherSKUUnits += advProductsList[i].OtherSKUUnits;
+                    AdvSKUSales += advProductsList[i].AdvSKUSales;
+                    OtherSKUSales += advProductsList[i].OtherSKUSales;
+                }
+            }
+
+            Spend = Math.Round(Spend, 2);
+            Sales = Math.Round(Sales, 2);
+            AdvSKUSales = Math.Round(AdvSKUSales, 2);
+            OtherSKUSales = Math.Round(OtherSKUSales, 2);
+
+            if (Impressions != 0)
+                CTR = Math.Round((double)Clicks / Impressions * 100, 2);
+            else
+                CTR = 0;
+
+            if (Clicks != 0)
+                CPC = Math.Round(Spend / Clicks, 2);
+            else
+                CPC = 0;
+
+            if (Sales != 0)
+                ACoS = Math.Round(Spend / Sales * 100, 2);
+            else
+                ACoS = 0;
+
+            if (Spend != 0)
+                RoAS = Math.Round(Sales / Spend, 2);
+            else
+                RoAS = 0;
+
+            if (Clicks != 0)
+                Conversion = Math.Round((double)Orders / Clicks * 100, 2);
+            else
+                Conversion = 0;
+
+
+            dgv_AdvProducts.Columns.Add(_startDate.ToString().Substring(0, 5) + "-" + _endDate.ToString().Substring(0, 5), _startDate.ToString().Substring(0, 5) + "-" + _endDate.ToString().Substring(0, 5) + "\n" + GetMonth(_startDate.Month));
+            dgv_AdvProducts.Rows[0].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Impressions;
+            dgv_AdvProducts.Rows[1].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Clicks;
+            dgv_AdvProducts.Rows[2].Cells[dgv_AdvProducts.ColumnCount - 1].Value = CTR;
+            dgv_AdvProducts.Rows[3].Cells[dgv_AdvProducts.ColumnCount - 1].Value = CPC;
+            dgv_AdvProducts.Rows[4].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Spend;
+            dgv_AdvProducts.Rows[5].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Sales;
+            dgv_AdvProducts.Rows[6].Cells[dgv_AdvProducts.ColumnCount - 1].Value = ACoS;
+            dgv_AdvProducts.Rows[7].Cells[dgv_AdvProducts.ColumnCount - 1].Value = RoAS;
+            dgv_AdvProducts.Rows[8].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Orders;
+            dgv_AdvProducts.Rows[9].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Units;
+            dgv_AdvProducts.Rows[10].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Conversion;
+            dgv_AdvProducts.Rows[11].Cells[dgv_AdvProducts.ColumnCount - 1].Value = AdvSKUUnits;
+            dgv_AdvProducts.Rows[12].Cells[dgv_AdvProducts.ColumnCount - 1].Value = OtherSKUUnits;
+            dgv_AdvProducts.Rows[13].Cells[dgv_AdvProducts.ColumnCount - 1].Value = AdvSKUSales;
+            dgv_AdvProducts.Rows[14].Cells[dgv_AdvProducts.ColumnCount - 1].Value = OtherSKUSales;
+
+            dgv_AdvProducts.Columns[dgv_AdvProducts.ColumnCount - 1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;             
+        }
+
+        private void DrawFirstColumn()
+        {
+            dgv_AdvProducts.Rows.Clear();
+            dgv_AdvProducts.Columns.Clear();   
+            dgv_AdvProducts.Columns.Add("", "");
+            var index = dgv_AdvProducts.Rows.Add();
+            dgv_AdvProducts.Rows[index].Cells[dgv_AdvProducts.ColumnCount - 1].Value = "Impressions";
+            index = dgv_AdvProducts.Rows.Add();
+            dgv_AdvProducts.Rows[index].Cells[dgv_AdvProducts.ColumnCount - 1].Value = "Clicks";
+            index = dgv_AdvProducts.Rows.Add();
+            dgv_AdvProducts.Rows[index].Cells[dgv_AdvProducts.ColumnCount - 1].Value = "CTR";
+            index = dgv_AdvProducts.Rows.Add();
+            dgv_AdvProducts.Rows[index].Cells[dgv_AdvProducts.ColumnCount - 1].Value = "CPC";
+            index = dgv_AdvProducts.Rows.Add();
+            dgv_AdvProducts.Rows[index].Cells[dgv_AdvProducts.ColumnCount - 1].Value = "Spend";
+            index = dgv_AdvProducts.Rows.Add();
+            dgv_AdvProducts.Rows[index].Cells[dgv_AdvProducts.ColumnCount - 1].Value = "Sales";
+            index = dgv_AdvProducts.Rows.Add();
+            dgv_AdvProducts.Rows[index].Cells[dgv_AdvProducts.ColumnCount - 1].Value = "ACoS";
+            index = dgv_AdvProducts.Rows.Add();
+            dgv_AdvProducts.Rows[index].Cells[dgv_AdvProducts.ColumnCount - 1].Value = "RoAS";
+            index = dgv_AdvProducts.Rows.Add();
+            dgv_AdvProducts.Rows[index].Cells[dgv_AdvProducts.ColumnCount - 1].Value = "Orders";
+            index = dgv_AdvProducts.Rows.Add();
+            dgv_AdvProducts.Rows[index].Cells[dgv_AdvProducts.ColumnCount - 1].Value = "Units";
+            index = dgv_AdvProducts.Rows.Add();
+            dgv_AdvProducts.Rows[index].Cells[dgv_AdvProducts.ColumnCount - 1].Value = "Conversion";
+            index = dgv_AdvProducts.Rows.Add();
+            dgv_AdvProducts.Rows[index].Cells[dgv_AdvProducts.ColumnCount - 1].Value = "Adv SKU Units";
+            index = dgv_AdvProducts.Rows.Add();
+            dgv_AdvProducts.Rows[index].Cells[dgv_AdvProducts.ColumnCount - 1].Value = "Other SKU Units";
+            index = dgv_AdvProducts.Rows.Add();
+            dgv_AdvProducts.Rows[index].Cells[dgv_AdvProducts.ColumnCount - 1].Value = "Adv SKU Sales";
+            index = dgv_AdvProducts.Rows.Add();
+            dgv_AdvProducts.Rows[index].Cells[dgv_AdvProducts.ColumnCount - 1].Value = "Other SKU Sales";
+
+            dgv_AdvProducts.Columns[0].Width = 125;
+            dgv_AdvProducts.Columns[0].Frozen = true;
+            dgv_AdvProducts.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+        }
+
+        private void DrawLastColumn()
+        {
+            //int.Parse(dataGridView1.Rows[0].Cells[i].Value.ToString());
+            int Impressions = 0;
+            int Clicks = 0;
+            double CTR = 0;
+            double CPC = 0;
+            double Spend = 0;
+            double Sales = 0;
+            double ACoS = 0;
+            double RoAS = 0;
+            int Orders = 0;
+            int Units = 0;
+            double Conversion = 0;
+            double AdvSKUUnits = 0;
+            double OtherSKUUnits = 0;
+            double AdvSKUSales = 0;
+            double OtherSKUSales = 0;
+
+            for (int i = 1; i < dgv_AdvProducts.Columns.Count; i++)
+            {
+                Impressions += int.Parse(dgv_AdvProducts.Rows[0].Cells[i].Value.ToString());
+                Clicks += int.Parse(dgv_AdvProducts.Rows[1].Cells[i].Value.ToString());
+                Spend += double.Parse(dgv_AdvProducts.Rows[4].Cells[i].Value.ToString());
+                Sales += double.Parse(dgv_AdvProducts.Rows[5].Cells[i].Value.ToString());
+                Orders += int.Parse(dgv_AdvProducts.Rows[8].Cells[i].Value.ToString());
+                Units += int.Parse(dgv_AdvProducts.Rows[9].Cells[i].Value.ToString());
+                AdvSKUUnits += int.Parse(dgv_AdvProducts.Rows[11].Cells[i].Value.ToString());
+                OtherSKUUnits += int.Parse(dgv_AdvProducts.Rows[12].Cells[i].Value.ToString());
+                AdvSKUSales += double.Parse(dgv_AdvProducts.Rows[13].Cells[i].Value.ToString());
+                OtherSKUSales += double.Parse(dgv_AdvProducts.Rows[14].Cells[i].Value.ToString());
+            }
+
+            Spend = Math.Round(Spend, 2);
+            Sales = Math.Round(Sales, 2);
+            AdvSKUSales = Math.Round(AdvSKUSales, 2);
+            OtherSKUSales = Math.Round(OtherSKUSales, 2);
+
+            if (Impressions != 0)
+                CTR = Math.Round((double)Clicks / Impressions * 100, 2);
+            else
+                CTR = 0;
+
+            if (Clicks != 0)
+                CPC = Math.Round(Spend / Clicks, 2);
+            else
+                CPC = 0;
+
+            if (Sales != 0)
+                ACoS = Math.Round(Spend / Sales * 100, 2);
+            else
+                ACoS = 0;
+
+            if (Spend != 0)
+                RoAS = Math.Round(Sales / Spend, 2);
+            else
+                RoAS = 0;
+
+            if (Clicks != 0)
+                Conversion = Math.Round((double)Orders / Clicks * 100, 2);
+            else
+                Conversion = 0;
+
+
+            dgv_AdvProducts.Columns.Add("summ", "Всего");
+            dgv_AdvProducts.Rows[0].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Impressions;
+            dgv_AdvProducts.Rows[1].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Clicks;
+            dgv_AdvProducts.Rows[2].Cells[dgv_AdvProducts.ColumnCount - 1].Value = CTR;
+            dgv_AdvProducts.Rows[3].Cells[dgv_AdvProducts.ColumnCount - 1].Value = CPC;
+            dgv_AdvProducts.Rows[4].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Spend;
+            dgv_AdvProducts.Rows[5].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Sales;
+            dgv_AdvProducts.Rows[6].Cells[dgv_AdvProducts.ColumnCount - 1].Value = ACoS;
+            dgv_AdvProducts.Rows[7].Cells[dgv_AdvProducts.ColumnCount - 1].Value = RoAS;
+            dgv_AdvProducts.Rows[8].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Orders;
+            dgv_AdvProducts.Rows[9].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Units;
+            dgv_AdvProducts.Rows[10].Cells[dgv_AdvProducts.ColumnCount - 1].Value = Conversion;
+            dgv_AdvProducts.Rows[11].Cells[dgv_AdvProducts.ColumnCount - 1].Value = AdvSKUUnits;
+            dgv_AdvProducts.Rows[12].Cells[dgv_AdvProducts.ColumnCount - 1].Value = OtherSKUUnits;
+            dgv_AdvProducts.Rows[13].Cells[dgv_AdvProducts.ColumnCount - 1].Value = AdvSKUSales;
+            dgv_AdvProducts.Rows[14].Cells[dgv_AdvProducts.ColumnCount - 1].Value = OtherSKUSales;
+
+            dgv_AdvProducts.Columns[dgv_AdvProducts.ColumnCount - 1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+        }
+
+
+        private string GetMonth(int index)
+        {
+            switch (index)
+            {
+                case 1:
+                    return "Январь";
+                    break;
+                case 2:
+                    return "Февраль";
+                    break;
+                case 3:
+                    return "Март";
+                    break;
+                case 4:
+                    return "Апрель";
+                    break;
+                case 5:
+                    return "Май";
+                    break;
+                case 6:
+                    return "Июнь";
+                    break;
+                case 7:
+                    return "Июль";
+                    break;
+                case 8:
+                    return "Август";
+                    break;
+                case 9:
+                    return "Сентябрь";
+                    break;
+                case 10:
+                    return "Октябрь";
+                    break;
+                case 11:
+                    return "Ноябрь";
+                    break;
+                case 12:
+                    return "Декабрь";
+                    break;
+                default:
+                    return "";
+            }
         }
 
         /* Получаем имя товара по заданному productId */
@@ -723,7 +1365,7 @@ namespace Excel_Parse
             lb_StartDate.Text = StartDate.ToString().Substring(0, 10);
             lb_EndDate.Text = EndDate.ToString().Substring(0, 10);
 
-            DrawTableForAdGroups((List<AdvertisingProductsModel>)_advProductsList);
+            //DrawTableForAdGroups((List<AdvertisingProductsModel>)_advProductsList);
         }
 
         /* Получаем список advProductsList с фильтром по выбранной Targeting и рисуем его в таблице dgv_Targeting */
@@ -732,7 +1374,7 @@ namespace Excel_Parse
             lb_StartDate.Text = StartDate.ToString().Substring(0, 10);
             lb_EndDate.Text = EndDate.ToString().Substring(0, 10);
 
-            DrawTableForTargeting((List<AdvertisingProductsModel>)_advProductsList);
+            //DrawTableForTargeting((List<AdvertisingProductsModel>)_advProductsList);
         }
 
         /* Обрабатываем перемещение курсора по таблице dgv_AdvProducts */
@@ -743,18 +1385,18 @@ namespace Excel_Parse
         }
 
         /* Обрабатываем перемещение курсора по таблице dgv_adGroups */
-        private void dgv_adGroups_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
+        /*private void dgv_adGroups_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
                 dgv_adGroups.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
-        }
+        }*/
 
         /* Обрабатываем перемещение курсора по таблице dgv_Targeting */
-        private void dgv_Targeting_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
+        /*private void dgv_Targeting_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
                 dgv_Targeting.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
-        }
+        }*/
 
         /* Фильтруем записи по выбранной AdGroup и получаем обновленный список */
         private void dgv_AdvProducts_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -779,7 +1421,7 @@ namespace Excel_Parse
         }
 
         /* Фильтруем записи по выбранной Targeting и получаем обновленный список */
-        private void dgv_adGroups_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        /*private void dgv_adGroups_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             AdvertisingProductsShowMode = false;
             AdGroupShowMode = false;
@@ -800,7 +1442,7 @@ namespace Excel_Parse
             ReportAdvertisingFilterView af = new ReportAdvertisingFilterView(this);
 
             af.ShowDetailedByTargeting(targeting, adGroupName, marketpLaceId, campaignId, productId, advProductsList);
-        }
+        }*/
 
         private void AdvertisingReportView_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -813,21 +1455,21 @@ namespace Excel_Parse
             dgv_AdvProducts.Width = this.Width - 30;
             dgv_AdvProducts.Height = this.Height - 80;
 
-            dgv_adGroups.Width = this.Width - 30;
+            /*dgv_adGroups.Width = this.Width - 30;
             dgv_adGroups.Height = this.Height - 80;
 
             dgv_Targeting.Width = this.Width - 30;
             dgv_Targeting.Height = this.Height - 80;
 
             dgv_AdvBrands.Width = this.Width - 30;
-            dgv_AdvBrands.Height = this.Height - 80;
+            dgv_AdvBrands.Height = this.Height - 80;*/
             
             btn_Filter.Location = new System.Drawing.Point(this.Width - btn_Filter.Size.Width - 20, btn_Filter.Location.Y);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ReportAdvertisingViewFixed advFix = new ReportAdvertisingViewFixed(StartDate, EndDate, advProductsListOriginal);
+            ReportAdvertisingViewFixed advFix = new ReportAdvertisingViewFixed(StartDate, EndDate, advProductsListOriginal, this.Text);
             advFix.UpdateDGV(dgv_AdvProducts);
             advFix.Show();
         }

@@ -95,6 +95,7 @@
             this.button1.TabIndex = 29;
             this.button1.Text = "Нарисовать";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // chart1
@@ -129,6 +130,7 @@
             this.cb_ChartSource.Name = "cb_ChartSource";
             this.cb_ChartSource.Size = new System.Drawing.Size(199, 25);
             this.cb_ChartSource.TabIndex = 31;
+            this.cb_ChartSource.Visible = false;
             // 
             // cb_dgvRows
             // 
@@ -140,6 +142,7 @@
             this.cb_dgvRows.Name = "cb_dgvRows";
             this.cb_dgvRows.Size = new System.Drawing.Size(496, 25);
             this.cb_dgvRows.TabIndex = 32;
+            this.cb_dgvRows.Visible = false;
             // 
             // ReportAdvertisingViewFixed
             // 

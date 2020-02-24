@@ -16,7 +16,8 @@ namespace Excel_Parse
         private DateTime StartDate, EndDate;
         private bool MonthlyMode, WeeklyMode;
 
-        List<string> checkedMarkeplaces, checkedProducts, checkedCampaigns, checkedAdGroups, adGroupsList;     
+        List<string> checkedMarkeplaces, checkedProducts, checkedCampaigns, checkedAdGroups, adGroupsList;
+        List<string> checkedMarkeplacesTMP, checkedProductsTMP, checkedCampaignsTMP, checkedAdGroupsTMP;
 
         private List<string> uniqueCampaigns;
         private List<string> uniqueAdGroups;
@@ -64,6 +65,7 @@ namespace Excel_Parse
 
             StartDate = DateTime.Today;
             EndDate = DateTime.Today.AddHours(23).AddMinutes(59);
+            
             lb_StartDate.Text = StartDate.ToString().Substring(0, 10);
             lb_EndDate.Text = StartDate.ToString().Substring(0, 10);
 
@@ -105,10 +107,16 @@ namespace Excel_Parse
             checkedAdGroups = new List<string> { };
             adGroupsList = new List<string> { };
 
+            checkedMarkeplacesTMP = new List<string> { };
+            checkedProductsTMP = new List<string> { };
+            checkedCampaignsTMP = new List<string> { };
+            checkedAdGroupsTMP = new List<string> { };
+
             cb_MatchType.SelectedIndex = 0;
 
             byTargetingInAdGroupsToolStripMenuItem.Checked = true;
             by_CustomToolStripMenuItem.Checked = true;
+            DisableCustomTimeMode();
         }
 
 
@@ -158,24 +166,51 @@ namespace Excel_Parse
         public void GetAdvertisingProductsFromDBwithSummary(object _advProductList)
         {
             advProductsList = (List<AdvertisingProductsModel>)_advProductList;
+            if (by_CustomToolStripMenuItem.Checked)
+            {
+                summaryAdvProductsList.Clear();
+                if (byTargetingInAdGroupsToolStripMenuItem.Checked)
+                {
+                    MakeSummaryAdvProductListbyTargetingInAdGroups();
+                }
+                else if (byAdGroupsInCampaignsToolStripMenuItem.Checked)
+                {
+                    MakeSummaryAdvProductListbyAdGroupsInCampaigns();
+                }
+                else if (byCampaignInProductsToolStripMenuItem.Checked)
+                {
+                    MakeSummaryAdvProductListbyCampaignInProducts();
+                }
+                else if (byProductsToolStripMenuItem.Checked)
+                {
+                    MakeSummaryAdvProductListbyProducts();
+                }
+            }
+            /*else
+            {
+                summaryAdvProductsList.Clear();
+                if (byTargetingInAdGroupsToolStripMenuItem.Checked)
+                {
+                    //MakeSummaryAdvProductListbyTargetingInAdGroups();
+                }
+                else if (byAdGroupsInCampaignsToolStripMenuItem.Checked)
+                {
+                    MakeAdvProductListbyAdGroupsInCampaignsForDifferentTimeMode();
+                }
+                else if (byCampaignInProductsToolStripMenuItem.Checked)
+                {
+                    MakeSummaryAdvProductListbyCampaignInProducts();
+                }
+                else if (byProductsToolStripMenuItem.Checked)
+                {
+                    MakeSummaryAdvProductListbyProducts();
+                }
+            }*/
+        }
 
-            summaryAdvProductsList.Clear();
-            if (byTargetingInAdGroupsToolStripMenuItem.Checked)
-            {
-                MakeSummaryAdvProductListbyTargetingInAdGroups();
-            }
-            else if (byAdGroupsInCampaignsToolStripMenuItem.Checked)
-            {
-                MakeSummaryAdvProductListbyAdGroupsInCampaigns();
-            }
-            else if (byCampaignInProductsToolStripMenuItem.Checked)
-            {
-                MakeSummaryAdvProductListbyCampaignInProducts();
-            }
-            else if (byProductsToolStripMenuItem.Checked)
-            {
-                MakeSummaryAdvProductListbyProducts();
-            }
+        private void MakeAdvProductListbyAdGroupsInCampaignsForDifferentTimeMode()
+        {
+
         }
 
         /* Получаем из контроллера Advertising Products, полученные с БД */
@@ -748,6 +783,26 @@ namespace Excel_Parse
             //mf.ClosingFilter();
         }
         
+        private List<string> CleanCheckedAdGroups(List<string> checkedAdGroups)
+        {
+            List<string> result = new List<string> { };
+            string tmp = "";
+
+            for (int i = 0; i < checkedAdGroups.Count; i++)
+            {
+                tmp = checkedAdGroups[i];
+                for (int j = tmp.Length - 1; j >= 0; j--)
+                {
+                    if (tmp[j].Equals('('))
+                    {
+                        result.Add(tmp.Substring(0, j - 1));
+                    }
+                }
+            }
+
+            return result;
+        }
+
         /* Применяем фильтры и перерисовываем данные в форме AdvertisingReportView */
         private void btn_Show_Click(object sender, EventArgs e)
         {
@@ -773,11 +828,18 @@ namespace Excel_Parse
                 int result = 0;
                 advProductsList = null;
 
-                result = advertController.GetFinalAdvertisingProductsReport(StartDate, EndDate, GetMPIdsByNames(checkedMarkeplaces), GetProductIdsByNames(checkedProducts), GetCampaignIdsByNames(campsidsList), checkedAdGroups);
+                result = advertController.GetFinalAdvertisingProductsReport(StartDate, EndDate, GetMPIdsByNames(checkedMarkeplaces), GetProductIdsByNames(checkedProducts), GetCampaignIdsByNames(campsidsList), CleanCheckedAdGroups(checkedAdGroups));
 
                 if (result == 1)
                 {
-                    mf.GetAdvertisingProductsListToShow(advProductsList, advProductsListOriginal, GetMode(), pList);
+                    if (byTargetingInAdGroupsToolStripMenuItem.Checked)
+                        mf.GetAdvertisingProductsListToShow(advProductsList, advProductsListOriginal, GetCompareMode(), pList, GetDateMode(), "", GetProductIdByName(checkedProducts));
+                    else if (byAdGroupsInCampaignsToolStripMenuItem.Checked && !GetFirstAdGroup().Equals(""))
+                        mf.GetAdvertisingProductsListToShow(advProductsList, advProductsListOriginal, GetCompareMode(), pList, GetDateMode(), GetFirstAdGroup(), GetProductIdByName(checkedProducts));
+                    else if (byCampaignInProductsToolStripMenuItem.Checked && !GetFirstCampaign().Equals(""))
+                        mf.GetAdvertisingProductsListToShow(advProductsList, advProductsListOriginal, GetCompareMode(), pList, GetDateMode(), GetFirstCampaign(), GetProductIdByName(checkedProducts));
+                    else if (byProductsToolStripMenuItem.Checked && CheckForExistingProducts())
+                        mf.GetAdvertisingProductsListToShow(advProductsList, advProductsListOriginal, GetCompareMode(), pList, GetDateMode(), GetProductsAsins(), GetProductIdByName(checkedProducts));
                     filterAdvProductsList = new List<AdvertisingProductsModel> { };
                 }
                 
@@ -786,7 +848,7 @@ namespace Excel_Parse
                 else
                     groupBox1.Enabled = false;
             }
-            else if (cb_CampaignType.SelectedItem.ToString().Equals("Sponsored Brands"))
+            /*else if (cb_CampaignType.SelectedItem.ToString().Equals("Sponsored Brands"))
             {
                 mf.SponsoredProductMode = false;
                 mf.SponsoredBrandMode = true;
@@ -806,12 +868,108 @@ namespace Excel_Parse
                     groupBox1.Enabled = true;
                 else
                     groupBox1.Enabled = false;
-            }
+            }*/
             this.Cursor = Cursors.Default;
             this.Enabled = true;
         }
 
-        private string GetMode()
+        private string GetFirstAdGroup()
+        {
+            if (checkedAdGroups.Count > 0)
+            {
+                return checkedAdGroups[0];
+            }
+            else
+            {
+                if (clb_AdGroup.Items.Count == 0)
+                    MessageBox.Show("Для продолжения выберите рекламную кампанию!", "Ошибка");
+                else
+                {
+                    return clb_AdGroup.Items[0].ToString();
+                }
+            }
+            return "";
+        }
+
+        private string GetFirstCampaign()
+        {
+            if (checkedCampaigns.Count > 0)
+            {
+                return checkedCampaigns[0];
+            }
+            else
+            {
+                if (clb_Campaign.Items.Count == 0)
+                    MessageBox.Show("Для продолжения выберите товар!", "Ошибка");
+                else
+                {
+                    return clb_Campaign.Items[0].ToString();
+                }
+            }
+            return "";
+        }
+
+        private bool CheckForExistingProducts()
+        {
+            if (clb_Product.Items.Count == 0)
+                MessageBox.Show("Для продолжения выберите маркетплейс!", "Ошибка");
+            else if (checkedProducts.Count > 0 || clb_Product.Items.Count > 0)
+                return true;
+            return false;
+        }
+
+        private string GetProductsAsins()
+        {
+            string result = "";
+            string name = "";
+            string asin = "";
+
+            if (checkedProducts.Count > 0)
+            {
+                name = checkedProducts[0];                
+            }
+            else
+            {
+                name = clb_Product.Items[0].ToString();
+            }
+
+            for (int i = 0; i < pList.Count; i++)
+            {
+                if (pList[i].Name.Equals(name))
+                    asin = pList[i].ASIN;
+            }
+            for (int i = 0; i < pList.Count; i++)
+            {
+                if (pList[i].ASIN.Equals(asin))
+                    result = result + pList[i].ProductId + ", ";
+            }
+
+            return result;
+        }
+
+        public string GetProductNameFromAsins(string _asins)
+        {
+            string idStr = "";
+            int idInt = 0;
+            bool flag = false;
+            for (int i = 0; i < _asins.Length; i++)
+            {
+                if (_asins[i].Equals(',') &&!flag)
+                {
+                    idStr = _asins.Substring(0, i);
+                    flag = true;
+                }
+            }
+            idInt = int.Parse(idStr);
+            for (int i = 0; i < pList.Count; i++)
+            {
+                if (idInt == pList[i].ProductId)
+                    return pList[i].Name;
+            }
+            return "";
+        }
+
+        private string GetCompareMode()
         {
             if (byTargetingInAdGroupsToolStripMenuItem.Checked)
             {
@@ -828,6 +986,27 @@ namespace Excel_Parse
             else if (byProductsToolStripMenuItem.Checked)
             {
                 return "productsinmarketplaces";
+            }
+            return "";
+        }
+
+        private string GetDateMode()
+        {
+            if (by_DaysToolStripMenuItem.Checked)
+            {
+                return "days";
+            }
+            else if (by_WeeksToolStripMenuItem.Checked)
+            {
+                return "weeks";
+            }
+            else if (by_MonthsToolStripMenuItem.Checked)
+            {
+                return "months";
+            }
+            else if (by_CustomToolStripMenuItem.Checked)
+            {
+                return "custom";
             }
             return "";
         }
@@ -891,6 +1070,18 @@ namespace Excel_Parse
             {
                 checkedMarkeplaces.Add(clb_Marketplace.CheckedItems[i].ToString());
             }
+
+            checkedCampaigns.Clear();
+            for (int i = 0; i < clb_Campaign.Items.Count; i++)
+            {
+                clb_Campaign.SetItemChecked(i, false);
+            }
+            clb_Campaign.Items.Clear();
+
+            clb_AdGroup.ClearSelected();
+            clb_AdGroup.Items.Clear();
+            checkedAdGroups.Clear();
+
             if (checkedMarkeplaces.Count > 0)
             {
                 int res = 0;
@@ -910,7 +1101,15 @@ namespace Excel_Parse
                 }
             }
             else { clb_Product.Items.Clear(); }
+
+            if (clb_Product.Items.Count > 0)
+                tb_clbProductFilter.Enabled = true;
+            else
+                tb_clbProductFilter.Enabled = false;
+
+            disableTbClbFilter();
         }
+        
 
         /* Меняем режим отображения с активными/неактивными товарами */
         private void cb_WithInactive_CheckedChanged(object sender, EventArgs e)
@@ -1050,6 +1249,8 @@ namespace Excel_Parse
             }
             clb_Campaign.Items.Clear();
             clb_Product.Items.Clear();
+
+            disableTbClbFilter();
         }
         //----------------------------------------------------------------------------------------------------------------------
 
@@ -1057,9 +1258,23 @@ namespace Excel_Parse
         /* Выделяем/снимаем выделение товара в clb_Product */
         private void clb_Product_SelectedIndexChanged(object sender, EventArgs e)
         {
-            clb_Campaign.ClearSelected();
-            clb_Campaign.Items.Clear();
+            /* 
+            clb_AdGroup.ClearSelected();
+            clb_AdGroup.Items.Clear();
+            checkedAdGroups.Clear();
+
+            //clb_Campaign.ClearSelected();
+            //clb_Campaign.Items.Clear();
             checkedCampaigns.Clear();
+
+            for (int i = 0; i < clb_Campaign.Items.Count; i++)
+            {
+                clb_Campaign.SetItemChecked(i, false);
+            }       
+            */
+            //clb_Campaign.ClearSelected();
+            //clb_Campaign.Items.Clear();
+
 
             checkedProducts.Clear();
             for (int i = 0; i < clb_Product.CheckedItems.Count; i++)
@@ -1067,21 +1282,39 @@ namespace Excel_Parse
                 checkedProducts.Add(clb_Product.CheckedItems[i].ToString());
             }
 
+            checkedCampaigns.Clear();
+            for (int i = 0; i < clb_Campaign.Items.Count; i++)
+            {
+                clb_Campaign.SetItemChecked(i, false);
+            }
+            clb_Campaign.Items.Clear();
+
+            clb_AdGroup.ClearSelected();
+            clb_AdGroup.Items.Clear();
+            checkedAdGroups.Clear();
+
             int res = 0;
             if (cb_CampaignType.SelectedItem.ToString().Equals("Sponsored Products"))
             {       
                 res = advertController.GetAdvertisingProductsCampaignAndCampId(GetProductIdsByNames(checkedProducts));
                 GetUniqueCampaigns();
             }
-            else if (cb_CampaignType.SelectedItem.ToString().Equals("Sponsored Brands"))
-            {
-                res = advertController.GetAdvertisingBrandsCampaignAndCampId(GetProductIdsByNames(checkedProducts));
-                GetUniqueCampaigns();
-            }
+            //else if (cb_CampaignType.SelectedItem.ToString().Equals("Sponsored Brands"))
+            //{
+            //    res = advertController.GetAdvertisingBrandsCampaignAndCampId(GetProductIdsByNames(checkedProducts));
+            //    GetUniqueCampaigns();
+            //}
             if (res == 1)
             {
                 Draw_clb_Campaigns();
             }
+
+            if (clb_Campaign.Items.Count > 0)
+                tb_clbCampaignFilter.Enabled = true;
+            else
+                tb_clbCampaignFilter.Enabled = false;
+
+            disableTbClbFilter();
         }
         /* Выделяем/снимаем выделение товара в clb_AdGroups */
 
@@ -1092,6 +1325,8 @@ namespace Excel_Parse
             {
                 checkedAdGroups.Add(clb_AdGroup.CheckedItems[i].ToString());
             }
+
+            disableTbClbFilter();
         }
 
         public void GetAP_CampaignIdsFromDB(object _campTList)
@@ -1126,7 +1361,29 @@ namespace Excel_Parse
 
             return resultList1;
         }
-               
+
+        /* Получаем список ProductId по выделенным ProductName */
+        private int GetProductIdByName(List<string> _checkedProducts)
+        {
+            if (checkedProducts.Count > 0)
+                for (int i = 0; i < pList.Count; i++)
+                {
+                    if (pList[i].Name.Equals(checkedProducts[0]))
+                        return pList[i].ProductId;
+                }
+            return -1;
+        }
+
+        /* Получаем список ProductId по выделенным ProductName */
+        private int GetProductIdByName(string _checkedProduct)
+        {
+            for (int i = 0; i < pList.Count; i++)
+            {
+                if (pList[i].Name.Equals(_checkedProduct))
+                    return pList[i].ProductId;
+            }
+            return -1;
+        }
 
         /* Получаем уникальные названия товаров */
         private void GetUniqueCampaigns()
@@ -1179,15 +1436,15 @@ namespace Excel_Parse
                 clb_Product.SetItemChecked(i, false);
             }
             clb_Campaign.Items.Clear();
+
+            disableTbClbFilter();
         }
 
         //----------------------------------------------------------------------------------------------------------------------
-
-
+        
         /* Выделяем/снимаем выделение кампании в clb_Campaign */
         private void clb_Campaign_SelectedIndexChanged(object sender, EventArgs e)
         {
-            clb_AdGroup.ClearSelected();
             clb_AdGroup.Items.Clear();
             checkedAdGroups.Clear();
 
@@ -1196,12 +1453,30 @@ namespace Excel_Parse
             {
                 checkedCampaigns.Add(clb_Campaign.CheckedItems[i].ToString());
             }
-
+            
+            List<string> finalAdGroupList = new List<string> { };
             int res = 0;
+            int prodId = -1;
             if (checkedCampaigns.Count > 0)
             {
-                res = advertController.GetAdvertisingProductsAdgroups(GetProductIdsByNames(checkedProducts), checkedCampaigns);
-                GetUniqueAdGroups();
+                for (int i = 0; i < checkedProducts.Count; i++)
+                {
+                    prodId = GetProductIdByName(checkedProducts[i]);
+                    for (int j = 0; j < checkedCampaigns.Count; j++)
+                    {
+                        res = advertController.GetAdvertisingProductsAdgroups(prodId, checkedCampaigns[j]);
+                        if (res == 1)
+                        {
+                            for (int t = 0; t < adGroupsList.Count; t++)
+                            {
+                                adGroupsList[t] = adGroupsList[t] + " (" + checkedCampaigns[j] + ")";
+                                finalAdGroupList.Add(adGroupsList[t]);
+                            }
+                        }
+                    }
+                }
+                
+                GetUniqueAdGroups(finalAdGroupList);
 
                 if (res == 1)
                 {
@@ -1209,16 +1484,24 @@ namespace Excel_Parse
                 }
             }
             else { clb_AdGroup.Items.Clear(); }
+
+
+            if (clb_AdGroup.Items.Count > 0)
+                tb_clbAdGroupFilter.Enabled = true;
+            else
+                tb_clbAdGroupFilter.Enabled = false;
+
+            disableTbClbFilter();
         }
 
         /* Получаем уникальные названия товаров */
-        private void GetUniqueAdGroups()
+        private void GetUniqueAdGroups(List<string> _finalAdGroupList)
         {
             uniqueAdGroups = new List<string> { };
-            for (int i = 0; i < adGroupsList.Count; i++)
+            for (int i = 0; i < _finalAdGroupList.Count; i++)
             {
-                if (!uniqueAdGroups.Contains(adGroupsList[i]))
-                    uniqueAdGroups.Add(adGroupsList[i]);
+                if (!uniqueAdGroups.Contains(_finalAdGroupList[i]))
+                    uniqueAdGroups.Add(_finalAdGroupList[i]);
             }
         }
 
@@ -1268,7 +1551,9 @@ namespace Excel_Parse
             for (int i = 0; i < clb_Campaign.Items.Count; i++)
             {
                 clb_Campaign.SetItemChecked(i, false);
-            }            
+            }
+
+            disableTbClbFilter();
         }
 
         /* Отправляем список товаров по adGroups после двойного ЛКМ в dgv */
@@ -1342,22 +1627,22 @@ namespace Excel_Parse
                 }
 
                 if (NoErrors)
-                    mf.GetAdvertisingProductsListToShow(filterAdvProductsList, advProductsListOriginal, GetMode(), pList);
+                    mf.GetAdvertisingProductsListToShow(filterAdvProductsList, advProductsListOriginal, GetCompareMode(), pList, GetDateMode(), "", GetProductIdByName(checkedProducts));
             }
-            else if (mf.SponsoredBrandMode)             //если имеем дело с Sponsored Brands
-            {
-                filterAdvBrandsList = new List<AdvertisingBrandsModel> { };
-                for (int i = 0; i < advBrandsList.Count; i++)
-                {
-                    if (SearchByCampaign(advBrandsList[i].CampaignName.ToLower(), tb_SearchByCampaign.Text.ToLower()) && SearchByTargeting(advBrandsList[i].Targeting.ToLower(), tb_SearchByTargeting.Text.ToLower()))
-                    {
-                        filterAdvBrandsList.Add(advBrandsList[i]);
-                    }
-                }
+            //else if (mf.SponsoredBrandMode)             //если имеем дело с Sponsored Brands
+            //{
+            //    filterAdvBrandsList = new List<AdvertisingBrandsModel> { };
+            //    for (int i = 0; i < advBrandsList.Count; i++)
+            //    {
+            //        if (SearchByCampaign(advBrandsList[i].CampaignName.ToLower(), tb_SearchByCampaign.Text.ToLower()) && SearchByTargeting(advBrandsList[i].Targeting.ToLower(), tb_SearchByTargeting.Text.ToLower()))
+            //        {
+            //            filterAdvBrandsList.Add(advBrandsList[i]);
+            //        }
+            //    }
 
-                if (NoErrors)
-                    mf.GetAdvertisingBrandsListToShow(filterAdvBrandsList);
-            }
+            //    //if (NoErrors)
+            //    //    mf.GetAdvertisingBrandsListToShow(filterAdvBrandsList);
+            //}
 
             this.Cursor = Cursors.Default;
             this.Enabled = true;
@@ -1389,180 +1674,76 @@ namespace Excel_Parse
             else
                 return _targetingName.Contains(tb_targetingName);
         }
-
-
-        /* Отобразить данные за последний месяц */
-        private void btn_LastMonth_Click(object sender, EventArgs e)
-        {
-            DateTime dd = DateTime.Today;
-            dd = dd.Subtract(new TimeSpan(30, 0, 0, 0, 0));
-            mc_StartDate.SelectionStart = dd;
-            mc_EndDate.SelectionEnd = DateTime.Today.AddHours(23).AddMinutes(59);
-        }
-
-        /* Отобразить данные за последние оплгода */
-        private void btn_LastHalfYear_Click(object sender, EventArgs e)
-        {
-            DateTime dd = DateTime.Today;
-            dd = dd.Subtract(new TimeSpan(183, 0, 0, 0, 0));
-            mc_StartDate.SelectionStart = dd;
-            mc_EndDate.SelectionEnd = DateTime.Today.AddHours(23).AddMinutes(59);
-        }
-
-        /* Отобразить данные за последний год */
-        private void btn_lastYear_Click(object sender, EventArgs e)
-        {
-            DateTime dd = DateTime.Today;
-            dd = dd.Subtract(new TimeSpan(365, 0, 0, 0, 0));
-            mc_StartDate.SelectionStart = dd;
-            mc_EndDate.SelectionEnd = DateTime.Today.AddHours(23).AddMinutes(59);
-        }
+        
 
         private void byProductsInMarkeplacesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            NullCompareMode();
+            EnableCustomTimeMode();
             byProductsToolStripMenuItem.Checked = true;
-            byCampaignInProductsToolStripMenuItem.Checked = false;
-            byAdGroupsInCampaignsToolStripMenuItem.Checked = false;
-            byTargetingInAdGroupsToolStripMenuItem.Checked = false;
         }
 
         private void byCampaignInProductsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            byProductsToolStripMenuItem.Checked = false;
+            NullCompareMode();
+            EnableCustomTimeMode();
             byCampaignInProductsToolStripMenuItem.Checked = true;
-            byAdGroupsInCampaignsToolStripMenuItem.Checked = false;
-            byTargetingInAdGroupsToolStripMenuItem.Checked = false;
         }
 
         private void byAdGroupsInCampaignsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            byProductsToolStripMenuItem.Checked = false;
-            byCampaignInProductsToolStripMenuItem.Checked = false;
+            NullCompareMode();
+            EnableCustomTimeMode();
             byAdGroupsInCampaignsToolStripMenuItem.Checked = true;
-            byTargetingInAdGroupsToolStripMenuItem.Checked = false;
         }
 
         private void byTargetingInAdGroupsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            byProductsToolStripMenuItem.Checked = false;
-            byCampaignInProductsToolStripMenuItem.Checked = false;
-            byAdGroupsInCampaignsToolStripMenuItem.Checked = false;
+            NullCompareMode();
+            NullTimeMode();
+            DisableCustomTimeMode();
+            by_CustomToolStripMenuItem.Checked = true;
             byTargetingInAdGroupsToolStripMenuItem.Checked = true;
         }
-        //By Days
-        private void marketplace_DaysToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            NullTimeMode();
-            by_DaysToolStripMenuItem.Checked = true;
-            marketplace_DaysToolStripMenuItem.Checked = true;
-        }
-
-        private void campaign_DaysToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            NullTimeMode();
-            by_DaysToolStripMenuItem.Checked = true;
-            campaign_DaysToolStripMenuItem.Checked = true;
-        }
-
-        private void product_DaysToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            NullTimeMode();
-            by_DaysToolStripMenuItem.Checked = true;
-            product_DaysToolStripMenuItem.Checked = true;
-        }
-
-        private void adGroup_DaysToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            NullTimeMode();
-            by_DaysToolStripMenuItem.Checked = true;
-            adGroup_DaysToolStripMenuItem.Checked = true;
-        }
-
-        private void targeting_DaysToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            NullTimeMode();
-            by_DaysToolStripMenuItem.Checked = true;
-            targeting_DaysToolStripMenuItem.Checked = true;
-        }
-        //--------
-        //By Weeks
-        private void marketplace_WeeksToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            NullTimeMode();
-            by_WeeksToolStripMenuItem.Checked = true;
-            marketplace_WeeksToolStripMenuItem1.Checked = true;
-        }
-
-        private void product_WeeksToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            NullTimeMode();
-            by_WeeksToolStripMenuItem.Checked = true;
-            product_WeeksToolStripMenuItem1.Checked = true;
-        }
-
-        private void campaign_WeeksToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            NullTimeMode();
-            by_WeeksToolStripMenuItem.Checked = true;
-            campaign_WeeksToolStripMenuItem1.Checked = true;
-        }
-
-        private void adGroup_WeeksToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            NullTimeMode();
-            by_WeeksToolStripMenuItem.Checked = true;
-            adGroup_WeeksToolStripMenuItem1.Checked = true;
-        }
-
-        private void targeting_WeeksToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            NullTimeMode();
-            by_WeeksToolStripMenuItem.Checked = true;
-            targeting_WeeksToolStripMenuItem1.Checked = true;
-        }
-        //--------
-        //By Month
-        private void marketplace_MonthToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            NullTimeMode();
-            by_MonthsToolStripMenuItem.Checked = true;
-            marketplace_MonthToolStripMenuItem2.Checked = true;
-        }
-
-        private void product_MonthToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            NullTimeMode();
-            by_MonthsToolStripMenuItem.Checked = true;
-            product_MonthToolStripMenuItem2.Checked = true;
-        }
-
-        private void compaign_MonthToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            NullTimeMode();
-            by_MonthsToolStripMenuItem.Checked = true;
-            compaign_MonthToolStripMenuItem2.Checked = true;
-        }
-
-        private void adGroup_MonthToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            NullTimeMode();
-            by_MonthsToolStripMenuItem.Checked = true;
-            adGroup_MonthToolStripMenuItem2.Checked = true;
-        }
-
-        private void targeting_MonthToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            NullTimeMode();
-            by_MonthsToolStripMenuItem.Checked = true;
-            targeting_MonthToolStripMenuItem2.Checked = true;
-        }
-
+        //----------------
         private void by_CustomToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NullTimeMode();
             by_CustomToolStripMenuItem.Checked = true;
         }
-        //--------
+
+
+        private void by_DaysToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NullTimeMode();
+            by_DaysToolStripMenuItem.Checked = true;
+        }
+
+        private void by_WeeksToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NullTimeMode();
+            by_WeeksToolStripMenuItem.Checked = true;
+        }
+
+        private void by_MonthsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NullTimeMode();
+            by_MonthsToolStripMenuItem.Checked = true;
+        }
+
+        private void DisableCustomTimeMode()
+        {
+            by_DaysToolStripMenuItem.Enabled = false;
+            by_WeeksToolStripMenuItem.Enabled = false;
+            by_MonthsToolStripMenuItem.Enabled = false;
+        }
+
+        private void EnableCustomTimeMode()
+        {
+            by_DaysToolStripMenuItem.Enabled = true;
+            by_WeeksToolStripMenuItem.Enabled = true;
+            by_MonthsToolStripMenuItem.Enabled = true;
+        }
 
         private void NullTimeMode()
         {
@@ -1570,24 +1751,37 @@ namespace Excel_Parse
             by_WeeksToolStripMenuItem.Checked = false;
             by_MonthsToolStripMenuItem.Checked = false;
             by_CustomToolStripMenuItem.Checked = false;
+        }
 
-            marketplace_DaysToolStripMenuItem.Checked = false;
-            campaign_DaysToolStripMenuItem.Checked = false;
-            product_DaysToolStripMenuItem.Checked = false;
-            adGroup_DaysToolStripMenuItem.Checked = false;
-            targeting_DaysToolStripMenuItem.Checked = false;
+        private void NullCompareMode()
+        {
+            byProductsToolStripMenuItem.Checked = false;
+            byCampaignInProductsToolStripMenuItem.Checked = false;
+            byAdGroupsInCampaignsToolStripMenuItem.Checked = false;
+            byTargetingInAdGroupsToolStripMenuItem.Checked = false;
+        }
 
-            marketplace_WeeksToolStripMenuItem1.Checked = false;
-            campaign_WeeksToolStripMenuItem1.Checked = false;
-            product_WeeksToolStripMenuItem1.Checked = false;
-            adGroup_WeeksToolStripMenuItem1.Checked = false;
-            targeting_WeeksToolStripMenuItem1.Checked = false;
+        private void btn_Clear_clb_AdGroups_Click(object sender, EventArgs e)
+        {
+            clb_AdGroup.ClearSelected();
+            checkedAdGroups.Clear();
 
-            marketplace_MonthToolStripMenuItem2.Checked = false;
-            compaign_MonthToolStripMenuItem2.Checked = false;
-            product_MonthToolStripMenuItem2.Checked = false;
-            adGroup_MonthToolStripMenuItem2.Checked = false;
-            targeting_MonthToolStripMenuItem2.Checked = false;
+            for (int i = 0; i < clb_AdGroup.Items.Count; i++)
+            {
+                clb_AdGroup.SetItemChecked(i, false);
+            }
+
+            disableTbClbFilter();
+        }
+
+        private void disableTbClbFilter()
+        {
+            if (clb_AdGroup.Items.Count == 0)
+                tb_clbAdGroupFilter.Enabled = false;
+            if (clb_Campaign.Items.Count == 0)
+                tb_clbCampaignFilter.Enabled = false;
+            if (clb_Product.Items.Count == 0)
+                tb_clbProductFilter.Enabled = false;
         }
 
         private void advertisingAlarmReportToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1602,16 +1796,7 @@ namespace Excel_Parse
                     MessageBox.Show("При генерации и отправке отчета произошла какая-то ошибка. Пожалуйста, попробуйте позже.", "Ошибка");
             }
         }
-
-        /* Отобразить данные за последний день */
-        private void btn_LastDay_Click(object sender, EventArgs e)
-        {
-
-            DateTime dd = DateTime.Today;
-            dd = dd.Subtract(new TimeSpan(1, 0, 0, 0, 0));
-            mc_StartDate.SelectionStart = dd;
-            mc_EndDate.SelectionEnd = dd.AddHours(23).AddMinutes(59);
-        }
+        
 
         /* Фильтруем данные в таблице по MatchType */
         private void btn_FilterByMatchType_Click(object sender, EventArgs e)
@@ -1640,7 +1825,7 @@ namespace Excel_Parse
 
                 timer1.Start();
                 if (NoErrors)
-                    mf.GetAdvertisingProductsListToShow(filterAdvProductsList, advProductsListOriginal, GetMode(), pList);
+                    mf.GetAdvertisingProductsListToShow(filterAdvProductsList, advProductsListOriginal, GetCompareMode(), pList, GetDateMode(), "", GetProductIdByName(checkedProducts));
             }
             else if (mf.SponsoredBrandMode)             //если имеем дело с Sponsored Brands
             {
@@ -1661,8 +1846,8 @@ namespace Excel_Parse
                     }
                 }
                 
-                if (NoErrors)
-                    mf.GetAdvertisingBrandsListToShow(filterAdvBrandsList);
+                //if (NoErrors)
+                //    mf.GetAdvertisingBrandsListToShow(filterAdvBrandsList);
             }
 
             this.Cursor = Cursors.Default;
@@ -1689,7 +1874,7 @@ namespace Excel_Parse
 
                 timer1.Start();
                 if (NoErrors)
-                    mf.GetAdvertisingProductsListToShow(filterAdvProductsList, advProductsListOriginal, GetMode(), pList);
+                    mf.GetAdvertisingProductsListToShow(filterAdvProductsList, advProductsListOriginal, GetCompareMode(), pList, GetDateMode(), "", GetProductIdByName(checkedProducts));
             }
             else if (mf.SponsoredBrandMode)             //если имеем дело с Sponsored Brands
             {
@@ -1704,8 +1889,8 @@ namespace Excel_Parse
                 }
 
                 timer1.Start();
-                if (NoErrors)
-                    mf.GetAdvertisingBrandsListToShow(filterAdvBrandsList);
+                //if (NoErrors)
+                //    mf.GetAdvertisingBrandsListToShow(filterAdvBrandsList);
             }
 
             this.Cursor = Cursors.Default;
@@ -1818,7 +2003,7 @@ namespace Excel_Parse
                 tb_Orders.Text = "";
                 tb_Units.Text = "";
 
-                mf.GetAdvertisingProductsListToShow(advProductsList, advProductsListOriginal, GetMode(), pList);
+                mf.GetAdvertisingProductsListToShow(advProductsList, advProductsListOriginal, GetCompareMode(), pList, GetDateMode(), "", GetProductIdByName(checkedProducts));
             }
             else if (mf.SponsoredBrandMode)
             {
@@ -1832,7 +2017,7 @@ namespace Excel_Parse
                 tb_Orders.Text = "";
                 tb_Units.Text = "";
 
-                mf.GetAdvertisingBrandsListToShow(advBrandsList);
+                //mf.GetAdvertisingBrandsListToShow(advBrandsList);
             }
         }
     }

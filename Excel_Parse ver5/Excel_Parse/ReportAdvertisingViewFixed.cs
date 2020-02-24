@@ -18,9 +18,10 @@ namespace Excel_Parse
         
 
 
-        public ReportAdvertisingViewFixed(DateTime _startDate, DateTime _endDate, object _advProductsListOriginal)
+        public ReportAdvertisingViewFixed(DateTime _startDate, DateTime _endDate, object _advProductsListOriginal, string _formTitle)
         {
             InitializeComponent();
+            this.Text = _formTitle;
             lb_StartDate.Text = _startDate.ToString().Substring(0, 10);
             lb_EndDate.Text = _endDate.ToString().Substring(0, 10);
             advProductsListOriginal = (List<AdvertisingProductsModel>)_advProductsListOriginal;

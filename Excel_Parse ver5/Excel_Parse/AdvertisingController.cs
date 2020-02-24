@@ -379,6 +379,49 @@ namespace Excel_Parse
             }
         }
 
+        public int GetAdvertisingProductsAdgroups(int _id, string _checkedCampaign)
+        {
+            string sqlStatement = "";
+            
+            sqlStatement = "SELECT AdGroupName FROM [AdvertisingProducts] WHERE [ProductId] = " + _id + " and [CampaignName] = '" + _checkedCampaign + "'";
+            
+            List<string> adGroups = new List<string> { };
+
+            command = new SqlCommand(sqlStatement, connection);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        IDataRecord record = (IDataRecord)reader;
+                        adGroups.Add(record[0].ToString());
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No rows found.");
+                }
+                reader.Close();
+                connection.Close();
+
+                if (controlAdvertisingReportFilterView != null)
+                    controlAdvertisingReportFilterView.GetAdGroups(adGroups);
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                connection.Close();
+                return ex.HResult;
+            }
+        }
+
         public int GetAdvertisingBrandsCampaignAndCampId(List<int> _id)
         {
             string sqlStatement = "";

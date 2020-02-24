@@ -32,19 +32,13 @@
             this.dgv_AdvProducts = new System.Windows.Forms.DataGridView();
             this.btn_Export = new System.Windows.Forms.Button();
             this.btn_Filter = new System.Windows.Forms.Button();
-            this.dgv_adGroups = new System.Windows.Forms.DataGridView();
-            this.dgv_Targeting = new System.Windows.Forms.DataGridView();
             this.lb_StartDate = new System.Windows.Forms.Label();
             this.lb_EndDate = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.dgv_AdvBrands = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_AdvProducts)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_adGroups)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_Targeting)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_AdvBrands)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -87,36 +81,6 @@
             this.btn_Filter.UseVisualStyleBackColor = false;
             this.btn_Filter.Click += new System.EventHandler(this.btn_Filter_Click);
             // 
-            // dgv_adGroups
-            // 
-            this.dgv_adGroups.AllowUserToAddRows = false;
-            this.dgv_adGroups.AllowUserToDeleteRows = false;
-            this.dgv_adGroups.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dgv_adGroups.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_adGroups.Location = new System.Drawing.Point(3, 47);
-            this.dgv_adGroups.MultiSelect = false;
-            this.dgv_adGroups.Name = "dgv_adGroups";
-            this.dgv_adGroups.ReadOnly = true;
-            this.dgv_adGroups.RowTemplate.Height = 24;
-            this.dgv_adGroups.Size = new System.Drawing.Size(1369, 702);
-            this.dgv_adGroups.TabIndex = 20;
-            this.dgv_adGroups.Visible = false;
-            // 
-            // dgv_Targeting
-            // 
-            this.dgv_Targeting.AllowUserToAddRows = false;
-            this.dgv_Targeting.AllowUserToDeleteRows = false;
-            this.dgv_Targeting.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dgv_Targeting.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_Targeting.Location = new System.Drawing.Point(3, 47);
-            this.dgv_Targeting.MultiSelect = false;
-            this.dgv_Targeting.Name = "dgv_Targeting";
-            this.dgv_Targeting.ReadOnly = true;
-            this.dgv_Targeting.RowTemplate.Height = 24;
-            this.dgv_Targeting.Size = new System.Drawing.Size(1369, 702);
-            this.dgv_Targeting.TabIndex = 21;
-            this.dgv_Targeting.Visible = false;
-            // 
             // lb_StartDate
             // 
             this.lb_StartDate.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
@@ -146,20 +110,6 @@
             this.label1.TabIndex = 24;
             this.label1.Text = "-";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // dgv_AdvBrands
-            // 
-            this.dgv_AdvBrands.AllowUserToAddRows = false;
-            this.dgv_AdvBrands.AllowUserToDeleteRows = false;
-            this.dgv_AdvBrands.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dgv_AdvBrands.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_AdvBrands.Location = new System.Drawing.Point(3, 47);
-            this.dgv_AdvBrands.Name = "dgv_AdvBrands";
-            this.dgv_AdvBrands.ReadOnly = true;
-            this.dgv_AdvBrands.RowTemplate.Height = 24;
-            this.dgv_AdvBrands.Size = new System.Drawing.Size(1369, 702);
-            this.dgv_AdvBrands.TabIndex = 25;
-            this.dgv_AdvBrands.Visible = false;
             // 
             // button1
             // 
@@ -192,9 +142,6 @@
             this.ClientSize = new System.Drawing.Size(1375, 752);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.dgv_AdvBrands);
-            this.Controls.Add(this.dgv_Targeting);
-            this.Controls.Add(this.dgv_adGroups);
             this.Controls.Add(this.btn_Filter);
             this.Controls.Add(this.btn_Export);
             this.Controls.Add(this.dgv_AdvProducts);
@@ -207,9 +154,6 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AdvertisingReportView_FormClosed);
             this.SizeChanged += new System.EventHandler(this.AdvertisingReportView_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_AdvProducts)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_adGroups)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_Targeting)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_AdvBrands)).EndInit();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -223,9 +167,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         public System.Windows.Forms.DataGridView dgv_AdvProducts;
-        public System.Windows.Forms.DataGridView dgv_adGroups;
-        public System.Windows.Forms.DataGridView dgv_Targeting;
-        public System.Windows.Forms.DataGridView dgv_AdvBrands;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel1;
     }
