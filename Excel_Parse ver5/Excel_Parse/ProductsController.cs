@@ -26,7 +26,15 @@ namespace Excel_Parse
         private ReportSessionsView controlReportSessionsView;
         private Advreport7days controlAdvreport7days;
         private EveryDayReportsUpdate controlEveryDayReportsUpdate;
+        private ReportAdvertisingView controlReportAdvertisingView;
 
+
+        /* Конструктор */
+        public ProductsController(ReportAdvertisingView _controlForm)
+        {
+            connection = DBData.GetDBConnection();
+            controlReportAdvertisingView = _controlForm;
+        }
 
         /* Конструктор */
         public ProductsController(EveryDayReportsUpdate _controlForm)
@@ -171,6 +179,53 @@ namespace Excel_Parse
             return Execute_SELECTJOIN_Command(command);
         }
 
+        public int GetProductsByFewMarketplaceIdInactive(List<int> _id, int _workingId)
+        {
+            string sqlStatement = "";
+            if (_id.Count == 0)
+                sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0";
+            else if (_id.Count == 1)
+                //sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0 and Products.ActiveStatus = 'true' and Products.MarketPlaceId = " + _id[0];
+                sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0 and Products.MarketPlaceId = " + _id[0];
+            else if (_id.Count >= 2)
+            {
+                //sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0 and Products.ActiveStatus = 'true' and (Products.MarketPlaceId = " + _id[0];
+                sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0 and (Products.MarketPlaceId = " + _id[0];
+
+                for (int i = 1; i < _id.Count; i++)
+                {
+                    sqlStatement = sqlStatement + " or Products.MarketPlaceId = " + _id[i];
+                }
+
+                sqlStatement = sqlStatement + ")";
+            }
+            command = new SqlCommand(sqlStatement, connection);
+            return Execute_SELECTJOIN_Command(command, _workingId);
+        }
+
+        public int GetProductsByFewMarketplaceIdActive(List<int> _id, int _workingId)
+        {
+            string sqlStatement = "";
+            if (_id.Count == 0)
+                sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0 and [ActiveStatus] = 1";
+            else if (_id.Count == 1)
+                //sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0 and Products.ActiveStatus = 'true' and Products.MarketPlaceId = " + _id[0];
+                sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0 and [ActiveStatus] = 1 and Products.MarketPlaceId = " + _id[0];
+            else if (_id.Count >= 2)
+            {
+                //sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0 and Products.ActiveStatus = 'true' and (Products.MarketPlaceId = " + _id[0];
+                sqlStatement = "SELECT * FROM Products LEFT JOIN ProductTypes ON Products.ProductTypeId = ProductTypes.ProductTypeId LEFT JOIN Marketplace ON Products.MarketPlaceId = Marketplace.MarketPlaceId WHERE Products.ProductId > 0 and [ActiveStatus] = 1 and (Products.MarketPlaceId = " + _id[0];
+
+                for (int i = 1; i < _id.Count; i++)
+                {
+                    sqlStatement = sqlStatement + " or Products.MarketPlaceId = " + _id[i];
+                }
+
+                sqlStatement = sqlStatement + ")";
+            }
+            command = new SqlCommand(sqlStatement, connection);
+            return Execute_SELECTJOIN_Command(command, _workingId);
+        }
 
         /* -------------------------UPDATE Statements--------------------- */
 
@@ -372,6 +427,54 @@ namespace Excel_Parse
                     controlAdvreport7days.GetProductsFromDB(pList);
                 else if (controlEveryDayReportsUpdate != null)
                     controlEveryDayReportsUpdate.GetProductsFromDB(pList);
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                connection.Close();
+                return ex.HResult;
+            }
+        }
+
+        /* Делаем SELECT с JOIN из БД и отдаем данные двумя List, чтобы потом вставить в одну таблицу
+         * при чем, вставляем коряво (смотри SetProductTypesToList), но это потому, что у нас ProductModel имеет
+         * только 5 полей и туда одним методом вставить не получится. Плюс всё равно нужно будет получать данные 
+         * всех ProductTypes
+         *  */
+        private int Execute_SELECTJOIN_Command(SqlCommand _command, int _workingId)
+        {
+            pList = new List<ProductsModel> { };
+            ptList = new List<ProductTypesModel> { };
+            mpList = new List<MarketplaceModel> { };
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = _command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        SetProductsToList((IDataRecord)reader);
+                        SetProductTypesToList((IDataRecord)reader);
+                        SetMarketPlacesToList((IDataRecord)reader);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No rows found.");
+                }
+                reader.Close();
+                connection.Close();
+                
+                if (controlReportAdvertisingView != null && _workingId == 1)
+                    controlReportAdvertisingView.GetProductsFromDB1(pList);
+                else if (controlReportAdvertisingView != null && _workingId == 2)
+                    controlReportAdvertisingView.GetProductsFromDB2(pList);
+                else if (controlReportAdvertisingView != null && _workingId == 3)
+                    controlReportAdvertisingView.GetProductsFromDB3(pList);
+
                 return 1;
             }
             catch (Exception ex)

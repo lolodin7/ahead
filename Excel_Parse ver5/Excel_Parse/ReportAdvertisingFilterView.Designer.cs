@@ -106,7 +106,6 @@
             this.advertisingAlarmReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tb_clbCampaignFilter = new System.Windows.Forms.TextBox();
             this.tb_clbAdGroupFilter = new System.Windows.Forms.TextBox();
-            this.tb_clbProductFilter = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -119,7 +118,7 @@
             this.clb_Marketplace.CheckOnClick = true;
             this.clb_Marketplace.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.clb_Marketplace.FormattingEnabled = true;
-            this.clb_Marketplace.Location = new System.Drawing.Point(10, 126);
+            this.clb_Marketplace.Location = new System.Drawing.Point(10, 57);
             this.clb_Marketplace.Name = "clb_Marketplace";
             this.clb_Marketplace.Size = new System.Drawing.Size(194, 112);
             this.clb_Marketplace.TabIndex = 0;
@@ -143,16 +142,16 @@
             this.clb_Product.CheckOnClick = true;
             this.clb_Product.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.clb_Product.FormattingEnabled = true;
-            this.clb_Product.Location = new System.Drawing.Point(10, 272);
+            this.clb_Product.Location = new System.Drawing.Point(10, 214);
             this.clb_Product.Name = "clb_Product";
-            this.clb_Product.Size = new System.Drawing.Size(194, 202);
+            this.clb_Product.Size = new System.Drawing.Size(194, 256);
             this.clb_Product.TabIndex = 0;
             this.clb_Product.SelectedIndexChanged += new System.EventHandler(this.clb_Product_SelectedIndexChanged);
             // 
             // mc_StartDate
             // 
             this.mc_StartDate.BackColor = System.Drawing.SystemColors.Control;
-            this.mc_StartDate.Location = new System.Drawing.Point(215, 83);
+            this.mc_StartDate.Location = new System.Drawing.Point(215, 74);
             this.mc_StartDate.MaxSelectionCount = 1;
             this.mc_StartDate.Name = "mc_StartDate";
             this.mc_StartDate.ShowToday = false;
@@ -163,7 +162,7 @@
             // mc_EndDate
             // 
             this.mc_EndDate.BackColor = System.Drawing.SystemColors.Control;
-            this.mc_EndDate.Location = new System.Drawing.Point(420, 83);
+            this.mc_EndDate.Location = new System.Drawing.Point(420, 74);
             this.mc_EndDate.MaxSelectionCount = 1;
             this.mc_EndDate.Name = "mc_EndDate";
             this.mc_EndDate.ShowToday = false;
@@ -177,10 +176,11 @@
             this.cb_CampaignType.Enabled = false;
             this.cb_CampaignType.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
             this.cb_CampaignType.FormattingEnabled = true;
-            this.cb_CampaignType.Location = new System.Drawing.Point(10, 56);
+            this.cb_CampaignType.Location = new System.Drawing.Point(9, 47);
             this.cb_CampaignType.Name = "cb_CampaignType";
             this.cb_CampaignType.Size = new System.Drawing.Size(194, 25);
             this.cb_CampaignType.TabIndex = 3;
+            this.cb_CampaignType.Visible = false;
             this.cb_CampaignType.SelectedIndexChanged += new System.EventHandler(this.cb_CampaignType_SelectedIndexChanged);
             // 
             // btn_Show
@@ -189,7 +189,7 @@
             this.btn_Show.FlatAppearance.BorderSize = 0;
             this.btn_Show.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Show.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.btn_Show.Location = new System.Drawing.Point(10, 523);
+            this.btn_Show.Location = new System.Drawing.Point(10, 522);
             this.btn_Show.Name = "btn_Show";
             this.btn_Show.Size = new System.Drawing.Size(194, 92);
             this.btn_Show.TabIndex = 30;
@@ -210,7 +210,7 @@
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.label3.Location = new System.Drawing.Point(10, 100);
+            this.label3.Location = new System.Drawing.Point(10, 31);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(194, 23);
             this.label3.TabIndex = 32;
@@ -220,9 +220,9 @@
             // label4
             // 
             this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.label4.Location = new System.Drawing.Point(10, 246);
+            this.label4.Location = new System.Drawing.Point(10, 188);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(83, 23);
+            this.label4.Size = new System.Drawing.Size(193, 23);
             this.label4.TabIndex = 33;
             this.label4.Text = "Товары";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -257,6 +257,7 @@
             this.label1.TabIndex = 36;
             this.label1.Text = "Тип рекламы";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.Visible = false;
             // 
             // label5
             // 
@@ -283,7 +284,7 @@
             // btn_Clear_clb_Products
             // 
             this.btn_Clear_clb_Products.Font = new System.Drawing.Font("Segoe UI Semibold", 7.5F, System.Drawing.FontStyle.Bold);
-            this.btn_Clear_clb_Products.Location = new System.Drawing.Point(177, 248);
+            this.btn_Clear_clb_Products.Location = new System.Drawing.Point(177, 190);
             this.btn_Clear_clb_Products.Name = "btn_Clear_clb_Products";
             this.btn_Clear_clb_Products.Size = new System.Drawing.Size(27, 21);
             this.btn_Clear_clb_Products.TabIndex = 39;
@@ -295,7 +296,7 @@
             // btn_Clear_clb_Marketplace
             // 
             this.btn_Clear_clb_Marketplace.Font = new System.Drawing.Font("Segoe UI Semibold", 7.5F, System.Drawing.FontStyle.Bold);
-            this.btn_Clear_clb_Marketplace.Location = new System.Drawing.Point(177, 103);
+            this.btn_Clear_clb_Marketplace.Location = new System.Drawing.Point(177, 34);
             this.btn_Clear_clb_Marketplace.Name = "btn_Clear_clb_Marketplace";
             this.btn_Clear_clb_Marketplace.Size = new System.Drawing.Size(27, 21);
             this.btn_Clear_clb_Marketplace.TabIndex = 40;
@@ -746,7 +747,7 @@
             this.panel1.Controls.Add(this.lb_EndDate);
             this.panel1.Controls.Add(this.lb_StartDate);
             this.panel1.Controls.Add(this.label5);
-            this.panel1.Location = new System.Drawing.Point(280, 25);
+            this.panel1.Location = new System.Drawing.Point(280, 30);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(270, 33);
             this.panel1.TabIndex = 84;
@@ -759,7 +760,7 @@
             this.отчетToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1284, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1433, 24);
             this.menuStrip1.TabIndex = 87;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -875,6 +876,7 @@
             this.tb_clbCampaignFilter.Name = "tb_clbCampaignFilter";
             this.tb_clbCampaignFilter.Size = new System.Drawing.Size(155, 22);
             this.tb_clbCampaignFilter.TabIndex = 88;
+            this.tb_clbCampaignFilter.TextChanged += new System.EventHandler(this.tb_clbCampaignFilter_TextChanged);
             // 
             // tb_clbAdGroupFilter
             // 
@@ -883,21 +885,13 @@
             this.tb_clbAdGroupFilter.Name = "tb_clbAdGroupFilter";
             this.tb_clbAdGroupFilter.Size = new System.Drawing.Size(155, 22);
             this.tb_clbAdGroupFilter.TabIndex = 89;
-            // 
-            // tb_clbProductFilter
-            // 
-            this.tb_clbProductFilter.Enabled = false;
-            this.tb_clbProductFilter.Location = new System.Drawing.Point(91, 247);
-            this.tb_clbProductFilter.Name = "tb_clbProductFilter";
-            this.tb_clbProductFilter.Size = new System.Drawing.Size(71, 22);
-            this.tb_clbProductFilter.TabIndex = 90;
+            this.tb_clbAdGroupFilter.TextChanged += new System.EventHandler(this.tb_clbAdGroupFilter_TextChanged);
             // 
             // ReportAdvertisingFilterView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1284, 619);
-            this.Controls.Add(this.tb_clbProductFilter);
+            this.ClientSize = new System.Drawing.Size(1433, 619);
             this.Controls.Add(this.tb_clbAdGroupFilter);
             this.Controls.Add(this.tb_clbCampaignFilter);
             this.Controls.Add(this.panel1);
@@ -1020,6 +1014,5 @@
         private System.Windows.Forms.ToolStripMenuItem by_CustomToolStripMenuItem;
         private System.Windows.Forms.TextBox tb_clbCampaignFilter;
         private System.Windows.Forms.TextBox tb_clbAdGroupFilter;
-        private System.Windows.Forms.TextBox tb_clbProductFilter;
     }
 }

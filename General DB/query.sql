@@ -685,19 +685,19 @@ delete from [AdvertisingProducts]
 
 use ahead
 delete from BusinessReport where UpdateDate between '2020-01-07 00:00:00' and '2020-01-21 23:59:59' and (MarketPlaceId = 1 or MarketPlaceId = 2)
-SELECT * FROM BusinessReport where UpdateDate between '2020-01-16 00:00:00' and '2020-01-16 23:59:59' and MarketPlaceId = 1
+SELECT * FROM BusinessReport where UpdateDate between '2020-02-19 00:00:00' and '2020-02-19 23:59:59'  and MarketPlaceId = 1
 SELECT * FROM AdvertisingProducts where UpdateDate between '2020-01-13 00:00:00' and '2020-01-13 23:59:59'
-SELECT * FROM Orders where [PurchaseDate] between '2020-02-17 00:00:00' and '2020-02-17 23:59:59' 
+SELECT * FROM Orders where [PurchaseDate] between '2020-02-19 00:00:00' and '2020-02-19 23:59:59' 
 
 INSERT INTO [BusinessReport] ([UpdateDate], [MarketPlaceId], [SKU], [Sessions], [SessionPercentage], [PageViews], [PageViewsPercentage], [UnitsOrdered], [UnitsOrderedB2B], [UnitSessionPercentage], [UnitSessionPercentageB2B], [OrderedProductSales], [OrderedProductSalesB2B], [TotalOrderItems], [TotalOrderItemsB2B], [ProductId]) VALUES ('2020-01-12 00:00:00', 1, 'E3-2RHF-EO7C', 99999, 39.33, 925, 39.85, 7, 5, 1.21, 0.86, 165.93, 119.64, 7, 5, 25)
 
 UPDATE [BusinessReport] SET [Sessions] = 579, [SessionPercentage] = 1.21, [PageViews] = 925, [PageViewsPercentage] = 39.85, [UnitsOrdered] = 7, [UnitsOrderedB2B] = 5, [UnitSessionPercentage] = 1.21, [UnitSessionPercentageB2B] = 0.86, [OrderedProductSales] = 165.93, [OrderedProductSalesB2B] = 119.64, [TotalOrderItems] = 7, [TotalOrderItemsB2B] = 5 WHERE [UpdateDate] = '2020-02-11 00:00:00' AND [ProductId] = 25
                             
 
-
+select * from products where [ASIN] = 'B01AG56HYQ' and MarketPlaceId = 1
 
 use AHEAD_stand
-SELECT * FROM AdvertisingProducts where UpdateDate between '2020-02-16 00:00:00' and '2020-02-16 23:59:59' 
+SELECT * FROM AdvertisingProducts where UpdateDate between '2020-02-20 00:00:00' and '2020-02-20 23:59:59' 
 
 select * from AdvertisingProducts
 
@@ -705,3 +705,13 @@ update Products set ActiveStatus = 0 where ProductId = 12
 
 
 SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-02-10 00:00:00' and '2020-02-21 23:59:00' and ([MarketPlaceId] = 1) and ([ProductId] = 23) and ([CampaignId] = 56394289) and ([AdGroupName] = 'Recording')
+
+
+
+
+
+SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-02-03 00:00:00' and '2020-02-23 23:59:59' and ([MarketPlaceId] = 1) and ([ProductId] = 23) and ([CampaignId] = 46251721) and ([AdGroupName] = 'Lavalier (PDW1 - exact_HIGH)' or [AdGroupName] = 'Lapel (PDW1 - exact_HIGH)')
+
+SELECT * FROM [User] WHERE [Login] = 'test2'
+
+SELECT AdGroupName FROM [AdvertisingProducts] WHERE [ProductId] = 23 and [CampaignName] = 'PDW1 - Broad'

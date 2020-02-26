@@ -1,0 +1,540 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{58A67637-1298-439E-B798-93170A84B489}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bona_Fides</RootNamespace>
+    <AssemblyName>Bona Fides</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <PublisherName>AHEAD</PublisherName>
+    <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>B7646C30EAAB1A62AD4417764D798BC08D0AB270</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Bona_Fides_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EPPlus, Version=4.5.3.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.3\lib\net40\EPPlus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>.\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="MySql.Data">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 14.0\MySql.Data.DLL</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdvertisingBrandsModel.cs" />
+    <Compile Include="AdvertisingController.cs" />
+    <Compile Include="AdvertisingProductsModel.cs" />
+    <Compile Include="Advreport7days.cs" />
+    <Compile Include="AllOrdersView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllOrdersView.Designer.cs">
+      <DependentUpon>AllOrdersView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessController.cs" />
+    <Compile Include="AllOrdersModel.cs" />
+    <Compile Include="EveryDayReportsUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EveryDayReportsUpdate.Designer.cs">
+      <DependentUpon>EveryDayReportsUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportAdvertisingFilterView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportAdvertisingFilterView.Designer.cs">
+      <DependentUpon>ReportAdvertisingFilterView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportAdvertisingView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportAdvertisingView.Designer.cs">
+      <DependentUpon>ReportAdvertisingView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportAdvertisingUploadView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportAdvertisingUploadView.Designer.cs">
+      <DependentUpon>ReportAdvertisingUploadView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DetailedDisposition.cs" />
+    <Compile Include="ReportAdvertisingViewFixed.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportAdvertisingViewFixed.Designer.cs">
+      <DependentUpon>ReportAdvertisingViewFixed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportBusinessFilterView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportBusinessFilterView.Designer.cs">
+      <DependentUpon>ReportBusinessFilterView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportBusinessModel.cs" />
+    <Compile Include="CampaignTypesController.cs" />
+    <Compile Include="CampaignTypesModel.cs" />
+    <Compile Include="ChangeQuestionView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangeQuestionView.Designer.cs">
+      <DependentUpon>ChangeQuestionView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CmapaignAndIdStruct.cs" />
+    <Compile Include="ControlPanelView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ControlPanelView.Designer.cs">
+      <DependentUpon>ControlPanelView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CurrencyController.cs" />
+    <Compile Include="CurrencyModel.cs" />
+    <Compile Include="ImageModel.cs" />
+    <Compile Include="LoggerAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoggerAdd.Designer.cs">
+      <DependentUpon>LoggerAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoggerAddAsinSkuPairs.cs" />
+    <Compile Include="LoggerController.cs" />
+    <Compile Include="LoggerModel.cs" />
+    <Compile Include="LoggerNotification.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoggerNotification.Designer.cs">
+      <DependentUpon>LoggerNotification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoggerShow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoggerShow.Designer.cs">
+      <DependentUpon>LoggerShow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoggerView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoggerView.Designer.cs">
+      <DependentUpon>LoggerView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginFormController.cs" />
+    <Compile Include="MapNameId.cs" />
+    <Compile Include="RegisterAnEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegisterAnEmployee.Designer.cs">
+      <DependentUpon>RegisterAnEmployee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportBusinessUploadView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportBusinessUploadView.Designer.cs">
+      <DependentUpon>ReportBusinessUploadView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportBusinessView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportBusinessView.Designer.cs">
+      <DependentUpon>ReportBusinessView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportDataAnalyzer.cs" />
+    <Compile Include="ReportSessionsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportSessionsView.Designer.cs">
+      <DependentUpon>ReportSessionsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RestorePasswordView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RestorePasswordView.Designer.cs">
+      <DependentUpon>RestorePasswordView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportReturnsModel.cs" />
+    <Compile Include="ReturnReason.cs" />
+    <Compile Include="SecuredPassword.cs" />
+    <Compile Include="ShowUsersView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowUsersView.Designer.cs">
+      <DependentUpon>ShowUsersView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserModel.cs" />
+    <Compile Include="About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginFormView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginFormView.Designer.cs">
+      <DependentUpon>LoginFormView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MarketplaceView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MarketplaceView.Designer.cs">
+      <DependentUpon>MarketplaceView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SemCoreArchiveController.cs" />
+    <Compile Include="SemCoreArchiveModel.cs" />
+    <Compile Include="SemCoreArchiveView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SemCoreArchiveView.Designer.cs">
+      <DependentUpon>SemCoreArchiveView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StartImage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StartImage.Designer.cs">
+      <DependentUpon>StartImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChooseProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChooseProduct.Designer.cs">
+      <DependentUpon>ChooseProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DBData.cs" />
+    <Compile Include="FieldsLength.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FieldsLength.Designer.cs">
+      <DependentUpon>FieldsLength.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FullSemCoreView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FullSemCoreView.Designer.cs">
+      <DependentUpon>FullSemCoreView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FullSemCoreController.cs" />
+    <Compile Include="FullSemCoreModel.cs" />
+    <Compile Include="IndexingController.cs" />
+    <Compile Include="IndexingDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IndexingDetails.Designer.cs">
+      <DependentUpon>IndexingDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IndexingModel.cs" />
+    <Compile Include="IndexingStatus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IndexingStatus.Designer.cs">
+      <DependentUpon>IndexingStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IndexingView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IndexingView.Designer.cs">
+      <DependentUpon>IndexingView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KeywordCategoryController.cs" />
+    <Compile Include="KeywordCategoryModel.cs" />
+    <Compile Include="KeywordCategoryView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KeywordCategoryView.Designer.cs">
+      <DependentUpon>KeywordCategoryView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainFormView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainFormView.Designer.cs">
+      <DependentUpon>MainFormView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MarketplaceController.cs" />
+    <Compile Include="MarketplaceModel.cs" />
+    <Compile Include="ProductsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProductsView.Designer.cs">
+      <DependentUpon>ProductsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProductsController.cs" />
+    <Compile Include="ProductsModel.cs" />
+    <Compile Include="ProductTypesController.cs" />
+    <Compile Include="ProductTypesModel.cs" />
+    <Compile Include="ProductTypesView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProductTypesView.Designer.cs">
+      <DependentUpon>ProductTypesView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SemanticsModel.cs" />
+    <Compile Include="SemCoreModel.cs" />
+    <Compile Include="SemCoreRebuildModel.cs" />
+    <Compile Include="SemCoreView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SemCoreView.Designer.cs">
+      <DependentUpon>SemCoreView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SemanticsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SemanticsView.Designer.cs">
+      <DependentUpon>SemanticsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SemCoreController.cs" />
+    <Compile Include="SemCoreRebuildView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SemCoreRebuildView.Designer.cs">
+      <DependentUpon>SemCoreRebuildView.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllOrdersView.resx">
+      <DependentUpon>AllOrdersView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EveryDayReportsUpdate.resx">
+      <DependentUpon>EveryDayReportsUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportAdvertisingFilterView.resx">
+      <DependentUpon>ReportAdvertisingFilterView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportAdvertisingView.resx">
+      <DependentUpon>ReportAdvertisingView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportAdvertisingUploadView.resx">
+      <DependentUpon>ReportAdvertisingUploadView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChangeQuestionView.resx">
+      <DependentUpon>ChangeQuestionView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlPanelView.resx">
+      <DependentUpon>ControlPanelView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoggerAdd.resx">
+      <DependentUpon>LoggerAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoggerNotification.resx">
+      <DependentUpon>LoggerNotification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoggerShow.resx">
+      <DependentUpon>LoggerShow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoggerView.resx">
+      <DependentUpon>LoggerView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginFormView.resx">
+      <DependentUpon>LoginFormView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MarketplaceView.resx">
+      <DependentUpon>MarketplaceView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegisterAnEmployee.resx">
+      <DependentUpon>RegisterAnEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportAdvertisingViewFixed.resx">
+      <DependentUpon>ReportAdvertisingViewFixed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportBusinessFilterView.resx">
+      <DependentUpon>ReportBusinessFilterView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportBusinessUploadView.resx">
+      <DependentUpon>ReportBusinessUploadView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportBusinessView.resx">
+      <DependentUpon>ReportBusinessView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportSessionsView.resx">
+      <DependentUpon>ReportSessionsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RestorePasswordView.resx">
+      <DependentUpon>RestorePasswordView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SemCoreArchiveView.resx">
+      <DependentUpon>SemCoreArchiveView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShowUsersView.resx">
+      <DependentUpon>ShowUsersView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StartImage.resx">
+      <DependentUpon>StartImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChooseProduct.resx">
+      <DependentUpon>ChooseProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FieldsLength.resx">
+      <DependentUpon>FieldsLength.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FullSemCoreView.resx">
+      <DependentUpon>FullSemCoreView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IndexingDetails.resx">
+      <DependentUpon>IndexingDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IndexingStatus.resx">
+      <DependentUpon>IndexingStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IndexingView.resx">
+      <DependentUpon>IndexingView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KeywordCategoryView.resx">
+      <DependentUpon>KeywordCategoryView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainFormView.resx">
+      <DependentUpon>MainFormView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProductsView.resx">
+      <DependentUpon>ProductsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProductTypesView.resx">
+      <DependentUpon>ProductTypesView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SemCoreView.resx">
+      <DependentUpon>SemCoreView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="SemanticsView.resx">
+      <DependentUpon>SemanticsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SemCoreRebuildView.resx">
+      <DependentUpon>SemCoreRebuildView.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="favicon.ico" />
+    <None Include="Resources\sistemnyy-zvuk-windows-10-logon %28online-audio-converter.com%29.wav" />
+    <None Include="Resources\notification1.wav" />
+    <None Include="Resources\notification2.wav" />
+    <Content Include="sistemnyy-zvuk-windows-10-logon.wav" />
+    <None Include="sistemnyy-zvuk-windows-10-unlock.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

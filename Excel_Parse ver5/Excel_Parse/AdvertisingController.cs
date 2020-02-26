@@ -23,6 +23,7 @@ namespace Excel_Parse
         private ReportAdvertisingFilterView controlAdvertisingReportFilterView;
         private ReportSessionsView controlReportSessionsView;
         private EveryDayReportsUpdate controlEveryDayReportsUpdate;
+        private ReportAdvertisingView controlReportAdvertisingView;
 
         private struct listElement
         {
@@ -30,6 +31,11 @@ namespace Excel_Parse
             public double val { get; set; }
         }
 
+        public AdvertisingController(ReportAdvertisingView _mf)
+        {
+            connection = DBData.GetDBConnection();
+            controlReportAdvertisingView = _mf;
+        }
 
         public AdvertisingController(EveryDayReportsUpdate _mf)
         {
@@ -163,6 +169,105 @@ namespace Excel_Parse
             return Execute_SELECT_Command_ProductsBrands(command, "p");
         }
 
+        public int GetFinalAdvertisingProductsReport(DateTime _dt1, DateTime _dt2, List<int> _mpList, List<int> _prodList, List<int> _campList, List<string> _adgroupList, List<string> _targetingList, int _workingId)
+        {
+            string sqlStatement = "";
+
+            sqlStatement = "SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '" + _dt1.ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + _dt2.ToString("yyyy-MM-dd HH:mm:ss") + "'";
+
+            if (_mpList.Count == 1)
+            {
+                sqlStatement = sqlStatement + " and ";
+                sqlStatement = sqlStatement + "([MarketPlaceId] = " + _mpList[0] + ")";
+            }
+            else if (_mpList.Count >= 2)
+            {
+                sqlStatement = sqlStatement + " and ";
+                sqlStatement = sqlStatement + "([MarketPlaceId] = " + _mpList[0];
+
+                for (int i = 1; i < _mpList.Count; i++)
+                {
+                    sqlStatement = sqlStatement + " or [MarketPlaceId] = " + _mpList[i];
+                }
+
+                sqlStatement = sqlStatement + ")";
+            }
+
+            if (_prodList.Count == 1)
+            {
+                sqlStatement = sqlStatement + " and ";
+                sqlStatement = sqlStatement + "([ProductId] = " + _prodList[0] + ")";
+            }
+            else if (_prodList.Count >= 2)
+            {
+                sqlStatement = sqlStatement + " and ";
+                sqlStatement = sqlStatement + "([ProductId] = " + _prodList[0];
+
+                for (int i = 1; i < _prodList.Count; i++)
+                {
+                    sqlStatement = sqlStatement + " or [ProductId] = " + _prodList[i];
+                }
+
+                sqlStatement = sqlStatement + ")";
+            }
+
+            if (_campList.Count == 1)
+            {
+                sqlStatement = sqlStatement + " and ";
+                sqlStatement = sqlStatement + "([CampaignId] = " + _campList[0] + ")";
+            }
+            else if (_campList.Count >= 2)
+            {
+                sqlStatement = sqlStatement + " and ";
+                sqlStatement = sqlStatement + "([CampaignId] = " + _campList[0];
+
+                for (int i = 1; i < _campList.Count; i++)
+                {
+                    sqlStatement = sqlStatement + " or [CampaignId] = " + _campList[i];
+                }
+
+                sqlStatement = sqlStatement + ")";
+            }
+            //-------
+            if (_adgroupList.Count == 1)
+            {
+                sqlStatement = sqlStatement + " and ";
+                sqlStatement = sqlStatement + "([AdGroupName] = '" + _adgroupList[0] + "')";
+            }
+            else if (_adgroupList.Count >= 2)
+            {
+                sqlStatement = sqlStatement + " and ";
+                sqlStatement = sqlStatement + "([AdGroupName] = '" + _adgroupList[0] + "'";
+
+                for (int i = 1; i < _adgroupList.Count; i++)
+                {
+                    sqlStatement = sqlStatement + " or [AdGroupName] = '" + _adgroupList[i] + "'";
+                }
+
+                sqlStatement = sqlStatement + ")";
+            }
+
+            if (_targetingList.Count == 1)
+            {
+                sqlStatement = sqlStatement + " and ";
+                sqlStatement = sqlStatement + "([Targeting] = '" + _targetingList[0] + "')";
+            }
+            else if (_targetingList.Count >= 2)
+            {
+                sqlStatement = sqlStatement + " and ";
+                sqlStatement = sqlStatement + "([Targeting] = '" + _targetingList[0] + "'";
+
+                for (int i = 1; i < _targetingList.Count; i++)
+                {
+                    sqlStatement = sqlStatement + " or [Targeting] = '" + _targetingList[i] + "'";
+                }
+
+                sqlStatement = sqlStatement + ")";
+            }
+
+            command = new SqlCommand(sqlStatement, connection);
+            return Execute_SELECT_Command_ProductsBrands(command, _workingId);
+        }
 
         public int GetFinalAdvertisingBrandsReport(DateTime _dt1, DateTime _dt2, List<int> _mpList, List<int> _prodList, List<int> _campList)
         {
@@ -295,6 +400,8 @@ namespace Excel_Parse
                     controlAdvertisingReportFilterView.GetCampaignsAndIds(campList);
                 else if (controlReportSessionsView != null)
                     controlReportSessionsView.GetCampaignsAndIds(campList);
+                else if (controlReportAdvertisingView != null)
+                    controlReportAdvertisingView.GetCampaignsAndIds1(campList);
 
                 return 1;
             }
@@ -305,6 +412,179 @@ namespace Excel_Parse
             }
         }
 
+        public int GetAdvertisingProductsCampaignAndCampId1(List<int> _id)
+        {
+            string sqlStatement = "";
+            if (_id.Count == 0)
+                return 0;
+            else if (_id.Count == 1)
+                sqlStatement = "SELECT CampaignName, CampaignId FROM [AdvertisingProducts] WHERE [ProductId] = " + _id[0];
+            else if (_id.Count >= 2)
+            {
+                sqlStatement = "SELECT CampaignName, CampaignId FROM [AdvertisingProducts] WHERE ([ProductId] = " + _id[0];
+
+                for (int i = 1; i < _id.Count; i++)
+                {
+                    sqlStatement = sqlStatement + " or [ProductId] = " + _id[i];
+                }
+
+                sqlStatement = sqlStatement + ")";
+            }
+
+            //List<listElement> campList = new List<listElement> { };
+            List<CmapaignAndIdStruct> campList = new List<CmapaignAndIdStruct> { };
+            command = new SqlCommand(sqlStatement, connection);
+            List<MapNameId> nameIdList = new List<MapNameId> { };
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        IDataRecord record = (IDataRecord)reader;
+                        campList.Add(new CmapaignAndIdStruct());
+                        campList[campList.Count - 1].Key = record[0].ToString();
+                        campList[campList.Count - 1].Val = int.Parse(record[1].ToString());
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No rows found.");
+                }
+                reader.Close();
+                connection.Close();
+                
+                if (controlReportAdvertisingView != null)
+                    controlReportAdvertisingView.GetCampaignsAndIds1(campList);
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                connection.Close();
+                return ex.HResult;
+            }
+        }
+
+        public int GetAdvertisingProductsCampaignAndCampId2(List<int> _id)
+        {
+            string sqlStatement = "";
+            if (_id.Count == 0)
+                return 0;
+            else if (_id.Count == 1)
+                sqlStatement = "SELECT CampaignName, CampaignId FROM [AdvertisingProducts] WHERE [ProductId] = " + _id[0];
+            else if (_id.Count >= 2)
+            {
+                sqlStatement = "SELECT CampaignName, CampaignId FROM [AdvertisingProducts] WHERE ([ProductId] = " + _id[0];
+
+                for (int i = 1; i < _id.Count; i++)
+                {
+                    sqlStatement = sqlStatement + " or [ProductId] = " + _id[i];
+                }
+
+                sqlStatement = sqlStatement + ")";
+            }
+
+            //List<listElement> campList = new List<listElement> { };
+            List<CmapaignAndIdStruct> campList = new List<CmapaignAndIdStruct> { };
+            command = new SqlCommand(sqlStatement, connection);
+            List<MapNameId> nameIdList = new List<MapNameId> { };
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        IDataRecord record = (IDataRecord)reader;
+                        campList.Add(new CmapaignAndIdStruct());
+                        campList[campList.Count - 1].Key = record[0].ToString();
+                        campList[campList.Count - 1].Val = int.Parse(record[1].ToString());
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No rows found.");
+                }
+                reader.Close();
+                connection.Close();
+
+                if (controlReportAdvertisingView != null)
+                    controlReportAdvertisingView.GetCampaignsAndIds2(campList);
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                connection.Close();
+                return ex.HResult;
+            }
+        }
+
+        public int GetAdvertisingProductsCampaignAndCampId3(List<int> _id)
+        {
+            string sqlStatement = "";
+            if (_id.Count == 0)
+                return 0;
+            else if (_id.Count == 1)
+                sqlStatement = "SELECT CampaignName, CampaignId FROM [AdvertisingProducts] WHERE [ProductId] = " + _id[0];
+            else if (_id.Count >= 2)
+            {
+                sqlStatement = "SELECT CampaignName, CampaignId FROM [AdvertisingProducts] WHERE ([ProductId] = " + _id[0];
+
+                for (int i = 1; i < _id.Count; i++)
+                {
+                    sqlStatement = sqlStatement + " or [ProductId] = " + _id[i];
+                }
+
+                sqlStatement = sqlStatement + ")";
+            }
+
+            //List<listElement> campList = new List<listElement> { };
+            List<CmapaignAndIdStruct> campList = new List<CmapaignAndIdStruct> { };
+            command = new SqlCommand(sqlStatement, connection);
+            List<MapNameId> nameIdList = new List<MapNameId> { };
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        IDataRecord record = (IDataRecord)reader;
+                        campList.Add(new CmapaignAndIdStruct());
+                        campList[campList.Count - 1].Key = record[0].ToString();
+                        campList[campList.Count - 1].Val = int.Parse(record[1].ToString());
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No rows found.");
+                }
+                reader.Close();
+                connection.Close();
+
+                if (controlReportAdvertisingView != null)
+                    controlReportAdvertisingView.GetCampaignsAndIds3(campList);
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                connection.Close();
+                return ex.HResult;
+            }
+        }
 
         public int GetAdvertisingProductsAdgroups(List<int> _id, List<string> _checkedCampaigns)
         {
@@ -412,6 +692,100 @@ namespace Excel_Parse
 
                 if (controlAdvertisingReportFilterView != null)
                     controlAdvertisingReportFilterView.GetAdGroups(adGroups);
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                connection.Close();
+                return ex.HResult;
+            }
+        }
+
+        public int GetAdvertisingProductsAdgroups(int _id, string _checkedCampaign, int _workingId)
+        {
+            string sqlStatement = "";
+
+            sqlStatement = "SELECT AdGroupName FROM [AdvertisingProducts] WHERE [ProductId] = " + _id + " and [CampaignName] = '" + _checkedCampaign + "'";
+
+            List<string> adGroups = new List<string> { };
+
+            command = new SqlCommand(sqlStatement, connection);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        IDataRecord record = (IDataRecord)reader;
+                        adGroups.Add(record[0].ToString());
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No rows found.");
+                }
+                reader.Close();
+                connection.Close();
+
+                if (controlReportAdvertisingView != null && _workingId == 1)
+                    controlReportAdvertisingView.GetAdGroups1(adGroups);
+                else if (controlReportAdvertisingView != null && _workingId == 2)
+                    controlReportAdvertisingView.GetAdGroups2(adGroups);
+                else if (controlReportAdvertisingView != null && _workingId == 3)
+                    controlReportAdvertisingView.GetAdGroups3(adGroups);
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                connection.Close();
+                return ex.HResult;
+            }
+        }
+
+        public int GetAdvertisingProductsTargeting(int _id, string _checkedCampaign, string _checkedAdGroups, int _workingId)
+        {
+            string sqlStatement = "";
+
+            sqlStatement = "SELECT Targeting FROM [AdvertisingProducts] WHERE [ProductId] = " + _id + " and[CampaignName] = '" + _checkedCampaign + "' and [AdGroupName] = '" + _checkedAdGroups + "'";
+
+            List<string> targeting = new List<string> { };
+
+            command = new SqlCommand(sqlStatement, connection);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        IDataRecord record = (IDataRecord)reader;
+                        targeting.Add(record[0].ToString());
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No rows found.");
+                }
+                reader.Close();
+                connection.Close();
+
+                if (controlReportAdvertisingView != null && _workingId == 1)
+                    controlReportAdvertisingView.GetTargeting1(targeting);
+                else if (controlReportAdvertisingView != null && _workingId == 2)
+                    controlReportAdvertisingView.GetTargeting2(targeting);
+                else if (controlReportAdvertisingView != null && _workingId == 3)
+                    controlReportAdvertisingView.GetTargeting3(targeting);
 
                 return 1;
             }
@@ -531,7 +905,56 @@ namespace Excel_Parse
                 return ex.HResult;
             }
         }
-        
+
+        public int GetAP_CampaignIds(int _workingId)
+        {
+            string sqlStatement = "SELECT * FROM [AP_CampaignIds]";
+
+            command = new SqlCommand(sqlStatement, connection);
+            List<MapNameId> nameIdList = new List<MapNameId> { };
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        IDataRecord record = (IDataRecord)reader;
+
+                        MapNameId nameIdModel = new MapNameId();
+                        nameIdList.Add(nameIdModel);
+                        for (int i = 0; i < record.FieldCount; i++)
+                        {
+                            nameIdList[nameIdList.Count - 1].WriteData(i, record[i]);
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No rows found.");
+                }
+                reader.Close();
+                connection.Close();
+                
+                if (controlReportAdvertisingView != null && _workingId == 1)
+                    controlReportAdvertisingView.GetAP_CampaignIdsFromDB1(nameIdList);
+                else if (controlReportAdvertisingView != null && _workingId == 2)
+                    controlReportAdvertisingView.GetAP_CampaignIdsFromDB2(nameIdList);
+                else if (controlReportAdvertisingView != null && _workingId == 3)
+                    controlReportAdvertisingView.GetAP_CampaignIdsFromDB3(nameIdList);
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                connection.Close();
+                return ex.HResult;
+            }
+        }
+
         public int GetAB_CampaignIds()
         {
             string sqlStatement = "SELECT * FROM [AB_CampaignIds]";
@@ -736,6 +1159,56 @@ namespace Excel_Parse
             }
         }
 
+        /* Выполняем запрос к БД и заносим полученные данные в  */
+        private int Execute_SELECT_Command_ProductsBrands(SqlCommand _command, int _workingId)
+        {
+            advprodList = new List<AdvertisingProductsModel> { };
+            advprodListOriginal = new List<AdvertisingProductsModel> { };
+            advbrandList = new List<AdvertisingBrandsModel> { };
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = _command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        SetSponsoredProductsToList((IDataRecord)reader);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No rows found.");
+                }
+                reader.Close();
+                connection.Close();
+
+                if (controlReportAdvertisingView != null && _workingId == 1)
+                {
+                    controlReportAdvertisingView.GetAdvertisingProductsFromDBOriginalValues1(advprodListOriginal);
+                    controlReportAdvertisingView.GetAdvertisingProductsFromDBwithSummary1(advprodList);
+                }
+                else if (controlReportAdvertisingView != null && _workingId == 2)
+                {
+                    controlReportAdvertisingView.GetAdvertisingProductsFromDBOriginalValues2(advprodListOriginal);
+                    controlReportAdvertisingView.GetAdvertisingProductsFromDBwithSummary2(advprodList);
+                }
+                else if (controlReportAdvertisingView != null && _workingId == 3)
+                {
+                    controlReportAdvertisingView.GetAdvertisingProductsFromDBOriginalValues3(advprodListOriginal);
+                    controlReportAdvertisingView.GetAdvertisingProductsFromDBwithSummary3(advprodList);
+                }
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                connection.Close();
+                return ex.HResult;
+            }
+        }
 
         /* Заносим данные в List<AdvertisingProductsModel> */
         private void SetSponsoredProductsToList(IDataRecord record)
