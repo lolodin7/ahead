@@ -90,7 +90,7 @@ namespace Excel_Parse
         private int CreateExcelFile()
         {
             bool okData = false;
-            string path = "D:\\";
+            string path = "C:\\";
             string fileName = "";
             try
             {

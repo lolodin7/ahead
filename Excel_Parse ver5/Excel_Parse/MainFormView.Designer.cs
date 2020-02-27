@@ -163,6 +163,7 @@
             this.семантикаToolStripMenuItem.Name = "семантикаToolStripMenuItem";
             this.семантикаToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
             this.семантикаToolStripMenuItem.Text = "Семантика";
+            this.семантикаToolStripMenuItem.Visible = false;
             // 
             // CreateSemanticsToolStripMenuItem
             // 
@@ -223,6 +224,7 @@
             this.loggerToolStripMenuItem.Name = "loggerToolStripMenuItem";
             this.loggerToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.loggerToolStripMenuItem.Text = "Logger";
+            this.loggerToolStripMenuItem.Visible = false;
             this.loggerToolStripMenuItem.Click += new System.EventHandler(this.LoggerToolStripMenuItem_Click);
             // 
             // рекламаToolStripMenuItem
