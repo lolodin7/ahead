@@ -31,7 +31,16 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportAdvertisingView));
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.dgv_Targetings3 = new System.Windows.Forms.DataGridView();
+            this.contextMenuStripTab3 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.context3CopyToTab1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.context3CopyToTab2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.dgv_AdGroups3 = new System.Windows.Forms.DataGridView();
+            this.label33 = new System.Windows.Forms.Label();
+            this.cb_ExactSearch3 = new System.Windows.Forms.CheckBox();
+            this.btn_CloseTable3 = new System.Windows.Forms.Button();
+            this.tb_TargetingSearch3 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.panel7 = new System.Windows.Forms.Panel();
             this.tb_clbTargetingFilter3 = new System.Windows.Forms.TextBox();
@@ -88,6 +97,15 @@
             this.dgv_AdvProducts3 = new System.Windows.Forms.DataGridView();
             this.btn_Filter3 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.dgv_Targetings2 = new System.Windows.Forms.DataGridView();
+            this.contextMenuStripTab2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.context2CopyToTab1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.context2CopyToTab3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.dgv_AdGroups2 = new System.Windows.Forms.DataGridView();
+            this.btn_CloseTable2 = new System.Windows.Forms.Button();
+            this.label31 = new System.Windows.Forms.Label();
+            this.cb_ExactSearch2 = new System.Windows.Forms.CheckBox();
+            this.tb_TargetingSearch2 = new System.Windows.Forms.TextBox();
             this.btn_Export2 = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.tb_clbTargetingFilter2 = new System.Windows.Forms.TextBox();
@@ -144,10 +162,14 @@
             this.dgv_AdvProducts2 = new System.Windows.Forms.DataGridView();
             this.btn_Filter2 = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btn_ColorChoose = new System.Windows.Forms.Button();
             this.label30 = new System.Windows.Forms.Label();
             this.cb_ExactSearch1 = new System.Windows.Forms.CheckBox();
             this.btn_CloseTable1 = new System.Windows.Forms.Button();
             this.dgv_Targetings1 = new System.Windows.Forms.DataGridView();
+            this.contextMenuStripTab1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.context1CopyToTab2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.context1CopyToTab3 = new System.Windows.Forms.ToolStripMenuItem();
             this.dgv_AdGroups1 = new System.Windows.Forms.DataGridView();
             this.tb_TargetingSearch1 = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -205,37 +227,75 @@
             this.lb_EndDate1 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_Filter1 = new System.Windows.Forms.Button();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.label31 = new System.Windows.Forms.Label();
-            this.cb_ExactSearch2 = new System.Windows.Forms.CheckBox();
-            this.tb_TargetingSearch2 = new System.Windows.Forms.TextBox();
-            this.btn_CloseTable2 = new System.Windows.Forms.Button();
-            this.dgv_AdGroups2 = new System.Windows.Forms.DataGridView();
-            this.dgv_Targetings2 = new System.Windows.Forms.DataGridView();
+            this.tabContainer = new System.Windows.Forms.TabControl();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.btn_ColorChoose = new System.Windows.Forms.Button();
-            this.label33 = new System.Windows.Forms.Label();
-            this.cb_ExactSearch3 = new System.Windows.Forms.CheckBox();
-            this.btn_CloseTable3 = new System.Windows.Forms.Button();
-            this.tb_TargetingSearch3 = new System.Windows.Forms.TextBox();
-            this.dgv_AdGroups3 = new System.Windows.Forms.DataGridView();
-            this.dgv_Targetings3 = new System.Windows.Forms.DataGridView();
-            this.contextMenuStripTab1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.context1CopyToTab2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.context1CopyToTab3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStripTab2 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.context2CopyToTab1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.context2CopyToTab3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStripTab3 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.context3CopyToTab1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.context3CopyToTab2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabPage4.SuspendLayout();
+            this.analyzecontext1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsSectionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.AdGroupsSectionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsSectionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.полныйАнализToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fullAnalyzeBroadToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.fullAnalyzeExactToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.fullAnalyzePhraseToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.fullAnalyzeAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsByImpressions_ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsBySalesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsBySpendToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsByOrdersToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsByUnitsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsByConversionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroupsByImpressions1toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroupsBySalestoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroupsBySpendtoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroupsByOrderstoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroupsByUnitstoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroupsBytoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsByImpressionstoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsBySalestoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsBySpendtoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsByOrderstoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsByUnitstoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsByConversiontoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.analyzedTabPage1 = new System.Windows.Forms.TabPage();
+            this.label34 = new System.Windows.Forms.Label();
+            this.cb_ExactSearch4 = new System.Windows.Forms.CheckBox();
+            this.tb_TargetingSearch4 = new System.Windows.Forms.TextBox();
+            this.dgv_Analyzed1 = new System.Windows.Forms.DataGridView();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.lb_StartDate4 = new System.Windows.Forms.Label();
+            this.lb_EndDate4 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.analyzedTabPage2 = new System.Windows.Forms.TabPage();
+            this.analyzedTabPage3 = new System.Windows.Forms.TabPage();
+            this.label35 = new System.Windows.Forms.Label();
+            this.cb_ExactSearch5 = new System.Windows.Forms.CheckBox();
+            this.tb_TargetingSearch5 = new System.Windows.Forms.TextBox();
+            this.dgv_Analyzed2 = new System.Windows.Forms.DataGridView();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.lb_StartDate5 = new System.Windows.Forms.Label();
+            this.lb_EndDate5 = new System.Windows.Forms.Label();
+            this.label39 = new System.Windows.Forms.Label();
+            this.label40 = new System.Windows.Forms.Label();
+            this.cb_ExactSearch6 = new System.Windows.Forms.CheckBox();
+            this.tb_TargetingSearch6 = new System.Windows.Forms.TextBox();
+            this.dgv_Analyzed3 = new System.Windows.Forms.DataGridView();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.lb_StartDate6 = new System.Windows.Forms.Label();
+            this.lb_EndDate6 = new System.Windows.Forms.Label();
+            this.label43 = new System.Windows.Forms.Label();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Targetings3)).BeginInit();
+            this.contextMenuStripTab3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_AdGroups3)).BeginInit();
             this.panel7.SuspendLayout();
             this.menuStrip3.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_AdvProducts3)).BeginInit();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Targetings2)).BeginInit();
+            this.contextMenuStripTab2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_AdGroups2)).BeginInit();
             this.panel4.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -243,43 +303,140 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_AdvProducts2)).BeginInit();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Targetings1)).BeginInit();
+            this.contextMenuStripTab1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_AdGroups1)).BeginInit();
             this.panel2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_AdvProducts1)).BeginInit();
             this.panel1.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_AdGroups2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_Targetings2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_AdGroups3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_Targetings3)).BeginInit();
-            this.contextMenuStripTab1.SuspendLayout();
-            this.contextMenuStripTab2.SuspendLayout();
-            this.contextMenuStripTab3.SuspendLayout();
+            this.tabContainer.SuspendLayout();
+            this.analyzedTabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Analyzed1)).BeginInit();
+            this.panel10.SuspendLayout();
+            this.analyzedTabPage2.SuspendLayout();
+            this.analyzedTabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Analyzed2)).BeginInit();
+            this.panel11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Analyzed3)).BeginInit();
+            this.panel12.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tabPage4
+            // tabPage3
             // 
-            this.tabPage4.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage4.Controls.Add(this.dgv_Targetings3);
-            this.tabPage4.Controls.Add(this.dgv_AdGroups3);
-            this.tabPage4.Controls.Add(this.label33);
-            this.tabPage4.Controls.Add(this.cb_ExactSearch3);
-            this.tabPage4.Controls.Add(this.btn_CloseTable3);
-            this.tabPage4.Controls.Add(this.tb_TargetingSearch3);
-            this.tabPage4.Controls.Add(this.button1);
-            this.tabPage4.Controls.Add(this.panel7);
-            this.tabPage4.Controls.Add(this.panel9);
-            this.tabPage4.Controls.Add(this.dgv_AdvProducts3);
-            this.tabPage4.Controls.Add(this.btn_Filter3);
-            this.tabPage4.Location = new System.Drawing.Point(4, 29);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(1376, 722);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Окно 3";
-            this.tabPage4.Click += new System.EventHandler(this.tabPage3_Click);
+            this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage3.Controls.Add(this.dgv_Targetings3);
+            this.tabPage3.Controls.Add(this.dgv_AdGroups3);
+            this.tabPage3.Controls.Add(this.label33);
+            this.tabPage3.Controls.Add(this.cb_ExactSearch3);
+            this.tabPage3.Controls.Add(this.btn_CloseTable3);
+            this.tabPage3.Controls.Add(this.tb_TargetingSearch3);
+            this.tabPage3.Controls.Add(this.button1);
+            this.tabPage3.Controls.Add(this.panel7);
+            this.tabPage3.Controls.Add(this.panel9);
+            this.tabPage3.Controls.Add(this.dgv_AdvProducts3);
+            this.tabPage3.Controls.Add(this.btn_Filter3);
+            this.tabPage3.Location = new System.Drawing.Point(4, 29);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1377, 722);
+            this.tabPage3.TabIndex = 3;
+            this.tabPage3.Text = "Окно 3";
+            this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
+            // 
+            // dgv_Targetings3
+            // 
+            this.dgv_Targetings3.AllowUserToAddRows = false;
+            this.dgv_Targetings3.AllowUserToDeleteRows = false;
+            this.dgv_Targetings3.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dgv_Targetings3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Targetings3.ContextMenuStrip = this.contextMenuStripTab3;
+            this.dgv_Targetings3.Location = new System.Drawing.Point(3, 46);
+            this.dgv_Targetings3.Name = "dgv_Targetings3";
+            this.dgv_Targetings3.ReadOnly = true;
+            this.dgv_Targetings3.RowTemplate.Height = 24;
+            this.dgv_Targetings3.Size = new System.Drawing.Size(135, 671);
+            this.dgv_Targetings3.TabIndex = 129;
+            this.dgv_Targetings3.Visible = false;
+            // 
+            // contextMenuStripTab3
+            // 
+            this.contextMenuStripTab3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.context3CopyToTab1,
+            this.context3CopyToTab2});
+            this.contextMenuStripTab3.Name = "contextMenuStripTab1";
+            this.contextMenuStripTab3.Size = new System.Drawing.Size(203, 48);
+            // 
+            // context3CopyToTab1
+            // 
+            this.context3CopyToTab1.Name = "context3CopyToTab1";
+            this.context3CopyToTab1.Size = new System.Drawing.Size(202, 22);
+            this.context3CopyToTab1.Text = "Скопировать в Окно 1";
+            this.context3CopyToTab1.Click += new System.EventHandler(this.context3CopyToTab1_Click);
+            // 
+            // context3CopyToTab2
+            // 
+            this.context3CopyToTab2.Name = "context3CopyToTab2";
+            this.context3CopyToTab2.Size = new System.Drawing.Size(202, 22);
+            this.context3CopyToTab2.Text = "Скопировать в Окно 2";
+            this.context3CopyToTab2.Click += new System.EventHandler(this.context3CopyToTab2_Click);
+            // 
+            // dgv_AdGroups3
+            // 
+            this.dgv_AdGroups3.AllowUserToAddRows = false;
+            this.dgv_AdGroups3.AllowUserToDeleteRows = false;
+            this.dgv_AdGroups3.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dgv_AdGroups3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_AdGroups3.ContextMenuStrip = this.contextMenuStripTab3;
+            this.dgv_AdGroups3.Location = new System.Drawing.Point(3, 46);
+            this.dgv_AdGroups3.Name = "dgv_AdGroups3";
+            this.dgv_AdGroups3.ReadOnly = true;
+            this.dgv_AdGroups3.RowTemplate.Height = 24;
+            this.dgv_AdGroups3.Size = new System.Drawing.Size(231, 671);
+            this.dgv_AdGroups3.TabIndex = 128;
+            this.dgv_AdGroups3.Visible = false;
+            this.dgv_AdGroups3.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_AdGroups3_CellMouseDoubleClick);
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(7, 16);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(90, 19);
+            this.label33.TabIndex = 126;
+            this.label33.Text = "Найти ключ:";
+            // 
+            // cb_ExactSearch3
+            // 
+            this.cb_ExactSearch3.AutoSize = true;
+            this.cb_ExactSearch3.Location = new System.Drawing.Point(287, 19);
+            this.cb_ExactSearch3.Name = "cb_ExactSearch3";
+            this.cb_ExactSearch3.Size = new System.Drawing.Size(15, 14);
+            this.cb_ExactSearch3.TabIndex = 125;
+            this.cb_ExactSearch3.UseVisualStyleBackColor = true;
+            this.cb_ExactSearch3.CheckedChanged += new System.EventHandler(this.cb_ExactSearch3_CheckedChanged);
+            // 
+            // btn_CloseTable3
+            // 
+            this.btn_CloseTable3.BackColor = System.Drawing.Color.LightSalmon;
+            this.btn_CloseTable3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_CloseTable3.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_CloseTable3.Location = new System.Drawing.Point(1030, 13);
+            this.btn_CloseTable3.Name = "btn_CloseTable3";
+            this.btn_CloseTable3.Size = new System.Drawing.Size(56, 27);
+            this.btn_CloseTable3.TabIndex = 124;
+            this.btn_CloseTable3.Text = "X";
+            this.btn_CloseTable3.UseVisualStyleBackColor = false;
+            this.btn_CloseTable3.Visible = false;
+            this.btn_CloseTable3.Click += new System.EventHandler(this.btn_CloseTable3_Click);
+            // 
+            // tb_TargetingSearch3
+            // 
+            this.tb_TargetingSearch3.Location = new System.Drawing.Point(103, 12);
+            this.tb_TargetingSearch3.Name = "tb_TargetingSearch3";
+            this.tb_TargetingSearch3.Size = new System.Drawing.Size(180, 25);
+            this.tb_TargetingSearch3.TabIndex = 123;
+            this.tb_TargetingSearch3.TextChanged += new System.EventHandler(this.tb_TargetingSearch3_TextChanged);
             // 
             // button1
             // 
@@ -484,14 +641,14 @@
             // copyToTab1toolStripMenuItem3
             // 
             this.copyToTab1toolStripMenuItem3.Name = "copyToTab1toolStripMenuItem3";
-            this.copyToTab1toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.copyToTab1toolStripMenuItem3.Size = new System.Drawing.Size(123, 22);
             this.copyToTab1toolStripMenuItem3.Text = "В окно 1";
             this.copyToTab1toolStripMenuItem3.Click += new System.EventHandler(this.copyToTab1ToolStripMenuItem3_Click);
             // 
             // copyToTab2toolStripMenuItem3
             // 
             this.copyToTab2toolStripMenuItem3.Name = "copyToTab2toolStripMenuItem3";
-            this.copyToTab2toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.copyToTab2toolStripMenuItem3.Size = new System.Drawing.Size(123, 22);
             this.copyToTab2toolStripMenuItem3.Text = "В окно 2";
             this.copyToTab2toolStripMenuItem3.Click += new System.EventHandler(this.copyToTab2ToolStripMenuItem3_Click);
             // 
@@ -499,7 +656,7 @@
             // 
             this.copyToTab4toolStripMenuItem3.Enabled = false;
             this.copyToTab4toolStripMenuItem3.Name = "copyToTab4toolStripMenuItem3";
-            this.copyToTab4toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.copyToTab4toolStripMenuItem3.Size = new System.Drawing.Size(123, 22);
             this.copyToTab4toolStripMenuItem3.Text = "В окно 4";
             this.copyToTab4toolStripMenuItem3.Visible = false;
             // 
@@ -507,7 +664,7 @@
             // 
             this.copyToTab5toolStripMenuItem3.Enabled = false;
             this.copyToTab5toolStripMenuItem3.Name = "copyToTab5toolStripMenuItem3";
-            this.copyToTab5toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.copyToTab5toolStripMenuItem3.Size = new System.Drawing.Size(123, 22);
             this.copyToTab5toolStripMenuItem3.Text = "В окно 5";
             this.copyToTab5toolStripMenuItem3.Visible = false;
             // 
@@ -524,7 +681,7 @@
             this.toolStripMenuItem23.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.advertisingAlarmReportToolStripMenuItem3});
             this.toolStripMenuItem23.Name = "toolStripMenuItem23";
-            this.toolStripMenuItem23.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem23.Size = new System.Drawing.Size(115, 22);
             this.toolStripMenuItem23.Text = "Новый";
             // 
             // advertisingAlarmReportToolStripMenuItem3
@@ -886,10 +1043,104 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1376, 722);
+            this.tabPage2.Size = new System.Drawing.Size(1377, 722);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Окно 2";
             this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
+            // 
+            // dgv_Targetings2
+            // 
+            this.dgv_Targetings2.AllowUserToAddRows = false;
+            this.dgv_Targetings2.AllowUserToDeleteRows = false;
+            this.dgv_Targetings2.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dgv_Targetings2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Targetings2.ContextMenuStrip = this.contextMenuStripTab2;
+            this.dgv_Targetings2.Location = new System.Drawing.Point(3, 46);
+            this.dgv_Targetings2.Name = "dgv_Targetings2";
+            this.dgv_Targetings2.ReadOnly = true;
+            this.dgv_Targetings2.RowTemplate.Height = 24;
+            this.dgv_Targetings2.Size = new System.Drawing.Size(135, 671);
+            this.dgv_Targetings2.TabIndex = 128;
+            this.dgv_Targetings2.Visible = false;
+            // 
+            // contextMenuStripTab2
+            // 
+            this.contextMenuStripTab2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.context2CopyToTab1,
+            this.context2CopyToTab3});
+            this.contextMenuStripTab2.Name = "contextMenuStripTab1";
+            this.contextMenuStripTab2.Size = new System.Drawing.Size(203, 48);
+            // 
+            // context2CopyToTab1
+            // 
+            this.context2CopyToTab1.Name = "context2CopyToTab1";
+            this.context2CopyToTab1.Size = new System.Drawing.Size(202, 22);
+            this.context2CopyToTab1.Text = "Скопировать в Окно 1";
+            this.context2CopyToTab1.Click += new System.EventHandler(this.context2CopyToTab1_Click);
+            // 
+            // context2CopyToTab3
+            // 
+            this.context2CopyToTab3.Name = "context2CopyToTab3";
+            this.context2CopyToTab3.Size = new System.Drawing.Size(202, 22);
+            this.context2CopyToTab3.Text = "Скопировать в Окно 3";
+            this.context2CopyToTab3.Click += new System.EventHandler(this.context2CopyToTab3_Click);
+            // 
+            // dgv_AdGroups2
+            // 
+            this.dgv_AdGroups2.AllowUserToAddRows = false;
+            this.dgv_AdGroups2.AllowUserToDeleteRows = false;
+            this.dgv_AdGroups2.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dgv_AdGroups2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_AdGroups2.ContextMenuStrip = this.contextMenuStripTab2;
+            this.dgv_AdGroups2.Location = new System.Drawing.Point(3, 46);
+            this.dgv_AdGroups2.Name = "dgv_AdGroups2";
+            this.dgv_AdGroups2.ReadOnly = true;
+            this.dgv_AdGroups2.RowTemplate.Height = 24;
+            this.dgv_AdGroups2.Size = new System.Drawing.Size(231, 671);
+            this.dgv_AdGroups2.TabIndex = 127;
+            this.dgv_AdGroups2.Visible = false;
+            this.dgv_AdGroups2.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_AdGroups2_CellMouseDoubleClick);
+            // 
+            // btn_CloseTable2
+            // 
+            this.btn_CloseTable2.BackColor = System.Drawing.Color.LightSalmon;
+            this.btn_CloseTable2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_CloseTable2.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_CloseTable2.Location = new System.Drawing.Point(1030, 13);
+            this.btn_CloseTable2.Name = "btn_CloseTable2";
+            this.btn_CloseTable2.Size = new System.Drawing.Size(56, 27);
+            this.btn_CloseTable2.TabIndex = 126;
+            this.btn_CloseTable2.Text = "X";
+            this.btn_CloseTable2.UseVisualStyleBackColor = false;
+            this.btn_CloseTable2.Visible = false;
+            this.btn_CloseTable2.Click += new System.EventHandler(this.btn_CloseTable2_Click);
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(7, 16);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(90, 19);
+            this.label31.TabIndex = 125;
+            this.label31.Text = "Найти ключ:";
+            // 
+            // cb_ExactSearch2
+            // 
+            this.cb_ExactSearch2.AutoSize = true;
+            this.cb_ExactSearch2.Location = new System.Drawing.Point(287, 19);
+            this.cb_ExactSearch2.Name = "cb_ExactSearch2";
+            this.cb_ExactSearch2.Size = new System.Drawing.Size(15, 14);
+            this.cb_ExactSearch2.TabIndex = 124;
+            this.cb_ExactSearch2.UseVisualStyleBackColor = true;
+            this.cb_ExactSearch2.CheckedChanged += new System.EventHandler(this.cb_ExactSearch2_CheckedChanged);
+            // 
+            // tb_TargetingSearch2
+            // 
+            this.tb_TargetingSearch2.Location = new System.Drawing.Point(103, 12);
+            this.tb_TargetingSearch2.Name = "tb_TargetingSearch2";
+            this.tb_TargetingSearch2.Size = new System.Drawing.Size(180, 25);
+            this.tb_TargetingSearch2.TabIndex = 123;
+            this.tb_TargetingSearch2.TextChanged += new System.EventHandler(this.tb_TargetingSearch2_TextChanged);
             // 
             // btn_Export2
             // 
@@ -1094,14 +1345,14 @@
             // copyToTab1toolStripMenuItem2
             // 
             this.copyToTab1toolStripMenuItem2.Name = "copyToTab1toolStripMenuItem2";
-            this.copyToTab1toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.copyToTab1toolStripMenuItem2.Size = new System.Drawing.Size(123, 22);
             this.copyToTab1toolStripMenuItem2.Text = "В окно 1";
             this.copyToTab1toolStripMenuItem2.Click += new System.EventHandler(this.copyToTab1toolStripMenuItem2_Click);
             // 
             // copyToTab3toolStripMenuItem2
             // 
             this.copyToTab3toolStripMenuItem2.Name = "copyToTab3toolStripMenuItem2";
-            this.copyToTab3toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.copyToTab3toolStripMenuItem2.Size = new System.Drawing.Size(123, 22);
             this.copyToTab3toolStripMenuItem2.Text = "В окно 3";
             this.copyToTab3toolStripMenuItem2.Click += new System.EventHandler(this.copyToTab3toolStripMenuItem2_Click);
             // 
@@ -1109,7 +1360,7 @@
             // 
             this.copyToTab4toolStripMenuItem2.Enabled = false;
             this.copyToTab4toolStripMenuItem2.Name = "copyToTab4toolStripMenuItem2";
-            this.copyToTab4toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.copyToTab4toolStripMenuItem2.Size = new System.Drawing.Size(123, 22);
             this.copyToTab4toolStripMenuItem2.Text = "В окно 4";
             this.copyToTab4toolStripMenuItem2.Visible = false;
             // 
@@ -1117,7 +1368,7 @@
             // 
             this.copyToTab5toolStripMenuItem2.Enabled = false;
             this.copyToTab5toolStripMenuItem2.Name = "copyToTab5toolStripMenuItem2";
-            this.copyToTab5toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.copyToTab5toolStripMenuItem2.Size = new System.Drawing.Size(123, 22);
             this.copyToTab5toolStripMenuItem2.Text = "В окно 5";
             this.copyToTab5toolStripMenuItem2.Visible = false;
             // 
@@ -1134,7 +1385,7 @@
             this.toolStripMenuItem4.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.advertisingAlarmReportToolStripMenuItem2});
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(115, 22);
             this.toolStripMenuItem4.Text = "Новый";
             // 
             // advertisingAlarmReportToolStripMenuItem2
@@ -1497,10 +1748,21 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1376, 722);
+            this.tabPage1.Size = new System.Drawing.Size(1377, 722);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Окно 1";
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // btn_ColorChoose
+            // 
+            this.btn_ColorChoose.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.btn_ColorChoose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_ColorChoose.Location = new System.Drawing.Point(1356, 0);
+            this.btn_ColorChoose.Name = "btn_ColorChoose";
+            this.btn_ColorChoose.Size = new System.Drawing.Size(16, 44);
+            this.btn_ColorChoose.TabIndex = 130;
+            this.btn_ColorChoose.UseVisualStyleBackColor = false;
+            this.btn_ColorChoose.Click += new System.EventHandler(this.btn_ColorChoose_Click);
             // 
             // label30
             // 
@@ -1526,9 +1788,9 @@
             this.btn_CloseTable1.BackColor = System.Drawing.Color.LightSalmon;
             this.btn_CloseTable1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_CloseTable1.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_CloseTable1.Location = new System.Drawing.Point(1030, 21);
+            this.btn_CloseTable1.Location = new System.Drawing.Point(1030, 13);
             this.btn_CloseTable1.Name = "btn_CloseTable1";
-            this.btn_CloseTable1.Size = new System.Drawing.Size(28, 23);
+            this.btn_CloseTable1.Size = new System.Drawing.Size(56, 27);
             this.btn_CloseTable1.TabIndex = 120;
             this.btn_CloseTable1.Text = "X";
             this.btn_CloseTable1.UseVisualStyleBackColor = false;
@@ -1549,6 +1811,30 @@
             this.dgv_Targetings1.Size = new System.Drawing.Size(116, 671);
             this.dgv_Targetings1.TabIndex = 119;
             this.dgv_Targetings1.Visible = false;
+            // 
+            // contextMenuStripTab1
+            // 
+            this.contextMenuStripTab1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.context1CopyToTab2,
+            this.context1CopyToTab3,
+            this.analyzecontext1});
+            this.contextMenuStripTab1.Name = "contextMenuStripTab1";
+            this.contextMenuStripTab1.Size = new System.Drawing.Size(211, 92);
+            this.contextMenuStripTab1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripTab1_Opening);
+            // 
+            // context1CopyToTab2
+            // 
+            this.context1CopyToTab2.Name = "context1CopyToTab2";
+            this.context1CopyToTab2.Size = new System.Drawing.Size(210, 22);
+            this.context1CopyToTab2.Text = "Скопировать в Окно 2";
+            this.context1CopyToTab2.Click += new System.EventHandler(this.context1CopyToTab2_Click);
+            // 
+            // context1CopyToTab3
+            // 
+            this.context1CopyToTab3.Name = "context1CopyToTab3";
+            this.context1CopyToTab3.Size = new System.Drawing.Size(210, 22);
+            this.context1CopyToTab3.Text = "Скопировать в Окно 3";
+            this.context1CopyToTab3.Click += new System.EventHandler(this.context1CopyToTab3_Click);
             // 
             // dgv_AdGroups1
             // 
@@ -1764,14 +2050,14 @@
             // copyToTab2ToolStripMenuItem1
             // 
             this.copyToTab2ToolStripMenuItem1.Name = "copyToTab2ToolStripMenuItem1";
-            this.copyToTab2ToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.copyToTab2ToolStripMenuItem1.Size = new System.Drawing.Size(123, 22);
             this.copyToTab2ToolStripMenuItem1.Text = "В окно 2";
             this.copyToTab2ToolStripMenuItem1.Click += new System.EventHandler(this.copyToTab2ToolStripMenuItem1_Click);
             // 
             // copyToTab3ToolStripMenuItem1
             // 
             this.copyToTab3ToolStripMenuItem1.Name = "copyToTab3ToolStripMenuItem1";
-            this.copyToTab3ToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.copyToTab3ToolStripMenuItem1.Size = new System.Drawing.Size(123, 22);
             this.copyToTab3ToolStripMenuItem1.Text = "В окно 3";
             this.copyToTab3ToolStripMenuItem1.Click += new System.EventHandler(this.copyToTab3ToolStripMenuItem1_Click);
             // 
@@ -1779,7 +2065,7 @@
             // 
             this.copyToTab4ToolStripMenuItem1.Enabled = false;
             this.copyToTab4ToolStripMenuItem1.Name = "copyToTab4ToolStripMenuItem1";
-            this.copyToTab4ToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.copyToTab4ToolStripMenuItem1.Size = new System.Drawing.Size(123, 22);
             this.copyToTab4ToolStripMenuItem1.Text = "В окно 4";
             this.copyToTab4ToolStripMenuItem1.Visible = false;
             // 
@@ -1787,7 +2073,7 @@
             // 
             this.copyToTab5ToolStripMenuItem1.Enabled = false;
             this.copyToTab5ToolStripMenuItem1.Name = "copyToTab5ToolStripMenuItem1";
-            this.copyToTab5ToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.copyToTab5ToolStripMenuItem1.Size = new System.Drawing.Size(123, 22);
             this.copyToTab5ToolStripMenuItem1.Text = "В окно 5";
             this.copyToTab5ToolStripMenuItem1.Visible = false;
             // 
@@ -1804,7 +2090,7 @@
             this.новыйToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.advertisingAlarmReportToolStripMenuItem1});
             this.новыйToolStripMenuItem.Name = "новыйToolStripMenuItem";
-            this.новыйToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.новыйToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.новыйToolStripMenuItem.Text = "Новый";
             // 
             // advertisingAlarmReportToolStripMenuItem1
@@ -2162,247 +2448,535 @@
             this.btn_Filter1.UseVisualStyleBackColor = false;
             this.btn_Filter1.Click += new System.EventHandler(this.btn_Filter1_Click);
             // 
-            // tabControl1
+            // tabContainer
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tabControl1.ItemSize = new System.Drawing.Size(60, 25);
-            this.tabControl1.Location = new System.Drawing.Point(1, 2);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1384, 755);
-            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.tabControl1.TabIndex = 28;
+            this.tabContainer.Controls.Add(this.tabPage1);
+            this.tabContainer.Controls.Add(this.tabPage2);
+            this.tabContainer.Controls.Add(this.tabPage3);
+            this.tabContainer.Controls.Add(this.analyzedTabPage1);
+            this.tabContainer.Controls.Add(this.analyzedTabPage2);
+            this.tabContainer.Controls.Add(this.analyzedTabPage3);
+            this.tabContainer.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tabContainer.ItemSize = new System.Drawing.Size(125, 25);
+            this.tabContainer.Location = new System.Drawing.Point(1, 2);
+            this.tabContainer.Name = "tabContainer";
+            this.tabContainer.SelectedIndex = 0;
+            this.tabContainer.Size = new System.Drawing.Size(1385, 755);
+            this.tabContainer.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.tabContainer.TabIndex = 28;
             // 
-            // label31
+            // analyzecontext1
             // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(7, 16);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(90, 19);
-            this.label31.TabIndex = 125;
-            this.label31.Text = "Найти ключ:";
+            this.analyzecontext1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.keywordsSectionToolStripMenuItem1,
+            this.AdGroupsSectionToolStripMenuItem1,
+            this.campaignsSectionToolStripMenuItem1,
+            this.полныйАнализToolStripMenuItem});
+            this.analyzecontext1.Name = "analyzecontext1";
+            this.analyzecontext1.Size = new System.Drawing.Size(210, 22);
+            this.analyzecontext1.Text = "Анализировать данные";
             // 
-            // cb_ExactSearch2
+            // keywordsSectionToolStripMenuItem1
             // 
-            this.cb_ExactSearch2.AutoSize = true;
-            this.cb_ExactSearch2.Location = new System.Drawing.Point(287, 19);
-            this.cb_ExactSearch2.Name = "cb_ExactSearch2";
-            this.cb_ExactSearch2.Size = new System.Drawing.Size(15, 14);
-            this.cb_ExactSearch2.TabIndex = 124;
-            this.cb_ExactSearch2.UseVisualStyleBackColor = true;
-            this.cb_ExactSearch2.CheckedChanged += new System.EventHandler(this.cb_ExactSearch2_CheckedChanged);
+            this.keywordsSectionToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.keywordsByImpressions_ToolStripMenuItem1,
+            this.keywordsBySalesToolStripMenuItem1,
+            this.keywordsBySpendToolStripMenuItem1,
+            this.keywordsByOrdersToolStripMenuItem1,
+            this.keywordsByUnitsToolStripMenuItem1,
+            this.keywordsByConversionToolStripMenuItem1});
+            this.keywordsSectionToolStripMenuItem1.Enabled = false;
+            this.keywordsSectionToolStripMenuItem1.Name = "keywordsSectionToolStripMenuItem1";
+            this.keywordsSectionToolStripMenuItem1.Size = new System.Drawing.Size(165, 22);
+            this.keywordsSectionToolStripMenuItem1.Text = "Ключи";
             // 
-            // tb_TargetingSearch2
+            // AdGroupsSectionToolStripMenuItem1
             // 
-            this.tb_TargetingSearch2.Location = new System.Drawing.Point(103, 12);
-            this.tb_TargetingSearch2.Name = "tb_TargetingSearch2";
-            this.tb_TargetingSearch2.Size = new System.Drawing.Size(180, 25);
-            this.tb_TargetingSearch2.TabIndex = 123;
-            this.tb_TargetingSearch2.TextChanged += new System.EventHandler(this.tb_TargetingSearch2_TextChanged);
+            this.AdGroupsSectionToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.adGroupsByImpressions1toolStripMenuItem,
+            this.adGroupsBySalestoolStripMenuItem1,
+            this.adGroupsBySpendtoolStripMenuItem1,
+            this.adGroupsByOrderstoolStripMenuItem1,
+            this.adGroupsByUnitstoolStripMenuItem1,
+            this.adGroupsBytoolStripMenuItem1});
+            this.AdGroupsSectionToolStripMenuItem1.Enabled = false;
+            this.AdGroupsSectionToolStripMenuItem1.Name = "AdGroupsSectionToolStripMenuItem1";
+            this.AdGroupsSectionToolStripMenuItem1.Size = new System.Drawing.Size(165, 22);
+            this.AdGroupsSectionToolStripMenuItem1.Text = "AdGroups";
             // 
-            // btn_CloseTable2
+            // campaignsSectionToolStripMenuItem1
             // 
-            this.btn_CloseTable2.BackColor = System.Drawing.Color.LightSalmon;
-            this.btn_CloseTable2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_CloseTable2.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_CloseTable2.Location = new System.Drawing.Point(1030, 21);
-            this.btn_CloseTable2.Name = "btn_CloseTable2";
-            this.btn_CloseTable2.Size = new System.Drawing.Size(28, 23);
-            this.btn_CloseTable2.TabIndex = 126;
-            this.btn_CloseTable2.Text = "X";
-            this.btn_CloseTable2.UseVisualStyleBackColor = false;
-            this.btn_CloseTable2.Visible = false;
-            this.btn_CloseTable2.Click += new System.EventHandler(this.btn_CloseTable2_Click);
+            this.campaignsSectionToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.campaignsByImpressionstoolStripMenuItem1,
+            this.campaignsBySalestoolStripMenuItem1,
+            this.campaignsBySpendtoolStripMenuItem1,
+            this.campaignsByOrderstoolStripMenuItem1,
+            this.campaignsByUnitstoolStripMenuItem1,
+            this.campaignsByConversiontoolStripMenuItem1});
+            this.campaignsSectionToolStripMenuItem1.Enabled = false;
+            this.campaignsSectionToolStripMenuItem1.Name = "campaignsSectionToolStripMenuItem1";
+            this.campaignsSectionToolStripMenuItem1.Size = new System.Drawing.Size(165, 22);
+            this.campaignsSectionToolStripMenuItem1.Text = "Campaigns";
             // 
-            // dgv_AdGroups2
+            // полныйАнализToolStripMenuItem
             // 
-            this.dgv_AdGroups2.AllowUserToAddRows = false;
-            this.dgv_AdGroups2.AllowUserToDeleteRows = false;
-            this.dgv_AdGroups2.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dgv_AdGroups2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_AdGroups2.ContextMenuStrip = this.contextMenuStripTab2;
-            this.dgv_AdGroups2.Location = new System.Drawing.Point(3, 46);
-            this.dgv_AdGroups2.Name = "dgv_AdGroups2";
-            this.dgv_AdGroups2.ReadOnly = true;
-            this.dgv_AdGroups2.RowTemplate.Height = 24;
-            this.dgv_AdGroups2.Size = new System.Drawing.Size(231, 671);
-            this.dgv_AdGroups2.TabIndex = 127;
-            this.dgv_AdGroups2.Visible = false;
-            this.dgv_AdGroups2.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_AdGroups2_CellMouseDoubleClick);
+            this.полныйАнализToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fullAnalyzeBroadToolStripMenuItem1,
+            this.fullAnalyzeExactToolStripMenuItem1,
+            this.fullAnalyzePhraseToolStripMenuItem1,
+            this.fullAnalyzeAllToolStripMenuItem1});
+            this.полныйАнализToolStripMenuItem.Enabled = false;
+            this.полныйАнализToolStripMenuItem.Name = "полныйАнализToolStripMenuItem";
+            this.полныйАнализToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.полныйАнализToolStripMenuItem.Text = "Полный анализ";
             // 
-            // dgv_Targetings2
+            // fullAnalyzeBroadToolStripMenuItem1
             // 
-            this.dgv_Targetings2.AllowUserToAddRows = false;
-            this.dgv_Targetings2.AllowUserToDeleteRows = false;
-            this.dgv_Targetings2.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dgv_Targetings2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_Targetings2.ContextMenuStrip = this.contextMenuStripTab2;
-            this.dgv_Targetings2.Location = new System.Drawing.Point(3, 46);
-            this.dgv_Targetings2.Name = "dgv_Targetings2";
-            this.dgv_Targetings2.ReadOnly = true;
-            this.dgv_Targetings2.RowTemplate.Height = 24;
-            this.dgv_Targetings2.Size = new System.Drawing.Size(135, 671);
-            this.dgv_Targetings2.TabIndex = 128;
-            this.dgv_Targetings2.Visible = false;
+            this.fullAnalyzeBroadToolStripMenuItem1.Name = "fullAnalyzeBroadToolStripMenuItem1";
+            this.fullAnalyzeBroadToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.fullAnalyzeBroadToolStripMenuItem1.Text = "Broad";
             // 
-            // btn_ColorChoose
+            // fullAnalyzeExactToolStripMenuItem1
             // 
-            this.btn_ColorChoose.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.btn_ColorChoose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_ColorChoose.Location = new System.Drawing.Point(1356, 0);
-            this.btn_ColorChoose.Name = "btn_ColorChoose";
-            this.btn_ColorChoose.Size = new System.Drawing.Size(16, 44);
-            this.btn_ColorChoose.TabIndex = 130;
-            this.btn_ColorChoose.UseVisualStyleBackColor = false;
-            this.btn_ColorChoose.Click += new System.EventHandler(this.btn_ColorChoose_Click);
+            this.fullAnalyzeExactToolStripMenuItem1.Name = "fullAnalyzeExactToolStripMenuItem1";
+            this.fullAnalyzeExactToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.fullAnalyzeExactToolStripMenuItem1.Text = "Exact";
             // 
-            // label33
+            // fullAnalyzePhraseToolStripMenuItem1
             // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(7, 16);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(90, 19);
-            this.label33.TabIndex = 126;
-            this.label33.Text = "Найти ключ:";
+            this.fullAnalyzePhraseToolStripMenuItem1.Name = "fullAnalyzePhraseToolStripMenuItem1";
+            this.fullAnalyzePhraseToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.fullAnalyzePhraseToolStripMenuItem1.Text = "Phrase";
             // 
-            // cb_ExactSearch3
+            // fullAnalyzeAllToolStripMenuItem1
             // 
-            this.cb_ExactSearch3.AutoSize = true;
-            this.cb_ExactSearch3.Location = new System.Drawing.Point(287, 19);
-            this.cb_ExactSearch3.Name = "cb_ExactSearch3";
-            this.cb_ExactSearch3.Size = new System.Drawing.Size(15, 14);
-            this.cb_ExactSearch3.TabIndex = 125;
-            this.cb_ExactSearch3.UseVisualStyleBackColor = true;
-            this.cb_ExactSearch3.CheckedChanged += new System.EventHandler(this.cb_ExactSearch3_CheckedChanged);
+            this.fullAnalyzeAllToolStripMenuItem1.Name = "fullAnalyzeAllToolStripMenuItem1";
+            this.fullAnalyzeAllToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.fullAnalyzeAllToolStripMenuItem1.Text = "Все";
             // 
-            // btn_CloseTable3
+            // keywordsByImpressions_ToolStripMenuItem1
             // 
-            this.btn_CloseTable3.BackColor = System.Drawing.Color.LightSalmon;
-            this.btn_CloseTable3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_CloseTable3.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_CloseTable3.Location = new System.Drawing.Point(1030, 21);
-            this.btn_CloseTable3.Name = "btn_CloseTable3";
-            this.btn_CloseTable3.Size = new System.Drawing.Size(28, 23);
-            this.btn_CloseTable3.TabIndex = 124;
-            this.btn_CloseTable3.Text = "X";
-            this.btn_CloseTable3.UseVisualStyleBackColor = false;
-            this.btn_CloseTable3.Visible = false;
-            this.btn_CloseTable3.Click += new System.EventHandler(this.btn_CloseTable3_Click);
+            this.keywordsByImpressions_ToolStripMenuItem1.Name = "keywordsByImpressions_ToolStripMenuItem1";
+            this.keywordsByImpressions_ToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.keywordsByImpressions_ToolStripMenuItem1.Text = "По Impressions";
+            this.keywordsByImpressions_ToolStripMenuItem1.Click += new System.EventHandler(this.keywordsByImpressions_ToolStripMenuItem1_Click);
             // 
-            // tb_TargetingSearch3
+            // keywordsBySalesToolStripMenuItem1
             // 
-            this.tb_TargetingSearch3.Location = new System.Drawing.Point(103, 12);
-            this.tb_TargetingSearch3.Name = "tb_TargetingSearch3";
-            this.tb_TargetingSearch3.Size = new System.Drawing.Size(180, 25);
-            this.tb_TargetingSearch3.TabIndex = 123;
-            this.tb_TargetingSearch3.TextChanged += new System.EventHandler(this.tb_TargetingSearch3_TextChanged);
+            this.keywordsBySalesToolStripMenuItem1.Name = "keywordsBySalesToolStripMenuItem1";
+            this.keywordsBySalesToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.keywordsBySalesToolStripMenuItem1.Text = "По Sales";
+            this.keywordsBySalesToolStripMenuItem1.Click += new System.EventHandler(this.keywordsBySalesToolStripMenuItem1_Click);
             // 
-            // dgv_AdGroups3
+            // keywordsBySpendToolStripMenuItem1
             // 
-            this.dgv_AdGroups3.AllowUserToAddRows = false;
-            this.dgv_AdGroups3.AllowUserToDeleteRows = false;
-            this.dgv_AdGroups3.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dgv_AdGroups3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_AdGroups3.ContextMenuStrip = this.contextMenuStripTab3;
-            this.dgv_AdGroups3.Location = new System.Drawing.Point(3, 46);
-            this.dgv_AdGroups3.Name = "dgv_AdGroups3";
-            this.dgv_AdGroups3.ReadOnly = true;
-            this.dgv_AdGroups3.RowTemplate.Height = 24;
-            this.dgv_AdGroups3.Size = new System.Drawing.Size(231, 671);
-            this.dgv_AdGroups3.TabIndex = 128;
-            this.dgv_AdGroups3.Visible = false;
-            this.dgv_AdGroups3.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_AdGroups3_CellMouseDoubleClick);
+            this.keywordsBySpendToolStripMenuItem1.Name = "keywordsBySpendToolStripMenuItem1";
+            this.keywordsBySpendToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.keywordsBySpendToolStripMenuItem1.Text = "По Spend";
+            this.keywordsBySpendToolStripMenuItem1.Click += new System.EventHandler(this.keywordsBySpendToolStripMenuItem1_Click);
             // 
-            // dgv_Targetings3
+            // keywordsByOrdersToolStripMenuItem1
             // 
-            this.dgv_Targetings3.AllowUserToAddRows = false;
-            this.dgv_Targetings3.AllowUserToDeleteRows = false;
-            this.dgv_Targetings3.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dgv_Targetings3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_Targetings3.ContextMenuStrip = this.contextMenuStripTab3;
-            this.dgv_Targetings3.Location = new System.Drawing.Point(3, 46);
-            this.dgv_Targetings3.Name = "dgv_Targetings3";
-            this.dgv_Targetings3.ReadOnly = true;
-            this.dgv_Targetings3.RowTemplate.Height = 24;
-            this.dgv_Targetings3.Size = new System.Drawing.Size(135, 671);
-            this.dgv_Targetings3.TabIndex = 129;
-            this.dgv_Targetings3.Visible = false;
+            this.keywordsByOrdersToolStripMenuItem1.Name = "keywordsByOrdersToolStripMenuItem1";
+            this.keywordsByOrdersToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.keywordsByOrdersToolStripMenuItem1.Text = "По Orders";
+            this.keywordsByOrdersToolStripMenuItem1.Click += new System.EventHandler(this.keywordsByOrdersToolStripMenuItem1_Click);
             // 
-            // contextMenuStripTab1
+            // keywordsByUnitsToolStripMenuItem1
             // 
-            this.contextMenuStripTab1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.context1CopyToTab2,
-            this.context1CopyToTab3});
-            this.contextMenuStripTab1.Name = "contextMenuStripTab1";
-            this.contextMenuStripTab1.Size = new System.Drawing.Size(203, 48);
+            this.keywordsByUnitsToolStripMenuItem1.Name = "keywordsByUnitsToolStripMenuItem1";
+            this.keywordsByUnitsToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.keywordsByUnitsToolStripMenuItem1.Text = "По Units";
+            this.keywordsByUnitsToolStripMenuItem1.Click += new System.EventHandler(this.keywordsByUnitsToolStripMenuItem1_Click);
             // 
-            // context1CopyToTab2
+            // keywordsByConversionToolStripMenuItem1
             // 
-            this.context1CopyToTab2.Name = "context1CopyToTab2";
-            this.context1CopyToTab2.Size = new System.Drawing.Size(202, 22);
-            this.context1CopyToTab2.Text = "Скопировать в Окно 2";
-            this.context1CopyToTab2.Click += new System.EventHandler(this.context1CopyToTab2_Click);
+            this.keywordsByConversionToolStripMenuItem1.Name = "keywordsByConversionToolStripMenuItem1";
+            this.keywordsByConversionToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.keywordsByConversionToolStripMenuItem1.Text = "По Conversion";
+            this.keywordsByConversionToolStripMenuItem1.Click += new System.EventHandler(this.keywordsByConversionToolStripMenuItem1_Click);
             // 
-            // context1CopyToTab3
+            // adGroupsByImpressions1toolStripMenuItem
             // 
-            this.context1CopyToTab3.Name = "context1CopyToTab3";
-            this.context1CopyToTab3.Size = new System.Drawing.Size(202, 22);
-            this.context1CopyToTab3.Text = "Скопировать в Окно 3";
-            this.context1CopyToTab3.Click += new System.EventHandler(this.context1CopyToTab3_Click);
+            this.adGroupsByImpressions1toolStripMenuItem.Name = "adGroupsByImpressions1toolStripMenuItem";
+            this.adGroupsByImpressions1toolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.adGroupsByImpressions1toolStripMenuItem.Text = "По Impressions";
+            this.adGroupsByImpressions1toolStripMenuItem.Click += new System.EventHandler(this.adGroupsByImpressions1toolStripMenuItem_Click);
             // 
-            // contextMenuStripTab2
+            // adGroupsBySalestoolStripMenuItem1
             // 
-            this.contextMenuStripTab2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.context2CopyToTab1,
-            this.context2CopyToTab3});
-            this.contextMenuStripTab2.Name = "contextMenuStripTab1";
-            this.contextMenuStripTab2.Size = new System.Drawing.Size(203, 48);
+            this.adGroupsBySalestoolStripMenuItem1.Name = "adGroupsBySalestoolStripMenuItem1";
+            this.adGroupsBySalestoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.adGroupsBySalestoolStripMenuItem1.Text = "По Sales";
+            this.adGroupsBySalestoolStripMenuItem1.Click += new System.EventHandler(this.adGroupsBySalestoolStripMenuItem1_Click);
             // 
-            // context2CopyToTab1
+            // adGroupsBySpendtoolStripMenuItem1
             // 
-            this.context2CopyToTab1.Name = "context2CopyToTab1";
-            this.context2CopyToTab1.Size = new System.Drawing.Size(202, 22);
-            this.context2CopyToTab1.Text = "Скопировать в Окно 1";
-            this.context2CopyToTab1.Click += new System.EventHandler(this.context2CopyToTab1_Click);
+            this.adGroupsBySpendtoolStripMenuItem1.Name = "adGroupsBySpendtoolStripMenuItem1";
+            this.adGroupsBySpendtoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.adGroupsBySpendtoolStripMenuItem1.Text = "По Spend";
+            this.adGroupsBySpendtoolStripMenuItem1.Click += new System.EventHandler(this.adGroupsBySpendtoolStripMenuItem1_Click);
             // 
-            // context2CopyToTab3
+            // adGroupsByOrderstoolStripMenuItem1
             // 
-            this.context2CopyToTab3.Name = "context2CopyToTab3";
-            this.context2CopyToTab3.Size = new System.Drawing.Size(202, 22);
-            this.context2CopyToTab3.Text = "Скопировать в Окно 3";
-            this.context2CopyToTab3.Click += new System.EventHandler(this.context2CopyToTab3_Click);
+            this.adGroupsByOrderstoolStripMenuItem1.Name = "adGroupsByOrderstoolStripMenuItem1";
+            this.adGroupsByOrderstoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.adGroupsByOrderstoolStripMenuItem1.Text = "По Orders";
+            this.adGroupsByOrderstoolStripMenuItem1.Click += new System.EventHandler(this.adGroupsByOrderstoolStripMenuItem1_Click);
             // 
-            // contextMenuStripTab3
+            // adGroupsByUnitstoolStripMenuItem1
             // 
-            this.contextMenuStripTab3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.context3CopyToTab1,
-            this.context3CopyToTab2});
-            this.contextMenuStripTab3.Name = "contextMenuStripTab1";
-            this.contextMenuStripTab3.Size = new System.Drawing.Size(203, 48);
+            this.adGroupsByUnitstoolStripMenuItem1.Name = "adGroupsByUnitstoolStripMenuItem1";
+            this.adGroupsByUnitstoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.adGroupsByUnitstoolStripMenuItem1.Text = "По Units";
+            this.adGroupsByUnitstoolStripMenuItem1.Click += new System.EventHandler(this.adGroupsByUnitstoolStripMenuItem1_Click);
             // 
-            // context3CopyToTab1
+            // adGroupsBytoolStripMenuItem1
             // 
-            this.context3CopyToTab1.Name = "context3CopyToTab1";
-            this.context3CopyToTab1.Size = new System.Drawing.Size(202, 22);
-            this.context3CopyToTab1.Text = "Скопировать в Окно 1";
-            this.context3CopyToTab1.Click += new System.EventHandler(this.context3CopyToTab1_Click);
+            this.adGroupsBytoolStripMenuItem1.Name = "adGroupsBytoolStripMenuItem1";
+            this.adGroupsBytoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.adGroupsBytoolStripMenuItem1.Text = "По Conversion";
+            this.adGroupsBytoolStripMenuItem1.Click += new System.EventHandler(this.adGroupsBytoolStripMenuItem1_Click);
             // 
-            // context3CopyToTab2
+            // campaignsByImpressionstoolStripMenuItem1
             // 
-            this.context3CopyToTab2.Name = "context3CopyToTab2";
-            this.context3CopyToTab2.Size = new System.Drawing.Size(202, 22);
-            this.context3CopyToTab2.Text = "Скопировать в Окно 2";
-            this.context3CopyToTab2.Click += new System.EventHandler(this.context3CopyToTab2_Click);
+            this.campaignsByImpressionstoolStripMenuItem1.Name = "campaignsByImpressionstoolStripMenuItem1";
+            this.campaignsByImpressionstoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.campaignsByImpressionstoolStripMenuItem1.Text = "По Impressions";
+            this.campaignsByImpressionstoolStripMenuItem1.Click += new System.EventHandler(this.campaignsByImpressionstoolStripMenuItem1_Click);
+            // 
+            // campaignsBySalestoolStripMenuItem1
+            // 
+            this.campaignsBySalestoolStripMenuItem1.Name = "campaignsBySalestoolStripMenuItem1";
+            this.campaignsBySalestoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.campaignsBySalestoolStripMenuItem1.Text = "По Sales";
+            this.campaignsBySalestoolStripMenuItem1.Click += new System.EventHandler(this.campaignsBySalestoolStripMenuItem1_Click);
+            // 
+            // campaignsBySpendtoolStripMenuItem1
+            // 
+            this.campaignsBySpendtoolStripMenuItem1.Name = "campaignsBySpendtoolStripMenuItem1";
+            this.campaignsBySpendtoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.campaignsBySpendtoolStripMenuItem1.Text = "По Spend";
+            this.campaignsBySpendtoolStripMenuItem1.Click += new System.EventHandler(this.campaignsBySpendtoolStripMenuItem1_Click);
+            // 
+            // campaignsByOrderstoolStripMenuItem1
+            // 
+            this.campaignsByOrderstoolStripMenuItem1.Name = "campaignsByOrderstoolStripMenuItem1";
+            this.campaignsByOrderstoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.campaignsByOrderstoolStripMenuItem1.Text = "По Orders";
+            this.campaignsByOrderstoolStripMenuItem1.Click += new System.EventHandler(this.campaignsByOrderstoolStripMenuItem1_Click);
+            // 
+            // campaignsByUnitstoolStripMenuItem1
+            // 
+            this.campaignsByUnitstoolStripMenuItem1.Name = "campaignsByUnitstoolStripMenuItem1";
+            this.campaignsByUnitstoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.campaignsByUnitstoolStripMenuItem1.Text = "По Units";
+            this.campaignsByUnitstoolStripMenuItem1.Click += new System.EventHandler(this.campaignsByUnitstoolStripMenuItem1_Click);
+            // 
+            // campaignsByConversiontoolStripMenuItem1
+            // 
+            this.campaignsByConversiontoolStripMenuItem1.Name = "campaignsByConversiontoolStripMenuItem1";
+            this.campaignsByConversiontoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.campaignsByConversiontoolStripMenuItem1.Text = "По Conversion";
+            this.campaignsByConversiontoolStripMenuItem1.Click += new System.EventHandler(this.campaignsByConversiontoolStripMenuItem1_Click);
+            // 
+            // analyzedTabPage1
+            // 
+            this.analyzedTabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.analyzedTabPage1.Controls.Add(this.label34);
+            this.analyzedTabPage1.Controls.Add(this.cb_ExactSearch4);
+            this.analyzedTabPage1.Controls.Add(this.tb_TargetingSearch4);
+            this.analyzedTabPage1.Controls.Add(this.dgv_Analyzed1);
+            this.analyzedTabPage1.Controls.Add(this.panel10);
+            this.analyzedTabPage1.Location = new System.Drawing.Point(4, 29);
+            this.analyzedTabPage1.Name = "analyzedTabPage1";
+            this.analyzedTabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.analyzedTabPage1.Size = new System.Drawing.Size(1377, 722);
+            this.analyzedTabPage1.TabIndex = 4;
+            this.analyzedTabPage1.Text = "Анализ (окно 1)";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(7, 16);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(90, 19);
+            this.label34.TabIndex = 129;
+            this.label34.Text = "Найти ключ:";
+            // 
+            // cb_ExactSearch4
+            // 
+            this.cb_ExactSearch4.AutoSize = true;
+            this.cb_ExactSearch4.Location = new System.Drawing.Point(287, 19);
+            this.cb_ExactSearch4.Name = "cb_ExactSearch4";
+            this.cb_ExactSearch4.Size = new System.Drawing.Size(15, 14);
+            this.cb_ExactSearch4.TabIndex = 128;
+            this.cb_ExactSearch4.UseVisualStyleBackColor = true;
+            this.cb_ExactSearch4.CheckedChanged += new System.EventHandler(this.cb_ExactSearch4_CheckedChanged);
+            // 
+            // tb_TargetingSearch4
+            // 
+            this.tb_TargetingSearch4.Location = new System.Drawing.Point(103, 12);
+            this.tb_TargetingSearch4.Name = "tb_TargetingSearch4";
+            this.tb_TargetingSearch4.Size = new System.Drawing.Size(180, 25);
+            this.tb_TargetingSearch4.TabIndex = 126;
+            this.tb_TargetingSearch4.TextChanged += new System.EventHandler(this.tb_TargetingSearch4_TextChanged);
+            // 
+            // dgv_Analyzed1
+            // 
+            this.dgv_Analyzed1.AllowUserToAddRows = false;
+            this.dgv_Analyzed1.AllowUserToDeleteRows = false;
+            this.dgv_Analyzed1.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dgv_Analyzed1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Analyzed1.ContextMenuStrip = this.contextMenuStripTab1;
+            this.dgv_Analyzed1.Location = new System.Drawing.Point(3, 46);
+            this.dgv_Analyzed1.Name = "dgv_Analyzed1";
+            this.dgv_Analyzed1.ReadOnly = true;
+            this.dgv_Analyzed1.RowTemplate.Height = 24;
+            this.dgv_Analyzed1.Size = new System.Drawing.Size(1365, 671);
+            this.dgv_Analyzed1.TabIndex = 123;
+            // 
+            // panel10
+            // 
+            this.panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel10.Controls.Add(this.lb_StartDate4);
+            this.panel10.Controls.Add(this.lb_EndDate4);
+            this.panel10.Controls.Add(this.label37);
+            this.panel10.Location = new System.Drawing.Point(523, 4);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(279, 39);
+            this.panel10.TabIndex = 125;
+            // 
+            // lb_StartDate4
+            // 
+            this.lb_StartDate4.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.lb_StartDate4.Location = new System.Drawing.Point(11, 7);
+            this.lb_StartDate4.Name = "lb_StartDate4";
+            this.lb_StartDate4.Size = new System.Drawing.Size(100, 23);
+            this.lb_StartDate4.TabIndex = 22;
+            this.lb_StartDate4.Text = "label1";
+            this.lb_StartDate4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lb_EndDate4
+            // 
+            this.lb_EndDate4.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.lb_EndDate4.Location = new System.Drawing.Point(157, 7);
+            this.lb_EndDate4.Name = "lb_EndDate4";
+            this.lb_EndDate4.Size = new System.Drawing.Size(100, 23);
+            this.lb_EndDate4.TabIndex = 23;
+            this.lb_EndDate4.Text = "label1";
+            this.lb_EndDate4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label37
+            // 
+            this.label37.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.label37.Location = new System.Drawing.Point(121, 7);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(27, 23);
+            this.label37.TabIndex = 24;
+            this.label37.Text = "-";
+            this.label37.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // analyzedTabPage2
+            // 
+            this.analyzedTabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.analyzedTabPage2.Controls.Add(this.label35);
+            this.analyzedTabPage2.Controls.Add(this.cb_ExactSearch5);
+            this.analyzedTabPage2.Controls.Add(this.tb_TargetingSearch5);
+            this.analyzedTabPage2.Controls.Add(this.dgv_Analyzed2);
+            this.analyzedTabPage2.Controls.Add(this.panel11);
+            this.analyzedTabPage2.Location = new System.Drawing.Point(4, 29);
+            this.analyzedTabPage2.Name = "analyzedTabPage2";
+            this.analyzedTabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.analyzedTabPage2.Size = new System.Drawing.Size(1377, 722);
+            this.analyzedTabPage2.TabIndex = 5;
+            this.analyzedTabPage2.Text = "Анализ (окно 2)";
+            // 
+            // analyzedTabPage3
+            // 
+            this.analyzedTabPage3.BackColor = System.Drawing.SystemColors.Control;
+            this.analyzedTabPage3.Controls.Add(this.label40);
+            this.analyzedTabPage3.Controls.Add(this.cb_ExactSearch6);
+            this.analyzedTabPage3.Controls.Add(this.tb_TargetingSearch6);
+            this.analyzedTabPage3.Controls.Add(this.dgv_Analyzed3);
+            this.analyzedTabPage3.Controls.Add(this.panel12);
+            this.analyzedTabPage3.Location = new System.Drawing.Point(4, 29);
+            this.analyzedTabPage3.Name = "analyzedTabPage3";
+            this.analyzedTabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.analyzedTabPage3.Size = new System.Drawing.Size(1377, 722);
+            this.analyzedTabPage3.TabIndex = 6;
+            this.analyzedTabPage3.Text = "Анализ (окно 3)";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(7, 16);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(90, 19);
+            this.label35.TabIndex = 134;
+            this.label35.Text = "Найти ключ:";
+            // 
+            // cb_ExactSearch5
+            // 
+            this.cb_ExactSearch5.AutoSize = true;
+            this.cb_ExactSearch5.Location = new System.Drawing.Point(287, 19);
+            this.cb_ExactSearch5.Name = "cb_ExactSearch5";
+            this.cb_ExactSearch5.Size = new System.Drawing.Size(15, 14);
+            this.cb_ExactSearch5.TabIndex = 133;
+            this.cb_ExactSearch5.UseVisualStyleBackColor = true;
+            this.cb_ExactSearch5.CheckedChanged += new System.EventHandler(this.cb_ExactSearch5_CheckedChanged);
+            // 
+            // tb_TargetingSearch5
+            // 
+            this.tb_TargetingSearch5.Location = new System.Drawing.Point(103, 12);
+            this.tb_TargetingSearch5.Name = "tb_TargetingSearch5";
+            this.tb_TargetingSearch5.Size = new System.Drawing.Size(180, 25);
+            this.tb_TargetingSearch5.TabIndex = 132;
+            this.tb_TargetingSearch5.TextChanged += new System.EventHandler(this.tb_TargetingSearch5_TextChanged);
+            // 
+            // dgv_Analyzed2
+            // 
+            this.dgv_Analyzed2.AllowUserToAddRows = false;
+            this.dgv_Analyzed2.AllowUserToDeleteRows = false;
+            this.dgv_Analyzed2.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dgv_Analyzed2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Analyzed2.ContextMenuStrip = this.contextMenuStripTab1;
+            this.dgv_Analyzed2.Location = new System.Drawing.Point(3, 46);
+            this.dgv_Analyzed2.Name = "dgv_Analyzed2";
+            this.dgv_Analyzed2.ReadOnly = true;
+            this.dgv_Analyzed2.RowTemplate.Height = 24;
+            this.dgv_Analyzed2.Size = new System.Drawing.Size(1365, 671);
+            this.dgv_Analyzed2.TabIndex = 130;
+            // 
+            // panel11
+            // 
+            this.panel11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel11.Controls.Add(this.lb_StartDate5);
+            this.panel11.Controls.Add(this.lb_EndDate5);
+            this.panel11.Controls.Add(this.label39);
+            this.panel11.Location = new System.Drawing.Point(523, 4);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(279, 39);
+            this.panel11.TabIndex = 131;
+            // 
+            // lb_StartDate5
+            // 
+            this.lb_StartDate5.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.lb_StartDate5.Location = new System.Drawing.Point(11, 7);
+            this.lb_StartDate5.Name = "lb_StartDate5";
+            this.lb_StartDate5.Size = new System.Drawing.Size(100, 23);
+            this.lb_StartDate5.TabIndex = 22;
+            this.lb_StartDate5.Text = "label1";
+            this.lb_StartDate5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lb_EndDate5
+            // 
+            this.lb_EndDate5.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.lb_EndDate5.Location = new System.Drawing.Point(157, 7);
+            this.lb_EndDate5.Name = "lb_EndDate5";
+            this.lb_EndDate5.Size = new System.Drawing.Size(100, 23);
+            this.lb_EndDate5.TabIndex = 23;
+            this.lb_EndDate5.Text = "label1";
+            this.lb_EndDate5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label39
+            // 
+            this.label39.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.label39.Location = new System.Drawing.Point(121, 7);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(27, 23);
+            this.label39.TabIndex = 24;
+            this.label39.Text = "-";
+            this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(7, 16);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(90, 19);
+            this.label40.TabIndex = 134;
+            this.label40.Text = "Найти ключ:";
+            // 
+            // cb_ExactSearch6
+            // 
+            this.cb_ExactSearch6.AutoSize = true;
+            this.cb_ExactSearch6.Location = new System.Drawing.Point(287, 19);
+            this.cb_ExactSearch6.Name = "cb_ExactSearch6";
+            this.cb_ExactSearch6.Size = new System.Drawing.Size(15, 14);
+            this.cb_ExactSearch6.TabIndex = 133;
+            this.cb_ExactSearch6.UseVisualStyleBackColor = true;
+            this.cb_ExactSearch6.CheckedChanged += new System.EventHandler(this.cb_ExactSearch6_CheckedChanged);
+            // 
+            // tb_TargetingSearch6
+            // 
+            this.tb_TargetingSearch6.Location = new System.Drawing.Point(103, 12);
+            this.tb_TargetingSearch6.Name = "tb_TargetingSearch6";
+            this.tb_TargetingSearch6.Size = new System.Drawing.Size(180, 25);
+            this.tb_TargetingSearch6.TabIndex = 132;
+            this.tb_TargetingSearch6.TextChanged += new System.EventHandler(this.tb_TargetingSearch6_TextChanged);
+            // 
+            // dgv_Analyzed3
+            // 
+            this.dgv_Analyzed3.AllowUserToAddRows = false;
+            this.dgv_Analyzed3.AllowUserToDeleteRows = false;
+            this.dgv_Analyzed3.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dgv_Analyzed3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Analyzed3.ContextMenuStrip = this.contextMenuStripTab1;
+            this.dgv_Analyzed3.Location = new System.Drawing.Point(3, 46);
+            this.dgv_Analyzed3.Name = "dgv_Analyzed3";
+            this.dgv_Analyzed3.ReadOnly = true;
+            this.dgv_Analyzed3.RowTemplate.Height = 24;
+            this.dgv_Analyzed3.Size = new System.Drawing.Size(1365, 671);
+            this.dgv_Analyzed3.TabIndex = 130;
+            // 
+            // panel12
+            // 
+            this.panel12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel12.Controls.Add(this.lb_StartDate6);
+            this.panel12.Controls.Add(this.lb_EndDate6);
+            this.panel12.Controls.Add(this.label43);
+            this.panel12.Location = new System.Drawing.Point(523, 4);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(279, 39);
+            this.panel12.TabIndex = 131;
+            // 
+            // lb_StartDate6
+            // 
+            this.lb_StartDate6.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.lb_StartDate6.Location = new System.Drawing.Point(11, 7);
+            this.lb_StartDate6.Name = "lb_StartDate6";
+            this.lb_StartDate6.Size = new System.Drawing.Size(100, 23);
+            this.lb_StartDate6.TabIndex = 22;
+            this.lb_StartDate6.Text = "label1";
+            this.lb_StartDate6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lb_EndDate6
+            // 
+            this.lb_EndDate6.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.lb_EndDate6.Location = new System.Drawing.Point(157, 7);
+            this.lb_EndDate6.Name = "lb_EndDate6";
+            this.lb_EndDate6.Size = new System.Drawing.Size(100, 23);
+            this.lb_EndDate6.TabIndex = 23;
+            this.lb_EndDate6.Text = "label1";
+            this.lb_EndDate6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label43
+            // 
+            this.label43.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.label43.Location = new System.Drawing.Point(121, 7);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(27, 23);
+            this.label43.TabIndex = 24;
+            this.label43.Text = "-";
+            this.label43.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ReportAdvertisingView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1381, 761);
-            this.Controls.Add(this.tabControl1);
+            this.ClientSize = new System.Drawing.Size(1387, 761);
+            this.Controls.Add(this.tabContainer);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(700, 200);
             this.Name = "ReportAdvertisingView";
@@ -2410,8 +2984,11 @@
             this.Text = "Данные рекламы";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AdvertisingReportView_FormClosing);
             this.SizeChanged += new System.EventHandler(this.AdvertisingReportView_SizeChanged);
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Targetings3)).EndInit();
+            this.contextMenuStripTab3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_AdGroups3)).EndInit();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
             this.menuStrip3.ResumeLayout(false);
@@ -2421,6 +2998,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_AdvProducts3)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Targetings2)).EndInit();
+            this.contextMenuStripTab2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_AdGroups2)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.menuStrip2.ResumeLayout(false);
@@ -2431,6 +3011,7 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Targetings1)).EndInit();
+            this.contextMenuStripTab1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_AdGroups1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
@@ -2439,21 +3020,26 @@
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_AdvProducts1)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_AdGroups2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_Targetings2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_AdGroups3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_Targetings3)).EndInit();
-            this.contextMenuStripTab1.ResumeLayout(false);
-            this.contextMenuStripTab2.ResumeLayout(false);
-            this.contextMenuStripTab3.ResumeLayout(false);
+            this.tabContainer.ResumeLayout(false);
+            this.analyzedTabPage1.ResumeLayout(false);
+            this.analyzedTabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Analyzed1)).EndInit();
+            this.panel10.ResumeLayout(false);
+            this.analyzedTabPage2.ResumeLayout(false);
+            this.analyzedTabPage2.PerformLayout();
+            this.analyzedTabPage3.ResumeLayout(false);
+            this.analyzedTabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Analyzed2)).EndInit();
+            this.panel11.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Analyzed3)).EndInit();
+            this.panel12.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.TextBox tb_clbTargetingFilter3;
@@ -2621,7 +3207,7 @@
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.DataGridView dgv_AdvProducts1;
         private System.Windows.Forms.Button btn_Filter1;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tabContainer;
         private System.Windows.Forms.TextBox tb_TargetingSearch1;
         public System.Windows.Forms.DataGridView dgv_Targetings1;
         public System.Windows.Forms.DataGridView dgv_AdGroups1;
@@ -2651,5 +3237,59 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripTab3;
         private System.Windows.Forms.ToolStripMenuItem context3CopyToTab1;
         private System.Windows.Forms.ToolStripMenuItem context3CopyToTab2;
+        private System.Windows.Forms.ToolStripMenuItem analyzecontext1;
+        private System.Windows.Forms.ToolStripMenuItem keywordsSectionToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem keywordsByImpressions_ToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem keywordsBySalesToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem keywordsBySpendToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem keywordsByOrdersToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem keywordsByUnitsToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem keywordsByConversionToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem AdGroupsSectionToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem adGroupsByImpressions1toolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem adGroupsBySalestoolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem adGroupsBySpendtoolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem adGroupsByOrderstoolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem adGroupsByUnitstoolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem adGroupsBytoolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem campaignsSectionToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem campaignsByImpressionstoolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem campaignsBySalestoolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem campaignsBySpendtoolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem campaignsByOrderstoolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem campaignsByUnitstoolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem campaignsByConversiontoolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem полныйАнализToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fullAnalyzeBroadToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem fullAnalyzeExactToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem fullAnalyzePhraseToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem fullAnalyzeAllToolStripMenuItem1;
+        private System.Windows.Forms.TabPage analyzedTabPage1;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.CheckBox cb_ExactSearch4;
+        private System.Windows.Forms.TextBox tb_TargetingSearch4;
+        public System.Windows.Forms.DataGridView dgv_Analyzed1;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Label lb_StartDate4;
+        private System.Windows.Forms.Label lb_EndDate4;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.TabPage analyzedTabPage2;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.CheckBox cb_ExactSearch5;
+        private System.Windows.Forms.TextBox tb_TargetingSearch5;
+        public System.Windows.Forms.DataGridView dgv_Analyzed2;
+        private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.Label lb_StartDate5;
+        private System.Windows.Forms.Label lb_EndDate5;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.TabPage analyzedTabPage3;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.CheckBox cb_ExactSearch6;
+        private System.Windows.Forms.TextBox tb_TargetingSearch6;
+        public System.Windows.Forms.DataGridView dgv_Analyzed3;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.Label lb_StartDate6;
+        private System.Windows.Forms.Label lb_EndDate6;
+        private System.Windows.Forms.Label label43;
     }
 }

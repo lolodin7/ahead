@@ -12,8 +12,8 @@ using System.Windows.Forms;
 namespace Excel_Parse
 {
     public partial class ReportAdvertisingView : Form
-    {    
-        
+    {
+        private AnalyzeAdvertisingReport analyzeReport;
         /* 
         // Экспорт данных из таблицы 
         private void btn_Export1_Click(object sender, EventArgs e)
@@ -414,6 +414,17 @@ namespace Excel_Parse
 
             dgv_AdGroups3.Width = 1325;
             dgv_Targetings3.Width = 1325;
+
+            lb_StartDate4.Text = DateTime.Today.ToShortDateString();
+            lb_EndDate4.Text = DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59).ToShortDateString();
+
+            lb_StartDate5.Text = DateTime.Today.ToShortDateString();
+            lb_EndDate5.Text = DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59).ToShortDateString();
+
+            lb_StartDate6.Text = DateTime.Today.ToShortDateString();
+            lb_EndDate6.Text = DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59).ToShortDateString();
+
+            analyzeReport = new AnalyzeAdvertisingReport();
         }
 
 
@@ -550,7 +561,7 @@ namespace Excel_Parse
                     {
                         for (int j = i + 1; j < advProductsList1.Count; j++)
                         {
-                            if (advProductsList1[i].CampaignName.Equals(advProductsList1[j].CampaignName) && advProductsList1[i].AdGroupName.Equals(advProductsList1[j].AdGroupName) && advProductsList1[i].Targeting.Equals(advProductsList1[j].Targeting) && advProductsList1[i].MatchType.Equals(advProductsList1[j].MatchType))
+                            if (advProductsList1[i].CampaignName.Equals(advProductsList1[j].CampaignName) && advProductsList1[i].AdGroupName.Equals(advProductsList1[j].AdGroupName) && advProductsList1[i].Targeting.Equals(advProductsList1[j].Targeting) && advProductsList1[i].MarketPlaceId == advProductsList1[j].MarketPlaceId)
                             {
                                 Impressions += advProductsList1[j].Impressions;
                                 Clicks += advProductsList1[j].Clicks;
@@ -651,7 +662,7 @@ namespace Excel_Parse
                 {
 
                 }
-                if (!alreadyUsed.Contains(i) && !alreadyUsedAdGroups.Contains(advProductsList1[i].AdGroupName))
+                if (!alreadyUsed.Contains(i) && !alreadyUsedAdGroups.Contains(advProductsList1[i].AdGroupName + advProductsList1[i].CampaignName))
                 {
                     Impressions = advProductsList1[i].Impressions;
                     Clicks = advProductsList1[i].Clicks;
@@ -668,7 +679,7 @@ namespace Excel_Parse
                     {
                         for (int j = i + 1; j < advProductsList1.Count; j++)
                         {
-                            if (advProductsList1[i].CampaignName.Equals(advProductsList1[j].CampaignName) && advProductsList1[i].AdGroupName.Equals(advProductsList1[j].AdGroupName) && advProductsList1[i].MatchType.Equals(advProductsList1[j].MatchType))
+                            if (advProductsList1[i].CampaignName.Equals(advProductsList1[j].CampaignName) && advProductsList1[i].AdGroupName.Equals(advProductsList1[j].AdGroupName) && advProductsList1[i].MarketPlaceId == advProductsList1[j].MarketPlaceId)
                             {
                                 Impressions += advProductsList1[j].Impressions;
                                 Clicks += advProductsList1[j].Clicks;
@@ -734,7 +745,7 @@ namespace Excel_Parse
                     summaryAdvProductsList1[summaryAdvProductsList1.Count - 1].CampaignId = advProductsList1[i].CampaignId;
                     summaryAdvProductsList1[summaryAdvProductsList1.Count - 1].ProductId = advProductsList1[i].ProductId;
 
-                    alreadyUsedAdGroups.Add(advProductsList1[i].AdGroupName);
+                    alreadyUsedAdGroups.Add(advProductsList1[i].AdGroupName + advProductsList1[i].CampaignName);
                 }
             }
             advProductsList1.Clear();
@@ -788,7 +799,7 @@ namespace Excel_Parse
                     {
                         for (int j = i + 1; j < advProductsList1.Count; j++)
                         {
-                            if (advProductsList1[i].CampaignName.Equals(advProductsList1[j].CampaignName) && advProductsList1[i].MatchType.Equals(advProductsList1[j].MatchType))
+                            if (advProductsList1[i].CampaignName.Equals(advProductsList1[j].CampaignName) && advProductsList1[i].MarketPlaceId == advProductsList1[j].MarketPlaceId)
                             {
                                 Impressions += advProductsList1[j].Impressions;
                                 Clicks += advProductsList1[j].Clicks;
@@ -908,7 +919,7 @@ namespace Excel_Parse
                     {
                         for (int j = i + 1; j < advProductsList1.Count; j++)
                         {
-                            if (advProductsList1[i].ProductId == advProductsList1[j].ProductId)
+                            if (advProductsList1[i].ProductId == advProductsList1[j].ProductId && advProductsList1[i].MarketPlaceId == advProductsList1[j].MarketPlaceId)
                             {
                                 Impressions += advProductsList1[j].Impressions;
                                 Clicks += advProductsList1[j].Clicks;
@@ -1767,7 +1778,8 @@ namespace Excel_Parse
                 flag = false;
                 for (int j = 0; j < pList1.Count; j++)
                 {
-                    if (!flag && _checkedProducts[i].Equals(pList1[j].Name))
+                    //if (!flag && _checkedProducts[i].Equals(pList1[j].Name))
+                    if (_checkedProducts[i].Equals(pList1[j].Name))
                     {
                         resultList.Add(pList1[j].ProductId);
                         flag = true;
@@ -2569,7 +2581,7 @@ namespace Excel_Parse
         private void tb_TargetingSearch1_TextChanged(object sender, EventArgs e)
         {
             System.Windows.Forms.TextBox tb = (System.Windows.Forms.TextBox)sender;
-            SearchTargeting(tb.Text, dgv_AdvProducts1, dgv_AdGroups1, dgv_Targetings1, cb_ExactSearch1.Checked);
+            SearchTargeting(tb.Text, dgv_AdvProducts1, dgv_AdGroups1, dgv_Targetings1, cb_ExactSearch1.Checked, 0);
         }
 
         /* Включаем/выключаем Exact поиск и автоматически перебираем уже существующие результаты поиска в нужной таблице */
@@ -3021,7 +3033,7 @@ namespace Excel_Parse
                     {
                         for (int j = i + 1; j < advProductsList2.Count; j++)
                         {
-                            if (advProductsList2[i].CampaignName.Equals(advProductsList2[j].CampaignName) && advProductsList2[i].AdGroupName.Equals(advProductsList2[j].AdGroupName) && advProductsList2[i].Targeting.Equals(advProductsList2[j].Targeting) && advProductsList2[i].MatchType.Equals(advProductsList2[j].MatchType))
+                            if (advProductsList2[i].CampaignName.Equals(advProductsList2[j].CampaignName) && advProductsList2[i].AdGroupName.Equals(advProductsList2[j].AdGroupName) && advProductsList2[i].Targeting.Equals(advProductsList2[j].Targeting) && advProductsList2[i].MarketPlaceId == advProductsList2[j].MarketPlaceId)
                             {
                                 Impressions += advProductsList2[j].Impressions;
                                 Clicks += advProductsList2[j].Clicks;
@@ -3122,7 +3134,7 @@ namespace Excel_Parse
                 {
 
                 }
-                if (!alreadyUsed.Contains(i) && !alreadyUsedAdGroups.Contains(advProductsList2[i].AdGroupName))
+                if (!alreadyUsed.Contains(i) && !alreadyUsedAdGroups.Contains(advProductsList2[i].AdGroupName + advProductsList2[i].CampaignName))
                 {
                     Impressions = advProductsList2[i].Impressions;
                     Clicks = advProductsList2[i].Clicks;
@@ -3139,7 +3151,7 @@ namespace Excel_Parse
                     {
                         for (int j = i + 1; j < advProductsList2.Count; j++)
                         {
-                            if (advProductsList2[i].CampaignName.Equals(advProductsList2[j].CampaignName) && advProductsList2[i].AdGroupName.Equals(advProductsList2[j].AdGroupName) && advProductsList2[i].MatchType.Equals(advProductsList2[j].MatchType))
+                            if (advProductsList2[i].CampaignName.Equals(advProductsList2[j].CampaignName) && advProductsList2[i].AdGroupName.Equals(advProductsList2[j].AdGroupName) && advProductsList2[i].MarketPlaceId == advProductsList2[j].MarketPlaceId)
                             {
                                 Impressions += advProductsList2[j].Impressions;
                                 Clicks += advProductsList2[j].Clicks;
@@ -3205,7 +3217,7 @@ namespace Excel_Parse
                     summaryAdvProductsList2[summaryAdvProductsList2.Count - 1].CampaignId = advProductsList2[i].CampaignId;
                     summaryAdvProductsList2[summaryAdvProductsList2.Count - 1].ProductId = advProductsList2[i].ProductId;
 
-                    alreadyUsedAdGroups.Add(advProductsList2[i].AdGroupName);
+                    alreadyUsedAdGroups.Add(advProductsList2[i].AdGroupName + advProductsList2[i].CampaignName);
                 }
             }
             advProductsList2.Clear();
@@ -3259,7 +3271,7 @@ namespace Excel_Parse
                     {
                         for (int j = i + 1; j < advProductsList2.Count; j++)
                         {
-                            if (advProductsList2[i].CampaignName.Equals(advProductsList2[j].CampaignName) && advProductsList2[i].MatchType.Equals(advProductsList2[j].MatchType))
+                            if (advProductsList2[i].CampaignName.Equals(advProductsList2[j].CampaignName) && advProductsList2[i].MarketPlaceId == advProductsList2[j].MarketPlaceId)
                             {
                                 Impressions += advProductsList2[j].Impressions;
                                 Clicks += advProductsList2[j].Clicks;
@@ -3379,7 +3391,7 @@ namespace Excel_Parse
                     {
                         for (int j = i + 1; j < advProductsList2.Count; j++)
                         {
-                            if (advProductsList2[i].ProductId == advProductsList2[j].ProductId)
+                            if (advProductsList2[i].ProductId == advProductsList2[j].ProductId && advProductsList2[i].MarketPlaceId == advProductsList2[j].MarketPlaceId)
                             {
                                 Impressions += advProductsList2[j].Impressions;
                                 Clicks += advProductsList2[j].Clicks;
@@ -4963,7 +4975,7 @@ namespace Excel_Parse
         private void tb_TargetingSearch2_TextChanged(object sender, EventArgs e)
         {
             System.Windows.Forms.TextBox tb = (System.Windows.Forms.TextBox)sender;
-            SearchTargeting(tb.Text, dgv_AdvProducts2, dgv_AdGroups2, dgv_Targetings2, cb_ExactSearch2.Checked);
+            SearchTargeting(tb.Text, dgv_AdvProducts2, dgv_AdGroups2, dgv_Targetings2, cb_ExactSearch2.Checked, 0);
         }
 
         /* Включаем/выключаем Exact поиск и автоматически перебираем уже существующие результаты поиска в нужной таблице 2 */
@@ -5406,7 +5418,7 @@ namespace Excel_Parse
                     {
                         for (int j = i + 1; j < advProductsList3.Count; j++)
                         {
-                            if (advProductsList3[i].CampaignName.Equals(advProductsList3[j].CampaignName) && advProductsList3[i].AdGroupName.Equals(advProductsList3[j].AdGroupName) && advProductsList3[i].Targeting.Equals(advProductsList3[j].Targeting) && advProductsList3[i].MatchType.Equals(advProductsList3[j].MatchType))
+                            if (advProductsList3[i].CampaignName.Equals(advProductsList3[j].CampaignName) && advProductsList3[i].AdGroupName.Equals(advProductsList3[j].AdGroupName) && advProductsList3[i].Targeting.Equals(advProductsList3[j].Targeting) && advProductsList3[i].MarketPlaceId == advProductsList3[j].MarketPlaceId)
                             {
                                 Impressions += advProductsList3[j].Impressions;
                                 Clicks += advProductsList3[j].Clicks;
@@ -5507,7 +5519,7 @@ namespace Excel_Parse
                 {
 
                 }
-                if (!alreadyUsed.Contains(i) && !alreadyUsedAdGroups.Contains(advProductsList3[i].AdGroupName))
+                if (!alreadyUsed.Contains(i) && !alreadyUsedAdGroups.Contains(advProductsList3[i].AdGroupName + advProductsList3[i].CampaignName))
                 {
                     Impressions = advProductsList3[i].Impressions;
                     Clicks = advProductsList3[i].Clicks;
@@ -5524,7 +5536,7 @@ namespace Excel_Parse
                     {
                         for (int j = i + 1; j < advProductsList3.Count; j++)
                         {
-                            if (advProductsList3[i].CampaignName.Equals(advProductsList3[j].CampaignName) && advProductsList3[i].AdGroupName.Equals(advProductsList3[j].AdGroupName) && advProductsList3[i].MatchType.Equals(advProductsList3[j].MatchType))
+                            if (advProductsList3[i].CampaignName.Equals(advProductsList3[j].CampaignName) && advProductsList3[i].AdGroupName.Equals(advProductsList3[j].AdGroupName) && advProductsList3[i].MarketPlaceId == advProductsList3[j].MarketPlaceId)
                             {
                                 Impressions += advProductsList3[j].Impressions;
                                 Clicks += advProductsList3[j].Clicks;
@@ -5590,7 +5602,7 @@ namespace Excel_Parse
                     summaryAdvProductsList3[summaryAdvProductsList3.Count - 1].CampaignId = advProductsList3[i].CampaignId;
                     summaryAdvProductsList3[summaryAdvProductsList3.Count - 1].ProductId = advProductsList3[i].ProductId;
 
-                    alreadyUsedAdGroups.Add(advProductsList3[i].AdGroupName);
+                    alreadyUsedAdGroups.Add(advProductsList3[i].AdGroupName + advProductsList3[i].CampaignName);
                 }
             }
             advProductsList3.Clear();
@@ -5644,7 +5656,7 @@ namespace Excel_Parse
                     {
                         for (int j = i + 1; j < advProductsList3.Count; j++)
                         {
-                            if (advProductsList3[i].CampaignName.Equals(advProductsList3[j].CampaignName) && advProductsList3[i].MatchType.Equals(advProductsList3[j].MatchType))
+                            if (advProductsList3[i].CampaignName.Equals(advProductsList3[j].CampaignName) && advProductsList3[i].MarketPlaceId == advProductsList3[j].MarketPlaceId)
                             {
                                 Impressions += advProductsList3[j].Impressions;
                                 Clicks += advProductsList3[j].Clicks;
@@ -5764,7 +5776,7 @@ namespace Excel_Parse
                     {
                         for (int j = i + 1; j < advProductsList3.Count; j++)
                         {
-                            if (advProductsList3[i].ProductId == advProductsList3[j].ProductId)
+                            if (advProductsList3[i].ProductId == advProductsList3[j].ProductId && advProductsList3[i].MarketPlaceId == advProductsList3[j].MarketPlaceId)
                             {
                                 Impressions += advProductsList3[j].Impressions;
                                 Clicks += advProductsList3[j].Clicks;
@@ -6131,7 +6143,7 @@ namespace Excel_Parse
             copying = !_copying;
         }
 
-        /* Очистить список выбранных маркетплейсов в clb_Marketplace1 */
+        /* Очистить список выбранных маркетплейсов в clb_Marketplace3 */
         private void btn_Clear_clb_Marketplace3_Click(object sender, EventArgs e)
         {
             checkedMarkeplaces3.Clear();
@@ -6156,6 +6168,234 @@ namespace Excel_Parse
 
             disableTbClbFilter3();
         }
+
+
+
+
+
+
+
+
+
+
+
+        private void contextMenuStripTab1_Opening(object sender, CancelEventArgs e)
+        {
+            keywordsSectionToolStripMenuItem1.Enabled = false;
+            AdGroupsSectionToolStripMenuItem1.Enabled = false;
+            campaignsSectionToolStripMenuItem1.Enabled = false;
+
+            if (dgv_AdvProducts1.Visible)
+            {
+                //if (dgv_AdvProducts1.Rows.Count > 0)
+                //    if (dgv_AdvProducts1.CurrentCell.ColumnIndex != 4)
+                //        analyzecontext1.Enabled = false;
+                //    else
+                //        analyzecontext1.Enabled = true;
+                analyzecontext1.Enabled = true;
+
+                if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible && dgv_AdvProducts1.Columns[3].Visible && dgv_AdvProducts1.Columns[4].Visible)
+                {
+                    keywordsSectionToolStripMenuItem1.Enabled = true;
+                    AdGroupsSectionToolStripMenuItem1.Enabled = true;
+                    campaignsSectionToolStripMenuItem1.Enabled = true;
+                }
+                else if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible && dgv_AdvProducts1.Columns[3].Visible)
+                {
+                    AdGroupsSectionToolStripMenuItem1.Enabled = true;
+                    campaignsSectionToolStripMenuItem1.Enabled = true;
+                }
+                else if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible)
+                {
+                    campaignsSectionToolStripMenuItem1.Enabled = true;
+                }
+            }
+            else if (dgv_AdGroups1.Visible)
+            {
+                //if (dgv_AdGroups1.Rows.Count > 0)
+                //    if (dgv_AdGroups1.CurrentCell.ColumnIndex != 4)
+                //        analyzecontext1.Enabled = false;
+                //    else
+                //        analyzecontext1.Enabled = true;
+                analyzecontext1.Enabled = true;
+
+                if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible && dgv_AdvProducts1.Columns[3].Visible && dgv_AdvProducts1.Columns[4].Visible)
+                {
+                    keywordsSectionToolStripMenuItem1.Enabled = true;
+                    AdGroupsSectionToolStripMenuItem1.Enabled = true;
+                    campaignsSectionToolStripMenuItem1.Enabled = true;
+                }
+                else if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible && dgv_AdvProducts1.Columns[3].Visible)
+                {
+                    AdGroupsSectionToolStripMenuItem1.Enabled = true;
+                    campaignsSectionToolStripMenuItem1.Enabled = true;
+                }
+                else if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible)
+                {
+                    campaignsSectionToolStripMenuItem1.Enabled = true;
+                }
+            }
+            else if (dgv_Targetings1.Visible)
+            {
+                //if (dgv_Targetings1.Rows.Count > 0)
+                //    if (dgv_Targetings1.CurrentCell.ColumnIndex != 4)
+                //        analyzecontext1.Enabled = false;
+                //    else
+                //        analyzecontext1.Enabled = true;
+                analyzecontext1.Enabled = true;
+
+                if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible && dgv_AdvProducts1.Columns[3].Visible && dgv_AdvProducts1.Columns[4].Visible)
+                {
+                    keywordsSectionToolStripMenuItem1.Enabled = true;
+                    AdGroupsSectionToolStripMenuItem1.Enabled = true;
+                    campaignsSectionToolStripMenuItem1.Enabled = true;
+                }
+                else if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible && dgv_AdvProducts1.Columns[3].Visible)
+                {
+                    AdGroupsSectionToolStripMenuItem1.Enabled = true;
+                    campaignsSectionToolStripMenuItem1.Enabled = true;
+                }
+                else if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible)
+                {
+                    campaignsSectionToolStripMenuItem1.Enabled = true;
+                }
+            }
+            else
+                analyzecontext1.Enabled = false;
+        }
+
+        private void tb_TargetingSearch4_TextChanged(object sender, EventArgs e)
+        {
+            System.Windows.Forms.TextBox tb = (System.Windows.Forms.TextBox)sender;
+            SearchTargeting(tb.Text, new DataGridView(), new DataGridView(), new DataGridView(), cb_ExactSearch4.Checked, 1);
+        }
+
+        private void tb_TargetingSearch5_TextChanged(object sender, EventArgs e)
+        {
+            System.Windows.Forms.TextBox tb = (System.Windows.Forms.TextBox)sender;
+            SearchTargeting(tb.Text, new DataGridView(), new DataGridView(), new DataGridView(), cb_ExactSearch4.Checked, 2);
+        }
+
+        private void tb_TargetingSearch6_TextChanged(object sender, EventArgs e)
+        {
+            System.Windows.Forms.TextBox tb = (System.Windows.Forms.TextBox)sender;
+            SearchTargeting(tb.Text, new DataGridView(), new DataGridView(), new DataGridView(), cb_ExactSearch4.Checked, 3);
+        }
+
+        private void cb_ExactSearch4_CheckedChanged(object sender, EventArgs e)
+        {
+            SearchTargeting(tb_TargetingSearch4.Text, dgv_Analyzed1, cb_ExactSearch4.Checked);
+        }
+
+        private void cb_ExactSearch5_CheckedChanged(object sender, EventArgs e)
+        {
+            SearchTargeting(tb_TargetingSearch5.Text, dgv_Analyzed2, cb_ExactSearch5.Checked);
+        }
+
+        private void cb_ExactSearch6_CheckedChanged(object sender, EventArgs e)
+        {
+            SearchTargeting(tb_TargetingSearch6.Text, dgv_Analyzed3, cb_ExactSearch6.Checked);
+        }
+        
+
+        private void keywordsByImpressions_ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "impressions", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
+        }
+
+        private void keywordsBySalesToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "sales", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
+        }
+
+        private void keywordsBySpendToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "spend", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
+        }
+        
+        private void keywordsByOrdersToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "orders", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
+        }
+
+        private void keywordsByUnitsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "units", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
+        }
+
+        private void keywordsByConversionToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "conversion", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
+        }
+
+
+        private void adGroupsByImpressions1toolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "impressions", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
+        }
+
+        private void adGroupsBySalestoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "sales", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
+        }
+
+        private void adGroupsBySpendtoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "spend", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
+        }
+
+        private void adGroupsByOrderstoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "orders", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
+        }
+
+        private void adGroupsByUnitstoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "units", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
+        }
+
+        private void adGroupsBytoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "conversion", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
+        }
+
+
+        private void campaignsByImpressionstoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (dgv_AdvProducts1.Visible)
+            {
+                analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "impressions", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
+            }
+        }
+
+        private void campaignsBySalestoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "sales", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
+        }
+
+        private void campaignsBySpendtoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "spend", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
+        }
+
+        private void campaignsByOrderstoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "orders", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
+        }
+
+        private void campaignsByUnitstoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "units", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
+        }
+
+        private void campaignsByConversiontoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "conversion", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
+        }
+
+
+
+
 
         /* Отображаем/скрываем товары, у которых нет рекламных кампаний */
         private void cb_WithoutAdvertising3_CheckedChanged(object sender, EventArgs e)
@@ -6883,7 +7123,7 @@ namespace Excel_Parse
 
             if (StartDate3 > EndDate3)
                 MessageBox.Show("Ошибка! Дата начала больше даты окончания!", "Ошибка");
-
+            
             int result = 0;
             advProductsList3 = null;
 
@@ -7350,7 +7590,7 @@ namespace Excel_Parse
         private void tb_TargetingSearch3_TextChanged(object sender, EventArgs e)
         {
             System.Windows.Forms.TextBox tb = (System.Windows.Forms.TextBox)sender;
-            SearchTargeting(tb.Text, dgv_AdvProducts3, dgv_AdGroups3, dgv_Targetings3, cb_ExactSearch3.Checked);
+            SearchTargeting(tb.Text, dgv_AdvProducts3, dgv_AdGroups3, dgv_Targetings3, cb_ExactSearch3.Checked, 0);
         }
 
         /* Включаем/выключаем Exact поиск и автоматически перебираем уже существующие результаты поиска в нужной таблице */
@@ -7753,66 +7993,6 @@ namespace Excel_Parse
                 }
             }
             //btn_Export1.Text = "Экспорт в файл (" + (_dgv_AdvProducts.RowCount - 1) + ")";
-        }
-
-        /* UNIVERSAL_METHOD Рисуем "правильную" таблицу с заголовками и шириной столбцов для Sponsored Products (при Custom Mode) */
-        private void DrawCorrectColumnsForSponsoredProducts(List<AdvertisingProductsModel> _advProductsList, DataGridView _dgv_AdvProducts)
-        {
-            _dgv_AdvProducts.Columns.Add("UpdateDate", "Date");
-            _dgv_AdvProducts.Columns.Add("CurrencyCharCode", "Currency");
-            _dgv_AdvProducts.Columns.Add("CampaignName", "Campaign");
-            _dgv_AdvProducts.Columns.Add("AdGroupName", "AdGroup");
-            _dgv_AdvProducts.Columns.Add("Targeting", "Targeting");
-            if (productsInMarketplaces1)
-                _dgv_AdvProducts.Columns.Add("ProductName", "Product");
-            else
-                _dgv_AdvProducts.Columns.Add("MatchType", "Match Type");
-            _dgv_AdvProducts.Columns.Add("Impressions", "Impressions");
-            _dgv_AdvProducts.Columns.Add("Clicks", "Clicks");
-            _dgv_AdvProducts.Columns.Add("CTR", "CTR");
-            _dgv_AdvProducts.Columns.Add("CPC", "CPC");
-            _dgv_AdvProducts.Columns.Add("Spend", "Spend");
-            _dgv_AdvProducts.Columns.Add("Sales", "Sales");
-            _dgv_AdvProducts.Columns.Add("ACoS", "ACoS");
-            _dgv_AdvProducts.Columns.Add("RoAS", "RoAS");
-            _dgv_AdvProducts.Columns.Add("Orders", "Orders");
-            _dgv_AdvProducts.Columns.Add("Units", "Units");
-            _dgv_AdvProducts.Columns.Add("ConversionRate", "Conversion");
-            _dgv_AdvProducts.Columns.Add("AdvSKUUnits", "Adv SKU Units");
-            _dgv_AdvProducts.Columns.Add("OtherSKUUnits", "Other SKU Units");
-            _dgv_AdvProducts.Columns.Add("AdvSKUSales", "Adv SKU Sales");
-            _dgv_AdvProducts.Columns.Add("OtherSKUSales", "Other SKU Sales");
-            _dgv_AdvProducts.Columns.Add("CampaignTypeId", "text");
-            _dgv_AdvProducts.Columns.Add("MarketPlaceId", "text");
-            _dgv_AdvProducts.Columns.Add("CampaignId", "text");
-            _dgv_AdvProducts.Columns.Add("ProductId", "text");
-
-            _dgv_AdvProducts.Columns[0].Visible = false;
-            _dgv_AdvProducts.Columns[1].Visible = false;
-            _dgv_AdvProducts.Columns[21].Visible = false;
-            _dgv_AdvProducts.Columns[22].Visible = false;
-            _dgv_AdvProducts.Columns[23].Visible = false;
-            _dgv_AdvProducts.Columns[24].Visible = false;
-
-            //_dgv_AdvProducts.Columns[0].Frozen = true;
-            //_dgv_AdvProducts.Columns[1].Frozen = true;
-            //_dgv_AdvProducts.Columns[2].Frozen = true;
-            //_dgv_AdvProducts.Columns[3].Frozen = true;
-            //_dgv_AdvProducts.Columns[4].Frozen = true;
-            //_dgv_AdvProducts.Columns[5].Frozen = true;
-
-            _dgv_AdvProducts.Columns[0].Width = 70;
-            _dgv_AdvProducts.Columns[1].Width = 60;
-            _dgv_AdvProducts.Columns[2].Width = 200;
-            _dgv_AdvProducts.Columns[3].Width = 200;
-            _dgv_AdvProducts.Columns[4].Width = 200;
-
-            for (int i = 0; i < _advProductsList[0].ColumnCount; i++)
-            {
-                _dgv_AdvProducts.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                if (i >= 6)
-                    _dgv_AdvProducts.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            }
         }
 
         /* UNIVERSAL_METHOD Рисуем суммирующиую 1ю строку в dgv_AdvProducts (при Custom Mode) */
@@ -8283,6 +8463,66 @@ namespace Excel_Parse
             _dgv_AdvProducts.Columns[_dgv_AdvProducts.ColumnCount - 1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
 
+        /* UNIVERSAL_METHOD Рисуем "правильную" таблицу с заголовками и шириной столбцов для Sponsored Products (при Custom Mode) */
+        private void DrawCorrectColumnsForSponsoredProducts(List<AdvertisingProductsModel> _advProductsList, DataGridView _dgv_AdvProducts)
+        {
+            _dgv_AdvProducts.Columns.Add("UpdateDate", "Date");
+            _dgv_AdvProducts.Columns.Add("CurrencyCharCode", "Currency");
+            _dgv_AdvProducts.Columns.Add("CampaignName", "Campaign");
+            _dgv_AdvProducts.Columns.Add("AdGroupName", "AdGroup");
+            _dgv_AdvProducts.Columns.Add("Targeting", "Targeting");
+            if (productsInMarketplaces1)
+                _dgv_AdvProducts.Columns.Add("ProductName", "Product");
+            else
+                _dgv_AdvProducts.Columns.Add("MatchType", "Match Type");
+            _dgv_AdvProducts.Columns.Add("Impressions", "Impressions");
+            _dgv_AdvProducts.Columns.Add("Clicks", "Clicks");
+            _dgv_AdvProducts.Columns.Add("CTR", "CTR");
+            _dgv_AdvProducts.Columns.Add("CPC", "CPC");
+            _dgv_AdvProducts.Columns.Add("Spend", "Spend");
+            _dgv_AdvProducts.Columns.Add("Sales", "Sales");
+            _dgv_AdvProducts.Columns.Add("ACoS", "ACoS");
+            _dgv_AdvProducts.Columns.Add("RoAS", "RoAS");
+            _dgv_AdvProducts.Columns.Add("Orders", "Orders");
+            _dgv_AdvProducts.Columns.Add("Units", "Units");
+            _dgv_AdvProducts.Columns.Add("ConversionRate", "Conversion");
+            _dgv_AdvProducts.Columns.Add("AdvSKUUnits", "Adv SKU Units");
+            _dgv_AdvProducts.Columns.Add("OtherSKUUnits", "Other SKU Units");
+            _dgv_AdvProducts.Columns.Add("AdvSKUSales", "Adv SKU Sales");
+            _dgv_AdvProducts.Columns.Add("OtherSKUSales", "Other SKU Sales");
+            _dgv_AdvProducts.Columns.Add("CampaignTypeId", "text");
+            _dgv_AdvProducts.Columns.Add("MarketPlaceId", "text");
+            _dgv_AdvProducts.Columns.Add("CampaignId", "text");
+            _dgv_AdvProducts.Columns.Add("ProductId", "text");
+
+            _dgv_AdvProducts.Columns[0].Visible = false;
+            _dgv_AdvProducts.Columns[1].Visible = false;
+            _dgv_AdvProducts.Columns[21].Visible = false;
+            _dgv_AdvProducts.Columns[22].Visible = false;
+            _dgv_AdvProducts.Columns[23].Visible = false;
+            _dgv_AdvProducts.Columns[24].Visible = false;
+
+            //_dgv_AdvProducts.Columns[0].Frozen = true;
+            //_dgv_AdvProducts.Columns[1].Frozen = true;
+            //_dgv_AdvProducts.Columns[2].Frozen = true;
+            //_dgv_AdvProducts.Columns[3].Frozen = true;
+            //_dgv_AdvProducts.Columns[4].Frozen = true;
+            //_dgv_AdvProducts.Columns[5].Frozen = true;
+
+            _dgv_AdvProducts.Columns[0].Width = 70;
+            _dgv_AdvProducts.Columns[1].Width = 60;
+            _dgv_AdvProducts.Columns[2].Width = 200;
+            _dgv_AdvProducts.Columns[3].Width = 200;
+            _dgv_AdvProducts.Columns[4].Width = 200;
+
+            for (int i = 0; i < _advProductsList[0].ColumnCount; i++)
+            {
+                _dgv_AdvProducts.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                if (i >= 6)
+                    _dgv_AdvProducts.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+        }
+
         /* UNIVERSAL_METHOD Рисуем первый столбец в таблице */
         private void DrawFirstColumn(DataGridView _dgv_AdvProducts)
         {
@@ -8561,11 +8801,11 @@ namespace Excel_Parse
         }
 
         /* UNIVERSAL_METHOD метод поиска ключа в таблицАХ по вхождению введенного пользователем текста */
-        private void SearchTargeting(string _text, DataGridView _dgv_AdvProducts, DataGridView _dgv_AdGroups, DataGridView _dgv_Targetings, bool _ExactSearch)
+        private void SearchTargeting(string _text, DataGridView _dgv_AdvProducts, DataGridView _dgv_AdGroups, DataGridView _dgv_Targetings, bool _ExactSearch, int dgvAnalyzedIndex)
         {
             if (_ExactSearch)
             {
-                if (_dgv_AdvProducts.Visible)
+                if (_dgv_AdvProducts.Visible && dgvAnalyzedIndex == 0)
                 {
                     for (int i = 1; i < _dgv_AdvProducts.RowCount; i++)
                     {
@@ -8575,7 +8815,7 @@ namespace Excel_Parse
                             _dgv_AdvProducts.Rows[i].Cells[4].Style.BackColor = Color.White;
                     }
                 }
-                else if (_dgv_AdGroups.Visible)
+                else if (_dgv_AdGroups.Visible && dgvAnalyzedIndex == 0)
                 {
                     for (int i = 1; i < _dgv_AdGroups.RowCount; i++)
                     {
@@ -8585,7 +8825,7 @@ namespace Excel_Parse
                             _dgv_AdGroups.Rows[i].Cells[4].Style.BackColor = Color.White;
                     }
                 }
-                else if (_dgv_Targetings.Visible)
+                else if (_dgv_Targetings.Visible && dgvAnalyzedIndex == 0)
                 {
                     for (int i = 1; i < _dgv_Targetings.RowCount; i++)
                     {
@@ -8595,10 +8835,41 @@ namespace Excel_Parse
                             _dgv_Targetings.Rows[i].Cells[4].Style.BackColor = Color.White;
                     }
                 }
+
+                if (dgvAnalyzedIndex == 1)
+                {
+                    for (int i = 0; i < dgv_Analyzed1.RowCount; i++)
+                    {
+                        if (dgv_Analyzed1.Rows[i].Cells[4].Value.ToString().ToLower().Equals(_text) && _text != "")
+                            dgv_Analyzed1.Rows[i].Cells[4].Style.BackColor = btn_ColorChoose.BackColor;
+                        else
+                            dgv_Analyzed1.Rows[i].Cells[4].Style.BackColor = Color.White;
+                    }
+                }
+                else if (dgvAnalyzedIndex == 2)
+                {
+                    for (int i = 0; i < dgv_Analyzed2.RowCount; i++)
+                    {
+                        if (dgv_Analyzed2.Rows[i].Cells[4].Value.ToString().ToLower().Equals(_text) && _text != "")
+                            dgv_Analyzed2.Rows[i].Cells[4].Style.BackColor = btn_ColorChoose.BackColor;
+                        else
+                            dgv_Analyzed2.Rows[i].Cells[4].Style.BackColor = Color.White;
+                    }
+                }
+                else if (dgvAnalyzedIndex == 3)
+                {
+                    for (int i = 0; i < dgv_Analyzed3.RowCount; i++)
+                    {
+                        if (dgv_Analyzed3.Rows[i].Cells[4].Value.ToString().ToLower().Equals(_text) && _text != "")
+                            dgv_Analyzed3.Rows[i].Cells[4].Style.BackColor = btn_ColorChoose.BackColor;
+                        else
+                            dgv_Analyzed3.Rows[i].Cells[4].Style.BackColor = Color.White;
+                    }
+                }
             }
             else
             {
-                if (_dgv_AdvProducts.Visible)
+                if (_dgv_AdvProducts.Visible && dgvAnalyzedIndex == 0)
                 {
                     for (int i = 1; i < _dgv_AdvProducts.RowCount; i++)
                     {
@@ -8608,7 +8879,7 @@ namespace Excel_Parse
                             _dgv_AdvProducts.Rows[i].Cells[4].Style.BackColor = Color.White;
                     }
                 }
-                else if (_dgv_AdGroups.Visible)
+                else if (_dgv_AdGroups.Visible && dgvAnalyzedIndex == 0)
                 {
                     for (int i = 1; i < _dgv_AdGroups.RowCount; i++)
                     {
@@ -8618,7 +8889,7 @@ namespace Excel_Parse
                             _dgv_AdGroups.Rows[i].Cells[4].Style.BackColor = Color.White;
                     }
                 }
-                else if (_dgv_Targetings.Visible)
+                else if (_dgv_Targetings.Visible && dgvAnalyzedIndex == 0)
                 {
                     for (int i = 1; i < _dgv_Targetings.RowCount; i++)
                     {
@@ -8626,6 +8897,37 @@ namespace Excel_Parse
                             _dgv_Targetings.Rows[i].Cells[4].Style.BackColor = btn_ColorChoose.BackColor;
                         else
                             _dgv_Targetings.Rows[i].Cells[4].Style.BackColor = Color.White;
+                    }
+                }
+
+                if (dgvAnalyzedIndex == 1)
+                {
+                    for (int i = 0; i < dgv_Analyzed1.RowCount; i++)
+                    {
+                        if (dgv_Analyzed1.Rows[i].Cells[4].Value.ToString().ToLower().Equals(_text) && _text != "")
+                            dgv_Analyzed1.Rows[i].Cells[4].Style.BackColor = btn_ColorChoose.BackColor;
+                        else
+                            dgv_Analyzed1.Rows[i].Cells[4].Style.BackColor = Color.White;
+                    }
+                }
+                else if (dgvAnalyzedIndex == 2)
+                {
+                    for (int i = 0; i < dgv_Analyzed2.RowCount; i++)
+                    {
+                        if (dgv_Analyzed2.Rows[i].Cells[4].Value.ToString().ToLower().Equals(_text) && _text != "")
+                            dgv_Analyzed2.Rows[i].Cells[4].Style.BackColor = btn_ColorChoose.BackColor;
+                        else
+                            dgv_Analyzed2.Rows[i].Cells[4].Style.BackColor = Color.White;
+                    }
+                }
+                else if (dgvAnalyzedIndex == 3)
+                {
+                    for (int i = 0; i < dgv_Analyzed3.RowCount; i++)
+                    {
+                        if (dgv_Analyzed3.Rows[i].Cells[4].Value.ToString().ToLower().Equals(_text) && _text != "")
+                            dgv_Analyzed3.Rows[i].Cells[4].Style.BackColor = btn_ColorChoose.BackColor;
+                        else
+                            dgv_Analyzed3.Rows[i].Cells[4].Style.BackColor = Color.White;
                     }
                 }
             }
@@ -8638,7 +8940,6 @@ namespace Excel_Parse
                 for (int i = 1; i < _dgv.RowCount; i++)
                 {
                     if (_dgv.Rows[i].Cells[4].Value.ToString().ToLower().Equals(_text) && _text != "")
-                        //_dgv.Rows[i].Cells[4].Style.BackColor = Color.DeepSkyBlue;
                         _dgv.Rows[i].Cells[4].Style.BackColor = btn_ColorChoose.BackColor;
                     else
                         _dgv.Rows[i].Cells[4].Style.BackColor = Color.White;
@@ -8663,36 +8964,66 @@ namespace Excel_Parse
         /* UNIVERSAL METHOD Перерисовка формы при изменении размера */
         private void AdvertisingReportView_SizeChanged(object sender, EventArgs e)
         {
-            tabControl1.Width = this.Width - 20;
-            tabControl1.Height = this.Height - 30;
+            tabContainer.Width = this.Width - 20;
+            tabContainer.Height = this.Height - 30;
 
-            btn_ColorChoose.Location = new System.Drawing.Point(tabControl1.Width - btn_ColorChoose.Size.Width - 10, btn_ColorChoose.Location.Y);
+            btn_ColorChoose.Location = new System.Drawing.Point(tabContainer.Width - btn_ColorChoose.Size.Width - 10, btn_ColorChoose.Location.Y);
 
-            dgv_AdvProducts1.Width = tabControl1.Width - 20 - btn_Filter1.Width;
-            dgv_AdvProducts1.Height = tabControl1.Height - 100;
+            dgv_AdvProducts1.Width = tabContainer.Width - 20 - btn_Filter1.Width;
+            dgv_AdvProducts1.Height = tabContainer.Height - 100;
 
-            btn_Filter1.Location = new System.Drawing.Point(tabControl1.Width - btn_Filter1.Size.Width - 10, btn_Filter1.Location.Y);
-            btn_Filter1.Height = tabControl1.Height - 100;
+            dgv_AdGroups1.Width = dgv_AdvProducts1.Width;
+            dgv_AdGroups1.Height = dgv_AdvProducts1.Height;
+
+            dgv_Targetings1.Width = dgv_AdvProducts1.Width;
+            dgv_Targetings1.Height = dgv_AdvProducts1.Height;
+
+            btn_Filter1.Location = new System.Drawing.Point(tabContainer.Width - btn_Filter1.Size.Width - 10, btn_Filter1.Location.Y);
+            btn_Filter1.Height = tabContainer.Height - 100;
             panel1.Location = new System.Drawing.Point((dgv_AdvProducts1.Width - panel1.Size.Width) / 2, panel1.Location.Y);
-            panel2.Location = new System.Drawing.Point(tabControl1.Width - panel2.Size.Width - 18 - btn_Filter1.Size.Width, btn_Filter1.Location.Y);
+            panel2.Location = new System.Drawing.Point(tabContainer.Width - panel2.Size.Width - 18 - btn_Filter1.Size.Width, btn_Filter1.Location.Y);
+            btn_CloseTable1.Location = new System.Drawing.Point(panel1.Location.X + 279 + 230, btn_CloseTable1.Location.Y);
+            btn_CloseTable1.Width = this.Width / 25;
 
+            dgv_AdvProducts2.Width = tabContainer.Width - 20 - btn_Filter2.Width;
+            dgv_AdvProducts2.Height = tabContainer.Height - 100;
 
-            dgv_AdvProducts2.Width = tabControl1.Width - 20 - btn_Filter2.Width;
-            dgv_AdvProducts2.Height = tabControl1.Height - 100;
+            dgv_AdGroups2.Width = dgv_AdvProducts2.Width;
+            dgv_AdGroups2.Height = dgv_AdvProducts2.Height;
 
-            btn_Filter2.Location = new System.Drawing.Point(tabControl1.Width - btn_Filter2.Size.Width - 10, btn_Filter2.Location.Y);
-            btn_Filter2.Height = tabControl1.Height - 100;
+            dgv_Targetings2.Width = dgv_AdvProducts2.Width;
+            dgv_Targetings2.Height = dgv_AdvProducts2.Height;
+
+            btn_Filter2.Location = new System.Drawing.Point(tabContainer.Width - btn_Filter2.Size.Width - 10, btn_Filter2.Location.Y);
+            btn_Filter2.Height = tabContainer.Height - 100;
             panel6.Location = new System.Drawing.Point((dgv_AdvProducts2.Width - panel6.Size.Width) / 2, panel6.Location.Y);
-            panel4.Location = new System.Drawing.Point(tabControl1.Width - panel4.Size.Width - 18 - btn_Filter2.Size.Width, btn_Filter2.Location.Y);
+            panel4.Location = new System.Drawing.Point(tabContainer.Width - panel4.Size.Width - 18 - btn_Filter2.Size.Width, btn_Filter2.Location.Y);
+            btn_CloseTable2.Location = new System.Drawing.Point(panel1.Location.X + 279 + 230, btn_CloseTable2.Location.Y);
+            btn_CloseTable2.Width = this.Width / 25;
 
 
-            dgv_AdvProducts3.Width = tabControl1.Width - 20 - btn_Filter3.Width;
-            dgv_AdvProducts3.Height = tabControl1.Height - 100;
+            dgv_AdvProducts3.Width = tabContainer.Width - 20 - btn_Filter3.Width;
+            dgv_AdvProducts3.Height = tabContainer.Height - 100;
 
-            btn_Filter3.Location = new System.Drawing.Point(tabControl1.Width - btn_Filter3.Size.Width - 10, btn_Filter3.Location.Y);
-            btn_Filter3.Height = tabControl1.Height - 100;
+            dgv_AdGroups3.Width = dgv_AdvProducts3.Width;
+            dgv_AdGroups3.Height = dgv_AdvProducts3.Height;
+
+            dgv_Targetings3.Width = dgv_AdvProducts3.Width;
+            dgv_Targetings3.Height = dgv_AdvProducts3.Height;
+
+            btn_Filter3.Location = new System.Drawing.Point(tabContainer.Width - btn_Filter3.Size.Width - 10, btn_Filter3.Location.Y);
+            btn_Filter3.Height = tabContainer.Height - 100;
             panel9.Location = new System.Drawing.Point((dgv_AdvProducts3.Width - panel9.Size.Width) / 2, panel9.Location.Y);
-            panel7.Location = new System.Drawing.Point(tabControl1.Width - panel7.Size.Width - 18 - btn_Filter3.Size.Width, btn_Filter3.Location.Y);
+            panel7.Location = new System.Drawing.Point(tabContainer.Width - panel7.Size.Width - 18 - btn_Filter3.Size.Width, btn_Filter3.Location.Y);
+            btn_CloseTable3.Location = new System.Drawing.Point(panel1.Location.X + 279 + 230, btn_CloseTable3.Location.Y);
+            btn_CloseTable3.Width = this.Width / 25;
+
+            dgv_Analyzed1.Width = tabContainer.Width - 20;
+            dgv_Analyzed1.Height = tabContainer.Height - 30;
+            dgv_Analyzed2.Width = tabContainer.Width - 20;
+            dgv_Analyzed2.Height = tabContainer.Height - 30;
+            dgv_Analyzed3.Width = tabContainer.Width - 20;
+            dgv_Analyzed3.Height = tabContainer.Height - 30;
         }
 
         /* UNIVERSAL METHOD Обрабатываем закрытие формы */
@@ -8794,5 +9125,45 @@ namespace Excel_Parse
             }
         }
 
+        /* UNIVERSAL METHOD Получаем дату из текста в label */
+        private DateTime getDateFromLabel(string _text)
+        {
+            int day = 0;
+            int month = 0;
+            int year = 0;
+
+            day = int.Parse(_text.Substring(0, 2));
+            month = int.Parse(_text.Substring(3, 2));
+            year = int.Parse(_text.Substring(6, 4));
+            
+            return new DateTime(year, month, day);
+        }
+
+        /* UNIVERSAL METHOD Получаем advProductList по выделенным строкам в заданной DataGridView */
+        private List<AdvertisingProductsModel> GenerateAdvProductListFromDGV(DataGridView _dgv)
+        {
+            List<int> rowsIndexes = new List<int> { };
+            for (int i = 0; i < _dgv.SelectedCells.Count; i++)
+            {
+                if (!rowsIndexes.Contains(_dgv.SelectedCells[i].RowIndex))
+                    rowsIndexes.Add(_dgv.SelectedCells[i].RowIndex);
+            }
+
+            List<AdvertisingProductsModel> finalList = new List<AdvertisingProductsModel> { };
+         
+            for (int i = 0; i < rowsIndexes.Count; i++)
+            {
+                AdvertisingProductsModel tmpObj = new AdvertisingProductsModel();
+
+                for (int j = 1; j < tmpObj.ColumnCount; j++)
+                {
+                    tmpObj.WriteData(j, _dgv.Rows[rowsIndexes[i]].Cells[j].Value);
+                }
+
+                finalList.Add(tmpObj);
+            }
+
+            return finalList;
+        }
     }
 }

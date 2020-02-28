@@ -114,6 +114,7 @@
     <Compile Include="AllOrdersView.Designer.cs">
       <DependentUpon>AllOrdersView.cs</DependentUpon>
     </Compile>
+    <Compile Include="AnalyzeAdvertisingReport.cs" />
     <Compile Include="BusinessController.cs" />
     <Compile Include="AllOrdersModel.cs" />
     <Compile Include="EveryDayReportsUpdate.cs">

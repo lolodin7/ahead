@@ -785,9 +785,9 @@ namespace Excel_Parse
         public string adGroup { get; set; }
         public string targeting { get; set; }
         public string matchType { get; set; }
-        public int valOld { get; set; }
-        public int valNew { get; set; }
-        public int diff { get; set; }
+        public double valOld { get; set; }
+        public double valNew { get; set; }
+        public double diff { get; set; }
         public double diffPerc { get; set; }
         public int ColumnCount { get; set; }
 
