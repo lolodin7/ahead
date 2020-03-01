@@ -1828,6 +1828,9 @@ namespace Excel_Parse
             mc_StartDate2.SelectionStart = mc_StartDate1.SelectionStart;
             mc_EndDate2.SelectionStart = mc_EndDate1.SelectionStart;
 
+            lb_StartDate2.Text = lb_StartDate1.Text;
+            lb_EndDate2.Text = lb_EndDate1.Text;
+
             label10.Text = label3.Text;
             label9.Text = label2.Text;
 
@@ -1963,6 +1966,9 @@ namespace Excel_Parse
 
             mc_StartDate3.SelectionStart = mc_StartDate1.SelectionStart;
             mc_EndDate3.SelectionStart = mc_EndDate1.SelectionStart;
+
+            lb_StartDate3.Text = lb_StartDate1.Text;
+            lb_EndDate3.Text = lb_EndDate1.Text;
 
             label23.Text = label3.Text;
             label22.Text = label2.Text;
@@ -2117,6 +2123,9 @@ namespace Excel_Parse
                 {
                     GetAdvertisingProductsListToShow1(advProductsList1, advProductsListOriginal1, GetCompareMode1(), pList1, GetDateMode1(), "", GetProductIdByName1(checkedProducts1));
                     filterAdvProductsList1 = new List<AdvertisingProductsModel> { };
+
+                    tb_TargetingSearch1.Enabled = true;
+                    cb_ExactSearch1.Enabled = true;
                 }
             }
             else if (byAdGroupsInCampaignsToolStripMenuItem1.Checked && !GetFirstAdGroup1().Equals(""))
@@ -2127,6 +2136,9 @@ namespace Excel_Parse
                 {
                     GetAdvertisingProductsListToShow1(advProductsList1, advProductsListOriginal1, GetCompareMode1(), pList1, GetDateMode1(), GetFirstAdGroup1(), GetProductIdByName1(checkedProducts1));
                     filterAdvProductsList1 = new List<AdvertisingProductsModel> { };
+
+                    tb_TargetingSearch1.Enabled = false;
+                    cb_ExactSearch1.Enabled = false;
                 }
             }
             else if (byCampaignInProductsToolStripMenuItem1.Checked && !GetFirstCampaign1().Equals(""))
@@ -2137,6 +2149,9 @@ namespace Excel_Parse
                 {
                     GetAdvertisingProductsListToShow1(advProductsList1, advProductsListOriginal1, GetCompareMode1(), pList1, GetDateMode1(), GetFirstCampaign1(), GetProductIdByName1(checkedProducts1));
                     filterAdvProductsList1 = new List<AdvertisingProductsModel> { };
+
+                    tb_TargetingSearch1.Enabled = false;
+                    cb_ExactSearch1.Enabled = false;
                 }
             }
             else if (byProductsToolStripMenuItem1.Checked && CheckForExistingProducts1())
@@ -2147,6 +2162,9 @@ namespace Excel_Parse
                 {
                     GetAdvertisingProductsListToShow1(advProductsList1, advProductsListOriginal1, GetCompareMode1(), pList1, GetDateMode1(), GetProductsAsins1(), GetProductIdByName1(checkedProducts1));
                     filterAdvProductsList1 = new List<AdvertisingProductsModel> { };
+
+                    tb_TargetingSearch1.Enabled = false;
+                    cb_ExactSearch1.Enabled = false;
                 }
             }
 
@@ -2581,7 +2599,7 @@ namespace Excel_Parse
         private void tb_TargetingSearch1_TextChanged(object sender, EventArgs e)
         {
             System.Windows.Forms.TextBox tb = (System.Windows.Forms.TextBox)sender;
-            SearchTargeting(tb.Text, dgv_AdvProducts1, dgv_AdGroups1, dgv_Targetings1, cb_ExactSearch1.Checked, 0);
+            SearchTargeting(tb.Text, dgv_AdvProducts1, dgv_AdGroups1, dgv_Targetings1, cb_ExactSearch1.Checked, 0, lb_SearchResultsCount1);
         }
 
         /* Включаем/выключаем Exact поиск и автоматически перебираем уже существующие результаты поиска в нужной таблице */
@@ -2589,15 +2607,15 @@ namespace Excel_Parse
         {
             if (dgv_AdvProducts1.Visible)
             {
-                SearchTargeting(tb_TargetingSearch1.Text, dgv_AdvProducts1, cb_ExactSearch1.Checked);
+                SearchTargeting(tb_TargetingSearch1.Text, dgv_AdvProducts1, cb_ExactSearch1.Checked, lb_SearchResultsCount1);
             }
             else if (dgv_AdGroups1.Visible)
             {
-                SearchTargeting(tb_TargetingSearch1.Text, dgv_AdGroups1, cb_ExactSearch1.Checked);
+                SearchTargeting(tb_TargetingSearch1.Text, dgv_AdGroups1, cb_ExactSearch1.Checked, lb_SearchResultsCount1);
             }
             else if (dgv_Targetings1.Visible)
             {
-                SearchTargeting(tb_TargetingSearch1.Text, dgv_Targetings1, cb_ExactSearch1.Checked);
+                SearchTargeting(tb_TargetingSearch1.Text, dgv_Targetings1, cb_ExactSearch1.Checked, lb_SearchResultsCount1);
             }
         }
 
@@ -2631,7 +2649,7 @@ namespace Excel_Parse
 
                 MakeSummaryForFilteredTable(dgv_AdGroups1);
 
-                SearchTargeting(tb_TargetingSearch1.Text, dgv_AdGroups1, cb_ExactSearch1.Checked);
+                SearchTargeting(tb_TargetingSearch1.Text, dgv_AdGroups1, cb_ExactSearch1.Checked, lb_SearchResultsCount1);
 
                 //делаем видомости элементов корректными
                 dgv_AdGroups1.Visible = true;
@@ -2666,7 +2684,7 @@ namespace Excel_Parse
 
                 MakeSummaryForFilteredTable(dgv_Targetings1);
 
-                SearchTargeting(tb_TargetingSearch1.Text, dgv_Targetings1, cb_ExactSearch1.Checked);
+                SearchTargeting(tb_TargetingSearch1.Text, dgv_Targetings1, cb_ExactSearch1.Checked, lb_SearchResultsCount1);
 
                 //делаем видомости элементов корректными
                 dgv_Targetings1.Visible = true;
@@ -2707,7 +2725,7 @@ namespace Excel_Parse
 
                 MakeSummaryForFilteredTable(dgv_Targetings1);
 
-                SearchTargeting(tb_TargetingSearch1.Text, dgv_Targetings1, cb_ExactSearch1.Checked);
+                SearchTargeting(tb_TargetingSearch1.Text, dgv_Targetings1, cb_ExactSearch1.Checked, lb_SearchResultsCount1);
 
                 //делаем видомости элементов корректными
                 dgv_Targetings1.Visible = true;
@@ -2729,7 +2747,7 @@ namespace Excel_Parse
             dgv_Targetings1.Rows.Clear();
             dgv_Targetings1.Columns.Clear();
 
-            SearchTargeting(tb_TargetingSearch1.Text, dgv_AdvProducts1, cb_ExactSearch1.Checked);
+            SearchTargeting(tb_TargetingSearch1.Text, dgv_AdvProducts1, cb_ExactSearch1.Checked, lb_SearchResultsCount1);
 
             dgv_AdvProducts1.Visible = true;
         }
@@ -2846,6 +2864,8 @@ namespace Excel_Parse
                             dgv_AdvProducts3.Rows[index].Cells[o.ColumnIndex].Value = o.Value;
                         }
                     }
+
+                    CopyMethod1to3();
                 }
             }
             else if (dgv_AdGroups1.Visible)
@@ -2901,6 +2921,257 @@ namespace Excel_Parse
                 }
             }
         }
+
+        private void tb_TargetingSearch4_TextChanged(object sender, EventArgs e)
+        {
+            System.Windows.Forms.TextBox tb = (System.Windows.Forms.TextBox)sender;
+            SearchTargeting(tb.Text, new DataGridView(), new DataGridView(), new DataGridView(), cb_ExactSearch4.Checked, 1, lb_SearchResultsCount4);
+        }
+
+        private void tb_TargetingSearch5_TextChanged(object sender, EventArgs e)
+        {
+            System.Windows.Forms.TextBox tb = (System.Windows.Forms.TextBox)sender;
+            SearchTargeting(tb.Text, new DataGridView(), new DataGridView(), new DataGridView(), cb_ExactSearch5.Checked, 2, lb_SearchResultsCount5);
+        }
+
+        private void tb_TargetingSearch6_TextChanged(object sender, EventArgs e)
+        {
+            System.Windows.Forms.TextBox tb = (System.Windows.Forms.TextBox)sender;
+            SearchTargeting(tb.Text, new DataGridView(), new DataGridView(), new DataGridView(), cb_ExactSearch6.Checked, 3, lb_SearchResultsCount6);
+        }
+
+        private void cb_ExactSearch4_CheckedChanged(object sender, EventArgs e)
+        {
+            SearchTargeting(tb_TargetingSearch4.Text, dgv_Analyzed1, cb_ExactSearch4.Checked, lb_SearchResultsCount4);
+        }
+
+        private void cb_ExactSearch5_CheckedChanged(object sender, EventArgs e)
+        {
+            SearchTargeting(tb_TargetingSearch5.Text, dgv_Analyzed2, cb_ExactSearch5.Checked, lb_SearchResultsCount5);
+        }
+
+        private void cb_ExactSearch6_CheckedChanged(object sender, EventArgs e)
+        {
+            SearchTargeting(tb_TargetingSearch6.Text, dgv_Analyzed3, cb_ExactSearch6.Checked, lb_SearchResultsCount6);
+        }
+
+        
+
+        private void keywordsByImpressions_ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "impressions", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "keywords"));
+            tb_TargetingSearch4.Enabled = true;
+            cb_ExactSearch4.Enabled = true;
+        }
+
+        private void keywordsBySalesToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "sales", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "keywords"));
+            tb_TargetingSearch4.Enabled = true;
+            cb_ExactSearch4.Enabled = true;
+        }
+
+        private void keywordsBySpendToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "spend", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "keywords"));
+            tb_TargetingSearch4.Enabled = true;
+            cb_ExactSearch4.Enabled = true;
+        }
+
+        private void keywordsByOrdersToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "orders", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "keywords"));
+            tb_TargetingSearch4.Enabled = true;
+            cb_ExactSearch4.Enabled = true;
+        }
+
+        private void keywordsByUnitsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "units", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "keywords"));
+            tb_TargetingSearch4.Enabled = true;
+            cb_ExactSearch4.Enabled = true;
+        }
+
+        private void keywordsByConversionToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "conversion", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "keywords"));
+            tb_TargetingSearch4.Enabled = true;
+            cb_ExactSearch4.Enabled = true;
+        }
+
+
+        private void adGroupsByImpressions1toolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "impressions", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "adgroups"));
+            tb_TargetingSearch4.Enabled = false;
+            cb_ExactSearch4.Enabled = false;
+        }
+
+        private void adGroupsBySalestoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "sales", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "adgroups"));
+            tb_TargetingSearch4.Enabled = false;
+            cb_ExactSearch4.Enabled = false;
+        }
+
+        private void adGroupsBySpendtoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "spend", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "adgroups"));
+            tb_TargetingSearch4.Enabled = false;
+            cb_ExactSearch4.Enabled = false;
+        }
+
+        private void adGroupsByOrderstoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "orders", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "adgroups"));
+            tb_TargetingSearch4.Enabled = false;
+            cb_ExactSearch4.Enabled = false;
+        }
+
+        private void adGroupsByUnitstoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "units", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "adgroups"));
+            tb_TargetingSearch4.Enabled = false;
+            cb_ExactSearch4.Enabled = false;
+        }
+
+        private void adGroupsBytoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "conversion", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "adgroups"));
+            tb_TargetingSearch4.Enabled = false;
+            cb_ExactSearch4.Enabled = false;
+        }
+
+
+        private void campaignsByImpressionstoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "impressions", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "campaigns"));
+            tb_TargetingSearch4.Enabled = false;
+            cb_ExactSearch4.Enabled = false;
+        }
+
+        private void campaignsBySalestoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "sales", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "campaigns"));
+            tb_TargetingSearch4.Enabled = false;
+            cb_ExactSearch4.Enabled = false;
+        }
+
+        private void campaignsBySpendtoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "spend", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "campaigns"));
+            tb_TargetingSearch4.Enabled = false;
+            cb_ExactSearch4.Enabled = false;
+        }
+
+        private void campaignsByOrderstoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "orders", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "campaigns"));
+            tb_TargetingSearch4.Enabled = false;
+            cb_ExactSearch4.Enabled = false;
+        }
+
+        private void campaignsByUnitstoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "units", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "campaigns"));
+            tb_TargetingSearch4.Enabled = false;
+            cb_ExactSearch4.Enabled = false;
+        }
+
+        private void campaignsByConversiontoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "conversion", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "campaigns"));
+            tb_TargetingSearch4.Enabled = false;
+            cb_ExactSearch4.Enabled = false;
+        }
+
+        private void fullAnalyzeAllToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "impressions", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "allinwindow"));
+            tb_TargetingSearch4.Enabled = true;
+            cb_ExactSearch4.Enabled = true;
+        }
+
+        /* Настраиваем видимость элементов меню в зависимости от того, с какой таблицы было вызвано */
+        private void contextMenuStripTab1_Opening(object sender, CancelEventArgs e)
+        {
+            keywordsSectionToolStripMenuItem1.Enabled = false;
+            AdGroupsSectionToolStripMenuItem1.Enabled = false;
+            campaignsSectionToolStripMenuItem1.Enabled = false;
+            fullAnalyzeToolStripMenuItem1.Enabled = false;
+
+            if (dgv_AdvProducts1.Visible)
+            {
+                analyzecontext1.Enabled = true;
+
+                if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible && dgv_AdvProducts1.Columns[3].Visible && dgv_AdvProducts1.Columns[4].Visible)
+                {
+                    keywordsSectionToolStripMenuItem1.Enabled = true;
+                    AdGroupsSectionToolStripMenuItem1.Enabled = true;
+                    campaignsSectionToolStripMenuItem1.Enabled = true;
+                    fullAnalyzeToolStripMenuItem1.Enabled = true;
+                }
+                else if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible && dgv_AdvProducts1.Columns[3].Visible)
+                {
+                    AdGroupsSectionToolStripMenuItem1.Enabled = true;
+                    campaignsSectionToolStripMenuItem1.Enabled = true;
+                }
+                else if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible)
+                {
+                    campaignsSectionToolStripMenuItem1.Enabled = true;
+                }
+            }
+            else if (dgv_AdGroups1.Visible)
+            {
+                analyzecontext1.Enabled = true;
+
+                if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible && dgv_AdvProducts1.Columns[3].Visible && dgv_AdvProducts1.Columns[4].Visible)
+                {
+                    keywordsSectionToolStripMenuItem1.Enabled = true;
+                    AdGroupsSectionToolStripMenuItem1.Enabled = true;
+                    campaignsSectionToolStripMenuItem1.Enabled = true;
+                    fullAnalyzeToolStripMenuItem1.Enabled = true;
+                }
+                else if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible && dgv_AdvProducts1.Columns[3].Visible)
+                {
+                    AdGroupsSectionToolStripMenuItem1.Enabled = true;
+                    campaignsSectionToolStripMenuItem1.Enabled = true;
+                }
+                else if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible)
+                {
+                    campaignsSectionToolStripMenuItem1.Enabled = true;
+                }
+
+                fullAnalyzeToolStripMenuItem1.Enabled = true;
+            }
+            else if (dgv_Targetings1.Visible)
+            {
+                analyzecontext1.Enabled = true;
+
+                if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible && dgv_AdvProducts1.Columns[3].Visible && dgv_AdvProducts1.Columns[4].Visible)
+                {
+                    keywordsSectionToolStripMenuItem1.Enabled = true;
+                    AdGroupsSectionToolStripMenuItem1.Enabled = true;
+                    campaignsSectionToolStripMenuItem1.Enabled = true;
+                    fullAnalyzeToolStripMenuItem1.Enabled = true;
+                }
+                else if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible && dgv_AdvProducts1.Columns[3].Visible)
+                {
+                    AdGroupsSectionToolStripMenuItem1.Enabled = true;
+                    campaignsSectionToolStripMenuItem1.Enabled = true;
+                }
+                else if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible)
+                {
+                    campaignsSectionToolStripMenuItem1.Enabled = true;
+                }
+
+                fullAnalyzeToolStripMenuItem1.Enabled = true;
+            }
+            else
+                analyzecontext1.Enabled = false;
+        }
+
+
 
         //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------2--------------------------------------------------------------------------------------------------------------
@@ -3514,6 +3785,9 @@ namespace Excel_Parse
             mc_StartDate1.SelectionStart = mc_StartDate2.SelectionStart;
             mc_EndDate1.SelectionStart = mc_EndDate2.SelectionStart;
 
+            lb_StartDate1.Text = lb_StartDate2.Text;
+            lb_EndDate1.Text = lb_EndDate2.Text;
+
             label3.Text = label10.Text;
             label2.Text = label9.Text;
 
@@ -3649,6 +3923,9 @@ namespace Excel_Parse
 
             mc_StartDate3.SelectionStart = mc_StartDate2.SelectionStart;
             mc_EndDate3.SelectionStart = mc_EndDate2.SelectionStart;
+
+            lb_StartDate3.Text = lb_StartDate2.Text;
+            lb_EndDate3.Text = lb_EndDate2.Text;
 
             label23.Text = label10.Text;
             label22.Text = label9.Text;
@@ -4807,6 +5084,9 @@ namespace Excel_Parse
                 {
                     GetAdvertisingProductsListToShow2(advProductsList2, advProductsListOriginal2, GetCompareMode2(), pList2, GetDateMode2(), "", GetProductIdByName2(checkedProducts2));
                     filterAdvProductsList2 = new List<AdvertisingProductsModel> { };
+
+                    tb_TargetingSearch2.Enabled = true;
+                    cb_ExactSearch2.Enabled = true;
                 }
             }
             else if (byAdGroupsInCampaignsToolStripMenuItem2.Checked && !GetFirstAdGroup2().Equals(""))
@@ -4817,6 +5097,9 @@ namespace Excel_Parse
                 {
                     GetAdvertisingProductsListToShow2(advProductsList2, advProductsListOriginal2, GetCompareMode2(), pList2, GetDateMode2(), GetFirstAdGroup2(), GetProductIdByName2(checkedProducts2));
                     filterAdvProductsList2 = new List<AdvertisingProductsModel> { };
+
+                    tb_TargetingSearch2.Enabled = false;
+                    cb_ExactSearch2.Enabled = false;
                 }
             }
             else if (byCampaignInProductsToolStripMenuItem2.Checked && !GetFirstCampaign2().Equals(""))
@@ -4827,6 +5110,9 @@ namespace Excel_Parse
                 {
                     GetAdvertisingProductsListToShow2(advProductsList2, advProductsListOriginal2, GetCompareMode2(), pList2, GetDateMode2(), GetFirstCampaign2(), GetProductIdByName2(checkedProducts2));
                     filterAdvProductsList2 = new List<AdvertisingProductsModel> { };
+
+                    tb_TargetingSearch2.Enabled = false;
+                    cb_ExactSearch2.Enabled = false;
                 }
             }
             else if (byProductsToolStripMenuItem2.Checked && CheckForExistingProducts2())
@@ -4837,6 +5123,9 @@ namespace Excel_Parse
                 {
                     GetAdvertisingProductsListToShow2(advProductsList2, advProductsListOriginal2, GetCompareMode2(), pList2, GetDateMode2(), GetProductsAsins2(), GetProductIdByName2(checkedProducts2));
                     filterAdvProductsList2 = new List<AdvertisingProductsModel> { };
+
+                    tb_TargetingSearch2.Enabled = false;
+                    cb_ExactSearch2.Enabled = false;
                 }
             }
 
@@ -4975,7 +5264,7 @@ namespace Excel_Parse
         private void tb_TargetingSearch2_TextChanged(object sender, EventArgs e)
         {
             System.Windows.Forms.TextBox tb = (System.Windows.Forms.TextBox)sender;
-            SearchTargeting(tb.Text, dgv_AdvProducts2, dgv_AdGroups2, dgv_Targetings2, cb_ExactSearch2.Checked, 0);
+            SearchTargeting(tb.Text, dgv_AdvProducts2, dgv_AdGroups2, dgv_Targetings2, cb_ExactSearch2.Checked, 0, lb_SearchResultsCount2);
         }
 
         /* Включаем/выключаем Exact поиск и автоматически перебираем уже существующие результаты поиска в нужной таблице 2 */
@@ -4983,15 +5272,15 @@ namespace Excel_Parse
         {
             if (dgv_AdvProducts2.Visible)
             {
-                SearchTargeting(tb_TargetingSearch2.Text, dgv_AdvProducts2, cb_ExactSearch2.Checked);
+                SearchTargeting(tb_TargetingSearch2.Text, dgv_AdvProducts2, cb_ExactSearch2.Checked, lb_SearchResultsCount2);
             }
             else if (dgv_AdGroups2.Visible)
             {
-                SearchTargeting(tb_TargetingSearch2.Text, dgv_AdGroups2, cb_ExactSearch2.Checked);
+                SearchTargeting(tb_TargetingSearch2.Text, dgv_AdGroups2, cb_ExactSearch2.Checked, lb_SearchResultsCount2);
             }
             else if (dgv_Targetings2.Visible)
             {
-                SearchTargeting(tb_TargetingSearch2.Text, dgv_Targetings2, cb_ExactSearch2.Checked);
+                SearchTargeting(tb_TargetingSearch2.Text, dgv_Targetings2, cb_ExactSearch2.Checked, lb_SearchResultsCount2);
             }
         }
 
@@ -5025,7 +5314,7 @@ namespace Excel_Parse
 
                 MakeSummaryForFilteredTable(dgv_AdGroups2);
 
-                SearchTargeting(tb_TargetingSearch2.Text, dgv_AdGroups2, cb_ExactSearch2.Checked);
+                SearchTargeting(tb_TargetingSearch2.Text, dgv_AdGroups2, cb_ExactSearch2.Checked, lb_SearchResultsCount2);
 
                 //делаем видомости элементов корректными
                 dgv_AdGroups2.Visible = true;
@@ -5060,7 +5349,7 @@ namespace Excel_Parse
 
                 MakeSummaryForFilteredTable(dgv_Targetings2);
 
-                SearchTargeting(tb_TargetingSearch2.Text, dgv_Targetings2, cb_ExactSearch2.Checked);
+                SearchTargeting(tb_TargetingSearch2.Text, dgv_Targetings2, cb_ExactSearch2.Checked, lb_SearchResultsCount2);
 
                 //делаем видомости элементов корректными
                 dgv_Targetings2.Visible = true;
@@ -5101,7 +5390,7 @@ namespace Excel_Parse
 
                 MakeSummaryForFilteredTable(dgv_Targetings2);
 
-                SearchTargeting(tb_TargetingSearch2.Text, dgv_Targetings2, cb_ExactSearch2.Checked);
+                SearchTargeting(tb_TargetingSearch2.Text, dgv_Targetings2, cb_ExactSearch2.Checked, lb_SearchResultsCount2);
 
                 //делаем видомости элементов корректными
                 dgv_Targetings2.Visible = true;
@@ -5123,7 +5412,7 @@ namespace Excel_Parse
             dgv_Targetings2.Rows.Clear();
             dgv_Targetings2.Columns.Clear();
 
-            SearchTargeting(tb_TargetingSearch2.Text, dgv_AdvProducts2, cb_ExactSearch2.Checked);
+            SearchTargeting(tb_TargetingSearch2.Text, dgv_AdvProducts2, cb_ExactSearch2.Checked, lb_SearchResultsCount2);
 
             dgv_AdvProducts2.Visible = true;
         }
@@ -5291,6 +5580,223 @@ namespace Excel_Parse
                 }
             }
         }
+
+        
+
+        private void keywordsByImpressions_ToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed2, "impressions", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "keywords"));
+            tb_TargetingSearch5.Enabled = true;
+            cb_ExactSearch5.Enabled = true;
+        }
+
+        private void keywordsBySalesToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed2, "sales", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "keywords"));
+            tb_TargetingSearch5.Enabled = true;
+            cb_ExactSearch5.Enabled = true;
+        }
+
+        private void keywordsBySpendToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed2, "spend", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "keywords"));
+            tb_TargetingSearch5.Enabled = true;
+            cb_ExactSearch5.Enabled = true;
+        }
+
+        private void keywordsByOrdersToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed2, "orders", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "keywords"));
+            tb_TargetingSearch5.Enabled = true;
+            cb_ExactSearch5.Enabled = true;
+        }
+
+        private void keywordsByUnitsToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed2, "units", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "keywords"));
+            tb_TargetingSearch5.Enabled = true;
+            cb_ExactSearch5.Enabled = true;
+        }
+
+        private void keywordsByConversionToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed2, "conversion", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "keywords"));
+            tb_TargetingSearch5.Enabled = true;
+            cb_ExactSearch5.Enabled = true;
+        }
+
+
+        private void adGroupsByImpressions2toolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed2, "impressions", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "adgroups"));
+            tb_TargetingSearch5.Enabled = false;
+            cb_ExactSearch5.Enabled = false;
+        }
+
+        private void adGroupsBySalestoolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed2, "sales", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "adgroups"));
+            tb_TargetingSearch5.Enabled = false;
+            cb_ExactSearch5.Enabled = false;
+        }
+
+        private void adGroupsBySpendtoolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed2, "spend", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "adgroups"));
+            tb_TargetingSearch5.Enabled = false;
+            cb_ExactSearch5.Enabled = false;
+        }
+
+        private void adGroupsByOrderstoolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed2, "orders", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "adgroups"));
+            tb_TargetingSearch5.Enabled = false;
+            cb_ExactSearch5.Enabled = false;
+        }
+
+        private void adGroupsByUnitstoolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed2, "units", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "adgroups"));
+            tb_TargetingSearch5.Enabled = false;
+            cb_ExactSearch5.Enabled = false;
+        }
+
+        private void adGroupsByConversiontoolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed2, "conversion", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "adgroups"));
+            tb_TargetingSearch5.Enabled = false;
+            cb_ExactSearch5.Enabled = false;
+        }
+
+
+        private void campaignsByImpressionstoolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed2, "impressions", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "campaigns"));
+            tb_TargetingSearch5.Enabled = false;
+            cb_ExactSearch5.Enabled = false;
+        }
+
+        private void campaignsBySalestoolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed2, "sales", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "campaigns"));
+            tb_TargetingSearch5.Enabled = false;
+            cb_ExactSearch5.Enabled = false;
+        }
+
+        private void campaignsBySpendtoolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed2, "spend", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "campaigns"));
+            tb_TargetingSearch5.Enabled = false;
+            cb_ExactSearch5.Enabled = false;
+        }
+
+        private void campaignsByOrderstoolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed2, "orders", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "campaigns"));
+            tb_TargetingSearch5.Enabled = false;
+            cb_ExactSearch5.Enabled = false;
+        }
+
+        private void campaignsByUnitstoolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed2, "units", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "campaigns"));
+            tb_TargetingSearch5.Enabled = false;
+            cb_ExactSearch5.Enabled = false;
+        }
+
+        private void campaignsByConversiontoolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed2, "conversion", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "campaigns"));
+            tb_TargetingSearch5.Enabled = false;
+            cb_ExactSearch5.Enabled = false;
+        }
+
+        private void fullAnalyzeAllToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed2, "impressions", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "allinwindow"));
+            tb_TargetingSearch5.Enabled = true;
+            cb_ExactSearch5.Enabled = true;
+        }
+
+        /* Настраиваем видимость элементов меню в зависимости от того, с какой таблицы было вызвано */
+        private void contextMenuStripTab2_Opening(object sender, CancelEventArgs e)
+        {
+            keywordsSectionToolStripMenuItem2.Enabled = false;
+            AdGroupsSectionToolStripMenuItem2.Enabled = false;
+            campaignsSectionToolStripMenuItem2.Enabled = false;
+            fullAnalyzeToolStripMenuItem2.Enabled = false;
+
+            if (dgv_AdvProducts2.Visible)
+            {
+                analyzecontext2.Enabled = true;
+
+                if (dgv_AdvProducts2.Rows.Count > 0 && dgv_AdvProducts2.Columns[2].Visible && dgv_AdvProducts2.Columns[3].Visible && dgv_AdvProducts2.Columns[4].Visible)
+                {
+                    keywordsSectionToolStripMenuItem2.Enabled = true;
+                    AdGroupsSectionToolStripMenuItem2.Enabled = true;
+                    campaignsSectionToolStripMenuItem2.Enabled = true;
+                    fullAnalyzeToolStripMenuItem2.Enabled = true;
+                }
+                else if (dgv_AdvProducts2.Rows.Count > 0 && dgv_AdvProducts2.Columns[2].Visible && dgv_AdvProducts2.Columns[3].Visible)
+                {
+                    AdGroupsSectionToolStripMenuItem2.Enabled = true;
+                    campaignsSectionToolStripMenuItem2.Enabled = true;
+                }
+                else if (dgv_AdvProducts2.Rows.Count > 0 && dgv_AdvProducts2.Columns[2].Visible)
+                {
+                    campaignsSectionToolStripMenuItem2.Enabled = true;
+                }
+            }
+            else if (dgv_AdGroups2.Visible)
+            {
+                analyzecontext2.Enabled = true;
+
+                if (dgv_AdvProducts2.Rows.Count > 0 && dgv_AdvProducts2.Columns[2].Visible && dgv_AdvProducts2.Columns[3].Visible && dgv_AdvProducts2.Columns[4].Visible)
+                {
+                    keywordsSectionToolStripMenuItem2.Enabled = true;
+                    AdGroupsSectionToolStripMenuItem2.Enabled = true;
+                    campaignsSectionToolStripMenuItem2.Enabled = true;
+                    fullAnalyzeToolStripMenuItem2.Enabled = true;
+                }
+                else if (dgv_AdvProducts2.Rows.Count > 0 && dgv_AdvProducts2.Columns[2].Visible && dgv_AdvProducts2.Columns[3].Visible)
+                {
+                    AdGroupsSectionToolStripMenuItem2.Enabled = true;
+                    campaignsSectionToolStripMenuItem2.Enabled = true;
+                }
+                else if (dgv_AdvProducts2.Rows.Count > 0 && dgv_AdvProducts2.Columns[2].Visible)
+                {
+                    campaignsSectionToolStripMenuItem2.Enabled = true;
+                }
+
+                fullAnalyzeToolStripMenuItem2.Enabled = true;
+            }
+            else if (dgv_Targetings2.Visible)
+            {
+                analyzecontext2.Enabled = true;
+
+                if (dgv_AdvProducts2.Rows.Count > 0 && dgv_AdvProducts2.Columns[2].Visible && dgv_AdvProducts2.Columns[3].Visible && dgv_AdvProducts2.Columns[4].Visible)
+                {
+                    keywordsSectionToolStripMenuItem2.Enabled = true;
+                    AdGroupsSectionToolStripMenuItem2.Enabled = true;
+                    campaignsSectionToolStripMenuItem2.Enabled = true;
+                    fullAnalyzeToolStripMenuItem2.Enabled = true;
+                }
+                else if (dgv_AdvProducts2.Rows.Count > 0 && dgv_AdvProducts2.Columns[2].Visible && dgv_AdvProducts2.Columns[3].Visible)
+                {
+                    AdGroupsSectionToolStripMenuItem2.Enabled = true;
+                    campaignsSectionToolStripMenuItem2.Enabled = true;
+                }
+                else if (dgv_AdvProducts2.Rows.Count > 0 && dgv_AdvProducts2.Columns[2].Visible)
+                {
+                    campaignsSectionToolStripMenuItem2.Enabled = true;
+                }
+
+                fullAnalyzeToolStripMenuItem2.Enabled = true;
+            }
+            else
+                analyzecontext2.Enabled = false;
+        }
+
         //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------3--------------------------------------------------------------------------------------------------------------
         //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -6169,234 +6675,6 @@ namespace Excel_Parse
             disableTbClbFilter3();
         }
 
-
-
-
-
-
-
-
-
-
-
-        private void contextMenuStripTab1_Opening(object sender, CancelEventArgs e)
-        {
-            keywordsSectionToolStripMenuItem1.Enabled = false;
-            AdGroupsSectionToolStripMenuItem1.Enabled = false;
-            campaignsSectionToolStripMenuItem1.Enabled = false;
-
-            if (dgv_AdvProducts1.Visible)
-            {
-                //if (dgv_AdvProducts1.Rows.Count > 0)
-                //    if (dgv_AdvProducts1.CurrentCell.ColumnIndex != 4)
-                //        analyzecontext1.Enabled = false;
-                //    else
-                //        analyzecontext1.Enabled = true;
-                analyzecontext1.Enabled = true;
-
-                if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible && dgv_AdvProducts1.Columns[3].Visible && dgv_AdvProducts1.Columns[4].Visible)
-                {
-                    keywordsSectionToolStripMenuItem1.Enabled = true;
-                    AdGroupsSectionToolStripMenuItem1.Enabled = true;
-                    campaignsSectionToolStripMenuItem1.Enabled = true;
-                }
-                else if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible && dgv_AdvProducts1.Columns[3].Visible)
-                {
-                    AdGroupsSectionToolStripMenuItem1.Enabled = true;
-                    campaignsSectionToolStripMenuItem1.Enabled = true;
-                }
-                else if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible)
-                {
-                    campaignsSectionToolStripMenuItem1.Enabled = true;
-                }
-            }
-            else if (dgv_AdGroups1.Visible)
-            {
-                //if (dgv_AdGroups1.Rows.Count > 0)
-                //    if (dgv_AdGroups1.CurrentCell.ColumnIndex != 4)
-                //        analyzecontext1.Enabled = false;
-                //    else
-                //        analyzecontext1.Enabled = true;
-                analyzecontext1.Enabled = true;
-
-                if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible && dgv_AdvProducts1.Columns[3].Visible && dgv_AdvProducts1.Columns[4].Visible)
-                {
-                    keywordsSectionToolStripMenuItem1.Enabled = true;
-                    AdGroupsSectionToolStripMenuItem1.Enabled = true;
-                    campaignsSectionToolStripMenuItem1.Enabled = true;
-                }
-                else if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible && dgv_AdvProducts1.Columns[3].Visible)
-                {
-                    AdGroupsSectionToolStripMenuItem1.Enabled = true;
-                    campaignsSectionToolStripMenuItem1.Enabled = true;
-                }
-                else if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible)
-                {
-                    campaignsSectionToolStripMenuItem1.Enabled = true;
-                }
-            }
-            else if (dgv_Targetings1.Visible)
-            {
-                //if (dgv_Targetings1.Rows.Count > 0)
-                //    if (dgv_Targetings1.CurrentCell.ColumnIndex != 4)
-                //        analyzecontext1.Enabled = false;
-                //    else
-                //        analyzecontext1.Enabled = true;
-                analyzecontext1.Enabled = true;
-
-                if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible && dgv_AdvProducts1.Columns[3].Visible && dgv_AdvProducts1.Columns[4].Visible)
-                {
-                    keywordsSectionToolStripMenuItem1.Enabled = true;
-                    AdGroupsSectionToolStripMenuItem1.Enabled = true;
-                    campaignsSectionToolStripMenuItem1.Enabled = true;
-                }
-                else if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible && dgv_AdvProducts1.Columns[3].Visible)
-                {
-                    AdGroupsSectionToolStripMenuItem1.Enabled = true;
-                    campaignsSectionToolStripMenuItem1.Enabled = true;
-                }
-                else if (dgv_AdvProducts1.Rows.Count > 0 && dgv_AdvProducts1.Columns[2].Visible)
-                {
-                    campaignsSectionToolStripMenuItem1.Enabled = true;
-                }
-            }
-            else
-                analyzecontext1.Enabled = false;
-        }
-
-        private void tb_TargetingSearch4_TextChanged(object sender, EventArgs e)
-        {
-            System.Windows.Forms.TextBox tb = (System.Windows.Forms.TextBox)sender;
-            SearchTargeting(tb.Text, new DataGridView(), new DataGridView(), new DataGridView(), cb_ExactSearch4.Checked, 1);
-        }
-
-        private void tb_TargetingSearch5_TextChanged(object sender, EventArgs e)
-        {
-            System.Windows.Forms.TextBox tb = (System.Windows.Forms.TextBox)sender;
-            SearchTargeting(tb.Text, new DataGridView(), new DataGridView(), new DataGridView(), cb_ExactSearch4.Checked, 2);
-        }
-
-        private void tb_TargetingSearch6_TextChanged(object sender, EventArgs e)
-        {
-            System.Windows.Forms.TextBox tb = (System.Windows.Forms.TextBox)sender;
-            SearchTargeting(tb.Text, new DataGridView(), new DataGridView(), new DataGridView(), cb_ExactSearch4.Checked, 3);
-        }
-
-        private void cb_ExactSearch4_CheckedChanged(object sender, EventArgs e)
-        {
-            SearchTargeting(tb_TargetingSearch4.Text, dgv_Analyzed1, cb_ExactSearch4.Checked);
-        }
-
-        private void cb_ExactSearch5_CheckedChanged(object sender, EventArgs e)
-        {
-            SearchTargeting(tb_TargetingSearch5.Text, dgv_Analyzed2, cb_ExactSearch5.Checked);
-        }
-
-        private void cb_ExactSearch6_CheckedChanged(object sender, EventArgs e)
-        {
-            SearchTargeting(tb_TargetingSearch6.Text, dgv_Analyzed3, cb_ExactSearch6.Checked);
-        }
-        
-
-        private void keywordsByImpressions_ToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "impressions", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
-        }
-
-        private void keywordsBySalesToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "sales", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
-        }
-
-        private void keywordsBySpendToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "spend", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
-        }
-        
-        private void keywordsByOrdersToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "orders", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
-        }
-
-        private void keywordsByUnitsToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "units", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
-        }
-
-        private void keywordsByConversionToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "conversion", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
-        }
-
-
-        private void adGroupsByImpressions1toolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "impressions", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
-        }
-
-        private void adGroupsBySalestoolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "sales", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
-        }
-
-        private void adGroupsBySpendtoolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "spend", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
-        }
-
-        private void adGroupsByOrderstoolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "orders", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
-        }
-
-        private void adGroupsByUnitstoolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "units", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
-        }
-
-        private void adGroupsBytoolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "conversion", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
-        }
-
-
-        private void campaignsByImpressionstoolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            if (dgv_AdvProducts1.Visible)
-            {
-                analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "impressions", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
-            }
-        }
-
-        private void campaignsBySalestoolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "sales", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
-        }
-
-        private void campaignsBySpendtoolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "spend", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
-        }
-
-        private void campaignsByOrderstoolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "orders", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
-        }
-
-        private void campaignsByUnitstoolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "units", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
-        }
-
-        private void campaignsByConversiontoolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "conversion", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1));
-        }
-
-
-
-
-
         /* Отображаем/скрываем товары, у которых нет рекламных кампаний */
         private void cb_WithoutAdvertising3_CheckedChanged(object sender, EventArgs e)
         {
@@ -6469,7 +6747,7 @@ namespace Excel_Parse
                 disableTbClbFilter3(true);
             }
         }
-
+        
         /* Заносим имена кампаний в clb_AdGroups1 */
         private void Draw_clb_AdGroups3()
         {
@@ -7136,6 +7414,9 @@ namespace Excel_Parse
                 {
                     GetAdvertisingProductsListToShow3(advProductsList3, advProductsListOriginal3, GetCompareMode3(), pList3, GetDateMode3(), "", GetProductIdByName3(checkedProducts3));
                     filterAdvProductsList3 = new List<AdvertisingProductsModel> { };
+
+                    tb_TargetingSearch3.Enabled = true;
+                    cb_ExactSearch3.Enabled = true;
                 }
             }
             else if (byAdGroupsInCampaignsToolStripMenuItem3.Checked && !GetFirstAdGroup3().Equals(""))
@@ -7146,6 +7427,9 @@ namespace Excel_Parse
                 {
                     GetAdvertisingProductsListToShow3(advProductsList3, advProductsListOriginal3, GetCompareMode3(), pList3, GetDateMode3(), GetFirstAdGroup3(), GetProductIdByName3(checkedProducts3));
                     filterAdvProductsList3 = new List<AdvertisingProductsModel> { };
+
+                    tb_TargetingSearch3.Enabled = false;
+                    cb_ExactSearch3.Enabled = false;
                 }
             }
             else if (byCampaignInProductsToolStripMenuItem3.Checked && !GetFirstCampaign3().Equals(""))
@@ -7156,6 +7440,9 @@ namespace Excel_Parse
                 {
                     GetAdvertisingProductsListToShow3(advProductsList3, advProductsListOriginal3, GetCompareMode3(), pList3, GetDateMode3(), GetFirstCampaign3(), GetProductIdByName3(checkedProducts3));
                     filterAdvProductsList3 = new List<AdvertisingProductsModel> { };
+
+                    tb_TargetingSearch3.Enabled = false;
+                    cb_ExactSearch3.Enabled = false;
                 }
             }
             else if (byProductsToolStripMenuItem3.Checked && CheckForExistingProducts3())
@@ -7166,6 +7453,9 @@ namespace Excel_Parse
                 {
                     GetAdvertisingProductsListToShow3(advProductsList3, advProductsListOriginal3, GetCompareMode3(), pList3, GetDateMode3(), GetProductsAsins3(), GetProductIdByName3(checkedProducts3));
                     filterAdvProductsList3 = new List<AdvertisingProductsModel> { };
+
+                    tb_TargetingSearch3.Enabled = false;
+                    cb_ExactSearch3.Enabled = false;
                 }
             }
 
@@ -7319,6 +7609,9 @@ namespace Excel_Parse
             mc_StartDate1.SelectionStart = mc_StartDate3.SelectionStart;
             mc_EndDate1.SelectionStart = mc_EndDate3.SelectionStart;
 
+            lb_StartDate1.Text = lb_StartDate3.Text;
+            lb_EndDate1.Text = lb_EndDate3.Text;
+
             label3.Text = label23.Text;
             label2.Text = label22.Text;
 
@@ -7456,6 +7749,9 @@ namespace Excel_Parse
             mc_StartDate2.SelectionStart = mc_StartDate3.SelectionStart;
             mc_EndDate2.SelectionStart = mc_EndDate3.SelectionStart;
 
+            lb_StartDate2.Text = lb_StartDate3.Text;
+            lb_EndDate2.Text = lb_EndDate3.Text;
+
             label10.Text = label23.Text;
             label9.Text = label22.Text;
 
@@ -7590,7 +7886,7 @@ namespace Excel_Parse
         private void tb_TargetingSearch3_TextChanged(object sender, EventArgs e)
         {
             System.Windows.Forms.TextBox tb = (System.Windows.Forms.TextBox)sender;
-            SearchTargeting(tb.Text, dgv_AdvProducts3, dgv_AdGroups3, dgv_Targetings3, cb_ExactSearch3.Checked, 0);
+            SearchTargeting(tb.Text, dgv_AdvProducts3, dgv_AdGroups3, dgv_Targetings3, cb_ExactSearch3.Checked, 0, lb_SearchResultsCount3);
         }
 
         /* Включаем/выключаем Exact поиск и автоматически перебираем уже существующие результаты поиска в нужной таблице */
@@ -7598,15 +7894,15 @@ namespace Excel_Parse
         {
             if (dgv_AdvProducts3.Visible)
             {
-                SearchTargeting(tb_TargetingSearch3.Text, dgv_AdvProducts3, cb_ExactSearch3.Checked);
+                SearchTargeting(tb_TargetingSearch3.Text, dgv_AdvProducts3, cb_ExactSearch3.Checked, lb_SearchResultsCount3);
             }
             else if (dgv_AdGroups3.Visible)
             {
-                SearchTargeting(tb_TargetingSearch3.Text, dgv_AdGroups3, cb_ExactSearch3.Checked);
+                SearchTargeting(tb_TargetingSearch3.Text, dgv_AdGroups3, cb_ExactSearch3.Checked, lb_SearchResultsCount3);
             }
             else if (dgv_Targetings3.Visible)
             {
-                SearchTargeting(tb_TargetingSearch3.Text, dgv_Targetings3, cb_ExactSearch3.Checked);
+                SearchTargeting(tb_TargetingSearch3.Text, dgv_Targetings3, cb_ExactSearch3.Checked, lb_SearchResultsCount3);
             }
         }
 
@@ -7640,7 +7936,7 @@ namespace Excel_Parse
 
                 MakeSummaryForFilteredTable(dgv_AdGroups3);
 
-                SearchTargeting(tb_TargetingSearch3.Text, dgv_AdGroups3, cb_ExactSearch3.Checked);
+                SearchTargeting(tb_TargetingSearch3.Text, dgv_AdGroups3, cb_ExactSearch3.Checked, lb_SearchResultsCount3);
 
                 //делаем видомости элементов корректными
                 dgv_AdGroups3.Visible = true;
@@ -7675,7 +7971,7 @@ namespace Excel_Parse
 
                 MakeSummaryForFilteredTable(dgv_Targetings3);
 
-                SearchTargeting(tb_TargetingSearch3.Text, dgv_Targetings3, cb_ExactSearch3.Checked);
+                SearchTargeting(tb_TargetingSearch3.Text, dgv_Targetings3, cb_ExactSearch3.Checked, lb_SearchResultsCount3);
 
                 //делаем видомости элементов корректными
                 dgv_Targetings3.Visible = true;
@@ -7716,7 +8012,7 @@ namespace Excel_Parse
 
                 MakeSummaryForFilteredTable(dgv_Targetings3);
 
-                SearchTargeting(tb_TargetingSearch3.Text, dgv_Targetings3, cb_ExactSearch3.Checked);
+                SearchTargeting(tb_TargetingSearch3.Text, dgv_Targetings3, cb_ExactSearch3.Checked, lb_SearchResultsCount3);
 
                 //делаем видомости элементов корректными
                 dgv_Targetings3.Visible = true;
@@ -7738,7 +8034,7 @@ namespace Excel_Parse
             dgv_Targetings3.Rows.Clear();
             dgv_Targetings3.Columns.Clear();
 
-            SearchTargeting(tb_TargetingSearch3.Text, dgv_AdvProducts3, cb_ExactSearch3.Checked);
+            SearchTargeting(tb_TargetingSearch3.Text, dgv_AdvProducts3, cb_ExactSearch3.Checked, lb_SearchResultsCount3);
 
             dgv_AdvProducts3.Visible = true;
         }
@@ -7908,31 +8204,223 @@ namespace Excel_Parse
             }
         }
 
+        
+
+        private void keywordsByImpressions_ToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed3, "impressions", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "keywords"));
+            tb_TargetingSearch6.Enabled = true;
+            cb_ExactSearch6.Enabled = true;
+        }
+
+        private void keywordsBySalesToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed3, "sales", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "keywords"));
+            tb_TargetingSearch6.Enabled = true;
+            cb_ExactSearch6.Enabled = true;
+        }
+
+        private void keywordsBySpendToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed3, "spend", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "keywords"));
+            tb_TargetingSearch6.Enabled = true;
+            cb_ExactSearch6.Enabled = true;
+        }
+
+        private void keywordsByOrdersToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed3, "orders", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "keywords"));
+            tb_TargetingSearch6.Enabled = true;
+            cb_ExactSearch6.Enabled = true;
+        }
+
+        private void keywordsByUnitsToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed3, "units", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "keywords"));
+            tb_TargetingSearch6.Enabled = true;
+            cb_ExactSearch6.Enabled = true;
+        }
+
+        private void keywordsByConversionToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed3, "conversion", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "keywords"));
+            tb_TargetingSearch6.Enabled = true;
+            cb_ExactSearch6.Enabled = true;
+        }
 
 
+        private void adGroupsByImpressions3toolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed3, "impressions", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "adgroups"));
+            tb_TargetingSearch6.Enabled = false;
+            cb_ExactSearch6.Enabled = false;
+        }
+
+        private void adGroupsBySalestoolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed3, "sales", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "adgroups"));
+            tb_TargetingSearch6.Enabled = false;
+            cb_ExactSearch6.Enabled = false;
+        }
+
+        private void adGroupsBySpendtoolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed3, "spend", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "adgroups"));
+            tb_TargetingSearch6.Enabled = false;
+            cb_ExactSearch6.Enabled = false;
+        }
+
+        private void adGroupsByOrderstoolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed3, "orders", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "adgroups"));
+            tb_TargetingSearch6.Enabled = false;
+            cb_ExactSearch6.Enabled = false;
+        }
+
+        private void adGroupsByUnitstoolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed3, "units", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "adgroups"));
+            tb_TargetingSearch6.Enabled = false;
+            cb_ExactSearch6.Enabled = false;
+        }
+
+        private void adGroupsByConversiontoolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed3, "conversion", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "adgroups"));
+            tb_TargetingSearch6.Enabled = false;
+            cb_ExactSearch6.Enabled = false;
+        }
 
 
+        private void campaignsByImpressionstoolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed3, "impressions", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "campaigns"));
+            tb_TargetingSearch6.Enabled = false;
+            cb_ExactSearch6.Enabled = false;
+        }
 
+        private void campaignsBySalestoolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed3, "sales", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "campaigns"));
+            tb_TargetingSearch6.Enabled = false;
+            cb_ExactSearch6.Enabled = false;
+        }
 
+        private void campaignsBySpendtoolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed3, "spend", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "campaigns"));
+            tb_TargetingSearch6.Enabled = false;
+            cb_ExactSearch6.Enabled = false;
+        }
 
+        private void campaignsByOrderstoolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed3, "orders", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "campaigns"));
+            tb_TargetingSearch6.Enabled = false;
+            cb_ExactSearch6.Enabled = false;
+        }
 
+        private void campaignsByUnitstoolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed3, "units", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "campaigns"));
+            tb_TargetingSearch6.Enabled = false;
+            cb_ExactSearch6.Enabled = false;
+        }
 
+        private void campaignsByConversiontoolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed3, "conversion", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "campaigns"));
+            tb_TargetingSearch6.Enabled = false;
+            cb_ExactSearch6.Enabled = false;
+        }
 
+        private void fullAnalyzeAllToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed3, "impressions", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "allinwindow"));
+            tb_TargetingSearch6.Enabled = true;
+            cb_ExactSearch6.Enabled = true;
+        }
 
+        /* Настраиваем видимость элементов меню в зависимости от того, с какой таблицы было вызвано */
+        private void contextMenuStripTab3_Opening(object sender, CancelEventArgs e)
+        {
+            keywordsSectionToolStripMenuItem3.Enabled = false;
+            AdGroupsSectionToolStripMenuItem3.Enabled = false;
+            campaignsSectionToolStripMenuItem3.Enabled = false;
+            fullAnalyzeToolStripMenuItem3.Enabled = false;
 
+            if (dgv_AdvProducts3.Visible)
+            {
+                analyzecontext3.Enabled = true;
 
+                if (dgv_AdvProducts3.Rows.Count > 0 && dgv_AdvProducts3.Columns[2].Visible && dgv_AdvProducts3.Columns[3].Visible && dgv_AdvProducts3.Columns[4].Visible)
+                {
+                    keywordsSectionToolStripMenuItem3.Enabled = true;
+                    AdGroupsSectionToolStripMenuItem3.Enabled = true;
+                    campaignsSectionToolStripMenuItem3.Enabled = true;
+                    fullAnalyzeToolStripMenuItem3.Enabled = true;
+                }
+                else if (dgv_AdvProducts3.Rows.Count > 0 && dgv_AdvProducts3.Columns[2].Visible && dgv_AdvProducts3.Columns[3].Visible)
+                {
+                    AdGroupsSectionToolStripMenuItem3.Enabled = true;
+                    campaignsSectionToolStripMenuItem3.Enabled = true;
+                }
+                else if (dgv_AdvProducts3.Rows.Count > 0 && dgv_AdvProducts3.Columns[2].Visible)
+                {
+                    campaignsSectionToolStripMenuItem3.Enabled = true;
+                }
+            }
+            else if (dgv_AdGroups3.Visible)
+            {
+                analyzecontext3.Enabled = true;
 
+                if (dgv_AdvProducts3.Rows.Count > 0 && dgv_AdvProducts3.Columns[2].Visible && dgv_AdvProducts3.Columns[3].Visible && dgv_AdvProducts3.Columns[4].Visible)
+                {
+                    keywordsSectionToolStripMenuItem3.Enabled = true;
+                    AdGroupsSectionToolStripMenuItem3.Enabled = true;
+                    campaignsSectionToolStripMenuItem3.Enabled = true;
+                    fullAnalyzeToolStripMenuItem3.Enabled = true;
+                }
+                else if (dgv_AdvProducts3.Rows.Count > 0 && dgv_AdvProducts3.Columns[2].Visible && dgv_AdvProducts3.Columns[3].Visible)
+                {
+                    AdGroupsSectionToolStripMenuItem3.Enabled = true;
+                    campaignsSectionToolStripMenuItem3.Enabled = true;
+                }
+                else if (dgv_AdvProducts3.Rows.Count > 0 && dgv_AdvProducts3.Columns[2].Visible)
+                {
+                    campaignsSectionToolStripMenuItem3.Enabled = true;
+                }
 
+                fullAnalyzeToolStripMenuItem3.Enabled = true;
+            }
+            else if (dgv_Targetings3.Visible)
+            {
+                analyzecontext3.Enabled = true;
 
+                if (dgv_AdvProducts3.Rows.Count > 0 && dgv_AdvProducts3.Columns[2].Visible && dgv_AdvProducts3.Columns[3].Visible && dgv_AdvProducts3.Columns[4].Visible)
+                {
+                    keywordsSectionToolStripMenuItem3.Enabled = true;
+                    AdGroupsSectionToolStripMenuItem3.Enabled = true;
+                    campaignsSectionToolStripMenuItem3.Enabled = true;
+                    fullAnalyzeToolStripMenuItem3.Enabled = true;
+                }
+                else if (dgv_AdvProducts3.Rows.Count > 0 && dgv_AdvProducts3.Columns[2].Visible && dgv_AdvProducts3.Columns[3].Visible)
+                {
+                    AdGroupsSectionToolStripMenuItem3.Enabled = true;
+                    campaignsSectionToolStripMenuItem3.Enabled = true;
+                }
+                else if (dgv_AdvProducts3.Rows.Count > 0 && dgv_AdvProducts3.Columns[2].Visible)
+                {
+                    campaignsSectionToolStripMenuItem3.Enabled = true;
+                }
 
+                fullAnalyzeToolStripMenuItem3.Enabled = true;
+            }
+            else
+                analyzecontext3.Enabled = false;
+        }
 
-
-
-
-
-
-
-
+        
 
 
         //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -8801,8 +9289,11 @@ namespace Excel_Parse
         }
 
         /* UNIVERSAL_METHOD метод поиска ключа в таблицАХ по вхождению введенного пользователем текста */
-        private void SearchTargeting(string _text, DataGridView _dgv_AdvProducts, DataGridView _dgv_AdGroups, DataGridView _dgv_Targetings, bool _ExactSearch, int dgvAnalyzedIndex)
+        private void SearchTargeting(string _text, DataGridView _dgv_AdvProducts, DataGridView _dgv_AdGroups, DataGridView _dgv_Targetings, bool _ExactSearch, int dgvAnalyzedIndex, System.Windows.Forms.Label _lb_SearchResultsCount)
         {
+            int count = 0;
+            bool flag = false;
+
             if (_ExactSearch)
             {
                 if (_dgv_AdvProducts.Visible && dgvAnalyzedIndex == 0)
@@ -8810,7 +9301,15 @@ namespace Excel_Parse
                     for (int i = 1; i < _dgv_AdvProducts.RowCount; i++)
                     {
                         if (_dgv_AdvProducts.Rows[i].Cells[4].Value.ToString().ToLower().Equals(_text) && _text != "")
+                        {
                             _dgv_AdvProducts.Rows[i].Cells[4].Style.BackColor = btn_ColorChoose.BackColor;
+                            count++;
+                            if (!flag)
+                            {
+                                _dgv_AdvProducts.CurrentCell = _dgv_AdvProducts.Rows[i].Cells[4];
+                                flag = true;
+                            }
+                        }
                         else
                             _dgv_AdvProducts.Rows[i].Cells[4].Style.BackColor = Color.White;
                     }
@@ -8820,7 +9319,15 @@ namespace Excel_Parse
                     for (int i = 1; i < _dgv_AdGroups.RowCount; i++)
                     {
                         if (_dgv_AdGroups.Rows[i].Cells[4].Value.ToString().ToLower().Equals(_text) && _text != "")
+                        {
                             _dgv_AdGroups.Rows[i].Cells[4].Style.BackColor = btn_ColorChoose.BackColor;
+                            count++;
+                            if (!flag)
+                            {
+                                _dgv_AdGroups.CurrentCell = _dgv_AdGroups.Rows[i].Cells[4];
+                                flag = true;
+                            }
+                        }
                         else
                             _dgv_AdGroups.Rows[i].Cells[4].Style.BackColor = Color.White;
                     }
@@ -8830,7 +9337,15 @@ namespace Excel_Parse
                     for (int i = 1; i < _dgv_Targetings.RowCount; i++)
                     {
                         if (_dgv_Targetings.Rows[i].Cells[4].Value.ToString().ToLower().Equals(_text) && _text != "")
+                        {
                             _dgv_Targetings.Rows[i].Cells[4].Style.BackColor = btn_ColorChoose.BackColor;
+                            count++;
+                            if (!flag)
+                            {
+                                _dgv_Targetings.CurrentCell = _dgv_Targetings.Rows[i].Cells[4];
+                                flag = true;
+                            }
+                        }
                         else
                             _dgv_Targetings.Rows[i].Cells[4].Style.BackColor = Color.White;
                     }
@@ -8841,7 +9356,15 @@ namespace Excel_Parse
                     for (int i = 0; i < dgv_Analyzed1.RowCount; i++)
                     {
                         if (dgv_Analyzed1.Rows[i].Cells[4].Value.ToString().ToLower().Equals(_text) && _text != "")
+                        {
                             dgv_Analyzed1.Rows[i].Cells[4].Style.BackColor = btn_ColorChoose.BackColor;
+                            count++;
+                            if (!flag)
+                            {
+                                dgv_Analyzed1.CurrentCell = dgv_Analyzed1.Rows[i].Cells[4];
+                                flag = true;
+                            }
+                        }
                         else
                             dgv_Analyzed1.Rows[i].Cells[4].Style.BackColor = Color.White;
                     }
@@ -8851,7 +9374,15 @@ namespace Excel_Parse
                     for (int i = 0; i < dgv_Analyzed2.RowCount; i++)
                     {
                         if (dgv_Analyzed2.Rows[i].Cells[4].Value.ToString().ToLower().Equals(_text) && _text != "")
+                        {
                             dgv_Analyzed2.Rows[i].Cells[4].Style.BackColor = btn_ColorChoose.BackColor;
+                            count++;
+                            if (!flag)
+                            {
+                                dgv_Analyzed2.CurrentCell = dgv_Analyzed2.Rows[i].Cells[4];
+                                flag = true;
+                            }
+                        }
                         else
                             dgv_Analyzed2.Rows[i].Cells[4].Style.BackColor = Color.White;
                     }
@@ -8861,7 +9392,15 @@ namespace Excel_Parse
                     for (int i = 0; i < dgv_Analyzed3.RowCount; i++)
                     {
                         if (dgv_Analyzed3.Rows[i].Cells[4].Value.ToString().ToLower().Equals(_text) && _text != "")
+                        {
                             dgv_Analyzed3.Rows[i].Cells[4].Style.BackColor = btn_ColorChoose.BackColor;
+                            count++;
+                            if (!flag)
+                            {
+                                dgv_Analyzed3.CurrentCell = dgv_Analyzed3.Rows[i].Cells[4];
+                                flag = true;
+                            }
+                        }
                         else
                             dgv_Analyzed3.Rows[i].Cells[4].Style.BackColor = Color.White;
                     }
@@ -8874,7 +9413,15 @@ namespace Excel_Parse
                     for (int i = 1; i < _dgv_AdvProducts.RowCount; i++)
                     {
                         if (_dgv_AdvProducts.Rows[i].Cells[4].Value.ToString().ToLower().Contains(_text) && _text != "")
+                        {
                             _dgv_AdvProducts.Rows[i].Cells[4].Style.BackColor = btn_ColorChoose.BackColor;
+                            count++;
+                            if (!flag)
+                            {
+                                _dgv_AdvProducts.CurrentCell = _dgv_AdvProducts.Rows[i].Cells[4];
+                                flag = true;
+                            }
+                        }
                         else
                             _dgv_AdvProducts.Rows[i].Cells[4].Style.BackColor = Color.White;
                     }
@@ -8884,7 +9431,15 @@ namespace Excel_Parse
                     for (int i = 1; i < _dgv_AdGroups.RowCount; i++)
                     {
                         if (_dgv_AdGroups.Rows[i].Cells[4].Value.ToString().ToLower().Contains(_text) && _text != "")
+                        {
                             _dgv_AdGroups.Rows[i].Cells[4].Style.BackColor = btn_ColorChoose.BackColor;
+                            count++;
+                            if (!flag)
+                            {
+                                _dgv_AdGroups.CurrentCell = _dgv_AdGroups.Rows[i].Cells[4];
+                                flag = true;
+                            }
+                        }
                         else
                             _dgv_AdGroups.Rows[i].Cells[4].Style.BackColor = Color.White;
                     }
@@ -8894,7 +9449,15 @@ namespace Excel_Parse
                     for (int i = 1; i < _dgv_Targetings.RowCount; i++)
                     {
                         if (_dgv_Targetings.Rows[i].Cells[4].Value.ToString().ToLower().Contains(_text) && _text != "")
+                        {
                             _dgv_Targetings.Rows[i].Cells[4].Style.BackColor = btn_ColorChoose.BackColor;
+                            count++;
+                            if (!flag)
+                            {
+                                _dgv_Targetings.CurrentCell = _dgv_Targetings.Rows[i].Cells[4];
+                                flag = true;
+                            }
+                        }
                         else
                             _dgv_Targetings.Rows[i].Cells[4].Style.BackColor = Color.White;
                     }
@@ -8904,8 +9467,16 @@ namespace Excel_Parse
                 {
                     for (int i = 0; i < dgv_Analyzed1.RowCount; i++)
                     {
-                        if (dgv_Analyzed1.Rows[i].Cells[4].Value.ToString().ToLower().Equals(_text) && _text != "")
+                        if (dgv_Analyzed1.Rows[i].Cells[4].Value.ToString().ToLower().Contains(_text) && _text != "")
+                        {
                             dgv_Analyzed1.Rows[i].Cells[4].Style.BackColor = btn_ColorChoose.BackColor;
+                            count++;
+                            if (!flag)
+                            {
+                                dgv_Analyzed1.CurrentCell = dgv_Analyzed1.Rows[i].Cells[4];
+                                flag = true;
+                            }
+                        }
                         else
                             dgv_Analyzed1.Rows[i].Cells[4].Style.BackColor = Color.White;
                     }
@@ -8914,8 +9485,16 @@ namespace Excel_Parse
                 {
                     for (int i = 0; i < dgv_Analyzed2.RowCount; i++)
                     {
-                        if (dgv_Analyzed2.Rows[i].Cells[4].Value.ToString().ToLower().Equals(_text) && _text != "")
+                        if (dgv_Analyzed2.Rows[i].Cells[4].Value.ToString().ToLower().Contains(_text) && _text != "")
+                        {
                             dgv_Analyzed2.Rows[i].Cells[4].Style.BackColor = btn_ColorChoose.BackColor;
+                            count++;
+                            if (!flag)
+                            {
+                                dgv_Analyzed2.CurrentCell = dgv_Analyzed2.Rows[i].Cells[4];
+                                flag = true;
+                            }
+                        }
                         else
                             dgv_Analyzed2.Rows[i].Cells[4].Style.BackColor = Color.White;
                     }
@@ -8924,23 +9503,37 @@ namespace Excel_Parse
                 {
                     for (int i = 0; i < dgv_Analyzed3.RowCount; i++)
                     {
-                        if (dgv_Analyzed3.Rows[i].Cells[4].Value.ToString().ToLower().Equals(_text) && _text != "")
+                        if (dgv_Analyzed3.Rows[i].Cells[4].Value.ToString().ToLower().Contains(_text) && _text != "")
+                        {
                             dgv_Analyzed3.Rows[i].Cells[4].Style.BackColor = btn_ColorChoose.BackColor;
+                            count++;
+                            if (!flag)
+                            {
+                                dgv_Analyzed3.CurrentCell = dgv_Analyzed3.Rows[i].Cells[4];
+                                flag = true;
+                            }
+                        }
                         else
                             dgv_Analyzed3.Rows[i].Cells[4].Style.BackColor = Color.White;
                     }
                 }
             }
+
+            _lb_SearchResultsCount.Text = "(Результатов: " + count + ")";
         }
 
         /* UNIVERSAL_METHOD метод поиска ключа в таблицЕ по вхождению введенного пользователем текста */
-        private void SearchTargeting(string _text, DataGridView _dgv, bool _ExactSearch)
+        private void SearchTargeting(string _text, DataGridView _dgv, bool _ExactSearch, System.Windows.Forms.Label _label)
         {
+            int count = 0;
             if (_ExactSearch)
                 for (int i = 1; i < _dgv.RowCount; i++)
                 {
                     if (_dgv.Rows[i].Cells[4].Value.ToString().ToLower().Equals(_text) && _text != "")
+                    {
                         _dgv.Rows[i].Cells[4].Style.BackColor = btn_ColorChoose.BackColor;
+                        count++;
+                    }
                     else
                         _dgv.Rows[i].Cells[4].Style.BackColor = Color.White;
                 }
@@ -8948,10 +9541,14 @@ namespace Excel_Parse
                 for (int i = 1; i < _dgv.RowCount; i++)
                 {
                     if (_dgv.Rows[i].Cells[4].Value.ToString().ToLower().Contains(_text) && _text != "")
+                    {
                         _dgv.Rows[i].Cells[4].Style.BackColor = btn_ColorChoose.BackColor;
+                        count++;
+                    }
                     else
                         _dgv.Rows[i].Cells[4].Style.BackColor = Color.White;
                 }
+            _label.Text = "(Результатов: " + count + ")";
         }
         
         /* UNIVERSAL_METHOD метод выбора цвета, которым будут помечаться ключи при поиске через textBox */
@@ -9140,30 +9737,125 @@ namespace Excel_Parse
         }
 
         /* UNIVERSAL METHOD Получаем advProductList по выделенным строкам в заданной DataGridView */
-        private List<AdvertisingProductsModel> GenerateAdvProductListFromDGV(DataGridView _dgv)
+        private List<AdvertisingProductsModel> GenerateAdvProductListFromDGV(DataGridView _dgv, string _mode)
         {
-            List<int> rowsIndexes = new List<int> { };
-            for (int i = 0; i < _dgv.SelectedCells.Count; i++)
-            {
-                if (!rowsIndexes.Contains(_dgv.SelectedCells[i].RowIndex))
-                    rowsIndexes.Add(_dgv.SelectedCells[i].RowIndex);
-            }
-
             List<AdvertisingProductsModel> finalList = new List<AdvertisingProductsModel> { };
-         
-            for (int i = 0; i < rowsIndexes.Count; i++)
-            {
-                AdvertisingProductsModel tmpObj = new AdvertisingProductsModel();
 
-                for (int j = 1; j < tmpObj.ColumnCount; j++)
+            if (_mode.Equals("keywords")) 
+            {
+                List<int> rowsIndexes = new List<int> { };
+                for (int i = 0; i < _dgv.SelectedCells.Count; i++)
                 {
-                    tmpObj.WriteData(j, _dgv.Rows[rowsIndexes[i]].Cells[j].Value);
+                    if (!rowsIndexes.Contains(_dgv.SelectedCells[i].RowIndex))
+                        rowsIndexes.Add(_dgv.SelectedCells[i].RowIndex);
+                }                
+
+                for (int i = 0; i < rowsIndexes.Count; i++)
+                {
+                    AdvertisingProductsModel tmpObj = new AdvertisingProductsModel();
+
+                    for (int j = 1; j < tmpObj.ColumnCount; j++)
+                    {
+                        tmpObj.WriteData(j, _dgv.Rows[rowsIndexes[i]].Cells[j].Value);
+                    }
+
+                    finalList.Add(tmpObj);
+                }
+            }
+            else if (_mode.Equals("adgroups")) 
+            {
+                List<string> used = new List<string> { };
+                List<string> adgroups = new List<string> { };
+                List<string> campaigns = new List<string> { };
+
+                List<int> rowsIndexes = new List<int> { };
+                for (int i = 0; i < _dgv.SelectedCells.Count; i++)
+                {
+                    if (!rowsIndexes.Contains(_dgv.SelectedCells[i].RowIndex))
+                        rowsIndexes.Add(_dgv.SelectedCells[i].RowIndex);
                 }
 
-                finalList.Add(tmpObj);
+                for (int i = 0; i < rowsIndexes.Count; i++)
+                {
+                    if (!used.Contains(_dgv.Rows[rowsIndexes[i]].Cells[3].Value.ToString() + _dgv.Rows[rowsIndexes[i]].Cells[2].Value.ToString()))
+                    {
+                        adgroups.Add(_dgv.Rows[rowsIndexes[i]].Cells[3].Value.ToString());
+                        campaigns.Add(_dgv.Rows[rowsIndexes[i]].Cells[2].Value.ToString());
+                        used.Add(_dgv.Rows[rowsIndexes[i]].Cells[3].Value.ToString() + _dgv.Rows[rowsIndexes[i]].Cells[2].Value.ToString());
+                    }
+                }
+
+                for (int i = 1; i < _dgv.Rows.Count; i++)
+                {
+                    for (int j = 0; j < adgroups.Count; j++)
+                    {
+                        if (_dgv.Rows[i].Cells[3].Value.ToString().Equals(adgroups[j]) && _dgv.Rows[i].Cells[2].Value.ToString().Equals(campaigns[j]))
+                        {
+                            AdvertisingProductsModel tmpObj = new AdvertisingProductsModel();
+
+                            for (int k = 1; k < tmpObj.ColumnCount; k++)
+                            {
+                                tmpObj.WriteData(k, _dgv.Rows[i].Cells[k].Value);
+                            }
+
+                            finalList.Add(tmpObj);
+                        }
+                    }
+                }
+            }
+            else if (_mode.Equals("campaigns"))
+            {
+                List<string> campaigns = new List<string> { };
+
+                List<int> rowsIndexes = new List<int> { };
+                for (int i = 0; i < _dgv.SelectedCells.Count; i++)
+                {
+                    if (!rowsIndexes.Contains(_dgv.SelectedCells[i].RowIndex))
+                        rowsIndexes.Add(_dgv.SelectedCells[i].RowIndex);
+                }
+
+                for (int i = 0; i < rowsIndexes.Count; i++)
+                {
+                    if (!campaigns.Contains(_dgv.Rows[rowsIndexes[i]].Cells[2].Value.ToString()))
+                    {
+                        campaigns.Add(_dgv.Rows[rowsIndexes[i]].Cells[2].Value.ToString());
+                    }
+                }
+
+                for (int i = 1; i < _dgv.Rows.Count; i++)
+                {
+                    for (int j = 0; j < campaigns.Count; j++)
+                    {
+                        if (_dgv.Rows[i].Cells[2].Value.ToString().Equals(campaigns[j]))
+                        {
+                            AdvertisingProductsModel tmpObj = new AdvertisingProductsModel();
+
+                            for (int k = 1; k < tmpObj.ColumnCount; k++)
+                            {
+                                tmpObj.WriteData(k, _dgv.Rows[i].Cells[k].Value);
+                            }
+
+                            finalList.Add(tmpObj);
+                        }
+                    }
+                }
+            }
+            else if (_mode.Equals("allinwindow"))
+            {
+                for (int i = 1; i < _dgv.Rows.Count; i++)
+                {
+                    AdvertisingProductsModel tmpObj = new AdvertisingProductsModel();
+
+                    for (int j = 1; j < tmpObj.ColumnCount; j++)
+                    {
+                        tmpObj.WriteData(j, _dgv.Rows[i].Cells[j].Value);
+                    }
+
+                    finalList.Add(tmpObj);
+                }
             }
 
             return finalList;
-        }
+        }        
     }
 }

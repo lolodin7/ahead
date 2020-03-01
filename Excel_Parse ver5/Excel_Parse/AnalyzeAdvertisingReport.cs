@@ -1072,6 +1072,7 @@ namespace Excel_Parse
             _dgv_Analyzed.Columns.Add("diffperc", "Разница %");
 
             _dgv_Analyzed.Columns[5].Visible = false;
+            _dgv_Analyzed.Columns[4].Visible = false;
             //_dgv_AdvProducts.Columns[0].Width = 70;
 
             _dgv_Analyzed.Columns[0].Width = 200;

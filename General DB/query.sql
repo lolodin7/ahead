@@ -715,3 +715,22 @@ SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-02-03 00:00
 SELECT * FROM [User] WHERE [Login] = 'test2'
 
 SELECT AdGroupName FROM [AdvertisingProducts] WHERE [ProductId] = 23 and [CampaignName] = 'PDW1 - Broad'
+
+SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-02-12 00:00:00' and '2020-02-19 23:59:59' and [ProductId] = 23 and [CampaignId] = 46251721 and [AdGroupName] = 'Phone+cell phone' and Targeting = 'microphone for phone'
+SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-02-12 00:00:00' and '2020-02-19 23:59:59' and [ProductId] = 23 and [CampaignId] = 46251721 and [AdGroupName] = 'Iphone' and Targeting = 'lavalier microphone iphone x'
+SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-02-12 00:00:00' and '2020-02-19 23:59:59' and [ProductId] = 23 and [CampaignId] = 46251721 and [AdGroupName] = 'PowerDeWise' and Targeting = 'power dewise microphone'
+SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-02-12 00:00:00' and '2020-02-19 23:59:59' and [ProductId] = 23 and [CampaignId] = 46251721 and [AdGroupName] = 'Lapel' and Targeting = 'lapel microphone'
+
+SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-02-14 00:00:00' and '2020-02-19 23:59:59' and [ProductId] = 23 and [CampaignName] = 'PDW1 - Broad'
+
+
+
+
+SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-02-20 00:00:00' and '2020-02-25 23:59:59' and ([MarketPlaceId] = 1) and ([ProductId] = 23 or [ProductId] = 25) and ([CampaignId] = 46251721 or [CampaignId] = 56394289 or [CampaignId] = 37381805 or [CampaignId] = 16730646 or [CampaignId] = 96031789 or [CampaignId] = 56880145 or [CampaignId] = 12835453)
+
+SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-02-20 00:00:00' and '2020-02-25 23:59:59' and ([MarketPlaceId] = 1) and ([ProductId] = 23) and ([CampaignId] = 46251721 or [CampaignId] = 56394289 or [CampaignId] = 37381805 or [CampaignId] = 16730646 or [CampaignId] = 96031789 or [CampaignId] = 56880145 or [CampaignId] = 12835453)
+
+SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-02-20 00:00:00' and '2020-02-25 23:59:59' and ([MarketPlaceId] = 1) and ([ProductId] = 23 or [ProductId] = 25) and ([CampaignId] = 46251721 or [CampaignId] = 56394289 or [CampaignId] = 37381805 or [CampaignId] = 16730646 or [CampaignId] = 96031789 or [CampaignId] = 56880145 or [CampaignId] = 12835453)
+
+SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-02-20 00:00:00' and '2020-02-25 23:59:59' and ([MarketPlaceId] = 1) and ([ProductId] = 23 or [ProductId] = 25) and [CampaignName] = 'PDW1 - Broad'
+SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-02-14 00:00:00' and '2020-02-19 23:59:59' and ([MarketPlaceId] = 1) and ([ProductId] = 23 or [ProductId] = 25) and [CampaignName] = 'PDW1 - Broad'

@@ -32,10 +32,38 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportAdvertisingView));
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.lb_SearchResultsCount3 = new System.Windows.Forms.Label();
             this.dgv_Targetings3 = new System.Windows.Forms.DataGridView();
             this.contextMenuStripTab3 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.context3CopyToTab1 = new System.Windows.Forms.ToolStripMenuItem();
             this.context3CopyToTab2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.analyzecontext3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsSectionToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsByImpressions_ToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsBySalesToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsBySpendToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsByOrdersToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsByUnitsToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsByConversionToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.AdGroupsSectionToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroupsByImpressions3toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroupsBySalestoolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroupsBySpendtoolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroupsByOrderstoolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroupsByUnitstoolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroupsByConversiontoolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsSectionToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsByImpressionstoolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsBySalestoolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsBySpendtoolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsByOrderstoolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsByUnitstoolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsByConversiontoolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.fullAnalyzeToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.fullAnalyzeBroadToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.fullAnalyzeExactToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.fullAnalyzePhraseToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.fullAnalyzeAllToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.dgv_AdGroups3 = new System.Windows.Forms.DataGridView();
             this.label33 = new System.Windows.Forms.Label();
             this.cb_ExactSearch3 = new System.Windows.Forms.CheckBox();
@@ -97,10 +125,38 @@
             this.dgv_AdvProducts3 = new System.Windows.Forms.DataGridView();
             this.btn_Filter3 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lb_SearchResultsCount2 = new System.Windows.Forms.Label();
             this.dgv_Targetings2 = new System.Windows.Forms.DataGridView();
             this.contextMenuStripTab2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.context2CopyToTab1 = new System.Windows.Forms.ToolStripMenuItem();
             this.context2CopyToTab3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.analyzecontext2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsSectionToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsByImpressions_ToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsBySalesToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsBySpendToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsByOrdersToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsByUnitsToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsByConversionToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.AdGroupsSectionToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroupsByImpressions2toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroupsBySalestoolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroupsBySpendtoolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroupsByOrderstoolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroupsByUnitstoolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroupsByConversiontoolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsSectionToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsByImpressionstoolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsBySalestoolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsBySpendtoolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsByOrderstoolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsByUnitstoolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsByConversiontoolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.fullAnalyzeToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.fullAnalyzeBroadToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.fullAnalyzeExactToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.fullAnalyzePhraseToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.fullAnalyzeAllToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.dgv_AdGroups2 = new System.Windows.Forms.DataGridView();
             this.btn_CloseTable2 = new System.Windows.Forms.Button();
             this.label31 = new System.Windows.Forms.Label();
@@ -162,6 +218,7 @@
             this.dgv_AdvProducts2 = new System.Windows.Forms.DataGridView();
             this.btn_Filter2 = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lb_SearchResultsCount1 = new System.Windows.Forms.Label();
             this.btn_ColorChoose = new System.Windows.Forms.Button();
             this.label30 = new System.Windows.Forms.Label();
             this.cb_ExactSearch1 = new System.Windows.Forms.CheckBox();
@@ -170,6 +227,33 @@
             this.contextMenuStripTab1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.context1CopyToTab2 = new System.Windows.Forms.ToolStripMenuItem();
             this.context1CopyToTab3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.analyzecontext1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsSectionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsByImpressions_ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsBySalesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsBySpendToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsByOrdersToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsByUnitsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsByConversionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.AdGroupsSectionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroupsByImpressions1toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroupsBySalestoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroupsBySpendtoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroupsByOrderstoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroupsByUnitstoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.adGroupsBytoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsSectionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsByImpressionstoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsBySalestoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsBySpendtoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsByOrderstoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsByUnitstoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.campaignsByConversiontoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.fullAnalyzeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.fullAnalyzeBroadToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.fullAnalyzeExactToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.fullAnalyzePhraseToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.fullAnalyzeAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.dgv_AdGroups1 = new System.Windows.Forms.DataGridView();
             this.tb_TargetingSearch1 = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -228,35 +312,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btn_Filter1 = new System.Windows.Forms.Button();
             this.tabContainer = new System.Windows.Forms.TabControl();
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.analyzecontext1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.keywordsSectionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.AdGroupsSectionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.campaignsSectionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.полныйАнализToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fullAnalyzeBroadToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.fullAnalyzeExactToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.fullAnalyzePhraseToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.fullAnalyzeAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.keywordsByImpressions_ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.keywordsBySalesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.keywordsBySpendToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.keywordsByOrdersToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.keywordsByUnitsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.keywordsByConversionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.adGroupsByImpressions1toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.adGroupsBySalestoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.adGroupsBySpendtoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.adGroupsByOrderstoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.adGroupsByUnitstoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.adGroupsBytoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.campaignsByImpressionstoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.campaignsBySalestoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.campaignsBySpendtoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.campaignsByOrderstoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.campaignsByUnitstoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.campaignsByConversiontoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.analyzedTabPage1 = new System.Windows.Forms.TabPage();
+            this.lb_SearchResultsCount4 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.cb_ExactSearch4 = new System.Windows.Forms.CheckBox();
             this.tb_TargetingSearch4 = new System.Windows.Forms.TextBox();
@@ -266,7 +323,7 @@
             this.lb_EndDate4 = new System.Windows.Forms.Label();
             this.label37 = new System.Windows.Forms.Label();
             this.analyzedTabPage2 = new System.Windows.Forms.TabPage();
-            this.analyzedTabPage3 = new System.Windows.Forms.TabPage();
+            this.lb_SearchResultsCount5 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.cb_ExactSearch5 = new System.Windows.Forms.CheckBox();
             this.tb_TargetingSearch5 = new System.Windows.Forms.TextBox();
@@ -275,6 +332,8 @@
             this.lb_StartDate5 = new System.Windows.Forms.Label();
             this.lb_EndDate5 = new System.Windows.Forms.Label();
             this.label39 = new System.Windows.Forms.Label();
+            this.analyzedTabPage3 = new System.Windows.Forms.TabPage();
+            this.lb_SearchResultsCount6 = new System.Windows.Forms.Label();
             this.label40 = new System.Windows.Forms.Label();
             this.cb_ExactSearch6 = new System.Windows.Forms.CheckBox();
             this.tb_TargetingSearch6 = new System.Windows.Forms.TextBox();
@@ -283,6 +342,7 @@
             this.lb_StartDate6 = new System.Windows.Forms.Label();
             this.lb_EndDate6 = new System.Windows.Forms.Label();
             this.label43 = new System.Windows.Forms.Label();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Targetings3)).BeginInit();
             this.contextMenuStripTab3.SuspendLayout();
@@ -315,9 +375,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Analyzed1)).BeginInit();
             this.panel10.SuspendLayout();
             this.analyzedTabPage2.SuspendLayout();
-            this.analyzedTabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Analyzed2)).BeginInit();
             this.panel11.SuspendLayout();
+            this.analyzedTabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Analyzed3)).BeginInit();
             this.panel12.SuspendLayout();
             this.SuspendLayout();
@@ -325,6 +385,7 @@
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage3.Controls.Add(this.lb_SearchResultsCount3);
             this.tabPage3.Controls.Add(this.dgv_Targetings3);
             this.tabPage3.Controls.Add(this.dgv_AdGroups3);
             this.tabPage3.Controls.Add(this.label33);
@@ -343,6 +404,16 @@
             this.tabPage3.TabIndex = 3;
             this.tabPage3.Text = "Окно 3";
             this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
+            // 
+            // lb_SearchResultsCount3
+            // 
+            this.lb_SearchResultsCount3.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_SearchResultsCount3.Location = new System.Drawing.Point(308, 12);
+            this.lb_SearchResultsCount3.Name = "lb_SearchResultsCount3";
+            this.lb_SearchResultsCount3.Size = new System.Drawing.Size(161, 24);
+            this.lb_SearchResultsCount3.TabIndex = 132;
+            this.lb_SearchResultsCount3.Text = "(0 результатов)";
+            this.lb_SearchResultsCount3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // dgv_Targetings3
             // 
@@ -363,23 +434,244 @@
             // 
             this.contextMenuStripTab3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.context3CopyToTab1,
-            this.context3CopyToTab2});
+            this.context3CopyToTab2,
+            this.analyzecontext3});
             this.contextMenuStripTab3.Name = "contextMenuStripTab1";
-            this.contextMenuStripTab3.Size = new System.Drawing.Size(203, 48);
+            this.contextMenuStripTab3.Size = new System.Drawing.Size(211, 92);
+            this.contextMenuStripTab3.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripTab3_Opening);
             // 
             // context3CopyToTab1
             // 
             this.context3CopyToTab1.Name = "context3CopyToTab1";
-            this.context3CopyToTab1.Size = new System.Drawing.Size(202, 22);
+            this.context3CopyToTab1.Size = new System.Drawing.Size(210, 22);
             this.context3CopyToTab1.Text = "Скопировать в Окно 1";
             this.context3CopyToTab1.Click += new System.EventHandler(this.context3CopyToTab1_Click);
             // 
             // context3CopyToTab2
             // 
             this.context3CopyToTab2.Name = "context3CopyToTab2";
-            this.context3CopyToTab2.Size = new System.Drawing.Size(202, 22);
+            this.context3CopyToTab2.Size = new System.Drawing.Size(210, 22);
             this.context3CopyToTab2.Text = "Скопировать в Окно 2";
             this.context3CopyToTab2.Click += new System.EventHandler(this.context3CopyToTab2_Click);
+            // 
+            // analyzecontext3
+            // 
+            this.analyzecontext3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.keywordsSectionToolStripMenuItem3,
+            this.AdGroupsSectionToolStripMenuItem3,
+            this.campaignsSectionToolStripMenuItem3,
+            this.fullAnalyzeToolStripMenuItem3});
+            this.analyzecontext3.Name = "analyzecontext3";
+            this.analyzecontext3.Size = new System.Drawing.Size(210, 22);
+            this.analyzecontext3.Text = "Анализировать данные";
+            // 
+            // keywordsSectionToolStripMenuItem3
+            // 
+            this.keywordsSectionToolStripMenuItem3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.keywordsByImpressions_ToolStripMenuItem3,
+            this.keywordsBySalesToolStripMenuItem3,
+            this.keywordsBySpendToolStripMenuItem3,
+            this.keywordsByOrdersToolStripMenuItem3,
+            this.keywordsByUnitsToolStripMenuItem3,
+            this.keywordsByConversionToolStripMenuItem3});
+            this.keywordsSectionToolStripMenuItem3.Enabled = false;
+            this.keywordsSectionToolStripMenuItem3.Name = "keywordsSectionToolStripMenuItem3";
+            this.keywordsSectionToolStripMenuItem3.Size = new System.Drawing.Size(165, 22);
+            this.keywordsSectionToolStripMenuItem3.Text = "Ключи";
+            // 
+            // keywordsByImpressions_ToolStripMenuItem3
+            // 
+            this.keywordsByImpressions_ToolStripMenuItem3.Name = "keywordsByImpressions_ToolStripMenuItem3";
+            this.keywordsByImpressions_ToolStripMenuItem3.Size = new System.Drawing.Size(159, 22);
+            this.keywordsByImpressions_ToolStripMenuItem3.Text = "По Impressions";
+            this.keywordsByImpressions_ToolStripMenuItem3.Click += new System.EventHandler(this.keywordsByImpressions_ToolStripMenuItem3_Click);
+            // 
+            // keywordsBySalesToolStripMenuItem3
+            // 
+            this.keywordsBySalesToolStripMenuItem3.Name = "keywordsBySalesToolStripMenuItem3";
+            this.keywordsBySalesToolStripMenuItem3.Size = new System.Drawing.Size(159, 22);
+            this.keywordsBySalesToolStripMenuItem3.Text = "По Sales";
+            this.keywordsBySalesToolStripMenuItem3.Click += new System.EventHandler(this.keywordsBySalesToolStripMenuItem3_Click);
+            // 
+            // keywordsBySpendToolStripMenuItem3
+            // 
+            this.keywordsBySpendToolStripMenuItem3.Name = "keywordsBySpendToolStripMenuItem3";
+            this.keywordsBySpendToolStripMenuItem3.Size = new System.Drawing.Size(159, 22);
+            this.keywordsBySpendToolStripMenuItem3.Text = "По Spend";
+            this.keywordsBySpendToolStripMenuItem3.Click += new System.EventHandler(this.keywordsBySpendToolStripMenuItem3_Click);
+            // 
+            // keywordsByOrdersToolStripMenuItem3
+            // 
+            this.keywordsByOrdersToolStripMenuItem3.Name = "keywordsByOrdersToolStripMenuItem3";
+            this.keywordsByOrdersToolStripMenuItem3.Size = new System.Drawing.Size(159, 22);
+            this.keywordsByOrdersToolStripMenuItem3.Text = "По Orders";
+            this.keywordsByOrdersToolStripMenuItem3.Click += new System.EventHandler(this.keywordsByOrdersToolStripMenuItem3_Click);
+            // 
+            // keywordsByUnitsToolStripMenuItem3
+            // 
+            this.keywordsByUnitsToolStripMenuItem3.Name = "keywordsByUnitsToolStripMenuItem3";
+            this.keywordsByUnitsToolStripMenuItem3.Size = new System.Drawing.Size(159, 22);
+            this.keywordsByUnitsToolStripMenuItem3.Text = "По Units";
+            this.keywordsByUnitsToolStripMenuItem3.Click += new System.EventHandler(this.keywordsByUnitsToolStripMenuItem3_Click);
+            // 
+            // keywordsByConversionToolStripMenuItem3
+            // 
+            this.keywordsByConversionToolStripMenuItem3.Name = "keywordsByConversionToolStripMenuItem3";
+            this.keywordsByConversionToolStripMenuItem3.Size = new System.Drawing.Size(159, 22);
+            this.keywordsByConversionToolStripMenuItem3.Text = "По Conversion";
+            this.keywordsByConversionToolStripMenuItem3.Click += new System.EventHandler(this.keywordsByConversionToolStripMenuItem3_Click);
+            // 
+            // AdGroupsSectionToolStripMenuItem3
+            // 
+            this.AdGroupsSectionToolStripMenuItem3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.adGroupsByImpressions3toolStripMenuItem,
+            this.adGroupsBySalestoolStripMenuItem3,
+            this.adGroupsBySpendtoolStripMenuItem3,
+            this.adGroupsByOrderstoolStripMenuItem3,
+            this.adGroupsByUnitstoolStripMenuItem3,
+            this.adGroupsByConversiontoolStripMenuItem3});
+            this.AdGroupsSectionToolStripMenuItem3.Enabled = false;
+            this.AdGroupsSectionToolStripMenuItem3.Name = "AdGroupsSectionToolStripMenuItem3";
+            this.AdGroupsSectionToolStripMenuItem3.Size = new System.Drawing.Size(165, 22);
+            this.AdGroupsSectionToolStripMenuItem3.Text = "AdGroups";
+            // 
+            // adGroupsByImpressions3toolStripMenuItem
+            // 
+            this.adGroupsByImpressions3toolStripMenuItem.Name = "adGroupsByImpressions3toolStripMenuItem";
+            this.adGroupsByImpressions3toolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.adGroupsByImpressions3toolStripMenuItem.Text = "По Impressions";
+            this.adGroupsByImpressions3toolStripMenuItem.Click += new System.EventHandler(this.adGroupsByImpressions3toolStripMenuItem_Click);
+            // 
+            // adGroupsBySalestoolStripMenuItem3
+            // 
+            this.adGroupsBySalestoolStripMenuItem3.Name = "adGroupsBySalestoolStripMenuItem3";
+            this.adGroupsBySalestoolStripMenuItem3.Size = new System.Drawing.Size(159, 22);
+            this.adGroupsBySalestoolStripMenuItem3.Text = "По Sales";
+            this.adGroupsBySalestoolStripMenuItem3.Click += new System.EventHandler(this.adGroupsBySalestoolStripMenuItem3_Click);
+            // 
+            // adGroupsBySpendtoolStripMenuItem3
+            // 
+            this.adGroupsBySpendtoolStripMenuItem3.Name = "adGroupsBySpendtoolStripMenuItem3";
+            this.adGroupsBySpendtoolStripMenuItem3.Size = new System.Drawing.Size(159, 22);
+            this.adGroupsBySpendtoolStripMenuItem3.Text = "По Spend";
+            this.adGroupsBySpendtoolStripMenuItem3.Click += new System.EventHandler(this.adGroupsBySpendtoolStripMenuItem3_Click);
+            // 
+            // adGroupsByOrderstoolStripMenuItem3
+            // 
+            this.adGroupsByOrderstoolStripMenuItem3.Name = "adGroupsByOrderstoolStripMenuItem3";
+            this.adGroupsByOrderstoolStripMenuItem3.Size = new System.Drawing.Size(159, 22);
+            this.adGroupsByOrderstoolStripMenuItem3.Text = "По Orders";
+            this.adGroupsByOrderstoolStripMenuItem3.Click += new System.EventHandler(this.adGroupsByOrderstoolStripMenuItem3_Click);
+            // 
+            // adGroupsByUnitstoolStripMenuItem3
+            // 
+            this.adGroupsByUnitstoolStripMenuItem3.Name = "adGroupsByUnitstoolStripMenuItem3";
+            this.adGroupsByUnitstoolStripMenuItem3.Size = new System.Drawing.Size(159, 22);
+            this.adGroupsByUnitstoolStripMenuItem3.Text = "По Units";
+            this.adGroupsByUnitstoolStripMenuItem3.Click += new System.EventHandler(this.adGroupsByUnitstoolStripMenuItem3_Click);
+            // 
+            // adGroupsByConversiontoolStripMenuItem3
+            // 
+            this.adGroupsByConversiontoolStripMenuItem3.Name = "adGroupsByConversiontoolStripMenuItem3";
+            this.adGroupsByConversiontoolStripMenuItem3.Size = new System.Drawing.Size(159, 22);
+            this.adGroupsByConversiontoolStripMenuItem3.Text = "По Conversion";
+            this.adGroupsByConversiontoolStripMenuItem3.Click += new System.EventHandler(this.adGroupsByConversiontoolStripMenuItem3_Click);
+            // 
+            // campaignsSectionToolStripMenuItem3
+            // 
+            this.campaignsSectionToolStripMenuItem3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.campaignsByImpressionstoolStripMenuItem3,
+            this.campaignsBySalestoolStripMenuItem3,
+            this.campaignsBySpendtoolStripMenuItem3,
+            this.campaignsByOrderstoolStripMenuItem3,
+            this.campaignsByUnitstoolStripMenuItem3,
+            this.campaignsByConversiontoolStripMenuItem3});
+            this.campaignsSectionToolStripMenuItem3.Enabled = false;
+            this.campaignsSectionToolStripMenuItem3.Name = "campaignsSectionToolStripMenuItem3";
+            this.campaignsSectionToolStripMenuItem3.Size = new System.Drawing.Size(165, 22);
+            this.campaignsSectionToolStripMenuItem3.Text = "Campaigns";
+            // 
+            // campaignsByImpressionstoolStripMenuItem3
+            // 
+            this.campaignsByImpressionstoolStripMenuItem3.Name = "campaignsByImpressionstoolStripMenuItem3";
+            this.campaignsByImpressionstoolStripMenuItem3.Size = new System.Drawing.Size(159, 22);
+            this.campaignsByImpressionstoolStripMenuItem3.Text = "По Impressions";
+            this.campaignsByImpressionstoolStripMenuItem3.Click += new System.EventHandler(this.campaignsByImpressionstoolStripMenuItem3_Click);
+            // 
+            // campaignsBySalestoolStripMenuItem3
+            // 
+            this.campaignsBySalestoolStripMenuItem3.Name = "campaignsBySalestoolStripMenuItem3";
+            this.campaignsBySalestoolStripMenuItem3.Size = new System.Drawing.Size(159, 22);
+            this.campaignsBySalestoolStripMenuItem3.Text = "По Sales";
+            this.campaignsBySalestoolStripMenuItem3.Click += new System.EventHandler(this.campaignsBySalestoolStripMenuItem3_Click);
+            // 
+            // campaignsBySpendtoolStripMenuItem3
+            // 
+            this.campaignsBySpendtoolStripMenuItem3.Name = "campaignsBySpendtoolStripMenuItem3";
+            this.campaignsBySpendtoolStripMenuItem3.Size = new System.Drawing.Size(159, 22);
+            this.campaignsBySpendtoolStripMenuItem3.Text = "По Spend";
+            this.campaignsBySpendtoolStripMenuItem3.Click += new System.EventHandler(this.campaignsBySpendtoolStripMenuItem3_Click);
+            // 
+            // campaignsByOrderstoolStripMenuItem3
+            // 
+            this.campaignsByOrderstoolStripMenuItem3.Name = "campaignsByOrderstoolStripMenuItem3";
+            this.campaignsByOrderstoolStripMenuItem3.Size = new System.Drawing.Size(159, 22);
+            this.campaignsByOrderstoolStripMenuItem3.Text = "По Orders";
+            this.campaignsByOrderstoolStripMenuItem3.Click += new System.EventHandler(this.campaignsByOrderstoolStripMenuItem3_Click);
+            // 
+            // campaignsByUnitstoolStripMenuItem3
+            // 
+            this.campaignsByUnitstoolStripMenuItem3.Name = "campaignsByUnitstoolStripMenuItem3";
+            this.campaignsByUnitstoolStripMenuItem3.Size = new System.Drawing.Size(159, 22);
+            this.campaignsByUnitstoolStripMenuItem3.Text = "По Units";
+            this.campaignsByUnitstoolStripMenuItem3.Click += new System.EventHandler(this.campaignsByUnitstoolStripMenuItem3_Click);
+            // 
+            // campaignsByConversiontoolStripMenuItem3
+            // 
+            this.campaignsByConversiontoolStripMenuItem3.Name = "campaignsByConversiontoolStripMenuItem3";
+            this.campaignsByConversiontoolStripMenuItem3.Size = new System.Drawing.Size(159, 22);
+            this.campaignsByConversiontoolStripMenuItem3.Text = "По Conversion";
+            this.campaignsByConversiontoolStripMenuItem3.Click += new System.EventHandler(this.campaignsByConversiontoolStripMenuItem3_Click);
+            // 
+            // fullAnalyzeToolStripMenuItem3
+            // 
+            this.fullAnalyzeToolStripMenuItem3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fullAnalyzeBroadToolStripMenuItem3,
+            this.fullAnalyzeExactToolStripMenuItem3,
+            this.fullAnalyzePhraseToolStripMenuItem3,
+            this.fullAnalyzeAllToolStripMenuItem3});
+            this.fullAnalyzeToolStripMenuItem3.Enabled = false;
+            this.fullAnalyzeToolStripMenuItem3.Name = "fullAnalyzeToolStripMenuItem3";
+            this.fullAnalyzeToolStripMenuItem3.Size = new System.Drawing.Size(165, 22);
+            this.fullAnalyzeToolStripMenuItem3.Text = "Полный анализ";
+            // 
+            // fullAnalyzeBroadToolStripMenuItem3
+            // 
+            this.fullAnalyzeBroadToolStripMenuItem3.Enabled = false;
+            this.fullAnalyzeBroadToolStripMenuItem3.Name = "fullAnalyzeBroadToolStripMenuItem3";
+            this.fullAnalyzeBroadToolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.fullAnalyzeBroadToolStripMenuItem3.Text = "Broad";
+            // 
+            // fullAnalyzeExactToolStripMenuItem3
+            // 
+            this.fullAnalyzeExactToolStripMenuItem3.Enabled = false;
+            this.fullAnalyzeExactToolStripMenuItem3.Name = "fullAnalyzeExactToolStripMenuItem3";
+            this.fullAnalyzeExactToolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.fullAnalyzeExactToolStripMenuItem3.Text = "Exact";
+            // 
+            // fullAnalyzePhraseToolStripMenuItem3
+            // 
+            this.fullAnalyzePhraseToolStripMenuItem3.Enabled = false;
+            this.fullAnalyzePhraseToolStripMenuItem3.Name = "fullAnalyzePhraseToolStripMenuItem3";
+            this.fullAnalyzePhraseToolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.fullAnalyzePhraseToolStripMenuItem3.Text = "Phrase";
+            // 
+            // fullAnalyzeAllToolStripMenuItem3
+            // 
+            this.fullAnalyzeAllToolStripMenuItem3.Name = "fullAnalyzeAllToolStripMenuItem3";
+            this.fullAnalyzeAllToolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.fullAnalyzeAllToolStripMenuItem3.Text = "Все";
+            this.fullAnalyzeAllToolStripMenuItem3.Click += new System.EventHandler(this.fullAnalyzeAllToolStripMenuItem3_Click);
             // 
             // dgv_AdGroups3
             // 
@@ -1029,6 +1321,7 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.lb_SearchResultsCount2);
             this.tabPage2.Controls.Add(this.dgv_Targetings2);
             this.tabPage2.Controls.Add(this.dgv_AdGroups2);
             this.tabPage2.Controls.Add(this.btn_CloseTable2);
@@ -1047,6 +1340,16 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Окно 2";
             this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
+            // 
+            // lb_SearchResultsCount2
+            // 
+            this.lb_SearchResultsCount2.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_SearchResultsCount2.Location = new System.Drawing.Point(308, 12);
+            this.lb_SearchResultsCount2.Name = "lb_SearchResultsCount2";
+            this.lb_SearchResultsCount2.Size = new System.Drawing.Size(156, 24);
+            this.lb_SearchResultsCount2.TabIndex = 132;
+            this.lb_SearchResultsCount2.Text = "(0 результатов)";
+            this.lb_SearchResultsCount2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // dgv_Targetings2
             // 
@@ -1067,23 +1370,244 @@
             // 
             this.contextMenuStripTab2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.context2CopyToTab1,
-            this.context2CopyToTab3});
+            this.context2CopyToTab3,
+            this.analyzecontext2});
             this.contextMenuStripTab2.Name = "contextMenuStripTab1";
-            this.contextMenuStripTab2.Size = new System.Drawing.Size(203, 48);
+            this.contextMenuStripTab2.Size = new System.Drawing.Size(211, 70);
+            this.contextMenuStripTab2.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripTab2_Opening);
             // 
             // context2CopyToTab1
             // 
             this.context2CopyToTab1.Name = "context2CopyToTab1";
-            this.context2CopyToTab1.Size = new System.Drawing.Size(202, 22);
+            this.context2CopyToTab1.Size = new System.Drawing.Size(210, 22);
             this.context2CopyToTab1.Text = "Скопировать в Окно 1";
             this.context2CopyToTab1.Click += new System.EventHandler(this.context2CopyToTab1_Click);
             // 
             // context2CopyToTab3
             // 
             this.context2CopyToTab3.Name = "context2CopyToTab3";
-            this.context2CopyToTab3.Size = new System.Drawing.Size(202, 22);
+            this.context2CopyToTab3.Size = new System.Drawing.Size(210, 22);
             this.context2CopyToTab3.Text = "Скопировать в Окно 3";
             this.context2CopyToTab3.Click += new System.EventHandler(this.context2CopyToTab3_Click);
+            // 
+            // analyzecontext2
+            // 
+            this.analyzecontext2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.keywordsSectionToolStripMenuItem2,
+            this.AdGroupsSectionToolStripMenuItem2,
+            this.campaignsSectionToolStripMenuItem2,
+            this.fullAnalyzeToolStripMenuItem2});
+            this.analyzecontext2.Name = "analyzecontext2";
+            this.analyzecontext2.Size = new System.Drawing.Size(210, 22);
+            this.analyzecontext2.Text = "Анализировать данные";
+            // 
+            // keywordsSectionToolStripMenuItem2
+            // 
+            this.keywordsSectionToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.keywordsByImpressions_ToolStripMenuItem2,
+            this.keywordsBySalesToolStripMenuItem2,
+            this.keywordsBySpendToolStripMenuItem2,
+            this.keywordsByOrdersToolStripMenuItem2,
+            this.keywordsByUnitsToolStripMenuItem2,
+            this.keywordsByConversionToolStripMenuItem2});
+            this.keywordsSectionToolStripMenuItem2.Enabled = false;
+            this.keywordsSectionToolStripMenuItem2.Name = "keywordsSectionToolStripMenuItem2";
+            this.keywordsSectionToolStripMenuItem2.Size = new System.Drawing.Size(165, 22);
+            this.keywordsSectionToolStripMenuItem2.Text = "Ключи";
+            // 
+            // keywordsByImpressions_ToolStripMenuItem2
+            // 
+            this.keywordsByImpressions_ToolStripMenuItem2.Name = "keywordsByImpressions_ToolStripMenuItem2";
+            this.keywordsByImpressions_ToolStripMenuItem2.Size = new System.Drawing.Size(159, 22);
+            this.keywordsByImpressions_ToolStripMenuItem2.Text = "По Impressions";
+            this.keywordsByImpressions_ToolStripMenuItem2.Click += new System.EventHandler(this.keywordsByImpressions_ToolStripMenuItem2_Click);
+            // 
+            // keywordsBySalesToolStripMenuItem2
+            // 
+            this.keywordsBySalesToolStripMenuItem2.Name = "keywordsBySalesToolStripMenuItem2";
+            this.keywordsBySalesToolStripMenuItem2.Size = new System.Drawing.Size(159, 22);
+            this.keywordsBySalesToolStripMenuItem2.Text = "По Sales";
+            this.keywordsBySalesToolStripMenuItem2.Click += new System.EventHandler(this.keywordsBySalesToolStripMenuItem2_Click);
+            // 
+            // keywordsBySpendToolStripMenuItem2
+            // 
+            this.keywordsBySpendToolStripMenuItem2.Name = "keywordsBySpendToolStripMenuItem2";
+            this.keywordsBySpendToolStripMenuItem2.Size = new System.Drawing.Size(159, 22);
+            this.keywordsBySpendToolStripMenuItem2.Text = "По Spend";
+            this.keywordsBySpendToolStripMenuItem2.Click += new System.EventHandler(this.keywordsBySpendToolStripMenuItem2_Click);
+            // 
+            // keywordsByOrdersToolStripMenuItem2
+            // 
+            this.keywordsByOrdersToolStripMenuItem2.Name = "keywordsByOrdersToolStripMenuItem2";
+            this.keywordsByOrdersToolStripMenuItem2.Size = new System.Drawing.Size(159, 22);
+            this.keywordsByOrdersToolStripMenuItem2.Text = "По Orders";
+            this.keywordsByOrdersToolStripMenuItem2.Click += new System.EventHandler(this.keywordsByOrdersToolStripMenuItem2_Click);
+            // 
+            // keywordsByUnitsToolStripMenuItem2
+            // 
+            this.keywordsByUnitsToolStripMenuItem2.Name = "keywordsByUnitsToolStripMenuItem2";
+            this.keywordsByUnitsToolStripMenuItem2.Size = new System.Drawing.Size(159, 22);
+            this.keywordsByUnitsToolStripMenuItem2.Text = "По Units";
+            this.keywordsByUnitsToolStripMenuItem2.Click += new System.EventHandler(this.keywordsByUnitsToolStripMenuItem2_Click);
+            // 
+            // keywordsByConversionToolStripMenuItem2
+            // 
+            this.keywordsByConversionToolStripMenuItem2.Name = "keywordsByConversionToolStripMenuItem2";
+            this.keywordsByConversionToolStripMenuItem2.Size = new System.Drawing.Size(159, 22);
+            this.keywordsByConversionToolStripMenuItem2.Text = "По Conversion";
+            this.keywordsByConversionToolStripMenuItem2.Click += new System.EventHandler(this.keywordsByConversionToolStripMenuItem2_Click);
+            // 
+            // AdGroupsSectionToolStripMenuItem2
+            // 
+            this.AdGroupsSectionToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.adGroupsByImpressions2toolStripMenuItem,
+            this.adGroupsBySalestoolStripMenuItem2,
+            this.adGroupsBySpendtoolStripMenuItem2,
+            this.adGroupsByOrderstoolStripMenuItem2,
+            this.adGroupsByUnitstoolStripMenuItem2,
+            this.adGroupsByConversiontoolStripMenuItem2});
+            this.AdGroupsSectionToolStripMenuItem2.Enabled = false;
+            this.AdGroupsSectionToolStripMenuItem2.Name = "AdGroupsSectionToolStripMenuItem2";
+            this.AdGroupsSectionToolStripMenuItem2.Size = new System.Drawing.Size(165, 22);
+            this.AdGroupsSectionToolStripMenuItem2.Text = "AdGroups";
+            // 
+            // adGroupsByImpressions2toolStripMenuItem
+            // 
+            this.adGroupsByImpressions2toolStripMenuItem.Name = "adGroupsByImpressions2toolStripMenuItem";
+            this.adGroupsByImpressions2toolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.adGroupsByImpressions2toolStripMenuItem.Text = "По Impressions";
+            this.adGroupsByImpressions2toolStripMenuItem.Click += new System.EventHandler(this.adGroupsByImpressions2toolStripMenuItem_Click);
+            // 
+            // adGroupsBySalestoolStripMenuItem2
+            // 
+            this.adGroupsBySalestoolStripMenuItem2.Name = "adGroupsBySalestoolStripMenuItem2";
+            this.adGroupsBySalestoolStripMenuItem2.Size = new System.Drawing.Size(159, 22);
+            this.adGroupsBySalestoolStripMenuItem2.Text = "По Sales";
+            this.adGroupsBySalestoolStripMenuItem2.Click += new System.EventHandler(this.adGroupsBySalestoolStripMenuItem2_Click);
+            // 
+            // adGroupsBySpendtoolStripMenuItem2
+            // 
+            this.adGroupsBySpendtoolStripMenuItem2.Name = "adGroupsBySpendtoolStripMenuItem2";
+            this.adGroupsBySpendtoolStripMenuItem2.Size = new System.Drawing.Size(159, 22);
+            this.adGroupsBySpendtoolStripMenuItem2.Text = "По Spend";
+            this.adGroupsBySpendtoolStripMenuItem2.Click += new System.EventHandler(this.adGroupsBySpendtoolStripMenuItem2_Click);
+            // 
+            // adGroupsByOrderstoolStripMenuItem2
+            // 
+            this.adGroupsByOrderstoolStripMenuItem2.Name = "adGroupsByOrderstoolStripMenuItem2";
+            this.adGroupsByOrderstoolStripMenuItem2.Size = new System.Drawing.Size(159, 22);
+            this.adGroupsByOrderstoolStripMenuItem2.Text = "По Orders";
+            this.adGroupsByOrderstoolStripMenuItem2.Click += new System.EventHandler(this.adGroupsByOrderstoolStripMenuItem2_Click);
+            // 
+            // adGroupsByUnitstoolStripMenuItem2
+            // 
+            this.adGroupsByUnitstoolStripMenuItem2.Name = "adGroupsByUnitstoolStripMenuItem2";
+            this.adGroupsByUnitstoolStripMenuItem2.Size = new System.Drawing.Size(159, 22);
+            this.adGroupsByUnitstoolStripMenuItem2.Text = "По Units";
+            this.adGroupsByUnitstoolStripMenuItem2.Click += new System.EventHandler(this.adGroupsByUnitstoolStripMenuItem2_Click);
+            // 
+            // adGroupsByConversiontoolStripMenuItem2
+            // 
+            this.adGroupsByConversiontoolStripMenuItem2.Name = "adGroupsByConversiontoolStripMenuItem2";
+            this.adGroupsByConversiontoolStripMenuItem2.Size = new System.Drawing.Size(159, 22);
+            this.adGroupsByConversiontoolStripMenuItem2.Text = "По Conversion";
+            this.adGroupsByConversiontoolStripMenuItem2.Click += new System.EventHandler(this.adGroupsByConversiontoolStripMenuItem2_Click);
+            // 
+            // campaignsSectionToolStripMenuItem2
+            // 
+            this.campaignsSectionToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.campaignsByImpressionstoolStripMenuItem2,
+            this.campaignsBySalestoolStripMenuItem2,
+            this.campaignsBySpendtoolStripMenuItem2,
+            this.campaignsByOrderstoolStripMenuItem2,
+            this.campaignsByUnitstoolStripMenuItem2,
+            this.campaignsByConversiontoolStripMenuItem2});
+            this.campaignsSectionToolStripMenuItem2.Enabled = false;
+            this.campaignsSectionToolStripMenuItem2.Name = "campaignsSectionToolStripMenuItem2";
+            this.campaignsSectionToolStripMenuItem2.Size = new System.Drawing.Size(165, 22);
+            this.campaignsSectionToolStripMenuItem2.Text = "Campaigns";
+            // 
+            // campaignsByImpressionstoolStripMenuItem2
+            // 
+            this.campaignsByImpressionstoolStripMenuItem2.Name = "campaignsByImpressionstoolStripMenuItem2";
+            this.campaignsByImpressionstoolStripMenuItem2.Size = new System.Drawing.Size(159, 22);
+            this.campaignsByImpressionstoolStripMenuItem2.Text = "По Impressions";
+            this.campaignsByImpressionstoolStripMenuItem2.Click += new System.EventHandler(this.campaignsByImpressionstoolStripMenuItem2_Click);
+            // 
+            // campaignsBySalestoolStripMenuItem2
+            // 
+            this.campaignsBySalestoolStripMenuItem2.Name = "campaignsBySalestoolStripMenuItem2";
+            this.campaignsBySalestoolStripMenuItem2.Size = new System.Drawing.Size(159, 22);
+            this.campaignsBySalestoolStripMenuItem2.Text = "По Sales";
+            this.campaignsBySalestoolStripMenuItem2.Click += new System.EventHandler(this.campaignsBySalestoolStripMenuItem2_Click);
+            // 
+            // campaignsBySpendtoolStripMenuItem2
+            // 
+            this.campaignsBySpendtoolStripMenuItem2.Name = "campaignsBySpendtoolStripMenuItem2";
+            this.campaignsBySpendtoolStripMenuItem2.Size = new System.Drawing.Size(159, 22);
+            this.campaignsBySpendtoolStripMenuItem2.Text = "По Spend";
+            this.campaignsBySpendtoolStripMenuItem2.Click += new System.EventHandler(this.campaignsBySpendtoolStripMenuItem2_Click);
+            // 
+            // campaignsByOrderstoolStripMenuItem2
+            // 
+            this.campaignsByOrderstoolStripMenuItem2.Name = "campaignsByOrderstoolStripMenuItem2";
+            this.campaignsByOrderstoolStripMenuItem2.Size = new System.Drawing.Size(159, 22);
+            this.campaignsByOrderstoolStripMenuItem2.Text = "По Orders";
+            this.campaignsByOrderstoolStripMenuItem2.Click += new System.EventHandler(this.campaignsByOrderstoolStripMenuItem2_Click);
+            // 
+            // campaignsByUnitstoolStripMenuItem2
+            // 
+            this.campaignsByUnitstoolStripMenuItem2.Name = "campaignsByUnitstoolStripMenuItem2";
+            this.campaignsByUnitstoolStripMenuItem2.Size = new System.Drawing.Size(159, 22);
+            this.campaignsByUnitstoolStripMenuItem2.Text = "По Units";
+            this.campaignsByUnitstoolStripMenuItem2.Click += new System.EventHandler(this.campaignsByUnitstoolStripMenuItem2_Click);
+            // 
+            // campaignsByConversiontoolStripMenuItem2
+            // 
+            this.campaignsByConversiontoolStripMenuItem2.Name = "campaignsByConversiontoolStripMenuItem2";
+            this.campaignsByConversiontoolStripMenuItem2.Size = new System.Drawing.Size(159, 22);
+            this.campaignsByConversiontoolStripMenuItem2.Text = "По Conversion";
+            this.campaignsByConversiontoolStripMenuItem2.Click += new System.EventHandler(this.campaignsByConversiontoolStripMenuItem2_Click);
+            // 
+            // fullAnalyzeToolStripMenuItem2
+            // 
+            this.fullAnalyzeToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fullAnalyzeBroadToolStripMenuItem2,
+            this.fullAnalyzeExactToolStripMenuItem2,
+            this.fullAnalyzePhraseToolStripMenuItem2,
+            this.fullAnalyzeAllToolStripMenuItem2});
+            this.fullAnalyzeToolStripMenuItem2.Enabled = false;
+            this.fullAnalyzeToolStripMenuItem2.Name = "fullAnalyzeToolStripMenuItem2";
+            this.fullAnalyzeToolStripMenuItem2.Size = new System.Drawing.Size(165, 22);
+            this.fullAnalyzeToolStripMenuItem2.Text = "Полный анализ";
+            // 
+            // fullAnalyzeBroadToolStripMenuItem2
+            // 
+            this.fullAnalyzeBroadToolStripMenuItem2.Enabled = false;
+            this.fullAnalyzeBroadToolStripMenuItem2.Name = "fullAnalyzeBroadToolStripMenuItem2";
+            this.fullAnalyzeBroadToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.fullAnalyzeBroadToolStripMenuItem2.Text = "Broad";
+            // 
+            // fullAnalyzeExactToolStripMenuItem2
+            // 
+            this.fullAnalyzeExactToolStripMenuItem2.Enabled = false;
+            this.fullAnalyzeExactToolStripMenuItem2.Name = "fullAnalyzeExactToolStripMenuItem2";
+            this.fullAnalyzeExactToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.fullAnalyzeExactToolStripMenuItem2.Text = "Exact";
+            // 
+            // fullAnalyzePhraseToolStripMenuItem2
+            // 
+            this.fullAnalyzePhraseToolStripMenuItem2.Enabled = false;
+            this.fullAnalyzePhraseToolStripMenuItem2.Name = "fullAnalyzePhraseToolStripMenuItem2";
+            this.fullAnalyzePhraseToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.fullAnalyzePhraseToolStripMenuItem2.Text = "Phrase";
+            // 
+            // fullAnalyzeAllToolStripMenuItem2
+            // 
+            this.fullAnalyzeAllToolStripMenuItem2.Name = "fullAnalyzeAllToolStripMenuItem2";
+            this.fullAnalyzeAllToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.fullAnalyzeAllToolStripMenuItem2.Text = "Все";
+            this.fullAnalyzeAllToolStripMenuItem2.Click += new System.EventHandler(this.fullAnalyzeAllToolStripMenuItem2_Click);
             // 
             // dgv_AdGroups2
             // 
@@ -1733,6 +2257,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.lb_SearchResultsCount1);
             this.tabPage1.Controls.Add(this.btn_ColorChoose);
             this.tabPage1.Controls.Add(this.label30);
             this.tabPage1.Controls.Add(this.cb_ExactSearch1);
@@ -1752,6 +2277,16 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Окно 1";
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // lb_SearchResultsCount1
+            // 
+            this.lb_SearchResultsCount1.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_SearchResultsCount1.Location = new System.Drawing.Point(308, 12);
+            this.lb_SearchResultsCount1.Name = "lb_SearchResultsCount1";
+            this.lb_SearchResultsCount1.Size = new System.Drawing.Size(166, 24);
+            this.lb_SearchResultsCount1.TabIndex = 131;
+            this.lb_SearchResultsCount1.Text = "(0 результатов)";
+            this.lb_SearchResultsCount1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // btn_ColorChoose
             // 
@@ -1819,7 +2354,7 @@
             this.context1CopyToTab3,
             this.analyzecontext1});
             this.contextMenuStripTab1.Name = "contextMenuStripTab1";
-            this.contextMenuStripTab1.Size = new System.Drawing.Size(211, 92);
+            this.contextMenuStripTab1.Size = new System.Drawing.Size(211, 70);
             this.contextMenuStripTab1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripTab1_Opening);
             // 
             // context1CopyToTab2
@@ -1835,6 +2370,225 @@
             this.context1CopyToTab3.Size = new System.Drawing.Size(210, 22);
             this.context1CopyToTab3.Text = "Скопировать в Окно 3";
             this.context1CopyToTab3.Click += new System.EventHandler(this.context1CopyToTab3_Click);
+            // 
+            // analyzecontext1
+            // 
+            this.analyzecontext1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.keywordsSectionToolStripMenuItem1,
+            this.AdGroupsSectionToolStripMenuItem1,
+            this.campaignsSectionToolStripMenuItem1,
+            this.fullAnalyzeToolStripMenuItem1});
+            this.analyzecontext1.Name = "analyzecontext1";
+            this.analyzecontext1.Size = new System.Drawing.Size(210, 22);
+            this.analyzecontext1.Text = "Анализировать данные";
+            // 
+            // keywordsSectionToolStripMenuItem1
+            // 
+            this.keywordsSectionToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.keywordsByImpressions_ToolStripMenuItem1,
+            this.keywordsBySalesToolStripMenuItem1,
+            this.keywordsBySpendToolStripMenuItem1,
+            this.keywordsByOrdersToolStripMenuItem1,
+            this.keywordsByUnitsToolStripMenuItem1,
+            this.keywordsByConversionToolStripMenuItem1});
+            this.keywordsSectionToolStripMenuItem1.Enabled = false;
+            this.keywordsSectionToolStripMenuItem1.Name = "keywordsSectionToolStripMenuItem1";
+            this.keywordsSectionToolStripMenuItem1.Size = new System.Drawing.Size(165, 22);
+            this.keywordsSectionToolStripMenuItem1.Text = "Ключи";
+            // 
+            // keywordsByImpressions_ToolStripMenuItem1
+            // 
+            this.keywordsByImpressions_ToolStripMenuItem1.Name = "keywordsByImpressions_ToolStripMenuItem1";
+            this.keywordsByImpressions_ToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.keywordsByImpressions_ToolStripMenuItem1.Text = "По Impressions";
+            this.keywordsByImpressions_ToolStripMenuItem1.Click += new System.EventHandler(this.keywordsByImpressions_ToolStripMenuItem1_Click);
+            // 
+            // keywordsBySalesToolStripMenuItem1
+            // 
+            this.keywordsBySalesToolStripMenuItem1.Name = "keywordsBySalesToolStripMenuItem1";
+            this.keywordsBySalesToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.keywordsBySalesToolStripMenuItem1.Text = "По Sales";
+            this.keywordsBySalesToolStripMenuItem1.Click += new System.EventHandler(this.keywordsBySalesToolStripMenuItem1_Click);
+            // 
+            // keywordsBySpendToolStripMenuItem1
+            // 
+            this.keywordsBySpendToolStripMenuItem1.Name = "keywordsBySpendToolStripMenuItem1";
+            this.keywordsBySpendToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.keywordsBySpendToolStripMenuItem1.Text = "По Spend";
+            this.keywordsBySpendToolStripMenuItem1.Click += new System.EventHandler(this.keywordsBySpendToolStripMenuItem1_Click);
+            // 
+            // keywordsByOrdersToolStripMenuItem1
+            // 
+            this.keywordsByOrdersToolStripMenuItem1.Name = "keywordsByOrdersToolStripMenuItem1";
+            this.keywordsByOrdersToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.keywordsByOrdersToolStripMenuItem1.Text = "По Orders";
+            this.keywordsByOrdersToolStripMenuItem1.Click += new System.EventHandler(this.keywordsByOrdersToolStripMenuItem1_Click);
+            // 
+            // keywordsByUnitsToolStripMenuItem1
+            // 
+            this.keywordsByUnitsToolStripMenuItem1.Name = "keywordsByUnitsToolStripMenuItem1";
+            this.keywordsByUnitsToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.keywordsByUnitsToolStripMenuItem1.Text = "По Units";
+            this.keywordsByUnitsToolStripMenuItem1.Click += new System.EventHandler(this.keywordsByUnitsToolStripMenuItem1_Click);
+            // 
+            // keywordsByConversionToolStripMenuItem1
+            // 
+            this.keywordsByConversionToolStripMenuItem1.Name = "keywordsByConversionToolStripMenuItem1";
+            this.keywordsByConversionToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.keywordsByConversionToolStripMenuItem1.Text = "По Conversion";
+            this.keywordsByConversionToolStripMenuItem1.Click += new System.EventHandler(this.keywordsByConversionToolStripMenuItem1_Click);
+            // 
+            // AdGroupsSectionToolStripMenuItem1
+            // 
+            this.AdGroupsSectionToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.adGroupsByImpressions1toolStripMenuItem,
+            this.adGroupsBySalestoolStripMenuItem1,
+            this.adGroupsBySpendtoolStripMenuItem1,
+            this.adGroupsByOrderstoolStripMenuItem1,
+            this.adGroupsByUnitstoolStripMenuItem1,
+            this.adGroupsBytoolStripMenuItem1});
+            this.AdGroupsSectionToolStripMenuItem1.Enabled = false;
+            this.AdGroupsSectionToolStripMenuItem1.Name = "AdGroupsSectionToolStripMenuItem1";
+            this.AdGroupsSectionToolStripMenuItem1.Size = new System.Drawing.Size(165, 22);
+            this.AdGroupsSectionToolStripMenuItem1.Text = "AdGroups";
+            // 
+            // adGroupsByImpressions1toolStripMenuItem
+            // 
+            this.adGroupsByImpressions1toolStripMenuItem.Name = "adGroupsByImpressions1toolStripMenuItem";
+            this.adGroupsByImpressions1toolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.adGroupsByImpressions1toolStripMenuItem.Text = "По Impressions";
+            this.adGroupsByImpressions1toolStripMenuItem.Click += new System.EventHandler(this.adGroupsByImpressions1toolStripMenuItem_Click);
+            // 
+            // adGroupsBySalestoolStripMenuItem1
+            // 
+            this.adGroupsBySalestoolStripMenuItem1.Name = "adGroupsBySalestoolStripMenuItem1";
+            this.adGroupsBySalestoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.adGroupsBySalestoolStripMenuItem1.Text = "По Sales";
+            this.adGroupsBySalestoolStripMenuItem1.Click += new System.EventHandler(this.adGroupsBySalestoolStripMenuItem1_Click);
+            // 
+            // adGroupsBySpendtoolStripMenuItem1
+            // 
+            this.adGroupsBySpendtoolStripMenuItem1.Name = "adGroupsBySpendtoolStripMenuItem1";
+            this.adGroupsBySpendtoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.adGroupsBySpendtoolStripMenuItem1.Text = "По Spend";
+            this.adGroupsBySpendtoolStripMenuItem1.Click += new System.EventHandler(this.adGroupsBySpendtoolStripMenuItem1_Click);
+            // 
+            // adGroupsByOrderstoolStripMenuItem1
+            // 
+            this.adGroupsByOrderstoolStripMenuItem1.Name = "adGroupsByOrderstoolStripMenuItem1";
+            this.adGroupsByOrderstoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.adGroupsByOrderstoolStripMenuItem1.Text = "По Orders";
+            this.adGroupsByOrderstoolStripMenuItem1.Click += new System.EventHandler(this.adGroupsByOrderstoolStripMenuItem1_Click);
+            // 
+            // adGroupsByUnitstoolStripMenuItem1
+            // 
+            this.adGroupsByUnitstoolStripMenuItem1.Name = "adGroupsByUnitstoolStripMenuItem1";
+            this.adGroupsByUnitstoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.adGroupsByUnitstoolStripMenuItem1.Text = "По Units";
+            this.adGroupsByUnitstoolStripMenuItem1.Click += new System.EventHandler(this.adGroupsByUnitstoolStripMenuItem1_Click);
+            // 
+            // adGroupsBytoolStripMenuItem1
+            // 
+            this.adGroupsBytoolStripMenuItem1.Name = "adGroupsBytoolStripMenuItem1";
+            this.adGroupsBytoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.adGroupsBytoolStripMenuItem1.Text = "По Conversion";
+            this.adGroupsBytoolStripMenuItem1.Click += new System.EventHandler(this.adGroupsBytoolStripMenuItem1_Click);
+            // 
+            // campaignsSectionToolStripMenuItem1
+            // 
+            this.campaignsSectionToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.campaignsByImpressionstoolStripMenuItem1,
+            this.campaignsBySalestoolStripMenuItem1,
+            this.campaignsBySpendtoolStripMenuItem1,
+            this.campaignsByOrderstoolStripMenuItem1,
+            this.campaignsByUnitstoolStripMenuItem1,
+            this.campaignsByConversiontoolStripMenuItem1});
+            this.campaignsSectionToolStripMenuItem1.Enabled = false;
+            this.campaignsSectionToolStripMenuItem1.Name = "campaignsSectionToolStripMenuItem1";
+            this.campaignsSectionToolStripMenuItem1.Size = new System.Drawing.Size(165, 22);
+            this.campaignsSectionToolStripMenuItem1.Text = "Campaigns";
+            // 
+            // campaignsByImpressionstoolStripMenuItem1
+            // 
+            this.campaignsByImpressionstoolStripMenuItem1.Name = "campaignsByImpressionstoolStripMenuItem1";
+            this.campaignsByImpressionstoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.campaignsByImpressionstoolStripMenuItem1.Text = "По Impressions";
+            this.campaignsByImpressionstoolStripMenuItem1.Click += new System.EventHandler(this.campaignsByImpressionstoolStripMenuItem1_Click);
+            // 
+            // campaignsBySalestoolStripMenuItem1
+            // 
+            this.campaignsBySalestoolStripMenuItem1.Name = "campaignsBySalestoolStripMenuItem1";
+            this.campaignsBySalestoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.campaignsBySalestoolStripMenuItem1.Text = "По Sales";
+            this.campaignsBySalestoolStripMenuItem1.Click += new System.EventHandler(this.campaignsBySalestoolStripMenuItem1_Click);
+            // 
+            // campaignsBySpendtoolStripMenuItem1
+            // 
+            this.campaignsBySpendtoolStripMenuItem1.Name = "campaignsBySpendtoolStripMenuItem1";
+            this.campaignsBySpendtoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.campaignsBySpendtoolStripMenuItem1.Text = "По Spend";
+            this.campaignsBySpendtoolStripMenuItem1.Click += new System.EventHandler(this.campaignsBySpendtoolStripMenuItem1_Click);
+            // 
+            // campaignsByOrderstoolStripMenuItem1
+            // 
+            this.campaignsByOrderstoolStripMenuItem1.Name = "campaignsByOrderstoolStripMenuItem1";
+            this.campaignsByOrderstoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.campaignsByOrderstoolStripMenuItem1.Text = "По Orders";
+            this.campaignsByOrderstoolStripMenuItem1.Click += new System.EventHandler(this.campaignsByOrderstoolStripMenuItem1_Click);
+            // 
+            // campaignsByUnitstoolStripMenuItem1
+            // 
+            this.campaignsByUnitstoolStripMenuItem1.Name = "campaignsByUnitstoolStripMenuItem1";
+            this.campaignsByUnitstoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.campaignsByUnitstoolStripMenuItem1.Text = "По Units";
+            this.campaignsByUnitstoolStripMenuItem1.Click += new System.EventHandler(this.campaignsByUnitstoolStripMenuItem1_Click);
+            // 
+            // campaignsByConversiontoolStripMenuItem1
+            // 
+            this.campaignsByConversiontoolStripMenuItem1.Name = "campaignsByConversiontoolStripMenuItem1";
+            this.campaignsByConversiontoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
+            this.campaignsByConversiontoolStripMenuItem1.Text = "По Conversion";
+            this.campaignsByConversiontoolStripMenuItem1.Click += new System.EventHandler(this.campaignsByConversiontoolStripMenuItem1_Click);
+            // 
+            // fullAnalyzeToolStripMenuItem1
+            // 
+            this.fullAnalyzeToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fullAnalyzeBroadToolStripMenuItem1,
+            this.fullAnalyzeExactToolStripMenuItem1,
+            this.fullAnalyzePhraseToolStripMenuItem1,
+            this.fullAnalyzeAllToolStripMenuItem1});
+            this.fullAnalyzeToolStripMenuItem1.Enabled = false;
+            this.fullAnalyzeToolStripMenuItem1.Name = "fullAnalyzeToolStripMenuItem1";
+            this.fullAnalyzeToolStripMenuItem1.Size = new System.Drawing.Size(165, 22);
+            this.fullAnalyzeToolStripMenuItem1.Text = "Полный анализ";
+            // 
+            // fullAnalyzeBroadToolStripMenuItem1
+            // 
+            this.fullAnalyzeBroadToolStripMenuItem1.Enabled = false;
+            this.fullAnalyzeBroadToolStripMenuItem1.Name = "fullAnalyzeBroadToolStripMenuItem1";
+            this.fullAnalyzeBroadToolStripMenuItem1.Size = new System.Drawing.Size(111, 22);
+            this.fullAnalyzeBroadToolStripMenuItem1.Text = "Broad";
+            // 
+            // fullAnalyzeExactToolStripMenuItem1
+            // 
+            this.fullAnalyzeExactToolStripMenuItem1.Enabled = false;
+            this.fullAnalyzeExactToolStripMenuItem1.Name = "fullAnalyzeExactToolStripMenuItem1";
+            this.fullAnalyzeExactToolStripMenuItem1.Size = new System.Drawing.Size(111, 22);
+            this.fullAnalyzeExactToolStripMenuItem1.Text = "Exact";
+            // 
+            // fullAnalyzePhraseToolStripMenuItem1
+            // 
+            this.fullAnalyzePhraseToolStripMenuItem1.Enabled = false;
+            this.fullAnalyzePhraseToolStripMenuItem1.Name = "fullAnalyzePhraseToolStripMenuItem1";
+            this.fullAnalyzePhraseToolStripMenuItem1.Size = new System.Drawing.Size(111, 22);
+            this.fullAnalyzePhraseToolStripMenuItem1.Text = "Phrase";
+            // 
+            // fullAnalyzeAllToolStripMenuItem1
+            // 
+            this.fullAnalyzeAllToolStripMenuItem1.Name = "fullAnalyzeAllToolStripMenuItem1";
+            this.fullAnalyzeAllToolStripMenuItem1.Size = new System.Drawing.Size(111, 22);
+            this.fullAnalyzeAllToolStripMenuItem1.Text = "Все";
+            this.fullAnalyzeAllToolStripMenuItem1.Click += new System.EventHandler(this.fullAnalyzeAllToolStripMenuItem1_Click);
             // 
             // dgv_AdGroups1
             // 
@@ -2465,224 +3219,10 @@
             this.tabContainer.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabContainer.TabIndex = 28;
             // 
-            // analyzecontext1
-            // 
-            this.analyzecontext1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.keywordsSectionToolStripMenuItem1,
-            this.AdGroupsSectionToolStripMenuItem1,
-            this.campaignsSectionToolStripMenuItem1,
-            this.полныйАнализToolStripMenuItem});
-            this.analyzecontext1.Name = "analyzecontext1";
-            this.analyzecontext1.Size = new System.Drawing.Size(210, 22);
-            this.analyzecontext1.Text = "Анализировать данные";
-            // 
-            // keywordsSectionToolStripMenuItem1
-            // 
-            this.keywordsSectionToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.keywordsByImpressions_ToolStripMenuItem1,
-            this.keywordsBySalesToolStripMenuItem1,
-            this.keywordsBySpendToolStripMenuItem1,
-            this.keywordsByOrdersToolStripMenuItem1,
-            this.keywordsByUnitsToolStripMenuItem1,
-            this.keywordsByConversionToolStripMenuItem1});
-            this.keywordsSectionToolStripMenuItem1.Enabled = false;
-            this.keywordsSectionToolStripMenuItem1.Name = "keywordsSectionToolStripMenuItem1";
-            this.keywordsSectionToolStripMenuItem1.Size = new System.Drawing.Size(165, 22);
-            this.keywordsSectionToolStripMenuItem1.Text = "Ключи";
-            // 
-            // AdGroupsSectionToolStripMenuItem1
-            // 
-            this.AdGroupsSectionToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.adGroupsByImpressions1toolStripMenuItem,
-            this.adGroupsBySalestoolStripMenuItem1,
-            this.adGroupsBySpendtoolStripMenuItem1,
-            this.adGroupsByOrderstoolStripMenuItem1,
-            this.adGroupsByUnitstoolStripMenuItem1,
-            this.adGroupsBytoolStripMenuItem1});
-            this.AdGroupsSectionToolStripMenuItem1.Enabled = false;
-            this.AdGroupsSectionToolStripMenuItem1.Name = "AdGroupsSectionToolStripMenuItem1";
-            this.AdGroupsSectionToolStripMenuItem1.Size = new System.Drawing.Size(165, 22);
-            this.AdGroupsSectionToolStripMenuItem1.Text = "AdGroups";
-            // 
-            // campaignsSectionToolStripMenuItem1
-            // 
-            this.campaignsSectionToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.campaignsByImpressionstoolStripMenuItem1,
-            this.campaignsBySalestoolStripMenuItem1,
-            this.campaignsBySpendtoolStripMenuItem1,
-            this.campaignsByOrderstoolStripMenuItem1,
-            this.campaignsByUnitstoolStripMenuItem1,
-            this.campaignsByConversiontoolStripMenuItem1});
-            this.campaignsSectionToolStripMenuItem1.Enabled = false;
-            this.campaignsSectionToolStripMenuItem1.Name = "campaignsSectionToolStripMenuItem1";
-            this.campaignsSectionToolStripMenuItem1.Size = new System.Drawing.Size(165, 22);
-            this.campaignsSectionToolStripMenuItem1.Text = "Campaigns";
-            // 
-            // полныйАнализToolStripMenuItem
-            // 
-            this.полныйАнализToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fullAnalyzeBroadToolStripMenuItem1,
-            this.fullAnalyzeExactToolStripMenuItem1,
-            this.fullAnalyzePhraseToolStripMenuItem1,
-            this.fullAnalyzeAllToolStripMenuItem1});
-            this.полныйАнализToolStripMenuItem.Enabled = false;
-            this.полныйАнализToolStripMenuItem.Name = "полныйАнализToolStripMenuItem";
-            this.полныйАнализToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-            this.полныйАнализToolStripMenuItem.Text = "Полный анализ";
-            // 
-            // fullAnalyzeBroadToolStripMenuItem1
-            // 
-            this.fullAnalyzeBroadToolStripMenuItem1.Name = "fullAnalyzeBroadToolStripMenuItem1";
-            this.fullAnalyzeBroadToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.fullAnalyzeBroadToolStripMenuItem1.Text = "Broad";
-            // 
-            // fullAnalyzeExactToolStripMenuItem1
-            // 
-            this.fullAnalyzeExactToolStripMenuItem1.Name = "fullAnalyzeExactToolStripMenuItem1";
-            this.fullAnalyzeExactToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.fullAnalyzeExactToolStripMenuItem1.Text = "Exact";
-            // 
-            // fullAnalyzePhraseToolStripMenuItem1
-            // 
-            this.fullAnalyzePhraseToolStripMenuItem1.Name = "fullAnalyzePhraseToolStripMenuItem1";
-            this.fullAnalyzePhraseToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.fullAnalyzePhraseToolStripMenuItem1.Text = "Phrase";
-            // 
-            // fullAnalyzeAllToolStripMenuItem1
-            // 
-            this.fullAnalyzeAllToolStripMenuItem1.Name = "fullAnalyzeAllToolStripMenuItem1";
-            this.fullAnalyzeAllToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.fullAnalyzeAllToolStripMenuItem1.Text = "Все";
-            // 
-            // keywordsByImpressions_ToolStripMenuItem1
-            // 
-            this.keywordsByImpressions_ToolStripMenuItem1.Name = "keywordsByImpressions_ToolStripMenuItem1";
-            this.keywordsByImpressions_ToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
-            this.keywordsByImpressions_ToolStripMenuItem1.Text = "По Impressions";
-            this.keywordsByImpressions_ToolStripMenuItem1.Click += new System.EventHandler(this.keywordsByImpressions_ToolStripMenuItem1_Click);
-            // 
-            // keywordsBySalesToolStripMenuItem1
-            // 
-            this.keywordsBySalesToolStripMenuItem1.Name = "keywordsBySalesToolStripMenuItem1";
-            this.keywordsBySalesToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
-            this.keywordsBySalesToolStripMenuItem1.Text = "По Sales";
-            this.keywordsBySalesToolStripMenuItem1.Click += new System.EventHandler(this.keywordsBySalesToolStripMenuItem1_Click);
-            // 
-            // keywordsBySpendToolStripMenuItem1
-            // 
-            this.keywordsBySpendToolStripMenuItem1.Name = "keywordsBySpendToolStripMenuItem1";
-            this.keywordsBySpendToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
-            this.keywordsBySpendToolStripMenuItem1.Text = "По Spend";
-            this.keywordsBySpendToolStripMenuItem1.Click += new System.EventHandler(this.keywordsBySpendToolStripMenuItem1_Click);
-            // 
-            // keywordsByOrdersToolStripMenuItem1
-            // 
-            this.keywordsByOrdersToolStripMenuItem1.Name = "keywordsByOrdersToolStripMenuItem1";
-            this.keywordsByOrdersToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
-            this.keywordsByOrdersToolStripMenuItem1.Text = "По Orders";
-            this.keywordsByOrdersToolStripMenuItem1.Click += new System.EventHandler(this.keywordsByOrdersToolStripMenuItem1_Click);
-            // 
-            // keywordsByUnitsToolStripMenuItem1
-            // 
-            this.keywordsByUnitsToolStripMenuItem1.Name = "keywordsByUnitsToolStripMenuItem1";
-            this.keywordsByUnitsToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
-            this.keywordsByUnitsToolStripMenuItem1.Text = "По Units";
-            this.keywordsByUnitsToolStripMenuItem1.Click += new System.EventHandler(this.keywordsByUnitsToolStripMenuItem1_Click);
-            // 
-            // keywordsByConversionToolStripMenuItem1
-            // 
-            this.keywordsByConversionToolStripMenuItem1.Name = "keywordsByConversionToolStripMenuItem1";
-            this.keywordsByConversionToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
-            this.keywordsByConversionToolStripMenuItem1.Text = "По Conversion";
-            this.keywordsByConversionToolStripMenuItem1.Click += new System.EventHandler(this.keywordsByConversionToolStripMenuItem1_Click);
-            // 
-            // adGroupsByImpressions1toolStripMenuItem
-            // 
-            this.adGroupsByImpressions1toolStripMenuItem.Name = "adGroupsByImpressions1toolStripMenuItem";
-            this.adGroupsByImpressions1toolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.adGroupsByImpressions1toolStripMenuItem.Text = "По Impressions";
-            this.adGroupsByImpressions1toolStripMenuItem.Click += new System.EventHandler(this.adGroupsByImpressions1toolStripMenuItem_Click);
-            // 
-            // adGroupsBySalestoolStripMenuItem1
-            // 
-            this.adGroupsBySalestoolStripMenuItem1.Name = "adGroupsBySalestoolStripMenuItem1";
-            this.adGroupsBySalestoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
-            this.adGroupsBySalestoolStripMenuItem1.Text = "По Sales";
-            this.adGroupsBySalestoolStripMenuItem1.Click += new System.EventHandler(this.adGroupsBySalestoolStripMenuItem1_Click);
-            // 
-            // adGroupsBySpendtoolStripMenuItem1
-            // 
-            this.adGroupsBySpendtoolStripMenuItem1.Name = "adGroupsBySpendtoolStripMenuItem1";
-            this.adGroupsBySpendtoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
-            this.adGroupsBySpendtoolStripMenuItem1.Text = "По Spend";
-            this.adGroupsBySpendtoolStripMenuItem1.Click += new System.EventHandler(this.adGroupsBySpendtoolStripMenuItem1_Click);
-            // 
-            // adGroupsByOrderstoolStripMenuItem1
-            // 
-            this.adGroupsByOrderstoolStripMenuItem1.Name = "adGroupsByOrderstoolStripMenuItem1";
-            this.adGroupsByOrderstoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
-            this.adGroupsByOrderstoolStripMenuItem1.Text = "По Orders";
-            this.adGroupsByOrderstoolStripMenuItem1.Click += new System.EventHandler(this.adGroupsByOrderstoolStripMenuItem1_Click);
-            // 
-            // adGroupsByUnitstoolStripMenuItem1
-            // 
-            this.adGroupsByUnitstoolStripMenuItem1.Name = "adGroupsByUnitstoolStripMenuItem1";
-            this.adGroupsByUnitstoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
-            this.adGroupsByUnitstoolStripMenuItem1.Text = "По Units";
-            this.adGroupsByUnitstoolStripMenuItem1.Click += new System.EventHandler(this.adGroupsByUnitstoolStripMenuItem1_Click);
-            // 
-            // adGroupsBytoolStripMenuItem1
-            // 
-            this.adGroupsBytoolStripMenuItem1.Name = "adGroupsBytoolStripMenuItem1";
-            this.adGroupsBytoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
-            this.adGroupsBytoolStripMenuItem1.Text = "По Conversion";
-            this.adGroupsBytoolStripMenuItem1.Click += new System.EventHandler(this.adGroupsBytoolStripMenuItem1_Click);
-            // 
-            // campaignsByImpressionstoolStripMenuItem1
-            // 
-            this.campaignsByImpressionstoolStripMenuItem1.Name = "campaignsByImpressionstoolStripMenuItem1";
-            this.campaignsByImpressionstoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
-            this.campaignsByImpressionstoolStripMenuItem1.Text = "По Impressions";
-            this.campaignsByImpressionstoolStripMenuItem1.Click += new System.EventHandler(this.campaignsByImpressionstoolStripMenuItem1_Click);
-            // 
-            // campaignsBySalestoolStripMenuItem1
-            // 
-            this.campaignsBySalestoolStripMenuItem1.Name = "campaignsBySalestoolStripMenuItem1";
-            this.campaignsBySalestoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
-            this.campaignsBySalestoolStripMenuItem1.Text = "По Sales";
-            this.campaignsBySalestoolStripMenuItem1.Click += new System.EventHandler(this.campaignsBySalestoolStripMenuItem1_Click);
-            // 
-            // campaignsBySpendtoolStripMenuItem1
-            // 
-            this.campaignsBySpendtoolStripMenuItem1.Name = "campaignsBySpendtoolStripMenuItem1";
-            this.campaignsBySpendtoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
-            this.campaignsBySpendtoolStripMenuItem1.Text = "По Spend";
-            this.campaignsBySpendtoolStripMenuItem1.Click += new System.EventHandler(this.campaignsBySpendtoolStripMenuItem1_Click);
-            // 
-            // campaignsByOrderstoolStripMenuItem1
-            // 
-            this.campaignsByOrderstoolStripMenuItem1.Name = "campaignsByOrderstoolStripMenuItem1";
-            this.campaignsByOrderstoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
-            this.campaignsByOrderstoolStripMenuItem1.Text = "По Orders";
-            this.campaignsByOrderstoolStripMenuItem1.Click += new System.EventHandler(this.campaignsByOrderstoolStripMenuItem1_Click);
-            // 
-            // campaignsByUnitstoolStripMenuItem1
-            // 
-            this.campaignsByUnitstoolStripMenuItem1.Name = "campaignsByUnitstoolStripMenuItem1";
-            this.campaignsByUnitstoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
-            this.campaignsByUnitstoolStripMenuItem1.Text = "По Units";
-            this.campaignsByUnitstoolStripMenuItem1.Click += new System.EventHandler(this.campaignsByUnitstoolStripMenuItem1_Click);
-            // 
-            // campaignsByConversiontoolStripMenuItem1
-            // 
-            this.campaignsByConversiontoolStripMenuItem1.Name = "campaignsByConversiontoolStripMenuItem1";
-            this.campaignsByConversiontoolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
-            this.campaignsByConversiontoolStripMenuItem1.Text = "По Conversion";
-            this.campaignsByConversiontoolStripMenuItem1.Click += new System.EventHandler(this.campaignsByConversiontoolStripMenuItem1_Click);
-            // 
             // analyzedTabPage1
             // 
             this.analyzedTabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.analyzedTabPage1.Controls.Add(this.lb_SearchResultsCount4);
             this.analyzedTabPage1.Controls.Add(this.label34);
             this.analyzedTabPage1.Controls.Add(this.cb_ExactSearch4);
             this.analyzedTabPage1.Controls.Add(this.tb_TargetingSearch4);
@@ -2694,6 +3234,16 @@
             this.analyzedTabPage1.Size = new System.Drawing.Size(1377, 722);
             this.analyzedTabPage1.TabIndex = 4;
             this.analyzedTabPage1.Text = "Анализ (окно 1)";
+            // 
+            // lb_SearchResultsCount4
+            // 
+            this.lb_SearchResultsCount4.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_SearchResultsCount4.Location = new System.Drawing.Point(308, 12);
+            this.lb_SearchResultsCount4.Name = "lb_SearchResultsCount4";
+            this.lb_SearchResultsCount4.Size = new System.Drawing.Size(162, 24);
+            this.lb_SearchResultsCount4.TabIndex = 132;
+            this.lb_SearchResultsCount4.Text = "(0 результатов)";
+            this.lb_SearchResultsCount4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label34
             // 
@@ -2780,6 +3330,7 @@
             // analyzedTabPage2
             // 
             this.analyzedTabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.analyzedTabPage2.Controls.Add(this.lb_SearchResultsCount5);
             this.analyzedTabPage2.Controls.Add(this.label35);
             this.analyzedTabPage2.Controls.Add(this.cb_ExactSearch5);
             this.analyzedTabPage2.Controls.Add(this.tb_TargetingSearch5);
@@ -2792,20 +3343,15 @@
             this.analyzedTabPage2.TabIndex = 5;
             this.analyzedTabPage2.Text = "Анализ (окно 2)";
             // 
-            // analyzedTabPage3
+            // lb_SearchResultsCount5
             // 
-            this.analyzedTabPage3.BackColor = System.Drawing.SystemColors.Control;
-            this.analyzedTabPage3.Controls.Add(this.label40);
-            this.analyzedTabPage3.Controls.Add(this.cb_ExactSearch6);
-            this.analyzedTabPage3.Controls.Add(this.tb_TargetingSearch6);
-            this.analyzedTabPage3.Controls.Add(this.dgv_Analyzed3);
-            this.analyzedTabPage3.Controls.Add(this.panel12);
-            this.analyzedTabPage3.Location = new System.Drawing.Point(4, 29);
-            this.analyzedTabPage3.Name = "analyzedTabPage3";
-            this.analyzedTabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.analyzedTabPage3.Size = new System.Drawing.Size(1377, 722);
-            this.analyzedTabPage3.TabIndex = 6;
-            this.analyzedTabPage3.Text = "Анализ (окно 3)";
+            this.lb_SearchResultsCount5.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_SearchResultsCount5.Location = new System.Drawing.Point(308, 13);
+            this.lb_SearchResultsCount5.Name = "lb_SearchResultsCount5";
+            this.lb_SearchResultsCount5.Size = new System.Drawing.Size(154, 24);
+            this.lb_SearchResultsCount5.TabIndex = 135;
+            this.lb_SearchResultsCount5.Text = "(0 результатов)";
+            this.lb_SearchResultsCount5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label35
             // 
@@ -2888,6 +3434,32 @@
             this.label39.TabIndex = 24;
             this.label39.Text = "-";
             this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // analyzedTabPage3
+            // 
+            this.analyzedTabPage3.BackColor = System.Drawing.SystemColors.Control;
+            this.analyzedTabPage3.Controls.Add(this.lb_SearchResultsCount6);
+            this.analyzedTabPage3.Controls.Add(this.label40);
+            this.analyzedTabPage3.Controls.Add(this.cb_ExactSearch6);
+            this.analyzedTabPage3.Controls.Add(this.tb_TargetingSearch6);
+            this.analyzedTabPage3.Controls.Add(this.dgv_Analyzed3);
+            this.analyzedTabPage3.Controls.Add(this.panel12);
+            this.analyzedTabPage3.Location = new System.Drawing.Point(4, 29);
+            this.analyzedTabPage3.Name = "analyzedTabPage3";
+            this.analyzedTabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.analyzedTabPage3.Size = new System.Drawing.Size(1377, 722);
+            this.analyzedTabPage3.TabIndex = 6;
+            this.analyzedTabPage3.Text = "Анализ (окно 3)";
+            // 
+            // lb_SearchResultsCount6
+            // 
+            this.lb_SearchResultsCount6.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_SearchResultsCount6.Location = new System.Drawing.Point(308, 13);
+            this.lb_SearchResultsCount6.Name = "lb_SearchResultsCount6";
+            this.lb_SearchResultsCount6.Size = new System.Drawing.Size(146, 24);
+            this.lb_SearchResultsCount6.TabIndex = 135;
+            this.lb_SearchResultsCount6.Text = "(0 результатов)";
+            this.lb_SearchResultsCount6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label40
             // 
@@ -3027,10 +3599,10 @@
             this.panel10.ResumeLayout(false);
             this.analyzedTabPage2.ResumeLayout(false);
             this.analyzedTabPage2.PerformLayout();
-            this.analyzedTabPage3.ResumeLayout(false);
-            this.analyzedTabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Analyzed2)).EndInit();
             this.panel11.ResumeLayout(false);
+            this.analyzedTabPage3.ResumeLayout(false);
+            this.analyzedTabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Analyzed3)).EndInit();
             this.panel12.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -3259,7 +3831,7 @@
         private System.Windows.Forms.ToolStripMenuItem campaignsByOrderstoolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem campaignsByUnitstoolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem campaignsByConversiontoolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem полныйАнализToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fullAnalyzeToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem fullAnalyzeBroadToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem fullAnalyzeExactToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem fullAnalyzePhraseToolStripMenuItem1;
@@ -3291,5 +3863,65 @@
         private System.Windows.Forms.Label lb_StartDate6;
         private System.Windows.Forms.Label lb_EndDate6;
         private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.Label lb_SearchResultsCount1;
+        private System.Windows.Forms.Label lb_SearchResultsCount3;
+        private System.Windows.Forms.Label lb_SearchResultsCount2;
+        private System.Windows.Forms.Label lb_SearchResultsCount4;
+        private System.Windows.Forms.Label lb_SearchResultsCount5;
+        private System.Windows.Forms.Label lb_SearchResultsCount6;
+        private System.Windows.Forms.ToolStripMenuItem analyzecontext3;
+        private System.Windows.Forms.ToolStripMenuItem keywordsSectionToolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem keywordsByImpressions_ToolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem keywordsBySalesToolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem keywordsBySpendToolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem keywordsByOrdersToolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem keywordsByUnitsToolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem keywordsByConversionToolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem AdGroupsSectionToolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem adGroupsByImpressions3toolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem adGroupsBySalestoolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem adGroupsBySpendtoolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem adGroupsByOrderstoolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem adGroupsByUnitstoolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem adGroupsByConversiontoolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem campaignsSectionToolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem campaignsByImpressionstoolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem campaignsBySalestoolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem campaignsBySpendtoolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem campaignsByOrderstoolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem campaignsByUnitstoolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem campaignsByConversiontoolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem fullAnalyzeToolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem fullAnalyzeBroadToolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem fullAnalyzeExactToolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem fullAnalyzePhraseToolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem fullAnalyzeAllToolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem analyzecontext2;
+        private System.Windows.Forms.ToolStripMenuItem keywordsSectionToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem keywordsByImpressions_ToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem keywordsBySalesToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem keywordsBySpendToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem keywordsByOrdersToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem keywordsByUnitsToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem keywordsByConversionToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem AdGroupsSectionToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem adGroupsByImpressions2toolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem adGroupsBySalestoolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem adGroupsBySpendtoolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem adGroupsByOrderstoolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem adGroupsByUnitstoolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem adGroupsByConversiontoolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem campaignsSectionToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem campaignsByImpressionstoolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem campaignsBySalestoolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem campaignsBySpendtoolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem campaignsByOrderstoolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem campaignsByUnitstoolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem campaignsByConversiontoolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem fullAnalyzeToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem fullAnalyzeBroadToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem fullAnalyzeExactToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem fullAnalyzePhraseToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem fullAnalyzeAllToolStripMenuItem2;
     }
 }
