@@ -425,6 +425,20 @@ namespace Excel_Parse
             this.Visible = false;
         }
 
+        private void stockReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ReportStockUploadView repstock = new ReportStockUploadView(this);
+            repstock.Show();
+            this.Visible = false;
+        }
+
+        private void складToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ReportStockView repstock = new ReportStockView(this);
+            repstock.Show();
+            this.Visible = false;
+        }
+
         /* 
          
           

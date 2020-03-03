@@ -424,7 +424,7 @@ namespace Excel_Parse
             lb_StartDate6.Text = DateTime.Today.ToShortDateString();
             lb_EndDate6.Text = DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59).ToShortDateString();
 
-            analyzeReport = new AnalyzeAdvertisingReport();
+            analyzeReport = new AnalyzeAdvertisingReport(this);
         }
 
 
@@ -2090,9 +2090,6 @@ namespace Excel_Parse
         /* Применяем фильтры и перерисовываем данные в таблице */
         private void btn_Show1_Click(object sender, EventArgs e)
         {
-            this.Cursor = Cursors.WaitCursor;
-            this.Enabled = false;
-
             if (StartDate1 > EndDate1)
                 MessageBox.Show("Ошибка! Дата начала больше даты окончания!", "Ошибка");
 
@@ -2114,6 +2111,9 @@ namespace Excel_Parse
             //    filterAdvProductsList1 = new List<AdvertisingProductsModel> { };
             //}
 
+            this.Cursor = Cursors.WaitCursor;
+            lb_Waiting1.Visible = true;
+            this.Enabled = false;
 
             if (byTargetingInAdGroupsToolStripMenuItem1.Checked)
             {
@@ -2169,8 +2169,9 @@ namespace Excel_Parse
             }
 
 
-            this.Cursor = Cursors.Default;
             this.Enabled = true;
+            lb_Waiting1.Visible = false;
+            this.Cursor = Cursors.Default;
         }
 
 
@@ -2959,142 +2960,201 @@ namespace Excel_Parse
 
         private void keywordsByImpressions_ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "impressions", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "keywords"));
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "impressions", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "keywords"), lb_Waiting1);
             tb_TargetingSearch4.Enabled = true;
             cb_ExactSearch4.Enabled = true;
+
+            lb_StartDate4.Text = lb_StartDate1.Text;
+            lb_EndDate4.Text = lb_EndDate1.Text;
         }
 
         private void keywordsBySalesToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "sales", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "keywords"));
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "sales", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "keywords"), lb_Waiting1);
             tb_TargetingSearch4.Enabled = true;
             cb_ExactSearch4.Enabled = true;
+
+            lb_StartDate4.Text = lb_StartDate1.Text;
+            lb_EndDate4.Text = lb_EndDate1.Text;
         }
 
         private void keywordsBySpendToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "spend", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "keywords"));
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "spend", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "keywords"), lb_Waiting1);
             tb_TargetingSearch4.Enabled = true;
             cb_ExactSearch4.Enabled = true;
+
+            lb_StartDate4.Text = lb_StartDate1.Text;
+            lb_EndDate4.Text = lb_EndDate1.Text;
         }
 
         private void keywordsByOrdersToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "orders", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "keywords"));
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "orders", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "keywords"), lb_Waiting1);
             tb_TargetingSearch4.Enabled = true;
             cb_ExactSearch4.Enabled = true;
+
+            lb_StartDate4.Text = lb_StartDate1.Text;
+            lb_EndDate4.Text = lb_EndDate1.Text;
         }
 
         private void keywordsByUnitsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "units", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "keywords"));
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "units", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "keywords"), lb_Waiting1);
             tb_TargetingSearch4.Enabled = true;
             cb_ExactSearch4.Enabled = true;
+
+            lb_StartDate4.Text = lb_StartDate1.Text;
+            lb_EndDate4.Text = lb_EndDate1.Text;
         }
 
         private void keywordsByConversionToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "conversion", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "keywords"));
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "conversion", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "keywords"), lb_Waiting1);
             tb_TargetingSearch4.Enabled = true;
             cb_ExactSearch4.Enabled = true;
+
+            lb_StartDate4.Text = lb_StartDate1.Text;
+            lb_EndDate4.Text = lb_EndDate1.Text;
         }
 
 
         private void adGroupsByImpressions1toolStripMenuItem_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "impressions", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "adgroups"));
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "impressions", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "adgroups"), lb_Waiting1);
             tb_TargetingSearch4.Enabled = false;
             cb_ExactSearch4.Enabled = false;
+
+            lb_StartDate4.Text = lb_StartDate1.Text;
+            lb_EndDate4.Text = lb_EndDate1.Text;
         }
 
         private void adGroupsBySalestoolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "sales", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "adgroups"));
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "sales", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "adgroups"), lb_Waiting1);
             tb_TargetingSearch4.Enabled = false;
             cb_ExactSearch4.Enabled = false;
+
+            lb_StartDate4.Text = lb_StartDate1.Text;
+            lb_EndDate4.Text = lb_EndDate1.Text;
         }
 
         private void adGroupsBySpendtoolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "spend", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "adgroups"));
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "spend", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "adgroups"), lb_Waiting1);
             tb_TargetingSearch4.Enabled = false;
             cb_ExactSearch4.Enabled = false;
+
+            lb_StartDate4.Text = lb_StartDate1.Text;
+            lb_EndDate4.Text = lb_EndDate1.Text;
         }
 
         private void adGroupsByOrderstoolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "orders", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "adgroups"));
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "orders", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "adgroups"), lb_Waiting1);
             tb_TargetingSearch4.Enabled = false;
             cb_ExactSearch4.Enabled = false;
+
+            lb_StartDate4.Text = lb_StartDate1.Text;
+            lb_EndDate4.Text = lb_EndDate1.Text;
         }
 
         private void adGroupsByUnitstoolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "units", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "adgroups"));
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "units", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "adgroups"), lb_Waiting1);
             tb_TargetingSearch4.Enabled = false;
             cb_ExactSearch4.Enabled = false;
+
+            lb_StartDate4.Text = lb_StartDate1.Text;
+            lb_EndDate4.Text = lb_EndDate1.Text;
         }
 
         private void adGroupsBytoolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "conversion", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "adgroups"));
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed1, "conversion", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "adgroups"), lb_Waiting1);
             tb_TargetingSearch4.Enabled = false;
             cb_ExactSearch4.Enabled = false;
+
+            lb_StartDate4.Text = lb_StartDate1.Text;
+            lb_EndDate4.Text = lb_EndDate1.Text;
         }
 
 
         private void campaignsByImpressionstoolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "impressions", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "campaigns"));
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "impressions", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "campaigns"), lb_Waiting1);
             tb_TargetingSearch4.Enabled = false;
             cb_ExactSearch4.Enabled = false;
+
+            lb_StartDate4.Text = lb_StartDate1.Text;
+            lb_EndDate4.Text = lb_EndDate1.Text;
         }
 
         private void campaignsBySalestoolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "sales", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "campaigns"));
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "sales", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "campaigns"), lb_Waiting1);
             tb_TargetingSearch4.Enabled = false;
             cb_ExactSearch4.Enabled = false;
+
+            lb_StartDate4.Text = lb_StartDate1.Text;
+            lb_EndDate4.Text = lb_EndDate1.Text;
         }
 
         private void campaignsBySpendtoolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "spend", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "campaigns"));
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "spend", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "campaigns"), lb_Waiting1);
             tb_TargetingSearch4.Enabled = false;
             cb_ExactSearch4.Enabled = false;
+
+            lb_StartDate4.Text = lb_StartDate1.Text;
+            lb_EndDate4.Text = lb_EndDate1.Text;
         }
 
         private void campaignsByOrderstoolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "orders", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "campaigns"));
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "orders", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "campaigns"), lb_Waiting1);
             tb_TargetingSearch4.Enabled = false;
             cb_ExactSearch4.Enabled = false;
+
+            lb_StartDate4.Text = lb_StartDate1.Text;
+            lb_EndDate4.Text = lb_EndDate1.Text;
         }
 
         private void campaignsByUnitstoolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "units", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "campaigns"));
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "units", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "campaigns"), lb_Waiting1);
             tb_TargetingSearch4.Enabled = false;
             cb_ExactSearch4.Enabled = false;
+
+            lb_StartDate4.Text = lb_StartDate1.Text;
+            lb_EndDate4.Text = lb_EndDate1.Text;
         }
 
         private void campaignsByConversiontoolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "conversion", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "campaigns"));
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed1, "conversion", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "campaigns"), lb_Waiting1);
             tb_TargetingSearch4.Enabled = false;
             cb_ExactSearch4.Enabled = false;
+
+            lb_StartDate4.Text = lb_StartDate1.Text;
+            lb_EndDate4.Text = lb_EndDate1.Text;
         }
 
         private void fullAnalyzeAllToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "impressions", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "allinwindow"));
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed1, "impressions", getDateFromLabel(lb_StartDate1.Text), getDateFromLabel(lb_EndDate1.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts1, "allinwindow"), lb_Waiting1);
             tb_TargetingSearch4.Enabled = true;
             cb_ExactSearch4.Enabled = true;
+
+            lb_StartDate4.Text = lb_StartDate1.Text;
+            lb_EndDate4.Text = lb_EndDate1.Text;
         }
 
         /* Настраиваем видимость элементов меню в зависимости от того, с какой таблицы было вызвано */
         private void contextMenuStripTab1_Opening(object sender, CancelEventArgs e)
         {
+            context1CopyToTab2.Enabled = true;
+            context1CopyToTab3.Enabled = true;
             keywordsSectionToolStripMenuItem1.Enabled = false;
             AdGroupsSectionToolStripMenuItem1.Enabled = false;
             campaignsSectionToolStripMenuItem1.Enabled = false;
@@ -3168,7 +3228,11 @@ namespace Excel_Parse
                 fullAnalyzeToolStripMenuItem1.Enabled = true;
             }
             else
+            {
                 analyzecontext1.Enabled = false;
+                context1CopyToTab2.Enabled = false;
+                context1CopyToTab3.Enabled = false;
+            }
         }
 
 
@@ -5067,7 +5131,8 @@ namespace Excel_Parse
         /* Применяем фильтры и перерисовываем данные в таблице */
         private void btn_Show2_Click(object sender, EventArgs e)
         {
-            this.Cursor = Cursors.WaitCursor;
+            this.Cursor = Cursors.Default;
+            lb_Waiting2.Visible = true;
             this.Enabled = false;
 
             if (StartDate2 > EndDate2)
@@ -5129,8 +5194,9 @@ namespace Excel_Parse
                 }
             }
 
-            this.Cursor = Cursors.Default;
             this.Enabled = true;
+            lb_Waiting2.Visible = false;
+            this.Cursor = Cursors.Default;
         }
 
         /* Получаем список advProductsList1 и рисуем его в таблице dgv_AdvProducts1 */
@@ -5585,142 +5651,201 @@ namespace Excel_Parse
 
         private void keywordsByImpressions_ToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed2, "impressions", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "keywords"));
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed2, "impressions", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "keywords"), lb_Waiting2);
             tb_TargetingSearch5.Enabled = true;
             cb_ExactSearch5.Enabled = true;
+
+            lb_StartDate5.Text = lb_StartDate2.Text;
+            lb_EndDate5.Text = lb_EndDate2.Text;
         }
 
         private void keywordsBySalesToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed2, "sales", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "keywords"));
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed2, "sales", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "keywords"), lb_Waiting2);
             tb_TargetingSearch5.Enabled = true;
             cb_ExactSearch5.Enabled = true;
+
+            lb_StartDate5.Text = lb_StartDate2.Text;
+            lb_EndDate5.Text = lb_EndDate2.Text;
         }
 
         private void keywordsBySpendToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed2, "spend", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "keywords"));
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed2, "spend", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "keywords"), lb_Waiting2);
             tb_TargetingSearch5.Enabled = true;
             cb_ExactSearch5.Enabled = true;
+
+            lb_StartDate5.Text = lb_StartDate2.Text;
+            lb_EndDate5.Text = lb_EndDate2.Text;
         }
 
         private void keywordsByOrdersToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed2, "orders", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "keywords"));
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed2, "orders", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "keywords"), lb_Waiting2);
             tb_TargetingSearch5.Enabled = true;
             cb_ExactSearch5.Enabled = true;
+
+            lb_StartDate5.Text = lb_StartDate2.Text;
+            lb_EndDate5.Text = lb_EndDate2.Text;
         }
 
         private void keywordsByUnitsToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed2, "units", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "keywords"));
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed2, "units", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "keywords"), lb_Waiting2);
             tb_TargetingSearch5.Enabled = true;
             cb_ExactSearch5.Enabled = true;
+
+            lb_StartDate5.Text = lb_StartDate2.Text;
+            lb_EndDate5.Text = lb_EndDate2.Text;
         }
 
         private void keywordsByConversionToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed2, "conversion", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "keywords"));
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed2, "conversion", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "keywords"), lb_Waiting2);
             tb_TargetingSearch5.Enabled = true;
             cb_ExactSearch5.Enabled = true;
+
+            lb_StartDate5.Text = lb_StartDate2.Text;
+            lb_EndDate5.Text = lb_EndDate2.Text;
         }
 
 
         private void adGroupsByImpressions2toolStripMenuItem_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeAdGroups(dgv_Analyzed2, "impressions", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "adgroups"));
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed2, "impressions", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "adgroups"), lb_Waiting2);
             tb_TargetingSearch5.Enabled = false;
             cb_ExactSearch5.Enabled = false;
+
+            lb_StartDate5.Text = lb_StartDate2.Text;
+            lb_EndDate5.Text = lb_EndDate2.Text;
         }
 
         private void adGroupsBySalestoolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeAdGroups(dgv_Analyzed2, "sales", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "adgroups"));
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed2, "sales", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "adgroups"), lb_Waiting2);
             tb_TargetingSearch5.Enabled = false;
             cb_ExactSearch5.Enabled = false;
+
+            lb_StartDate5.Text = lb_StartDate2.Text;
+            lb_EndDate5.Text = lb_EndDate2.Text;
         }
 
         private void adGroupsBySpendtoolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeAdGroups(dgv_Analyzed2, "spend", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "adgroups"));
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed2, "spend", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "adgroups"), lb_Waiting2);
             tb_TargetingSearch5.Enabled = false;
             cb_ExactSearch5.Enabled = false;
+
+            lb_StartDate5.Text = lb_StartDate2.Text;
+            lb_EndDate5.Text = lb_EndDate2.Text;
         }
 
         private void adGroupsByOrderstoolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeAdGroups(dgv_Analyzed2, "orders", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "adgroups"));
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed2, "orders", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "adgroups"), lb_Waiting2);
             tb_TargetingSearch5.Enabled = false;
             cb_ExactSearch5.Enabled = false;
+
+            lb_StartDate5.Text = lb_StartDate2.Text;
+            lb_EndDate5.Text = lb_EndDate2.Text;
         }
 
         private void adGroupsByUnitstoolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeAdGroups(dgv_Analyzed2, "units", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "adgroups"));
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed2, "units", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "adgroups"), lb_Waiting2);
             tb_TargetingSearch5.Enabled = false;
             cb_ExactSearch5.Enabled = false;
+
+            lb_StartDate5.Text = lb_StartDate2.Text;
+            lb_EndDate5.Text = lb_EndDate2.Text;
         }
 
         private void adGroupsByConversiontoolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeAdGroups(dgv_Analyzed2, "conversion", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "adgroups"));
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed2, "conversion", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "adgroups"), lb_Waiting2);
             tb_TargetingSearch5.Enabled = false;
             cb_ExactSearch5.Enabled = false;
+
+            lb_StartDate5.Text = lb_StartDate2.Text;
+            lb_EndDate5.Text = lb_EndDate2.Text;
         }
 
 
         private void campaignsByImpressionstoolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeCampaigns(dgv_Analyzed2, "impressions", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "campaigns"));
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed2, "impressions", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "campaigns"), lb_Waiting2);
             tb_TargetingSearch5.Enabled = false;
             cb_ExactSearch5.Enabled = false;
+
+            lb_StartDate5.Text = lb_StartDate2.Text;
+            lb_EndDate5.Text = lb_EndDate2.Text;
         }
 
         private void campaignsBySalestoolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeCampaigns(dgv_Analyzed2, "sales", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "campaigns"));
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed2, "sales", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "campaigns"), lb_Waiting2);
             tb_TargetingSearch5.Enabled = false;
             cb_ExactSearch5.Enabled = false;
+
+            lb_StartDate5.Text = lb_StartDate2.Text;
+            lb_EndDate5.Text = lb_EndDate2.Text;
         }
 
         private void campaignsBySpendtoolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeCampaigns(dgv_Analyzed2, "spend", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "campaigns"));
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed2, "spend", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "campaigns"), lb_Waiting2);
             tb_TargetingSearch5.Enabled = false;
             cb_ExactSearch5.Enabled = false;
+
+            lb_StartDate5.Text = lb_StartDate2.Text;
+            lb_EndDate5.Text = lb_EndDate2.Text;
         }
 
         private void campaignsByOrderstoolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeCampaigns(dgv_Analyzed2, "orders", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "campaigns"));
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed2, "orders", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "campaigns"), lb_Waiting2);
             tb_TargetingSearch5.Enabled = false;
             cb_ExactSearch5.Enabled = false;
+
+            lb_StartDate5.Text = lb_StartDate2.Text;
+            lb_EndDate5.Text = lb_EndDate2.Text;
         }
 
         private void campaignsByUnitstoolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeCampaigns(dgv_Analyzed2, "units", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "campaigns"));
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed2, "units", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "campaigns"), lb_Waiting2);
             tb_TargetingSearch5.Enabled = false;
             cb_ExactSearch5.Enabled = false;
+
+            lb_StartDate5.Text = lb_StartDate2.Text;
+            lb_EndDate5.Text = lb_EndDate2.Text;
         }
 
         private void campaignsByConversiontoolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeCampaigns(dgv_Analyzed2, "conversion", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "campaigns"));
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed2, "conversion", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "campaigns"), lb_Waiting2);
             tb_TargetingSearch5.Enabled = false;
             cb_ExactSearch5.Enabled = false;
+
+            lb_StartDate5.Text = lb_StartDate2.Text;
+            lb_EndDate5.Text = lb_EndDate2.Text;
         }
 
         private void fullAnalyzeAllToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed2, "impressions", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "allinwindow"));
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed2, "impressions", getDateFromLabel(lb_StartDate2.Text), getDateFromLabel(lb_EndDate2.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts2, "allinwindow"), lb_Waiting2);
             tb_TargetingSearch5.Enabled = true;
             cb_ExactSearch5.Enabled = true;
+
+            lb_StartDate5.Text = lb_StartDate2.Text;
+            lb_EndDate5.Text = lb_EndDate2.Text;
         }
 
         /* Настраиваем видимость элементов меню в зависимости от того, с какой таблицы было вызвано */
         private void contextMenuStripTab2_Opening(object sender, CancelEventArgs e)
         {
+            context2CopyToTab1.Enabled = true;
+            context2CopyToTab3.Enabled = true;
             keywordsSectionToolStripMenuItem2.Enabled = false;
             AdGroupsSectionToolStripMenuItem2.Enabled = false;
             campaignsSectionToolStripMenuItem2.Enabled = false;
@@ -5794,7 +5919,11 @@ namespace Excel_Parse
                 fullAnalyzeToolStripMenuItem2.Enabled = true;
             }
             else
+            {
                 analyzecontext2.Enabled = false;
+                context2CopyToTab1.Enabled = false;
+                context2CopyToTab3.Enabled = false;
+            }
         }
 
         //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -7396,15 +7525,15 @@ namespace Excel_Parse
         /* Применяем фильтры и перерисовываем данные в таблице */
         private void btn_Show3_Click(object sender, EventArgs e)
         {
-            this.Cursor = Cursors.WaitCursor;
-            this.Enabled = false;
-
             if (StartDate3 > EndDate3)
                 MessageBox.Show("Ошибка! Дата начала больше даты окончания!", "Ошибка");
             
             int result = 0;
             advProductsList3 = null;
 
+            this.Cursor = Cursors.WaitCursor;
+            lb_Waiting3.Visible = true;
+            this.Enabled = false;
 
             if (byTargetingInAdGroupsToolStripMenuItem3.Checked)
             {
@@ -7459,8 +7588,9 @@ namespace Excel_Parse
                 }
             }
 
-            this.Cursor = Cursors.Default;
             this.Enabled = true;
+            lb_Waiting3.Visible = false;
+            this.Cursor = Cursors.Default;
         }
 
         /* Получаем список advProductsList1 и рисуем его в таблице dgv_AdvProducts3 */
@@ -8208,142 +8338,201 @@ namespace Excel_Parse
 
         private void keywordsByImpressions_ToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed3, "impressions", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "keywords"));
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed3, "impressions", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "keywords"), lb_Waiting3);
             tb_TargetingSearch6.Enabled = true;
             cb_ExactSearch6.Enabled = true;
+
+            lb_StartDate6.Text = lb_StartDate3.Text;
+            lb_EndDate6.Text = lb_EndDate3.Text;
         }
 
         private void keywordsBySalesToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed3, "sales", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "keywords"));
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed3, "sales", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "keywords"), lb_Waiting3);
             tb_TargetingSearch6.Enabled = true;
             cb_ExactSearch6.Enabled = true;
+
+            lb_StartDate6.Text = lb_StartDate3.Text;
+            lb_EndDate6.Text = lb_EndDate3.Text;
         }
 
         private void keywordsBySpendToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed3, "spend", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "keywords"));
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed3, "spend", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "keywords"), lb_Waiting3);
             tb_TargetingSearch6.Enabled = true;
             cb_ExactSearch6.Enabled = true;
+
+            lb_StartDate6.Text = lb_StartDate3.Text;
+            lb_EndDate6.Text = lb_EndDate3.Text;
         }
 
         private void keywordsByOrdersToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed3, "orders", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "keywords"));
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed3, "orders", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "keywords"), lb_Waiting3);
             tb_TargetingSearch6.Enabled = true;
             cb_ExactSearch6.Enabled = true;
+
+            lb_StartDate6.Text = lb_StartDate3.Text;
+            lb_EndDate6.Text = lb_EndDate3.Text;
         }
 
         private void keywordsByUnitsToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed3, "units", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "keywords"));
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed3, "units", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "keywords"), lb_Waiting3);
             tb_TargetingSearch6.Enabled = true;
             cb_ExactSearch6.Enabled = true;
+
+            lb_StartDate6.Text = lb_StartDate3.Text;
+            lb_EndDate6.Text = lb_EndDate3.Text;
         }
 
         private void keywordsByConversionToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed3, "conversion", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "keywords"));
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed3, "conversion", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "keywords"), lb_Waiting3);
             tb_TargetingSearch6.Enabled = true;
             cb_ExactSearch6.Enabled = true;
+
+            lb_StartDate6.Text = lb_StartDate3.Text;
+            lb_EndDate6.Text = lb_EndDate3.Text;
         }
 
 
         private void adGroupsByImpressions3toolStripMenuItem_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeAdGroups(dgv_Analyzed3, "impressions", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "adgroups"));
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed3, "impressions", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "adgroups"), lb_Waiting3);
             tb_TargetingSearch6.Enabled = false;
             cb_ExactSearch6.Enabled = false;
+
+            lb_StartDate6.Text = lb_StartDate3.Text;
+            lb_EndDate6.Text = lb_EndDate3.Text;
         }
 
         private void adGroupsBySalestoolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeAdGroups(dgv_Analyzed3, "sales", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "adgroups"));
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed3, "sales", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "adgroups"), lb_Waiting3);
             tb_TargetingSearch6.Enabled = false;
             cb_ExactSearch6.Enabled = false;
+
+            lb_StartDate6.Text = lb_StartDate3.Text;
+            lb_EndDate6.Text = lb_EndDate3.Text;
         }
 
         private void adGroupsBySpendtoolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeAdGroups(dgv_Analyzed3, "spend", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "adgroups"));
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed3, "spend", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "adgroups"), lb_Waiting3);
             tb_TargetingSearch6.Enabled = false;
             cb_ExactSearch6.Enabled = false;
+
+            lb_StartDate6.Text = lb_StartDate3.Text;
+            lb_EndDate6.Text = lb_EndDate3.Text;
         }
 
         private void adGroupsByOrderstoolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeAdGroups(dgv_Analyzed3, "orders", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "adgroups"));
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed3, "orders", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "adgroups"), lb_Waiting3);
             tb_TargetingSearch6.Enabled = false;
             cb_ExactSearch6.Enabled = false;
+
+            lb_StartDate6.Text = lb_StartDate3.Text;
+            lb_EndDate6.Text = lb_EndDate3.Text;
         }
 
         private void adGroupsByUnitstoolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeAdGroups(dgv_Analyzed3, "units", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "adgroups"));
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed3, "units", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "adgroups"), lb_Waiting3);
             tb_TargetingSearch6.Enabled = false;
             cb_ExactSearch6.Enabled = false;
+
+            lb_StartDate6.Text = lb_StartDate3.Text;
+            lb_EndDate6.Text = lb_EndDate3.Text;
         }
 
         private void adGroupsByConversiontoolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeAdGroups(dgv_Analyzed3, "conversion", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "adgroups"));
+            analyzeReport.AnalyzeAdGroups(dgv_Analyzed3, "conversion", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "adgroups"), lb_Waiting3);
             tb_TargetingSearch6.Enabled = false;
             cb_ExactSearch6.Enabled = false;
+
+            lb_StartDate6.Text = lb_StartDate3.Text;
+            lb_EndDate6.Text = lb_EndDate3.Text;
         }
 
 
         private void campaignsByImpressionstoolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeCampaigns(dgv_Analyzed3, "impressions", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "campaigns"));
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed3, "impressions", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "campaigns"), lb_Waiting3);
             tb_TargetingSearch6.Enabled = false;
             cb_ExactSearch6.Enabled = false;
+
+            lb_StartDate6.Text = lb_StartDate3.Text;
+            lb_EndDate6.Text = lb_EndDate3.Text;
         }
 
         private void campaignsBySalestoolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeCampaigns(dgv_Analyzed3, "sales", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "campaigns"));
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed3, "sales", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "campaigns"), lb_Waiting3);
             tb_TargetingSearch6.Enabled = false;
             cb_ExactSearch6.Enabled = false;
+
+            lb_StartDate6.Text = lb_StartDate3.Text;
+            lb_EndDate6.Text = lb_EndDate3.Text;
         }
 
         private void campaignsBySpendtoolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeCampaigns(dgv_Analyzed3, "spend", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "campaigns"));
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed3, "spend", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "campaigns"), lb_Waiting3);
             tb_TargetingSearch6.Enabled = false;
             cb_ExactSearch6.Enabled = false;
+
+            lb_StartDate6.Text = lb_StartDate3.Text;
+            lb_EndDate6.Text = lb_EndDate3.Text;
         }
 
         private void campaignsByOrderstoolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeCampaigns(dgv_Analyzed3, "orders", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "campaigns"));
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed3, "orders", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "campaigns"), lb_Waiting3);
             tb_TargetingSearch6.Enabled = false;
             cb_ExactSearch6.Enabled = false;
+
+            lb_StartDate6.Text = lb_StartDate3.Text;
+            lb_EndDate6.Text = lb_EndDate3.Text;
         }
 
         private void campaignsByUnitstoolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeCampaigns(dgv_Analyzed3, "units", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "campaigns"));
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed3, "units", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "campaigns"), lb_Waiting3);
             tb_TargetingSearch6.Enabled = false;
             cb_ExactSearch6.Enabled = false;
+
+            lb_StartDate6.Text = lb_StartDate3.Text;
+            lb_EndDate6.Text = lb_EndDate3.Text;
         }
 
         private void campaignsByConversiontoolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeCampaigns(dgv_Analyzed3, "conversion", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "campaigns"));
+            analyzeReport.AnalyzeCampaigns(dgv_Analyzed3, "conversion", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "campaigns"), lb_Waiting3);
             tb_TargetingSearch6.Enabled = false;
             cb_ExactSearch6.Enabled = false;
+
+            lb_StartDate6.Text = lb_StartDate3.Text;
+            lb_EndDate6.Text = lb_EndDate3.Text;
         }
 
         private void fullAnalyzeAllToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            analyzeReport.AnalyzeKeywords(dgv_Analyzed3, "impressions", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "allinwindow"));
+            analyzeReport.AnalyzeKeywords(dgv_Analyzed3, "impressions", getDateFromLabel(lb_StartDate3.Text), getDateFromLabel(lb_EndDate3.Text), GenerateAdvProductListFromDGV(dgv_AdvProducts3, "allinwindow"), lb_Waiting3);
             tb_TargetingSearch6.Enabled = true;
             cb_ExactSearch6.Enabled = true;
+
+            lb_StartDate6.Text = lb_StartDate3.Text;
+            lb_EndDate6.Text = lb_EndDate3.Text;
         }
 
         /* Настраиваем видимость элементов меню в зависимости от того, с какой таблицы было вызвано */
         private void contextMenuStripTab3_Opening(object sender, CancelEventArgs e)
         {
+            context3CopyToTab1.Enabled = true;
+            context3CopyToTab2.Enabled = true;
             keywordsSectionToolStripMenuItem3.Enabled = false;
             AdGroupsSectionToolStripMenuItem3.Enabled = false;
             campaignsSectionToolStripMenuItem3.Enabled = false;
@@ -8417,7 +8606,11 @@ namespace Excel_Parse
                 fullAnalyzeToolStripMenuItem3.Enabled = true;
             }
             else
+            {
                 analyzecontext3.Enabled = false;
+                context3CopyToTab1.Enabled = false;
+                context3CopyToTab2.Enabled = false;
+            }
         }
 
         
@@ -9002,6 +9195,9 @@ namespace Excel_Parse
             _dgv_AdvProducts.Columns[2].Width = 200;
             _dgv_AdvProducts.Columns[3].Width = 200;
             _dgv_AdvProducts.Columns[4].Width = 200;
+
+            _dgv_AdvProducts.Columns[12].DefaultCellStyle.BackColor = Color.LightGray;
+            _dgv_AdvProducts.Columns[12].HeaderCell.Style.BackColor = Color.LightGray;
 
             for (int i = 0; i < _advProductsList[0].ColumnCount; i++)
             {
@@ -9739,123 +9935,128 @@ namespace Excel_Parse
         /* UNIVERSAL METHOD Получаем advProductList по выделенным строкам в заданной DataGridView */
         private List<AdvertisingProductsModel> GenerateAdvProductListFromDGV(DataGridView _dgv, string _mode)
         {
-            List<AdvertisingProductsModel> finalList = new List<AdvertisingProductsModel> { };
-
-            if (_mode.Equals("keywords")) 
+            if (_dgv.CurrentCell.RowIndex > 0)
             {
-                List<int> rowsIndexes = new List<int> { };
-                for (int i = 0; i < _dgv.SelectedCells.Count; i++)
-                {
-                    if (!rowsIndexes.Contains(_dgv.SelectedCells[i].RowIndex))
-                        rowsIndexes.Add(_dgv.SelectedCells[i].RowIndex);
-                }                
+                List<AdvertisingProductsModel> finalList = new List<AdvertisingProductsModel> { };
 
-                for (int i = 0; i < rowsIndexes.Count; i++)
+                if (_mode.Equals("keywords"))
                 {
-                    AdvertisingProductsModel tmpObj = new AdvertisingProductsModel();
-
-                    for (int j = 1; j < tmpObj.ColumnCount; j++)
+                    List<int> rowsIndexes = new List<int> { };
+                    for (int i = 0; i < _dgv.SelectedCells.Count; i++)
                     {
-                        tmpObj.WriteData(j, _dgv.Rows[rowsIndexes[i]].Cells[j].Value);
+                        if (!rowsIndexes.Contains(_dgv.SelectedCells[i].RowIndex))
+                            rowsIndexes.Add(_dgv.SelectedCells[i].RowIndex);
                     }
 
-                    finalList.Add(tmpObj);
-                }
-            }
-            else if (_mode.Equals("adgroups")) 
-            {
-                List<string> used = new List<string> { };
-                List<string> adgroups = new List<string> { };
-                List<string> campaigns = new List<string> { };
-
-                List<int> rowsIndexes = new List<int> { };
-                for (int i = 0; i < _dgv.SelectedCells.Count; i++)
-                {
-                    if (!rowsIndexes.Contains(_dgv.SelectedCells[i].RowIndex))
-                        rowsIndexes.Add(_dgv.SelectedCells[i].RowIndex);
-                }
-
-                for (int i = 0; i < rowsIndexes.Count; i++)
-                {
-                    if (!used.Contains(_dgv.Rows[rowsIndexes[i]].Cells[3].Value.ToString() + _dgv.Rows[rowsIndexes[i]].Cells[2].Value.ToString()))
+                    for (int i = 0; i < rowsIndexes.Count; i++)
                     {
-                        adgroups.Add(_dgv.Rows[rowsIndexes[i]].Cells[3].Value.ToString());
-                        campaigns.Add(_dgv.Rows[rowsIndexes[i]].Cells[2].Value.ToString());
-                        used.Add(_dgv.Rows[rowsIndexes[i]].Cells[3].Value.ToString() + _dgv.Rows[rowsIndexes[i]].Cells[2].Value.ToString());
-                    }
-                }
+                        AdvertisingProductsModel tmpObj = new AdvertisingProductsModel();
 
-                for (int i = 1; i < _dgv.Rows.Count; i++)
-                {
-                    for (int j = 0; j < adgroups.Count; j++)
-                    {
-                        if (_dgv.Rows[i].Cells[3].Value.ToString().Equals(adgroups[j]) && _dgv.Rows[i].Cells[2].Value.ToString().Equals(campaigns[j]))
+                        for (int j = 1; j < tmpObj.ColumnCount; j++)
                         {
-                            AdvertisingProductsModel tmpObj = new AdvertisingProductsModel();
+                            tmpObj.WriteData(j, _dgv.Rows[rowsIndexes[i]].Cells[j].Value);
+                        }
 
-                            for (int k = 1; k < tmpObj.ColumnCount; k++)
+                        finalList.Add(tmpObj);
+                    }
+                }
+                else if (_mode.Equals("adgroups"))
+                {
+                    List<string> used = new List<string> { };
+                    List<string> adgroups = new List<string> { };
+                    List<string> campaigns = new List<string> { };
+
+                    List<int> rowsIndexes = new List<int> { };
+                    for (int i = 0; i < _dgv.SelectedCells.Count; i++)
+                    {
+                        if (!rowsIndexes.Contains(_dgv.SelectedCells[i].RowIndex))
+                            rowsIndexes.Add(_dgv.SelectedCells[i].RowIndex);
+                    }
+
+                    for (int i = 0; i < rowsIndexes.Count; i++)
+                    {
+                        if (!used.Contains(_dgv.Rows[rowsIndexes[i]].Cells[3].Value.ToString() + _dgv.Rows[rowsIndexes[i]].Cells[2].Value.ToString()))
+                        {
+                            adgroups.Add(_dgv.Rows[rowsIndexes[i]].Cells[3].Value.ToString());
+                            campaigns.Add(_dgv.Rows[rowsIndexes[i]].Cells[2].Value.ToString());
+                            used.Add(_dgv.Rows[rowsIndexes[i]].Cells[3].Value.ToString() + _dgv.Rows[rowsIndexes[i]].Cells[2].Value.ToString());
+                        }
+                    }
+
+                    for (int i = 1; i < _dgv.Rows.Count; i++)
+                    {
+                        for (int j = 0; j < adgroups.Count; j++)
+                        {
+                            if (_dgv.Rows[i].Cells[3].Value.ToString().Equals(adgroups[j]) && _dgv.Rows[i].Cells[2].Value.ToString().Equals(campaigns[j]))
                             {
-                                tmpObj.WriteData(k, _dgv.Rows[i].Cells[k].Value);
-                            }
+                                AdvertisingProductsModel tmpObj = new AdvertisingProductsModel();
 
-                            finalList.Add(tmpObj);
+                                for (int k = 1; k < tmpObj.ColumnCount; k++)
+                                {
+                                    tmpObj.WriteData(k, _dgv.Rows[i].Cells[k].Value);
+                                }
+
+                                finalList.Add(tmpObj);
+                            }
                         }
                     }
                 }
-            }
-            else if (_mode.Equals("campaigns"))
-            {
-                List<string> campaigns = new List<string> { };
-
-                List<int> rowsIndexes = new List<int> { };
-                for (int i = 0; i < _dgv.SelectedCells.Count; i++)
+                else if (_mode.Equals("campaigns"))
                 {
-                    if (!rowsIndexes.Contains(_dgv.SelectedCells[i].RowIndex))
-                        rowsIndexes.Add(_dgv.SelectedCells[i].RowIndex);
-                }
+                    List<string> campaigns = new List<string> { };
 
-                for (int i = 0; i < rowsIndexes.Count; i++)
-                {
-                    if (!campaigns.Contains(_dgv.Rows[rowsIndexes[i]].Cells[2].Value.ToString()))
+                    List<int> rowsIndexes = new List<int> { };
+                    for (int i = 0; i < _dgv.SelectedCells.Count; i++)
                     {
-                        campaigns.Add(_dgv.Rows[rowsIndexes[i]].Cells[2].Value.ToString());
+                        if (!rowsIndexes.Contains(_dgv.SelectedCells[i].RowIndex))
+                            rowsIndexes.Add(_dgv.SelectedCells[i].RowIndex);
                     }
-                }
 
-                for (int i = 1; i < _dgv.Rows.Count; i++)
-                {
-                    for (int j = 0; j < campaigns.Count; j++)
+                    for (int i = 0; i < rowsIndexes.Count; i++)
                     {
-                        if (_dgv.Rows[i].Cells[2].Value.ToString().Equals(campaigns[j]))
+                        if (!campaigns.Contains(_dgv.Rows[rowsIndexes[i]].Cells[2].Value.ToString()))
                         {
-                            AdvertisingProductsModel tmpObj = new AdvertisingProductsModel();
+                            campaigns.Add(_dgv.Rows[rowsIndexes[i]].Cells[2].Value.ToString());
+                        }
+                    }
 
-                            for (int k = 1; k < tmpObj.ColumnCount; k++)
+                    for (int i = 1; i < _dgv.Rows.Count; i++)
+                    {
+                        for (int j = 0; j < campaigns.Count; j++)
+                        {
+                            if (_dgv.Rows[i].Cells[2].Value.ToString().Equals(campaigns[j]))
                             {
-                                tmpObj.WriteData(k, _dgv.Rows[i].Cells[k].Value);
-                            }
+                                AdvertisingProductsModel tmpObj = new AdvertisingProductsModel();
 
-                            finalList.Add(tmpObj);
+                                for (int k = 1; k < tmpObj.ColumnCount; k++)
+                                {
+                                    tmpObj.WriteData(k, _dgv.Rows[i].Cells[k].Value);
+                                }
+
+                                finalList.Add(tmpObj);
+                            }
                         }
                     }
                 }
-            }
-            else if (_mode.Equals("allinwindow"))
-            {
-                for (int i = 1; i < _dgv.Rows.Count; i++)
+                else if (_mode.Equals("allinwindow"))
                 {
-                    AdvertisingProductsModel tmpObj = new AdvertisingProductsModel();
-
-                    for (int j = 1; j < tmpObj.ColumnCount; j++)
+                    for (int i = 1; i < _dgv.Rows.Count; i++)
                     {
-                        tmpObj.WriteData(j, _dgv.Rows[i].Cells[j].Value);
+                        AdvertisingProductsModel tmpObj = new AdvertisingProductsModel();
+
+                        for (int j = 1; j < tmpObj.ColumnCount; j++)
+                        {
+                            tmpObj.WriteData(j, _dgv.Rows[i].Cells[j].Value);
+                        }
+
+                        finalList.Add(tmpObj);
                     }
-
-                    finalList.Add(tmpObj);
                 }
-            }
 
-            return finalList;
-        }        
+                return finalList;
+            }
+            else
+                return new List<AdvertisingProductsModel> { };
+        }       
     }
 }

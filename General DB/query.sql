@@ -733,4 +733,4 @@ SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-02-20 00:00
 SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-02-20 00:00:00' and '2020-02-25 23:59:59' and ([MarketPlaceId] = 1) and ([ProductId] = 23 or [ProductId] = 25) and ([CampaignId] = 46251721 or [CampaignId] = 56394289 or [CampaignId] = 37381805 or [CampaignId] = 16730646 or [CampaignId] = 96031789 or [CampaignId] = 56880145 or [CampaignId] = 12835453)
 
 SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-02-20 00:00:00' and '2020-02-25 23:59:59' and ([MarketPlaceId] = 1) and ([ProductId] = 23 or [ProductId] = 25) and [CampaignName] = 'PDW1 - Broad'
-SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-02-14 00:00:00' and '2020-02-19 23:59:59' and ([MarketPlaceId] = 1) and ([ProductId] = 23 or [ProductId] = 25) and [CampaignName] = 'PDW1 - Broad'
+SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-01-01 00:00:00' and '2020-01-31 23:59:59' and ([MarketPlaceId] = 1) and ([ProductId] = 23 or [ProductId] = 25) and [CampaignName] = 'PDW1 - Broad'

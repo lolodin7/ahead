@@ -28,9 +28,27 @@ namespace Excel_Parse
         private EveryDayReportsUpdate controlEveryDayReportsUpdate;
         private ReportAdvertisingView controlReportAdvertisingView;
         private AnalyzeAdvertisingReport controlAnalyzeAdvertisingReport;
+        private ReportStockUploadView controlReportStockUploadView;
+        private ReportStockView controlReportStockView;
+
 
 
         /* Конструктор */
+        public ProductsController(ReportStockView _controlForm)
+        {
+            connection = DBData.GetDBConnection();
+            controlReportStockView = _controlForm;
+        }
+
+
+        /* Конструктор */
+        public ProductsController(ReportStockUploadView _controlForm)
+        {
+            connection = DBData.GetDBConnection();
+            controlReportStockUploadView = _controlForm;
+        }
+
+            /* Конструктор */
         public ProductsController(AnalyzeAdvertisingReport _controlForm)
         {
             connection = DBData.GetDBConnection();
@@ -437,6 +455,10 @@ namespace Excel_Parse
                     controlEveryDayReportsUpdate.GetProductsFromDB(pList);
                 else if (controlAnalyzeAdvertisingReport != null)
                     controlAnalyzeAdvertisingReport.GetProductsFromDB(pList);
+                else if (controlReportStockUploadView != null)
+                    controlReportStockUploadView.GetProductsFromDB(pList);
+                else if (controlReportStockView != null)
+                    controlReportStockView.GetProductsFromDB(pList);
                 return 1;
             }
             catch (Exception ex)

@@ -31,14 +31,21 @@ namespace Excel_Parse
         bool byImpressions, bySales, bySpend, byACoS, byOrders, byUnits, byConversion;
         private DateTime startNew, endNew, startOld, endOld;
 
+        private ReportAdvertisingView mf;
 
-        public AnalyzeAdvertisingReport()
+
+        public AnalyzeAdvertisingReport(ReportAdvertisingView _mf)
         {
-            connection = DBData.GetDBConnection();            
+            connection = DBData.GetDBConnection();
+            mf = _mf;
         }
 
-        public void AnalyzeKeywords(DataGridView _dgv, string _mode, DateTime _startDate, DateTime _endDate, List<AdvertisingProductsModel> _advProductsList)
+        public void AnalyzeKeywords(DataGridView _dgv, string _mode, DateTime _startDate, DateTime _endDate, List<AdvertisingProductsModel> _advProductsList, Label _lb_Waiting)
         {
+            mf.Cursor = Cursors.WaitCursor;
+            _lb_Waiting.Visible = true;
+            mf.Enabled = false;
+
             prodControl = new ProductsController(this);
             marketplaceControl = new MarketplaceController(this);
 
@@ -104,10 +111,18 @@ namespace Excel_Parse
             GetUniqueValuesTargeting();                              //удаляем дубли, получаем список с уникальными значениями
             SortResultListByDiff();                         //сортируем
             FillTheTable(_dgv);                             //заносим данные в таблицу
+
+            mf.Enabled = true;
+            _lb_Waiting.Visible = false;
+            mf.Cursor = Cursors.Default;
         }
 
-        public void AnalyzeAdGroups(DataGridView _dgv, string _mode, DateTime _startDate, DateTime _endDate, List<AdvertisingProductsModel> _advProductsList)
+        public void AnalyzeAdGroups(DataGridView _dgv, string _mode, DateTime _startDate, DateTime _endDate, List<AdvertisingProductsModel> _advProductsList, Label _lb_Waiting)
         {
+            mf.Cursor = Cursors.WaitCursor;
+            _lb_Waiting.Visible = true;
+            mf.Enabled = false;
+
             prodControl = new ProductsController(this);
             marketplaceControl = new MarketplaceController(this);
 
@@ -174,10 +189,17 @@ namespace Excel_Parse
             SortResultListByDiff();                         //сортируем
             FillTheTable(_dgv);                             //заносим данные в таблицу
 
+            mf.Enabled = true;
+            _lb_Waiting.Visible = false;
+            mf.Cursor = Cursors.Default;
         }
 
-        public void AnalyzeCampaigns(DataGridView _dgv, string _mode, DateTime _startDate, DateTime _endDate, List<AdvertisingProductsModel> _advProductsList)
+        public void AnalyzeCampaigns(DataGridView _dgv, string _mode, DateTime _startDate, DateTime _endDate, List<AdvertisingProductsModel> _advProductsList, Label _lb_Waiting)
         {
+            mf.Cursor = Cursors.WaitCursor;
+            _lb_Waiting.Visible = true;
+            mf.Enabled = false;
+
             prodControl = new ProductsController(this);
             marketplaceControl = new MarketplaceController(this);
 
@@ -243,6 +265,10 @@ namespace Excel_Parse
             GetUniqueValuesCampaigns();                              //удаляем дубли, получаем список с уникальными значениями
             SortResultListByDiff();                         //сортируем
             FillTheTable(_dgv);                             //заносим данные в таблицу
+
+            mf.Enabled = true;
+            _lb_Waiting.Visible = false;
+            mf.Cursor = Cursors.Default;
         }
 
         public void AnalyzeFull()

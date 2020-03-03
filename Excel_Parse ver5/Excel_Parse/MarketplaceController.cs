@@ -29,16 +29,29 @@ namespace Excel_Parse
         private EveryDayReportsUpdate controlEveryDayReportsUpdate;
         private ReportAdvertisingView controlReportAdvertisingView;
         private AnalyzeAdvertisingReport controlAnalyzeAdvertisingReport;
+        private ReportStockUploadView controlReportStockUploadView;
+        private ReportStockView controlReportStockView;
         //private MarketplaceView
 
+
+        public MarketplaceController(ReportStockView _mf)
+        {
+            connection = DBData.GetDBConnection();
+            controlReportStockView = _mf;
+        }
+
+        public MarketplaceController(ReportStockUploadView _mf)
+        {
+            connection = DBData.GetDBConnection();
+            controlReportStockUploadView = _mf;
+        }
 
         public MarketplaceController(AnalyzeAdvertisingReport _mf)
         {
             connection = DBData.GetDBConnection();
             controlAnalyzeAdvertisingReport = _mf;
         }
-
-
+        
         public MarketplaceController(ReportAdvertisingView _mf)
         {
             connection = DBData.GetDBConnection();
@@ -210,6 +223,10 @@ namespace Excel_Parse
                     controlAdvreport7days.GetMarketPlacesFromDB(mpList);
                 else if (controlAnalyzeAdvertisingReport != null)
                     controlAnalyzeAdvertisingReport.GetMarketPlacesFromDB(mpList);
+                else if (controlReportStockUploadView != null)
+                    controlReportStockUploadView.GetMarketPlacesFromDB(mpList);
+                else if (controlReportStockView != null)
+                    controlReportStockView.GetMarketPlacesFromDB(mpList);
                 else if (controlReportAdvertisingView != null)
                 {
                     controlReportAdvertisingView.GetMarketPlacesFromDB1(mpList);

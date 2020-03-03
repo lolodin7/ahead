@@ -413,6 +413,9 @@ namespace Excel_Parse
                 case 31:
                     PriceDesignation = _value.ToString();
                     break;
+                case 32:
+                    MarketPlaceId = int.Parse(_value.ToString());
+                    break;
             }
         }
     }

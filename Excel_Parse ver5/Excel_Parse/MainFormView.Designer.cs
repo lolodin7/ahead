@@ -57,8 +57,9 @@
             this.addSectionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.addAdvReportReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addBusinessReportReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addReturnsReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allOrdersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stockReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addReturnsReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.updateSectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.updateAdvertisingReportToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.updateBusinessReportToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,6 +75,7 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.складToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -245,7 +247,8 @@
             this.showSalesDataToolStripMenuItem1,
             this.showReturnsToolStripMenuItem1,
             this.showGeneralSalesToolStripMenuItem,
-            this.showSessionsToolStripMenuItem});
+            this.showSessionsToolStripMenuItem,
+            this.складToolStripMenuItem});
             this.showSectionToolStripMenuItem.Name = "showSectionToolStripMenuItem";
             this.showSectionToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.showSectionToolStripMenuItem.Text = "Посмотреть";
@@ -260,6 +263,7 @@
             // 
             // showSalesDataToolStripMenuItem1
             // 
+            this.showSalesDataToolStripMenuItem1.Enabled = false;
             this.showSalesDataToolStripMenuItem1.Name = "showSalesDataToolStripMenuItem1";
             this.showSalesDataToolStripMenuItem1.Size = new System.Drawing.Size(160, 22);
             this.showSalesDataToolStripMenuItem1.Text = "Продажи";
@@ -271,6 +275,7 @@
             this.showReturnsToolStripMenuItem1.Name = "showReturnsToolStripMenuItem1";
             this.showReturnsToolStripMenuItem1.Size = new System.Drawing.Size(160, 22);
             this.showReturnsToolStripMenuItem1.Text = "Возвраты";
+            this.showReturnsToolStripMenuItem1.Visible = false;
             // 
             // showGeneralSalesToolStripMenuItem
             // 
@@ -278,10 +283,12 @@
             this.showGeneralSalesToolStripMenuItem.Name = "showGeneralSalesToolStripMenuItem";
             this.showGeneralSalesToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.showGeneralSalesToolStripMenuItem.Text = "Общий оборот";
+            this.showGeneralSalesToolStripMenuItem.Visible = false;
             this.showGeneralSalesToolStripMenuItem.Click += new System.EventHandler(this.showGeneralSalesToolStripMenuItem_Click);
             // 
             // showSessionsToolStripMenuItem
             // 
+            this.showSessionsToolStripMenuItem.Enabled = false;
             this.showSessionsToolStripMenuItem.Name = "showSessionsToolStripMenuItem";
             this.showSessionsToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.showSessionsToolStripMenuItem.Text = "Сессии";
@@ -292,8 +299,9 @@
             this.addSectionToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addAdvReportReportToolStripMenuItem,
             this.addBusinessReportReportToolStripMenuItem,
-            this.addReturnsReportToolStripMenuItem,
-            this.allOrdersToolStripMenuItem});
+            this.allOrdersToolStripMenuItem,
+            this.stockReportToolStripMenuItem,
+            this.addReturnsReportToolStripMenuItem});
             this.addSectionToolStripMenuItem1.Name = "addSectionToolStripMenuItem1";
             this.addSectionToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
             this.addSectionToolStripMenuItem1.Text = "Добавить";
@@ -312,20 +320,28 @@
             this.addBusinessReportReportToolStripMenuItem.Text = "Business report";
             this.addBusinessReportReportToolStripMenuItem.Click += new System.EventHandler(this.addBusinessReportReportToolStripMenuItem_Click);
             // 
-            // addReturnsReportToolStripMenuItem
-            // 
-            this.addReturnsReportToolStripMenuItem.Enabled = false;
-            this.addReturnsReportToolStripMenuItem.Name = "addReturnsReportToolStripMenuItem";
-            this.addReturnsReportToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.addReturnsReportToolStripMenuItem.Text = "Returns report";
-            this.addReturnsReportToolStripMenuItem.Click += new System.EventHandler(this.addReturnsReportToolStripMenuItem_Click);
-            // 
             // allOrdersToolStripMenuItem
             // 
             this.allOrdersToolStripMenuItem.Name = "allOrdersToolStripMenuItem";
             this.allOrdersToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.allOrdersToolStripMenuItem.Text = "All orders";
             this.allOrdersToolStripMenuItem.Click += new System.EventHandler(this.allOrdersToolStripMenuItem_Click);
+            // 
+            // stockReportToolStripMenuItem
+            // 
+            this.stockReportToolStripMenuItem.Name = "stockReportToolStripMenuItem";
+            this.stockReportToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.stockReportToolStripMenuItem.Text = "Stock report";
+            this.stockReportToolStripMenuItem.Click += new System.EventHandler(this.stockReportToolStripMenuItem_Click);
+            // 
+            // addReturnsReportToolStripMenuItem
+            // 
+            this.addReturnsReportToolStripMenuItem.Enabled = false;
+            this.addReturnsReportToolStripMenuItem.Name = "addReturnsReportToolStripMenuItem";
+            this.addReturnsReportToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.addReturnsReportToolStripMenuItem.Text = "Returns report";
+            this.addReturnsReportToolStripMenuItem.Visible = false;
+            this.addReturnsReportToolStripMenuItem.Click += new System.EventHandler(this.addReturnsReportToolStripMenuItem_Click);
             // 
             // updateSectionToolStripMenuItem
             // 
@@ -358,18 +374,22 @@
             this.updateReturnsReportToolStripMenuItem1.Name = "updateReturnsReportToolStripMenuItem1";
             this.updateReturnsReportToolStripMenuItem1.Size = new System.Drawing.Size(177, 22);
             this.updateReturnsReportToolStripMenuItem1.Text = "Returns report";
+            this.updateReturnsReportToolStripMenuItem1.Visible = false;
             // 
             // allOrdersToolStripMenuItem1
             // 
+            this.allOrdersToolStripMenuItem1.Enabled = false;
             this.allOrdersToolStripMenuItem1.Name = "allOrdersToolStripMenuItem1";
             this.allOrdersToolStripMenuItem1.Size = new System.Drawing.Size(177, 22);
             this.allOrdersToolStripMenuItem1.Text = "All orders";
+            this.allOrdersToolStripMenuItem1.Visible = false;
             // 
             // everyDayToolStripMenuItem
             // 
             this.everyDayToolStripMenuItem.Name = "everyDayToolStripMenuItem";
             this.everyDayToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.everyDayToolStripMenuItem.Text = "Everyday update";
+            this.everyDayToolStripMenuItem.Visible = false;
             this.everyDayToolStripMenuItem.Click += new System.EventHandler(this.everyDayToolStripMenuItem_Click);
             // 
             // сотрудникToolStripMenuItem
@@ -443,6 +463,13 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
+            // складToolStripMenuItem
+            // 
+            this.складToolStripMenuItem.Name = "складToolStripMenuItem";
+            this.складToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.складToolStripMenuItem.Text = "Склад";
+            this.складToolStripMenuItem.Click += new System.EventHandler(this.складToolStripMenuItem_Click);
+            // 
             // MainFormView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -513,5 +540,7 @@
         private System.Windows.Forms.ToolStripMenuItem allOrdersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem allOrdersToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem everyDayToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stockReportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem складToolStripMenuItem;
     }
 }

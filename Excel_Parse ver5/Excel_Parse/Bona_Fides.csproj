@@ -227,6 +227,19 @@
     <Compile Include="ReportSessionsView.Designer.cs">
       <DependentUpon>ReportSessionsView.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReportStockController.cs" />
+    <Compile Include="ReportStockUploadView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportStockUploadView.Designer.cs">
+      <DependentUpon>ReportStockUploadView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportStockView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportStockView.Designer.cs">
+      <DependentUpon>ReportStockView.cs</DependentUpon>
+    </Compile>
     <Compile Include="RestorePasswordView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -242,6 +255,7 @@
     <Compile Include="ShowUsersView.Designer.cs">
       <DependentUpon>ShowUsersView.cs</DependentUpon>
     </Compile>
+    <Compile Include="StockModel.cs" />
     <Compile Include="UserModel.cs" />
     <Compile Include="About.cs">
       <SubType>Form</SubType>
@@ -431,6 +445,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReportSessionsView.resx">
       <DependentUpon>ReportSessionsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportStockUploadView.resx">
+      <DependentUpon>ReportStockUploadView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportStockView.resx">
+      <DependentUpon>ReportStockView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RestorePasswordView.resx">
       <DependentUpon>RestorePasswordView.cs</DependentUpon>

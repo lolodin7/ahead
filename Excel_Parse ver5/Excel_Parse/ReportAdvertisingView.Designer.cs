@@ -343,6 +343,9 @@
             this.lb_EndDate6 = new System.Windows.Forms.Label();
             this.label43 = new System.Windows.Forms.Label();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.lb_Waiting1 = new System.Windows.Forms.Label();
+            this.lb_Waiting2 = new System.Windows.Forms.Label();
+            this.lb_Waiting3 = new System.Windows.Forms.Label();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Targetings3)).BeginInit();
             this.contextMenuStripTab3.SuspendLayout();
@@ -385,6 +388,7 @@
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage3.Controls.Add(this.lb_Waiting3);
             this.tabPage3.Controls.Add(this.lb_SearchResultsCount3);
             this.tabPage3.Controls.Add(this.dgv_Targetings3);
             this.tabPage3.Controls.Add(this.dgv_AdGroups3);
@@ -437,7 +441,7 @@
             this.context3CopyToTab2,
             this.analyzecontext3});
             this.contextMenuStripTab3.Name = "contextMenuStripTab1";
-            this.contextMenuStripTab3.Size = new System.Drawing.Size(211, 92);
+            this.contextMenuStripTab3.Size = new System.Drawing.Size(211, 70);
             this.contextMenuStripTab3.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripTab3_Opening);
             // 
             // context3CopyToTab1
@@ -1321,6 +1325,7 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.lb_Waiting2);
             this.tabPage2.Controls.Add(this.lb_SearchResultsCount2);
             this.tabPage2.Controls.Add(this.dgv_Targetings2);
             this.tabPage2.Controls.Add(this.dgv_AdGroups2);
@@ -2257,6 +2262,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.lb_Waiting1);
             this.tabPage1.Controls.Add(this.lb_SearchResultsCount1);
             this.tabPage1.Controls.Add(this.btn_ColorChoose);
             this.tabPage1.Controls.Add(this.label30);
@@ -3346,7 +3352,7 @@
             // lb_SearchResultsCount5
             // 
             this.lb_SearchResultsCount5.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_SearchResultsCount5.Location = new System.Drawing.Point(308, 13);
+            this.lb_SearchResultsCount5.Location = new System.Drawing.Point(308, 12);
             this.lb_SearchResultsCount5.Name = "lb_SearchResultsCount5";
             this.lb_SearchResultsCount5.Size = new System.Drawing.Size(154, 24);
             this.lb_SearchResultsCount5.TabIndex = 135;
@@ -3454,7 +3460,7 @@
             // lb_SearchResultsCount6
             // 
             this.lb_SearchResultsCount6.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_SearchResultsCount6.Location = new System.Drawing.Point(308, 13);
+            this.lb_SearchResultsCount6.Location = new System.Drawing.Point(308, 12);
             this.lb_SearchResultsCount6.Name = "lb_SearchResultsCount6";
             this.lb_SearchResultsCount6.Size = new System.Drawing.Size(146, 24);
             this.lb_SearchResultsCount6.TabIndex = 135;
@@ -3542,6 +3548,48 @@
             this.label43.TabIndex = 24;
             this.label43.Text = "-";
             this.label43.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lb_Waiting1
+            // 
+            this.lb_Waiting1.BackColor = System.Drawing.Color.IndianRed;
+            this.lb_Waiting1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lb_Waiting1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lb_Waiting1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_Waiting1.Location = new System.Drawing.Point(1101, 4);
+            this.lb_Waiting1.Name = "lb_Waiting1";
+            this.lb_Waiting1.Size = new System.Drawing.Size(227, 40);
+            this.lb_Waiting1.TabIndex = 132;
+            this.lb_Waiting1.Text = "Обработка данных...";
+            this.lb_Waiting1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lb_Waiting1.Visible = false;
+            // 
+            // lb_Waiting2
+            // 
+            this.lb_Waiting2.BackColor = System.Drawing.Color.IndianRed;
+            this.lb_Waiting2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lb_Waiting2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lb_Waiting2.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_Waiting2.Location = new System.Drawing.Point(1101, 4);
+            this.lb_Waiting2.Name = "lb_Waiting2";
+            this.lb_Waiting2.Size = new System.Drawing.Size(227, 40);
+            this.lb_Waiting2.TabIndex = 133;
+            this.lb_Waiting2.Text = "Обработка данных...";
+            this.lb_Waiting2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lb_Waiting2.Visible = false;
+            // 
+            // lb_Waiting3
+            // 
+            this.lb_Waiting3.BackColor = System.Drawing.Color.IndianRed;
+            this.lb_Waiting3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lb_Waiting3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lb_Waiting3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_Waiting3.Location = new System.Drawing.Point(1101, 4);
+            this.lb_Waiting3.Name = "lb_Waiting3";
+            this.lb_Waiting3.Size = new System.Drawing.Size(227, 40);
+            this.lb_Waiting3.TabIndex = 133;
+            this.lb_Waiting3.Text = "Обработка данных...";
+            this.lb_Waiting3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lb_Waiting3.Visible = false;
             // 
             // ReportAdvertisingView
             // 
@@ -3923,5 +3971,8 @@
         private System.Windows.Forms.ToolStripMenuItem fullAnalyzeExactToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem fullAnalyzePhraseToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem fullAnalyzeAllToolStripMenuItem2;
+        private System.Windows.Forms.Label lb_Waiting1;
+        private System.Windows.Forms.Label lb_Waiting3;
+        private System.Windows.Forms.Label lb_Waiting2;
     }
 }

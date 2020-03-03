@@ -484,10 +484,10 @@ namespace Excel_Parse
                         {
                             SetCampaignAndMarketplaceToAllRows_Many_AP(t.marketplace);
 
-                            if (advertController.UpdateAdvertising_Product_Report(advProductsList) == -1)
-                                errors = true;
-                            else
-                                updatedRowsCount += advProductsList.Count;
+                            //if (advertController.UpdateAdvertising_Product_Report(advProductsList) == -1)
+                            //    errors = true;
+                            //else
+                            //    updatedRowsCount += advProductsList.Count;
 
                             if (advProductsListOfErrors.Count > 0)
                             {

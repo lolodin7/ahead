@@ -310,11 +310,6 @@ namespace Excel_Parse
                     }
                 }
             }
-
-            foreach (var t in resultList)
-            {
-                Console.WriteLine(t.diff);
-            }
         }
 
         private int GetAdvertisingData()

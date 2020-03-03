@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Excel_Parse
 {
@@ -24,6 +25,11 @@ namespace Excel_Parse
         private ReportSessionsView controlReportSessionsView;
         private EveryDayReportsUpdate controlEveryDayReportsUpdate;
         private ReportAdvertisingView controlReportAdvertisingView;
+
+        private int timeDivider;
+        private int timeResult;
+
+        private Timer _timer;
 
         private struct listElement
         {
@@ -47,6 +53,11 @@ namespace Excel_Parse
         {
             connection = DBData.GetDBConnection();
             controlAdvertisingUploadReportView = _mf;
+
+            _timer = new Timer();
+            timeDivider = 1;
+            timeResult = 0;
+            _timer.Interval = 5000;
         }
 
         public AdvertisingController(ReportSessionsView _mf)
@@ -1002,10 +1013,15 @@ namespace Excel_Parse
             }
         }
 
-        public int UpdateAdvertising_Product_Report(List<AdvertisingProductsModel> _apm)
+        public int UpdateAdvertising_Product_Report(List<AdvertisingProductsModel> _apm, Label _lb_Progress)
         {
             string specifier = "G";
             List<AdvertisingProductsModel> apm = _apm;
+            int cnt = apm.Count;
+            _lb_Progress.Text = 0 + "//" + cnt;
+
+            //InitializeTimer();
+            //_timer.Start();
 
             for (int i = 0; i < apm.Count; i++)
             {
@@ -1013,9 +1029,29 @@ namespace Excel_Parse
                 command = new SqlCommand(sqlStatement, connection);
                 if (Execute_UPDATE_DELETE_INSERT_Command(command) != 1)
                     return -1;
+                timeResult++;
+                _lb_Progress.Text = (i + 1).ToString() + "/" + cnt + "(около " + Math.Ceiling((double)(cnt - i)/ timeDivider).ToString() + " мин.)";
+                _lb_Progress.Refresh();
             }
+            //_timer.Stop();
             return 1;
         }
+
+        //private void Timer1_Tick(object Sender, EventArgs e)
+        //{
+        //    timeDivider = timeResult * 6;
+
+        //   // _timer.Stop();
+        //}
+
+        //private void InitializeTimer()
+        //{
+        //    _timer.Interval = 10000;
+        //    _timer.Enabled = true;
+        //    Timer1_Tick(null, null);
+
+        //    _timer.Tick += new EventHandler(Timer1_Tick);
+        //}
 
         public int UpdateAdvertising_Brands_Report(List<AdvertisingBrandsModel> _abm)
         {
