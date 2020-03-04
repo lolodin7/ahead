@@ -37,6 +37,7 @@
             this.rtb_FilterParameterValue = new System.Windows.Forms.RichTextBox();
             this.btn_GoFilter = new System.Windows.Forms.Button();
             this.lb_Info = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Stock)).BeginInit();
             this.SuspendLayout();
             // 
@@ -130,14 +131,25 @@
             this.lb_Info.Name = "lb_Info";
             this.lb_Info.Size = new System.Drawing.Size(221, 42);
             this.lb_Info.TabIndex = 21;
-            this.lb_Info.Text = "По состоянию на";
             this.lb_Info.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(398, 225);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(500, 190);
+            this.label3.TabIndex = 22;
+            this.label3.Text = "Данные о складе за последнее время отсутствуют";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label3.Visible = false;
             // 
             // ReportStockView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1279, 604);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.lb_Info);
             this.Controls.Add(this.btn_GoFilter);
             this.Controls.Add(this.rtb_FilterParameterValue);
@@ -168,5 +180,6 @@
         private System.Windows.Forms.RichTextBox rtb_FilterParameterValue;
         private System.Windows.Forms.Button btn_GoFilter;
         private System.Windows.Forms.Label lb_Info;
+        private System.Windows.Forms.Label label3;
     }
 }

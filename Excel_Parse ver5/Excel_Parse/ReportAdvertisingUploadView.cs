@@ -23,7 +23,8 @@ namespace Excel_Parse
         private bool UpdateMode;
 
         private string path = "";
-        private List<string> FileNames;
+        private List<string> fileNames;
+
         private DateTime UpdateDate;
         private DateTime StartDate, EndDate;
         private List<DateTime> datesList;
@@ -53,6 +54,7 @@ namespace Excel_Parse
         private List<MapNameId> AP_campaignIdsList;
         private List<MapNameId> AB_campaignIdsList;
 
+
         /* Главный конструктор */
         public ReportAdvertisingUploadView(MainFormView _mf, string _mode)
         {
@@ -72,7 +74,6 @@ namespace Excel_Parse
             mpList = new List<MarketplaceModel> { };
             campTList = new List<CampaignTypesModel> { };
             pList = new List<ProductsModel> { };
-            FileNames = new List<string> { };
             datesList = new List<DateTime> { };
 
             mpController = new MarketplaceController(this);
@@ -176,11 +177,11 @@ namespace Excel_Parse
         /* Инициируем загрузку файла отчета в программу */
         private void Btn_UploadFromFile_Click(object sender, EventArgs e)
         {
-            OpenNewFileForSponsoredProducts();
+            OpenManyFiles();
+            //OpenNewFileForSponsoredProducts();
         }
 
-        /* Загружаем новые ключи из файла для Sponsored Products */
-        public void OpenNewFileForSponsoredProducts()
+        private void OpenManyFiles()
         {
             openFileDialog1.Filter = "Excel файлы (*.xlsx)|*.xlsx";
             openFileDialog1.Title = "Выбор файла для открытия";
@@ -188,82 +189,73 @@ namespace Excel_Parse
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                path = openFileDialog1.FileName;
-                advProductsList.Clear();
+                richTextBox2.Text = "";
+                fileNames = new List<string> { };
 
-                try
+                foreach (var t in openFileDialog1.FileNames)
                 {
-                    FileInfo existingFile = new FileInfo(@path);
-                    using (ExcelPackage package = new ExcelPackage(existingFile))
+                    fileNames.Add(t);
+                    richTextBox2.Text += t + "\n";
+                }
+            }
+        }
+
+        /* Загружаем новые ключи из файла для Sponsored Products */
+        public void OpenNewFileForSponsoredProducts(string _fileName)
+        {
+            advProductsList.Clear();
+
+            try
+            {
+                FileInfo existingFile = new FileInfo(@_fileName);
+                using (ExcelPackage package = new ExcelPackage(existingFile))
+                {
+                    //get the first worksheet in the workbook
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets[1];
+                    int colCount = worksheet.Dimension.End.Column;  //get Column Count
+                    int rowCount = worksheet.Dimension.End.Row;     //get row count
+
+                    for (int row = 2; row <= rowCount; row++)
                     {
-                        //get the first worksheet in the workbook
-                        ExcelWorksheet worksheet = package.Workbook.Worksheets[1];
-                        int colCount = worksheet.Dimension.End.Column;  //get Column Count
-                        int rowCount = worksheet.Dimension.End.Row;     //get row count
+                        AdvertisingProductsModel prModel = new AdvertisingProductsModel();
+                        advProductsList.Add(prModel);
 
-                        for (int row = 2; row <= rowCount; row++)
-                        {
-                            AdvertisingProductsModel prModel = new AdvertisingProductsModel();
-                            advProductsList.Add(prModel);
+                        UpdateDate = worksheet.Cells[row, 1].GetValue<DateTime>();
+                        datesList.Add(worksheet.Cells[row, 1].GetValue<DateTime>());
+                        advProductsList[advProductsList.Count - 1].WriteData(0, UpdateDate);
 
-                            UpdateDate = worksheet.Cells[row, 1].GetValue<DateTime>();
-                            datesList.Add(worksheet.Cells[row, 1].GetValue<DateTime>());
-                            advProductsList[advProductsList.Count - 1].WriteData(0, UpdateDate);
-
-                            //advProductsList[advProductsList.Count - 1].WriteData(1, ChechForNull(worksheet, row, 4));              //[CurrencyCharCode] 
-                            //advProductsList[advProductsList.Count - 1].WriteData(2, ChechForNull(worksheet, row, 5));              //[CampaignName] 
-                            //advProductsList[advProductsList.Count - 1].WriteData(3, ChechForNull(worksheet, row, 6));              //[AdGroupName]
-                            //advProductsList[advProductsList.Count - 1].WriteData(4, ChechForNull(worksheet, row, 7));              //[Targeting] 
-                            //advProductsList[advProductsList.Count - 1].WriteData(5, ChechForNull(worksheet, row, 8));              //[MatchType] 
-                            //advProductsList[advProductsList.Count - 1].WriteData(6, ChechForNull(worksheet, row, 9));              //[Impressions] 
-                            //advProductsList[advProductsList.Count - 1].WriteData(7, ChechForNull(worksheet, row, 10));             //[Clicks] 
-                            //advProductsList[advProductsList.Count - 1].WriteData(8, ChechForNull(worksheet, row, 11));             //[CTR] 
-                            //advProductsList[advProductsList.Count - 1].WriteData(9, ChechForNull(worksheet, row, 12));             //[CPC] 
-                            //advProductsList[advProductsList.Count - 1].WriteData(10, ChechForNull(worksheet, row, 13));            //[Spend]  
-                            //advProductsList[advProductsList.Count - 1].WriteData(11, ChechForNull(worksheet, row, 16));            //[Sales]
-                            //advProductsList[advProductsList.Count - 1].WriteData(12, ChechForNull(worksheet, row, 14));            //[ACoS] 
-                            //advProductsList[advProductsList.Count - 1].WriteData(13, ChechForNull(worksheet, row, 15));            //[RoAS]
-                            //advProductsList[advProductsList.Count - 1].WriteData(14, ChechForNull(worksheet, row, 17));            //[Orders] 
-                            //advProductsList[advProductsList.Count - 1].WriteData(15, ChechForNull(worksheet, row, 18));            //[Units] 
-                            //advProductsList[advProductsList.Count - 1].WriteData(16, ChechForNull(worksheet, row, 19));            //[ConversionRate]
-                            //advProductsList[advProductsList.Count - 1].WriteData(17, ChechForNull(worksheet, row, 20));            //[AdvSKUUnits]
-                            //advProductsList[advProductsList.Count - 1].WriteData(18, ChechForNull(worksheet, row, 21));            //[OtherSKUUnits]
-                            //advProductsList[advProductsList.Count - 1].WriteData(19, ChechForNull(worksheet, row, 22));            //[AdvSKUSales]
-                            //advProductsList[advProductsList.Count - 1].WriteData(20, ChechForNull(worksheet, row, 23));            //[OtherSKUSales] 
-
-                            advProductsList[advProductsList.Count - 1].WriteData(1, ChechForNull(worksheet, row, 3));              //[CurrencyCharCode] 
-                            advProductsList[advProductsList.Count - 1].WriteData(2, ChechForNull(worksheet, row, 4));              //[CampaignName] 
-                            advProductsList[advProductsList.Count - 1].WriteData(3, ChechForNull(worksheet, row, 5));              //[AdGroupName]
-                            advProductsList[advProductsList.Count - 1].WriteData(4, ChechForNull(worksheet, row, 6));              //[Targeting] 
-                            advProductsList[advProductsList.Count - 1].WriteData(5, ChechForNull(worksheet, row, 7));              //[MatchType] 
-                            advProductsList[advProductsList.Count - 1].WriteData(6, ChechForNull(worksheet, row, 8));              //[Impressions] 
-                            advProductsList[advProductsList.Count - 1].WriteData(7, ChechForNull(worksheet, row, 9));             //[Clicks] 
-                            advProductsList[advProductsList.Count - 1].WriteData(8, ChechForNull(worksheet, row, 10));             //[CTR] 
-                            advProductsList[advProductsList.Count - 1].WriteData(9, ChechForNull(worksheet, row, 11));             //[CPC] 
-                            advProductsList[advProductsList.Count - 1].WriteData(10, ChechForNull(worksheet, row, 12));            //[Spend]  
-                            advProductsList[advProductsList.Count - 1].WriteData(11, ChechForNull(worksheet, row, 15));            //[Sales]
-                            advProductsList[advProductsList.Count - 1].WriteData(12, ChechForNull(worksheet, row, 13));            //[ACoS] 
-                            advProductsList[advProductsList.Count - 1].WriteData(13, ChechForNull(worksheet, row, 14));            //[RoAS]
-                            advProductsList[advProductsList.Count - 1].WriteData(14, ChechForNull(worksheet, row, 16));            //[Orders] 
-                            advProductsList[advProductsList.Count - 1].WriteData(15, ChechForNull(worksheet, row, 17));            //[Units] 
-                            advProductsList[advProductsList.Count - 1].WriteData(16, ChechForNull(worksheet, row, 18));            //[ConversionRate]
-                            advProductsList[advProductsList.Count - 1].WriteData(17, ChechForNull(worksheet, row, 19));            //[AdvSKUUnits]
-                            advProductsList[advProductsList.Count - 1].WriteData(18, ChechForNull(worksheet, row, 20));            //[OtherSKUUnits]
-                            advProductsList[advProductsList.Count - 1].WriteData(19, ChechForNull(worksheet, row, 21));            //[AdvSKUSales]
-                            advProductsList[advProductsList.Count - 1].WriteData(20, ChechForNull(worksheet, row, 22));            //[OtherSKUSales] 
-                        }
+                        advProductsList[advProductsList.Count - 1].WriteData(1, ChechForNull(worksheet, row, 3));              //[CurrencyCharCode] 
+                        advProductsList[advProductsList.Count - 1].WriteData(2, ChechForNull(worksheet, row, 4));              //[CampaignName] 
+                        advProductsList[advProductsList.Count - 1].WriteData(3, ChechForNull(worksheet, row, 5));              //[AdGroupName]
+                        advProductsList[advProductsList.Count - 1].WriteData(4, ChechForNull(worksheet, row, 6));              //[Targeting] 
+                        advProductsList[advProductsList.Count - 1].WriteData(5, ChechForNull(worksheet, row, 7));              //[MatchType] 
+                        advProductsList[advProductsList.Count - 1].WriteData(6, ChechForNull(worksheet, row, 8));              //[Impressions] 
+                        advProductsList[advProductsList.Count - 1].WriteData(7, ChechForNull(worksheet, row, 9));             //[Clicks] 
+                        advProductsList[advProductsList.Count - 1].WriteData(8, ChechForNull(worksheet, row, 10));             //[CTR] 
+                        advProductsList[advProductsList.Count - 1].WriteData(9, ChechForNull(worksheet, row, 11));             //[CPC] 
+                        advProductsList[advProductsList.Count - 1].WriteData(10, ChechForNull(worksheet, row, 12));            //[Spend]  
+                        advProductsList[advProductsList.Count - 1].WriteData(11, ChechForNull(worksheet, row, 15));            //[Sales]
+                        advProductsList[advProductsList.Count - 1].WriteData(12, ChechForNull(worksheet, row, 13));            //[ACoS] 
+                        advProductsList[advProductsList.Count - 1].WriteData(13, ChechForNull(worksheet, row, 14));            //[RoAS]
+                        advProductsList[advProductsList.Count - 1].WriteData(14, ChechForNull(worksheet, row, 16));            //[Orders] 
+                        advProductsList[advProductsList.Count - 1].WriteData(15, ChechForNull(worksheet, row, 17));            //[Units] 
+                        advProductsList[advProductsList.Count - 1].WriteData(16, ChechForNull(worksheet, row, 18));            //[ConversionRate]
+                        advProductsList[advProductsList.Count - 1].WriteData(17, ChechForNull(worksheet, row, 19));            //[AdvSKUUnits]
+                        advProductsList[advProductsList.Count - 1].WriteData(18, ChechForNull(worksheet, row, 20));            //[OtherSKUUnits]
+                        advProductsList[advProductsList.Count - 1].WriteData(19, ChechForNull(worksheet, row, 21));            //[AdvSKUSales]
+                        advProductsList[advProductsList.Count - 1].WriteData(20, ChechForNull(worksheet, row, 22));            //[OtherSKUSales] 
                     }
-                    label7.Text = "Дата - " + UpdateDate.ToString().Substring(0, 10);
-                    label1.Text = path;
-                    
-                    StartDate = datesList.Min();
-                    EndDate = datesList.Max().AddHours(23).AddMinutes(59).AddSeconds(59);
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Проблема при открытии файла. Убедитесь, что Вы выбрали файл с нужны расширением. Возможно, разметка файла не поддерживается программой.", "Ошибка при открытии");
-                    advProductsList.Clear();
-                }
+                label7.Text = "Дата - " + UpdateDate.ToString().Substring(0, 10);
+                label1.Text = _fileName;
+
+                StartDate = datesList.Min();
+                EndDate = datesList.Max().AddHours(23).AddMinutes(59).AddSeconds(59);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Проблема при открытии файла. Убедитесь, что Вы выбрали файл с нужны расширением. Возможно, разметка файла не поддерживается программой.", "Ошибка при открытии");
+                advProductsList.Clear();
             }
         }
 
@@ -285,14 +277,24 @@ namespace Excel_Parse
             }
             return -1;
         }
-
         
+        /* Получаем id маркетплейса по выбранному имени в combobox */
+        private string GetMarketPlaceNameById(int _id)
+        {
+            for (int i = 0; i < mpList.Count; i++)
+            {
+                if (mpList[i].MarketPlaceId == _id)
+                    return mpList[i].MarketPlaceName;
+            }
+            return "NOT_FOUND";
+        }
+
         /* Получаем id маркетплейса по выбранному имени в combobox */
         private int GetMarketPlaceIdByName(string _name)
         {
             for (int i = 0; i < mpList.Count; i++)
             {
-                if (cb_MarketPlace.SelectedItem.ToString().Equals(mpList[i].MarketPlaceName))
+                if (_name.Contains(mpList[i].MarketPlaceName))
                     return mpList[i].MarketPlaceId;
             }
             return 1;
@@ -331,51 +333,61 @@ namespace Excel_Parse
         {
             if (UploadMode)     //загружаем новые данные
             {
-                if (advProductsList.Count > 0)
+                if (MessageBox.Show("Загрузить отчеты?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes && fileNames.Count > 0)
                 {
-                    if (MessageBox.Show("Кампания: " + cb_CampaignType.SelectedItem.ToString() + "\n\nМаркетплейс: " + cb_MarketPlace.SelectedItem.ToString() + "\n\n" + StartDate.ToString().Substring(0, 10) + " - " + EndDate.ToString().Substring(0, 10) + "\n\nЗагрузить отчет с этими параметрами?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    richTextBox2.Text = "";
+                    foreach (var _fileName in fileNames)
                     {
-                        SetCampaignAndMarketplaceToAllRows_AP();
-                        UploadReportToDB_AP();
-                    }
-                    if (advProductsListOfErrors.Count > 0)
-                    {
-                        string errorsMsg = "Данные по следующим кампаниям не были добавлены. Вороятно, имя товара в названии кампании задано не согласно шаблону.\n";
-                        string errors = "";
-                        foreach (var t in advProductsListOfErrors)
+                        OpenNewFileForSponsoredProducts(_fileName);
+                        if (advProductsList.Count > 0)
                         {
-                            errors += "Date: " + UpdateDate.ToString() + " Campaign: " + t.CampaignName + " AdGroup " + t.AdGroupName + " Targeting " + t.Targeting + "\n";
+                            SetCampaignAndMarketplaceToAllRows_AP(_fileName);
+                            UploadReportToDB_AP();
+
+                            if (advProductsListOfErrors.Count > 0)
+                            {
+                                string errors = "";
+                                errors += _fileName + "\n";
+                                foreach (var t in advProductsListOfErrors)
+                                {
+                                    errors += "Date: " + UpdateDate.ToString() + " Campaign: " + t.CampaignName + " AdGroup " + t.AdGroupName + " Targeting " + t.Targeting + " Marketplace" + GetMarketPlaceNameById(t.MarketPlaceId) +  "\n";
+                                }
+                                richTextBox2.Text += errors;
+                            }
                         }
-                        MessageBox.Show(errorsMsg, "Ошибка");
-                        richTextBox2.Text = errors;
+                        else
+                            MessageBox.Show("Файл отчета не был загружен. Нет данных для сохранения.\n" + _fileName, "Ошибка");
                     }
                 }
-                else
-                    MessageBox.Show("Файл отчета не был загружен. Нет данных для сохранения.", "Ошибка");
             }
             else if (UpdateMode)        //обновляем старые данные
             {
-                if (advProductsList.Count > 0)
+                if (MessageBox.Show("Загрузить отчеты?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes && fileNames.Count > 0)
                 {
-                    if (MessageBox.Show("Кампания: " + cb_CampaignType.SelectedItem.ToString() + "\n\nМаркетплейс: " + cb_MarketPlace.SelectedItem.ToString() + "\n\n" + StartDate.ToString().Substring(0, 10) + " - " + EndDate.ToString().Substring(0, 10) + "\n\nЗагрузить отчет с этими параметрами?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    richTextBox2.Text = "";
+                    foreach (var _fileName in fileNames)
                     {
-                        SetCampaignAndMarketplaceToAllRows_AP();
-                        UpdateDataInDB_AP();
-                    }
-                    if (advProductsListOfErrors.Count > 0)
-                    {
-                        string errorsMsg = "Данные по следующим кампаниям не были обновлены. Вороятно, имя товара в названии кампании задано не согласно шаблону.\n";
-                        string errors = "";
-                        foreach (var t in advProductsListOfErrors)
+                        OpenNewFileForSponsoredProducts(_fileName);
+                        if (advProductsList.Count > 0)
                         {
-                            errors += "Date: " + UpdateDate.ToString() + " Campaign: " + t.CampaignName + " AdGroup " + t.AdGroupName + " Targeting " + t.Targeting + "\n";
+                            SetCampaignAndMarketplaceToAllRows_AP(_fileName);
+                            UpdateDataInDB_AP();
+
+                            if (advProductsListOfErrors.Count > 0)
+                            {
+                                string errors = "";
+                                errors += _fileName + "\n";
+                                foreach (var t in advProductsListOfErrors)
+                                {
+                                    errors += "Date: " + UpdateDate.ToString() + " Campaign: " + t.CampaignName + " AdGroup " + t.AdGroupName + " Targeting " + t.Targeting + " Marketplace" + GetMarketPlaceNameById(t.MarketPlaceId) + "\n";
+                                }
+                                richTextBox2.Text = errors;
+                            }
                         }
-                        MessageBox.Show(errorsMsg, "Ошибка");
-                        richTextBox2.Text = errors;
+                        else
+                            MessageBox.Show("Файл отчета не был загружен. Нет данных для сохранения.\n" + _fileName, "Ошибка");
                     }
                 }
-                else
-                    MessageBox.Show("Файл отчета не был загружен. Нет данных для сохранения.", "Ошибка");
             }
         }
 
@@ -417,10 +429,7 @@ namespace Excel_Parse
         private void UploadReportToDB_AP()
         {
             this.Enabled = false;
-            if (advertController.InsertAdvertising_Product_Report(advProductsList) != 1)
-                MessageBox.Show("Во время сохранения произошла ошибка. Работа была прервана.", "Ошибка");
-            else
-                MessageBox.Show("Сохранение успешно. Всего сохранено строк - " + advProductsList.Count, "Успех");
+            advertController.InsertAdvertising_Product_Report(advProductsList);
             this.Enabled = true;
         }
 
@@ -428,22 +437,20 @@ namespace Excel_Parse
         private void UploadReportToDB_AB()
         {
             this.Enabled = false;
-            if (advertController.InsertAdvertising_Brand_Report(advBrandsList) != 1)
-                MessageBox.Show("Во время сохранения произошла ошибка. Работа была прервана.", "Ошибка");
-            else
-                MessageBox.Show("Сохранение успешно. Всего сохранено строк - " + advBrandsList.Count, "Успех");
+            advertController.InsertAdvertising_Brand_Report(advBrandsList);
             this.Enabled = true;
         }
 
         /* Заносим данные об кампании и маркетплейсу для каждой строки загруженного отчета */
-        private void SetCampaignAndMarketplaceToAllRows_AP()
+        private void SetCampaignAndMarketplaceToAllRows_AP(string _fileName)
         {
             int campaignTypeId = GetCampaignTypeIdByName(cb_CampaignType.SelectedItem.ToString());
-            int marketplaceId = GetMarketPlaceIdByName(cb_MarketPlace.SelectedItem.ToString());
+            int marketplaceId = GetMarketPlaceIdByName(_fileName);
+
+            prodController.GetProductsByMarketplaceId(marketplaceId);
 
             foreach (var t in advProductsList)
             {
-                //t.WriteData(0, UpdateDate);
                 t.WriteData(21, campaignTypeId);
                 t.WriteData(22, marketplaceId);
                 t.WriteData(23, Check_CampaignForExisting_AP(t.CampaignName));
@@ -536,7 +543,7 @@ namespace Excel_Parse
 
         private void Cb_MarketPlace_SelectedIndexChanged(object sender, EventArgs e)
         {
-            prodController.GetProductsByMarketplaceId(GetMarketPlaceIdByName(cb_MarketPlace.SelectedItem.ToString()));
+            //prodController.GetProductsByMarketplaceId(GetMarketPlaceIdByName(cb_MarketPlace.SelectedItem.ToString()));
         }
 
         private void Cb_CampaignType_SelectedIndexChanged(object sender, EventArgs e)

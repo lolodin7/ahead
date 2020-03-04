@@ -1,8 +1,4 @@
-USE AHEAD
-
---use ahead_stand
-
---тут обратный порядок от порядка создания
+use AHEAD_Main
 
 IF NOT OBJECT_ID('Telegram_Bot_Users') IS NULL DROP TABLE [Telegram_Bot_Users]
 GO
@@ -22,9 +18,6 @@ GO
 IF NOT OBJECT_ID('AdvertisingBrands') IS NULL DROP TABLE [AdvertisingBrands]
 GO
 
-IF NOT OBJECT_ID('Currency') IS NULL DROP TABLE [Currency]
-GO
-
 IF NOT OBJECT_ID('CampaignType') IS NULL DROP TABLE [CampaignType]
 GO
 
@@ -38,12 +31,6 @@ IF NOT OBJECT_ID('DetailedDisposition') IS NULL DROP TABLE [DetailedDisposition]
 GO
 
 IF NOT OBJECT_ID('ReturnReason') IS NULL DROP TABLE [ReturnReason]
-GO
-
-IF NOT OBJECT_ID('Logger') IS NULL DROP TABLE [Logger]
-GO
-
-IF NOT OBJECT_ID('Images') IS NULL DROP TABLE [Images]
 GO
 
 IF NOT OBJECT_ID('SemCoreArchive') IS NULL DROP TABLE [SemCoreArchive]
@@ -62,15 +49,6 @@ IF NOT OBJECT_ID('ProductTypes') IS NULL DROP TABLE [ProductTypes]
 GO
 
 IF NOT OBJECT_ID('Marketplace') IS NULL DROP TABLE [Marketplace]
-GO
-
-IF NOT OBJECT_ID('User') IS NULL DROP TABLE [User]
-GO
-
-IF NOT OBJECT_ID('UserRole') IS NULL DROP TABLE [UserRole]
-GO
-
-IF NOT OBJECT_ID('Currency') IS NULL DROP TABLE [Currency]
 GO
 
 IF NOT OBJECT_ID('CampaignType') IS NULL DROP TABLE [CampaignType]
@@ -171,52 +149,6 @@ CREATE TABLE [Stock](
 )
 GO
 
-CREATE TABLE [UserRole](
-	[UserRoleId]		INT IDENTITY(0,1),
-	[Name]				VARCHAR(100),
-	CONSTRAINT UQ_UserRole_UserRoleId UNIQUE ([UserRoleId])
-)
-
-CREATE TABLE [User](
-	[UserId]			INT IDENTITY(0,1),
-	[Login]				VARCHAR(20),
-	[PassHash]			TEXT,
-	[Name]				VARCHAR(50),
-	[Token1]			INT,
-	[Token2]			INT,
-	[UserRoleId]		INT,
-	[SecretQuestion]	VARCHAR(100),
-	[Answer]			VARCHAR(100),
-	[LastMac]				TEXT,
-	CONSTRAINT PK_User PRIMARY KEY ([UserId]),
-	CONSTRAINT UQ_User_Login UNIQUE ([Login]),
-	CONSTRAINT FK_User_UserRoleId FOREIGN KEY ([UserRoleId]) REFERENCES UserRole ([UserRoleId])
-)
-
-CREATE TABLE [Images](
-	[ImageId]			INT IDENTITY(0,1),
-	[FileName]			NVARCHAR(100),
-	[Title]				NVARCHAR(100),
-	[ImageData]			VARBINARY(MAX),
-	CONSTRAINT PK_Images PRIMARY KEY ([ImageId])
-)
-
-CREATE TABLE [Logger](
-	[RecordId]			INT IDENTITY(0,1),
-	[CreationDate]		DATETIME,
-	[CreationUserId]	INT,
-	[ProductId]			INT,
-	[Text]				TEXT,
-	[EditDate]			DATETIME,
-	[EditUserId]		INT,
-	[ImageId]			VARCHAR(1000),
-	[SKU]				VARCHAR(30),
-	CONSTRAINT PK_Logger PRIMARY KEY ([RecordId]),
-	CONSTRAINT FK_Logger_ProductId FOREIGN KEY ([ProductId]) REFERENCES Products ([ProductId]),
-	CONSTRAINT FK_Logger_CreationUserId FOREIGN KEY ([CreationUserId]) REFERENCES [User] ([UserId]),
-	CONSTRAINT FK_Logger_EditUserId FOREIGN KEY ([EditUserId]) REFERENCES [User] ([UserId])
-)
-
 CREATE TABLE [ReturnReason](
 	[ReasonId]						INT IDENTITY(0, 1),
 	[ReasonCode]					VARCHAR(512),
@@ -230,16 +162,6 @@ CREATE TABLE [DetailedDisposition](
 	[DispositionDescription]		VARCHAR(512),
 	CONSTRAINT PK_DetailedDisposition PRIMARY KEY ([DispositionId])	
 )
-
-CREATE TABLE [Currency](
-	[UpdateDate]		DATETIME,
-	[NumCode]			INT,
-	[CharCode]			VARCHAR(10),
-	[Nominal]			INT,
-	[Name]				VARCHAR(100),
-	[Value]				FLOAT
-)
-GO
 
 CREATE TABLE [CampaignType](
 	[CampaignId]			INT IDENTITY(0,1),
@@ -345,12 +267,6 @@ CREATE TABLE [BusinessReport](
 	[ProductId]					INT,
 	CONSTRAINT FK_BusinessReport_SKU_MP FOREIGN KEY ([ProductId]) REFERENCES [Products] ([ProductId])
 )
-/*  
-Session Percentage = sessions/SUM(sessions)
-Page Views Percentage = Page Views/SUM(Page Views)
-Unit Session Percentage= Units Ordered/Sessions
-Unit Session Percentage - B2B = Units Ordered - B2B/Sessions
-*/
 
 CREATE TABLE [ReturnsReport](
 	[RecordId]					INT IDENTITY(0,1),
@@ -413,180 +329,3 @@ CREATE TABLE [Orders](
 	CONSTRAINT Orders_AmazonOrderId_Sku_PK PRIMARY KEY ([AmazonOrderId], [Sku])
 )
 GO
-
---IF NOT OBJECT_ID('Orders') IS NULL DROP TABLE [Orders]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------ 
-
-
-IF NOT OBJECT_ID('CustomerReturns') IS NULL DROP TABLE [CustomerReturns]
-GO
-IF NOT OBJECT_ID('Payments') IS NULL DROP TABLE [Payments]
-GO
-IF NOT OBJECT_ID('Shipments') IS NULL DROP TABLE [Shipments]
-GO
-IF NOT OBJECT_ID('Orders') IS NULL DROP TABLE [Orders]
-GO
-
-
-CREATE TABLE [Orders](
-	[AmazonOrderId]				VARCHAR(50),
-	[MerchantOrderId]			VARCHAR(50),
-	[PurchaseDate]				Date,
-	[LastUpdatedDate]			Date,
-	[OrderStatus]				VARCHAR(20),
-	[FullfilmentChannel]		VARCHAR(20),
-	[SalesChannel]				VARCHAR(50),
-	[OrderChannel]				VARCHAR(50),
-	[Url]						VARCHAR(50),
-	[ShipServiceLevel]			VARCHAR(30),
-	[ProductName]				VARCHAR(500),
-	[Sku]						VARCHAR(50),
-	[Asin]						VARCHAR(50),
-	[ItemStatus]				VARCHAR(50),
-	[Quantity]					INT,
-	[Currency]					VARCHAR(20),
-	[ItemPrice]					FLOAT,
-	[ItemTax]					FLOAT,
-	[ShippingPrice]				FLOAT,
-	[ShippingTax]				FLOAT,
-	[GiftWrapPrice]				FLOAT,
-	[GiftWrapTax]				FLOAT,
-	[ItemPromotionDiscount]		FLOAT,
-	[ShipPromotionDiscount]		FLOAT,
-	[ShipCity]					VARCHAR(200),
-	[ShipState]					VARCHAR(150),
-	[ShipPostalCode]			VARCHAR(25),
-	[ShipCountry]				VARCHAR(50),
-	[PromotionIds]				VARCHAR(100),
-	[IsBusinessOrder]			VARCHAR(6),
-	[PurchaseOrderNumber]		VARCHAR(50),
-	[PriceDesignation]			VARCHAR(50),
-	[ReturnDate]				Date,
-	CONSTRAINT Orders_AmazonOrderId_PK PRIMARY KEY ([AmazonOrderId])
-)
-GO
-
-CREATE TABLE [Payments](
-	[Date]						DATE,
-	[SettlementId]				VARCHAR(20),
-	[Type]						VARCHAR(30),
-	[OrderId]					VARCHAR(50),
-	[Sku]						VARCHAR(50),
-	[Description]				VARCHAR(500),
-	[Quantity]					INT,
-	[Marketplace]				VARCHAR(100),
-	[Fullfilment]				VARCHAR(30),
-	[OrderCity]					VARCHAR(100),
-	[OrderState]				VARCHAR(70),
-	[OrderPostal]				VARCHAR(50),
-	[ProductSales]				FLOAT,
-	[ShippingCredits]			FLOAT,
-	[GiftWrapCredits]			FLOAT,
-	[PromotionalRebates]		FLOAT,
-	[SaleTaxCollected]			FLOAT,
-	[MarketplaceFacilitatorTax]	FLOAT,
-	[SellingFees]				FLOAT,
-	[FBAFees]					FLOAT,
-	[OtherTransactionFees]		FLOAT,
-	[Other]						FLOAT,
-	[Total]						FLOAT,
-	--CONSTRAINT PK_Payments_OrderIdandSku PRIMARY KEY ([OrderId], [Sku])
-)
-GO
-
-CREATE TABLE [Shipments](
-	[AmazonOrderId]				VARCHAR(50),
-	[MerchantOrderId]			VARCHAR(50),
-	[ShipmentId]				VARCHAR(30),
-	[ShipmentItemId]			VARCHAR(30),
-	[AmazonOrderItemId]			VARCHAR(50),
-	[MerchantOrderItemId]		VARCHAR(50),
-	[PurchaseDate]				DATE,
-	[PaymentsDate]				DATE,
-	[ShipmentDate]				DATE,
-	[ReportingDate]				DATE,
-	[BuyerEmail]				VARCHAR(100),
-	[BuyerName]					VARCHAR(200),
-	[BuyerPhoneNumber]			VARCHAR(50),
-	[Sku]						VARCHAR(50),
-	[ProductName]				VARCHAR(500),
-	[QuantityShipped]			INT,
-	[Currency]					VARCHAR(20),
-	[ItemPrice]					FLOAT,
-	[ItemTax]					FLOAT,
-	[ShippingPrice]				FLOAT,
-	[ShippingTax]				FLOAT,	
-	[GiftWrapPrice]				FLOAT,
-	[GiftWrapTax]				FLOAT,
-	[ShipServiceLevel]			VARCHAR(50),
-	[RecipientName]				VARCHAR(200),
-	[ShipAddress1]				VARCHAR(200),
-	[ShipAddress2]				VARCHAR(200),
-	[ShipAddress3]				VARCHAR(200),
-	[ShipCity]					VARCHAR(200),
-	[ShipState]					VARCHAR(150),
-	[ShipPostalCode]			VARCHAR(25),
-	[ShipCountry]				VARCHAR(100),
-	[ShipPhoneNumber]			VARCHAR(50),
-	[BillAddress1]				VARCHAR(200),
-	[BillAddress2]				VARCHAR(200),
-	[BillAddress3]				VARCHAR(200),
-	[BillCity]					VARCHAR(200),
-	[BillState]					VARCHAR(150),
-	[BillPostalCode]			VARCHAR(25),
-	[BillCountry]				VARCHAR(100),
-	[ItemPromotionDiscount]		FLOAT,
-	[ShipPromotionDiscount]		FLOAT,
-	[Carrier]					VARCHAR(50),
-	[TrackingNumber]			VARCHAR(100),
-	[EstimatedArrivalDate]		DATE,
-	[FullfilmentCenterId]		VARCHAR(100),
-	[FullfilmentChannel]		VARCHAR(100),
-	[SalesChannel]				VARCHAR(100),
-	CONSTRAINT Shipments_AmazonOrderId_PK PRIMARY KEY ([AmazonOrderId])
-)
-GO
-
-CREATE TABLE [CustomerReturns](
-	[ReturnDate]				DATE,
-	[OrderId]					VARCHAR(50),
-	[SKU]						VARCHAR(50),
-	[ASIN]						VARCHAR(50),
-	[FNSKU]						VARCHAR(50),
-	[ProductName]				VARCHAR(500),
-	[Quantity]					INT,
-	[FullfilmentCenterId]		VARCHAR(100),
-	[DetailedDisposition]		VARCHAR(50),
-	[Reason]					VARCHAR(100),
-	[Status]					VARCHAR(50),
-	[LicensePlateNumber]		VARCHAR(50),
-	[CustomerComments]			VARCHAR(1000),
-	CONSTRAINT PK_CustomerReturns_LicensePlateNumber PRIMARY KEY ([LicensePlateNumber])
-	--CONSTRAINT FK_CustomerReturns_Orders FOREIGN KEY ([OrderId]) REFERENCES Orders ([AmazonOrderId])
-)
-GO
-
-
-*/

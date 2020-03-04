@@ -54,12 +54,22 @@ namespace Excel_Parse
 
             prodController.GetProductsAllJOIN();
             stockController.GetStock(DateTime.Today.AddDays(-10), DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59));
-
-            GetLatestDateAndProcessStockList();
-            CalcValues();
-            DrawTableColumns();
-            DrawTableValues();
-
+            if (stockList.Count > 0)
+            {
+                GetLatestDateAndProcessStockList();
+                CalcValues();
+                DrawTableColumns();
+                DrawTableValues();
+            }
+            else
+            {
+                dgv_Stock.Visible = false;
+                label3.Visible = true;
+                cb_MarketPlace.Enabled = false;
+                cb_FilterParameter.Enabled = false;
+                rtb_FilterParameterValue.Enabled = false;
+                btn_GoFilter.Enabled = false;
+            }
         }
 
         /* Заполняем combobox названиями маркетплейсов */

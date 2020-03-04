@@ -17,7 +17,7 @@ namespace Excel_Parse
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginFormView());
+            Application.Run(new MainFormView());
             //Application.Run(new MainFormView());
         }
     }

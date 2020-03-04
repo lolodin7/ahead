@@ -54,6 +54,7 @@
             this.showReturnsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.showGeneralSalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showSessionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.складToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addSectionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.addAdvReportReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addBusinessReportReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,7 +76,6 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.складToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -119,6 +119,7 @@
             this.семантическиеЯдраToolStripMenuItem.Name = "семантическиеЯдраToolStripMenuItem";
             this.семантическиеЯдраToolStripMenuItem.Size = new System.Drawing.Size(140, 20);
             this.семантическиеЯдраToolStripMenuItem.Text = "Семантическое ядро";
+            this.семантическиеЯдраToolStripMenuItem.Visible = false;
             // 
             // DoSemCoreToolStripMenuItem
             // 
@@ -276,6 +277,7 @@
             this.showReturnsToolStripMenuItem1.Size = new System.Drawing.Size(160, 22);
             this.showReturnsToolStripMenuItem1.Text = "Возвраты";
             this.showReturnsToolStripMenuItem1.Visible = false;
+            this.showReturnsToolStripMenuItem1.Click += new System.EventHandler(this.showReturnsToolStripMenuItem1_Click);
             // 
             // showGeneralSalesToolStripMenuItem
             // 
@@ -294,6 +296,13 @@
             this.showSessionsToolStripMenuItem.Text = "Сессии";
             this.showSessionsToolStripMenuItem.Click += new System.EventHandler(this.showSessionsToolStripMenuItem_Click);
             // 
+            // складToolStripMenuItem
+            // 
+            this.складToolStripMenuItem.Name = "складToolStripMenuItem";
+            this.складToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.складToolStripMenuItem.Text = "Склад";
+            this.складToolStripMenuItem.Click += new System.EventHandler(this.складToolStripMenuItem_Click);
+            // 
             // addSectionToolStripMenuItem1
             // 
             this.addSectionToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -305,6 +314,7 @@
             this.addSectionToolStripMenuItem1.Name = "addSectionToolStripMenuItem1";
             this.addSectionToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
             this.addSectionToolStripMenuItem1.Text = "Добавить";
+            this.addSectionToolStripMenuItem1.Visible = false;
             // 
             // addAdvReportReportToolStripMenuItem
             // 
@@ -353,6 +363,7 @@
             this.updateSectionToolStripMenuItem.Name = "updateSectionToolStripMenuItem";
             this.updateSectionToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.updateSectionToolStripMenuItem.Text = "Обновить";
+            this.updateSectionToolStripMenuItem.Visible = false;
             // 
             // updateAdvertisingReportToolStripMenuItem1
             // 
@@ -375,6 +386,7 @@
             this.updateReturnsReportToolStripMenuItem1.Size = new System.Drawing.Size(177, 22);
             this.updateReturnsReportToolStripMenuItem1.Text = "Returns report";
             this.updateReturnsReportToolStripMenuItem1.Visible = false;
+            this.updateReturnsReportToolStripMenuItem1.Click += new System.EventHandler(this.updateReturnsReportToolStripMenuItem1_Click);
             // 
             // allOrdersToolStripMenuItem1
             // 
@@ -383,6 +395,7 @@
             this.allOrdersToolStripMenuItem1.Size = new System.Drawing.Size(177, 22);
             this.allOrdersToolStripMenuItem1.Text = "All orders";
             this.allOrdersToolStripMenuItem1.Visible = false;
+            this.allOrdersToolStripMenuItem1.Click += new System.EventHandler(this.allOrdersToolStripMenuItem1_Click);
             // 
             // everyDayToolStripMenuItem
             // 
@@ -402,6 +415,7 @@
             this.сотрудникToolStripMenuItem.Name = "сотрудникToolStripMenuItem";
             this.сотрудникToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
             this.сотрудникToolStripMenuItem.Text = "Сотрудник";
+            this.сотрудникToolStripMenuItem.Visible = false;
             // 
             // ShowPersonalInfoToolStripMenuItem
             // 
@@ -457,18 +471,12 @@
             this.label1.TabIndex = 15;
             this.label1.Text = "Привет, Бандит";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label1.Visible = false;
             // 
             // timer1
             // 
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
-            // 
-            // складToolStripMenuItem
-            // 
-            this.складToolStripMenuItem.Name = "складToolStripMenuItem";
-            this.складToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.складToolStripMenuItem.Text = "Склад";
-            this.складToolStripMenuItem.Click += new System.EventHandler(this.складToolStripMenuItem_Click);
             // 
             // MainFormView
             // 

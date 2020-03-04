@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using System.Collections.Specialized;
+using System.Net.NetworkInformation;
+using System.Net;
 
 namespace Excel_Parse
 {
@@ -13,15 +15,29 @@ namespace Excel_Parse
     {
         public static SqlConnection GetDBConnection()
         {
-            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-            
-            builder.ConnectionString = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
+            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();            
 
-            string connectionString = builder.ConnectionString;
+            string ip = "";
+            SqlConnection connection;
 
-            SqlConnection connection = new SqlConnection(connectionString);
+            ip = new WebClient().DownloadString("http://icanhazip.com/");       //узнаем ip на 1м сервисе
+            if (ip.Equals(""))
+                ip = new WebClient().DownloadString("https://api.ipify.org");        //если 1й не работает, проверяем на 2м
 
-            return connection;
+            if (!ip.Equals(""))
+            {
+                if (ip.Contains(ConfigurationManager.AppSettings.Get("serverIp")))  //сравниваем полученный внешний ip с тем ip сервера, который хранится в конфиге
+                    builder.ConnectionString = ConfigurationManager.ConnectionStrings["connStrLocal"].ConnectionString;
+                else
+                    builder.ConnectionString = ConfigurationManager.ConnectionStrings["connStrGlobal"].ConnectionString;
+
+                string connectionString = builder.ConnectionString;
+
+                connection = new SqlConnection(connectionString);
+                return connection;
+            }
+
+            return new SqlConnection();
         }
     }
 }

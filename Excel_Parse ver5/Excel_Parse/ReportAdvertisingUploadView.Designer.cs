@@ -39,18 +39,17 @@
             this.btn_Close = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lb_Progress = new System.Windows.Forms.Label();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
-            this.lb_Progress = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_UploadFromFile
             // 
             this.btn_UploadFromFile.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_UploadFromFile.Location = new System.Drawing.Point(77, 97);
+            this.btn_UploadFromFile.Location = new System.Drawing.Point(77, 8);
             this.btn_UploadFromFile.Name = "btn_UploadFromFile";
             this.btn_UploadFromFile.Size = new System.Drawing.Size(167, 53);
             this.btn_UploadFromFile.TabIndex = 0;
@@ -61,12 +60,13 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(11, 152);
+            this.label1.Location = new System.Drawing.Point(11, 128);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(293, 43);
+            this.label1.Size = new System.Drawing.Size(293, 16);
             this.label1.TabIndex = 1;
             this.label1.Text = "Путь к файлу...";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label1.Visible = false;
             // 
             // cb_MarketPlace
             // 
@@ -77,6 +77,7 @@
             this.cb_MarketPlace.Name = "cb_MarketPlace";
             this.cb_MarketPlace.Size = new System.Drawing.Size(251, 25);
             this.cb_MarketPlace.TabIndex = 3;
+            this.cb_MarketPlace.Visible = false;
             this.cb_MarketPlace.SelectedIndexChanged += new System.EventHandler(this.Cb_MarketPlace_SelectedIndexChanged);
             // 
             // cb_CampaignType
@@ -99,6 +100,7 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Маркетплейс";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label2.Visible = false;
             // 
             // label3
             // 
@@ -135,6 +137,7 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Multiselect = true;
             // 
             // panel1
             // 
@@ -151,14 +154,23 @@
             this.panel1.TabIndex = 11;
             this.panel1.Visible = false;
             // 
+            // lb_Progress
+            // 
+            this.lb_Progress.Location = new System.Drawing.Point(34, 168);
+            this.lb_Progress.Name = "lb_Progress";
+            this.lb_Progress.Size = new System.Drawing.Size(251, 21);
+            this.lb_Progress.TabIndex = 14;
+            this.lb_Progress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lb_Progress.Visible = false;
+            // 
             // richTextBox2
             // 
             this.richTextBox2.BackColor = System.Drawing.SystemColors.Control;
             this.richTextBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Bold);
-            this.richTextBox2.Location = new System.Drawing.Point(11, 198);
+            this.richTextBox2.Location = new System.Drawing.Point(11, 80);
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.ReadOnly = true;
-            this.richTextBox2.Size = new System.Drawing.Size(296, 155);
+            this.richTextBox2.Size = new System.Drawing.Size(296, 273);
             this.richTextBox2.TabIndex = 13;
             this.richTextBox2.TabStop = false;
             this.richTextBox2.Text = "";
@@ -175,27 +187,12 @@
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(52, 134);
+            this.label6.Location = new System.Drawing.Point(52, 82);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(312, 114);
+            this.label6.Size = new System.Drawing.Size(312, 166);
             this.label6.TabIndex = 12;
             this.label6.Text = "Для начала выберите Campaign Type из списка выше ";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // openFileDialog2
-            // 
-            this.openFileDialog2.FileName = "openFileDialog2";
-            this.openFileDialog2.Multiselect = true;
-            // 
-            // lb_Progress
-            // 
-            this.lb_Progress.Location = new System.Drawing.Point(34, 168);
-            this.lb_Progress.Name = "lb_Progress";
-            this.lb_Progress.Size = new System.Drawing.Size(251, 21);
-            this.lb_Progress.TabIndex = 14;
-            this.lb_Progress.Text = "label4";
-            this.lb_Progress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lb_Progress.Visible = false;
             // 
             // ReportAdvertisingUploadView
             // 
@@ -234,7 +231,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.OpenFileDialog openFileDialog2;
         private System.Windows.Forms.RichTextBox richTextBox2;
         private System.Windows.Forms.Label lb_Progress;
     }

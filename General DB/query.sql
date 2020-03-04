@@ -734,3 +734,26 @@ SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-02-20 00:00
 
 SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-02-20 00:00:00' and '2020-02-25 23:59:59' and ([MarketPlaceId] = 1) and ([ProductId] = 23 or [ProductId] = 25) and [CampaignName] = 'PDW1 - Broad'
 SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-01-01 00:00:00' and '2020-01-31 23:59:59' and ([MarketPlaceId] = 1) and ([ProductId] = 23 or [ProductId] = 25) and [CampaignName] = 'PDW1 - Broad'
+
+INSERT INTO [Stock] ([UpdateDate], [ProductId], [Name], [ASIN], [SKU], [FNSKU], [MarketplaceId], [FulfillableItems], [ReservedItems], [InboundShipped], [InboundWorking]) VALUES ('2020-03-02 00:00:00', 30, 'Lavalier Lapel Microphone Clip - Lapel Lavalier Mic Clips x2 Kit - Replacement Microphone Clip Metal - Lapel Lavalier Microphone Tie Clip Black - Microphone Lavalier Clip iPhone 5, 6, 6s, 7, 8, X', 'B01LZ6T9XO', '1N-NPIV-XHND', 'X0017NOYAR', 1, 70, 3, 0, 0)
+select * from stock
+
+
+
+SELECT * FROM [Orders] WHERE [PurchaseDate] between '2020-02-25 00:00:00' and '2020-03-02 23:59:59'
+SELECT * FROM [Orders] WHERE [PurchaseDate] between '2020-02-02 00:00:00' and '2020-03-02 23:59:59'
+
+
+SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-02-20 00:00:00' and '2020-03-04 23:59:59' and ([MarketPlaceId] = 1)
+
+select * from Products where ProdShortName = 'PDW-Ch Lightning Connector'
+
+select * from AdvertisingProducts where [CampaignName] = 'PDW Mic Lightning Connector - Phrase' or [CampaignName] = 'PDW Mic Lightning Connector - Exact' or [CampaignName] = 'PDW Mic Lightning Connector - AUTO' or [CampaignName] = 'PDW Mic Lightning Connector - Target' or [CampaignName] = 'PDW Mic Lightning Connector - Exact 2' or [CampaignName] = 'PDW Mic Lightning Connector - Broad'
+select * from AdvertisingProducts where ProductId = 22
+
+select SUM(Impressions) from AdvertisingProducts where UpdateDate between '2020-02-01 00:00:00' and '2020-03-03 23:59:59' and MarketPlaceId = 5
+select * from Products where MarketPlaceId = 5
+delete from AdvertisingProducts where UpdateDate between '2020-02-01 00:00:00' and '2020-03-03 23:59:59'
+select * from AdvertisingProducts where UpdateDate between '2020-02-01 00:00:00' and '2020-03-03 23:59:59'
+
+UPDATE [AdvertisingProducts] SET [Impressions] = 3674, [Clicks] = 16, [CTR] = 0.00435492651061513, [CPC] = 0.4625, [Spend] = 7.4, [ACoS] = 0, [RoAS] = 0, [Sales] = 0, [Orders] = 0, [Units] = 0, [ConversionRate] = 0, [AdvSKUUnits] = 0, [OtherSKUUnits] = 0, [AdvSKUSales] = 0, [OtherSKUSales] = 0 WHERE [UpdateDate] = '2020-02-03 00:00:00' AND [CampaignId] = 50250665 AND [AdGroupName] = 'MIC: Auto' AND [MatchType] = 'BROAD' AND [Targeting] = '*' UPDATE[AdvertisingProducts] SET[Impressions] = 4441, [Clicks] = 15, [CTR] = 0.0033776176536816, [CPC] = 0.464666666666667, [Spend] = 6.97, [ACoS] = 0.313681368136814, [RoAS] = 3.18794835007174, [Sales] = 22.22, [Orders] = 1, [Units] = 1, [ConversionRate] = 0.0666666666666667, [AdvSKUUnits] = 1, [OtherSKUUnits] = 0, [AdvSKUSales] = 22.22, [OtherSKUSales] = 0 WHERE[UpdateDate] = '2020-02-04 00:00:00' AND[CampaignId] = 50250665 AND[AdGroupName] = 'MIC: Auto' AND[MatchType] = 'BROAD' AND[Targeting] = '*' UPDATE[AdvertisingProducts] SET[Impressions] = 4504, [Clicks] = 7, [CTR] = 0.00155417406749556, [CPC] = 0.587142857142857, [Spend] = 4.11, [ACoS] = 0, [RoAS] = 0, [Sales] = 0, [Orders] = 0, [Units] = 0, [ConversionRate] = 0, [AdvSKUUnits] = 0, [OtherSKUUnits] = 0, [AdvSKUSales] = 0, [OtherSKUSales] = 0 WHERE[UpdateDate] = '2020-02-05 00:00:00' AND[CampaignId] = 50250665 AND[AdGroupName] = 'MIC: Auto' AND[MatchType] = 'BROAD' AND[Targeting] = '*' UPDATE[AdvertisingProducts] SET[Impressions] = 3899, [Clicks] = 14, [CTR] = 0.00359066427289048, [CPC] = 0.527142857142857, [Spend] = 7.38, [ACoS] = 0, [RoAS] = 0, [Sales] = 0, [Orders] = 0, [Units] = 0, [ConversionRate] = 0, [AdvSKUUnits] = 0, [OtherSKUUnits] = 0, [AdvSKUSales] = 0, [OtherSKUSales] = 0 WHERE[UpdateDate] = '2020-02-06 00:00:00' AND[CampaignId] = 50250665 AND[AdGroupName] = 'MIC: Auto' AND[MatchType] = 'BROAD' AND[Targeting] = '*'
