@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Excel_Parse
 {
-    class AdvertisingProductsModel
+    public class AdvertisingProductsModel
     {
         public DateTime UpdateDate { get; set; }
         public string CurrencyCharCode { get; set; }

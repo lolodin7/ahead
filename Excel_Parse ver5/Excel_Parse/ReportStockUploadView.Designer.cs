@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportStockUploadView));
             this.btn_UploadFromFile = new System.Windows.Forms.Button();
             this.lb_Path = new System.Windows.Forms.Label();
             this.cb_MarketPlace = new System.Windows.Forms.ComboBox();
@@ -114,7 +115,7 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // ReportStockView
+            // ReportStockUploadView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -127,9 +128,10 @@
             this.Controls.Add(this.btn_Save);
             this.Controls.Add(this.btn_Close);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "ReportStockView";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "ReportStockUploadView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Загрузить отчет Stock";
+            this.Text = "Загрузить Stock report";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ReportStockView_FormClosing);
             this.ResumeLayout(false);
 

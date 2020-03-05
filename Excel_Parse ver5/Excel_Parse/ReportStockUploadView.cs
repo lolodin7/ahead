@@ -30,6 +30,8 @@ namespace Excel_Parse
 
         private List<StockModel> stockList;
 
+        private int insertedCount;
+
         private string path = "";
 
 
@@ -49,10 +51,10 @@ namespace Excel_Parse
             prodController = new ProductsController(this);
             stockController = new ReportStockController(this);
 
+            insertedCount = 0;
+
             if (mpController.GetMarketplaces() == 1)
                 Fill_CB_Marketplace();
-
-
         }
 
         /* Заполняем combobox названиями маркетплейсов */
@@ -126,7 +128,7 @@ namespace Excel_Parse
         {
             prodController.GetProductsAllJOIN();
 
-            openFileDialog1.Filter = "Неразмеченные файлы|*.csv;*.txt";
+            openFileDialog1.Filter = "Неразмеченные файлы|*.csv";
             openFileDialog1.Title = "Выбор файла для открытия";
             openFileDialog1.FileName = "";
 
@@ -186,6 +188,11 @@ namespace Excel_Parse
             }
         }
 
+        public void GetUpdatedCount(int _cnt)
+        {
+            insertedCount = _cnt;
+        }
+
         /* Загрузка отчета в БД */
         private void btn_Save_Click(object sender, EventArgs e)
         {
@@ -197,7 +204,7 @@ namespace Excel_Parse
                     if (stockController.UploadStockReport(stockList) != 1)
                         MessageBox.Show("Во время сохранения произошла ошибка. Работа была прервана.", "Ошибка");
                     else
-                        MessageBox.Show("Сохранение успешно. Всего сохранено строк - " + stockList.Count, "Успех");
+                        MessageBox.Show("Сохранение успешно. Всего сохранено строк - " + insertedCount, "Успех");
                     this.Enabled = true;
                 }
             }

@@ -753,7 +753,38 @@ select * from AdvertisingProducts where ProductId = 22
 
 select SUM(Impressions) from AdvertisingProducts where UpdateDate between '2020-02-01 00:00:00' and '2020-03-03 23:59:59' and MarketPlaceId = 5
 select * from Products where MarketPlaceId = 5
-delete from AdvertisingProducts where UpdateDate between '2020-02-01 00:00:00' and '2020-03-03 23:59:59'
+
 select * from AdvertisingProducts where UpdateDate between '2020-02-01 00:00:00' and '2020-03-03 23:59:59'
 
 UPDATE [AdvertisingProducts] SET [Impressions] = 3674, [Clicks] = 16, [CTR] = 0.00435492651061513, [CPC] = 0.4625, [Spend] = 7.4, [ACoS] = 0, [RoAS] = 0, [Sales] = 0, [Orders] = 0, [Units] = 0, [ConversionRate] = 0, [AdvSKUUnits] = 0, [OtherSKUUnits] = 0, [AdvSKUSales] = 0, [OtherSKUSales] = 0 WHERE [UpdateDate] = '2020-02-03 00:00:00' AND [CampaignId] = 50250665 AND [AdGroupName] = 'MIC: Auto' AND [MatchType] = 'BROAD' AND [Targeting] = '*' UPDATE[AdvertisingProducts] SET[Impressions] = 4441, [Clicks] = 15, [CTR] = 0.0033776176536816, [CPC] = 0.464666666666667, [Spend] = 6.97, [ACoS] = 0.313681368136814, [RoAS] = 3.18794835007174, [Sales] = 22.22, [Orders] = 1, [Units] = 1, [ConversionRate] = 0.0666666666666667, [AdvSKUUnits] = 1, [OtherSKUUnits] = 0, [AdvSKUSales] = 22.22, [OtherSKUSales] = 0 WHERE[UpdateDate] = '2020-02-04 00:00:00' AND[CampaignId] = 50250665 AND[AdGroupName] = 'MIC: Auto' AND[MatchType] = 'BROAD' AND[Targeting] = '*' UPDATE[AdvertisingProducts] SET[Impressions] = 4504, [Clicks] = 7, [CTR] = 0.00155417406749556, [CPC] = 0.587142857142857, [Spend] = 4.11, [ACoS] = 0, [RoAS] = 0, [Sales] = 0, [Orders] = 0, [Units] = 0, [ConversionRate] = 0, [AdvSKUUnits] = 0, [OtherSKUUnits] = 0, [AdvSKUSales] = 0, [OtherSKUSales] = 0 WHERE[UpdateDate] = '2020-02-05 00:00:00' AND[CampaignId] = 50250665 AND[AdGroupName] = 'MIC: Auto' AND[MatchType] = 'BROAD' AND[Targeting] = '*' UPDATE[AdvertisingProducts] SET[Impressions] = 3899, [Clicks] = 14, [CTR] = 0.00359066427289048, [CPC] = 0.527142857142857, [Spend] = 7.38, [ACoS] = 0, [RoAS] = 0, [Sales] = 0, [Orders] = 0, [Units] = 0, [ConversionRate] = 0, [AdvSKUUnits] = 0, [OtherSKUUnits] = 0, [AdvSKUSales] = 0, [OtherSKUSales] = 0 WHERE[UpdateDate] = '2020-02-06 00:00:00' AND[CampaignId] = 50250665 AND[AdGroupName] = 'MIC: Auto' AND[MatchType] = 'BROAD' AND[Targeting] = '*'
+
+
+
+
+ALTER TABLE [AdvertisingProducts]
+	ADD CONSTRAINT PK_AdvertisingProducts PRIMARY KEY ([UpdateDate], [CampaignName], [AdGroupName], [Targeting], [MatchType], [ProductId])
+
+	
+--Jul  6 2019 12:00AM, PDW1 - Broad, Lavalier, lavalier microphone
+use ahead
+SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2020-02-03 00:00:00' and '2020-02-03 23:59:59' and [CampaignName] = 'Beer Chiller -  Broad' and [AdGroupName] = '0.25 c' and [Targeting] = 'idea  gift'
+DELETE FROM [AdvertisingProducts] WHERE [UpdateDate] between '2019-10-01 00:00:00' and '2019-10-31 23:59:59' and MarketPlaceId = 1 and [CampaignName] = 'PDW1 - Broad' and [AdGroupName] = 'Clip On' and [Targeting] = 'microphone clip on' and ([CPC] = 0.94 or [CPC] = 0.39)
+
+ALTER TABLE [AdvertisingProducts] ALTER COLUMN [UpdateDate] DATETIME NOT NULL
+ALTER TABLE [AdvertisingProducts] ALTER COLUMN [CampaignName] VARCHAR(255) NOT NULL
+ALTER TABLE [AdvertisingProducts] ALTER COLUMN [AdGroupName] VARCHAR(255) NOT NULL
+ALTER TABLE [AdvertisingProducts] ALTER COLUMN [Targeting] VARCHAR(255) NOT NULL
+ALTER TABLE [AdvertisingProducts] ALTER COLUMN [MarketPlaceId] INT NOT NULL
+ALTER TABLE [AdvertisingProducts] ALTER COLUMN [MatchType] VARCHAR(32) NOT NULL
+ALTER TABLE [AdvertisingProducts] ALTER COLUMN [ProductId] INT NOT NULL
+
+Select * from [AdvertisingProducts] Where [UpdateDate] between '2019-10-09 00:00:00' and '2019-10-09 23:59:59' and  [CampaignName] = 'PDW1 - AUTO' and [AdGroupName] = 'MIC: Auto' and [Targeting] = '*' and [MatchType]= 'BROAD'
+
+
+
+
+SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2019-01-01 00:00:00' and '2020-12-05 23:59:59' and MarketPlaceId = 5
+
+
+use AHEAD
+delete from Orders where MarketPlaceId = 8

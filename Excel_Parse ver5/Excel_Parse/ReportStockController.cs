@@ -38,13 +38,16 @@ namespace Excel_Parse
         {
             string specifier = "G";
 
+            int insertCount = 0;
+
             for (int i = 0; i < stockList.Count; i++)
             {
                 string sqlStatement = "INSERT INTO [Stock] ([UpdateDate], [ProductId], [Name], [ASIN], [SKU], [FNSKU], [MarketplaceId], [FulfillableItems], [ReservedItems], [InboundShipped], [InboundWorking]) VALUES ('" + stockList[i].UpdateDate.ToString("yyyy-MM-dd HH:mm:ss") + "', " + stockList[i].ProductId + ", '" + stockList[i].Name + "', '" + stockList[i].ASIN + "', '" + stockList[i].SKU + "', '" + stockList[i].FNSKU + "', " + stockList[i].MarketPlaceId + ", " + stockList[i].FulfillableItems + ", " + stockList[i].ReservedItems + ", " + stockList[i].InboundShipped + ", " + stockList[i].InboundWorking + ")";
                 command = new SqlCommand(sqlStatement, connection);
-                if (Execute_UPDATE_DELETE_INSERT_Command(command) != 1)
-                    return 0;
+                if (Execute_UPDATE_DELETE_INSERT_Command(command) == 1)
+                    insertCount++;
             }
+            controlReportStockUploadView.GetUpdatedCount(insertCount);
             return 1;
         }
 

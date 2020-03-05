@@ -8,37 +8,26 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Excel_Parse
 {
-    public partial class ReportAdvertisingUploadView : Form 
+    public partial class ReportAdvertisingUploadView : Form
     {
         private MainFormView mf;
 
-        private bool FirstLoad;
-
-        private bool UploadMode;
-        private bool UpdateMode;
-
-        private string path = "";
         private List<string> fileNames;
 
         private DateTime UpdateDate;
         private DateTime StartDate, EndDate;
         private List<DateTime> datesList;
-
-        private bool SponsoredProducts, SponsoredBrands;
-
-        //private int daysDiff;
-        private int updatedRowsCount;
-
+                
         private List<AdvertisingProductsModel> advProductsList;
-        private List<AdvertisingBrandsModel> advBrandsList;
-
+        private List<AdvertisingProductsModel> summaryAdvProductsList;
+        private List<AdvertisingProductsModel> advProductsListForUpdate;
         private List<AdvertisingProductsModel> advProductsListOfErrors;
-        private List<AdvertisingBrandsModel> advBrandsListOfErrors;
 
         private MarketplaceController mpController;
         private List<MarketplaceModel> mpList;
@@ -46,38 +35,32 @@ namespace Excel_Parse
         private ProductsController prodController;
         private List<ProductsModel> pList;
 
-        private CampaignTypesController campTController;
-        private List<CampaignTypesModel> campTList;
-
         private AdvertisingController advertController;
 
         private List<MapNameId> AP_campaignIdsList;
         private List<MapNameId> AB_campaignIdsList;
 
+        int insertedCount, updatedCount;
+
 
         /* Главный конструктор */
-        public ReportAdvertisingUploadView(MainFormView _mf, string _mode)
+        public ReportAdvertisingUploadView(MainFormView _mf)
         {
             InitializeComponent();
             mf = _mf;
-            FirstLoad = true;
 
             UpdateDate = DateTime.Today;
             StartDate = DateTime.Today;
             EndDate = DateTime.Today.AddHours(23).AddMinutes(59);
-
-            //daysDiff = 1;
-            updatedRowsCount = 0;
-
+            
             advProductsList = new List<AdvertisingProductsModel> { };
-            advBrandsList = new List<AdvertisingBrandsModel> { };
+            advProductsListForUpdate = new List<AdvertisingProductsModel> { };
+            summaryAdvProductsList = new List<AdvertisingProductsModel> { };
             mpList = new List<MarketplaceModel> { };
-            campTList = new List<CampaignTypesModel> { };
             pList = new List<ProductsModel> { };
             datesList = new List<DateTime> { };
 
             mpController = new MarketplaceController(this);
-            campTController = new CampaignTypesController(this);
             advertController = new AdvertisingController(this);
             prodController = new ProductsController(this);
 
@@ -85,74 +68,17 @@ namespace Excel_Parse
             AB_campaignIdsList = new List<MapNameId> { };
 
             advProductsListOfErrors = new List<AdvertisingProductsModel> { };
-            advBrandsListOfErrors = new List<AdvertisingBrandsModel> { };
 
-            SponsoredProducts = false;
-            SponsoredBrands = false;
-
-            if (_mode.Equals("upload"))
-            {
-                UploadMode = true;
-                UpdateMode = false;
-                this.Text = "Загрузить данные";
-                btn_Save.Text = "Сохранить";
-            }
-            else if (_mode.Equals("update"))
-            {
-                UploadMode = false;
-                UpdateMode = true;
-                this.Text = "Обновить данные";
-                btn_Save.Text = "Обновить";
-            }
-
-            if (mpController.GetMarketplaces() == 1)
-                Fill_CB_Marketplace();
-
-            if (campTController.GetCampaignTypes() == 1)
-                Fill_CB_CampaignTypes();
-
+            mpController.GetMarketplaces();
+                        
             advertController.GetAP_CampaignIds();
             advertController.GetAB_CampaignIds();
-
-            FirstLoad = false;
         }
-
-        /* Заполняем combobox названиями маркетплейсов */
-        private void Fill_CB_Marketplace()
-        {
-            cb_MarketPlace.Items.Clear();
-
-            for (int i = 0; i < mpList.Count; i++)
-            {
-                cb_MarketPlace.Items.Add(mpList[i].MarketPlaceName);
-            }
-
-            cb_MarketPlace.SelectedIndex = 0;
-        }
-
-        /* Заполняем combobox названиями кампаний */
-        private void Fill_CB_CampaignTypes()
-        {
-            cb_CampaignType.Items.Clear();
-
-            for (int i = 0; i < campTList.Count; i++)
-            {
-                cb_CampaignType.Items.Add(campTList[i].CampaignName);
-            }
-
-            //cb_CampaignType.SelectedIndex = 0;
-        }
-
+        
         /* Получаем из контроллера данные, полученные с БД */
         public void GetProductsFromDB(object _pList)
         {
             pList = (List<ProductsModel>)_pList;
-        }
-
-        /* Получаем из контроллера Campaign Types, полученные с БД */
-        public void GetCampaignTypesFromDB(object _campTList)
-        {
-            campTList = (List<CampaignTypesModel>)_campTList;
         }
 
         /*  */
@@ -173,12 +99,28 @@ namespace Excel_Parse
             mpList = (List<MarketplaceModel>)_mpList;
         }
 
+        /* Public метод для занесения товаров, которые потом нужно будет обновить, из AdvertisingController */
+        public void AddProductForUpdate(AdvertisingProductsModel _apm)
+        {
+            advProductsListForUpdate.Add(_apm);
+        }
+
+        /* Получаем количество добавленных записей */
+        public void GetInsertedCount(int _cnt)
+        {
+            insertedCount = _cnt;
+        }
+
+        /* Получаем количество обновленных записей */
+        public void GetUpdatedCount(int _cnt)
+        {
+            updatedCount = _cnt;
+        }
 
         /* Инициируем загрузку файла отчета в программу */
         private void Btn_UploadFromFile_Click(object sender, EventArgs e)
         {
             OpenManyFiles();
-            //OpenNewFileForSponsoredProducts();
         }
 
         private void OpenManyFiles()
@@ -246,8 +188,6 @@ namespace Excel_Parse
                         advProductsList[advProductsList.Count - 1].WriteData(20, ChechForNull(worksheet, row, 22));            //[OtherSKUSales] 
                     }
                 }
-                label7.Text = "Дата - " + UpdateDate.ToString().Substring(0, 10);
-                label1.Text = _fileName;
 
                 StartDate = datesList.Min();
                 EndDate = datesList.Max().AddHours(23).AddMinutes(59).AddSeconds(59);
@@ -266,18 +206,7 @@ namespace Excel_Parse
             else
                 return worksheet.Cells[row, col].Value.ToString().Trim();
         }
-        
-        /* Получаем id кампании по выбранному имени в combobox */
-        private int GetCampaignTypeIdByName(string _name)
-        {
-            for (int i = 0; i < campTList.Count; i++)
-            {
-                if (cb_CampaignType.SelectedItem.ToString().Equals(campTList[i].CampaignName))
-                    return campTList[i].CampaignId;
-            }
-            return -1;
-        }
-        
+
         /* Получаем id маркетплейса по выбранному имени в combobox */
         private string GetMarketPlaceNameById(int _id)
         {
@@ -299,7 +228,7 @@ namespace Excel_Parse
             }
             return 1;
         }
-        
+
         /* Получаем id товара по выбранному имени в combobox */
         private int GetProductIdByName(string _name)
         {
@@ -331,120 +260,65 @@ namespace Excel_Parse
         /* Иницируем сохранение отчета в БД для одиночного файла */
         private void Btn_Save_Click(object sender, EventArgs e)
         {
-            if (UploadMode)     //загружаем новые данные
+            if (fileNames.Count > 0)
             {
-                if (MessageBox.Show("Загрузить отчеты?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes && fileNames.Count > 0)
+                if (MessageBox.Show("Загрузить отчеты?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
+                    lb_Progress.Visible = true;
+                    this.Enabled = false;
+
                     richTextBox2.Text = "";
+                    string errors = "";
+
                     foreach (var _fileName in fileNames)
                     {
+                        insertedCount = 0;
+                        updatedCount = 0;
+
+                        advProductsList.Clear();
+                        advProductsListForUpdate.Clear();
+                        advProductsListOfErrors.Clear();
+
                         OpenNewFileForSponsoredProducts(_fileName);
+
                         if (advProductsList.Count > 0)
                         {
                             SetCampaignAndMarketplaceToAllRows_AP(_fileName);
-                            UploadReportToDB_AP();
+                            MakeSummaryAdvProductListbyTargetingInAdGroups();
 
+                            advertController.InsertAdvertising_Product_Report(advProductsList, lb_Progress);
+
+                            if (advProductsListForUpdate.Count > 0)
+                                advertController.UpdateAdvertising_Product_Report(advProductsListForUpdate, lb_Progress);
+                            
                             if (advProductsListOfErrors.Count > 0)
                             {
-                                string errors = "";
-                                errors += _fileName + "\n";
-                                foreach (var t in advProductsListOfErrors)
-                                {
-                                    errors += "Date: " + UpdateDate.ToString() + " Campaign: " + t.CampaignName + " AdGroup " + t.AdGroupName + " Targeting " + t.Targeting + " Marketplace" + GetMarketPlaceNameById(t.MarketPlaceId) +  "\n";
-                                }
-                                richTextBox2.Text += errors;
-                            }
-                        }
-                        else
-                            MessageBox.Show("Файл отчета не был загружен. Нет данных для сохранения.\n" + _fileName, "Ошибка");
-                    }
-                }
-            }
-            else if (UpdateMode)        //обновляем старые данные
-            {
-                if (MessageBox.Show("Загрузить отчеты?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes && fileNames.Count > 0)
-                {
-                    richTextBox2.Text = "";
-                    foreach (var _fileName in fileNames)
-                    {
-                        OpenNewFileForSponsoredProducts(_fileName);
-                        if (advProductsList.Count > 0)
-                        {
-                            SetCampaignAndMarketplaceToAllRows_AP(_fileName);
-                            UpdateDataInDB_AP();
-
-                            if (advProductsListOfErrors.Count > 0)
-                            {
-                                string errors = "";
-                                errors += _fileName + "\n";
                                 foreach (var t in advProductsListOfErrors)
                                 {
                                     errors += "Date: " + UpdateDate.ToString() + " Campaign: " + t.CampaignName + " AdGroup " + t.AdGroupName + " Targeting " + t.Targeting + " Marketplace" + GetMarketPlaceNameById(t.MarketPlaceId) + "\n";
                                 }
-                                richTextBox2.Text = errors;
+                                richTextBox2.Text += errors;
                             }
+                            
+                            richTextBox2.Text += _fileName + "\n" + "Загружено: " + insertedCount + "\nОбновлено: " + updatedCount + "\nВсего: " + (insertedCount + updatedCount).ToString() + " из " + advProductsList.Count + "\n\n";
                         }
                         else
-                            MessageBox.Show("Файл отчета не был загружен. Нет данных для сохранения.\n" + _fileName, "Ошибка");
+                            richTextBox2.Text += "Пустой файл: " + _fileName + "\n";
                     }
+
+                    this.Enabled = true;
+                    lb_Progress.Visible = false;
+                    lb_Progress.Text = "";
                 }
             }
-        }
-
-        /* Метод обновления отчета в БД для Spondored Products */
-        private void UpdateDataInDB_AP()
-        {
-            lb_Progress.Visible = true;
-            this.Enabled = false;
-            int cnt = 0;
-            cnt = advertController.UpdateAdvertising_Product_Report(advProductsList, lb_Progress);
-
-            if (cnt == -1)
-                MessageBox.Show("Во время сохранения произошла ошибка. Работа была прервана.", "Ошибка");
             else
-                MessageBox.Show("Данные обновлены успешно.", "Успех");
-
-            this.Enabled = true;
-            lb_Progress.Visible = false;
-            lb_Progress.Text = "";
+                MessageBox.Show("Не выбраны файлы для загрузки.", "Ошибка");            
         }
-
-        /* Метод обновления отчета в БД для Spondored Brands */
-        private void UpdateDataInDB_AB()
-        {
-            this.Enabled = false;
-            int cnt = 0;
-
-            cnt = advertController.UpdateAdvertising_Brands_Report(advBrandsList);
-
-            if (cnt == -1)
-                MessageBox.Show("Во время сохранения произошла ошибка. Работа была прервана.", "Ошибка");
-            else
-                MessageBox.Show("Данные обновлены успешно.", "Успех");
-
-            this.Enabled = true;
-        }
-
-        /* Метод загрузки отчета в БД для Spondored Products */
-        private void UploadReportToDB_AP()
-        {
-            this.Enabled = false;
-            advertController.InsertAdvertising_Product_Report(advProductsList);
-            this.Enabled = true;
-        }
-
-        /* Метод загрузки отчета в БД для Spondored Brands */
-        private void UploadReportToDB_AB()
-        {
-            this.Enabled = false;
-            advertController.InsertAdvertising_Brand_Report(advBrandsList);
-            this.Enabled = true;
-        }
-
+        
         /* Заносим данные об кампании и маркетплейсу для каждой строки загруженного отчета */
         private void SetCampaignAndMarketplaceToAllRows_AP(string _fileName)
         {
-            int campaignTypeId = GetCampaignTypeIdByName(cb_CampaignType.SelectedItem.ToString());
+            int campaignTypeId = 0;          //Sponsored Products
             int marketplaceId = GetMarketPlaceIdByName(_fileName);
 
             prodController.GetProductsByMarketplaceId(marketplaceId);
@@ -469,7 +343,7 @@ namespace Excel_Parse
                 }
             }
         }
-        
+
         /* Проверяем, есть ли такая кампания в БД. Если да, берем её id, если нет - создаем id, заносим в БД и возвращаем */
         private int Check_CampaignForExisting_AP(string _campName)
         {
@@ -486,36 +360,6 @@ namespace Excel_Parse
             advertController.GetAP_CampaignIds();
 
             return camp_id;
-        }
-
-        /* Заносим данные об кампании и маркетплейсу для каждой строки загруженного отчета */
-        private void SetCampaignAndMarketplaceToAllRows_AB()
-        {
-            int campaignTypeId = GetCampaignTypeIdByName(cb_CampaignType.SelectedItem.ToString());
-            int marketplaceId = GetMarketPlaceIdByName(cb_MarketPlace.SelectedItem.ToString());
-
-            foreach (var t in advBrandsList)
-            {
-                //t.WriteData(0, UpdateDate);
-                t.WriteData(20, campaignTypeId);
-                t.WriteData(21, marketplaceId);
-                t.WriteData(22, Check_CampaignForExisting_AB(t.CampaignName));
-                t.WriteData(23, GetProductIdByName(t));
-                t.WriteData(24, GetProductIdByName(t));
-                t.WriteData(25, GetProductIdByName(t));
-            }
-
-            advBrandsListOfErrors = new List<AdvertisingBrandsModel> { };
-
-            for (int i = 0; i < advBrandsList.Count; i++)
-            {
-                if (advBrandsList[i].ProductId1 == -1 || advBrandsList[i].ProductId2 == -1 || advBrandsList[i].ProductId3 == -1)
-                {
-                    advBrandsListOfErrors.Add(advBrandsList[i]);
-                    advBrandsList.RemoveAt(i);
-                    i--;
-                }
-            }
         }
         
         /* Проверяем, есть ли такая кампания в БД. Если да, берем её id, если нет - создаем id, заносим в БД и возвращаем */
@@ -540,34 +384,126 @@ namespace Excel_Parse
         {
             mf.Show();
         }
-
-        private void Cb_MarketPlace_SelectedIndexChanged(object sender, EventArgs e)
+        
+        /* Удаляем все повторы с advProductsList, при этом создавая новый список с суммарными значениями */
+        private void MakeSummaryAdvProductListbyTargetingInAdGroups()
         {
-            //prodController.GetProductsByMarketplaceId(GetMarketPlaceIdByName(cb_MarketPlace.SelectedItem.ToString()));
-        }
+            summaryAdvProductsList = new List<AdvertisingProductsModel> { };
+            List<int> alreadyUsed = new List<int> { };
+            int Impressions;
+            int Clicks;
+            double Spend;
+            double Sales;
+            int Orders;
+            int Units;
+            int AdvSKUUnits;
+            int OtherSKUUnits;
+            double AdvSKUSales;
+            double OtherSKUSales;
+            double CTR = 0;
+            double CPC = 0;
+            double ACoS = 0;
+            double RoAS = 0;
+            double ConversionRate = 0;
 
-        private void Cb_CampaignType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cb_CampaignType.SelectedIndex >= 0)
+            for (int i = 0; i < advProductsList.Count; i++)
             {
-                panel1.Visible = true;
-                label6.Visible = false;
-
-                label1.Text = "";
-                path = "";
-                advProductsList.Clear();
-                advBrandsList.Clear();
-
-                if (cb_CampaignType.SelectedItem.ToString().Equals("Sponsored Products"))
+                if (i == advProductsList.Count - 1)
                 {
-                    SponsoredProducts = true;
-                    SponsoredBrands = false;
+
                 }
-                else if (cb_CampaignType.SelectedItem.ToString().Equals("Sponsored Brands"))
+                if (!alreadyUsed.Contains(i))
                 {
-                    SponsoredProducts = false;
-                    SponsoredBrands = true;
+                    Impressions = advProductsList[i].Impressions;
+                    Clicks = advProductsList[i].Clicks;
+                    Spend = advProductsList[i].Spend;
+                    Sales = advProductsList[i].Sales;
+                    Orders = advProductsList[i].Orders;
+                    Units = advProductsList[i].Units;
+                    AdvSKUUnits = advProductsList[i].AdvSKUUnits;
+                    OtherSKUUnits = advProductsList[i].OtherSKUUnits;
+                    AdvSKUSales = advProductsList[i].AdvSKUSales;
+                    OtherSKUSales = advProductsList[i].OtherSKUSales;
+
+                    if (i < (advProductsList.Count - 1))
+                    {
+                        for (int j = i + 1; j < advProductsList.Count; j++)
+                        {
+                            if (advProductsList[i].CampaignName.Equals(advProductsList[j].CampaignName) && advProductsList[i].AdGroupName.Equals(advProductsList[j].AdGroupName) && advProductsList[i].Targeting.Equals(advProductsList[j].Targeting) && advProductsList[i].MatchType.Equals(advProductsList[j].MatchType) && advProductsList[i].UpdateDate == advProductsList[j].UpdateDate && advProductsList[i].ProductId == advProductsList[j].ProductId)
+                            {
+                                Impressions += advProductsList[j].Impressions;
+                                Clicks += advProductsList[j].Clicks;
+                                Spend += advProductsList[j].Spend;
+                                Sales += advProductsList[j].Sales;
+                                Orders += advProductsList[j].Orders;
+                                Units += advProductsList[j].Units;
+                                AdvSKUUnits += advProductsList[j].AdvSKUUnits;
+                                OtherSKUUnits += advProductsList[j].OtherSKUUnits;
+                                AdvSKUSales += advProductsList[j].AdvSKUSales;
+                                OtherSKUSales += advProductsList[j].OtherSKUSales;
+                                alreadyUsed.Add(j);
+                            }
+                        }
+                    }
+
+                    if (Impressions != 0)
+                        CTR = (double)Clicks / Impressions * 100;
+                    else CTR = 0;
+
+                    if (Clicks != 0)
+                        CPC = Spend / Clicks;
+                    else CPC = 0;
+
+                    if (Sales != 0)
+                        ACoS = (Spend / Sales) * 100;
+                    else ACoS = 0;
+
+                    if (Spend != 0)
+                        RoAS = (Sales / Spend);
+                    else RoAS = 0;
+
+                    if (Clicks != 0)
+                        ConversionRate = ((double)Orders / Clicks) * 100;
+                    else ConversionRate = 0;
+
+
+                    summaryAdvProductsList.Add(new AdvertisingProductsModel());
+
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].UpdateDate = advProductsList[i].UpdateDate;
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].CurrencyCharCode = advProductsList[i].CurrencyCharCode;
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].CampaignName = advProductsList[i].CampaignName;
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].AdGroupName = advProductsList[i].AdGroupName;
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].Targeting = advProductsList[i].Targeting;
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].MatchType = advProductsList[i].MatchType;
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].Impressions = Impressions;
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].Clicks = Clicks;
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].CTR = Math.Round(CTR, 2);
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].CPC = Math.Round(CPC, 2);
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].Spend = Math.Round(Spend, 2);
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].Sales = Math.Round(Sales, 2);
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].ACoS = Math.Round(ACoS, 2);
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].RoAS = Math.Round(RoAS, 2);
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].Orders = Orders;
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].Units = Units;
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].ConversionRate = Math.Round(ConversionRate, 2);
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].AdvSKUUnits = AdvSKUUnits;
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].OtherSKUUnits = OtherSKUUnits;
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].AdvSKUSales = AdvSKUSales;
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].OtherSKUSales = OtherSKUSales;
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].CampaignTypeId = advProductsList[i].CampaignTypeId;
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].MarketPlaceId = advProductsList[i].MarketPlaceId;
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].CampaignId = advProductsList[i].CampaignId;
+                    summaryAdvProductsList[summaryAdvProductsList.Count - 1].ProductId = advProductsList[i].ProductId;
                 }
+
+                lb_Progress.Text = "Обработка отчета.\nОбработано: " + i + " из " + advProductsList.Count;
+                lb_Progress.Refresh();
+            }
+
+            advProductsList.Clear();
+            foreach (var t in summaryAdvProductsList)
+            {
+                advProductsList.Add(t);
             }
         }
     }

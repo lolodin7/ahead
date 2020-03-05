@@ -288,7 +288,8 @@ CREATE TABLE [AdvertisingProducts](
 	CONSTRAINT FK_AdvertisingProducts_CampaignId FOREIGN KEY ([CampaignTypeId]) REFERENCES [CampaignType] ([CampaignId]),
 	CONSTRAINT FK_AdvertisingProducts_MarketPlaceId FOREIGN KEY ([MarketPlaceId]) REFERENCES [MarketPlace] ([MarketPlaceId]),
 	CONSTRAINT FK_AdvertisingProducts_ProductId FOREIGN KEY ([ProductId]) REFERENCES [Products] ([ProductId]),
-	CONSTRAINT FK_AdvertisingProducts_AP_CampaignIds FOREIGN KEY ([CampaignId]) REFERENCES [AP_CampaignIds] ([CampaignId])
+	CONSTRAINT FK_AdvertisingProducts_AP_CampaignIds FOREIGN KEY ([CampaignId]) REFERENCES [AP_CampaignIds] ([CampaignId]),
+	CONSTRAINT PK_AdvertisingProducts PRIMARY KEY ([UpdateDate], [CampaignName], [AdGroupName], [Targeting])
 )
 
 CREATE TABLE [AdvertisingBrands](

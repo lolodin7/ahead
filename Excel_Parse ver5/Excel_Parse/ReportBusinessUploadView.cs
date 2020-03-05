@@ -17,9 +17,6 @@ namespace Excel_Parse
 
         private bool FirstLoad;
 
-        private bool UploadMode;
-        private bool UpdateMode;
-
         private DateTime StartDate, EndDate;
         private int DaysDiff;
         private int updatedRowsCount;
@@ -57,8 +54,7 @@ namespace Excel_Parse
 
             lb_startDateText.Text = StartDate.ToString().Substring(0, 10);
             lb_endDateText.Text = EndDate.ToString().Substring(0, 10);
-
-            lb_mcDate.Text = UpdateDate.ToString().Substring(0, 10);
+            
 
             businessList = new List<ReportBusinessModel> { };
 
@@ -71,21 +67,7 @@ namespace Excel_Parse
             mpController = new MarketplaceController(this);
             prodController = new ProductsController(this);
             reportDataAnalyzer = new ReportDataAnalyzer(this);
-
-            if (_mode.Equals("upload"))
-            {
-                UploadMode = true;
-                UpdateMode = false;
-                this.Text = "Загрузить Business Report";
-                btn_Save.Text = "Сохранить";
-            }
-            else if (_mode.Equals("update"))
-            {
-                UploadMode = false;
-                UpdateMode = true;
-                this.Text = "Обновить Business Report";
-                btn_Save.Text = "Обновить";
-            }
+            
 
             if (mpController.GetMarketplaces() == 1)
                 Fill_CB_Marketplace();
@@ -99,16 +81,13 @@ namespace Excel_Parse
         /* Заполняем combobox названиями маркетплейсов */
         private void Fill_CB_Marketplace()
         {
-            cb_MarketPlace1.Items.Clear();
             cb_MarketPlace2.Items.Clear();
 
             for (int i = 0; i < mpList.Count; i++)
             {
-                cb_MarketPlace1.Items.Add(mpList[i].MarketPlaceName);
                 cb_MarketPlace2.Items.Add(mpList[i].MarketPlaceName);
             }
-
-            cb_MarketPlace1.SelectedIndex = 0;
+            
             cb_MarketPlace2.SelectedIndex = 0;
         }
 
@@ -123,18 +102,7 @@ namespace Excel_Parse
         {
             mpList = (List<MarketplaceModel>)_mpList;
         }
-
-        /* Получаем id маркетплейса по выбранному имени в combobox */
-        private int GetMarketPlaceIdByName(string _name)
-        {
-            for (int i = 0; i < mpList.Count; i++)
-            {
-                if (cb_MarketPlace1.SelectedItem.ToString().Equals(mpList[i].MarketPlaceName))
-                    return mpList[i].MarketPlaceId;
-            }
-            return 1;
-        }
-
+        
         /* Получаем id маркетплейса по выбранному имени в combobox */
         private int GetMarketPlaceIdByName_Many(string _name)
         {
@@ -178,113 +146,12 @@ namespace Excel_Parse
             }
             return -1;
         }
-
-        /* Загрузить файл отчета в программу */
-        private void btn_UploadFile_Click(object sender, EventArgs e)
-        {
-            businessList = new List<ReportBusinessModel> { };
-
-            bool firstRow = true;
-            bool theSame = false;
-
-            openFileDialog1.Filter = "Неразмеченные файлы|*.csv;*.txt";
-            openFileDialog1.Title = "Выбор файла для открытия";
-            openFileDialog1.FileName = "";
-
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                path = openFileDialog1.FileName;
-
-                try
-                {
-                    using (TextFieldParser parser = new TextFieldParser(@path))
-                    {
-                        missedColumns.Clear();
-                        parser.TextFieldType = FieldType.Delimited;
-
-                        parser.SetDelimiters(",");
-
-                        string[] fields;
-
-                        while (!parser.EndOfData)
-                        {
-                            int usedMissedIndexes = 0;
-
-                            //Process row
-                            fields = parser.ReadFields();
-                            
-                            if (!firstRow)      //проверяем, если это первая строка с заголовками  (НЕТ)
-                            {
-                                businessList.Add(new ReportBusinessModel());
-
-                                if (theSame)        //если количество стоблцов одинаковое (значит, в фактическом отчете нет пропущеных столбцов)
-                                {
-                                    for (int i = 0; i + 3 < fields.Length; i++)
-                                    {
-                                        if (!missedColumns.Contains(i + 3))         //проверяем, является ли номер колонки пропущенным в факт. отчете
-                                            businessList[businessList.Count - 1].WriteData(i + 2, fields[i + 3 - usedMissedIndexes]);
-                                        else
-                                        {
-                                            businessList[businessList.Count - 1].WriteData(i + 2, 0);
-                                            usedMissedIndexes++;
-                                        }
-                                    }
-                                }
-                                else            //если количество стоблцов разное (значит, в фактическом отчете пропущены столбцы)
-                                {
-                                    for (int i = 0; i < fields.Length; i++)
-                                    {
-                                        if (!missedColumns.Contains(i + 3))         //проверяем, является ли номер колонки пропущенным в факт. отчете
-                                            businessList[businessList.Count - 1].WriteData(i + 2, fields[i + 3 - usedMissedIndexes]);
-                                        else
-                                        {
-                                            businessList[businessList.Count - 1].WriteData(i + 2, 0);
-                                            usedMissedIndexes++;
-                                        }
-                                    }
-                                }
-                            }
-                            else        //(ДА)
-                            {
-                                List<string> reportColumns = new List<string> { };
-                                foreach (var t in fields)
-                                {
-                                    reportColumns.Add(t);
-                                }
-
-                                string[] reportColumnsFinish = new string[reportColumns.Count];     //не помню почему, но метод получает именно массив, а не список
-
-                                for (int j = 0; j < reportColumns.Count; j++)
-                                {
-                                    reportColumnsFinish[j] = reportColumns[j];
-                                }
-
-                                theSame = reportDataAnalyzer.BusinessReport(reportColumnsFinish);   //сравниваем названия и количество столбцов. theSame показывает, одинаковое ли количество столбцов между фактическим отчетом и заданным. от этого зависит длительность цикла в ветке (НЕТ)
-
-                                firstRow = false;
-
-                            }
-                        }
-                        lb_Path1.Text = path;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Проблема при открытии файла. Убедитесь, что Вы выбрали файл с нужны расширением. Возможно, разметка файла не поддерживается программой.", "Ошибка при открытии");
-                }
-            }
-        }
-
+        
         public void GetMissedReportColumns(object _missedColumns)
         {
             missedColumns = (List<int>)_missedColumns;
         }
-
-        private void cb_MarketPlace1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lb_Path1.Text = "";
-        }
-
+        
         /* Начать сохранение отчета в БД */
         private void btn_Save_Click(object sender, EventArgs e)
         {
@@ -294,7 +161,7 @@ namespace Excel_Parse
                 {
                     if (MessageBox.Show("Маркетплейс: " + cb_MarketPlace1.SelectedItem.ToString() + "\n\nДата отчета: " + UpdateDate.ToString().Substring(0, 10) + "\n\nЗагрузить отчет с этими параметрами?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-                        PrepareSingleReportForSaving();
+                        //PrepareSingleReportForSaving();
                         UploadSingleReportToDB();
                     }
                 }
@@ -307,7 +174,7 @@ namespace Excel_Parse
                 {
                     if (MessageBox.Show("Маркетплейс: " + cb_MarketPlace1.SelectedItem.ToString() + "\n\nДата отчета: " + UpdateDate.ToString().Substring(0, 10) + "\n\nОбновить отчет с этими параметрами?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-                        PrepareSingleReportForSaving();
+                        //PrepareSingleReportForSaving();
                         UpdateSingleReportInDB();
                     }
                 }
@@ -342,14 +209,7 @@ namespace Excel_Parse
 
             this.Enabled = true;
         }
-
-        /* Изменена дата в календаре */
-        private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
-        {
-            UpdateDate = monthCalendar1.SelectionStart;
-            lb_mcDate.Text = UpdateDate.ToString().Substring(0, 10);
-        }
-
+        
         /* Считаем и заполняем все пустые поля в businessList, которые остались после загрузки файла */
         private void PrepareSingleReportForSaving()
         {
@@ -639,7 +499,6 @@ namespace Excel_Parse
 
                         }
                     }
-                    lb_Path1.Text = path;
                 }
             }
             catch (Exception ex)
@@ -666,6 +525,7 @@ namespace Excel_Parse
             DaysDiff = (EndDate - StartDate).Days + 1;
             lb_DaysDiff.Text = "Разница дат - " + DaysDiff;
         }
+        
 
         private void cb_MarketPlace2_SelectedIndexChanged(object sender, EventArgs e)
         {

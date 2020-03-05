@@ -85,14 +85,7 @@ namespace Excel_Parse
 
         private void addAdvReportReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ReportAdvertisingUploadView advUpRep = new ReportAdvertisingUploadView(this, "upload");
-            advUpRep.Show();
-            this.Visible = false;
-        }
-
-        private void updateAdvertisingReportToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            ReportAdvertisingUploadView advUpRep = new ReportAdvertisingUploadView(this, "update");
+            ReportAdvertisingUploadView advUpRep = new ReportAdvertisingUploadView(this);
             advUpRep.Show();
             this.Visible = false;
         }
@@ -103,14 +96,7 @@ namespace Excel_Parse
             busUpRep.Show();
             this.Visible = false;
         }
-
-        private void updateBusinessReportToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            ReportBusinessUploadView busUpRep = new ReportBusinessUploadView(this, "update");
-            busUpRep.Show();
-            this.Visible = false;
-        }
-
+        
         private void showSalesDataToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             ReportBusinessView repBus = new ReportBusinessView(this);

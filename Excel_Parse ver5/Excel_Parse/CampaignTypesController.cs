@@ -67,10 +67,8 @@ namespace Excel_Parse
                 }
                 reader.Close();
                 connection.Close();
-
-                if (controlAdvertisingUploadReportView != null)
-                    controlAdvertisingUploadReportView.GetCampaignTypesFromDB(campTList);
-                else if (controlAdvertisingReportFilterView != null)
+                
+                if (controlAdvertisingReportFilterView != null)
                     controlAdvertisingReportFilterView.GetCampaignTypesFromDB(campTList);
 
                 return 1;

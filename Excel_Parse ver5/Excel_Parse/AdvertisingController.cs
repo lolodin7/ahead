@@ -25,6 +25,8 @@ namespace Excel_Parse
         private EveryDayReportsUpdate controlEveryDayReportsUpdate;
         private ReportAdvertisingView controlReportAdvertisingView;
 
+        private int insertedCount, updatedCount;
+
         private int timeDivider;
         private int timeResult;
 
@@ -1028,7 +1030,8 @@ namespace Excel_Parse
                     string sqlStatement = "UPDATE [AdvertisingProducts] SET [Impressions] = " + apm[i].Impressions + ", [Clicks] = " + apm[i].Clicks + ", [CTR] = " + apm[i].CTR.ToString(specifier, CultureInfo.InvariantCulture) + ", [CPC] = " + apm[i].CPC.ToString(specifier, CultureInfo.InvariantCulture) + ", [Spend] = " + apm[i].Spend.ToString(specifier, CultureInfo.InvariantCulture) + ", [ACoS] = " + apm[i].ACoS.ToString(specifier, CultureInfo.InvariantCulture) + ", [RoAS] = " + apm[i].RoAS.ToString(specifier, CultureInfo.InvariantCulture) + ", [Sales] = " + apm[i].Sales.ToString(specifier, CultureInfo.InvariantCulture) + ", [Orders] = " + apm[i].Orders + ", [Units] = " + apm[i].Units + ", [ConversionRate] = " + apm[i].ConversionRate.ToString(specifier, CultureInfo.InvariantCulture) + ", [AdvSKUUnits] = " + apm[i].AdvSKUUnits + ", [OtherSKUUnits] = " + apm[i].OtherSKUUnits + ", [AdvSKUSales] = " + apm[i].AdvSKUSales.ToString(specifier, CultureInfo.InvariantCulture) + ", [OtherSKUSales] = " + apm[i].OtherSKUSales.ToString(specifier, CultureInfo.InvariantCulture) + " WHERE [UpdateDate] = '" + apm[i].UpdateDate.ToString("yyyy-MM-dd HH:mm:ss") + "' AND [CampaignId] = " + apm[i].CampaignId + " AND [AdGroupName] = '" + apm[i].AdGroupName + "' AND [MatchType] = '" + apm[i].MatchType + "' AND [Targeting] = '" + apm[i].Targeting + "'";
 
                     command = new SqlCommand(sqlStatement, connection);
-                    Execute_UPDATE_DELETE_INSERT_Command(command);
+                    if (Execute_UPDATE_DELETE_INSERT_Command(command, null) == 1)
+                        updatedCount++;
                 }
 
                 TimeSpan sp = DateTime.Now - start;
@@ -1039,9 +1042,10 @@ namespace Excel_Parse
                     string sqlStatement = "UPDATE [AdvertisingProducts] SET [Impressions] = " + apm[i].Impressions + ", [Clicks] = " + apm[i].Clicks + ", [CTR] = " + apm[i].CTR.ToString(specifier, CultureInfo.InvariantCulture) + ", [CPC] = " + apm[i].CPC.ToString(specifier, CultureInfo.InvariantCulture) + ", [Spend] = " + apm[i].Spend.ToString(specifier, CultureInfo.InvariantCulture) + ", [ACoS] = " + apm[i].ACoS.ToString(specifier, CultureInfo.InvariantCulture) + ", [RoAS] = " + apm[i].RoAS.ToString(specifier, CultureInfo.InvariantCulture) + ", [Sales] = " + apm[i].Sales.ToString(specifier, CultureInfo.InvariantCulture) + ", [Orders] = " + apm[i].Orders + ", [Units] = " + apm[i].Units + ", [ConversionRate] = " + apm[i].ConversionRate.ToString(specifier, CultureInfo.InvariantCulture) + ", [AdvSKUUnits] = " + apm[i].AdvSKUUnits + ", [OtherSKUUnits] = " + apm[i].OtherSKUUnits + ", [AdvSKUSales] = " + apm[i].AdvSKUSales.ToString(specifier, CultureInfo.InvariantCulture) + ", [OtherSKUSales] = " + apm[i].OtherSKUSales.ToString(specifier, CultureInfo.InvariantCulture) + " WHERE [UpdateDate] = '" + apm[i].UpdateDate.ToString("yyyy-MM-dd HH:mm:ss") + "' AND [CampaignId] = " + apm[i].CampaignId + " AND [AdGroupName] = '" + apm[i].AdGroupName + "' AND [MatchType] = '" + apm[i].MatchType + "' AND [Targeting] = '" + apm[i].Targeting + "'";
 
                     command = new SqlCommand(sqlStatement, connection);
-                    Execute_UPDATE_DELETE_INSERT_Command(command);
+                    if (Execute_UPDATE_DELETE_INSERT_Command(command, null) == 1)
+                        updatedCount++;
 
-                    _lb_Progress.Text = (i + 1).ToString() + "/" + cnt + " (около " + (Math.Round(div * (cnt - i) / 60, 0)) + " мин.)";
+                    _lb_Progress.Text = "Обновление.\nОбновлено: " + (i + 1).ToString() + "/" + cnt + " строк (около " + (Math.Round(div * (cnt - i) / 60, 0)) + " мин.)";
                     _lb_Progress.Refresh();
                 }
             }
@@ -1052,74 +1056,87 @@ namespace Excel_Parse
                     string sqlStatement = "UPDATE [AdvertisingProducts] SET [Impressions] = " + apm[i].Impressions + ", [Clicks] = " + apm[i].Clicks + ", [CTR] = " + apm[i].CTR.ToString(specifier, CultureInfo.InvariantCulture) + ", [CPC] = " + apm[i].CPC.ToString(specifier, CultureInfo.InvariantCulture) + ", [Spend] = " + apm[i].Spend.ToString(specifier, CultureInfo.InvariantCulture) + ", [ACoS] = " + apm[i].ACoS.ToString(specifier, CultureInfo.InvariantCulture) + ", [RoAS] = " + apm[i].RoAS.ToString(specifier, CultureInfo.InvariantCulture) + ", [Sales] = " + apm[i].Sales.ToString(specifier, CultureInfo.InvariantCulture) + ", [Orders] = " + apm[i].Orders + ", [Units] = " + apm[i].Units + ", [ConversionRate] = " + apm[i].ConversionRate.ToString(specifier, CultureInfo.InvariantCulture) + ", [AdvSKUUnits] = " + apm[i].AdvSKUUnits + ", [OtherSKUUnits] = " + apm[i].OtherSKUUnits + ", [AdvSKUSales] = " + apm[i].AdvSKUSales.ToString(specifier, CultureInfo.InvariantCulture) + ", [OtherSKUSales] = " + apm[i].OtherSKUSales.ToString(specifier, CultureInfo.InvariantCulture) + " WHERE [UpdateDate] = '" + apm[i].UpdateDate.ToString("yyyy-MM-dd HH:mm:ss") + "' AND [CampaignId] = " + apm[i].CampaignId + " AND [AdGroupName] = '" + apm[i].AdGroupName + "' AND [MatchType] = '" + apm[i].MatchType + "' AND [Targeting] = '" + apm[i].Targeting + "'";
 
                     command = new SqlCommand(sqlStatement, connection);
-                    Execute_UPDATE_DELETE_INSERT_Command(command);
+                    if (Execute_UPDATE_DELETE_INSERT_Command(command, null) == 1)
+                        updatedCount++;
                 }
             }
+            controlAdvertisingUploadReportView.GetUpdatedCount(updatedCount);
             return 1;
         }
 
-        public int UpdateAdvertising_Brands_Report(List<AdvertisingBrandsModel> _abm)
+        public void InsertAdvertising_Product_Report(object _apm, object lb_Progress)
         {
             string specifier = "G";
-            List<AdvertisingBrandsModel> abm = _abm;
+            List<AdvertisingProductsModel> apm = (List <AdvertisingProductsModel>)_apm;
+            Label _lb_Progress = (Label)lb_Progress;
 
-            for (int i = 0; i < abm.Count; i++)
+            insertedCount = 0;
+            updatedCount = 0;
+
+            int cnt = apm.Count;
+
+            _lb_Progress.Text = 0 + "//" + cnt;
+            _lb_Progress.Refresh();
+
+            if (cnt > 10)
             {
-                string sqlStatement = "UPDATE [AdvertisingBrands] SET [Impressions] = " + abm[i].Impressions + ", [Clicks] = " + abm[i].Clicks + ", [CTR] = " + abm[i].CTR.ToString(specifier, CultureInfo.InvariantCulture) + ", [CPC] = " + abm[i].CPC.ToString(specifier, CultureInfo.InvariantCulture) + ", [Spend] = " + abm[i].Spend.ToString(specifier, CultureInfo.InvariantCulture) + ", [ACoS] = " + abm[i].ACoS.ToString(specifier, CultureInfo.InvariantCulture) + ", [RoAS] = " + abm[i].RoAS.ToString(specifier, CultureInfo.InvariantCulture) + ", [Sales] = " + abm[i].Sales.ToString(specifier, CultureInfo.InvariantCulture) + ", [Orders] = " + abm[i].Orders + ", [Units] = " + abm[i].Units + ", [ConversionRate] = " + abm[i].ConversionRate.ToString(specifier, CultureInfo.InvariantCulture) + ", [NewToBrandOrders] = " + abm[i].NewToBrandOrders + ", [NewToBrandSales] = " + abm[i].NewToBrandSales.ToString(specifier, CultureInfo.InvariantCulture) + ", [NewToBrandUnits] = " + abm[i].NewToBrandUnits + ", [NewToBrandOrderRate] = " + abm[i].NewToBrandOrderRate.ToString(specifier, CultureInfo.InvariantCulture) + " WHERE [UpdateDate] = '" + abm[i].UpdateDate.ToString("yyyy-MM-dd HH:mm:ss") + "' AND [CampaignId] = " + abm[i].CampaignId + " AND [MatchType] = '" + abm[i].MatchType + "' AND [Targeting] = '" + abm[i].Targeting + "'";
-                command = new SqlCommand(sqlStatement, connection);
-                if (Execute_UPDATE_DELETE_INSERT_Command(command) != 1)
-                    return -1;
+                DateTime start = DateTime.Now;
+
+                for (int i = 0; i < 100; i++)
+                {
+                    string sqlStatement = "INSERT INTO [AdvertisingProducts] ([UpdateDate], [CurrencyCharCode], [CampaignName], [AdGroupName], [Targeting], [MatchType], [Impressions], [Clicks], [CTR], [CPC], [Spend], [ACoS], [RoAS], [Sales], [Orders], [Units], [ConversionRate], [AdvSKUUnits], [OtherSKUUnits], [AdvSKUSales], [OtherSKUSales], [CampaignTypeId], [MarketPlaceId], [CampaignId], [ProductId]) VALUES ('" + apm[i].UpdateDate.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + apm[i].CurrencyCharCode + "', '" + apm[i].CampaignName + "', '" + apm[i].AdGroupName + "', '" + apm[i].Targeting + "', '" + apm[i].MatchType + "', " + apm[i].Impressions + ", " + apm[i].Clicks + ", " + apm[i].CTR.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].CPC.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].Spend.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].ACoS.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].RoAS.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].Sales.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].Orders + ", " + apm[i].Units + ", " + apm[i].ConversionRate.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].AdvSKUUnits + ", " + apm[i].OtherSKUUnits + ", " + apm[i].AdvSKUSales.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].OtherSKUSales.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].CampaignTypeId + ", " + apm[i].MarketPlaceId + ", " + apm[i].CampaignId + ", " + apm[i].ProductId + ")";
+
+                    command = new SqlCommand(sqlStatement, connection);
+                    if (Execute_UPDATE_DELETE_INSERT_Command(command, apm[i]) == 1)
+                        insertedCount++;
+                }
+
+                TimeSpan sp = DateTime.Now - start;
+                double div = (sp.Minutes + sp.Seconds + sp.Milliseconds / 1000.0) / 100;
+
+                for (int i = 100; i < cnt; i++)
+                {
+                    string sqlStatement = "INSERT INTO [AdvertisingProducts] ([UpdateDate], [CurrencyCharCode], [CampaignName], [AdGroupName], [Targeting], [MatchType], [Impressions], [Clicks], [CTR], [CPC], [Spend], [ACoS], [RoAS], [Sales], [Orders], [Units], [ConversionRate], [AdvSKUUnits], [OtherSKUUnits], [AdvSKUSales], [OtherSKUSales], [CampaignTypeId], [MarketPlaceId], [CampaignId], [ProductId]) VALUES ('" + apm[i].UpdateDate.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + apm[i].CurrencyCharCode + "', '" + apm[i].CampaignName + "', '" + apm[i].AdGroupName + "', '" + apm[i].Targeting + "', '" + apm[i].MatchType + "', " + apm[i].Impressions + ", " + apm[i].Clicks + ", " + apm[i].CTR.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].CPC.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].Spend.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].ACoS.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].RoAS.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].Sales.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].Orders + ", " + apm[i].Units + ", " + apm[i].ConversionRate.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].AdvSKUUnits + ", " + apm[i].OtherSKUUnits + ", " + apm[i].AdvSKUSales.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].OtherSKUSales.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].CampaignTypeId + ", " + apm[i].MarketPlaceId + ", " + apm[i].CampaignId + ", " + apm[i].ProductId + ")";
+
+                    command = new SqlCommand(sqlStatement, connection);
+                    if (Execute_UPDATE_DELETE_INSERT_Command(command, apm[i]) == 1)
+                        insertedCount++;
+
+                    _lb_Progress.Text = "Сохранение.\nСохранено: " + (i + 1).ToString() + "/" + cnt + " строк (около " + (Math.Round(div * (cnt - i) / 60, 0)) + " мин.)";
+                    _lb_Progress.Refresh();
+                }
             }
-            return 1;
-        }
-
-        public int InsertAdvertising_Product_Report(List<AdvertisingProductsModel> _apm)
-        {
-            string specifier = "G";
-            List<AdvertisingProductsModel> apm = _apm;
-
-            for (int i = 0; i < apm.Count; i++)
+            else
             {
-                string sqlStatement = "INSERT INTO [AdvertisingProducts] ([UpdateDate], [CurrencyCharCode], [CampaignName], [AdGroupName], [Targeting], [MatchType], [Impressions], [Clicks], [CTR], [CPC], [Spend], [ACoS], [RoAS], [Sales], [Orders], [Units], [ConversionRate], [AdvSKUUnits], [OtherSKUUnits], [AdvSKUSales], [OtherSKUSales], [CampaignTypeId], [MarketPlaceId], [CampaignId], [ProductId]) VALUES ('" + apm[i].UpdateDate.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + apm[i].CurrencyCharCode + "', '" + apm[i].CampaignName + "', '" + apm[i].AdGroupName + "', '" + apm[i].Targeting + "', '" + apm[i].MatchType + "', " + apm[i].Impressions + ", " + apm[i].Clicks + ", " + apm[i].CTR.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].CPC.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].Spend.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].ACoS.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].RoAS.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].Sales.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].Orders + ", " + apm[i].Units + ", " + apm[i].ConversionRate.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].AdvSKUUnits + ", " + apm[i].OtherSKUUnits + ", " + apm[i].AdvSKUSales.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].OtherSKUSales.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].CampaignTypeId + ", " + apm[i].MarketPlaceId + ", " + apm[i].CampaignId + ", " + apm[i].ProductId + ")";
-                command = new SqlCommand(sqlStatement, connection);
-                if (Execute_UPDATE_DELETE_INSERT_Command(command) != 1)
-                    return 0;
+                for (int i = 0; i < cnt; i++)
+                {
+                    string sqlStatement = "INSERT INTO [AdvertisingProducts] ([UpdateDate], [CurrencyCharCode], [CampaignName], [AdGroupName], [Targeting], [MatchType], [Impressions], [Clicks], [CTR], [CPC], [Spend], [ACoS], [RoAS], [Sales], [Orders], [Units], [ConversionRate], [AdvSKUUnits], [OtherSKUUnits], [AdvSKUSales], [OtherSKUSales], [CampaignTypeId], [MarketPlaceId], [CampaignId], [ProductId]) VALUES ('" + apm[i].UpdateDate.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + apm[i].CurrencyCharCode + "', '" + apm[i].CampaignName + "', '" + apm[i].AdGroupName + "', '" + apm[i].Targeting + "', '" + apm[i].MatchType + "', " + apm[i].Impressions + ", " + apm[i].Clicks + ", " + apm[i].CTR.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].CPC.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].Spend.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].ACoS.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].RoAS.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].Sales.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].Orders + ", " + apm[i].Units + ", " + apm[i].ConversionRate.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].AdvSKUUnits + ", " + apm[i].OtherSKUUnits + ", " + apm[i].AdvSKUSales.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].OtherSKUSales.ToString(specifier, CultureInfo.InvariantCulture) + ", " + apm[i].CampaignTypeId + ", " + apm[i].MarketPlaceId + ", " + apm[i].CampaignId + ", " + apm[i].ProductId + ")";
+
+                    command = new SqlCommand(sqlStatement, connection);
+                    if (Execute_UPDATE_DELETE_INSERT_Command(command, apm[i]) == 1)
+                        insertedCount++;
+                }
             }
-            return 1;
+            controlAdvertisingUploadReportView.GetInsertedCount(insertedCount);
+            //return 1;
         }
-
-
-        public int InsertAdvertising_Brand_Report(List<AdvertisingBrandsModel> _abm)
-        {
-            string specifier = "G";
-            List<AdvertisingBrandsModel> abm = _abm;
-
-            for (int i = 0; i < abm.Count; i++)
-            {
-                string sqlStatement = "INSERT INTO [AdvertisingBrands] ([UpdateDate], [CurrencyCharCode], [CampaignName], [Targeting], [MatchType], [Impressions], [Clicks], [CTR], [CPC], [Spend], [ACoS], [RoAS], [Sales], [Orders], [Units], [ConversionRate], [NewToBrandOrders], [NewToBrandSales], [NewToBrandUnits], [NewToBrandOrderRate], [CampaignTypeId], [MarketPlaceId], [CampaignId], [ProductId1], [ProductId2], [ProductId3]) VALUES ('" + abm[i].UpdateDate.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + abm[i].CurrencyCharCode + "', '" + abm[i].CampaignName + "', '" + abm[i].Targeting + "', '" + abm[i].MatchType + "', " + abm[i].Impressions + ", " + abm[i].Clicks + ", " + abm[i].CTR.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].CPC.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].Spend.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].ACoS.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].RoAS.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].Sales.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].Orders + ", " + abm[i].Units + ", " + abm[i].ConversionRate.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].NewToBrandOrders + ", " + abm[i].NewToBrandSales.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].NewToBrandUnits + ", " + abm[i].NewToBrandOrderRate.ToString(specifier, CultureInfo.InvariantCulture) + ", " + abm[i].CampaignTypeId + ", " + abm[i].MarketPlaceId + ", " + abm[i].CampaignId + ", " + abm[i].ProductId1 + ", " + abm[i].ProductId2 + ", " + abm[i].ProductId3 + ")";
-                command = new SqlCommand(sqlStatement, connection);
-                if (Execute_UPDATE_DELETE_INSERT_Command(command) != 1)
-                    return 0;
-            }
-            return 1;
-        }
-
+       
         public int InsertAP_CampaignId(int _id, string _name)
         {
             string sqlStatement = "INSERT INTO [AP_CampaignIds] ([CampaignId], [CampaignName]) VALUES (" + _id + ", '" + _name + "')";
             command = new SqlCommand(sqlStatement, connection);
-            return Execute_UPDATE_DELETE_INSERT_Command(command);
+            return Execute_UPDATE_DELETE_INSERT_Command(command, new AdvertisingProductsModel());
         }
 
         public int InsertAB_CampaignId(int _id, string _name)
         {
             string sqlStatement = "INSERT INTO [AB_CampaignIds] ([CampaignId], [CampaignName]) VALUES (" + _id + ", '" + _name + "')";
             command = new SqlCommand(sqlStatement, connection);
-            return Execute_UPDATE_DELETE_INSERT_Command(command);
+            return Execute_UPDATE_DELETE_INSERT_Command(command, new AdvertisingProductsModel());
         }
 
         /* Выполняем запрос UPDATE/INSERT/DELETE к БД */
-        private int Execute_UPDATE_DELETE_INSERT_Command(SqlCommand _command)
+        private int Execute_UPDATE_DELETE_INSERT_Command(SqlCommand _command, AdvertisingProductsModel _apm)
         {
             try
             {
@@ -1130,6 +1147,10 @@ namespace Excel_Parse
             }
             catch (Exception ex)
             {
+                if (controlAdvertisingUploadReportView != null && ex.Message.ToLower().Contains("the duplicate key value") && _apm != null)
+                {
+                    controlAdvertisingUploadReportView.AddProductForUpdate(_apm);
+                }
                 connection.Close();
                 return ex.HResult;
             }
