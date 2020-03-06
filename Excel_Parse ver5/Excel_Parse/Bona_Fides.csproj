@@ -256,6 +256,7 @@
       <DependentUpon>ShowUsersView.cs</DependentUpon>
     </Compile>
     <Compile Include="StockModel.cs" />
+    <Compile Include="TextPointer.cs" />
     <Compile Include="UserModel.cs" />
     <Compile Include="About.cs">
       <SubType>Form</SubType>

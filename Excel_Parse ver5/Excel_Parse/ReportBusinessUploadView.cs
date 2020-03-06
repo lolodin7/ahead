@@ -27,6 +27,8 @@ namespace Excel_Parse
         
         private BusinessController businessController;
         private List<ReportBusinessModel> businessList;
+        private List<ReportBusinessModel> summaryBusinessList;
+        private List<ReportBusinessModel> businessListForUpdate;
 
         private List<ReportBusinessModel> businessListOfErrors;
 
@@ -38,6 +40,9 @@ namespace Excel_Parse
 
         private ReportDataAnalyzer reportDataAnalyzer;
         private List<int> missedColumns;
+
+        private int insertedCount, updatedCount;
+        private int generalInsertedCount, generalUpdatedCount, generalCount;
 
         public ReportBusinessUploadView(MainFormView _mf, string _mode)
         {
@@ -57,6 +62,8 @@ namespace Excel_Parse
             
 
             businessList = new List<ReportBusinessModel> { };
+            summaryBusinessList = new List<ReportBusinessModel> { };
+            businessListForUpdate = new List<ReportBusinessModel> { };
 
             mpList = new List<MarketplaceModel> { };
             pList = new List<ProductsModel> { };
@@ -76,6 +83,18 @@ namespace Excel_Parse
 
 
             FirstLoad = false;
+        }
+
+        /* Получаем количество добавленных записей */
+        public void GetInsertedCount(int _cnt)
+        {
+            insertedCount = _cnt;
+        }
+
+        /* Получаем количество обновленных записей */
+        public void GetUpdatedCount(int _cnt)
+        {
+            updatedCount = _cnt;
         }
 
         /* Заполняем combobox названиями маркетплейсов */
@@ -102,7 +121,13 @@ namespace Excel_Parse
         {
             mpList = (List<MarketplaceModel>)_mpList;
         }
-        
+
+        /* Public метод для занесения товаров, которые потом нужно будет обновить, из AdvertisingController */
+        public void AddProductForUpdate(ReportBusinessModel _apm)
+        {
+            businessListForUpdate.Add(_apm);
+
+        }
         /* Получаем id маркетплейса по выбранному имени в combobox */
         private int GetMarketPlaceIdByName_Many(string _name)
         {
@@ -151,138 +176,43 @@ namespace Excel_Parse
         {
             missedColumns = (List<int>)_missedColumns;
         }
-        
-        /* Начать сохранение отчета в БД */
-        private void btn_Save_Click(object sender, EventArgs e)
+
+        /* Получаем id маркетплейса по выбранному имени в combobox */
+        private string GetMarketPlaceNameById(int _id)
         {
-            if (UploadMode)     //если загружаем новый отчет(-ы)
+            for (int i = 0; i < mpList.Count; i++)
             {
-                if (businessList.Count > 0)
-                {
-                    if (MessageBox.Show("Маркетплейс: " + cb_MarketPlace1.SelectedItem.ToString() + "\n\nДата отчета: " + UpdateDate.ToString().Substring(0, 10) + "\n\nЗагрузить отчет с этими параметрами?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        //PrepareSingleReportForSaving();
-                        UploadSingleReportToDB();
-                    }
-                }
-                else
-                    MessageBox.Show("Нечего сохранять. Сначала загрузите отчет.", "Ошибка");
+                if (mpList[i].MarketPlaceId == _id)
+                    return mpList[i].MarketPlaceName;
             }
-            else if (UpdateMode)    //если обновляем отчет(-ы)
-            {
-                if (businessList.Count > 0)
-                {
-                    if (MessageBox.Show("Маркетплейс: " + cb_MarketPlace1.SelectedItem.ToString() + "\n\nДата отчета: " + UpdateDate.ToString().Substring(0, 10) + "\n\nОбновить отчет с этими параметрами?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        //PrepareSingleReportForSaving();
-                        UpdateSingleReportInDB();
-                    }
-                }
-                else
-                    MessageBox.Show("Нечего обновлять. Сначала загрузите отчет.", "Ошибка");
-            }
+            return "NOT_FOUND";
         }
-
-        /* загрузить отчет в БД */
-        private void UploadSingleReportToDB()
-        {
-            this.Enabled = false;
-            if (businessController.InsertBusinessReport(businessList) != 1)
-                MessageBox.Show("Во время сохранения произошла ошибка. Работа была прервана.", "Ошибка");
-            else
-                MessageBox.Show("Сохранение успешно. Всего сохранено строк - " + businessList.Count, "Успех");
-            this.Enabled = true;
-        }
-
-        /* Обновить записи в БД */
-        private void UpdateSingleReportInDB()
-        {
-
-            this.Enabled = false;
-            int cnt = 0;
-            cnt = businessController.UpdateBusinessReport(businessList);
-
-            if (cnt == -1)
-                MessageBox.Show("Во время сохранения произошла ошибка. Работа была прервана.", "Ошибка");
-            else
-                MessageBox.Show("Данные обновлены успешно.", "Успех");
-
-            this.Enabled = true;
-        }
-        
-        /* Считаем и заполняем все пустые поля в businessList, которые остались после загрузки файла */
-        private void PrepareSingleReportForSaving()
-        {
-            int marketplaceid = GetMarketPlaceIdByName(cb_MarketPlace1.SelectedItem.ToString());
-            int sumSessions = 0;
-            int sumPageViews = 0;
-
-            foreach (var t in businessList)
-            {
-                sumSessions += t.Sessions;
-                sumPageViews += t.PageViews;
-            }
-
-            for (int i = 0; i < businessList.Count; i++)
-            {
-                if (sumSessions != 0)
-                    businessList[i].SessionPercentage = Math.Round((double)businessList[i].Sessions / sumSessions * 100, 2);
-                else
-                    businessList[i].SessionPercentage = 0;
-
-                if (sumPageViews != 0)
-                    businessList[i].PageViewsPercentage = Math.Round((double)businessList[i].PageViews / sumPageViews * 100, 2);
-                else
-                    businessList[i].PageViewsPercentage = 0;
-
-                if (businessList[i].Sessions != 0)
-                    businessList[i].UnitSessionPercentage = Math.Round((double)businessList[i].UnitsOrdered / businessList[i].Sessions * 100, 2);
-                else
-                    businessList[i].UnitSessionPercentage = 0;
-
-                if (businessList[i].Sessions != 0)
-                    businessList[i].UnitSessionPercentageB2B = Math.Round((double)businessList[i].UnitsOrderedB2B / businessList[i].Sessions * 100, 2);
-                else
-                    businessList[i].UnitSessionPercentageB2B = 0;
-                
-                businessList[i].MarketPlaceId = marketplaceid;
-                businessList[i].ProductId = GetProductIdBySKU(businessList[i].SKU, businessList[i].MarketPlaceId);
-                businessList[i].UpdateDate = UpdateDate;
-            }
-        }
-
-        private void btn_Close_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void ReportBusinessUploadView_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            mf.Visible = true;
-        }
-
-
-
 
 
 
         //---------------------------------------------------------------------------------------------------------------
 
-        /* Загруить файлы отчетов в программу */
+        /* Инициируем загрузку файлов отчетов в программу */
         private void btn_UploadFileMany_Click(object sender, EventArgs e)
         {
-            businessList = new List<ReportBusinessModel> { };
+            OpenManyFiles();
+        }
 
-            bool firstRow = true;
+        private void OpenManyFiles()
+        {
+            //businessList = new List<ReportBusinessModel> { };
+
             openFileDialog1.Filter = "Неразмеченные файлы|*.csv;*.txt";
             openFileDialog1.Title = "Выбор файла для открытия";
             openFileDialog1.FileName = "";
 
-            int index = -1;
-
             if (openFileDialog2.ShowDialog() == DialogResult.OK)
             {
+                int index = -1;
+
+                richTextBox1.Text = "";
                 FileNames.Clear();
+
                 foreach (var t in openFileDialog2.FileNames)
                 {
                     FileNames.Add(t);
@@ -290,9 +220,14 @@ namespace Excel_Parse
                     index = FileNames[FileNames.Count - 1].LastIndexOf('\\');
                     richTextBox1.Text += FileNames[FileNames.Count - 1].Substring(index, FileNames[FileNames.Count - 1].Length - index) + "\n";
                 }
+
+                generalInsertedCount = 0;
+                generalUpdatedCount = 0;
+                generalCount = 0;
             }
         }
 
+        /* Обработчик кнопки закрытия формы */
         private void btn_CloseMany_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -301,28 +236,31 @@ namespace Excel_Parse
         /* Сохранить в БД много файлов */
         private void btn_SaveMany_Click(object sender, EventArgs e)
         {
-            bool errors = false;
-            updatedRowsCount = 0;
-            List<string> badFileNames = new List<string> { };
-
             if (EndDate > StartDate)
             {
                 if (FileNames.Count > 0)
                 {
                     if (FileNames.Count == DaysDiff)
                     {
-                        if (MessageBox.Show("Маркетплейс: " + cb_MarketPlace2.SelectedItem.ToString() + "\n\nЗагрузить отчет с этими параметрами?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        if (MessageBox.Show("Маркетплейс: " + cb_MarketPlace2.SelectedItem.ToString() + "\n\nЗагрузить отчеты с этими параметрами?", "Подтвердите действие", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
-                            richTextBox1.Text = "";
-
-
-                            UpdateDate = StartDate;
                             this.Enabled = false;
                             this.Cursor = Cursors.WaitCursor;
-
+                            updatedRowsCount = 0;
+                            List<string> badFileNames = new List<string> { };
+                            richTextBox1.Text = "";
+                            richTextBox1.Refresh();
+                            UpdateDate = StartDate;
                             string error_skus = "";
-                            for (int i = 0; i < FileNames.Count; i++)
+                            generalInsertedCount = 0;
+                            generalUpdatedCount = 0;
+                            generalCount = 0;
+
+                            for (int i = 0; i < FileNames.Count; i++)       //обрабатываем файлы и смотрим, есть ли неизвестные товары
                             {
+                                richTextBox1.Text = "Загрузка и обработка файлов с отчетами...";
+                                richTextBox1.Refresh();
+
                                 int marketplaceid = GetMarketPlaceIdByName_Many(cb_MarketPlace2.SelectedItem.ToString());
                                 int productId;
                                 LoadManyFilesStepByStep(FileNames[i]);
@@ -334,79 +272,76 @@ namespace Excel_Parse
                                         productId = GetProductIdBySKU(businessList[j].SKU, marketplaceid);
                                         if (productId == -1)
                                             if (!error_skus.Contains(businessList[j].SKU))
-                                                error_skus += businessList[j].SKU + "\n";
+                                                error_skus += "Date: " + businessList[j].UpdateDate + " SKU: " + businessList[j].SKU + " Marketplace: " + GetMarketPlaceNameById(businessList[j].MarketPlaceId) + "\n";
                                     }
                                 }
+                                else
+                                    richTextBox1.Text += "Файл отчета \"" + FileNames[i] + "\" не был загружен. Нет данных для сохранения.\n";
                             }
-                            if (error_skus.Length > 0)
+                            if (error_skus.Length > 0)          //ещё одна проверка на то, есть ли неизвестные товары
                             {
-                                MessageBox.Show("Товаров ниже нет в системе. Для продолжения сначала добавьте эти товары.\n" + error_skus, "Ошибка");
-                                richTextBox1.Text = error_skus;
-                                richTextBox1.Enabled = true;
+                                richTextBox1.Text += error_skus;
+                                richTextBox1.Refresh();
                             }
                             else
                             {
-                                //foreach (var t in FileNames)
-                                for (int i = 0; i < FileNames.Count; i++)
+                                PrepareReportForSaving_Many(true);
+
+                                if (businessListOfErrors.Count > 0)         //и ещё одна проверка на то, есть ли неизвестные товары
                                 {
-                                    LoadManyFilesStepByStep(FileNames[i]);
-
-                                    if (businessList.Count > 0)
+                                    string errorsMsg = "\nДанные по следующим товарам не были добавлены. Вороятно, этот товар не занесен в программу.\n";
+                                    string errorsstr = "";
+                                    foreach (var k in businessListOfErrors)
                                     {
-                                        PrepareReportForSaving_Many();
-
-                                        if (UploadMode)                 //если добавляем отчеты
-                                        {
-                                            if (businessController.InsertBusinessReport(businessList) == 0)
-                                                //businessController.InsertBusinessReport(businessList);
-                                                errors = true;
-                                            else
-                                                updatedRowsCount += businessList.Count;
-                                        }
-                                        else if (UpdateMode)            //если обновляем отчеты
-                                        {
-                                            if (businessController.UpdateBusinessReport(businessList) == 0)
-                                                //businessController.UpdateBusinessReport(businessList);
-                                                errors = true;
-                                            else
-                                                updatedRowsCount += businessList.Count;
-                                        }
-
-                                        if (businessListOfErrors.Count > 0)
-                                        {
-                                            string errorsMsg = "Данные по следующим товарам не были добавлены. Вороятно, этот товар не занесен в программу.\n";
-                                            string errorsstr = "";
-                                            foreach (var k in businessListOfErrors)
-                                            {
-                                                errorsstr += "Данные товара SKU: " + k.SKU + " Название товара: " + GetProductNameById(k.ProductId) + "\nне были добавлены. Вороятно, этот товар не занесен в программу";
-                                            }
-                                            MessageBox.Show(errorsMsg, "Ошибка");
-                                            richTextBox1.Text = errorsstr;
-                                        }
+                                        errorsstr += "Date: " + k.UpdateDate + " SKU: " + k.SKU + " Marketplace: " + GetMarketPlaceNameById(k.MarketPlaceId) + "\n";
                                     }
-                                    else
-                                    {
-                                        MessageBox.Show("Файл отчета \"" + FileNames[i] + "\" не был загружен. Нет данных для сохранения.", "Ошибка");
-                                        badFileNames.Add(FileNames[i]);
-                                        errors = true;
-                                    }
-                                    UpdateDate = UpdateDate.AddDays(1);
+                                    richTextBox1.Text += errorsstr;
+                                    richTextBox1.Refresh();
                                 }
-
-                                if (!errors)
-                                    MessageBox.Show("Сохранение успешно. Всего сохранено строк - " + updatedRowsCount, "Успех");
                                 else
                                 {
-                                    MessageBox.Show("Сохранение прошло с ошибками.", "Сомнительный успех");
-                                    richTextBox1.Text += "Ниже представлены названия файлов, которые не получилось загрузить. Данные из них не были загружены на сервер.\n";
-                                    foreach (var t in badFileNames)
-                                    {
-                                        richTextBox1.Text += t + "\n";
-                                    }
-                                }
-                            }
+                                    richTextBox1.Text = "";
+                                    richTextBox1.Refresh();
 
-                            FileNames.Clear();
+                                    for (int i = 0; i < FileNames.Count; i++)
+                                    {
+                                        businessListForUpdate.Clear();
+
+                                        LoadManyFilesStepByStep(FileNames[i]);
+                                        PrepareReportForSaving_Many(false);
+
+                                        if (businessList.Count > 0)
+                                        {
+                                            updatedCount = 0;
+                                            insertedCount = 0;
+                                            MakeSummaryBusinessList();
+
+                                            businessController.InsertBusinessReportBeforeUpdating(businessList, lb_Progress);
+
+                                            if (businessListForUpdate.Count > 0)
+                                                businessController.UpdateBusinessReport(businessListForUpdate, lb_Progress);
+
+                                            richTextBox1.Text += FileNames[i] + "\n" + "Загружено: " + insertedCount + "\nОбновлено: " + updatedCount + "\nВсего: " + (insertedCount + updatedCount).ToString() + " из " + businessList.Count + "\n\n";
+                                            richTextBox1.Refresh();
+                                            generalCount += businessList.Count;
+                                            generalInsertedCount += insertedCount;
+                                            generalUpdatedCount += updatedCount;
+                                        }
+                                        else
+                                        {
+                                            richTextBox1.Text += "Файл отчета \"" + FileNames[i] + "\" не был загружен. Нет данных для сохранения.\n";
+                                            richTextBox1.SelectionStart = richTextBox1.Text.Length;
+                                            richTextBox1.ScrollToCaret();
+                                            richTextBox1.Refresh();
+                                        }
+                                        UpdateDate = UpdateDate.AddDays(1);
+                                    }
+                                    richTextBox1.Text += "\n\nЗагрузка завершена.\nВсего обработано записей: " + generalCount + "\nВсего загружено: " + generalInsertedCount + "\nВсего обновлено: " + generalUpdatedCount;
+                                    richTextBox1.Refresh();
+                                    lb_Progress.Text = "";
+                                }
+
+                            }
                             this.Cursor = Cursors.Default;
                             this.Enabled = true;
                         }
@@ -507,36 +442,11 @@ namespace Excel_Parse
             }
         }
 
-        /* дата начала была изменена */
-        private void mc_startDate_DateChanged(object sender, DateRangeEventArgs e)
-        {
-            StartDate = mc_startDate.SelectionStart;
-            lb_startDateText.Text = "C " + StartDate.ToString().Substring(0, 10);
-            DaysDiff = (EndDate - StartDate).Days + 1;
-            lb_DaysDiff.Text = "Разница дат - " + DaysDiff;
-        }
-
-        /* Дата окончания была изменена */
-        private void mc_EndDate_DateChanged(object sender, DateRangeEventArgs e)
-        {
-            StartDate = mc_startDate.SelectionStart;
-            EndDate = mc_EndDate.SelectionEnd;
-            lb_endDateText.Text = "По " + EndDate.ToString().Substring(0, 10);
-            DaysDiff = (EndDate - StartDate).Days + 1;
-            lb_DaysDiff.Text = "Разница дат - " + DaysDiff;
-        }
-        
-
-        private void cb_MarketPlace2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
 
         /* Считаем и заполняем все пустые поля в businessList, которые остались после загрузки файла */
-        private void PrepareReportForSaving_Many()
+        private void PrepareReportForSaving_Many(bool _checkFalg)
         {
             int marketplaceid = GetMarketPlaceIdByName_Many(cb_MarketPlace2.SelectedItem.ToString());
-            int productid; //GetProductIdBySKU()
             int sumSessions = 0;
             int sumPageViews = 0;
 
@@ -573,24 +483,128 @@ namespace Excel_Parse
                 businessList[i].UpdateDate = UpdateDate;
             }
 
-            businessListOfErrors = new List<ReportBusinessModel> { };
-            bool skuExists = false;
+            if (_checkFalg)     //если первый раз проходим, то выполняем инструкции ниже; если 2й - пропускаем, всё ок
+            {
+                businessListOfErrors = new List<ReportBusinessModel> { };
+                bool skuExists = false;
+
+                for (int i = 0; i < businessList.Count; i++)
+                {
+                    foreach (var s in pList)
+                    {
+                        if (s.SKU.Equals(businessList[i].SKU) && s.MarketPlaceId == businessList[i].MarketPlaceId)
+                            skuExists = true;
+                    }
+
+                    if (!skuExists)
+                    {
+                        businessListOfErrors.Add(businessList[i]);
+                        businessList.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
+        }
+
+        /* Удаляем все повторы с advProductsList, при этом создавая новый список с суммарными значениями */
+        private void MakeSummaryBusinessList()
+        {
+            summaryBusinessList = new List<ReportBusinessModel> { };
+            List<int> alreadyUsed = new List<int> { };
+            int sessions;
+            int pageviews;
+            int unitsOrdered;
+            int unitsOrderedB2B;
+            double orderedProdSales;
+            double orderedProdSalesB2B;
+            int totalOrderedItems;
+            int totalOrderedItemsB2B;
 
             for (int i = 0; i < businessList.Count; i++)
             {
-                foreach (var s in pList)
+                if (i == businessList.Count - 1)
                 {
-                    if (s.SKU.Equals(businessList[i].SKU) && s.MarketPlaceId == businessList[i].MarketPlaceId)
-                        skuExists = true;
+
+                }
+                if (!alreadyUsed.Contains(i))
+                {
+                    sessions = businessList[i].Sessions;
+                    pageviews = businessList[i].PageViews;
+                    unitsOrdered = businessList[i].UnitsOrdered;
+                    unitsOrderedB2B = businessList[i].UnitsOrderedB2B;
+                    orderedProdSales = businessList[i].OrderedProductSales;
+                    orderedProdSalesB2B = businessList[i].OrderedProductSalesB2B;
+                    totalOrderedItems = businessList[i].TotalOrderItems;
+                    totalOrderedItemsB2B = businessList[i].TotalOrderItemsB2B;
+
+                    if (i < (businessList.Count - 1))
+                    {
+                        for (int j = i + 1; j < businessList.Count; j++)
+                        {
+                            if (businessList[i].SKU.Equals(businessList[j].SKU) && businessList[i].UpdateDate == businessList[j].UpdateDate && businessList[i].MarketPlaceId == businessList[j].MarketPlaceId)
+                            {
+                                sessions = businessList[j].Sessions;
+                                pageviews = businessList[j].PageViews;
+                                unitsOrdered = businessList[j].UnitsOrdered;
+                                unitsOrderedB2B = businessList[j].UnitsOrderedB2B;
+                                orderedProdSales = businessList[j].OrderedProductSales;
+                                orderedProdSalesB2B = businessList[j].OrderedProductSalesB2B;
+                                totalOrderedItems = businessList[j].TotalOrderItems;
+                                totalOrderedItemsB2B = businessList[j].TotalOrderItemsB2B;
+                                alreadyUsed.Add(j);
+                            }
+                        }
+                    }
+                    summaryBusinessList.Add(new ReportBusinessModel());
+
+                    summaryBusinessList[summaryBusinessList.Count - 1].UpdateDate = businessList[i].UpdateDate;
+                    summaryBusinessList[summaryBusinessList.Count - 1].Sessions = sessions;
+                    summaryBusinessList[summaryBusinessList.Count - 1].PageViews = pageviews;
+                    summaryBusinessList[summaryBusinessList.Count - 1].UnitsOrdered = unitsOrdered;
+                    summaryBusinessList[summaryBusinessList.Count - 1].UnitsOrderedB2B = unitsOrderedB2B;
+                    summaryBusinessList[summaryBusinessList.Count - 1].OrderedProductSales = Math.Round(orderedProdSales, 2);
+                    summaryBusinessList[summaryBusinessList.Count - 1].OrderedProductSalesB2B = Math.Round(orderedProdSalesB2B, 2);
+                    summaryBusinessList[summaryBusinessList.Count - 1].TotalOrderItems = totalOrderedItems;
+                    summaryBusinessList[summaryBusinessList.Count - 1].TotalOrderItemsB2B = totalOrderedItemsB2B;
+                    summaryBusinessList[summaryBusinessList.Count - 1].MarketPlaceId = businessList[i].MarketPlaceId;
+                    summaryBusinessList[summaryBusinessList.Count - 1].ProductId = businessList[i].ProductId;
+                    summaryBusinessList[summaryBusinessList.Count - 1].SKU = businessList[i].SKU;
                 }
 
-                if (!skuExists)
-                {
-                    businessListOfErrors.Add(businessList[i]);
-                    businessList.RemoveAt(i);
-                    i--;
-                }
+                lb_Progress.Text = "Обработка отчета.\nОбработано: " + i + " из " + businessList.Count;
+                lb_Progress.Refresh();
             }
+
+            businessList.Clear();
+            foreach (var t in summaryBusinessList)
+            {
+                businessList.Add(t);
+            }
+        }
+
+        /* дата начала была изменена */
+        private void mc_startDate_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            StartDate = mc_startDate.SelectionStart;
+            lb_startDateText.Text = "C " + StartDate.ToString().Substring(0, 10);
+            DaysDiff = (EndDate - StartDate).Days + 1;
+            lb_DaysDiff.Text = "Разница дат - " + DaysDiff;
+        }
+
+        /* Дата окончания была изменена */
+        private void mc_EndDate_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            StartDate = mc_startDate.SelectionStart;
+            EndDate = mc_EndDate.SelectionEnd;
+            lb_endDateText.Text = "По " + EndDate.ToString().Substring(0, 10);
+            DaysDiff = (EndDate - StartDate).Days + 1;
+            lb_DaysDiff.Text = "Разница дат - " + DaysDiff;
+        }
+        
+        
+        private void ReportBusinessUploadView_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            mf.Visible = true;
         }
     }
 }

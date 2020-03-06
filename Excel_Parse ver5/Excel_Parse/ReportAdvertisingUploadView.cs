@@ -117,7 +117,7 @@ namespace Excel_Parse
             updatedCount = _cnt;
         }
 
-        /* Инициируем загрузку файла отчета в программу */
+        /* Инициируем загрузку файлов отчетов в программу */
         private void Btn_UploadFromFile_Click(object sender, EventArgs e)
         {
             OpenManyFiles();
@@ -129,6 +129,8 @@ namespace Excel_Parse
             openFileDialog1.Title = "Выбор файла для открытия";
             openFileDialog1.FileName = "";
 
+            int index = -1;
+
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 richTextBox2.Text = "";
@@ -137,6 +139,10 @@ namespace Excel_Parse
                 foreach (var t in openFileDialog1.FileNames)
                 {
                     fileNames.Add(t);
+
+                    index = fileNames[fileNames.Count - 1].LastIndexOf('\\');
+                    richTextBox2.Text += fileNames[fileNames.Count - 1].Substring(index, fileNames[fileNames.Count - 1].Length - index) + "\n";
+
                     richTextBox2.Text += t + "\n";
                 }
             }
@@ -194,7 +200,7 @@ namespace Excel_Parse
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Проблема при открытии файла. Убедитесь, что Вы выбрали файл с нужны расширением. Возможно, разметка файла не поддерживается программой.", "Ошибка при открытии");
+                richTextBox2.Text = "Проблема при открытии файла. Убедитесь, что Вы выбрали файл с нужны расширением. Возможно, разметка файла не поддерживается программой.";
                 advProductsList.Clear();
             }
         }

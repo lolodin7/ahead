@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Excel_Parse
 {
-    class ReportBusinessModel
+    public class ReportBusinessModel
     {
         public DateTime UpdateDate { get; set; }
         public string SKU { get; set; }

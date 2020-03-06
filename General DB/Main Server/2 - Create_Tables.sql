@@ -1,4 +1,4 @@
-use AHEAD_Main
+use AHEAD
 
 IF NOT OBJECT_ID('Telegram_Bot_Users') IS NULL DROP TABLE [Telegram_Bot_Users]
 GO
@@ -207,10 +207,10 @@ CREATE TABLE [AdvertisingProducts](
 	[MarketPlaceId]		INT,
 	[CampaignId]		BIGINT,
 	[ProductId]			INT,
+	CONSTRAINT PK_AdvertisingProducts PRIMARY KEY ([UpdateDate], [CampaignName], [AdGroupName], [Targeting], [MatchType], [ProductId]),
 	CONSTRAINT FK_AdvertisingProducts_CampaignId FOREIGN KEY ([CampaignTypeId]) REFERENCES [CampaignType] ([CampaignId]),
 	CONSTRAINT FK_AdvertisingProducts_MarketPlaceId FOREIGN KEY ([MarketPlaceId]) REFERENCES [MarketPlace] ([MarketPlaceId]),
-	CONSTRAINT FK_AdvertisingProducts_ProductId FOREIGN KEY ([ProductId]) REFERENCES [Products] ([ProductId]),
-	CONSTRAINT FK_AdvertisingProducts_AP_CampaignIds FOREIGN KEY ([CampaignId]) REFERENCES [AP_CampaignIds] ([CampaignId])
+	CONSTRAINT FK_AdvertisingProducts_ProductId FOREIGN KEY ([ProductId]) REFERENCES [Products] ([ProductId])
 )
 
 CREATE TABLE [AdvertisingBrands](
@@ -265,32 +265,9 @@ CREATE TABLE [BusinessReport](
 	[TotalOrderItems]			INT,
 	[TotalOrderItemsB2B]		INT,
 	[ProductId]					INT,
+	CONSTRAINT BusinessReport_PK PRIMARY KEY ([UpdateDate], [Sku], [ProductId]),
 	CONSTRAINT FK_BusinessReport_SKU_MP FOREIGN KEY ([ProductId]) REFERENCES [Products] ([ProductId])
 )
-
-CREATE TABLE [ReturnsReport](
-	[RecordId]					INT IDENTITY(0,1),
-	[MarketplaceId]				INT,
-	[ReturnDate]				DATETIME,
-	[OrderId]					VARCHAR(100),
-	[SKU]						VARCHAR(30),
-	[ASIN]						VARCHAR(20),
-	[FNSKU]						VARCHAR(30),
-	[ProductName]				NVARCHAR(1000),
-	[Quantity]					INT,
-	[FulfillmentCenterId]		VARCHAR(20),
-	[DetailedDisposition]		INT,
-	[Reason]					INT,
-	[Status]					VARCHAR(512),
-	[LicensePlateNumber]		VARCHAR(30),
-	[CustomerComments]			NVARCHAR(1000),
-	[ProductId]					INT,
-	CONSTRAINT PK_ReturnsReport PRIMARY KEY ([RecordId]),
-	CONSTRAINT FK_ReturnsReport_MarketPlace FOREIGN KEY ([ProductId]) REFERENCES [Products] ([ProductId]),
-	CONSTRAINT FK_ReturnsReport_Reason FOREIGN KEY ([Reason]) REFERENCES [ReturnReason] ([ReasonId]),
-	CONSTRAINT FK_ReturnsReport_Dispositon FOREIGN KEY ([DetailedDisposition]) REFERENCES [DetailedDisposition] ([DispositionId])
-)
-
 
 CREATE TABLE [Orders](
 	[AmazonOrderId]				VARCHAR(50),
@@ -329,3 +306,29 @@ CREATE TABLE [Orders](
 	CONSTRAINT Orders_AmazonOrderId_Sku_PK PRIMARY KEY ([AmazonOrderId], [Sku])
 )
 GO
+
+
+/*
+CREATE TABLE [ReturnsReport](
+	[RecordId]					INT IDENTITY(0,1),
+	[MarketplaceId]				INT,
+	[ReturnDate]				DATETIME,
+	[OrderId]					VARCHAR(100),
+	[SKU]						VARCHAR(30),
+	[ASIN]						VARCHAR(20),
+	[FNSKU]						VARCHAR(30),
+	[ProductName]				NVARCHAR(1000),
+	[Quantity]					INT,
+	[FulfillmentCenterId]		VARCHAR(20),
+	[DetailedDisposition]		INT,
+	[Reason]					INT,
+	[Status]					VARCHAR(512),
+	[LicensePlateNumber]		VARCHAR(30),
+	[CustomerComments]			NVARCHAR(1000),
+	[ProductId]					INT,
+	CONSTRAINT PK_ReturnsReport PRIMARY KEY ([RecordId]),
+	CONSTRAINT FK_ReturnsReport_MarketPlace FOREIGN KEY ([ProductId]) REFERENCES [Products] ([ProductId]),
+	CONSTRAINT FK_ReturnsReport_Reason FOREIGN KEY ([Reason]) REFERENCES [ReturnReason] ([ReasonId]),
+	CONSTRAINT FK_ReturnsReport_Dispositon FOREIGN KEY ([DetailedDisposition]) REFERENCES [DetailedDisposition] ([DispositionId])
+)
+*/

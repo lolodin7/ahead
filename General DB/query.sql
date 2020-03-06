@@ -787,4 +787,8 @@ SELECT * FROM [AdvertisingProducts] WHERE [UpdateDate] between '2019-01-01 00:00
 
 
 use AHEAD
-delete from Orders where MarketPlaceId = 8
+delete from BusinessReport
+select * from BusinessReport WHERE [UpdateDate] between '2019-07-21 00:00:00' and '2019-07-21 23:59:59' and MarketPlaceId = 1
+select SUM([Sessions]) from BusinessReport where SKU = 'IG-5UO9-SCW1'
+select * from BusinessReport WHERE [UpdateDate] between '2019-07-01 00:00:00' and '2019-07-31 23:59:59'  and MarketPlaceId = 1
+

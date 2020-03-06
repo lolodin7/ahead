@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Excel_Parse
 {
@@ -20,6 +21,8 @@ namespace Excel_Parse
         private ReportBusinessFilterView controlReportBusinessFilterView;
         private ReportSessionsView controlReportSessionsView;
         private EveryDayReportsUpdate controlEveryDayReportsUpdate;
+
+        private int insertedCount, updatedCount;
 
         public BusinessController(EveryDayReportsUpdate _mf)
         {
@@ -63,6 +66,55 @@ namespace Excel_Parse
                     noErrors = 0;
             }
             return noErrors;
+        }
+
+        public void InsertBusinessReportBeforeUpdating(List<ReportBusinessModel> _businessList, object lb_Progress)
+        {
+            string specifier = "G";
+            int noErrors = 1;
+            Label _lb_Progress = (Label)lb_Progress;
+
+            insertedCount = 0;
+
+            int cnt = _businessList.Count;
+
+            _lb_Progress.Text = "\n" + cnt + " элементов.\nСохранение...";
+            _lb_Progress.Refresh();
+
+            for (int i = 0; i < _businessList.Count; i++)
+            {
+                if (_businessList[i].ProductId != -1)
+                {
+                    string sqlStatement = "INSERT INTO [BusinessReport] ([UpdateDate], [MarketPlaceId], [SKU], [Sessions], [SessionPercentage], [PageViews], [PageViewsPercentage], [UnitsOrdered], [UnitsOrderedB2B], [UnitSessionPercentage], [UnitSessionPercentageB2B], [OrderedProductSales], [OrderedProductSalesB2B], [TotalOrderItems], [TotalOrderItemsB2B], [ProductId]) VALUES ('" + _businessList[i].UpdateDate.ToString("yyyy-MM-dd HH:mm:ss") + "', " + _businessList[i].MarketPlaceId + ", '" + _businessList[i].SKU + "', " + _businessList[i].Sessions + ", " + _businessList[i].SessionPercentage.ToString(specifier, CultureInfo.InvariantCulture) + ", " + _businessList[i].PageViews + ", " + _businessList[i].PageViewsPercentage.ToString(specifier, CultureInfo.InvariantCulture) + ", " + _businessList[i].UnitsOrdered + ", " + _businessList[i].UnitsOrderedB2B + ", " + _businessList[i].UnitSessionPercentage.ToString(specifier, CultureInfo.InvariantCulture) + ", " + _businessList[i].UnitSessionPercentageB2B.ToString(specifier, CultureInfo.InvariantCulture) + ", " + _businessList[i].OrderedProductSales.ToString(specifier, CultureInfo.InvariantCulture) + ", " + _businessList[i].OrderedProductSalesB2B.ToString(specifier, CultureInfo.InvariantCulture) + ", " + _businessList[i].TotalOrderItems + ", " + _businessList[i].TotalOrderItemsB2B + ", " + _businessList[i].ProductId + ")";
+                    command = new SqlCommand(sqlStatement, connection);
+                    if (Execute_UPDATE_DELETE_INSERT_Command(command, _businessList[i]) == 1)
+                        insertedCount++;
+                }
+            }
+            controlReportBusinessUploadView.GetInsertedCount(insertedCount);
+        }
+
+        public int UpdateBusinessReport(List<ReportBusinessModel> _businessList, object lb_Progress)
+        {
+            string specifier = "G";
+
+            Label _lb_Progress = (Label)lb_Progress;
+            
+            int cnt = _businessList.Count;
+            updatedCount = 0;
+
+            _lb_Progress.Text = "\n\n" + cnt + " элементов.\nОбновление...";
+            _lb_Progress.Refresh();
+
+            for (int i = 0; i < _businessList.Count; i++)
+            {
+                string sqlStatement = "UPDATE [BusinessReport] SET [Sessions] = " + _businessList[i].Sessions + ", [SessionPercentage] = " + _businessList[i].UnitSessionPercentage.ToString(specifier, CultureInfo.InvariantCulture) + ", [PageViews] = " + _businessList[i].PageViews + ", [PageViewsPercentage] = " + _businessList[i].PageViewsPercentage.ToString(specifier, CultureInfo.InvariantCulture) + ", [UnitsOrdered] = " + _businessList[i].UnitsOrdered + ", [UnitsOrderedB2B] = " + _businessList[i].UnitsOrderedB2B + ", [UnitSessionPercentage] = " + _businessList[i].UnitSessionPercentage.ToString(specifier, CultureInfo.InvariantCulture) + ", [UnitSessionPercentageB2B] = " + _businessList[i].UnitSessionPercentageB2B.ToString(specifier, CultureInfo.InvariantCulture) + ", [OrderedProductSales] = " + _businessList[i].OrderedProductSales.ToString(specifier, CultureInfo.InvariantCulture) + ", [OrderedProductSalesB2B] = " + _businessList[i].OrderedProductSalesB2B.ToString(specifier, CultureInfo.InvariantCulture) + ", [TotalOrderItems] = " + _businessList[i].TotalOrderItems + ", [TotalOrderItemsB2B] = " + _businessList[i].TotalOrderItemsB2B + " WHERE [UpdateDate] = '" + _businessList[i].UpdateDate.ToString("yyyy-MM-dd HH:mm:ss") + "' AND [ProductId] = " + _businessList[i].ProductId;
+                command = new SqlCommand(sqlStatement, connection);
+                if (Execute_UPDATE_DELETE_INSERT_Command(command, null) == 1)
+                    updatedCount++;
+            }
+            controlReportBusinessUploadView.GetUpdatedCount(updatedCount);
+            return 1;
         }
 
         public int UpdateBusinessReport(List<ReportBusinessModel> _businessList)
@@ -218,6 +270,27 @@ namespace Excel_Parse
             }
             catch (Exception ex)
             {
+                connection.Close();
+                return ex.HResult;
+            }
+        }
+
+        /* Выполняем запрос UPDATE/INSERT/DELETE к БД */
+        private int Execute_UPDATE_DELETE_INSERT_Command(SqlCommand _command, ReportBusinessModel _rbm)
+        {
+            try
+            {
+                connection.Open();
+                _command.ExecuteScalar();
+                connection.Close();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                if (controlReportBusinessUploadView != null && ex.Message.ToLower().Contains("the duplicate key value") && _rbm != null)
+                {
+                    controlReportBusinessUploadView.AddProductForUpdate(_rbm);
+                }
                 connection.Close();
                 return ex.HResult;
             }

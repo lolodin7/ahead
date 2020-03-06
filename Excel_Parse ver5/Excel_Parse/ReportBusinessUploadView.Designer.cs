@@ -43,6 +43,7 @@
             this.btn_SaveMany = new System.Windows.Forms.Button();
             this.cb_MarketPlace2 = new System.Windows.Forms.ComboBox();
             this.btn_UploadFileMany = new System.Windows.Forms.Button();
+            this.lb_Progress = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -94,11 +95,13 @@
             // 
             // mc_EndDate
             // 
+            this.mc_EndDate.BackColor = System.Drawing.SystemColors.Control;
             this.mc_EndDate.Location = new System.Drawing.Point(243, 228);
             this.mc_EndDate.MaxSelectionCount = 1;
             this.mc_EndDate.Name = "mc_EndDate";
             this.mc_EndDate.ShowToday = false;
             this.mc_EndDate.TabIndex = 27;
+            this.mc_EndDate.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.mc_EndDate_DateChanged);
             // 
             // lb_Path2
             // 
@@ -121,12 +124,13 @@
             // btn_CloseMany
             // 
             this.btn_CloseMany.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_CloseMany.Location = new System.Drawing.Point(254, 424);
+            this.btn_CloseMany.Location = new System.Drawing.Point(243, 456);
             this.btn_CloseMany.Name = "btn_CloseMany";
-            this.btn_CloseMany.Size = new System.Drawing.Size(162, 59);
+            this.btn_CloseMany.Size = new System.Drawing.Size(167, 59);
             this.btn_CloseMany.TabIndex = 24;
             this.btn_CloseMany.Text = "Закрыть";
             this.btn_CloseMany.UseVisualStyleBackColor = true;
+            this.btn_CloseMany.Click += new System.EventHandler(this.btn_CloseMany_Click);
             // 
             // mc_startDate
             // 
@@ -135,16 +139,18 @@
             this.mc_startDate.Name = "mc_startDate";
             this.mc_startDate.ShowToday = false;
             this.mc_startDate.TabIndex = 23;
+            this.mc_startDate.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.mc_startDate_DateChanged);
             // 
             // btn_SaveMany
             // 
             this.btn_SaveMany.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_SaveMany.Location = new System.Drawing.Point(12, 424);
+            this.btn_SaveMany.Location = new System.Drawing.Point(7, 456);
             this.btn_SaveMany.Name = "btn_SaveMany";
-            this.btn_SaveMany.Size = new System.Drawing.Size(162, 59);
+            this.btn_SaveMany.Size = new System.Drawing.Size(167, 59);
             this.btn_SaveMany.TabIndex = 20;
             this.btn_SaveMany.Text = "Сохранить";
             this.btn_SaveMany.UseVisualStyleBackColor = true;
+            this.btn_SaveMany.Click += new System.EventHandler(this.btn_SaveMany_Click);
             // 
             // cb_MarketPlace2
             // 
@@ -155,7 +161,6 @@
             this.cb_MarketPlace2.Name = "cb_MarketPlace2";
             this.cb_MarketPlace2.Size = new System.Drawing.Size(219, 25);
             this.cb_MarketPlace2.TabIndex = 21;
-            this.cb_MarketPlace2.SelectedIndexChanged += new System.EventHandler(this.cb_MarketPlace2_SelectedIndexChanged);
             // 
             // btn_UploadFileMany
             // 
@@ -166,12 +171,22 @@
             this.btn_UploadFileMany.TabIndex = 22;
             this.btn_UploadFileMany.Text = "Выбрать файлы";
             this.btn_UploadFileMany.UseVisualStyleBackColor = true;
+            this.btn_UploadFileMany.Click += new System.EventHandler(this.btn_UploadFileMany_Click);
+            // 
+            // lb_Progress
+            // 
+            this.lb_Progress.Location = new System.Drawing.Point(9, 399);
+            this.lb_Progress.Name = "lb_Progress";
+            this.lb_Progress.Size = new System.Drawing.Size(236, 54);
+            this.lb_Progress.TabIndex = 32;
+            this.lb_Progress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ReportBusinessUploadView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(429, 489);
+            this.ClientSize = new System.Drawing.Size(418, 521);
+            this.Controls.Add(this.lb_Progress);
             this.Controls.Add(this.lb_DaysDiff);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.lb_startDateText);
@@ -210,5 +225,6 @@
         private System.Windows.Forms.Button btn_SaveMany;
         private System.Windows.Forms.ComboBox cb_MarketPlace2;
         private System.Windows.Forms.Button btn_UploadFileMany;
+        private System.Windows.Forms.Label lb_Progress;
     }
 }
