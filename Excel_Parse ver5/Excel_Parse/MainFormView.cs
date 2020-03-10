@@ -15,6 +15,14 @@ namespace Excel_Parse
     public partial class MainFormView : Form
     {
         private SqlConnection connection;
+        private SqlCommand command;
+
+        private List<DateTime> advertisingDates;
+        private List<DateTime> stockDates;
+        private List<DateTime> ordersDates;
+        private List<DateTime> businessDates;
+
+        private bool Permissions = true;   //false - обычный пользователь, true - admin
 
         /* Главный коструктор */
         public MainFormView()
@@ -26,7 +34,108 @@ namespace Excel_Parse
             {
                 MessageBox.Show("Проблема при подключении к серверу. Перезапустите приложение или попробуйте позже.", "Ошибка");
                 menuStrip1.Enabled = false;
+                statusStrip1.Visible = false;
             }
+            else
+            {
+                GetStatus();
+            }
+
+            addSectionToolStripMenuItem1.Visible = Permissions;
+        }
+
+        private void GetStatus()
+        {
+            //lb_AdvertisingInfo.Text = "Updating...";
+            //lb_AdvertisingInfo.Refresh();
+            //lb_OrdersInfo.Text = "Updating...";
+            //lb_OrdersInfo.Refresh();
+            //lb_StockInfo.Text = "Updating...";
+            //lb_StockInfo.Refresh();
+            //lb_BusinessInfo.Text = "Updating...";
+            //lb_BusinessInfo.Refresh();
+
+            DateTime startDate, endDate;
+            endDate = DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59);
+            startDate = DateTime.Today.AddDays(-31);
+
+            string sqlStatement = "";
+
+            sqlStatement = "SELECT DISTINCT [UpdateDate] from [AdvertisingProducts] WHERE [UpdateDate] between '" + startDate.ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + endDate.ToString("yyyy-MM-dd HH:mm:ss") + "'";
+            command = new SqlCommand(sqlStatement, connection);
+            advertisingDates = new List<DateTime> { };
+            GetDatesFromDB(advertisingDates);
+
+            sqlStatement = "SELECT DISTINCT [PurchaseDate] from [Orders] WHERE [PurchaseDate] between '" + startDate.ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + endDate.ToString("yyyy-MM-dd HH:mm:ss") + "'";
+            command = new SqlCommand(sqlStatement, connection);
+            ordersDates = new List<DateTime> { };
+            GetDatesFromDB(ordersDates);
+
+            sqlStatement = "SELECT DISTINCT [UpdateDate] from [BusinessReport] WHERE [UpdateDate] between '" + startDate.ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + endDate.ToString("yyyy-MM-dd HH:mm:ss") + "'";
+            command = new SqlCommand(sqlStatement, connection);
+            businessDates = new List<DateTime> { };
+            GetDatesFromDB(businessDates);
+
+            sqlStatement = "SELECT DISTINCT [UpdateDate] from [Stock] WHERE [UpdateDate] between '" + startDate.ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + endDate.ToString("yyyy-MM-dd HH:mm:ss") + "'";
+            command = new SqlCommand(sqlStatement, connection);
+            stockDates = new List<DateTime> { };
+            GetDatesFromDB(stockDates);
+            
+            toolStripStatusLabel2.Text = "Реклама " + GetMaxDate(advertisingDates) + "   ";
+            toolStripStatusLabel4.Text = "Продажи " + GetMaxDate(ordersDates) + "   ";
+            toolStripStatusLabel6.Text = "Склад " + GetMaxDate(stockDates) + "   ";
+            toolStripStatusLabel8.Text = "Сессии " + GetMaxDate(businessDates) + "   ";
+        }
+
+        private void GetDatesFromDB(List<DateTime> _datesList)
+        {
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        IDataRecord record = (IDataRecord)reader;
+                        _datesList.Add(getDate(record[0]));
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No rows found.");
+                }
+                reader.Close();
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                connection.Close();
+            }
+        }
+
+        private DateTime getDate(object record)
+        {
+            return (DateTime)record;
+        }
+
+        private string GetMaxDate(List<DateTime> _workingList)
+        {
+            if (_workingList.Count > 0)
+            {
+                DateTime result = _workingList[0];
+
+                foreach (var t in _workingList)
+                {
+                    if (t > result)
+                        result = t;
+                }
+
+                return result.ToShortDateString();
+            }
+            else return "(пусто)";
         }
 
         private void MainFormView_Load(object sender, EventArgs e)
@@ -64,7 +173,7 @@ namespace Excel_Parse
 
         private void btn_DoProducts_Click(object sender, EventArgs e)
         {
-            ProductsView products = new ProductsView(this);
+            ProductsView products = new ProductsView(this, Permissions);              
             products.Show();
             this.Visible = false;
         }

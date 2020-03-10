@@ -111,7 +111,7 @@
             this.MaximizeBox = false;
             this.Name = "ReportAdvertisingUploadView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Загрузить отчет";
+            this.Text = "Загрузить Advertising report";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AdvertisingUploadReport_FormClosing);
             this.ResumeLayout(false);
 

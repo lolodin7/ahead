@@ -31,6 +31,8 @@ namespace Excel_Parse
         private List<AllOrdersModel> sales7daysList;
         private List<AllOrdersModel> sales30daysList;
 
+        private bool filterEnabled;
+
         /* Конструктор */
         public ReportStockView(MainFormView _mf)
         {
@@ -48,6 +50,8 @@ namespace Excel_Parse
             mpList = new List<MarketplaceModel> { };
             sales7daysList = new List<AllOrdersModel> { };
             sales30daysList = new List<AllOrdersModel> { };
+
+            filterEnabled = false;
 
             if (mpController.GetMarketplaces() == 1)
                 Fill_CB_Marketplace();
@@ -460,6 +464,15 @@ namespace Excel_Parse
                 FilterTheTable();
             }
         }
+        
+        /* Очистить фильтр */
+        private void btn_ClearFilter_Click(object sender, EventArgs e)
+        {
+            filterEnabled = false;
+            btn_ClearFilter.Visible = filterEnabled;
+            rtb_FilterParameterValue.Text = "";
+            FilterTheTable();
+        }
 
         /* Метод фильтрации данных в таблице*/
         private void FilterTheTable()
@@ -468,6 +481,8 @@ namespace Excel_Parse
             {
                 if (!rtb_FilterParameterValue.Text.Equals(""))
                 {
+                    filterEnabled = true;
+                    btn_ClearFilter.Visible = filterEnabled;
                     string text = rtb_FilterParameterValue.Text.ToLower();
                     dgv_Stock.Rows.Clear();
 

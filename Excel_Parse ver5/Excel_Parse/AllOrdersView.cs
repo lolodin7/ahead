@@ -1,4 +1,5 @@
-﻿using OfficeOpenXml;
+﻿using Microsoft.VisualBasic.FileIO;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -91,9 +92,9 @@ namespace Excel_Parse
         /* Вытаскиваем строки из Excel */
         public void GetOrdersFromExcel()
         {
-            openFileDialog1.Filter = "Выбери файл|*.csv;*.xlsx";
+            openFileDialog1.Filter = "Выбери файл|*.csv;*.xlsx;*.txt";
             openFileDialog1.Title = "Выбор файла для открытия";
-
+            /*
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 using (ExcelPackage xlPackage = new ExcelPackage(new FileInfo(@openFileDialog1.FileName)))
@@ -150,6 +151,87 @@ namespace Excel_Parse
                     progressBar1.Visible = false;
                     rtb_State.Text += "\n\nВсего строк в файле: " + ordersList.Count;
                     rtb_State.Refresh();
+                }
+            }
+            */
+            //----------------------------------------------------------------------
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                rtb_State.Text = "";
+                rtb_State.Text = @openFileDialog1.FileName;
+                ordersList = new List<AllOrdersModel> { };
+                allLines = 0;
+                addedLines = 0;
+                updatedLines = 0;
+
+                try
+                {
+                    using (TextFieldParser parser = new TextFieldParser(@openFileDialog1.FileName))
+                    {
+                        bool firstRow = true;
+                        ordersList = new List<AllOrdersModel> { };
+
+                        parser.TextFieldType = FieldType.Delimited;
+
+                        parser.SetDelimiters("\t");
+
+                        List<string[]> fields_All = new List<string[]> { }; ;
+                        string[] fields;
+                        int cnt = 0;
+
+                        rtb_State.Text += "\n\nОткрытие файла...";
+
+                        while (!parser.EndOfData)
+                        {
+                            if (!firstRow)
+                            {
+                                fields_All.Add(parser.ReadFields());
+                                cnt++;
+                            }
+                            else
+                            {
+                                parser.ReadFields();
+                                firstRow = false;
+                            }
+                        }
+
+                        progressBar1.Maximum = cnt;
+                        progressBar1.Value = 0;
+                        progressBar1.Visible = true;
+
+                        rtb_State.Text += "\n\nОбработка файла...";
+                        rtb_State.Refresh();
+
+                        for (int i = 0; i < fields_All.Count; i++)
+                        {
+                            ordersList.Add(new AllOrdersModel());
+                            for (int j = 0; j < fields_All[i].Length; j++)
+                            {
+                                ordersList[ordersList.Count - 1].WriteData(j, fields_All[i].GetValue(j));
+                            }
+
+                            ordersList[ordersList.Count - 1].MarketPlaceId = GetMarketPlaceIdByName(ordersList[ordersList.Count - 1].SalesChannel);
+
+                            if (ordersList[ordersList.Count - 1].MarketPlaceId == 8)        //если получилось так, что канал продаж - что-то непонятное то идем смотреть, в какую страну доставка
+                            {
+                                if (ordersList[ordersList.Count - 1].ShipCountry.ToLower().Equals("US".ToLower()) || ordersList[ordersList.Count - 1].ShipCountry.ToLower().Equals("CA".ToLower()) || ordersList[ordersList.Count - 1].ShipCountry.ToLower().Equals("MX".ToLower()))
+                                {
+                                    ordersList[ordersList.Count - 1].MarketPlaceId = GetMarketPlaceIdByName(ordersList[ordersList.Count - 1].ShipCountry.ToLower(), 0);
+                                }
+                            }
+                            allLines++;
+                            progressBar1.Value++;
+                            progressBar1.Refresh();
+                        }
+                        progressBar1.Visible = false;
+                        rtb_State.Text += "\n\nВсего строк в файле: " + ordersList.Count;
+                        rtb_State.Refresh();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Проблема при открытии файла. Убедитесь, что Вы выбрали файл с нужны расширением. Возможно, разметка файла не поддерживается программой.", "Ошибка при открытии");
+                    ordersList.Clear();
                 }
             }
         }

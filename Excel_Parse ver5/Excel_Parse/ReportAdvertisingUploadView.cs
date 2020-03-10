@@ -141,9 +141,9 @@ namespace Excel_Parse
                     fileNames.Add(t);
 
                     index = fileNames[fileNames.Count - 1].LastIndexOf('\\');
-                    richTextBox2.Text += fileNames[fileNames.Count - 1].Substring(index, fileNames[fileNames.Count - 1].Length - index) + "\n";
+                    //richTextBox2.Text += fileNames[fileNames.Count - 1].Substring(index, fileNames[fileNames.Count - 1].Length - index) + "\n";
 
-                    richTextBox2.Text += t + "\n";
+                    richTextBox2.Text += t + "\n\n";
                 }
             }
         }
@@ -290,23 +290,26 @@ namespace Excel_Parse
                         if (advProductsList.Count > 0)
                         {
                             SetCampaignAndMarketplaceToAllRows_AP(_fileName);
-                            MakeSummaryAdvProductListbyTargetingInAdGroups();
 
-                            advertController.InsertAdvertising_Product_Report(advProductsList, lb_Progress);
-
-                            if (advProductsListForUpdate.Count > 0)
-                                advertController.UpdateAdvertising_Product_Report(advProductsListForUpdate, lb_Progress);
-                            
                             if (advProductsListOfErrors.Count > 0)
                             {
                                 foreach (var t in advProductsListOfErrors)
                                 {
-                                    errors += "Date: " + UpdateDate.ToString() + " Campaign: " + t.CampaignName + " AdGroup " + t.AdGroupName + " Targeting " + t.Targeting + " Marketplace" + GetMarketPlaceNameById(t.MarketPlaceId) + "\n";
+                                    errors += "Date: " + UpdateDate.ToString() + " Campaign: " + t.CampaignName + "; AdGroup: " + t.AdGroupName + "; Targeting: " + t.Targeting + "; Marketplace: " + GetMarketPlaceNameById(t.MarketPlaceId) + "\n\n";
                                 }
                                 richTextBox2.Text += errors;
                             }
-                            
-                            richTextBox2.Text += _fileName + "\n" + "Загружено: " + insertedCount + "\nОбновлено: " + updatedCount + "\nВсего: " + (insertedCount + updatedCount).ToString() + " из " + advProductsList.Count + "\n\n";
+                            else
+                            {
+                                MakeSummaryAdvProductListbyTargetingInAdGroups();
+
+                                //advertController.InsertAdvertising_Product_Report(advProductsList, lb_Progress);
+
+                                //if (advProductsListForUpdate.Count > 0)
+                                //advertController.UpdateAdvertising_Product_Report(advProductsListForUpdate, lb_Progress);
+
+                                richTextBox2.Text += _fileName + "\n" + "Загружено: " + insertedCount + "\nОбновлено: " + updatedCount + "\nВсего: " + (insertedCount + updatedCount).ToString() + " из " + advProductsList.Count + "\n\n";
+                            }
                         }
                         else
                             richTextBox2.Text += "Пустой файл: " + _fileName + "\n";

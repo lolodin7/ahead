@@ -38,6 +38,7 @@
             this.btn_GoFilter = new System.Windows.Forms.Button();
             this.lb_Info = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.btn_ClearFilter = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Stock)).BeginInit();
             this.SuspendLayout();
             // 
@@ -114,6 +115,7 @@
             // 
             // btn_GoFilter
             // 
+            this.btn_GoFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_GoFilter.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btn_GoFilter.Location = new System.Drawing.Point(845, 35);
             this.btn_GoFilter.Name = "btn_GoFilter";
@@ -144,11 +146,27 @@
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label3.Visible = false;
             // 
+            // btn_ClearFilter
+            // 
+            this.btn_ClearFilter.BackColor = System.Drawing.Color.Moccasin;
+            this.btn_ClearFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_ClearFilter.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_ClearFilter.Location = new System.Drawing.Point(845, 6);
+            this.btn_ClearFilter.Name = "btn_ClearFilter";
+            this.btn_ClearFilter.Size = new System.Drawing.Size(82, 27);
+            this.btn_ClearFilter.TabIndex = 23;
+            this.btn_ClearFilter.Text = "Очистить";
+            this.btn_ClearFilter.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btn_ClearFilter.UseVisualStyleBackColor = false;
+            this.btn_ClearFilter.Visible = false;
+            this.btn_ClearFilter.Click += new System.EventHandler(this.btn_ClearFilter_Click);
+            // 
             // ReportStockView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1279, 604);
+            this.Controls.Add(this.btn_ClearFilter);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.lb_Info);
             this.Controls.Add(this.btn_GoFilter);
@@ -181,5 +199,6 @@
         private System.Windows.Forms.Button btn_GoFilter;
         private System.Windows.Forms.Label lb_Info;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btn_ClearFilter;
     }
 }

@@ -28,15 +28,17 @@ namespace Excel_Parse
         private bool ActiveStatus;
 
         private MainFormView mf;
+        private bool PermissionFlag;
 
         private bool firstStart;
 
         /* Конструктор */
-        public ProductsView(MainFormView _mf)
+        public ProductsView(MainFormView _mf, bool _permissionFlag)
         {
             InitializeComponent();
             connection = DBData.GetDBConnection();
             mf = _mf;
+            PermissionFlag = _permissionFlag;
 
             firstStart = true;
 
@@ -54,6 +56,8 @@ namespace Excel_Parse
             }
 
             firstStart = false;
+            if (PermissionFlag)
+                groupBox2.Visible = true;
         }
 
         /* Заполняем (перезаполняем после изменений) все поля на форме данными с БД */
@@ -71,14 +75,14 @@ namespace Excel_Parse
             DrawProductTypes();
             DrawMarketPlaces();
 
-            //if (mf.um.UserRoleId == 0 || mf.um.UserRoleId == 1)
-            //{
-            //    ptController.GetProductTypesAll();
-            //    Fill_CB_ByProductTypes();
+            if (PermissionFlag)
+            {
+                ptController.GetProductTypesAll();
+                Fill_CB_ByProductTypes();
 
-            //    mpController.GetMarketplaces();
-            //    Fill_CB_ByMarketplaces();
-            //}
+                mpController.GetMarketplaces();
+                Fill_CB_ByMarketplaces();
+            }
 
             ptController.GetProductTypesAll();
             Fill_CB_ByProductTypes();
@@ -167,82 +171,83 @@ namespace Excel_Parse
         /* Включаем режим редактировани выбранного в таблице товара */
         private void dgv_Products_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            //if (mf.um.UserRoleId == 0 || mf.um.UserRoleId == 1)     //редактировать могут только админы и боссы
-            //{
-            if (dgv_Products.RowCount > 0)
+            if (PermissionFlag)     //редактировать могут только админы и боссы
             {
-                //tb_editing_ProductName.Enabled = true;
-                //tb_editing_ASIN.Enabled = true;
-                //tb_editing_SKU.Enabled = true;
-                //cb_editing_ProductTypes.Enabled = true;
-                //cb_editing_Marketplace.Enabled = true;
-                //btn_SaveEditing.Enabled = true;
-                //btn_CancelEditing.Enabled = true;
-                //btn_ActivateProduct.Enabled = true;
-
-
-
-                tb_editing_ProductId.Text = dgv_Products.Rows[e.RowIndex].Cells[0].Value.ToString();
-                tb_editing_ProductName.Text = dgv_Products.Rows[e.RowIndex].Cells[1].Value.ToString();
-                tb_editing_ASIN.Text = dgv_Products.Rows[e.RowIndex].Cells[2].Value.ToString();
-                tb_editing_SKU.Text = dgv_Products.Rows[e.RowIndex].Cells[3].Value.ToString();
-                tb_editing_ProductTypeId.Text = dgv_Products.Rows[e.RowIndex].Cells[4].Value.ToString();
-                tb_editingShortName.Text = dgv_Products.Rows[e.RowIndex].Cells[11].Value.ToString();
-                ActiveStatus = (bool)dgv_Products.Rows[e.RowIndex].Cells[6].Value;
-
-                for (int i = 0; i < cb_editing_ProductTypes.Items.Count; i++)
+                if (dgv_Products.RowCount > 0)
                 {
-                    if (dgv_Products.Rows[e.RowIndex].Cells[8].Value.ToString().Equals(cb_editing_ProductTypes.Items[i].ToString()))
+                    tb_editing_ProductName.Enabled = true;
+                    tb_editing_ASIN.Enabled = true;
+                    tb_editing_SKU.Enabled = true;
+                    cb_editing_ProductTypes.Enabled = true;
+                    cb_editing_Marketplace.Enabled = true;
+                    btn_SaveEditing.Enabled = true;
+                    btn_CancelEditing.Enabled = true;
+                    btn_ActivateProduct.Enabled = true;
+
+                    tb_editing_ProductId.Text = dgv_Products.Rows[e.RowIndex].Cells[0].Value.ToString();
+                    tb_editing_ProductName.Text = dgv_Products.Rows[e.RowIndex].Cells[1].Value.ToString();
+                    tb_editing_ASIN.Text = dgv_Products.Rows[e.RowIndex].Cells[2].Value.ToString();
+                    tb_editing_SKU.Text = dgv_Products.Rows[e.RowIndex].Cells[3].Value.ToString();
+                    tb_editing_ProductTypeId.Text = dgv_Products.Rows[e.RowIndex].Cells[4].Value.ToString();
+                    tb_editingShortName.Text = dgv_Products.Rows[e.RowIndex].Cells[11].Value.ToString();
+                    ActiveStatus = (bool)dgv_Products.Rows[e.RowIndex].Cells[6].Value;
+
+                    for (int i = 0; i < cb_editing_ProductTypes.Items.Count; i++)
                     {
-                        cb_editing_ProductTypes.SelectedItem = cb_editing_ProductTypes.Items[i];
+                        if (dgv_Products.Rows[e.RowIndex].Cells[8].Value.ToString().Equals(cb_editing_ProductTypes.Items[i].ToString()))
+                        {
+                            cb_editing_ProductTypes.SelectedItem = cb_editing_ProductTypes.Items[i];
+                        }
+                    }
+
+                    for (int i = 0; i < cb_editing_Marketplace.Items.Count; i++)
+                    {
+                        if (dgv_Products.Rows[e.RowIndex].Cells[10].Value.ToString().Equals(cb_editing_Marketplace.Items[i].ToString()))
+                        {
+                            cb_editing_Marketplace.SelectedItem = cb_editing_Marketplace.Items[i];
+                        }
+                    }
+
+                    groupBox2.Enabled = false;
+
+                    if (1 == 1)
+                    {
+                        groupBox1.Visible = true;
+                        groupBox2.Visible = false;
                     }
                 }
-
-                for (int i = 0; i < cb_editing_Marketplace.Items.Count; i++)
-                {
-                    if (dgv_Products.Rows[e.RowIndex].Cells[10].Value.ToString().Equals(cb_editing_Marketplace.Items[i].ToString()))
-                    {
-                        cb_editing_Marketplace.SelectedItem = cb_editing_Marketplace.Items[i];
-                    }
-                }
-
-                //groupBox2.Enabled = false;
-
-                groupBox1.Visible = true;
-                groupBox2.Visible = false;
             }
-            //}
         }
 
         /* Удаление товара по клику ПКМ в dgv_Products */
         private void dgv_Products_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            //if (mf.um.UserRoleId == 0 || mf.um.UserRoleId == 1)     //редактировать могут только админы и боссы
-            //{
-            if (e.Button == MouseButtons.Right)
+            if (PermissionFlag)     //редактировать могут только админы и боссы
             {
-                if (dgv_Products.RowCount > 0 && dgv_Products.Rows[e.RowIndex].DefaultCellStyle.BackColor != Color.LightGray)      //если таблица пустая, чтобы не было ошибки
+                if (e.Button == MouseButtons.Right && 1 == 1)
                 {
-                    dgv_Products.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
-                    if (MessageBox.Show("Товар \"" + dgv_Products.Rows[e.RowIndex].Cells[1].Value.ToString() + "\" будет отключен. Вы уверены?", "Отключение товара", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    if (dgv_Products.RowCount > 0 && dgv_Products.Rows[e.RowIndex].DefaultCellStyle.BackColor != Color.LightGray)      //если таблица пустая, чтобы не было ошибки
                     {
-                        //SetDeletedProductToDB(e.RowIndex);
+                        dgv_Products.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
+                        if (MessageBox.Show("Товар \"" + dgv_Products.Rows[e.RowIndex].Cells[1].Value.ToString() + "\" будет отключен. Вы уверены?", "Отключение товара", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
+                            //SetDeletedProductToDB(e.RowIndex);
 
-                        //if (checkbox_ActiveStatus.Checked == true)
-                        //    pController.GetProductsAllJOIN();
-                        //else
-                        //    pController.GetActiveProductsJOIN();
+                            //if (checkbox_ActiveStatus.Checked == true)
+                            //    pController.GetProductsAllJOIN();
+                            //else
+                            //    pController.GetActiveProductsJOIN();
 
-                        RefreshFieldsAfterEditing();
+                            RefreshFieldsAfterEditing();
 
-                        //тут метод для обновлений в базе активстатуса
-                        pController.UpdateProductActiveStatus(int.Parse(dgv_Products.Rows[e.RowIndex].Cells[0].Value.ToString()), false);
+                            //тут метод для обновлений в базе активстатуса
+                            pController.UpdateProductActiveStatus(int.Parse(dgv_Products.Rows[e.RowIndex].Cells[0].Value.ToString()), false);
 
-                        dgv_Products.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightGray;
+                            dgv_Products.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightGray;
+                        }
                     }
                 }
             }
-            //}
         }
 
         /* Сохраняем удаленный товар в БД */
@@ -312,14 +317,14 @@ namespace Excel_Parse
         /* Очищаем поля после отмены редактирования товара */
         private void RefreshFieldsAfterEditing()
         {
-            //tb_editing_ProductName.Enabled = false;
-            //tb_editing_ASIN.Enabled = false;
-            //tb_editing_SKU.Enabled = false;
-            //cb_editing_ProductTypes.Enabled = false;
-            //cb_editing_Marketplace.Enabled = false;
-            //btn_SaveEditing.Enabled = false;
-            //btn_CancelEditing.Enabled = false;
-            //btn_ActivateProduct.Enabled = false;
+            tb_editing_ProductName.Enabled = false;
+            tb_editing_ASIN.Enabled = false;
+            tb_editing_SKU.Enabled = false;
+            cb_editing_ProductTypes.Enabled = false;
+            cb_editing_Marketplace.Enabled = false;
+            btn_SaveEditing.Enabled = false;
+            btn_CancelEditing.Enabled = false;
+            btn_ActivateProduct.Enabled = false;
 
             tb_editing_ProductId.Text = "";
             tb_editing_ProductName.Text = "";
@@ -328,7 +333,7 @@ namespace Excel_Parse
             tb_editing_ProductTypeId.Text = "";
             tb_editingShortName.Text = "";
 
-            //groupBox2.Enabled = true;
+            groupBox2.Enabled = true;
             groupBox1.Visible = false;
             groupBox2.Visible = true;
         }
@@ -490,9 +495,9 @@ namespace Excel_Parse
                     }
                 }
 
-                //if (mf.um.UserRoleId == 0 || mf.um.UserRoleId == 1)
-                if (tmp.Count == 0)
-                    RefreshFieldsAfterEditing();
+                if (PermissionFlag)
+                    if (tmp.Count == 0)
+                        RefreshFieldsAfterEditing();
             }
             else
             {

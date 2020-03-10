@@ -289,7 +289,7 @@ namespace Excel_Parse
 
                                 if (businessListOfErrors.Count > 0)         //и ещё одна проверка на то, есть ли неизвестные товары
                                 {
-                                    string errorsMsg = "\nДанные по следующим товарам не были добавлены. Вороятно, этот товар не занесен в программу.\n";
+                                    string errorsMsg = "\nДанные по следующим товарам не были лены. Вороятно, этот товар не занесен в программу.\n";
                                     string errorsstr = "";
                                     foreach (var k in businessListOfErrors)
                                     {

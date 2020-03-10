@@ -68,15 +68,20 @@
             this.LogOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel8 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_Exit
             // 
             this.btn_Exit.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.btn_Exit.Location = new System.Drawing.Point(776, 443);
+            this.btn_Exit.Location = new System.Drawing.Point(781, 428);
             this.btn_Exit.Name = "btn_Exit";
             this.btn_Exit.Size = new System.Drawing.Size(195, 81);
             this.btn_Exit.TabIndex = 7;
@@ -256,6 +261,7 @@
             // 
             // showSalesDataToolStripMenuItem1
             // 
+            this.showSalesDataToolStripMenuItem1.Enabled = false;
             this.showSalesDataToolStripMenuItem1.Name = "showSalesDataToolStripMenuItem1";
             this.showSalesDataToolStripMenuItem1.Size = new System.Drawing.Size(160, 22);
             this.showSalesDataToolStripMenuItem1.Text = "Продажи";
@@ -395,30 +401,58 @@
             this.aboutToolStripMenuItem.Text = "Справка";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // label1
-            // 
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label1.Location = new System.Drawing.Point(771, 2);
-            this.label1.Name = "label1";
-            this.label1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label1.Size = new System.Drawing.Size(210, 23);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "Привет, Бандит";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label1.Visible = false;
-            // 
             // timer1
             // 
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.AllowMerge = false;
+            this.statusStrip1.Enabled = false;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel2,
+            this.toolStripStatusLabel4,
+            this.toolStripStatusLabel6,
+            this.toolStripStatusLabel8});
+            this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
+            this.statusStrip1.Location = new System.Drawing.Point(0, 516);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(984, 20);
+            this.statusStrip1.Stretch = false;
+            this.statusStrip1.TabIndex = 25;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(31, 15);
+            this.toolStripStatusLabel2.Text = "дата";
+            // 
+            // toolStripStatusLabel4
+            // 
+            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(31, 15);
+            this.toolStripStatusLabel4.Text = "дата";
+            // 
+            // toolStripStatusLabel6
+            // 
+            this.toolStripStatusLabel6.Name = "toolStripStatusLabel6";
+            this.toolStripStatusLabel6.Size = new System.Drawing.Size(31, 15);
+            this.toolStripStatusLabel6.Text = "дата";
+            // 
+            // toolStripStatusLabel8
+            // 
+            this.toolStripStatusLabel8.Name = "toolStripStatusLabel8";
+            this.toolStripStatusLabel8.Size = new System.Drawing.Size(31, 15);
+            this.toolStripStatusLabel8.Text = "дата";
             // 
             // MainFormView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 536);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.btn_Exit);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -433,6 +467,8 @@
             this.VisibleChanged += new System.EventHandler(this.MainFormView_VisibleChanged);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -460,7 +496,6 @@
         private System.Windows.Forms.ToolStripMenuItem сотрудникToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ShowPersonalInfoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem LogOutToolStripMenuItem;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem registerNewEmployeeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem employeesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loggerToolStripMenuItem;
@@ -479,5 +514,10 @@
         private System.Windows.Forms.ToolStripMenuItem allOrdersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stockReportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem складToolStripMenuItem;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel6;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel8;
     }
 }
