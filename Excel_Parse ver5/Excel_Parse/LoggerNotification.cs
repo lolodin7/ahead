@@ -105,34 +105,50 @@ namespace Excel_Parse
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            timer1.Stop();
-            this.Close();
+            //timer1.Stop();
+            //this.Close();
         }
-
-
-        private void Label2_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
+        
         private void LoggerNotification_Click(object sender, EventArgs e)
         {
-            if (!FromMainForm)
-            {
-                LoggerShow ls = new LoggerShow(logModel, userName, productName, ASIN, SKU, marketPlaceName, editUserName, appUserId);
-                ls.Show();
-                this.Close();
-            }
+            //if (!FromMainForm)
+            //{
+            //    LoggerShow ls = new LoggerShow(logModel, userName, productName, ASIN, SKU, marketPlaceName, editUserName, appUserId);
+            //    ls.Show();
+            //    this.Close();
+            //}
         }
 
         private void Label1_Click(object sender, EventArgs e)
         {
-            if (!FromMainForm)
+            //if (!FromMainForm)
+            //{
+            //    LoggerShow ls = new LoggerShow(logModel, userName, productName, ASIN, SKU, marketPlaceName, editUserName, appUserId);
+            //    ls.Show();
+            //    this.Close();
+            //}
+        }
+
+
+        /* Фоновый процесс, работающий через главную форму */
+        public LoggerNotification(string _fileName)
+        {
+            InitializeComponent();
+            
+            label3.Text = _fileName;
+
+            this.TopMost = true;
+
+            this.Height = label3.Location.Y + label3.Height + 10;
+            this.Location = new Point(Screen.PrimaryScreen.WorkingArea.Width - this.Width, Screen.PrimaryScreen.WorkingArea.Height - this.Height);
+
+            try
             {
-                LoggerShow ls = new LoggerShow(logModel, userName, productName, ASIN, SKU, marketPlaceName, editUserName, appUserId);
-                ls.Show();
-                this.Close();
+                SoundPlayer audio = new SoundPlayer(Resources.notification2);
+                audio.Stream.Position = 0;
+                audio.Play();
             }
+            catch (Exception ex) { }
         }
     }
 }

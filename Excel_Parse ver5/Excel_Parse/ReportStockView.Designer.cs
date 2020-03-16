@@ -47,18 +47,18 @@
             this.cb_MarketPlace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_MarketPlace.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cb_MarketPlace.FormattingEnabled = true;
-            this.cb_MarketPlace.Location = new System.Drawing.Point(5, 36);
+            this.cb_MarketPlace.Location = new System.Drawing.Point(546, 36);
             this.cb_MarketPlace.Name = "cb_MarketPlace";
-            this.cb_MarketPlace.Size = new System.Drawing.Size(251, 25);
+            this.cb_MarketPlace.Size = new System.Drawing.Size(151, 25);
             this.cb_MarketPlace.TabIndex = 13;
             this.cb_MarketPlace.SelectedIndexChanged += new System.EventHandler(this.cb_MarketPlace_SelectedIndexChanged);
             // 
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(5, 10);
+            this.label2.Location = new System.Drawing.Point(546, 10);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(251, 23);
+            this.label2.Size = new System.Drawing.Size(151, 23);
             this.label2.TabIndex = 14;
             this.label2.Text = "Маркетплейс";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -86,7 +86,7 @@
             "ASIN",
             "SKU",
             "FNSKU"});
-            this.cb_FilterParameter.Location = new System.Drawing.Point(410, 36);
+            this.cb_FilterParameter.Location = new System.Drawing.Point(5, 36);
             this.cb_FilterParameter.Name = "cb_FilterParameter";
             this.cb_FilterParameter.Size = new System.Drawing.Size(187, 25);
             this.cb_FilterParameter.TabIndex = 17;
@@ -94,7 +94,7 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(410, 10);
+            this.label1.Location = new System.Drawing.Point(5, 10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(187, 23);
             this.label1.TabIndex = 18;
@@ -105,7 +105,7 @@
             // 
             this.rtb_FilterParameterValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtb_FilterParameterValue.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_FilterParameterValue.Location = new System.Drawing.Point(617, 36);
+            this.rtb_FilterParameterValue.Location = new System.Drawing.Point(212, 36);
             this.rtb_FilterParameterValue.Multiline = false;
             this.rtb_FilterParameterValue.Name = "rtb_FilterParameterValue";
             this.rtb_FilterParameterValue.Size = new System.Drawing.Size(221, 26);
@@ -117,7 +117,7 @@
             // 
             this.btn_GoFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_GoFilter.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_GoFilter.Location = new System.Drawing.Point(845, 35);
+            this.btn_GoFilter.Location = new System.Drawing.Point(440, 35);
             this.btn_GoFilter.Name = "btn_GoFilter";
             this.btn_GoFilter.Size = new System.Drawing.Size(82, 27);
             this.btn_GoFilter.TabIndex = 20;
@@ -151,7 +151,7 @@
             this.btn_ClearFilter.BackColor = System.Drawing.Color.Moccasin;
             this.btn_ClearFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_ClearFilter.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_ClearFilter.Location = new System.Drawing.Point(845, 6);
+            this.btn_ClearFilter.Location = new System.Drawing.Point(440, 6);
             this.btn_ClearFilter.Name = "btn_ClearFilter";
             this.btn_ClearFilter.Size = new System.Drawing.Size(82, 27);
             this.btn_ClearFilter.TabIndex = 23;

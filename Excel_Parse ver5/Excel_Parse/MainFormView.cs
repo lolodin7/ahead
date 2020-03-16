@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Security.Cryptography;
@@ -28,6 +29,15 @@ namespace Excel_Parse
         public MainFormView()
         {
             InitializeComponent();
+
+            int prC = 0;
+            foreach (Process pr in Process.GetProcesses())
+                if (pr.ProcessName == "Bona Fides") prC++;
+            if (prC > 1)
+            {
+                MessageBox.Show("Приложение уже запущено!", "Ошибка");
+                Process.GetCurrentProcess().Kill();
+            }
 
             connection = DBData.GetDBConnection();
             if (connection.ConnectionString.Equals(""))
@@ -81,10 +91,10 @@ namespace Excel_Parse
             stockDates = new List<DateTime> { };
             GetDatesFromDB(stockDates);
             
-            toolStripStatusLabel2.Text = "Реклама " + GetMaxDate(advertisingDates) + "   ";
-            toolStripStatusLabel4.Text = "Продажи " + GetMaxDate(ordersDates) + "   ";
-            toolStripStatusLabel6.Text = "Склад " + GetMaxDate(stockDates) + "   ";
-            toolStripStatusLabel8.Text = "Сессии " + GetMaxDate(businessDates) + "   ";
+            toolStripStatusLabel2.Text = "Реклама - " + GetMaxDate(advertisingDates) + "   ";
+            toolStripStatusLabel4.Text = "Продажи - " + GetMaxDate(ordersDates) + "   ";
+            toolStripStatusLabel6.Text = "Склад - " + GetMaxDate(stockDates) + "   ";
+            toolStripStatusLabel8.Text = "Сессии - " + GetMaxDate(businessDates) + "   ";
         }
 
         private void GetDatesFromDB(List<DateTime> _datesList)

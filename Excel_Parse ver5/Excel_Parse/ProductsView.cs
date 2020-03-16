@@ -513,7 +513,7 @@ namespace Excel_Parse
         /* Поиск товаров */
         private void tb_FindNameField_TextChanged(object sender, EventArgs e)
         {
-            string findStr = rtb_FindFieldName.Text;
+            string findStr = rtb_FindFieldName.Text.ToLower();
             for (int i = 0; i < dgv_Products.RowCount - 1; i++)
             {
                 for (int j = 0; j < dgv_Products.ColumnCount; j++)

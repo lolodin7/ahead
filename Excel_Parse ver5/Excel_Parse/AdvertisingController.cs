@@ -1019,7 +1019,7 @@ namespace Excel_Parse
             string specifier = "G";
             List<AdvertisingProductsModel> apm = _apm;
             int cnt = apm.Count;
-            _lb_Progress.Text = 0 + "//" + cnt;
+            //_lb_Progress.Text = 0 + "//" + cnt;
 
             if (cnt > 10)
             {
@@ -1045,8 +1045,8 @@ namespace Excel_Parse
                     if (Execute_UPDATE_DELETE_INSERT_Command(command, null) == 1)
                         updatedCount++;
 
-                    _lb_Progress.Text = "Обновление.\nОбновлено: " + (i + 1).ToString() + "/" + cnt + " строк (около " + (Math.Round(div * (cnt - i) / 60, 0)) + " мин.)";
-                    _lb_Progress.Refresh();
+                    //_lb_Progress.Text = "Обновление.\nОбновлено: " + (i + 1).ToString() + "/" + cnt + " строк (около " + (Math.Round(div * (cnt - i) / 60, 0)) + " мин.)";
+                    //_lb_Progress.Refresh();
                 }
             }
             else
@@ -1068,15 +1068,15 @@ namespace Excel_Parse
         {
             string specifier = "G";
             List<AdvertisingProductsModel> apm = (List <AdvertisingProductsModel>)_apm;
-            Label _lb_Progress = (Label)lb_Progress;
+            //Label _lb_Progress = (Label)lb_Progress;
 
             insertedCount = 0;
             updatedCount = 0;
 
             int cnt = apm.Count;
 
-            _lb_Progress.Text = 0 + "//" + cnt;
-            _lb_Progress.Refresh();
+            //_lb_Progress.Text = 0 + "//" + cnt;
+            //_lb_Progress.Refresh();
 
             if (cnt > 10)
             {
@@ -1102,8 +1102,8 @@ namespace Excel_Parse
                     if (Execute_UPDATE_DELETE_INSERT_Command(command, apm[i]) == 1)
                         insertedCount++;
 
-                    _lb_Progress.Text = "Сохранение.\nСохранено: " + (i + 1).ToString() + "/" + cnt + " строк (около " + (Math.Round(div * (cnt - i) / 60, 0)) + " мин.)";
-                    _lb_Progress.Refresh();
+                    //_lb_Progress.Text = "Сохранение.\nСохранено: " + (i + 1).ToString() + "/" + cnt + " строк (около " + (Math.Round(div * (cnt - i) / 60, 0)) + " мин.)";
+                    //_lb_Progress.Refresh();
                 }
             }
             else
@@ -1194,23 +1194,13 @@ namespace Excel_Parse
                 reader.Close();
                 connection.Close();
 
-                if (s.Equals("p"))
+                if (controlAdvertisingReportFilterView != null)
                 {
-                    if (controlAdvertisingReportFilterView != null)
-                    {
-                        controlAdvertisingReportFilterView.GetAdvertisingProductsFromDBOriginalValues(advprodListOriginal);
-                        controlAdvertisingReportFilterView.GetAdvertisingProductsFromDBwithSummary(advprodList);
-                    }
-                    else if (controlReportSessionsView != null)
-                        controlReportSessionsView.GetAdvertisingProductsFromDB(advprodList);
+                    controlAdvertisingReportFilterView.GetAdvertisingProductsFromDBOriginalValues(advprodListOriginal);
+                    controlAdvertisingReportFilterView.GetAdvertisingProductsFromDBwithSummary(advprodList);
                 }
-                else if (s.Equals("b"))
-                {
-                    if (controlAdvertisingReportFilterView != null)
-                        controlAdvertisingReportFilterView.GetAdvertisingBrandsFromDB(advbrandList);
-                    else if (controlReportSessionsView != null)
-                        controlReportSessionsView.GetAdvertisingBrandsFromDB(advbrandList);
-                }
+                else if (controlReportSessionsView != null)
+                    controlReportSessionsView.GetAdvertisingProductsFromDB(advprodList);
 
                 return 1;
             }

@@ -288,7 +288,6 @@
             this.showSessionsToolStripMenuItem.Name = "showSessionsToolStripMenuItem";
             this.showSessionsToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.showSessionsToolStripMenuItem.Text = "Сессии";
-            this.showSessionsToolStripMenuItem.Visible = false;
             this.showSessionsToolStripMenuItem.Click += new System.EventHandler(this.showSessionsToolStripMenuItem_Click);
             // 
             // складToolStripMenuItem

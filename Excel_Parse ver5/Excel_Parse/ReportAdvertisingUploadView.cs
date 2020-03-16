@@ -286,7 +286,7 @@ namespace Excel_Parse
                         advProductsListOfErrors.Clear();
 
                         OpenNewFileForSponsoredProducts(_fileName);
-
+                        
                         if (advProductsList.Count > 0)
                         {
                             SetCampaignAndMarketplaceToAllRows_AP(_fileName);
@@ -297,19 +297,26 @@ namespace Excel_Parse
                                 {
                                     errors += "Date: " + UpdateDate.ToString() + " Campaign: " + t.CampaignName + "; AdGroup: " + t.AdGroupName + "; Targeting: " + t.Targeting + "; Marketplace: " + GetMarketPlaceNameById(t.MarketPlaceId) + "\n\n";
                                 }
-                                richTextBox2.Text += errors;
                             }
-                            else
+                            if (errors.Length == 0 || errors.Contains("Competitors"))
                             {
                                 MakeSummaryAdvProductListbyTargetingInAdGroups();
 
-                                //advertController.InsertAdvertising_Product_Report(advProductsList, lb_Progress);
+                                lb_Progress.Text = "Обновление данных...";
+                                lb_Progress.Refresh();
 
-                                //if (advProductsListForUpdate.Count > 0)
-                                //advertController.UpdateAdvertising_Product_Report(advProductsListForUpdate, lb_Progress);
+                                advertController.InsertAdvertising_Product_Report(advProductsList, lb_Progress);
+
+                                if (advProductsListForUpdate.Count > 0)
+                                    advertController.UpdateAdvertising_Product_Report(advProductsListForUpdate, lb_Progress);
 
                                 richTextBox2.Text += _fileName + "\n" + "Загружено: " + insertedCount + "\nОбновлено: " + updatedCount + "\nВсего: " + (insertedCount + updatedCount).ToString() + " из " + advProductsList.Count + "\n\n";
+
+                                LoggerNotification log = new LoggerNotification(_fileName);
+                                log.Show();
                             }
+                            else
+                                richTextBox2.Text += errors;
                         }
                         else
                             richTextBox2.Text += "Пустой файл: " + _fileName + "\n";

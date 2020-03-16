@@ -43,7 +43,8 @@ namespace Excel_Parse
 
         private AdvertisingController advertController;
 
-        List<string> checkedMarkeplaces, checkedProducts;
+        List<string> checkedMarkeplaces;
+        List<ProductsModel> checkedProducts, searchresultsCheckedProducts;
 
         private List<DateTime> dtStartList;
         private List<DateTime> dtEndList;
@@ -65,13 +66,13 @@ namespace Excel_Parse
             InitializeComponent();
             mf = _mf;
 
-            dailyMode = false;
+            dailyMode = true;
             weeklyMode = false;
             monthlyMode = false;
-            customMode = true;
+            //customMode = true;
 
             StartDate = DateTime.Today;
-            EndDate = DateTime.Today.AddHours(23).AddMinutes(59);
+            EndDate = DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59);
 
             dtStartList = new List<DateTime> { StartDate };
             dtEndList = new List<DateTime> { EndDate };
@@ -96,7 +97,8 @@ namespace Excel_Parse
             advertController = new AdvertisingController(this);
 
             checkedMarkeplaces = new List<string> { };
-            checkedProducts = new List<string> { };
+            checkedProducts = new List<ProductsModel> { };
+            searchresultsCheckedProducts = new List<ProductsModel> { };
 
             if (mpController.GetMarketplaces() == 1)
                 Fill_CLB_Marketplace();
@@ -122,10 +124,20 @@ namespace Excel_Parse
             MakeSummaryBusinessReportList();
         }
 
+        private bool CheckEntry(List<ReportBusinessModel> usedASINS, ReportBusinessModel objectToCheck)
+        {
+            for (int i = 0; i < usedASINS.Count; i++)
+            {
+                if (usedASINS[i].MarketPlaceId == objectToCheck.MarketPlaceId && GetProductASINBySkuAndMarketplaceId(usedASINS[i].SKU, usedASINS[i].MarketPlaceId).Equals(GetProductASINBySkuAndMarketplaceId(objectToCheck.SKU, objectToCheck.MarketPlaceId)) && usedASINS[i].UpdateDate == objectToCheck.UpdateDate)
+                    return true;
+            }
+            return false;
+        }
+
         /* Удаляем все повторы с businessList, при этом создавая новый список с суммарными значениями */
         private void MakeSummaryBusinessReportList()
         {
-            List<int> alreadyUsed = new List<int> { };
+            List<ReportBusinessModel> usedASINS = new List<ReportBusinessModel> { };
 
             int Sessions = 0;
             double SessionPercentage = 0;
@@ -140,53 +152,22 @@ namespace Excel_Parse
             int TotalOrderItems = 0;
             int TotalOrderItemsB2B = 0;
 
-
-            for (int i = 0; i < businessList.Count; i++)
+            if (businessList.Count > 0)
             {
-                if (!alreadyUsed.Contains(i))
+                Sessions = businessList[0].Sessions;
+                PageViews = businessList[0].PageViews;
+                UnitsOrdered = businessList[0].UnitsOrdered;
+                UnitsOrderedB2B = businessList[0].UnitsOrderedB2B;
+                OrderedProductSales = businessList[0].OrderedProductSales;
+                OrderedProductSalesB2B = businessList[0].OrderedProductSalesB2B;
+                TotalOrderItems = businessList[0].TotalOrderItems;
+                TotalOrderItemsB2B = businessList[0].TotalOrderItemsB2B;
+
+                usedASINS.Add(businessList[0]);
+
+                for (int i = 1; i < businessList.Count; i++)
                 {
-                    if (!customMode || businessList.Count > 1)
-                    {
-                        Sessions = businessList[i].Sessions;
-                        PageViews = businessList[i].PageViews;
-                        UnitsOrdered = businessList[i].UnitsOrdered;
-                        UnitsOrderedB2B = businessList[i].UnitsOrderedB2B;
-                        OrderedProductSales = businessList[i].OrderedProductSales;
-                        OrderedProductSalesB2B = businessList[i].OrderedProductSalesB2B;
-                        TotalOrderItems = businessList[i].TotalOrderItems;
-                        TotalOrderItemsB2B = businessList[i].TotalOrderItemsB2B;
-                    }
-                    if (i < (businessList.Count - 1))
-                    {
-                        for (int j = i + 1; j < businessList.Count; j++)
-                        {
-                            if (businessList[i].MarketPlaceId == businessList[j].MarketPlaceId && businessList[i].SKU.Equals(businessList[j].SKU) && businessList[i].ProductId == businessList[j].ProductId)
-                            {
-                                Sessions += businessList[j].Sessions;
-                                PageViews += businessList[j].PageViews;
-                                UnitsOrdered += businessList[j].UnitsOrdered;
-                                UnitsOrderedB2B += businessList[j].UnitsOrderedB2B;
-                                OrderedProductSales += businessList[j].OrderedProductSales;
-                                OrderedProductSalesB2B += businessList[j].OrderedProductSalesB2B;
-                                TotalOrderItems += businessList[j].TotalOrderItems;
-                                TotalOrderItemsB2B += businessList[j].TotalOrderItemsB2B;
-                                alreadyUsed.Add(j);
-                            }
-                            else if ((currentProductIds.Contains(businessList[i].ProductId) || currentProductIds.Contains(businessList[j].ProductId)) && customMode)
-                            {
-                                Sessions += businessList[j].Sessions;
-                                PageViews += businessList[j].PageViews;
-                                UnitsOrdered += businessList[j].UnitsOrdered;
-                                UnitsOrderedB2B += businessList[j].UnitsOrderedB2B;
-                                OrderedProductSales += businessList[j].OrderedProductSales;
-                                OrderedProductSalesB2B += businessList[j].OrderedProductSalesB2B;
-                                TotalOrderItems += businessList[j].TotalOrderItems;
-                                TotalOrderItemsB2B += businessList[j].TotalOrderItemsB2B;
-                                alreadyUsed.Add(j);
-                            }
-                        }
-                    }
-                    else
+                    if (!CheckEntry(usedASINS, businessList[i]))
                     {
                         Sessions += businessList[i].Sessions;
                         PageViews += businessList[i].PageViews;
@@ -196,58 +177,199 @@ namespace Excel_Parse
                         OrderedProductSalesB2B += businessList[i].OrderedProductSalesB2B;
                         TotalOrderItems += businessList[i].TotalOrderItems;
                         TotalOrderItemsB2B += businessList[i].TotalOrderItemsB2B;
-                        alreadyUsed.Add(i);
+
+                        usedASINS.Add(businessList[i]);
                     }
-                    //summaryAdvProductsList.Add(ТО, ШО ПОЛУЧИЛОСЬ ОТ СУММИРОВАНИЯ + ДОПОЛНИТЕЛЬНО СЧИТАЕМ ТО, ЧТО НАДО ПОСЧИТАТЬ);
-
-                    if (Sessions != 0)
-                        businessList[i].SessionPercentage = Math.Round((double)businessList[i].Sessions / Sessions * 100, 2);
                     else
-                        businessList[i].SessionPercentage = 0;
+                    {
+                        PageViews += businessList[i].PageViews;
+                        UnitsOrdered += businessList[i].UnitsOrdered;
+                        UnitsOrderedB2B += businessList[i].UnitsOrderedB2B;
+                        OrderedProductSales += businessList[i].OrderedProductSales;
+                        OrderedProductSalesB2B += businessList[i].OrderedProductSalesB2B;
+                        TotalOrderItems += businessList[i].TotalOrderItems;
+                        TotalOrderItemsB2B += businessList[i].TotalOrderItemsB2B;
+                    }
 
-                    if (PageViews != 0)
-                        businessList[i].PageViewsPercentage = Math.Round((double)businessList[i].PageViews / PageViews * 100, 2);
-                    else
-                        businessList[i].PageViewsPercentage = 0;
+                }
 
-                    if (businessList[i].Sessions != 0)
-                        businessList[i].UnitSessionPercentage = Math.Round((double)businessList[i].UnitsOrdered / businessList[i].Sessions * 100, 2);
-                    else
-                        businessList[i].UnitSessionPercentage = 0;
+                
+                if (Sessions != 0)
+                    SessionPercentage = Math.Round((double)Sessions / Sessions * 100, 2);
+                else
+                    SessionPercentage = 0;
 
-                    if (businessList[i].Sessions != 0)
-                        businessList[i].UnitSessionPercentageB2B = Math.Round((double)businessList[i].UnitsOrderedB2B / businessList[i].Sessions * 100, 2);
-                    else
-                        businessList[i].UnitSessionPercentageB2B = 0;
+                if (PageViews != 0)
+                    PageViewPercentage = Math.Round((double)PageViews / PageViews * 100, 2);
+                else
+                    PageViewPercentage = 0;
+
+                if (Sessions != 0)
+                    UnitSessionPercentage = Math.Round((double)UnitsOrdered / Sessions * 100, 2);
+                else
+                    UnitSessionPercentage = 0;
+
+                if (Sessions != 0)
+                    UnitSessionPercentageB2B = Math.Round((double)UnitsOrderedB2B / Sessions * 100, 2);
+                else
+                    UnitSessionPercentageB2B = 0;
 
 
-                    summaryBusinessList.Add(new ReportBusinessModel());
+                summaryBusinessList.Add(new ReportBusinessModel());
+                
+                summaryBusinessList[summaryBusinessList.Count - 1].Sessions = Sessions;
+                summaryBusinessList[summaryBusinessList.Count - 1].UnitSessionPercentage = SessionPercentage;
+                summaryBusinessList[summaryBusinessList.Count - 1].PageViews = PageViews;
+                summaryBusinessList[summaryBusinessList.Count - 1].PageViewsPercentage = PageViewPercentage;
+                summaryBusinessList[summaryBusinessList.Count - 1].UnitsOrdered = UnitsOrdered;
+                summaryBusinessList[summaryBusinessList.Count - 1].UnitsOrderedB2B = UnitsOrderedB2B;
+                summaryBusinessList[summaryBusinessList.Count - 1].UnitSessionPercentage = UnitSessionPercentage;
+                summaryBusinessList[summaryBusinessList.Count - 1].UnitSessionPercentageB2B = UnitSessionPercentageB2B;
+                summaryBusinessList[summaryBusinessList.Count - 1].OrderedProductSales = OrderedProductSales;
+                summaryBusinessList[summaryBusinessList.Count - 1].OrderedProductSalesB2B = OrderedProductSalesB2B;
+                summaryBusinessList[summaryBusinessList.Count - 1].TotalOrderItems = TotalOrderItems;
+                summaryBusinessList[summaryBusinessList.Count - 1].TotalOrderItemsB2B = TotalOrderItemsB2B;
 
-                    summaryBusinessList[summaryBusinessList.Count - 1].UpdateDate = businessList[i].UpdateDate;
-                    summaryBusinessList[summaryBusinessList.Count - 1].MarketPlaceId = businessList[i].MarketPlaceId;
-                    summaryBusinessList[summaryBusinessList.Count - 1].SKU = businessList[i].SKU;
-                    summaryBusinessList[summaryBusinessList.Count - 1].Sessions = Sessions;
-                    summaryBusinessList[summaryBusinessList.Count - 1].UnitSessionPercentage = SessionPercentage;
-                    summaryBusinessList[summaryBusinessList.Count - 1].PageViews = PageViews;
-                    summaryBusinessList[summaryBusinessList.Count - 1].PageViewsPercentage = PageViewPercentage;
-                    summaryBusinessList[summaryBusinessList.Count - 1].UnitsOrdered = UnitsOrdered;
-                    summaryBusinessList[summaryBusinessList.Count - 1].UnitsOrderedB2B = UnitsOrderedB2B;
-                    summaryBusinessList[summaryBusinessList.Count - 1].UnitSessionPercentage = UnitSessionPercentage;
-                    summaryBusinessList[summaryBusinessList.Count - 1].UnitSessionPercentageB2B = UnitSessionPercentageB2B;
-                    summaryBusinessList[summaryBusinessList.Count - 1].OrderedProductSales = OrderedProductSales;
-                    summaryBusinessList[summaryBusinessList.Count - 1].OrderedProductSalesB2B = OrderedProductSalesB2B;
-                    summaryBusinessList[summaryBusinessList.Count - 1].TotalOrderItems = TotalOrderItems;
-                    summaryBusinessList[summaryBusinessList.Count - 1].TotalOrderItemsB2B = TotalOrderItemsB2B;
-                    summaryBusinessList[summaryBusinessList.Count - 1].ProductId = businessList[i].ProductId;
+
+                businessList.Clear();
+                foreach (var t in summaryBusinessList)
+                {
+                    businessList.Add(t);
                 }
             }
-            businessList.Clear();
-            foreach (var t in summaryBusinessList)
-            {
-                businessList.Add(t);
-            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //List<int> alreadyUsed = new List<int> { };
+            
+            //for (int i = 0; i < businessList.Count; i++)
+            //{
+            //    if (!alreadyUsed.Contains(i))
+            //    {
+            //        if (!customMode || businessList.Count > 1)
+            //        {
+            //            Sessions = businessList[i].Sessions;
+            //            PageViews = businessList[i].PageViews;
+            //            UnitsOrdered = businessList[i].UnitsOrdered;
+            //            UnitsOrderedB2B = businessList[i].UnitsOrderedB2B;
+            //            OrderedProductSales = businessList[i].OrderedProductSales;
+            //            OrderedProductSalesB2B = businessList[i].OrderedProductSalesB2B;
+            //            TotalOrderItems = businessList[i].TotalOrderItems;
+            //            TotalOrderItemsB2B = businessList[i].TotalOrderItemsB2B;
+            //        }
+            //        if (i < (businessList.Count - 1))
+            //        {
+            //            for (int j = i + 1; j < businessList.Count; j++)
+            //            {
+            //                if (businessList[i].MarketPlaceId == businessList[j].MarketPlaceId && businessList[i].SKU.Equals(businessList[j].SKU) && businessList[i].ProductId == businessList[j].ProductId)
+            //                {
+            //                    Sessions += businessList[j].Sessions;
+            //                    PageViews += businessList[j].PageViews;
+            //                    UnitsOrdered += businessList[j].UnitsOrdered;
+            //                    UnitsOrderedB2B += businessList[j].UnitsOrderedB2B;
+            //                    OrderedProductSales += businessList[j].OrderedProductSales;
+            //                    OrderedProductSalesB2B += businessList[j].OrderedProductSalesB2B;
+            //                    TotalOrderItems += businessList[j].TotalOrderItems;
+            //                    TotalOrderItemsB2B += businessList[j].TotalOrderItemsB2B;
+            //                    alreadyUsed.Add(j);
+            //                }
+            //                else if ((currentProductIds.Contains(businessList[i].ProductId) || currentProductIds.Contains(businessList[j].ProductId)) && customMode)
+            //                {
+            //                    Sessions += businessList[j].Sessions;
+            //                    PageViews += businessList[j].PageViews;
+            //                    UnitsOrdered += businessList[j].UnitsOrdered;
+            //                    UnitsOrderedB2B += businessList[j].UnitsOrderedB2B;
+            //                    OrderedProductSales += businessList[j].OrderedProductSales;
+            //                    OrderedProductSalesB2B += businessList[j].OrderedProductSalesB2B;
+            //                    TotalOrderItems += businessList[j].TotalOrderItems;
+            //                    TotalOrderItemsB2B += businessList[j].TotalOrderItemsB2B;
+            //                    alreadyUsed.Add(j);
+            //                }
+            //            }
+            //        }
+            //        else
+            //        {
+            //            Sessions += businessList[i].Sessions;
+            //            PageViews += businessList[i].PageViews;
+            //            UnitsOrdered += businessList[i].UnitsOrdered;
+            //            UnitsOrderedB2B += businessList[i].UnitsOrderedB2B;
+            //            OrderedProductSales += businessList[i].OrderedProductSales;
+            //            OrderedProductSalesB2B += businessList[i].OrderedProductSalesB2B;
+            //            TotalOrderItems += businessList[i].TotalOrderItems;
+            //            TotalOrderItemsB2B += businessList[i].TotalOrderItemsB2B;
+            //            alreadyUsed.Add(i);
+            //        }
+            //        //summaryAdvProductsList.Add(ТО, ШО ПОЛУЧИЛОСЬ ОТ СУММИРОВАНИЯ + ДОПОЛНИТЕЛЬНО СЧИТАЕМ ТО, ЧТО НАДО ПОСЧИТАТЬ);
+
+            //        if (Sessions != 0)
+            //            businessList[i].SessionPercentage = Math.Round((double)businessList[i].Sessions / Sessions * 100, 2);
+            //        else
+            //            businessList[i].SessionPercentage = 0;
+
+            //        if (PageViews != 0)
+            //            businessList[i].PageViewsPercentage = Math.Round((double)businessList[i].PageViews / PageViews * 100, 2);
+            //        else
+            //            businessList[i].PageViewsPercentage = 0;
+
+            //        if (businessList[i].Sessions != 0)
+            //            businessList[i].UnitSessionPercentage = Math.Round((double)businessList[i].UnitsOrdered / businessList[i].Sessions * 100, 2);
+            //        else
+            //            businessList[i].UnitSessionPercentage = 0;
+
+            //        if (businessList[i].Sessions != 0)
+            //            businessList[i].UnitSessionPercentageB2B = Math.Round((double)businessList[i].UnitsOrderedB2B / businessList[i].Sessions * 100, 2);
+            //        else
+            //            businessList[i].UnitSessionPercentageB2B = 0;
+
+
+            //        summaryBusinessList.Add(new ReportBusinessModel());
+
+            //        summaryBusinessList[summaryBusinessList.Count - 1].UpdateDate = businessList[i].UpdateDate;
+            //        summaryBusinessList[summaryBusinessList.Count - 1].MarketPlaceId = businessList[i].MarketPlaceId;
+            //        summaryBusinessList[summaryBusinessList.Count - 1].SKU = businessList[i].SKU;
+            //        summaryBusinessList[summaryBusinessList.Count - 1].Sessions = Sessions;
+            //        summaryBusinessList[summaryBusinessList.Count - 1].UnitSessionPercentage = SessionPercentage;
+            //        summaryBusinessList[summaryBusinessList.Count - 1].PageViews = PageViews;
+            //        summaryBusinessList[summaryBusinessList.Count - 1].PageViewsPercentage = PageViewPercentage;
+            //        summaryBusinessList[summaryBusinessList.Count - 1].UnitsOrdered = UnitsOrdered;
+            //        summaryBusinessList[summaryBusinessList.Count - 1].UnitsOrderedB2B = UnitsOrderedB2B;
+            //        summaryBusinessList[summaryBusinessList.Count - 1].UnitSessionPercentage = UnitSessionPercentage;
+            //        summaryBusinessList[summaryBusinessList.Count - 1].UnitSessionPercentageB2B = UnitSessionPercentageB2B;
+            //        summaryBusinessList[summaryBusinessList.Count - 1].OrderedProductSales = OrderedProductSales;
+            //        summaryBusinessList[summaryBusinessList.Count - 1].OrderedProductSalesB2B = OrderedProductSalesB2B;
+            //        summaryBusinessList[summaryBusinessList.Count - 1].TotalOrderItems = TotalOrderItems;
+            //        summaryBusinessList[summaryBusinessList.Count - 1].TotalOrderItemsB2B = TotalOrderItemsB2B;
+            //        summaryBusinessList[summaryBusinessList.Count - 1].ProductId = businessList[i].ProductId;
+            //    }
+            //}
+            //businessList.Clear();
+            //foreach (var t in summaryBusinessList)
+            //{
+            //    businessList.Add(t);
+            //}
         }
 
+        private string GetProductASINBySkuAndMarketplaceId(string _sku, int _marketplaceid)
+        {
+            for (int i = 0; i < pList.Count; i++)
+            {
+                if (pList[i].SKU.Equals(_sku) && pList[i].MarketPlaceId == _marketplaceid)
+                    return pList[i].ASIN;
+            }
+            return "NOT_FOUND";
+        }
 
         /* Получаем из контроллера Marketplaces, полученные с БД */
         public void GetMarketPlacesFromDB(object _mpList)
@@ -287,16 +409,7 @@ namespace Excel_Parse
             summaryAdvProductsList.Clear();
             MakeSummaryAdvProductList();
         }
-
-        /* Получаем из контроллера Advertising Brands, полученные с БД */
-        public void GetAdvertisingBrandsFromDB(object _advBrandList)
-        {
-            advBrandsList = (List<AdvertisingBrandsModel>)_advBrandList;
-
-            summaryAdvBrandsList.Clear();
-            MakeSummaryAdvBrandList();
-        }
-
+        
         /* Удаляем все повторы с advProductsList, при этом создавая новый список с суммарными значениями */
         private void MakeSummaryAdvProductList()
         {
@@ -560,10 +673,7 @@ namespace Excel_Parse
         private void mc_StartDate_DateChanged(object sender, DateRangeEventArgs e)
         {
             StartDate = mc_StartDate.SelectionStart;
-
-            //dtStartList.Clear();
-            //dtStartList.Add(StartDate);
-
+            
             lb_StartDate.Text = mc_StartDate.SelectionStart.ToShortDateString();
         }
 
@@ -571,10 +681,7 @@ namespace Excel_Parse
         private void mc_EndDate_DateChanged(object sender, DateRangeEventArgs e)
         {
             EndDate = mc_EndDate.SelectionEnd;
-
-            //dtEndList.Clear();
-            //dtEndList.Add(EndDate);
-
+            
             lb_EndDate.Text = mc_EndDate.SelectionStart.ToShortDateString();
         }
 
@@ -586,22 +693,21 @@ namespace Excel_Parse
             monthlyMode = false;
             customMode = false;
 
-            mc_StartDate.Enabled = false;
-            mc_EndDate.Enabled = false;
+            //mc_StartDate.Enabled = false;
+            //mc_EndDate.Enabled = false;
 
-            dtStartList.Clear();
-            dtEndList.Clear();
+            //dtStartList.Clear();
+            //dtEndList.Clear();
 
             btn_Daily.BackColor = Color.FromKnownColor(KnownColor.LightSeaGreen);
             btn_Weekly.BackColor = Color.FromKnownColor(KnownColor.ControlLight);
             btn_Monthly.BackColor = Color.FromKnownColor(KnownColor.ControlLight);
-            btn_Customly.BackColor = Color.FromKnownColor(KnownColor.ControlLight);
 
-            DateTime dd = DateTime.Today;
-            dd = dd.Subtract(new TimeSpan(30, 0, 0, 0, 0));
+            //DateTime dd = DateTime.Today;
+            //dd = dd.Subtract(new TimeSpan(30, 0, 0, 0, 0));
 
-            StartDate = dd;
-            EndDate = dd.AddHours(23).AddMinutes(59);
+            //StartDate = dd;
+            //EndDate = dd.AddHours(23).AddMinutes(59);
         }
 
         /* Отобразить данные по неделям за год */
@@ -612,23 +718,22 @@ namespace Excel_Parse
             monthlyMode = false;
             customMode = false;
 
-            mc_StartDate.Enabled = false;
-            mc_EndDate.Enabled = false;
+            //mc_StartDate.Enabled = false;
+            //mc_EndDate.Enabled = false;
 
-            dtStartList.Clear();
-            dtEndList.Clear();
+            //dtStartList.Clear();
+            //dtEndList.Clear();
 
             btn_Daily.BackColor = Color.FromKnownColor(KnownColor.ControlLight);
             btn_Weekly.BackColor = Color.FromKnownColor(KnownColor.LightSeaGreen);
             btn_Monthly.BackColor = Color.FromKnownColor(KnownColor.ControlLight);
-            btn_Customly.BackColor = Color.FromKnownColor(KnownColor.ControlLight);
 
 
-            DateTime dd = DateTime.Today;
-            dd = dd.Subtract(new TimeSpan(365, 0, 0, 0, 0));
+            //DateTime dd = DateTime.Today;
+            //dd = dd.Subtract(new TimeSpan(365, 0, 0, 0, 0));
 
-            StartDate = dd;
-            EndDate = dd.AddHours(23).AddMinutes(59);
+            //StartDate = dd;
+            //EndDate = dd.AddHours(23).AddMinutes(59);
         }
 
         /* Отобразить данные по месяцам за год */
@@ -639,110 +744,174 @@ namespace Excel_Parse
             monthlyMode = true;
             customMode = false;
 
-            mc_StartDate.Enabled = false;
-            mc_EndDate.Enabled = false;
+            //mc_StartDate.Enabled = false;
+            //mc_EndDate.Enabled = false;
 
-            dtStartList.Clear();
-            dtEndList.Clear();
+            //dtStartList.Clear();
+            //dtEndList.Clear();
 
             btn_Daily.BackColor = Color.FromKnownColor(KnownColor.ControlLight);
             btn_Weekly.BackColor = Color.FromKnownColor(KnownColor.ControlLight);
             btn_Monthly.BackColor = Color.FromKnownColor(KnownColor.LightSeaGreen);
-            btn_Customly.BackColor = Color.FromKnownColor(KnownColor.ControlLight);
 
+            //DateTime dd = DateTime.Today;
+            //dd = dd.Subtract(new TimeSpan(365, 0, 0, 0, 0));
 
-            DateTime dd = DateTime.Today;
-            dd = dd.Subtract(new TimeSpan(365, 0, 0, 0, 0));
-
-            StartDate = dd;
-            EndDate = dd.AddHours(23).AddMinutes(59);
+            //StartDate = dd;
+            //EndDate = dd.AddHours(23).AddMinutes(59);
         }
 
         private void btn_Customly_Click(object sender, EventArgs e)
         {
-            dailyMode = false;
-            weeklyMode = false;
-            monthlyMode = false;
-            customMode = true;
+            //dailyMode = false;
+            //weeklyMode = false;
+            //monthlyMode = false;
+            //customMode = true;
 
-            btn_Daily.BackColor = Color.FromKnownColor(KnownColor.ControlLight);
-            btn_Weekly.BackColor = Color.FromKnownColor(KnownColor.ControlLight);
-            btn_Monthly.BackColor = Color.FromKnownColor(KnownColor.ControlLight);
-            btn_Customly.BackColor = Color.FromKnownColor(KnownColor.LightSeaGreen);
+            //btn_Daily.BackColor = Color.FromKnownColor(KnownColor.ControlLight);
+            //btn_Weekly.BackColor = Color.FromKnownColor(KnownColor.ControlLight);
+            //btn_Monthly.BackColor = Color.FromKnownColor(KnownColor.ControlLight);
+            //btn_Customly.BackColor = Color.FromKnownColor(KnownColor.LightSeaGreen);
 
-            mc_StartDate.Enabled = true;
-            mc_EndDate.Enabled = true;
+            //mc_StartDate.Enabled = true;
+            //mc_EndDate.Enabled = true;
 
-            StartDate = mc_StartDate.SelectionStart;
-            EndDate = mc_EndDate.SelectionEnd;
+            //StartDate = mc_StartDate.SelectionStart;
+            //EndDate = mc_EndDate.SelectionEnd;
 
-            lb_StartDate.Text = StartDate.ToString().Substring(0, 10);
-            lb_EndDate.Text = EndDate.ToString().Substring(0, 10);
+            //lb_StartDate.Text = StartDate.ToString().Substring(0, 10);
+            //lb_EndDate.Text = EndDate.ToString().Substring(0, 10);
         }
 
         /* Выделяем/снимаем выделение маркетплейса в clb_Marketplace */
         private void clb_Marketplace_SelectedIndexChanged(object sender, EventArgs e)
         {
             checkedMarkeplaces.Clear();
-            cb_ProductNames.Items.Clear();
 
             for (int i = 0; i < clb_Marketplace.CheckedItems.Count; i++)
             {
                 checkedMarkeplaces.Add(clb_Marketplace.CheckedItems[i].ToString());
             }
 
-            int res = 0;
-            res = prodController.GetProductsByFewMarketplaceIdInactive(GetMPIdsByNames(checkedMarkeplaces));
-
-            if (res == 1 && checkedMarkeplaces.Count > 0)
+            if (checkedMarkeplaces.Count > 0)
             {
-                Fill_CB_ProductNames();
-                Fill_CB_ProductASINs();
-                panel1.Enabled = true;
+                int res = 0;
+                res = prodController.GetProductsByFewMarketplaceIdInactive(GetMPIdsByNames(checkedMarkeplaces));
+
+                if (res == 1 && checkedMarkeplaces.Count > 0)
+                {
+                    if (checkedMarkeplaces.Count > 1)
+                        Fill_clb_Products("few marketplaces");
+                    else 
+                        Fill_clb_Products();
+                }
             }
             else
-                panel1.Enabled = false;
+            {
+                clb_Products.Items.Clear();
+                checkedProducts.Clear();
+            }
         }
 
-        private void Fill_CB_ProductNames()
+        /* Заполняем clb_Products данными */
+        private void Fill_clb_Products()
         {
+            ProductsModel tmpObject = new ProductsModel { };
+            List<string> tmpProductList = new List<string> { };
+            clb_Products.Items.Clear();
+
             for (int i = 0; i < pList.Count; i++)
             {
-                cb_ProductNames.Items.Add(pList[i].Name);
+                if (!tmpProductList.Contains(pList[i].Name + " [" + pList[i].ASIN + "]"))
+                    tmpProductList.Add(pList[i].Name + " [" + pList[i].ASIN + "]");
             }
-            if (cb_ProductNames.Items.Count > 0)
-                cb_ProductNames.SelectedIndex = 0;
+
+            for (int i = 0; i < tmpProductList.Count; i++)
+            {
+                clb_Products.Items.Add(tmpProductList[i]);
+            }
+
+            for (int i = 0; i < clb_Products.Items.Count; i++)
+            {
+                tmpObject = GetProduct(clb_Products.Items[i].ToString(), "just object");
+                foreach (var checkedproduct in checkedProducts)
+                {
+                    if (checkedproduct.ASIN.Equals(tmpObject.ASIN) && checkedproduct.MarketPlaceId == tmpObject.MarketPlaceId)
+                    {
+                        clb_Products.SetItemChecked(i, true);
+                    }
+                }
+            }
         }
 
-        private void Fill_CB_ProductASINs()
+        /* Заполняем clb_Products данными */
+        private void Fill_clb_Products(string _fewMarketplaces)
         {
+            ProductsModel tmpObject = new ProductsModel { };
+            List<string> tmpProductList = new List<string> { };
+            clb_Products.Items.Clear();
+            
             for (int i = 0; i < pList.Count; i++)
             {
-                cb_ProductASINs.Items.Add(pList[i].ASIN);
+                if (!tmpProductList.Contains(pList[i].Name + " [" + pList[i].ASIN + " - " + GetMarketPlaceNameById(pList[i].MarketPlaceId) + "]"))
+                    tmpProductList.Add(pList[i].Name + " [" + pList[i].ASIN + " - " + GetMarketPlaceNameById(pList[i].MarketPlaceId) + "]");
             }
-            if (cb_ProductASINs.Items.Count > 0)
-                cb_ProductASINs.SelectedIndex = 0;
+
+            for (int i = 0; i < tmpProductList.Count; i++)
+            {
+                clb_Products.Items.Add(tmpProductList[i]);
+            }
+
+            for (int i = 0; i < clb_Products.Items.Count; i++)
+            {
+                tmpObject = GetProduct(clb_Products.Items[i].ToString(), "just object");
+                foreach (var checkedproduct in checkedProducts)
+                {
+                    if (checkedproduct.ASIN.Equals(tmpObject.ASIN) && checkedproduct.MarketPlaceId == tmpObject.MarketPlaceId)
+                    {
+                        clb_Products.SetItemChecked(i, true);
+                    }
+                }
+            }
         }
 
-        private void cb_Products_SelectedIndexChanged(object sender, EventArgs e)
+        /* Заполняем clb_Products данными */
+        private void Fill_clb_Products(List<ProductsModel> _list)
         {
-            //currentProductId
-            //for (int i = 0; i < pList.Count; i++)
-            //{
-            //if (pList[i].Name.Equals(cb_Products.SelectedItem.ToString()))
-            //{
-            int i = cb_ProductNames.SelectedIndex;
-            currentProductId = pList[i].ProductId;
-            lb_SKUText.Text = "SKU: " + pList[i].SKU;
-            return;
-            //}
-            //}
+            ProductsModel tmpObject = new ProductsModel { };
+            List<string> tmpProductList = new List<string> { };
+            clb_Products.Items.Clear();
+
+            for (int i = 0; i < _list.Count; i++)
+            {
+                if (!tmpProductList.Contains(_list[i].Name + " [" + _list[i].ASIN + " - " + GetMarketPlaceNameById(_list[i].MarketPlaceId) + "]"))
+                    tmpProductList.Add(_list[i].Name + " [" + _list[i].ASIN + " - " + GetMarketPlaceNameById(_list[i].MarketPlaceId) + "]");
+            }
+
+            for (int i = 0; i < tmpProductList.Count; i++)
+            {
+                clb_Products.Items.Add(tmpProductList[i]);
+            }
+
+            for (int i = 0; i < clb_Products.Items.Count; i++)
+            {
+                tmpObject = GetProduct(clb_Products.Items[i].ToString(), "just object");
+                foreach (var checkedproduct in checkedProducts)
+                {
+                    if (checkedproduct.ASIN.Equals(tmpObject.ASIN) && checkedproduct.MarketPlaceId == tmpObject.MarketPlaceId)
+                    {
+                        clb_Products.SetItemChecked(i, true);
+                    }
+                }
+            }
         }
 
+        /* Снимаем выделение в clb_Marketplace */
         private void btn_Clear_clb_Marketplace_Click(object sender, EventArgs e)
         {
             checkedMarkeplaces.Clear();
             clb_Marketplace.ClearSelected();
+            checkedProducts.Clear();
 
             for (int i = 0; i < clb_Marketplace.Items.Count; i++)
             {
@@ -750,8 +919,191 @@ namespace Excel_Parse
             }
 
             pList.Clear();
-            cb_ProductNames.Items.Clear();
-            lb_SKUText.Text = "";
+            clb_Products.Items.Clear();
+        }
+        
+        /* Изменяем выбор товара в clb_Products */
+        private void clb_Products_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ProductsModel tmpObject = new ProductsModel { };
+            string val = "";
+
+            if (clb_Products.CheckedItems.Count == 0)
+                checkedProducts.Clear();
+            else
+            {
+                for (int i = 0; i < clb_Products.CheckedItems.Count; i++)
+                {
+                    val = clb_Products.CheckedItems[i].ToString();
+                    tmpObject = GetProduct(val, "just object");
+                    if (!checkedProducts.Contains(tmpObject))
+                        checkedProducts.Add(tmpObject);
+                }
+            }
+        }
+
+        /* Получаем список выбранных товаров в clb_Products */
+        private void GetProduct(string _name)
+        {
+            string name = "", asin = "", marketplace = "";
+            int marketplaceId;
+            bool nameFound = false;
+            bool asinFound = false;
+
+            for (int i = 0; i < _name.Length; i++)
+            {
+                if (!nameFound && _name[i].Equals('['))
+                {
+                    name = _name.Substring(0, i - 1);
+                    nameFound = true;
+                }
+                if (nameFound && !asinFound)
+                {
+                    i++;
+                    asin = _name.Substring(i, 10);
+                    asinFound = true;
+                    i += 10;
+                }
+                if (nameFound && asinFound && !_name[i].Equals(']'))
+                {
+                    i += 3;
+                    marketplace = _name.Substring(i, _name.Length - i - 1);
+                    i = _name.Length;
+                }
+                else if (nameFound && asinFound && _name[i].Equals(']'))
+                {
+                    marketplace = clb_Marketplace.CheckedItems[0].ToString();
+                }
+            }
+            marketplaceId = GetMarketplaceIdByName(marketplace);
+
+            if (marketplaceId != -1)
+            {
+                for (int i = 0; i < pList.Count; i++)
+                {
+                    if (pList[i].Name.Equals(name) && pList[i].ASIN.Equals(asin) && pList[i].MarketPlaceId == marketplaceId)
+                        checkedProducts.Add(pList[i]);
+                }
+            }
+        }
+
+        /* Получаем список выбранных товаров в clb_Products */
+        private ProductsModel GetProduct(string _name, string _getJustName)
+        {
+            string name = "", asin = "", marketplace = "";
+            int marketplaceId;
+            bool nameFound = false;
+            bool asinFound = false;
+
+            for (int i = 0; i < _name.Length; i++)
+            {
+                if (!nameFound && _name[i].Equals('['))
+                {
+                    name = _name.Substring(0, i - 1);
+                    nameFound = true;
+                }
+                if (nameFound && !asinFound)
+                {
+                    i++;
+                    asin = _name.Substring(i, 10);
+                    asinFound = true;
+                    i += 10;
+                }
+                if (nameFound && asinFound && !_name[i].Equals(']'))
+                {
+                    i += 3;
+                    marketplace = _name.Substring(i, _name.Length - i - 1);
+                    i = _name.Length;
+                }
+                else if (nameFound && asinFound && _name[i].Equals(']'))
+                {
+                    marketplace = clb_Marketplace.CheckedItems[0].ToString();
+                }
+            }
+            marketplaceId = GetMarketplaceIdByName(marketplace);
+
+            if (marketplaceId != -1)
+            {
+                for (int i = 0; i < pList.Count; i++)
+                {
+                    if (pList[i].Name.Equals(name) && pList[i].ASIN.Equals(asin) && pList[i].MarketPlaceId == marketplaceId)
+                        return pList[i];
+                }
+            }
+
+            return new ProductsModel();
+        }
+
+        /* Получить MarketplaceId по названию */
+        private int GetMarketplaceIdByName(string _name)
+        {
+            for (int i = 0; i < mpList.Count; i++)
+            {
+                if (_name.Equals(mpList[i].MarketPlaceName))
+                    return mpList[i].MarketPlaceId;
+            }
+            return -1;
+        }
+
+        /* Поиск товара в clb_Products */
+        private void tb_FindProductin_clb_Products_TextChanged(object sender, EventArgs e)
+        {
+            searchresultsCheckedProducts.Clear();
+            string findStr = tb_FindProductin_clb_Products.Text.ToLower();
+            if (!findStr.Equals(""))
+            {
+                for (int i = 0; i < pList.Count; i++)
+                {
+                    if (pList[i].Name.ToLower().Contains(findStr) || pList[i].ASIN.ToLower().Contains(findStr))
+                    {
+                        searchresultsCheckedProducts.Add(pList[i]);
+                    }
+                }
+
+                Fill_clb_Products(searchresultsCheckedProducts);
+            }
+            else
+            {
+                Fill_clb_Products(pList);
+            }
+        }
+
+        /* Снять выделение всех товаров в clb_Products */
+        private void btn_Clear_clb_Products_Click(object sender, EventArgs e)
+        {
+            checkedProducts.Clear();
+
+            for (int i = 0; i < clb_Products.Items.Count; i++)
+            {
+                clb_Products.SetItemChecked(i, false);
+            }
+        }
+
+        /* Выделить все товары в clb_Products */
+        private void btn_SelectAll_clb_Products_Click(object sender, EventArgs e)
+        {
+            checkedProducts.Clear();
+
+            for (int i = 0; i < clb_Products.Items.Count; i++)
+            {
+                clb_Products.SetItemChecked(i, true);
+                GetProduct(clb_Products.Items[i].ToString());
+            }
+        }
+
+        private List<int> GetProductIds()
+        {
+            List<int> tmpList = new List<int> { };
+
+            for (int i = 0; i < checkedProducts.Count; i++)
+            {
+                for (int j = 0; j < pList.Count; j++)
+                {
+                    if (checkedProducts[i].ASIN.Equals(pList[j].ASIN))
+                       tmpList.Add(pList[j].ProductId);
+                }
+            }
+            return tmpList;
         }
 
         private void btn_Show_Click(object sender, EventArgs e)
@@ -759,344 +1111,152 @@ namespace Excel_Parse
             if (checkedMarkeplaces.Count == 0)
             {
                 MessageBox.Show("Для начала выберите маркетплейс!", "Ошибка");
-                return;
             }
-            this.Cursor = Cursors.WaitCursor;
-            this.Enabled = false;
-
-            currentProductIds.Clear();
-
-            if (!rb_ByAll.Checked)
-                foreach (var t in pList)
-                {
-                    if (t.ASIN.Equals(currentASIN))
-                    {
-                        currentProductIds.Add(t.ProductId);
-                    }
-                }
-
-            if (StartDate > EndDate)
-                MessageBox.Show("Ошибка! Дата начала больше даты окончания!", "Ошибка");
-
-            lb_StartDate.Text = StartDate.ToString().Substring(0, 10);
-            lb_EndDate.Text = EndDate.ToString().Substring(0, 10);
-
-            int businessResult = 0;
-            int advProductsResult = 0;
-            int advBrandResult = 0;
-
-            int divider = 0;
-
-            if (dailyMode)
-                divider = 30;
-            else if (weeklyMode)
-                divider = 52;
-            else if (monthlyMode)
-                divider = 12;
-            else if (customMode)
-                divider = 1;
-
-            dataGridView1.Rows.Clear();
-            dataGridView1.Columns.Clear();
-
-            DateTime dstart;
-            DateTime dend;
-            bool firstRun = true;
-
-            if (dailyMode)
+            else
             {
-                dstart = DateTime.Today.AddDays(-1);
-                dend = dstart.AddHours(23).AddMinutes(59).AddSeconds(59);
+                this.Cursor = Cursors.WaitCursor;
+                this.Enabled = false;
+                
+                if (StartDate > EndDate)
+                    MessageBox.Show("Ошибка! Дата начала больше даты окончания!", "Ошибка");
 
-                int prevmonth = DateTime.Today.AddMonths(-1).Month;     //номер предыдущего месяца
-                int prevdays = DateTime.DaysInMonth(DateTime.Today.Year, prevmonth);   //дней в предыдущем месяце
+                lb_StartDate.Text = StartDate.ToString().Substring(0, 10);
+                lb_EndDate.Text = EndDate.ToString().Substring(0, 10);
 
-                for (int i = 0; i < (prevdays - 1); i++)
+                int businessResult = 0;
+                int advProductsResult = 0;
+                
+                dataGridView1.Rows.Clear();
+                dataGridView1.Columns.Clear();
+
+                DateTime dstart;
+                DateTime dend;
+                bool firstRun = true;
+
+                if (dailyMode)
                 {
-                    //получаем данные продаж
-                    businessList.Clear();
-                    businessResult = businessController.GetFinalABusinessReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces));
+                    DateTime start_date, end_date;
+                    end_date = EndDate;
+                    start_date = end_date.AddHours(-23).AddMinutes(-59).AddSeconds(-59);
+                    int diff = (EndDate - StartDate).Days + 1;
 
-                    if (rb_ByProductName.Checked)
-                    {
-                        //получаем данные рекламы
-                        advProductsList.Clear();
-                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), new List<int> { currentProductId }, new List<int> { }, new List<string> { });
+                    List<int> marketplaces, productIds;
+                    marketplaces = GetMPIdsByNames(checkedMarkeplaces);
+                    productIds = GetProductIds();
 
-                        advBrandsList.Clear();
-                        advBrandResult = advertController.GetFinalAdvertisingBrandsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), new List<int> { currentProductId }, new List<int> { });
-
-                        if (businessResult == 1 && advProductsResult == 1 && advBrandResult == 1)
-                        {
-                            if (firstRun)
-                            {
-                                //считаем окончательный список из businessReport и sponsoredProducts + sponsoredBrands
-                                DrawTable(dstart, true);
-                                firstRun = false;
-                            }
-                            else
-                                DrawTable(dstart, false);
-                        }
-                        else
-                            MessageBox.Show("При обработке запроса произошла ошибка.", "Ошибка");
-                    }
-                    else if (rb_ByASIN.Checked || rb_ByAll.Checked)
-                    {
-                        //получаем данные рекламы
-                        advProductsList.Clear();
-                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), currentProductIds, new List<int> { }, new List<string> { });
-
-                        advBrandsList.Clear();
-                        advBrandResult = advertController.GetFinalAdvertisingBrandsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), currentProductIds, new List<int> { });
-
-                        if (businessResult == 1 && advProductsResult == 1 && advBrandResult == 1)
-                        {
-                            if (firstRun)
-                            {
-                                //считаем окончательный список из businessReport и sponsoredProducts + sponsoredBrands
-                                DrawTable(dstart, true, true);
-                                firstRun = false;
-                            }
-                            else
-                                DrawTable(dstart, false, true);
-                        }
-                        else
-                            MessageBox.Show("При обработке запроса произошла ошибка.", "Ошибка");
-                    }
-
-                    dstart = dstart.AddDays(-1);
-                    dend = dstart.AddHours(23).AddMinutes(59).AddSeconds(59);
-                }
-            }
-            else if (weeklyMode)
-            {
-                GetWeek();
-                dstart = innerStartDate;
-                dend = innerEndDate;
-
-                int prevmonth = DateTime.Today.AddMonths(-1).Month;     //номер предыдущего месяца
-                int prevdays = DateTime.DaysInMonth(DateTime.Today.Year, prevmonth);   //дней в предыдущем месяце
-
-                for (int i = 0; i < 52; i++)
-                {
-                    //получаем данные продаж
-                    businessList.Clear();
-                    businessResult = businessController.GetFinalABusinessReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces));
-
-                    if (rb_ByProductName.Checked)
-                    {
-                        //получаем данные рекламы
-                        advProductsList.Clear();
-                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), new List<int> { currentProductId }, new List<int> { }, new List<string> { });
-
-                        advBrandsList.Clear();
-                        advBrandResult = advertController.GetFinalAdvertisingBrandsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), new List<int> { currentProductId }, new List<int> { });
-
-                        if (businessResult == 1 && advProductsResult == 1 && advBrandResult == 1)
-                        {
-                            if (firstRun)
-                            {
-                                //считаем окончательный список из businessReport и sponsoredProducts + sponsoredBrands
-                                DrawTable(dstart, dend, true);
-                                firstRun = false;
-                            }
-                            else
-                                DrawTable(dstart, dend, false);
-                        }
-                        else
-                            MessageBox.Show("При обработке запроса произошла ошибка.", "Ошибка");
-                    }
-                    else if (rb_ByASIN.Checked || rb_ByAll.Checked)
-                    {
-                        //получаем данные рекламы
-                        advProductsList.Clear();
-                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), currentProductIds, new List<int> { }, new List<string> { });
-
-                        advBrandsList.Clear();
-                        advBrandResult = advertController.GetFinalAdvertisingBrandsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), currentProductIds, new List<int> { });
-
-                        if (businessResult == 1 && advProductsResult == 1 && advBrandResult == 1)
-                        {
-                            if (firstRun)
-                            {
-                                //считаем окончательный список из businessReport и sponsoredProducts + sponsoredBrands
-                                DrawTable(dstart, dend, true, true);
-                                firstRun = false;
-                            }
-                            else
-                                DrawTable(dstart, dend, false, true);
-                        }
-                        else
-                            MessageBox.Show("При обработке запроса произошла ошибка.", "Ошибка");
-                    }
-
-                    dstart = dstart.AddDays(-7);
-                    dend = dstart.AddDays(6).AddHours(23).AddMinutes(59).AddSeconds(59);
-                    if (weekNumber - 1 == 0)
-                        weekNumber = 52;
-                    else
-                        weekNumber--;
-                }
-            }
-            else if (monthlyMode)
-            {
-                dstart = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
-                dend = dstart.AddDays(DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month) - 1).AddHours(23).AddMinutes(59).AddSeconds(59);
-
-                int prevmonth = DateTime.Today.AddMonths(-1).Month;     //номер предыдущего месяца
-                int prevdays = DateTime.DaysInMonth(DateTime.Today.Year, prevmonth);   //дней в предыдущем месяце
-
-                for (int i = 0; i < 12; i++)
-                {
-                    //получаем данные продаж
-                    businessList.Clear();
-                    businessResult = businessController.GetFinalABusinessReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces));
-
-                    if (rb_ByProductName.Checked)
-                    {
-                        //получаем данные рекламы
-                        advProductsList.Clear();
-                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), new List<int> { currentProductId }, new List<int> { }, new List<string> { });
-
-                        advBrandsList.Clear();
-                        advBrandResult = advertController.GetFinalAdvertisingBrandsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), new List<int> { currentProductId }, new List<int> { });
-
-                        if (businessResult == 1 && advProductsResult == 1 && advBrandResult == 1)
-                        {
-                            if (firstRun)
-                            {
-                                //считаем окончательный список из businessReport и sponsoredProducts + sponsoredBrands
-                                DrawTable(dstart, dend, true);
-                                firstRun = false;
-                            }
-                            else
-                                DrawTable(dstart, dend, false);
-                        }
-                        else
-                            MessageBox.Show("При обработке запроса произошла ошибка.", "Ошибка");
-                    }
-                    else if (rb_ByASIN.Checked || rb_ByAll.Checked)
-                    {
-                        //получаем данные рекламы
-                        advProductsList.Clear();
-                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), currentProductIds, new List<int> { }, new List<string> { });
-
-                        advBrandsList.Clear();
-                        advBrandResult = advertController.GetFinalAdvertisingBrandsReport(dstart, dend, GetMPIdsByNames(checkedMarkeplaces), currentProductIds, new List<int> { });
-
-                        if (businessResult == 1 && advProductsResult == 1 && advBrandResult == 1)
-                        {
-                            if (firstRun)
-                            {
-                                //считаем окончательный список из businessReport и sponsoredProducts + sponsoredBrands
-                                DrawTable(dstart, dend, true, true);
-                                firstRun = false;
-                            }
-                            else
-                                DrawTable(dstart, dend, false, true);
-                        }
-                        else
-                            MessageBox.Show("При обработке запроса произошла ошибка.", "Ошибка");
-                    }
-
-
-
-                    if (dstart.Month - 1 == 0)
-                    {
-                        dstart = dstart.AddMonths(-1);
-                        dend = dstart.AddDays(DateTime.DaysInMonth(dstart.Year, dstart.Month) - 1).AddHours(23).AddMinutes(59).AddSeconds(59);
-                    }
-                    else
-                    {
-                        dstart = dstart.AddDays(-DateTime.DaysInMonth(dstart.Year, dstart.Month - 1));
-                        dend = dstart.AddDays(DateTime.DaysInMonth(dstart.Year, dstart.Month) - 1).AddHours(23).AddMinutes(59).AddSeconds(59);
-                    }
-                }
-
-            }
-            else if (customMode)
-            {
-                int diff = (EndDate - StartDate).Days + 1;
-
-                dstart = EndDate;
-                dend = dstart.AddHours(-23).AddMinutes(-59).AddSeconds(-59);
-
-                for (int i = 0; i < diff; i++)
-                {
-                    if (rb_ByProductName.Checked)
+                    for (int i = 0; i < diff; i++)
                     {
                         //получаем данные продаж
                         businessList.Clear();
-                        businessResult = businessController.GetFinalABusinessReport(dend, dstart, GetMPIdsByNames(checkedMarkeplaces), new List<int> { currentProductId });
+                        businessResult = businessController.GetFinalABusinessReport(start_date, end_date, marketplaces, productIds);
 
                         //получаем данные рекламы
                         advProductsList.Clear();
-                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(dend, dstart, GetMPIdsByNames(checkedMarkeplaces), new List<int> { currentProductId }, new List<int> { }, new List<string> { });
+                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(start_date, end_date, marketplaces, productIds, new List<int> { }, new List<string> { });
 
-                        advBrandsList.Clear();
-                        advBrandResult = advertController.GetFinalAdvertisingBrandsReport(dend, dstart, GetMPIdsByNames(checkedMarkeplaces), new List<int> { currentProductId }, new List<int> { });
-
-                        if (businessResult == 1 && advProductsResult == 1 && advBrandResult == 1)
+                        if (businessResult == 1 && advProductsResult == 1)
                         {
                             if (firstRun)
                             {
-                                //считаем окончательный список из businessReport и sponsoredProducts + sponsoredBrands
-                                DrawTable(dstart, true);
+                                //считаем окончательный список из businessReport и sponsoredProducts
+                                DrawTable(start_date, true);
                                 firstRun = false;
                             }
                             else
-                                DrawTable(dstart, false);
+                                DrawTable(start_date, false);
                         }
                         else
                             MessageBox.Show("При обработке запроса произошла ошибка.", "Ошибка");
+
+                        start_date = start_date.AddDays(-1);
+                        end_date = end_date.AddDays(-1);
                     }
-                    else if (rb_ByASIN.Checked || rb_ByAll.Checked)
+                }
+                else if (weeklyMode)
+                {
+                    DateTime start_date, end_date;
+                    end_date = EndDate;
+                    start_date = end_date.AddDays(-6).AddHours(-23).AddMinutes(-59).AddSeconds(-59);
+                    int diff = ((EndDate - StartDate).Days + 1) / 7;
+
+                    List<int> marketplaces, productIds;
+                    marketplaces = GetMPIdsByNames(checkedMarkeplaces);
+                    productIds = GetProductIds();
+
+                    for (int i = 0; i < diff; i++)
                     {
                         //получаем данные продаж
                         businessList.Clear();
-                        businessResult = businessController.GetFinalABusinessReport(dend, dstart, GetMPIdsByNames(checkedMarkeplaces), currentProductIds);
+                        businessResult = businessController.GetFinalABusinessReport(start_date, end_date, marketplaces, productIds);
 
                         //получаем данные рекламы
                         advProductsList.Clear();
-                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(dend, dstart, GetMPIdsByNames(checkedMarkeplaces), currentProductIds, new List<int> { }, new List<string> { });
+                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(start_date, end_date, marketplaces, productIds, new List<int> { }, new List<string> { });
 
-                        advBrandsList.Clear();
-                        advBrandResult = advertController.GetFinalAdvertisingBrandsReport(dend, dstart, GetMPIdsByNames(checkedMarkeplaces), currentProductIds, new List<int> { });
-
-                        if (businessResult == 1 && advProductsResult == 1 && advBrandResult == 1)
+                        if (businessResult == 1 && advProductsResult == 1)
                         {
                             if (firstRun)
                             {
-                                //считаем окончательный список из businessReport и sponsoredProducts + sponsoredBrands
-                                DrawTable(dstart, true, true);
+                                //считаем окончательный список из businessReport и sponsoredProducts
+                                DrawTable(start_date, end_date, true);
                                 firstRun = false;
                             }
                             else
-                                DrawTable(dstart, false, true);
+                                DrawTable(start_date, end_date, false);
                         }
                         else
                             MessageBox.Show("При обработке запроса произошла ошибка.", "Ошибка");
+
+                        start_date = start_date.AddDays(-7);
+                        end_date = end_date.AddDays(-7);
                     }
-                    dstart = dstart.AddDays(-1);
-                    dend = dend.AddDays(-1);
                 }
+                else if (monthlyMode)
+                {
+                    DateTime start_date, end_date;
+                    end_date = EndDate;
+                    start_date = end_date.AddDays(-30).AddHours(-23).AddMinutes(-59).AddSeconds(-59);
+                    int diff = ((EndDate - StartDate).Days + 1) / 30;
+
+                    List<int> marketplaces, productIds;
+                    marketplaces = GetMPIdsByNames(checkedMarkeplaces);
+                    productIds = GetProductIds();
+
+                    for (int i = 0; i < diff; i++)
+                    {
+                        //получаем данные продаж
+                        businessList.Clear();
+                        businessResult = businessController.GetFinalABusinessReport(start_date, end_date, marketplaces, productIds);
+
+                        //получаем данные рекламы
+                        advProductsList.Clear();
+                        advProductsResult = advertController.GetFinalAdvertisingProductsReport(start_date, end_date, marketplaces, productIds, new List<int> { }, new List<string> { });
+
+                        if (businessResult == 1 && advProductsResult == 1)
+                        {
+                            if (firstRun)
+                            {
+                                //считаем окончательный список из businessReport и sponsoredProducts
+                                DrawTable(start_date, end_date, true);
+                                firstRun = false;
+                            }
+                            else
+                                DrawTable(start_date, end_date, false);
+                        }
+                        else
+                            MessageBox.Show("При обработке запроса произошла ошибка.", "Ошибка");
+
+                        start_date = start_date.AddDays(-30);
+                        end_date = end_date.AddDays(-30);
+                    }                    
+                }                
+
+                DrawTableLastColumn();
+                this.Cursor = Cursors.Default;
+                this.Enabled = true;
             }
-
-            DrawTableLastColumn();
-            this.Cursor = Cursors.Default;
-            this.Enabled = true;
         }
-
-        private string GetProductSkuByID(int _productId)
-        {
-            foreach (var t in pList)
-            {
-                if (t.ProductId == _productId)
-                    return t.SKU;
-            }
-            return "";
-        }
-
+        
         private void DrawTableColumns()
         {
             dataGridView1.Columns.Add("", "");
@@ -1148,26 +1308,7 @@ namespace Excel_Parse
                 SalesAdv += int.Parse(dataGridView1.Rows[3].Cells[i].Value.ToString());
                 SalesGeneral += int.Parse(dataGridView1.Rows[4].Cells[i].Value.ToString());
             }
-
-            //for (int i = 0; i < businessList.Count; i++)
-            //{
-            //    SessionsOrganic += businessList[i].Sessions;
-            //    SalesGeneral += businessList[i].TotalOrderItems;
-            //    SalesGeneral += businessList[i].TotalOrderItemsB2B;
-            //}
-
-            //for (int i = 0; i < advProductsList.Count; i++)
-            //{
-            //    SessionsAdv += advProductsList[i].Clicks;
-            //    SalesAdv += advProductsList[i].Orders;
-            //}
-
-            //for (int i = 0; i < advBrandsList.Count; i++)
-            //{
-            //    SessionsAdv += advBrandsList[i].Clicks;
-            //    SalesAdv += advBrandsList[i].Orders;
-            //}
-
+            
             if (SessionsOrganic != 0)
                 ConversionOrganic = Math.Round((double)SalesOrganic / SessionsOrganic * 100, 2);
             else
@@ -1251,365 +1392,9 @@ namespace Excel_Parse
                 weekNumber = (int)Math.Truncate((double)dayOfYear / 7) + 1;
                 if (weekNumber == 53)
                     weekNumber = 1;
-
-
             }
         }
 
-        private void cb_ProductASINs_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            currentASIN = cb_ProductASINs.SelectedItem.ToString();
-        }
-
-        private void rb_ByProductName_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rb_ByProductName.Checked)
-            {
-                lb_SKUText.Visible = true;
-                cb_ProductNames.Enabled = true;
-                cb_ProductASINs.Enabled = false;
-            }
-            else if (rb_ByASIN.Checked)
-            {
-                lb_SKUText.Visible = false;
-                cb_ProductNames.Enabled = false;
-                cb_ProductASINs.Enabled = true;
-
-                currentASIN = cb_ProductASINs.SelectedItem.ToString();
-            }
-            else if (rb_ByAll.Checked)
-            {
-                lb_SKUText.Visible = false;
-                cb_ProductNames.Enabled = false;
-                cb_ProductASINs.Enabled = false;
-                currentASIN = "-1";
-            }
-        }
-
-        private void rb_ByASIN_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rb_ByASIN.Checked)
-            {
-                lb_SKUText.Visible = false;
-                cb_ProductNames.Enabled = false;
-                cb_ProductASINs.Enabled = true;
-
-                currentASIN = cb_ProductASINs.SelectedItem.ToString();
-            }
-            else if (rb_ByProductName.Checked)
-            {
-                lb_SKUText.Visible = true;
-                cb_ProductNames.Enabled = true;
-                cb_ProductASINs.Enabled = false;
-            }
-            else if (rb_ByAll.Checked)
-            {
-                lb_SKUText.Visible = false;
-                cb_ProductNames.Enabled = false;
-                cb_ProductASINs.Enabled = false;
-                currentASIN = "-1";
-            }
-        }
-
-        private void rb_ByAll_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rb_ByAll.Checked)
-            {
-                lb_SKUText.Visible = false;
-                cb_ProductNames.Enabled = false;
-                cb_ProductASINs.Enabled = false;
-                currentASIN = "-1";
-                //currentPr
-            }
-            else if (rb_ByASIN.Checked)
-            {
-                lb_SKUText.Visible = false;
-                cb_ProductNames.Enabled = false;
-                cb_ProductASINs.Enabled = true;
-
-                currentASIN = cb_ProductASINs.SelectedItem.ToString();
-            }
-            else if (rb_ByProductName.Checked)
-            {
-                lb_SKUText.Visible = true;
-                cb_ProductNames.Enabled = true;
-                cb_ProductASINs.Enabled = false;
-            }
-        }
-
-
-        
-        //currentProductIds 
-        private void DrawTable(DateTime _dstart, bool _firstRun, bool _asins)
-        {
-            if (_firstRun)
-                DrawTableColumns();
-
-            int sessionsOrganic = 0;
-            int sessionsAdv = 0;
-            int ordersOrganic = 0;
-            int ordersAdv = 0;
-            int oredersGeneral = 0;
-            double conversionOrganic = 0;
-            double conversionAdv = 0;
-            double conversionGeneral = 0;
-            double share = 0;
-
-
-            string productSku = GetProductSkuByID(currentProductId);
-
-            if (!rb_ByAll.Checked)
-            {
-                for (int i = 0; i < businessList.Count; i++)
-                {
-                    foreach (var t in currentProductIds)
-                    {
-                        if (businessList[i].ProductId == t)
-                        {
-                            sessionsOrganic += businessList[i].Sessions;
-                            oredersGeneral += businessList[i].TotalOrderItems + businessList[i].TotalOrderItemsB2B;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                for (int i = 0; i < businessList.Count; i++)
-                {
-                    sessionsOrganic += businessList[i].Sessions;
-                    oredersGeneral += businessList[i].TotalOrderItems + businessList[i].TotalOrderItemsB2B;
-                }
-            }
-
-            if (!rb_ByAll.Checked)
-            {
-                for (int i = 0; i < advProductsList.Count; i++)
-                {
-                    foreach (var t in currentProductIds)
-                    {
-                        if (advProductsList[i].ProductId == t)
-                        {
-                            sessionsAdv += advProductsList[i].Clicks;
-                            ordersAdv += advProductsList[i].Orders;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                for (int i = 0; i < advProductsList.Count; i++)
-                {
-                    sessionsAdv += advProductsList[i].Clicks;
-                    ordersAdv += advProductsList[i].Orders;
-                }
-            }
-
-            if (!rb_ByAll.Checked)
-            {
-                for (int i = 0; i < advBrandsList.Count; i++)
-                {
-                    foreach (var t in currentProductIds)
-                    {
-                        if (advBrandsList[i].ProductId1 == t || advBrandsList[i].ProductId2 == t || advBrandsList[i].ProductId3 == t)
-                        {
-                            sessionsAdv += advBrandsList[i].Clicks;
-                            ordersAdv += advBrandsList[i].Orders;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                for (int i = 0; i < advBrandsList.Count; i++)
-                {
-                    sessionsAdv += advBrandsList[i].Clicks;
-                    ordersAdv += advBrandsList[i].Orders;
-                }
-            }
-
-            ordersOrganic = oredersGeneral - ordersAdv;
-
-            if (sessionsOrganic > 0)
-                conversionOrganic = Math.Round((double)ordersOrganic / sessionsOrganic * 100, 2);
-            else
-                conversionOrganic = 0;
-
-            if (sessionsAdv > 0)
-                conversionAdv = Math.Round((double)ordersAdv / sessionsAdv * 100, 2);
-            else
-                conversionAdv = 0;
-
-            if (sessionsOrganic > 0)
-                conversionGeneral = Math.Round((double)oredersGeneral / sessionsOrganic * 100, 2);
-            else
-                conversionGeneral = 0;
-
-            if (oredersGeneral > 0)
-                share = Math.Round((double)ordersOrganic / oredersGeneral * 100, 2);
-            else
-                share = 0;
-
-            dataGridView1.Columns.Add(_dstart.ToString().Substring(0, 10), _dstart.ToString().Substring(0, 10));
-            dataGridView1.Rows[0].Cells[dataGridView1.ColumnCount - 1].Value = sessionsOrganic;
-            dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 1].Value = sessionsAdv;
-            dataGridView1.Rows[2].Cells[dataGridView1.ColumnCount - 1].Value = ordersOrganic;
-            dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 1].Value = ordersAdv;
-            dataGridView1.Rows[4].Cells[dataGridView1.ColumnCount - 1].Value = oredersGeneral;
-            dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 1].Value = conversionOrganic;
-            dataGridView1.Rows[6].Cells[dataGridView1.ColumnCount - 1].Value = conversionAdv;
-            dataGridView1.Rows[7].Cells[dataGridView1.ColumnCount - 1].Value = conversionGeneral;
-            dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 1].Value = share;
-
-            dataGridView1.Columns[dataGridView1.ColumnCount - 1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-            btn_Export.Text = "Экспорт в файл (" + dataGridView1.ColumnCount + ")";
-        }
-
-        //currentProductIds
-        private void DrawTable(DateTime _dstart, DateTime _dend, bool _firstRun, bool _asins)
-        {
-            if (_firstRun)
-                DrawTableColumns();
-
-            int sessionsOrganic = 0;
-            int sessionsAdv = 0;
-            int ordersOrganic = 0;
-            int ordersAdv = 0;
-            int oredersGeneral = 0;
-            double conversionOrganic = 0;
-            double conversionAdv = 0;
-            double conversionGeneral = 0;
-            double share = 0;
-
-            string productSku = GetProductSkuByID(currentProductId);
-
-            //for (int i = 0; i < businessList.Count; i++)
-            //{
-            //    if (!rb_ByAll.Checked)
-            //        foreach (var t in currentProductIds)
-            //        {
-            //            if (businessList[i].ProductId == t)
-            //            {
-            //                sessionsOrganic += businessList[i].Sessions;
-            //                oredersGeneral += businessList[i].TotalOrderItems + businessList[i].TotalOrderItemsB2B;
-            //            }
-            //        }
-            //    else
-            //    {
-            //        sessionsOrganic += businessList[i].Sessions;
-            //        oredersGeneral += businessList[i].TotalOrderItems + businessList[i].TotalOrderItemsB2B;
-            //    }
-            //}
-
-            if (!rb_ByAll.Checked)
-            {
-                for (int i = 0; i < businessList.Count; i++)
-                {
-                    foreach (var t in currentProductIds)
-                    {
-                        if (businessList[i].ProductId == t)
-                        {
-                            sessionsOrganic += businessList[i].Sessions;
-                            oredersGeneral += businessList[i].TotalOrderItems + businessList[i].TotalOrderItemsB2B;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                for (int i = 0; i < businessList.Count; i++)
-                {
-                    sessionsOrganic += businessList[i].Sessions;
-                    oredersGeneral += businessList[i].TotalOrderItems + businessList[i].TotalOrderItemsB2B;
-                }
-            }
-
-
-            if (!rb_ByAll.Checked)
-            {
-                for (int i = 0; i < advProductsList.Count; i++)
-                {
-                    foreach (var t in currentProductIds)
-                    {
-                        if (advProductsList[i].ProductId == t)
-                        {
-                            sessionsAdv += advProductsList[i].Clicks;
-                            ordersAdv += advProductsList[i].Orders;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                for (int i = 0; i < advProductsList.Count; i++)
-                {
-                    sessionsAdv += advProductsList[i].Clicks;
-                    ordersAdv += advProductsList[i].Orders;
-                }
-            }
-
-            if (!rb_ByAll.Checked)
-            {
-                for (int i = 0; i < advBrandsList.Count; i++)
-                {
-                    foreach (var t in currentProductIds)
-                    {
-                        if (advBrandsList[i].ProductId1 == t || advBrandsList[i].ProductId2 == t || advBrandsList[i].ProductId3 == t)
-                        {
-                            sessionsAdv += advBrandsList[i].Clicks;
-                            ordersAdv += advBrandsList[i].Orders;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                for (int i = 0; i < advBrandsList.Count; i++)
-                {
-                    sessionsAdv += advBrandsList[i].Clicks;
-                    ordersAdv += advBrandsList[i].Orders;
-                }
-            }
-
-            ordersOrganic = oredersGeneral - ordersAdv;
-
-            if (sessionsOrganic > 0)
-                conversionOrganic = Math.Round((double)ordersOrganic / sessionsOrganic * 100, 2);
-            else
-                conversionOrganic = 0;
-
-            if (sessionsAdv > 0)
-                conversionAdv = Math.Round((double)ordersAdv / sessionsAdv * 100, 2);
-            else
-                conversionAdv = 0;
-
-            if (sessionsOrganic > 0)
-                conversionGeneral = Math.Round((double)oredersGeneral / sessionsOrganic * 100, 2);
-            else
-                conversionGeneral = 0;
-
-            if (oredersGeneral > 0)
-                share = Math.Round((double)ordersOrganic / oredersGeneral * 100, 2);
-            else
-                share = 0;
-
-            dataGridView1.Columns.Add(_dstart.ToString().Substring(0, 5) + "-" + _dend.ToString().Substring(0, 5), _dstart.ToString().Substring(0, 5) + "-" + _dend.ToString().Substring(0, 5) + "\n" + GetMonth(_dstart.Month));
-            dataGridView1.Rows[0].Cells[dataGridView1.ColumnCount - 1].Value = sessionsOrganic;
-            dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 1].Value = sessionsAdv;
-            dataGridView1.Rows[2].Cells[dataGridView1.ColumnCount - 1].Value = ordersOrganic;
-            dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 1].Value = ordersAdv;
-            dataGridView1.Rows[4].Cells[dataGridView1.ColumnCount - 1].Value = oredersGeneral;
-            dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 1].Value = conversionOrganic;
-            dataGridView1.Rows[6].Cells[dataGridView1.ColumnCount - 1].Value = conversionAdv;
-            dataGridView1.Rows[7].Cells[dataGridView1.ColumnCount - 1].Value = conversionGeneral;
-            dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 1].Value = share;
-
-            dataGridView1.Columns[dataGridView1.ColumnCount - 1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-            btn_Export.Text = "Экспорт в файл (" + dataGridView1.ColumnCount + ")";
-        }
-
-        //currentProductId method
         private void DrawTable(DateTime _dstart, DateTime _dend, bool _firstRun)
         {
             if (_firstRun)
@@ -1625,33 +1410,18 @@ namespace Excel_Parse
             double conversionGeneral = 0;
             double share = 0;
 
-            string productSku = GetProductSkuByID(currentProductId);
-
             for (int i = 0; i < businessList.Count; i++)
             {
-                if (businessList[i].ProductId == currentProductId)
-                {
-                    sessionsOrganic += businessList[i].Sessions;
-                    oredersGeneral += businessList[i].TotalOrderItems + businessList[i].TotalOrderItemsB2B;
-                }
+                sessionsOrganic += businessList[i].Sessions;
+                oredersGeneral += businessList[i].TotalOrderItems + businessList[i].TotalOrderItemsB2B;
+
             }
 
             for (int i = 0; i < advProductsList.Count; i++)
             {
-                if (advProductsList[i].ProductId == currentProductId)
-                {
-                    sessionsAdv += advProductsList[i].Clicks;
-                    ordersAdv += advProductsList[i].Orders;
-                }
-            }
+                sessionsAdv += advProductsList[i].Clicks;
+                ordersAdv += advProductsList[i].Orders;
 
-            for (int i = 0; i < advBrandsList.Count; i++)
-            {
-                if (advBrandsList[i].ProductId1 == currentProductId || advBrandsList[i].ProductId2 == currentProductId || advBrandsList[i].ProductId3 == currentProductId)
-                {
-                    sessionsAdv += advBrandsList[i].Clicks;
-                    ordersAdv += advBrandsList[i].Orders;
-                }
             }
 
             ordersOrganic = oredersGeneral - ordersAdv;
@@ -1688,11 +1458,8 @@ namespace Excel_Parse
             dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 1].Value = share;
 
             dataGridView1.Columns[dataGridView1.ColumnCount - 1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-            btn_Export.Text = "Экспорт в файл (" + dataGridView1.ColumnCount + ")";
         }
-
-        //currentProductId method
+        
         private void DrawTable(DateTime _dstart, bool _firstRun)
         {
             if (_firstRun)
@@ -1707,35 +1474,17 @@ namespace Excel_Parse
             double conversionAdv = 0;
             double conversionGeneral = 0;
             double share = 0;
-
-
-            string productSku = GetProductSkuByID(currentProductId);
-
+            
             for (int i = 0; i < businessList.Count; i++)
             {
-                if (businessList[i].ProductId == currentProductId)
-                {
-                    sessionsOrganic += businessList[i].Sessions;
-                    oredersGeneral += businessList[i].TotalOrderItems + businessList[i].TotalOrderItemsB2B;
-                }
+                sessionsOrganic += businessList[i].Sessions;
+                oredersGeneral += businessList[i].TotalOrderItems + businessList[i].TotalOrderItemsB2B;
             }
 
             for (int i = 0; i < advProductsList.Count; i++)
             {
-                if (advProductsList[i].ProductId == currentProductId)
-                {
-                    sessionsAdv += advProductsList[i].Clicks;
-                    ordersAdv += advProductsList[i].Orders;
-                }
-            }
-
-            for (int i = 0; i < advBrandsList.Count; i++)
-            {
-                if (advBrandsList[i].ProductId1 == currentProductId || advBrandsList[i].ProductId2 == currentProductId || advBrandsList[i].ProductId3 == currentProductId)
-                {
-                    sessionsAdv += advBrandsList[i].Clicks;
-                    ordersAdv += advBrandsList[i].Orders;
-                }
+                sessionsAdv += advProductsList[i].Clicks;
+                ordersAdv += advProductsList[i].Orders;
             }
 
             ordersOrganic = oredersGeneral - ordersAdv;
@@ -1772,11 +1521,7 @@ namespace Excel_Parse
             dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 1].Value = share;
 
             dataGridView1.Columns[dataGridView1.ColumnCount - 1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-            btn_Export.Text = "Экспорт в файл (" + dataGridView1.ColumnCount + ")";
         }
-
-
 
         private string GetMonth(int index)
         {
@@ -1823,7 +1568,7 @@ namespace Excel_Parse
             }
         }
 
-        private string GetMarketPlaceName(object _var)
+        private string GetMarketPlaceNameById(object _var)
         {
             int marketplaceId = (int)_var;
 

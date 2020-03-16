@@ -30,17 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportSessionsView));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.rb_ByASIN = new System.Windows.Forms.RadioButton();
-            this.cb_ProductNames = new System.Windows.Forms.ComboBox();
-            this.rb_ByProductName = new System.Windows.Forms.RadioButton();
-            this.lb_SKUText = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cb_ProductASINs = new System.Windows.Forms.ComboBox();
-            this.btn_Customly = new System.Windows.Forms.Button();
-            this.btn_Export = new System.Windows.Forms.Button();
+            this.btn_SelectAll_clb_Products = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tb_FindProductin_clb_Products = new System.Windows.Forms.TextBox();
+            this.btn_Clear_clb_Products = new System.Windows.Forms.Button();
+            this.clb_Products = new System.Windows.Forms.CheckedListBox();
             this.btn_Daily = new System.Windows.Forms.Button();
+            this.btn_Export = new System.Windows.Forms.Button();
             this.btn_Monthly = new System.Windows.Forms.Button();
             this.btn_Weekly = new System.Windows.Forms.Button();
             this.btn_Clear_clb_Marketplace = new System.Windows.Forms.Button();
@@ -54,20 +50,20 @@
             this.mc_StartDate = new System.Windows.Forms.MonthCalendar();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.rb_ByAll = new System.Windows.Forms.RadioButton();
-            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBox1.Controls.Add(this.panel1);
-            this.groupBox1.Controls.Add(this.btn_Customly);
-            this.groupBox1.Controls.Add(this.btn_Export);
+            this.groupBox1.Controls.Add(this.btn_SelectAll_clb_Products);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.tb_FindProductin_clb_Products);
+            this.groupBox1.Controls.Add(this.btn_Clear_clb_Products);
+            this.groupBox1.Controls.Add(this.clb_Products);
             this.groupBox1.Controls.Add(this.btn_Daily);
+            this.groupBox1.Controls.Add(this.btn_Export);
             this.groupBox1.Controls.Add(this.btn_Monthly);
             this.groupBox1.Controls.Add(this.btn_Weekly);
             this.groupBox1.Controls.Add(this.btn_Clear_clb_Marketplace);
@@ -82,134 +78,72 @@
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox1.Location = new System.Drawing.Point(1, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1306, 214);
+            this.groupBox1.Size = new System.Drawing.Size(1306, 252);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Фильтр";
             // 
-            // panel1
+            // btn_SelectAll_clb_Products
             // 
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.rb_ByAll);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.rb_ByASIN);
-            this.panel1.Controls.Add(this.cb_ProductNames);
-            this.panel1.Controls.Add(this.rb_ByProductName);
-            this.panel1.Controls.Add(this.lb_SKUText);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.cb_ProductASINs);
-            this.panel1.Enabled = false;
-            this.panel1.Location = new System.Drawing.Point(803, 12);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(272, 196);
-            this.panel1.TabIndex = 103;
+            this.btn_SelectAll_clb_Products.Font = new System.Drawing.Font("Segoe UI Semibold", 7.5F, System.Drawing.FontStyle.Bold);
+            this.btn_SelectAll_clb_Products.Location = new System.Drawing.Point(1140, 21);
+            this.btn_SelectAll_clb_Products.Name = "btn_SelectAll_clb_Products";
+            this.btn_SelectAll_clb_Products.Size = new System.Drawing.Size(27, 21);
+            this.btn_SelectAll_clb_Products.TabIndex = 99;
+            this.btn_SelectAll_clb_Products.Text = "+";
+            this.btn_SelectAll_clb_Products.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btn_SelectAll_clb_Products.UseVisualStyleBackColor = true;
+            this.btn_SelectAll_clb_Products.Click += new System.EventHandler(this.btn_SelectAll_clb_Products_Click);
             // 
-            // label1
+            // label6
             // 
-            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(18, 53);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(218, 23);
-            this.label1.TabIndex = 97;
-            this.label1.Text = "Имя товара";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.label6.Location = new System.Drawing.Point(648, 19);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(195, 23);
+            this.label6.TabIndex = 97;
+            this.label6.Text = "Поиск по товарам";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // rb_ByASIN
+            // tb_FindProductin_clb_Products
             // 
-            this.rb_ByASIN.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rb_ByASIN.Location = new System.Drawing.Point(242, 158);
-            this.rb_ByASIN.Name = "rb_ByASIN";
-            this.rb_ByASIN.Size = new System.Drawing.Size(25, 24);
-            this.rb_ByASIN.TabIndex = 102;
-            this.rb_ByASIN.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rb_ByASIN.UseVisualStyleBackColor = true;
-            this.rb_ByASIN.CheckedChanged += new System.EventHandler(this.rb_ByASIN_CheckedChanged);
+            this.tb_FindProductin_clb_Products.Location = new System.Drawing.Point(849, 16);
+            this.tb_FindProductin_clb_Products.Name = "tb_FindProductin_clb_Products";
+            this.tb_FindProductin_clb_Products.Size = new System.Drawing.Size(216, 25);
+            this.tb_FindProductin_clb_Products.TabIndex = 96;
+            this.tb_FindProductin_clb_Products.TextChanged += new System.EventHandler(this.tb_FindProductin_clb_Products_TextChanged);
             // 
-            // cb_ProductNames
+            // btn_Clear_clb_Products
             // 
-            this.cb_ProductNames.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_ProductNames.Enabled = false;
-            this.cb_ProductNames.FormattingEnabled = true;
-            this.cb_ProductNames.Location = new System.Drawing.Point(18, 77);
-            this.cb_ProductNames.Name = "cb_ProductNames";
-            this.cb_ProductNames.Size = new System.Drawing.Size(218, 25);
-            this.cb_ProductNames.TabIndex = 96;
-            this.cb_ProductNames.SelectedIndexChanged += new System.EventHandler(this.cb_Products_SelectedIndexChanged);
+            this.btn_Clear_clb_Products.Font = new System.Drawing.Font("Segoe UI Semibold", 7.5F, System.Drawing.FontStyle.Bold);
+            this.btn_Clear_clb_Products.Location = new System.Drawing.Point(1107, 21);
+            this.btn_Clear_clb_Products.Name = "btn_Clear_clb_Products";
+            this.btn_Clear_clb_Products.Size = new System.Drawing.Size(27, 21);
+            this.btn_Clear_clb_Products.TabIndex = 98;
+            this.btn_Clear_clb_Products.Text = "-";
+            this.btn_Clear_clb_Products.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btn_Clear_clb_Products.UseVisualStyleBackColor = true;
+            this.btn_Clear_clb_Products.Click += new System.EventHandler(this.btn_Clear_clb_Products_Click);
             // 
-            // rb_ByProductName
+            // clb_Products
             // 
-            this.rb_ByProductName.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rb_ByProductName.Location = new System.Drawing.Point(242, 77);
-            this.rb_ByProductName.Name = "rb_ByProductName";
-            this.rb_ByProductName.Size = new System.Drawing.Size(25, 24);
-            this.rb_ByProductName.TabIndex = 101;
-            this.rb_ByProductName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rb_ByProductName.UseVisualStyleBackColor = true;
-            this.rb_ByProductName.CheckedChanged += new System.EventHandler(this.rb_ByProductName_CheckedChanged);
-            // 
-            // lb_SKUText
-            // 
-            this.lb_SKUText.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.lb_SKUText.Location = new System.Drawing.Point(18, 105);
-            this.lb_SKUText.Name = "lb_SKUText";
-            this.lb_SKUText.Size = new System.Drawing.Size(218, 23);
-            this.lb_SKUText.TabIndex = 98;
-            this.lb_SKUText.Text = "SKU: ";
-            this.lb_SKUText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label2
-            // 
-            this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(18, 133);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(218, 23);
-            this.label2.TabIndex = 100;
-            this.label2.Text = "ASIN";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // cb_ProductASINs
-            // 
-            this.cb_ProductASINs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_ProductASINs.Enabled = false;
-            this.cb_ProductASINs.FormattingEnabled = true;
-            this.cb_ProductASINs.Location = new System.Drawing.Point(18, 157);
-            this.cb_ProductASINs.Name = "cb_ProductASINs";
-            this.cb_ProductASINs.Size = new System.Drawing.Size(218, 25);
-            this.cb_ProductASINs.TabIndex = 99;
-            this.cb_ProductASINs.SelectedIndexChanged += new System.EventHandler(this.cb_ProductASINs_SelectedIndexChanged);
-            // 
-            // btn_Customly
-            // 
-            this.btn_Customly.BackColor = System.Drawing.Color.LightSeaGreen;
-            this.btn_Customly.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Customly.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.btn_Customly.Location = new System.Drawing.Point(412, 184);
-            this.btn_Customly.Name = "btn_Customly";
-            this.btn_Customly.Size = new System.Drawing.Size(119, 27);
-            this.btn_Customly.TabIndex = 95;
-            this.btn_Customly.Text = "Выбрать даты";
-            this.btn_Customly.UseVisualStyleBackColor = false;
-            this.btn_Customly.Click += new System.EventHandler(this.btn_Customly_Click);
-            // 
-            // btn_Export
-            // 
-            this.btn_Export.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.btn_Export.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Export.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_Export.Location = new System.Drawing.Point(1106, 19);
-            this.btn_Export.Name = "btn_Export";
-            this.btn_Export.Size = new System.Drawing.Size(194, 27);
-            this.btn_Export.TabIndex = 94;
-            this.btn_Export.Text = "Экспорт";
-            this.btn_Export.UseVisualStyleBackColor = false;
-            this.btn_Export.Click += new System.EventHandler(this.btn_Export_Click);
+            this.clb_Products.BackColor = System.Drawing.SystemColors.Control;
+            this.clb_Products.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.clb_Products.CheckOnClick = true;
+            this.clb_Products.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.clb_Products.FormattingEnabled = true;
+            this.clb_Products.Location = new System.Drawing.Point(648, 45);
+            this.clb_Products.Name = "clb_Products";
+            this.clb_Products.Size = new System.Drawing.Size(519, 200);
+            this.clb_Products.TabIndex = 95;
+            this.clb_Products.SelectedIndexChanged += new System.EventHandler(this.clb_Products_SelectedIndexChanged);
             // 
             // btn_Daily
             // 
-            this.btn_Daily.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btn_Daily.BackColor = System.Drawing.Color.LightSeaGreen;
             this.btn_Daily.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Daily.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.btn_Daily.Location = new System.Drawing.Point(412, 42);
+            this.btn_Daily.Location = new System.Drawing.Point(280, 217);
             this.btn_Daily.Name = "btn_Daily";
             this.btn_Daily.Size = new System.Drawing.Size(119, 27);
             this.btn_Daily.TabIndex = 93;
@@ -217,12 +151,25 @@
             this.btn_Daily.UseVisualStyleBackColor = false;
             this.btn_Daily.Click += new System.EventHandler(this.btn_Daily_Click);
             // 
+            // btn_Export
+            // 
+            this.btn_Export.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btn_Export.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Export.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_Export.Location = new System.Drawing.Point(1193, 14);
+            this.btn_Export.Name = "btn_Export";
+            this.btn_Export.Size = new System.Drawing.Size(107, 27);
+            this.btn_Export.TabIndex = 94;
+            this.btn_Export.Text = "Экспорт";
+            this.btn_Export.UseVisualStyleBackColor = false;
+            this.btn_Export.Click += new System.EventHandler(this.btn_Export_Click);
+            // 
             // btn_Monthly
             // 
             this.btn_Monthly.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btn_Monthly.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Monthly.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.btn_Monthly.Location = new System.Drawing.Point(412, 135);
+            this.btn_Monthly.Location = new System.Drawing.Point(6, 217);
             this.btn_Monthly.Name = "btn_Monthly";
             this.btn_Monthly.Size = new System.Drawing.Size(119, 27);
             this.btn_Monthly.TabIndex = 91;
@@ -235,7 +182,7 @@
             this.btn_Weekly.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btn_Weekly.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Weekly.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.btn_Weekly.Location = new System.Drawing.Point(412, 88);
+            this.btn_Weekly.Location = new System.Drawing.Point(142, 217);
             this.btn_Weekly.Name = "btn_Weekly";
             this.btn_Weekly.Size = new System.Drawing.Size(119, 27);
             this.btn_Weekly.TabIndex = 90;
@@ -246,7 +193,7 @@
             // btn_Clear_clb_Marketplace
             // 
             this.btn_Clear_clb_Marketplace.Font = new System.Drawing.Font("Segoe UI Semibold", 7.5F, System.Drawing.FontStyle.Bold);
-            this.btn_Clear_clb_Marketplace.Location = new System.Drawing.Point(761, 19);
+            this.btn_Clear_clb_Marketplace.Location = new System.Drawing.Point(592, 21);
             this.btn_Clear_clb_Marketplace.Name = "btn_Clear_clb_Marketplace";
             this.btn_Clear_clb_Marketplace.Size = new System.Drawing.Size(27, 21);
             this.btn_Clear_clb_Marketplace.TabIndex = 89;
@@ -289,7 +236,7 @@
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.label3.Location = new System.Drawing.Point(594, 21);
+            this.label3.Location = new System.Drawing.Point(425, 19);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(194, 23);
             this.label3.TabIndex = 85;
@@ -302,9 +249,9 @@
             this.btn_Show.FlatAppearance.BorderSize = 0;
             this.btn_Show.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Show.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.btn_Show.Location = new System.Drawing.Point(1106, 119);
+            this.btn_Show.Location = new System.Drawing.Point(1193, 45);
             this.btn_Show.Name = "btn_Show";
-            this.btn_Show.Size = new System.Drawing.Size(194, 92);
+            this.btn_Show.Size = new System.Drawing.Size(107, 200);
             this.btn_Show.TabIndex = 84;
             this.btn_Show.Text = "Применить фильтр";
             this.btn_Show.UseVisualStyleBackColor = false;
@@ -313,12 +260,13 @@
             // clb_Marketplace
             // 
             this.clb_Marketplace.BackColor = System.Drawing.SystemColors.Control;
+            this.clb_Marketplace.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.clb_Marketplace.CheckOnClick = true;
             this.clb_Marketplace.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.clb_Marketplace.FormattingEnabled = true;
-            this.clb_Marketplace.Location = new System.Drawing.Point(594, 45);
+            this.clb_Marketplace.Location = new System.Drawing.Point(425, 45);
             this.clb_Marketplace.Name = "clb_Marketplace";
-            this.clb_Marketplace.Size = new System.Drawing.Size(194, 166);
+            this.clb_Marketplace.Size = new System.Drawing.Size(194, 200);
             this.clb_Marketplace.TabIndex = 81;
             this.clb_Marketplace.SelectedIndexChanged += new System.EventHandler(this.clb_Marketplace_SelectedIndexChanged);
             // 
@@ -350,35 +298,12 @@
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(1, 218);
+            this.dataGridView1.Location = new System.Drawing.Point(1, 260);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1306, 422);
+            this.dataGridView1.Size = new System.Drawing.Size(1306, 380);
             this.dataGridView1.TabIndex = 1;
-            // 
-            // rb_ByAll
-            // 
-            this.rb_ByAll.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rb_ByAll.Checked = true;
-            this.rb_ByAll.Location = new System.Drawing.Point(242, 18);
-            this.rb_ByAll.Name = "rb_ByAll";
-            this.rb_ByAll.Size = new System.Drawing.Size(25, 24);
-            this.rb_ByAll.TabIndex = 103;
-            this.rb_ByAll.TabStop = true;
-            this.rb_ByAll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rb_ByAll.UseVisualStyleBackColor = true;
-            this.rb_ByAll.CheckedChanged += new System.EventHandler(this.rb_ByAll_CheckedChanged);
-            // 
-            // label4
-            // 
-            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.label4.Location = new System.Drawing.Point(18, 18);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(218, 23);
-            this.label4.TabIndex = 104;
-            this.label4.Text = "Весь маркетплейс";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ReportSessionsView
             // 
@@ -395,7 +320,7 @@
             this.Text = "Данные сессий";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ReportSessionsView_FormClosing);
             this.groupBox1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
@@ -419,16 +344,10 @@
         private System.Windows.Forms.MonthCalendar mc_StartDate;
         private System.Windows.Forms.Button btn_Export;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        private System.Windows.Forms.Button btn_Customly;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cb_ProductNames;
-        private System.Windows.Forms.Label lb_SKUText;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cb_ProductASINs;
-        private System.Windows.Forms.RadioButton rb_ByASIN;
-        private System.Windows.Forms.RadioButton rb_ByProductName;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.RadioButton rb_ByAll;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btn_SelectAll_clb_Products;
+        private System.Windows.Forms.Button btn_Clear_clb_Products;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox tb_FindProductin_clb_Products;
+        private System.Windows.Forms.CheckedListBox clb_Products;
     }
 }
