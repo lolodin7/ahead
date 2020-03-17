@@ -10,14 +10,8 @@ namespace Excel_Parse
     {
         private ReportAdvertisingUploadView controlReportAdvertisingUploadView;
         private ReportBusinessUploadView controlReportBusinessUploadView;
-        private EveryDayReportsUpdate controlEveryDayReportsUpdate;
 
-
-        public ReportDataAnalyzer(EveryDayReportsUpdate _mf)
-        {
-            controlEveryDayReportsUpdate = _mf;
-        }
-
+        
         public ReportDataAnalyzer(ReportAdvertisingUploadView _mf)
         {
             controlReportAdvertisingUploadView = _mf;
@@ -175,8 +169,6 @@ namespace Excel_Parse
             {
                 if (controlReportBusinessUploadView != null)
                     controlReportBusinessUploadView.GetMissedReportColumns(missedColumns);
-                else if (controlEveryDayReportsUpdate != null)
-                    controlEveryDayReportsUpdate.GetMissedReportColumns(missedColumns);
             }
 
             return theSame;

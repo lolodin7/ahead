@@ -17,15 +17,12 @@ namespace Excel_Parse
         private SqlConnection connection;
         private SqlCommand command;
         private ProductsView controlFormProductsView;
-        private LoggerView controlFormLoggerView;
-        private LoggerAdd controlFormLoggerAdd;
         private ReportBusinessUploadView controlReportBusinessUploadView;
         private ReportAdvertisingUploadView controlFormAdvertisingUploadReportView;
         private ReportAdvertisingFilterView controlAdvertisingReportFilterView;
         private ReportBusinessFilterView controlReportBusinessFilterView;
         private ReportSessionsView controlReportSessionsView;
         private Advreport7days controlAdvreport7days;
-        private EveryDayReportsUpdate controlEveryDayReportsUpdate;
         private ReportAdvertisingView controlReportAdvertisingView;
         private AnalyzeAdvertisingReport controlAnalyzeAdvertisingReport;
         private ReportStockUploadView controlReportStockUploadView;
@@ -61,14 +58,7 @@ namespace Excel_Parse
             connection = DBData.GetDBConnection();
             controlReportAdvertisingView = _controlForm;
         }
-
-        /* Конструктор */
-        public ProductsController(EveryDayReportsUpdate _controlForm)
-        {
-            connection = DBData.GetDBConnection();
-            controlEveryDayReportsUpdate = _controlForm;
-        }
-
+        
         /* Конструктор */
         public ProductsController(Advreport7days _controlForm)
         {
@@ -103,29 +93,14 @@ namespace Excel_Parse
             connection = DBData.GetDBConnection();
             controlReportBusinessUploadView = _controlForm;
         }
-
-        /* Конструктор */
-        public ProductsController(LoggerView _controlForm)
-        {
-            connection = DBData.GetDBConnection();
-            controlFormLoggerView = _controlForm;
-        }
-
+        
         /* Конструктор */
         public ProductsController(ReportAdvertisingFilterView _controlForm)
         {
             connection = DBData.GetDBConnection();
             controlAdvertisingReportFilterView = _controlForm;
         }
-
-        /* Конструктор */
-        public ProductsController(LoggerAdd _controlForm)
-        {
-            connection = DBData.GetDBConnection();
-            controlFormLoggerAdd = _controlForm;
-        }
-
-
+        
         /* Конструктор */
         public ProductsController(ReportAdvertisingUploadView _controlForm)
         {
@@ -357,10 +332,6 @@ namespace Excel_Parse
 
                 if (controlFormProductsView != null)                       //вызывает нужный метод в зависимости, из какой формы нас вызывают
                     controlFormProductsView.GetProductsFromDB(pList);
-                else if (controlFormLoggerView != null)
-                    controlFormLoggerView.GetProductsFromDB(pList);
-                else if (controlFormLoggerAdd != null)
-                    controlFormLoggerAdd.GetProductsFromDB(pList);
                 else if (controlFormAdvertisingUploadReportView != null)
                     controlFormAdvertisingUploadReportView.GetProductsFromDB(pList);
                 else if (controlAdvertisingReportFilterView != null)
@@ -435,10 +406,6 @@ namespace Excel_Parse
                     controlFormProductsView.GetProductTypesFromDB(ptList);
                     controlFormProductsView.GetMarketPlacesFromDB(mpList);
                 }
-                else if (controlFormLoggerView != null)
-                    controlFormLoggerView.GetProductsFromDB(pList);
-                else if (controlFormLoggerAdd != null)
-                    controlFormLoggerAdd.GetProductsFromDB(pList);
                 else if (controlFormAdvertisingUploadReportView != null)
                     controlFormAdvertisingUploadReportView.GetProductsFromDB(pList);
                 else if (controlAdvertisingReportFilterView != null)
@@ -451,8 +418,6 @@ namespace Excel_Parse
                     controlReportSessionsView.GetProductsFromDB(pList);
                 else if (controlAdvreport7days != null)
                     controlAdvreport7days.GetProductsFromDB(pList);
-                else if (controlEveryDayReportsUpdate != null)
-                    controlEveryDayReportsUpdate.GetProductsFromDB(pList);
                 else if (controlAnalyzeAdvertisingReport != null)
                     controlAnalyzeAdvertisingReport.GetProductsFromDB(pList);
                 else if (controlReportStockUploadView != null)

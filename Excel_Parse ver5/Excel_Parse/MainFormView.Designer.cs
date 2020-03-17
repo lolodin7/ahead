@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainFormView));
             this.btn_Exit = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -38,15 +37,10 @@
             this.DoKeywordCategoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ShowAllKeywordsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ShowSemCoreArchiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.семантикаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.CreateSemanticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.EditSemanticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ShowIndexingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.товарыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DoProductsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DoProductTypesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DoMarketpalcesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loggerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.рекламаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showSectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAdvDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,14 +55,8 @@
             this.allOrdersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stockReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addReturnsReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.сотрудникToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ShowPersonalInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.registerNewEmployeeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.employeesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.LogOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -94,11 +82,8 @@
             this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.семантическиеЯдраToolStripMenuItem,
-            this.семантикаToolStripMenuItem,
             this.товарыToolStripMenuItem,
-            this.loggerToolStripMenuItem,
             this.рекламаToolStripMenuItem,
-            this.сотрудникToolStripMenuItem,
             this.serviceToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -155,40 +140,6 @@
             this.ShowSemCoreArchiveToolStripMenuItem.Text = "История ключей";
             this.ShowSemCoreArchiveToolStripMenuItem.Click += new System.EventHandler(this.SemCoreArchive_Click);
             // 
-            // семантикаToolStripMenuItem
-            // 
-            this.семантикаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.CreateSemanticsToolStripMenuItem,
-            this.EditSemanticsToolStripMenuItem,
-            this.ShowIndexingToolStripMenuItem});
-            this.семантикаToolStripMenuItem.Enabled = false;
-            this.семантикаToolStripMenuItem.Name = "семантикаToolStripMenuItem";
-            this.семантикаToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
-            this.семантикаToolStripMenuItem.Text = "Семантика";
-            this.семантикаToolStripMenuItem.Visible = false;
-            // 
-            // CreateSemanticsToolStripMenuItem
-            // 
-            this.CreateSemanticsToolStripMenuItem.Name = "CreateSemanticsToolStripMenuItem";
-            this.CreateSemanticsToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
-            this.CreateSemanticsToolStripMenuItem.Text = "Создать семантику для нового товара";
-            this.CreateSemanticsToolStripMenuItem.Click += new System.EventHandler(this.ChooseProduct_Click);
-            // 
-            // EditSemanticsToolStripMenuItem
-            // 
-            this.EditSemanticsToolStripMenuItem.Name = "EditSemanticsToolStripMenuItem";
-            this.EditSemanticsToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
-            this.EditSemanticsToolStripMenuItem.Text = "Редактирование семантики";
-            this.EditSemanticsToolStripMenuItem.Click += new System.EventHandler(this.btn_DoSemantics_Click);
-            // 
-            // ShowIndexingToolStripMenuItem
-            // 
-            this.ShowIndexingToolStripMenuItem.Enabled = false;
-            this.ShowIndexingToolStripMenuItem.Name = "ShowIndexingToolStripMenuItem";
-            this.ShowIndexingToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
-            this.ShowIndexingToolStripMenuItem.Text = "Индексация";
-            this.ShowIndexingToolStripMenuItem.Click += new System.EventHandler(this.btn_ShowIndexing_Click);
-            // 
             // товарыToolStripMenuItem
             // 
             this.товарыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -220,15 +171,6 @@
             this.DoMarketpalcesToolStripMenuItem.Text = "Маркетплейсы";
             this.DoMarketpalcesToolStripMenuItem.Click += new System.EventHandler(this.btn_DoMarketplaces_Click);
             // 
-            // loggerToolStripMenuItem
-            // 
-            this.loggerToolStripMenuItem.Enabled = false;
-            this.loggerToolStripMenuItem.Name = "loggerToolStripMenuItem";
-            this.loggerToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
-            this.loggerToolStripMenuItem.Text = "Logger";
-            this.loggerToolStripMenuItem.Visible = false;
-            this.loggerToolStripMenuItem.Click += new System.EventHandler(this.LoggerToolStripMenuItem_Click);
-            // 
             // рекламаToolStripMenuItem
             // 
             this.рекламаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -248,9 +190,8 @@
             this.showSessionsToolStripMenuItem,
             this.складToolStripMenuItem});
             this.showSectionToolStripMenuItem.Name = "showSectionToolStripMenuItem";
-            this.showSectionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.showSectionToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.showSectionToolStripMenuItem.Text = "Посмотреть";
-            this.showSectionToolStripMenuItem.Click += new System.EventHandler(this.showSectionToolStripMenuItem_Click);
             // 
             // showAdvDataToolStripMenuItem
             // 
@@ -306,7 +247,7 @@
             this.stockReportToolStripMenuItem,
             this.addReturnsReportToolStripMenuItem});
             this.addSectionToolStripMenuItem1.Name = "addSectionToolStripMenuItem1";
-            this.addSectionToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.addSectionToolStripMenuItem1.Size = new System.Drawing.Size(143, 22);
             this.addSectionToolStripMenuItem1.Text = "Добавить";
             // 
             // addAdvReportReportToolStripMenuItem
@@ -345,46 +286,6 @@
             this.addReturnsReportToolStripMenuItem.Visible = false;
             this.addReturnsReportToolStripMenuItem.Click += new System.EventHandler(this.addReturnsReportToolStripMenuItem_Click);
             // 
-            // сотрудникToolStripMenuItem
-            // 
-            this.сотрудникToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ShowPersonalInfoToolStripMenuItem,
-            this.registerNewEmployeeToolStripMenuItem,
-            this.employeesToolStripMenuItem,
-            this.LogOutToolStripMenuItem});
-            this.сотрудникToolStripMenuItem.Name = "сотрудникToolStripMenuItem";
-            this.сотрудникToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
-            this.сотрудникToolStripMenuItem.Text = "Сотрудник";
-            this.сотрудникToolStripMenuItem.Visible = false;
-            // 
-            // ShowPersonalInfoToolStripMenuItem
-            // 
-            this.ShowPersonalInfoToolStripMenuItem.Name = "ShowPersonalInfoToolStripMenuItem";
-            this.ShowPersonalInfoToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.ShowPersonalInfoToolStripMenuItem.Text = "Личный кабинет";
-            this.ShowPersonalInfoToolStripMenuItem.Click += new System.EventHandler(this.ShowPersonalInfoToolStripMenuItem_Click);
-            // 
-            // registerNewEmployeeToolStripMenuItem
-            // 
-            this.registerNewEmployeeToolStripMenuItem.Name = "registerNewEmployeeToolStripMenuItem";
-            this.registerNewEmployeeToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.registerNewEmployeeToolStripMenuItem.Text = "Регистрация сотрудника";
-            this.registerNewEmployeeToolStripMenuItem.Click += new System.EventHandler(this.registerNewEmployeeToolStripMenuItem_Click);
-            // 
-            // employeesToolStripMenuItem
-            // 
-            this.employeesToolStripMenuItem.Name = "employeesToolStripMenuItem";
-            this.employeesToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.employeesToolStripMenuItem.Text = "Сотрудники";
-            this.employeesToolStripMenuItem.Click += new System.EventHandler(this.employeesToolStripMenuItem_Click);
-            // 
-            // LogOutToolStripMenuItem
-            // 
-            this.LogOutToolStripMenuItem.Name = "LogOutToolStripMenuItem";
-            this.LogOutToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.LogOutToolStripMenuItem.Text = "Завершить сеанс";
-            this.LogOutToolStripMenuItem.Click += new System.EventHandler(this.LogOutToolStripMenuItem_Click);
-            // 
             // serviceToolStripMenuItem
             // 
             this.serviceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -399,11 +300,6 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.aboutToolStripMenuItem.Text = "Справка";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // statusStrip1
             // 
@@ -461,9 +357,7 @@
             this.Name = "MainFormView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Главная - Bona Fides";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormView_FormClosing);
             this.Load += new System.EventHandler(this.MainFormView_Load);
-            this.VisibleChanged += new System.EventHandler(this.MainFormView_VisibleChanged);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -484,21 +378,10 @@
         private System.Windows.Forms.ToolStripMenuItem ShowAllKeywordsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ShowSemCoreArchiveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DoKeywordCategoryToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem семантикаToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem CreateSemanticsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem EditSemanticsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ShowIndexingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem товарыToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DoProductsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DoProductTypesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DoMarketpalcesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem сотрудникToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ShowPersonalInfoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem LogOutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem registerNewEmployeeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem employeesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem loggerToolStripMenuItem;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolStripMenuItem рекламаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addSectionToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem addAdvReportReportToolStripMenuItem;

@@ -1249,9 +1249,12 @@ namespace Excel_Parse
                         start_date = start_date.AddDays(-30);
                         end_date = end_date.AddDays(-30);
                     }                    
-                }                
+                }
 
-                DrawTableLastColumn();
+                if (dataGridView1.ColumnCount > 0)
+                {
+                    DrawTableLastColumn();
+                }
                 this.Cursor = Cursors.Default;
                 this.Enabled = true;
             }

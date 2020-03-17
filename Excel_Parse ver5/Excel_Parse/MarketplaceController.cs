@@ -18,15 +18,12 @@ namespace Excel_Parse
         private ProductsView controlProductsView;
         private MarketplaceView controlMarketPlaceView;
         private SemCoreView controlSemCoreView;
-        private LoggerView controlLoggerView;
-        private LoggerAdd controlLoggerAdd;
         private ReportBusinessUploadView controlReportBusinessUploadView;
         private ReportAdvertisingUploadView controlAdvertisingUploadReport;
         private ReportAdvertisingFilterView controlAdvertisingReportFilterView;
         private ReportBusinessFilterView controlReportBusinessFilterView;
         private ReportSessionsView controlReportSessionsView;
         private Advreport7days controlAdvreport7days;
-        private EveryDayReportsUpdate controlEveryDayReportsUpdate;
         private ReportAdvertisingView controlReportAdvertisingView;
         private AnalyzeAdvertisingReport controlAnalyzeAdvertisingReport;
         private ReportStockUploadView controlReportStockUploadView;
@@ -64,13 +61,7 @@ namespace Excel_Parse
             connection = DBData.GetDBConnection();
             controlReportAdvertisingView = _mf;
         }
-
-        public MarketplaceController(EveryDayReportsUpdate _mf)
-        {
-            connection = DBData.GetDBConnection();
-            controlEveryDayReportsUpdate = _mf;
-        }
-
+        
         public MarketplaceController(Advreport7days _mf)
         {
             connection = DBData.GetDBConnection();
@@ -112,19 +103,7 @@ namespace Excel_Parse
             connection = DBData.GetDBConnection();
             controlSemCoreView = _mf;
         }
-
-        public MarketplaceController(LoggerView _mf)
-        {
-            connection = DBData.GetDBConnection();
-            controlLoggerView = _mf;
-        }
-
-        public MarketplaceController(LoggerAdd _mf)
-        {
-            connection = DBData.GetDBConnection();
-            controlLoggerAdd = _mf;
-        }
-
+        
         public MarketplaceController(ReportAdvertisingUploadView _mf)
         {
             connection = DBData.GetDBConnection();
@@ -212,10 +191,6 @@ namespace Excel_Parse
                     controlMarketPlaceView.GetMarketPlacesFromDB(mpList);
                 else if (controlSemCoreView != null)
                     controlSemCoreView.GetMarketPlacesFromDB(mpList);
-                else if (controlLoggerView != null)
-                    controlLoggerView.GetMarketPlacesFromDB(mpList);
-                else if (controlLoggerAdd != null)
-                    controlLoggerAdd.GetMarketPlacesFromDB(mpList);
                 else if (controlAdvertisingReportFilterView != null)
                     controlAdvertisingReportFilterView.GetMarketPlacesFromDB(mpList);
                 else if (controlReportBusinessUploadView != null)

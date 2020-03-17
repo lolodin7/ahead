@@ -22,7 +22,6 @@ namespace Excel_Parse
         private ReportAdvertisingUploadView controlAdvertisingUploadReportView;
         private ReportAdvertisingFilterView controlAdvertisingReportFilterView;
         private ReportSessionsView controlReportSessionsView;
-        private EveryDayReportsUpdate controlEveryDayReportsUpdate;
         private ReportAdvertisingView controlReportAdvertisingView;
 
         private int insertedCount, updatedCount;
@@ -43,13 +42,7 @@ namespace Excel_Parse
             connection = DBData.GetDBConnection();
             controlReportAdvertisingView = _mf;
         }
-
-        public AdvertisingController(EveryDayReportsUpdate _mf)
-        {
-            connection = DBData.GetDBConnection();
-            controlEveryDayReportsUpdate = _mf;
-        }
-
+        
         public AdvertisingController(ReportAdvertisingUploadView _mf)
         {
             connection = DBData.GetDBConnection();

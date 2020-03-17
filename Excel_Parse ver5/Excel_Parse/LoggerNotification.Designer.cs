@@ -28,28 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoggerNotification));
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 7000;
-            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
-            // 
-            // label1
-            // 
-            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(12, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(342, 31);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Загрузка отчета завершена!";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label1.Click += new System.EventHandler(this.Label1_Click);
             // 
             // label3
             // 
@@ -61,7 +43,16 @@
             this.label3.Size = new System.Drawing.Size(342, 100);
             this.label3.TabIndex = 2;
             this.label3.Text = "label3";
-            this.label3.Click += new System.EventHandler(this.Label1_Click);
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(12, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(342, 31);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Загрузка отчета завершена!";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LoggerNotification
             // 
@@ -78,15 +69,13 @@
             this.Name = "LoggerNotification";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Уведомление";
-            this.Click += new System.EventHandler(this.LoggerNotification_Click);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label1;
     }
 }

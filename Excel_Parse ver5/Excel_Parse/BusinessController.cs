@@ -20,16 +20,9 @@ namespace Excel_Parse
         private ReportBusinessUploadView controlReportBusinessUploadView;
         private ReportBusinessFilterView controlReportBusinessFilterView;
         private ReportSessionsView controlReportSessionsView;
-        private EveryDayReportsUpdate controlEveryDayReportsUpdate;
 
         private int insertedCount, updatedCount;
-
-        public BusinessController(EveryDayReportsUpdate _mf)
-        {
-            connection = DBData.GetDBConnection();
-            controlEveryDayReportsUpdate = _mf;
-        }
-
+        
         public BusinessController(ReportBusinessUploadView _mf)
         {
             connection = DBData.GetDBConnection();

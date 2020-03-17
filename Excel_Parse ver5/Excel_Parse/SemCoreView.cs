@@ -400,7 +400,6 @@ namespace Excel_Parse
             else
             {
                 tb_Link.Enabled = false;
-                mf.AmazonLink = tb_Link.Text;
             }
         }
 

@@ -446,6 +446,7 @@ namespace Excel_Parse
                 {
                     DrawTableValues();
                 }
+                FilterTheTable();
             }
         }
 

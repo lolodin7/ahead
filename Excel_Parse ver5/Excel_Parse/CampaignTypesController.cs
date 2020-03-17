@@ -17,13 +17,6 @@ namespace Excel_Parse
 
         private ReportAdvertisingUploadView controlAdvertisingUploadReportView;
         private ReportAdvertisingFilterView controlAdvertisingReportFilterView;
-        private EveryDayReportsUpdate controlEveryDayReportsUpdate;
-
-        public CampaignTypesController(EveryDayReportsUpdate _mf)
-        {
-            connection = DBData.GetDBConnection();
-            controlEveryDayReportsUpdate = _mf;
-        }
 
         public CampaignTypesController(ReportAdvertisingUploadView _mf)
         {

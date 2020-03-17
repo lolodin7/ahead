@@ -27,12 +27,6 @@ GO
 IF NOT OBJECT_ID('AP_CampaignIds') IS NULL DROP TABLE [AP_CampaignIds]
 GO
 
-IF NOT OBJECT_ID('DetailedDisposition') IS NULL DROP TABLE [DetailedDisposition]
-GO
-
-IF NOT OBJECT_ID('ReturnReason') IS NULL DROP TABLE [ReturnReason]
-GO
-
 IF NOT OBJECT_ID('SemCoreArchive') IS NULL DROP TABLE [SemCoreArchive]
 GO
 
@@ -56,6 +50,11 @@ GO
 
 IF NOT OBJECT_ID('Orders') IS NULL DROP TABLE [Orders]
 GO
+
+IF NOT OBJECT_ID('ReturnsReport') IS NULL DROP TABLE [ReturnsReport]
+GO
+
+
 /*
     "БД компании AHEAD"
 */
@@ -133,7 +132,6 @@ CREATE TABLE [Products](
 )
 GO
 
---IF NOT OBJECT_ID('Stock') IS NULL DROP TABLE [Stock]
 CREATE TABLE [Stock](
 	[UpdateDate]		DateTime,
 	[ProductId]			INT,
@@ -148,20 +146,6 @@ CREATE TABLE [Stock](
 	[InboundWorking]	INT
 )
 GO
-
-CREATE TABLE [ReturnReason](
-	[ReasonId]						INT IDENTITY(0, 1),
-	[ReasonCode]					VARCHAR(512),
-	[ReasonDescription]				VARCHAR(512),
-	CONSTRAINT PK_ReturnReason PRIMARY KEY ([ReasonId])	
-)
-
-CREATE TABLE [DetailedDisposition](
-	[DispositionId]					INT IDENTITY(0, 1),
-	[DispositionCode]				VARCHAR(512),
-	[DispositionDescription]		VARCHAR(512),
-	CONSTRAINT PK_DetailedDisposition PRIMARY KEY ([DispositionId])	
-)
 
 CREATE TABLE [CampaignType](
 	[CampaignId]			INT IDENTITY(0,1),
@@ -307,11 +291,7 @@ CREATE TABLE [Orders](
 )
 GO
 
-
-/*
 CREATE TABLE [ReturnsReport](
-	[RecordId]					INT IDENTITY(0,1),
-	[MarketplaceId]				INT,
 	[ReturnDate]				DATETIME,
 	[OrderId]					VARCHAR(100),
 	[SKU]						VARCHAR(30),
@@ -325,10 +305,7 @@ CREATE TABLE [ReturnsReport](
 	[Status]					VARCHAR(512),
 	[LicensePlateNumber]		VARCHAR(30),
 	[CustomerComments]			NVARCHAR(1000),
+	[MarketplaceId]				INT,
 	[ProductId]					INT,
-	CONSTRAINT PK_ReturnsReport PRIMARY KEY ([RecordId]),
-	CONSTRAINT FK_ReturnsReport_MarketPlace FOREIGN KEY ([ProductId]) REFERENCES [Products] ([ProductId]),
-	CONSTRAINT FK_ReturnsReport_Reason FOREIGN KEY ([Reason]) REFERENCES [ReturnReason] ([ReasonId]),
-	CONSTRAINT FK_ReturnsReport_Dispositon FOREIGN KEY ([DetailedDisposition]) REFERENCES [DetailedDisposition] ([DispositionId])
+	CONSTRAINT FK_ReturnsReport_ProductId FOREIGN KEY ([ProductId]) REFERENCES [Products] ([ProductId])
 )
-*/
