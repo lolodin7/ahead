@@ -29,8 +29,15 @@ namespace Excel_Parse
         private ReportStockUploadView controlReportStockUploadView;
         private ReportStockView controlReportStockView;
         private AllOrdersView controlAllOrdersView;
+        private ReportSalesView controlReportSalesView;
         //private MarketplaceView
 
+
+        public MarketplaceController(ReportSalesView _mf)
+        {
+            connection = DBData.GetDBConnection();
+            controlReportSalesView = _mf;
+        }
 
         public MarketplaceController(AllOrdersView _mf)
         {
@@ -209,6 +216,8 @@ namespace Excel_Parse
                     controlReportStockUploadView.GetMarketPlacesFromDB(mpList);
                 else if (controlReportStockView != null)
                     controlReportStockView.GetMarketPlacesFromDB(mpList);
+                else if (controlReportSalesView != null)
+                    controlReportSalesView.GetMarketPlacesFromDB(mpList);
                 else if (controlReportAdvertisingView != null)
                 {
                     controlReportAdvertisingView.GetMarketPlacesFromDB1(mpList);

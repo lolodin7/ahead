@@ -161,7 +161,7 @@ namespace Excel_Parse
                 _stock.Clear();
 
                 this.Text = "Склад - " + latestDate.ToString().Substring(0, 10);
-                lb_Info.Text = "По состоянию на:\n" + latestDate.ToString().Substring(0, 10);
+                lb_Info.Text = "По состоянию на: " + latestDate.ToString().Substring(0, 10);
             }
         }
 
@@ -261,7 +261,7 @@ namespace Excel_Parse
                 else
                 {
                     stock.DaysLeft = Math.Floor(stock.FulfillableItems / Math.Sqrt((Math.Pow((sales7 / 7), 2) + (Math.Pow((sales30 / 30), 2))) / 2));
-                    stock.Average = Math.Round(Math.Sqrt((Math.Pow((sales7 / 7), 2) + (Math.Pow((sales30 / 30), 2))) / 2), 2);
+                    stock.Average = Math.Round(Math.Sqrt((Math.Pow((sales7 / 7), 2) + (Math.Pow((sales30 / 30), 2))) / 2), 0);
                 }
             }
 
@@ -355,34 +355,6 @@ namespace Excel_Parse
             }
         }
 
-        /* Заполняем таблицу данными */
-        private void DrawTableValues()
-        {
-            dgv_Stock.Rows.Clear();
-
-            if (stockList.Count > 0)
-            {
-                int index;
-                foreach (var t in stockList)
-                {
-                    index = dgv_Stock.Rows.Add();
-
-                    dgv_Stock.Rows[index].Cells[0].Value = t.ReadData(2);
-                    dgv_Stock.Rows[index].Cells[1].Value = t.ReadData(3);
-                    dgv_Stock.Rows[index].Cells[2].Value = t.ReadData(4);
-                    dgv_Stock.Rows[index].Cells[3].Value = t.ReadData(5);
-                    dgv_Stock.Rows[index].Cells[4].Value = GetMarketplaceNameByMarketplaceId(int.Parse(t.ReadData(6).ToString()));
-                    dgv_Stock.Rows[index].Cells[5].Value = t.ReadData(7);
-                    dgv_Stock.Rows[index].Cells[6].Value = t.ReadData(8);
-                    dgv_Stock.Rows[index].Cells[7].Value = t.ReadData(9);
-                    dgv_Stock.Rows[index].Cells[8].Value = t.ReadData(10);
-                    dgv_Stock.Rows[index].Cells[9].Value = t.ReadData(11);
-                    dgv_Stock.Rows[index].Cells[10].Value = t.ReadData(12);
-                    dgv_Stock.Rows[index].Cells[11].Value = t.ReadData(13);
-                }
-            }
-        }
-
         /* Получить название marketplace по MarketPlaceId */
         private string GetMarketplaceNameByMarketplaceId(int _mpId)
         {
@@ -437,6 +409,9 @@ namespace Excel_Parse
                             dgv_Stock.Rows[index].Cells[7].Value = t.ReadData(9);
                             dgv_Stock.Rows[index].Cells[8].Value = t.ReadData(10);
                             dgv_Stock.Rows[index].Cells[9].Value = t.ReadData(11);
+
+                            CheckCellForOverDays(index);
+
                             dgv_Stock.Rows[index].Cells[10].Value = t.ReadData(12);
                             dgv_Stock.Rows[index].Cells[11].Value = t.ReadData(13);
                         }
@@ -447,6 +422,53 @@ namespace Excel_Parse
                     DrawTableValues();
                 }
                 FilterTheTable();
+            }
+        }
+
+        /* Заполняем таблицу данными */
+        private void DrawTableValues()
+        {
+            dgv_Stock.Rows.Clear();
+
+            if (stockList.Count > 0)
+            {
+                int index;
+                foreach (var t in stockList)
+                {
+                    index = dgv_Stock.Rows.Add();
+
+                    dgv_Stock.Rows[index].Cells[0].Value = t.ReadData(2);
+                    dgv_Stock.Rows[index].Cells[1].Value = t.ReadData(3);
+                    dgv_Stock.Rows[index].Cells[2].Value = t.ReadData(4);
+                    dgv_Stock.Rows[index].Cells[3].Value = t.ReadData(5);
+                    dgv_Stock.Rows[index].Cells[4].Value = GetMarketplaceNameByMarketplaceId(int.Parse(t.ReadData(6).ToString()));
+                    dgv_Stock.Rows[index].Cells[5].Value = t.ReadData(7);
+                    dgv_Stock.Rows[index].Cells[6].Value = t.ReadData(8);
+                    dgv_Stock.Rows[index].Cells[7].Value = t.ReadData(9);
+                    dgv_Stock.Rows[index].Cells[8].Value = t.ReadData(10);
+                    dgv_Stock.Rows[index].Cells[9].Value = t.ReadData(11);
+
+                    CheckCellForOverDays(index);
+
+                    dgv_Stock.Rows[index].Cells[10].Value = t.ReadData(12);
+                    dgv_Stock.Rows[index].Cells[11].Value = t.ReadData(13);
+                }
+            }
+        }
+
+        private void CheckCellForOverDays(int index)
+        {
+            double val = double.Parse(dgv_Stock.Rows[index].Cells[9].Value.ToString());
+            dgv_Stock.Rows[index].Cells[9].Style.BackColor = Color.LightGray;
+
+            if (val == 0)
+            {
+                dgv_Stock.Rows[index].Cells[9].Value = "Закончился";
+                dgv_Stock.Rows[index].Cells[9].Style.BackColor = Color.Red;
+            } 
+            else if (val > 0 && val < 45)
+            {
+                dgv_Stock.Rows[index].Cells[9].Style.BackColor = Color.LightSalmon;
             }
         }
 
@@ -480,12 +502,12 @@ namespace Excel_Parse
         {
             if (stockList.Count > 0)
             {
+                dgv_Stock.Rows.Clear();
                 if (!rtb_FilterParameterValue.Text.Equals(""))
                 {
                     filterEnabled = true;
                     btn_ClearFilter.Visible = filterEnabled;
                     string text = rtb_FilterParameterValue.Text.ToLower();
-                    dgv_Stock.Rows.Clear();
 
                     int index;
                     if (cb_FilterParameter.SelectedIndex == 0)
@@ -508,6 +530,9 @@ namespace Excel_Parse
                                     dgv_Stock.Rows[index].Cells[7].Value = t.ReadData(9);
                                     dgv_Stock.Rows[index].Cells[8].Value = t.ReadData(10);
                                     dgv_Stock.Rows[index].Cells[9].Value = t.ReadData(11);
+
+                                    CheckCellForOverDays(index);
+
                                     dgv_Stock.Rows[index].Cells[10].Value = t.ReadData(12);
                                     dgv_Stock.Rows[index].Cells[11].Value = t.ReadData(13);
                                 }
@@ -531,6 +556,9 @@ namespace Excel_Parse
                                     dgv_Stock.Rows[index].Cells[7].Value = t.ReadData(9);
                                     dgv_Stock.Rows[index].Cells[8].Value = t.ReadData(10);
                                     dgv_Stock.Rows[index].Cells[9].Value = t.ReadData(11);
+
+                                    CheckCellForOverDays(index);
+
                                     dgv_Stock.Rows[index].Cells[10].Value = t.ReadData(12);
                                     dgv_Stock.Rows[index].Cells[11].Value = t.ReadData(13);
                                 }
@@ -557,6 +585,9 @@ namespace Excel_Parse
                                     dgv_Stock.Rows[index].Cells[7].Value = t.ReadData(9);
                                     dgv_Stock.Rows[index].Cells[8].Value = t.ReadData(10);
                                     dgv_Stock.Rows[index].Cells[9].Value = t.ReadData(11);
+
+                                    CheckCellForOverDays(index);
+
                                     dgv_Stock.Rows[index].Cells[10].Value = t.ReadData(12);
                                     dgv_Stock.Rows[index].Cells[11].Value = t.ReadData(13);
                                 }
@@ -580,6 +611,9 @@ namespace Excel_Parse
                                     dgv_Stock.Rows[index].Cells[7].Value = t.ReadData(9);
                                     dgv_Stock.Rows[index].Cells[8].Value = t.ReadData(10);
                                     dgv_Stock.Rows[index].Cells[9].Value = t.ReadData(11);
+
+                                    CheckCellForOverDays(index);
+
                                     dgv_Stock.Rows[index].Cells[10].Value = t.ReadData(12);
                                     dgv_Stock.Rows[index].Cells[11].Value = t.ReadData(13);
                                 }
@@ -606,6 +640,9 @@ namespace Excel_Parse
                                     dgv_Stock.Rows[index].Cells[7].Value = t.ReadData(9);
                                     dgv_Stock.Rows[index].Cells[8].Value = t.ReadData(10);
                                     dgv_Stock.Rows[index].Cells[9].Value = t.ReadData(11);
+
+                                    CheckCellForOverDays(index);
+
                                     dgv_Stock.Rows[index].Cells[10].Value = t.ReadData(12);
                                     dgv_Stock.Rows[index].Cells[11].Value = t.ReadData(13);
                                 }
@@ -629,6 +666,9 @@ namespace Excel_Parse
                                     dgv_Stock.Rows[index].Cells[7].Value = t.ReadData(9);
                                     dgv_Stock.Rows[index].Cells[8].Value = t.ReadData(10);
                                     dgv_Stock.Rows[index].Cells[9].Value = t.ReadData(11);
+
+                                    CheckCellForOverDays(index);
+
                                     dgv_Stock.Rows[index].Cells[10].Value = t.ReadData(12);
                                     dgv_Stock.Rows[index].Cells[11].Value = t.ReadData(13);
                                 }
@@ -655,6 +695,9 @@ namespace Excel_Parse
                                     dgv_Stock.Rows[index].Cells[7].Value = t.ReadData(9);
                                     dgv_Stock.Rows[index].Cells[8].Value = t.ReadData(10);
                                     dgv_Stock.Rows[index].Cells[9].Value = t.ReadData(11);
+
+                                    CheckCellForOverDays(index);
+
                                     dgv_Stock.Rows[index].Cells[10].Value = t.ReadData(12);
                                     dgv_Stock.Rows[index].Cells[11].Value = t.ReadData(13);
                                 }
@@ -678,6 +721,9 @@ namespace Excel_Parse
                                     dgv_Stock.Rows[index].Cells[7].Value = t.ReadData(9);
                                     dgv_Stock.Rows[index].Cells[8].Value = t.ReadData(10);
                                     dgv_Stock.Rows[index].Cells[9].Value = t.ReadData(11);
+
+                                    CheckCellForOverDays(index);
+
                                     dgv_Stock.Rows[index].Cells[10].Value = t.ReadData(12);
                                     dgv_Stock.Rows[index].Cells[11].Value = t.ReadData(13);
                                 }
@@ -706,6 +752,9 @@ namespace Excel_Parse
                                 dgv_Stock.Rows[index].Cells[7].Value = t.ReadData(9);
                                 dgv_Stock.Rows[index].Cells[8].Value = t.ReadData(10);
                                 dgv_Stock.Rows[index].Cells[9].Value = t.ReadData(11);
+
+                                CheckCellForOverDays(index);
+
                                 dgv_Stock.Rows[index].Cells[10].Value = t.ReadData(12);
                                 dgv_Stock.Rows[index].Cells[11].Value = t.ReadData(13);
                             }
@@ -727,6 +776,9 @@ namespace Excel_Parse
                             dgv_Stock.Rows[index].Cells[7].Value = t.ReadData(9);
                             dgv_Stock.Rows[index].Cells[8].Value = t.ReadData(10);
                             dgv_Stock.Rows[index].Cells[9].Value = t.ReadData(11);
+
+                            CheckCellForOverDays(index);
+
                             dgv_Stock.Rows[index].Cells[10].Value = t.ReadData(12);
                             dgv_Stock.Rows[index].Cells[11].Value = t.ReadData(13);
                         }

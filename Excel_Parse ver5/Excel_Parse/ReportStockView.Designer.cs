@@ -129,11 +129,12 @@
             // lb_Info
             // 
             this.lb_Info.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_Info.Location = new System.Drawing.Point(1054, 19);
+            this.lb_Info.ForeColor = System.Drawing.Color.Red;
+            this.lb_Info.Location = new System.Drawing.Point(900, 30);
             this.lb_Info.Name = "lb_Info";
-            this.lb_Info.Size = new System.Drawing.Size(221, 42);
+            this.lb_Info.Size = new System.Drawing.Size(375, 26);
             this.lb_Info.TabIndex = 21;
-            this.lb_Info.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lb_Info.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label3
             // 

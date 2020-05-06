@@ -21,7 +21,7 @@ namespace Excel_Parse
 
             controlMainForm = _mf;
 
-            info_text = "Версия 1.1.1\n\n- Добавлен раздел \"Сессии\"\n- Фикс мелких багов";
+            info_text = "Версия 1.1.3\n\n- Добавлен раздел \"Сессии\"\n- Фикс мелких багов";
         }
 
         private void About_FormClosing(object sender, FormClosingEventArgs e)

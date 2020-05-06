@@ -1,5 +1,8 @@
 use AHEAD
 
+IF NOT OBJECT_ID('UseLog') IS NULL DROP TABLE [UseLog]
+GO
+
 IF NOT OBJECT_ID('Telegram_Bot_Users') IS NULL DROP TABLE [Telegram_Bot_Users]
 GO
 
@@ -58,9 +61,16 @@ GO
 /*
     "БД компании AHEAD"
 */
+
+CREATE TABLE [UseLog](
+	[CreateDate]		DateTime,
+	[Name]				NVARCHAR(4000)
+)
+GO
+
 CREATE TABLE [Telegram_Bot_Users](
-	[UserId]		BIGINT,
-	[Name]			VARCHAR(50)
+	[UserId]			BIGINT,
+	[Name]				VARCHAR(50)
 	CONSTRAINT PK_Telegram_Bot_Users PRIMARY KEY ([UserId])
 )
 GO

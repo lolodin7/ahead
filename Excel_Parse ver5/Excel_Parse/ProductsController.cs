@@ -27,8 +27,16 @@ namespace Excel_Parse
         private AnalyzeAdvertisingReport controlAnalyzeAdvertisingReport;
         private ReportStockUploadView controlReportStockUploadView;
         private ReportStockView controlReportStockView;
+        private ReportSalesView controlReportSalesView;
 
 
+
+        /* Конструктор */
+        public ProductsController(ReportSalesView _controlForm)
+        {
+            connection = DBData.GetDBConnection();
+            controlReportSalesView = _controlForm;
+        }
 
         /* Конструктор */
         public ProductsController(ReportStockView _controlForm)
@@ -37,7 +45,6 @@ namespace Excel_Parse
             controlReportStockView = _controlForm;
         }
 
-
         /* Конструктор */
         public ProductsController(ReportStockUploadView _controlForm)
         {
@@ -45,7 +52,7 @@ namespace Excel_Parse
             controlReportStockUploadView = _controlForm;
         }
 
-            /* Конструктор */
+        /* Конструктор */
         public ProductsController(AnalyzeAdvertisingReport _controlForm)
         {
             connection = DBData.GetDBConnection();
@@ -336,6 +343,8 @@ namespace Excel_Parse
                     controlFormAdvertisingUploadReportView.GetProductsFromDB(pList);
                 else if (controlAdvertisingReportFilterView != null)
                     controlAdvertisingReportFilterView.GetProductsFromDB(pList);
+                else if (controlReportSalesView != null)
+                    controlReportSalesView.GetProductsFromDB(pList);
                 return 1;
             }
             catch (Exception ex)
@@ -424,6 +433,8 @@ namespace Excel_Parse
                     controlReportStockUploadView.GetProductsFromDB(pList);
                 else if (controlReportStockView != null)
                     controlReportStockView.GetProductsFromDB(pList);
+                else if (controlReportSalesView != null)
+                    controlReportSalesView.GetProductsFromDB(pList);
                 return 1;
             }
             catch (Exception ex)

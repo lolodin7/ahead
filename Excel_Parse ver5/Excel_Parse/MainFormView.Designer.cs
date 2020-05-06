@@ -62,6 +62,9 @@
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel8 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.showPromotionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showGeodataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -185,12 +188,14 @@
             this.showSectionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showAdvDataToolStripMenuItem,
             this.showSalesDataToolStripMenuItem1,
+            this.showPromotionsToolStripMenuItem,
+            this.showGeodataToolStripMenuItem,
             this.showReturnsToolStripMenuItem1,
             this.showGeneralSalesToolStripMenuItem,
             this.showSessionsToolStripMenuItem,
             this.складToolStripMenuItem});
             this.showSectionToolStripMenuItem.Name = "showSectionToolStripMenuItem";
-            this.showSectionToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.showSectionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.showSectionToolStripMenuItem.Text = "Посмотреть";
             // 
             // showAdvDataToolStripMenuItem
@@ -202,7 +207,6 @@
             // 
             // showSalesDataToolStripMenuItem1
             // 
-            this.showSalesDataToolStripMenuItem1.Enabled = false;
             this.showSalesDataToolStripMenuItem1.Name = "showSalesDataToolStripMenuItem1";
             this.showSalesDataToolStripMenuItem1.Size = new System.Drawing.Size(160, 22);
             this.showSalesDataToolStripMenuItem1.Text = "Продажи";
@@ -210,6 +214,7 @@
             // 
             // showReturnsToolStripMenuItem1
             // 
+            this.showReturnsToolStripMenuItem1.Enabled = false;
             this.showReturnsToolStripMenuItem1.Name = "showReturnsToolStripMenuItem1";
             this.showReturnsToolStripMenuItem1.Size = new System.Drawing.Size(160, 22);
             this.showReturnsToolStripMenuItem1.Text = "Возвраты";
@@ -218,6 +223,7 @@
             // 
             // showGeneralSalesToolStripMenuItem
             // 
+            this.showGeneralSalesToolStripMenuItem.Enabled = false;
             this.showGeneralSalesToolStripMenuItem.Name = "showGeneralSalesToolStripMenuItem";
             this.showGeneralSalesToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.showGeneralSalesToolStripMenuItem.Text = "Общий оборот";
@@ -247,7 +253,7 @@
             this.stockReportToolStripMenuItem,
             this.addReturnsReportToolStripMenuItem});
             this.addSectionToolStripMenuItem1.Name = "addSectionToolStripMenuItem1";
-            this.addSectionToolStripMenuItem1.Size = new System.Drawing.Size(143, 22);
+            this.addSectionToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.addSectionToolStripMenuItem1.Text = "Добавить";
             // 
             // addAdvReportReportToolStripMenuItem
@@ -297,7 +303,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "Справка";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -306,6 +312,7 @@
             this.statusStrip1.AllowMerge = false;
             this.statusStrip1.Enabled = false;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
             this.toolStripStatusLabel2,
             this.toolStripStatusLabel4,
             this.toolStripStatusLabel6,
@@ -342,6 +349,28 @@
             this.toolStripStatusLabel8.Size = new System.Drawing.Size(31, 15);
             this.toolStripStatusLabel8.Text = "дата";
             // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(80, 15);
+            this.toolStripStatusLabel1.Text = "Last update:  ";
+            // 
+            // showPromotionsToolStripMenuItem
+            // 
+            this.showPromotionsToolStripMenuItem.Enabled = false;
+            this.showPromotionsToolStripMenuItem.Name = "showPromotionsToolStripMenuItem";
+            this.showPromotionsToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.showPromotionsToolStripMenuItem.Text = "Скидки";
+            this.showPromotionsToolStripMenuItem.Visible = false;
+            // 
+            // showGeodataToolStripMenuItem
+            // 
+            this.showGeodataToolStripMenuItem.Enabled = false;
+            this.showGeodataToolStripMenuItem.Name = "showGeodataToolStripMenuItem";
+            this.showGeodataToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.showGeodataToolStripMenuItem.Text = "Геоданные";
+            this.showGeodataToolStripMenuItem.Visible = false;
+            // 
             // MainFormView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -358,6 +387,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Главная - Bona Fides";
             this.Load += new System.EventHandler(this.MainFormView_Load);
+            this.VisibleChanged += new System.EventHandler(this.MainFormView_VisibleChanged);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -401,5 +431,8 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel6;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel8;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripMenuItem showPromotionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showGeodataToolStripMenuItem;
     }
 }

@@ -108,6 +108,7 @@
     <Compile Include="AdvertisingController.cs" />
     <Compile Include="AdvertisingProductsModel.cs" />
     <Compile Include="Advreport7days.cs" />
+    <Compile Include="AllOrdersController.cs" />
     <Compile Include="AllOrdersView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,6 +175,12 @@
       <DependentUpon>ReportBusinessView.cs</DependentUpon>
     </Compile>
     <Compile Include="ReportDataAnalyzer.cs" />
+    <Compile Include="ReportSalesView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportSalesView.Designer.cs">
+      <DependentUpon>ReportSalesView.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReportSessionsView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -317,6 +324,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReportBusinessView.resx">
       <DependentUpon>ReportBusinessView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportSalesView.resx">
+      <DependentUpon>ReportSalesView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReportSessionsView.resx">
       <DependentUpon>ReportSessionsView.cs</DependentUpon>

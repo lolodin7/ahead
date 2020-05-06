@@ -1344,60 +1344,6 @@ namespace Excel_Parse
             dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 1].Value = OragnicShare;
         }    
         
-        private void GetWeek()
-        {
-            DateTime todayDay = DateTime.Today;
-
-            int dayOfYear = todayDay.DayOfYear;
-            int tmp = (int)Math.Truncate((double)dayOfYear / 7);
-            if (tmp == 0)       //если это 1я неделя
-            {
-                tmp = 1;
-
-                string dayName = todayDay.DayOfWeek.ToString();
-                if (dayName.Equals("Monday"))
-                {
-                    innerEndDate = todayDay.AddDays(7 - 1).AddHours(23).AddMinutes(59).AddSeconds(59);
-                }
-                else if (dayName.Equals("Tuesday"))
-                {
-                    innerEndDate = todayDay.AddDays(7 - 2).AddHours(23).AddMinutes(59).AddSeconds(59);
-                }
-                else if (dayName.Equals("Wednesday"))
-                {
-                    innerEndDate = todayDay.AddDays(7 - 3).AddHours(23).AddMinutes(59).AddSeconds(59);
-                }
-                else if (dayName.Equals("Thursday"))
-                {
-                    innerEndDate = todayDay.AddDays(7 - 4).AddHours(23).AddMinutes(59).AddSeconds(59);
-                }
-                else if (dayName.Equals("Friday"))
-                {
-                    innerEndDate = todayDay.AddDays(7 - 5).AddHours(23).AddMinutes(59).AddSeconds(59);
-                }
-                else if (dayName.Equals("Saturday"))
-                {
-                    innerEndDate = todayDay.AddDays(7 - 6).AddHours(23).AddMinutes(59).AddSeconds(59);
-                }
-                else if (dayName.Equals("Sunday"))
-                {
-                    innerEndDate = todayDay.AddDays(7 - 7).AddHours(23).AddMinutes(59).AddSeconds(59);
-                }
-                weekNumber = 1;
-                innerStartDate = innerEndDate.AddDays(-6);
-            }
-            else
-            {
-                int closest1stDayOfWeek = tmp * 7;
-                int diffFromStartWeek = closest1stDayOfWeek - dayOfYear;
-                innerStartDate = todayDay.AddDays(diffFromStartWeek);
-                innerEndDate = todayDay.AddDays(6 + diffFromStartWeek).AddHours(23).AddMinutes(59).AddSeconds(59);
-                weekNumber = (int)Math.Truncate((double)dayOfYear / 7) + 1;
-                if (weekNumber == 53)
-                    weekNumber = 1;
-            }
-        }
-
         private void DrawTable(DateTime _dstart, DateTime _dend, bool _firstRun)
         {
             if (_firstRun)
@@ -1583,6 +1529,7 @@ namespace Excel_Parse
             return "NOT_FOUND";
         }
 
+        /* Экспорт данных из dataGridView1 в Excel */
         private void btn_Export_Click(object sender, EventArgs e)
         {
             bool okData = false;
@@ -1600,14 +1547,14 @@ namespace Excel_Parse
 
             if (dataGridView1.RowCount > 0)
             {
-                for (int i = 0; i < dataGridView1.ColumnCount - 4; i++)
+                for (int i = 0; i < dataGridView1.ColumnCount; i++)
                 {
                     ExcelApp.Cells[1, i + 1] = dataGridView1.Columns[i].HeaderText;
                 }
 
                 for (int i = 0; i < dataGridView1.Rows.Count; i++)
                 {
-                    for (int j = 0; j < dataGridView1.ColumnCount - 4; j++)
+                    for (int j = 0; j < dataGridView1.ColumnCount; j++)
                     {
                         ExcelApp.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value;
                     }

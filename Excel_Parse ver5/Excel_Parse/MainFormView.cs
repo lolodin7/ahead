@@ -30,14 +30,29 @@ namespace Excel_Parse
         {
             InitializeComponent();
 
-            //int prC = 0;
-            //foreach (Process pr in Process.GetProcesses())
-            //    if (pr.ProcessName == "Bona Fides") prC++;
-            //if (prC > 1)
-            //{
-            //    MessageBox.Show("Приложение уже запущено!", "Ошибка");
-            //    Process.GetCurrentProcess().Kill();
-            //}
+            if (!Permissions)
+            {
+                //показывает картинку при запуске программы
+                StartImage startImg = new StartImage();
+                startImg.Show();
+                this.Refresh();
+                startImg.Refresh();
+                System.Threading.Thread.Sleep(2000);
+                startImg.Close();
+                //перестали показывать картинку при запуске программы
+            }
+
+            if (!Permissions)
+            {
+                int prC = 0;
+                foreach (Process pr in Process.GetProcesses())
+                    if (pr.ProcessName == "Bona Fides") prC++;
+                if (prC > 1)
+                {
+                    MessageBox.Show("Приложение уже запущено!", "Ошибка");
+                    Process.GetCurrentProcess().Kill();
+                }
+            }
 
             connection = DBData.GetDBConnection();
             if (connection.ConnectionString.Equals(""))
@@ -56,14 +71,13 @@ namespace Excel_Parse
 
         private void MainFormView_Load(object sender, EventArgs e)
         {
-            ////показывает картинку при запуске программы
-            //StartImage startImg = new StartImage();
-            //startImg.Show();
-            //this.Refresh();
-            //startImg.Refresh();
-            //System.Threading.Thread.Sleep(2000);
-            //startImg.Close();
-            ////перестали показывать картинку при запуске программы
+
+        }
+
+        /* Обновляем инфу о Last Update во время работы программы */
+        private void MainFormView_VisibleChanged(object sender, EventArgs e)
+        {
+            GetStatus();
         }
 
         private void GetStatus()
@@ -202,8 +216,8 @@ namespace Excel_Parse
         
         private void showSalesDataToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            ReportBusinessView repBus = new ReportBusinessView(this);
-            repBus.Show();
+            ReportSalesView repSales = new ReportSalesView(this);
+            repSales.Show();
             this.Visible = false;
         }
 

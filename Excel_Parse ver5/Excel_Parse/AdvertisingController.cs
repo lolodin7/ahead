@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Excel_Parse
@@ -270,8 +271,27 @@ namespace Excel_Parse
                 sqlStatement = sqlStatement + ")";
             }
 
+            SaveRecordToDB(GetStringWithoutApostrophe(sqlStatement));
+
             command = new SqlCommand(sqlStatement, connection);
             return Execute_SELECT_Command_ProductsBrands(command, _workingId);
+        }
+
+        /* Сохраняем инфу в таблицу для определения, пользуется ли Марина программой (конкретно - блоком анализа рекламы) */
+        public void SaveRecordToDB(string _sqlStatement)
+        {
+            string sqlStatement = "Insert into [UseLog] ([CreateDate], [Name]) VALUES ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + _sqlStatement + "')";
+
+            command = new SqlCommand(sqlStatement, connection);
+            Execute_UPDATE_DELETE_INSERT_Command(command);
+        }
+
+        private string GetStringWithoutApostrophe(string _value)
+        {
+            string str = _value;
+            string s = "";
+            str = Regex.Replace(str, "\'", s);
+            return str;
         }
 
         public int GetFinalAdvertisingBrandsReport(DateTime _dt1, DateTime _dt2, List<int> _mpList, List<int> _prodList, List<int> _campList)
@@ -1149,6 +1169,20 @@ namespace Excel_Parse
             }
         }
 
+        /* Выполняем запрос UPDATE/INSERT/DELETE к БД */
+        private void Execute_UPDATE_DELETE_INSERT_Command(SqlCommand _command)
+        {
+            try
+            {
+                connection.Open();
+                _command.ExecuteScalar();
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                connection.Close();
+            }
+        }
 
 
         /* Выполняем запрос к БД и заносим полученные данные в  */

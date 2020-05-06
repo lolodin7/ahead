@@ -62,7 +62,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(478, 53);
             this.label4.TabIndex = 3;
-            this.label4.Text = "Version 1.1.1 - Kabachok";
+            this.label4.Text = "Version 1.1.3 - Kabachok";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // button1
